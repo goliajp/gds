@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from 'react'
 
-import { DemoCard, DocSection, DocTable } from '../components/demo'
+import { CodeBlock, DemoCard, DocSection, DocTable } from '../components/demo'
 import type { DevCenterItem } from '../types'
 
 // ---------- shared helpers ----------
@@ -1375,8 +1375,7 @@ function FeatureDetectionDemo() {
     <div className="space-y-3">
       <div className="rounded-lg border border-border bg-bg-secondary/30 p-4">
         <div className="text-xs font-semibold text-fg">CSS @supports detection</div>
-        <pre className="mt-3 overflow-x-auto rounded-lg bg-bg-tertiary/60 p-4 text-xs leading-relaxed text-fg-muted">
-          {`@supports (backdrop-filter: blur(1px)) or
+        <CodeBlock code={`@supports (backdrop-filter: blur(1px)) or
          (-webkit-backdrop-filter: blur(1px)) {
   .glass {
     backdrop-filter: blur(20px) saturate(180%);
@@ -1391,21 +1390,18 @@ function FeatureDetectionDemo() {
     /* fallback: solid semi-transparent background */
     background: rgba(15, 23, 42, 0.9);
   }
-}`}
-        </pre>
+}`} />
       </div>
       <div className="rounded-lg border border-border bg-bg-secondary/30 p-4">
         <div className="text-xs font-semibold text-fg">JavaScript runtime check</div>
-        <pre className="mt-3 overflow-x-auto rounded-lg bg-bg-tertiary/60 p-4 text-xs leading-relaxed text-fg-muted">
-          {`const supportsBackdropFilter =
+        <CodeBlock code={`const supportsBackdropFilter =
   CSS.supports('backdrop-filter', 'blur(1px)') ||
   CSS.supports('-webkit-backdrop-filter', 'blur(1px)')
 
 // use in React
 const glassClass = supportsBackdropFilter
   ? 'glass bg-bg/60'
-  : 'bg-surface/90'`}
-        </pre>
+  : 'bg-surface/90'`} />
       </div>
     </div>
   )
@@ -1458,8 +1454,7 @@ function GlassFallbackStage() {
       <DocSection title="Reduced transparency" columns={1}>
         <DemoCard title="prefers-reduced-transparency media query" description="respect user accessibility preferences">
           <div className="rounded-lg border border-border bg-bg-secondary/30 p-4">
-            <pre className="overflow-x-auto text-xs leading-relaxed text-fg-muted">
-              {`@media (prefers-reduced-transparency: reduce) {
+            <CodeBlock code={`@media (prefers-reduced-transparency: reduce) {
   .glass,
   .glass-sm,
   .glass-lg {
@@ -1468,8 +1463,7 @@ function GlassFallbackStage() {
     background: var(--golia-surface);
     opacity: 0.95;
   }
-}`}
-            </pre>
+}`} />
           </div>
         </DemoCard>
       </DocSection>
