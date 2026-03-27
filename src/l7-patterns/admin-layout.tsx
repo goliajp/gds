@@ -1,6 +1,5 @@
 // admin-layout — full admin application layout with sidebar + topbar + content
 import type { ReactNode } from 'react'
-
 import { forwardRef } from 'react'
 
 import { cx } from '../utils/cx'

@@ -3,7 +3,6 @@ import { forwardRef, useCallback, useEffect, useRef, useState } from 'react'
 
 import { focusCls } from '../utils/a11y'
 import { cx } from '../utils/cx'
-
 import type { MentionSuggestion } from './mention-list'
 import { MentionList } from './mention-list'
 

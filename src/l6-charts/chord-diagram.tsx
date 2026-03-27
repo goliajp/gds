@@ -2,7 +2,7 @@
 import { forwardRef } from 'react'
 
 import { cx } from '../utils/cx'
-import { arcPath, chordPath, CHORD_PALETTE, computeArcs, computeChords, polarToCartesian } from './chord-math'
+import { arcPath, CHORD_PALETTE, chordPath, computeArcs, computeChords, polarToCartesian } from './chord-math'
 
 export type ChordDiagramProps = {
   matrix: number[][]

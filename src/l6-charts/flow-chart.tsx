@@ -132,7 +132,7 @@ export const FlowChart = forwardRef<HTMLDivElement, FlowChartProps>(
           })}
 
           {/* nodes */}
-          {nodes.map((node, i) => {
+          {nodes.map((node, _i) => {
             const pos = posMap.get(node.id)
             if (pos === undefined) return null
             return renderNode(node, pos.x, pos.y)

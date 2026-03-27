@@ -3,7 +3,6 @@ import { forwardRef, useState } from 'react'
 
 import { focusCls } from '../utils/a11y'
 import { cx } from '../utils/cx'
-
 import { getCalendarGrid, isDisabled, isSameDay, MONTHS, WEEKDAYS } from './calendar-utils'
 
 export type CalendarProps = {

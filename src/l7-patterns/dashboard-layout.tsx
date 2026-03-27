@@ -1,7 +1,6 @@
 // dashboard-layout — full page layout with sidebar + header + content
-import { forwardRef } from 'react'
-
 import type { ReactNode } from 'react'
+import { forwardRef } from 'react'
 
 import { cx } from '../utils/cx'
 

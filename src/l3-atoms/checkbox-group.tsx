@@ -2,7 +2,6 @@
 import { forwardRef } from 'react'
 
 import { cx } from '../utils/cx'
-
 import { Checkbox } from './checkbox'
 
 type CheckboxGroupOption = {

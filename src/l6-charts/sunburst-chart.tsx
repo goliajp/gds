@@ -2,7 +2,6 @@ import { forwardRef } from 'react'
 
 import { cx } from '../utils/cx'
 import { glassClass } from '../utils/glass'
-
 import { arcPath, collectArcs } from './sunburst-math'
 
 const PALETTE = [

@@ -8,7 +8,6 @@ import {
 } from 'react'
 
 import { cx } from '../utils/cx'
-
 import { VideoControls } from './video-controls'
 
 export type VideoPlayerProps = {

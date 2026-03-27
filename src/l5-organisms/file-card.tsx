@@ -1,6 +1,5 @@
 // file-card — file/document card with thumbnail, name, size, type badge, and actions
 import type { ReactNode } from 'react'
-
 import { forwardRef } from 'react'
 
 import { Badge } from '../l2-primitives/badge'

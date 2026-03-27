@@ -102,7 +102,7 @@ describe('Dropdown', () => {
     const itemsWithDisabled = [
       { id: 'edit', label: 'Edit', disabled: true },
     ]
-    const { container } = render(
+    render(
       <Dropdown trigger={<span>Menu</span>} items={itemsWithDisabled} onSelect={vi.fn()} />,
     )
     await user.click(screen.getByText('Menu'))

@@ -3,7 +3,6 @@ import { forwardRef, useCallback, useRef, useState } from 'react'
 
 import { focusCls } from '../utils/a11y'
 import { cx } from '../utils/cx'
-
 import { beginStroke, canvasToDataUrl, clearCanvas, continueStroke, getCanvasPosition } from './signature-drawing'
 
 type SignaturePadProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> & {

@@ -5,7 +5,6 @@ import { createPortal } from 'react-dom'
 
 import { cx } from '../utils/cx'
 import { useEscapeKey, useScrollLock } from '../utils/hooks'
-
 import { CommandPaletteList } from './command-palette-list'
 
 export type CommandItem = {
