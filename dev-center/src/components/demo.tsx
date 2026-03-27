@@ -216,7 +216,7 @@ export function DocTable({ headers, rows, compact, flexColumn }: {
                     ci === 0 && 'font-mono text-accent whitespace-nowrap',
                     ci === flexIdx && 'text-fg-muted',
                     ci > 0 && ci !== flexIdx && 'text-fg-muted/70 font-mono',
-                  )
+                  )}
                 >
                   {cell}
                 </td>
