@@ -17,7 +17,7 @@ const parallaxItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Parallax } from '@golia/gds'" />
+      <ImportLine text="import { Parallax } from '@goliapkg/gds'" />
 
       <LivePreview className="block">
         <div className="relative h-48 overflow-hidden rounded-lg border border-white/[0.06]">

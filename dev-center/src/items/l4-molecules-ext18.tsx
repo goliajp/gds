@@ -23,7 +23,7 @@ const confirmDialogItem: DevCenterItem = {
 
     return (
       <div>
-        <ImportLine text="import { ConfirmDialog } from '@golia/gds'" />
+        <ImportLine text="import { ConfirmDialog } from '@goliapkg/gds'" />
         <LivePreview>
           <Button onClick={() => setOpen(true)} variant="secondary" size="sm">Open dialog</Button>
           <ConfirmDialog
@@ -44,7 +44,7 @@ const confirmDialogItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { ConfirmDialog } from '@golia/gds'\n\n<ConfirmDialog\n  open={open}\n  onClose={() => setOpen(false)}\n  onConfirm={handleConfirm}\n  title="Confirm action"\n  message="Are you sure?"\n  variant="${config.variant}"\n/>`,
+    `import { ConfirmDialog } from '@goliapkg/gds'\n\n<ConfirmDialog\n  open={open}\n  onClose={() => setOpen(false)}\n  onConfirm={handleConfirm}\n  title="Confirm action"\n  message="Are you sure?"\n  variant="${config.variant}"\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -77,7 +77,7 @@ const bulkActionBarItem: DevCenterItem = {
 
     return (
       <div>
-        <ImportLine text="import { BulkActionBar } from '@golia/gds'" />
+        <ImportLine text="import { BulkActionBar } from '@goliapkg/gds'" />
         <LivePreview>
           <div className="flex items-center gds-gap-sm">
             <Button onClick={() => setCount(count + 1)} variant="secondary" size="sm">+1</Button>
@@ -98,7 +98,7 @@ const bulkActionBarItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { BulkActionBar } from '@golia/gds'\n\n<BulkActionBar\n  count={selectedCount}\n  actions={<><Button>Export</Button><Button variant="danger">Delete</Button></>}\n  onClear={() => clearSelection()}\n/>`,
+    `import { BulkActionBar } from '@goliapkg/gds'\n\n<BulkActionBar\n  count={selectedCount}\n  actions={<><Button>Export</Button><Button variant="danger">Delete</Button></>}\n  onClear={() => clearSelection()}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

@@ -18,7 +18,7 @@ const statusPageItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { StatusPage } from '@golia/gds'" />
+      <ImportLine text="import { StatusPage } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <div className="rounded-lg border border-white/[0.04]">
           <StatusPage
@@ -63,7 +63,7 @@ const statusPageItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { StatusPage } from '@golia/gds'\n\n<StatusPage\n  code="${config.code}"\n  title="${config.title}"\n  description="${config.description}"\n  action={<Button>Go Home</Button>}\n/>`,
+    `import { StatusPage } from '@goliapkg/gds'\n\n<StatusPage\n  code="${config.code}"\n  title="${config.title}"\n  description="${config.description}"\n  action={<Button>Go Home</Button>}\n/>`,
 }
 patternItemsExt10.push(statusPageItem)
 

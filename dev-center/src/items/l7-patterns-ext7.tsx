@@ -19,7 +19,7 @@ const toolbarItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Toolbar } from '@golia/gds'" />
+      <ImportLine text="import { Toolbar } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <div className="relative flex flex-col items-center gap-4">
           <Toolbar position={config.position} glass={config.glass}>
@@ -67,7 +67,7 @@ const toolbarItem: DevCenterItem = {
     const props = []
     if (config.position !== 'top') props.push(`position="${config.position}"`)
     if (config.glass === true) props.push('glass')
-    return `import { Toolbar } from '@golia/gds'\n\n<Toolbar${props.length > 0 ? ' ' + props.join(' ') : ''}>\n  <IconButton aria-label="Bold">...</IconButton>\n  <Separator orientation="vertical" />\n  <IconButton aria-label="Link">...</IconButton>\n</Toolbar>`
+    return `import { Toolbar } from '@goliapkg/gds'\n\n<Toolbar${props.length > 0 ? ' ' + props.join(' ') : ''}>\n  <IconButton aria-label="Bold">...</IconButton>\n  <Separator orientation="vertical" />\n  <IconButton aria-label="Link">...</IconButton>\n</Toolbar>`
   },
 
   docs: () => (
@@ -94,7 +94,7 @@ const splashScreenItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { SplashScreen } from '@golia/gds'" />
+      <ImportLine text="import { SplashScreen } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <div className="relative h-64 overflow-hidden rounded-lg border border-white/[0.04]">
           <SplashScreen
@@ -126,7 +126,7 @@ const splashScreenItem: DevCenterItem = {
     const props = [`visible={${config.visible}}`]
     if (config.title !== '') props.push(`title="${config.title}"`)
     if (config.message !== '') props.push(`message="${config.message}"`)
-    return `import { SplashScreen } from '@golia/gds'\n\n<SplashScreen\n  ${props.join('\n  ')}\n  logo={<Logo />}\n/>`
+    return `import { SplashScreen } from '@goliapkg/gds'\n\n<SplashScreen\n  ${props.join('\n  ')}\n  logo={<Logo />}\n/>`
   },
 
   docs: () => (

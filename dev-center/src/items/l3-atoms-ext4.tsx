@@ -18,18 +18,18 @@ const copyButtonItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { CopyButton } from '@golia/gds'" />
+      <ImportLine text="import { CopyButton } from '@goliapkg/gds'" />
 
       <LivePreview>
         <div className="flex items-center gap-3">
           <CopyButton
-            text="npm install @golia/gds"
+            text="npm install @goliapkg/gds"
             label={config.label}
             copiedLabel={config.copiedLabel}
             variant={config.variant}
             size={config.size}
           />
-          <span className="text-xs text-fg-muted">npm install @golia/gds</span>
+          <span className="text-xs text-fg-muted">npm install @goliapkg/gds</span>
         </div>
       </LivePreview>
 
@@ -71,7 +71,7 @@ const countdownItem: DevCenterItem = {
 
     return (
       <div>
-        <ImportLine text="import { Countdown } from '@golia/gds'" />
+        <ImportLine text="import { Countdown } from '@goliapkg/gds'" />
 
         <LivePreview>
           <Countdown

@@ -30,7 +30,7 @@ const propertyEditorItem: DevCenterItem = {
 
     return (
       <div>
-        <ImportLine text="import { PropertyEditor } from '@golia/gds'" />
+        <ImportLine text="import { PropertyEditor } from '@goliapkg/gds'" />
         <LivePreview>
           <div className="w-80">
             <PropertyEditor properties={properties} onChange={handleChange} />
@@ -41,7 +41,7 @@ const propertyEditorItem: DevCenterItem = {
   },
 
   code: () =>
-    `import { PropertyEditor } from '@golia/gds'\n\n<PropertyEditor\n  properties={[\n    { key: 'Name', value: 'Alice', editable: true },\n    { key: 'Role', value: 'Admin' },\n  ]}\n  onChange={(key, value) => update(key, value)}\n/>`,
+    `import { PropertyEditor } from '@goliapkg/gds'\n\n<PropertyEditor\n  properties={[\n    { key: 'Name', value: 'Alice', editable: true },\n    { key: 'Role', value: 'Admin' },\n  ]}\n  onChange={(key, value) => update(key, value)}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

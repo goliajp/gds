@@ -25,7 +25,7 @@ const descriptionListItem: DevCenterItem = {
 
   stage: ({ config, variant }) => (
     <div>
-      <ImportLine text="import { DescriptionList } from '@golia/gds'" />
+      <ImportLine text="import { DescriptionList } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-96">
           <DescriptionList
@@ -55,7 +55,7 @@ const descriptionListItem: DevCenterItem = {
   ),
 
   code: ({ config, variant }) =>
-    `import { DescriptionList } from '@golia/gds'\n\n<DescriptionList\n  items={[\n    { term: 'Name', description: 'Alice' },\n    { term: 'Role', description: 'Engineer' },\n  ]}${variant !== 'stacked' ? `\n  layout="${variant}"` : ''}${config.dividers === false ? '\n  dividers={false}' : ''}\n/>`,
+    `import { DescriptionList } from '@goliapkg/gds'\n\n<DescriptionList\n  items={[\n    { term: 'Name', description: 'Alice' },\n    { term: 'Role', description: 'Engineer' },\n  ]}${variant !== 'stacked' ? `\n  layout="${variant}"` : ''}${config.dividers === false ? '\n  dividers={false}' : ''}\n/>`,
 }
 organismItemsExt14.push(descriptionListItem)
 
@@ -73,7 +73,7 @@ const errorBoundaryItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { ErrorBoundary } from '@golia/gds'" />
+      <ImportLine text="import { ErrorBoundary } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-80">
           <ErrorBoundary>
@@ -105,7 +105,7 @@ const errorBoundaryItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { ErrorBoundary } from '@golia/gds'\n\n<ErrorBoundary\n  fallback={<p>Something went wrong</p>}\n  onError={(error) => console.error(error)}\n>\n  <MyComponent />\n</ErrorBoundary>`,
+    `import { ErrorBoundary } from '@goliapkg/gds'\n\n<ErrorBoundary\n  fallback={<p>Something went wrong</p>}\n  onError={(error) => console.error(error)}\n>\n  <MyComponent />\n</ErrorBoundary>`,
 }
 organismItemsExt14.push(errorBoundaryItem)
 

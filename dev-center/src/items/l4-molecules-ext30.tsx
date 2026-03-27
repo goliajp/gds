@@ -17,7 +17,7 @@ const notificationDotItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { NotificationDot } from '@golia/gds'" />
+      <ImportLine text="import { NotificationDot } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-8">
           <NotificationDot count={Number(config.count)} max={Number(config.max)} variant={config.variant}>
@@ -48,7 +48,7 @@ const notificationDotItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { NotificationDot } from '@golia/gds'\n\n<NotificationDot count={${config.count}}${config.max !== '99' ? ` max={${config.max}}` : ''}${config.variant !== 'danger' ? ` variant="${config.variant}"` : ''}>\n  <Icon />\n</NotificationDot>`,
+    `import { NotificationDot } from '@goliapkg/gds'\n\n<NotificationDot count={${config.count}}${config.max !== '99' ? ` max={${config.max}}` : ''}${config.variant !== 'danger' ? ` variant="${config.variant}"` : ''}>\n  <Icon />\n</NotificationDot>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -74,7 +74,7 @@ const pageNavItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { PageNav } from '@golia/gds'" />
+      <ImportLine text="import { PageNav } from '@goliapkg/gds'" />
       <LivePreview>
         <PageNav
           prev={{ label: config.prevLabel }}
@@ -92,7 +92,7 @@ const pageNavItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { PageNav } from '@golia/gds'\n\n<PageNav\n  prev={{ label: '${config.prevLabel}' }}\n  next={{ label: '${config.nextLabel}' }}\n/>`,
+    `import { PageNav } from '@goliapkg/gds'\n\n<PageNav\n  prev={{ label: '${config.prevLabel}' }}\n  next={{ label: '${config.nextLabel}' }}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

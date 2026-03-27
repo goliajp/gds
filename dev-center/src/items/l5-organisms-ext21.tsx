@@ -17,7 +17,7 @@ const serviceCardItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { ServiceCard } from '@golia/gds'" />
+      <ImportLine text="import { ServiceCard } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-72">
           <ServiceCard
@@ -38,7 +38,7 @@ const serviceCardItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { ServiceCard } from '@golia/gds'\n\n<ServiceCard\n  name="api.golia.jp"\n  description="Main API server"\n  status="${config.status}"\n  metrics={[{ label: 'CPU', value: '3%' }]}\n  tags={['rust', 'production']}\n  url="https://api.golia.jp"\n/>`,
+    `import { ServiceCard } from '@goliapkg/gds'\n\n<ServiceCard\n  name="api.golia.jp"\n  description="Main API server"\n  status="${config.status}"\n  metrics={[{ label: 'CPU', value: '3%' }]}\n  tags={['rust', 'production']}\n  url="https://api.golia.jp"\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -66,7 +66,7 @@ const emailListItemItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { EmailListItem } from '@golia/gds'" />
+      <ImportLine text="import { EmailListItem } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-full max-w-lg border border-border rounded-lg overflow-hidden">
           <EmailListItem
@@ -99,7 +99,7 @@ const emailListItemItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { EmailListItem } from '@golia/gds'\n\n<EmailListItem\n  sender="Suzuki Ichiro"\n  subject="Q4 Budget Review"\n  preview="Please review..."\n  timestamp="2h ago"\n  ${config.unread === 'true' ? 'unread\n  ' : ''}${config.starred === 'true' ? 'starred\n  ' : ''}onClick={handleClick}\n/>`,
+    `import { EmailListItem } from '@goliapkg/gds'\n\n<EmailListItem\n  sender="Suzuki Ichiro"\n  subject="Q4 Budget Review"\n  preview="Please review..."\n  timestamp="2h ago"\n  ${config.unread === 'true' ? 'unread\n  ' : ''}${config.starred === 'true' ? 'starred\n  ' : ''}onClick={handleClick}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

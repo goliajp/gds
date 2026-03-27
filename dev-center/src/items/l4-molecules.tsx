@@ -59,7 +59,7 @@ const moleculeItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { Dialog } from '@golia/gds'" />
+        <ImportLine text="import { Dialog } from '@goliapkg/gds'" />
 
         <LivePreview>
           <DialogDemo width={config.width} glass={config.glass} title={config.title} description={config.description} />
@@ -96,7 +96,7 @@ const moleculeItems: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Dialog } from '@golia/gds'", '']
+      const lines = ["import { Dialog } from '@goliapkg/gds'", '']
       const props: string[] = ['open={open}', 'onClose={close}']
       if (config.width !== 'default') props.push(`width="${config.width}"`)
       if (config.glass === true) props.push('glass')
@@ -143,7 +143,7 @@ const moleculeItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { Card, CardHeader, CardContent, CardFooter } from '@golia/gds'" />
+        <ImportLine text="import { Card, CardHeader, CardContent, CardFooter } from '@goliapkg/gds'" />
 
         <LivePreview>
           <div className="w-72">
@@ -201,7 +201,7 @@ const moleculeItems: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Card } from '@golia/gds'", '']
+      const lines = ["import { Card } from '@goliapkg/gds'", '']
       const props: string[] = []
       if (config.padding !== 'default') props.push(`padding="${config.padding}"`)
       if (config.glass === true) props.push('glass')
@@ -243,12 +243,12 @@ const moleculeItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { Accordion, AccordionItem } from '@golia/gds'" />
+        <ImportLine text="import { Accordion, AccordionItem } from '@goliapkg/gds'" />
 
         <LivePreview>
           <Accordion type={config.type} defaultExpanded={['a1']}>
             <AccordionItem id="a1" title="What is GDS?" disabled={config.disabled}>GOLIA Design System — a component library.</AccordionItem>
-            <AccordionItem id="a2" title="How to install?">Import from @golia/gds package.</AccordionItem>
+            <AccordionItem id="a2" title="How to install?">Import from @goliapkg/gds package.</AccordionItem>
             <AccordionItem id="a3" title="Dark mode?">Dark-native — designed for dark first.</AccordionItem>
           </Accordion>
         </LivePreview>
@@ -287,7 +287,7 @@ const moleculeItems: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Accordion, AccordionItem } from '@golia/gds'", '']
+      const lines = ["import { Accordion, AccordionItem } from '@goliapkg/gds'", '']
       const props: string[] = []
       if (config.type !== 'single') props.push(`type="${config.type}"`)
       props.push(`defaultExpanded={['q1']}`)
@@ -337,7 +337,7 @@ const moleculeItems: DevCenterItem[] = [
 
     stage: ({ config, variant }) => (
       <div>
-        <ImportLine text="import { Alert } from '@golia/gds'" />
+        <ImportLine text="import { Alert } from '@goliapkg/gds'" />
 
         <LivePreview>
           <div className="max-w-md">
@@ -391,7 +391,7 @@ const moleculeItems: DevCenterItem[] = [
     ),
 
     code: ({ config, variant }) => {
-      const lines = ["import { Alert } from '@golia/gds'", '']
+      const lines = ["import { Alert } from '@goliapkg/gds'", '']
       const props: string[] = []
       if (variant !== 'default') props.push(`variant="${variant}"`)
       if (config.title !== '') props.push(`title="${config.title}"`)
@@ -435,7 +435,7 @@ const moleculeItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { Tabs } from '@golia/gds'" />
+        <ImportLine text="import { Tabs } from '@goliapkg/gds'" />
 
         <LivePreview>
           <TabsDemo size={config.size} glass={config.glass} />
@@ -466,7 +466,7 @@ const moleculeItems: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Tabs } from '@golia/gds'", '']
+      const lines = ["import { Tabs } from '@goliapkg/gds'", '']
       const props: string[] = ['tabs={tabs}', 'active={active}', 'onChange={setActive}']
       if (config.size !== 'default') props.push(`size="${config.size}"`)
       if (config.glass === true) props.push('glass')
@@ -518,7 +518,7 @@ const moleculeItems: DevCenterItem[] = [
       }
       return (
         <div>
-          <ImportLine text="import { Breadcrumb } from '@golia/gds'" />
+          <ImportLine text="import { Breadcrumb } from '@goliapkg/gds'" />
 
           <LivePreview>
             <Breadcrumb items={items} maxItems={config.maxItems > 0 ? config.maxItems : undefined} />
@@ -554,7 +554,7 @@ const moleculeItems: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Breadcrumb } from '@golia/gds'", '']
+      const lines = ["import { Breadcrumb } from '@goliapkg/gds'", '']
       const props: string[] = []
       if (config.maxItems > 0) props.push(`maxItems={${config.maxItems}}`)
       const pStr = props.length > 0 ? ' ' + props.join(' ') : ''
@@ -602,7 +602,7 @@ const moleculeItems: DevCenterItem[] = [
       ]
       return (
         <div>
-          <ImportLine text="import { ContextMenu } from '@golia/gds'" />
+          <ImportLine text="import { ContextMenu } from '@goliapkg/gds'" />
 
           <LivePreview>
             <ContextMenu
@@ -651,7 +651,7 @@ const moleculeItems: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { ContextMenu } from '@golia/gds'", '']
+      const lines = ["import { ContextMenu } from '@goliapkg/gds'", '']
       lines.push(`<ContextMenu`)
       lines.push(`  trigger={<div>Right-click target</div>}`)
       lines.push(`  items={[`)

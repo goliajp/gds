@@ -24,7 +24,7 @@ const diffViewerItem: DevCenterItem = {
 
     return (
       <div>
-        <ImportLine text="import { DiffViewer } from '@golia/gds'" />
+        <ImportLine text="import { DiffViewer } from '@goliapkg/gds'" />
 
         <LivePreview>
           <div className="w-[600px]">
@@ -113,7 +113,7 @@ const jsonViewerItem: DevCenterItem = {
 
     return (
       <div>
-        <ImportLine text="import { JsonViewer } from '@golia/gds'" />
+        <ImportLine text="import { JsonViewer } from '@goliapkg/gds'" />
 
         <LivePreview>
           <div className="w-[500px]">
@@ -198,7 +198,7 @@ Built with \`React\` and \`TypeScript\`.`
 
     return (
       <div>
-        <ImportLine text="import { MarkdownPreview } from '@golia/gds'" />
+        <ImportLine text="import { MarkdownPreview } from '@goliapkg/gds'" />
 
         <LivePreview>
           <div className="w-[500px]">

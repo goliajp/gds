@@ -49,7 +49,7 @@ const organismItemsExt: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { FormBuilder } from '@golia/gds'" />
+        <ImportLine text="import { FormBuilder } from '@goliapkg/gds'" />
 
         <LivePreview className="!justify-start !p-6">
           <FormBuilderDemo />
@@ -73,7 +73,7 @@ const organismItemsExt: DevCenterItem[] = [
     ),
 
     code: () => {
-      const lines = ["import { FormBuilder } from '@golia/gds'", '']
+      const lines = ["import { FormBuilder } from '@goliapkg/gds'", '']
       lines.push('<FormBuilder')
       lines.push('  fields={[')
       lines.push("    { id: 'name', label: 'Name', type: 'text', required: true },")
@@ -159,7 +159,7 @@ const organismItemsExt: DevCenterItem[] = [
       const columns = allColumns.slice(0, Number(config.columnCount))
       return (
         <div>
-          <ImportLine text="import { Kanban } from '@golia/gds'" />
+          <ImportLine text="import { Kanban } from '@goliapkg/gds'" />
 
           <LivePreview className="!p-3 overflow-x-auto">
             <Kanban columns={columns} />
@@ -188,7 +188,7 @@ const organismItemsExt: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Kanban } from '@golia/gds'", '']
+      const lines = ["import { Kanban } from '@goliapkg/gds'", '']
       lines.push('<Kanban')
       lines.push('  columns={[')
       lines.push("    { id: 'todo', title: 'To Do', items: [")
@@ -271,7 +271,7 @@ const organismItemsExt: DevCenterItem[] = [
         : ['src', 'components']
       return (
         <div>
-          <ImportLine text="import { Tree } from '@golia/gds'" />
+          <ImportLine text="import { Tree } from '@goliapkg/gds'" />
 
           <LivePreview className="!justify-start">
             <Tree nodes={nodes} defaultExpanded={expanded} onSelect={() => {}} />
@@ -308,7 +308,7 @@ const organismItemsExt: DevCenterItem[] = [
     ),
 
     code: () => {
-      const lines = ["import { Tree } from '@golia/gds'", '']
+      const lines = ["import { Tree } from '@goliapkg/gds'", '']
       lines.push('<Tree')
       lines.push('  nodes={[')
       lines.push("    { id: 'src', label: 'src', children: [")
@@ -369,7 +369,7 @@ const organismItemsExt: DevCenterItem[] = [
       }))
       return (
         <div>
-          <ImportLine text="import { VirtualList } from '@golia/gds'" />
+          <ImportLine text="import { VirtualList } from '@goliapkg/gds'" />
 
           <LivePreview className="!p-0">
             <div style={{ height: 240, width: '100%' }}>
@@ -408,7 +408,7 @@ const organismItemsExt: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { VirtualList } from '@golia/gds'", '']
+      const lines = ["import { VirtualList } from '@goliapkg/gds'", '']
       lines.push('<VirtualList')
       lines.push('  items={data}')
       lines.push(`  itemHeight={${config.rowHeight}}`)
@@ -485,7 +485,7 @@ const organismItemsExt: DevCenterItem[] = [
       }
       return (
         <div>
-          <ImportLine text="import { InfiniteScroll } from '@golia/gds'" />
+          <ImportLine text="import { InfiniteScroll } from '@goliapkg/gds'" />
           <LivePreview className="!justify-start !p-4">
             <InfiniteScrollDemo />
           </LivePreview>
@@ -551,7 +551,7 @@ const organismItemsExt: DevCenterItem[] = [
       }
       return (
         <div>
-          <ImportLine text="import { SortableList } from '@golia/gds'" />
+          <ImportLine text="import { SortableList } from '@goliapkg/gds'" />
           <LivePreview className="!justify-start !p-4">
             <SortableListDemo />
           </LivePreview>

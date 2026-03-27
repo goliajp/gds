@@ -32,7 +32,7 @@ const otpInputItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { OtpInput } from '@golia/gds'" />
+      <ImportLine text="import { OtpInput } from '@goliapkg/gds'" />
       <LivePreview>
         <OtpDemo length={config.length} error={config.error} />
       </LivePreview>
@@ -58,7 +58,7 @@ const otpInputItem: DevCenterItem = {
     const props = ['value={value}', 'onChange={setValue}']
     if (config.length !== 6) props.push(`length={${config.length}}`)
     if (config.error === true) props.push('error')
-    return `import { OtpInput } from '@golia/gds'\n\n<OtpInput\n  ${props.join('\n  ')}\n/>`
+    return `import { OtpInput } from '@goliapkg/gds'\n\n<OtpInput\n  ${props.join('\n  ')}\n/>`
   },
 
   docs: () => (
@@ -100,7 +100,7 @@ const phoneInputItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { PhoneInput } from '@golia/gds'" />
+      <ImportLine text="import { PhoneInput } from '@goliapkg/gds'" />
       <LivePreview>
         <PhoneDemo error={config.error} disabled={config.disabled} />
       </LivePreview>
@@ -126,7 +126,7 @@ const phoneInputItem: DevCenterItem = {
     const props = ['value={value}', 'onChange={setValue}']
     if (config.error === true) props.push('error')
     if (config.disabled === true) props.push('disabled')
-    return `import { PhoneInput } from '@golia/gds'\n\n<PhoneInput\n  ${props.join('\n  ')}\n/>`
+    return `import { PhoneInput } from '@goliapkg/gds'\n\n<PhoneInput\n  ${props.join('\n  ')}\n/>`
   },
 
   docs: () => (
@@ -169,7 +169,7 @@ const currencyInputItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { CurrencyInput } from '@golia/gds'" />
+      <ImportLine text="import { CurrencyInput } from '@goliapkg/gds'" />
       <LivePreview>
         <CurrencyDemo currency={config.currency} error={config.error} />
       </LivePreview>
@@ -195,7 +195,7 @@ const currencyInputItem: DevCenterItem = {
     const props = ['value={value}', 'onChange={setValue}']
     if (config.currency !== '\u00a5') props.push(`currency="${config.currency}"`)
     if (config.error === true) props.push('error')
-    return `import { CurrencyInput } from '@golia/gds'\n\n<CurrencyInput\n  ${props.join('\n  ')}\n/>`
+    return `import { CurrencyInput } from '@goliapkg/gds'\n\n<CurrencyInput\n  ${props.join('\n  ')}\n/>`
   },
 
   docs: () => (

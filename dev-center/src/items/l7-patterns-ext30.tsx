@@ -17,7 +17,7 @@ const splitViewItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { SplitView } from '@golia/gds'" />
+      <ImportLine text="import { SplitView } from '@goliapkg/gds'" />
       <LivePreview className="!p-0">
         <div className="h-64 w-full">
           <SplitView
@@ -49,7 +49,7 @@ const splitViewItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { SplitView } from '@golia/gds'\n\n<SplitView\n  defaultSplit={${config.defaultSplit}}\n  minLeft={${config.minLeft}}\n  minRight={${config.minRight}}\n  left={<LeftPane />}\n  right={<RightPane />}\n/>`,
+    `import { SplitView } from '@goliapkg/gds'\n\n<SplitView\n  defaultSplit={${config.defaultSplit}}\n  minLeft={${config.minLeft}}\n  minRight={${config.minRight}}\n  left={<LeftPane />}\n  right={<RightPane />}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

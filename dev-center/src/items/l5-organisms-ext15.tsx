@@ -23,7 +23,7 @@ const organismItemsExt15: DevCenterItem[] = [
       ]
       return (
         <div>
-          <ImportLine text="import { StackedList } from '@golia/gds'" />
+          <ImportLine text="import { StackedList } from '@goliapkg/gds'" />
 
           <LivePreview className="!justify-start !p-6">
             <StackedList
@@ -69,7 +69,7 @@ const organismItemsExt15: DevCenterItem[] = [
     ),
 
     code: () => [
-      "import { StackedList } from '@golia/gds'",
+      "import { StackedList } from '@goliapkg/gds'",
       '',
       '<StackedList',
       '  items={[',

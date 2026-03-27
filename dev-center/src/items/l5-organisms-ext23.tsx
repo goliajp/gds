@@ -17,7 +17,7 @@ const contactCardItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { ContactCard } from '@golia/gds'" />
+      <ImportLine text="import { ContactCard } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-60">
           <ContactCard
@@ -41,7 +41,7 @@ const contactCardItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { ContactCard } from '@golia/gds'\n\n<ContactCard\n  name="${config.name}"${config.role !== '' ? `\n  role="${config.role}"` : ''}${config.email !== '' ? `\n  email="${config.email}"` : ''}${config.phone !== '' ? `\n  phone="${config.phone}"` : ''}\n/>`,
+    `import { ContactCard } from '@goliapkg/gds'\n\n<ContactCard\n  name="${config.name}"${config.role !== '' ? `\n  role="${config.role}"` : ''}${config.email !== '' ? `\n  email="${config.email}"` : ''}${config.phone !== '' ? `\n  phone="${config.phone}"` : ''}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

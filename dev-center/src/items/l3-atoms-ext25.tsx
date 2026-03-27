@@ -17,7 +17,7 @@ const countBadgeItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { CountBadge } from '@golia/gds'" />
+      <ImportLine text="import { CountBadge } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-6">
           <CountBadge count={config.count} max={config.max} variant={config.variant} />
@@ -40,7 +40,7 @@ const countBadgeItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { CountBadge } from '@golia/gds'\n\n<CountBadge count={${config.count}}${config.max !== 99 ? ` max={${config.max}}` : ''}${config.variant !== 'danger' ? ` variant="${config.variant}"` : ''} />`,
+    `import { CountBadge } from '@goliapkg/gds'\n\n<CountBadge count={${config.count}}${config.max !== 99 ? ` max={${config.max}}` : ''}${config.variant !== 'danger' ? ` variant="${config.variant}"` : ''} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -65,7 +65,7 @@ const blinkingItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Blinking } from '@golia/gds'" />
+      <ImportLine text="import { Blinking } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-6">
           <Blinking active={config.active} speed={config.speed}>
@@ -90,7 +90,7 @@ const blinkingItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { Blinking } from '@golia/gds'\n\n<Blinking${!config.active ? ' active={false}' : ''}${config.speed !== 'default' ? ` speed="${config.speed}"` : ''}>\n  <span className="h-3 w-3 rounded-full bg-danger" />\n</Blinking>`,
+    `import { Blinking } from '@goliapkg/gds'\n\n<Blinking${!config.active ? ' active={false}' : ''}${config.speed !== 'default' ? ` speed="${config.speed}"` : ''}>\n  <span className="h-3 w-3 rounded-full bg-danger" />\n</Blinking>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

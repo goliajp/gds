@@ -20,7 +20,7 @@ const skipNavItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { SkipNav } from '@golia/gds'" />
+      <ImportLine text="import { SkipNav } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="relative flex flex-col items-center gap-4 p-8">
           <p className="text-fg-muted gds-text-body">
@@ -60,7 +60,7 @@ const skipNavItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { SkipNav } from '@golia/gds'\n\n<SkipNav\n  targetId="${config.targetId}"\n  label="${config.label}"\n/>`,
+    `import { SkipNav } from '@goliapkg/gds'\n\n<SkipNav\n  targetId="${config.targetId}"\n  label="${config.label}"\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -88,7 +88,7 @@ const focusRingItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { FocusRing } from '@golia/gds'" />
+      <ImportLine text="import { FocusRing } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center justify-center gap-6 p-8">
           <FocusRing color={config.color} offset={config.offset} width={config.width}>
@@ -138,7 +138,7 @@ const focusRingItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { FocusRing } from '@golia/gds'\n\n<FocusRing\n  color="${config.color}"\n  width={${config.width}}\n  offset={${config.offset}}\n>\n  <button>Focus me</button>\n</FocusRing>`,
+    `import { FocusRing } from '@goliapkg/gds'\n\n<FocusRing\n  color="${config.color}"\n  width={${config.width}}\n  offset={${config.offset}}\n>\n  <button>Focus me</button>\n</FocusRing>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

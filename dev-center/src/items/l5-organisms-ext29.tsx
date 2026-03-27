@@ -30,7 +30,7 @@ const taskBoardItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { TaskBoard } from '@golia/gds'" />
+      <ImportLine text="import { TaskBoard } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-80">
           <TaskBoard sections={sampleSections} />
@@ -40,7 +40,7 @@ const taskBoardItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { TaskBoard } from '@golia/gds'\n\n<TaskBoard\n  sections={[\n    { id: 'todo', title: 'To Do', items: [\n      { id: '1', title: 'Design review', priority: 'high' },\n    ] },\n    { id: 'done', title: 'Done', items: [\n      { id: '2', title: 'Set up project', completed: true },\n    ] },\n  ]}\n  onToggle={(sectionId, itemId) => {}}\n/>`,
+    `import { TaskBoard } from '@goliapkg/gds'\n\n<TaskBoard\n  sections={[\n    { id: 'todo', title: 'To Do', items: [\n      { id: '1', title: 'Design review', priority: 'high' },\n    ] },\n    { id: 'done', title: 'Done', items: [\n      { id: '2', title: 'Set up project', completed: true },\n    ] },\n  ]}\n  onToggle={(sectionId, itemId) => {}}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

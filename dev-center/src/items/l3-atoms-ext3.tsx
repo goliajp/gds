@@ -31,7 +31,7 @@ const quickActionItem: DevCenterItem = {
 
     return (
       <div>
-        <ImportLine text="import { QuickAction } from '@golia/gds'" />
+        <ImportLine text="import { QuickAction } from '@goliapkg/gds'" />
 
         <LivePreview>
           <div className="flex items-end gap-6">
@@ -114,7 +114,7 @@ const textEffectItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { TextEffect } from '@golia/gds'" />
+      <ImportLine text="import { TextEffect } from '@goliapkg/gds'" />
 
       <LivePreview>
         <div className="flex flex-col items-center gap-6">

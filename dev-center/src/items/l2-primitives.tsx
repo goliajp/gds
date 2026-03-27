@@ -40,7 +40,7 @@ const primitiveItems: DevCenterItem[] = [
 
     stage: ({ config, variant }) => (
       <div>
-        <ImportLine text="import { Button } from '@golia/gds'" />
+        <ImportLine text="import { Button } from '@goliapkg/gds'" />
 
         <LivePreview>
           <Button
@@ -110,7 +110,7 @@ const primitiveItems: DevCenterItem[] = [
     ),
 
     code: ({ config, variant }) => {
-      const lines = ["import { Button } from '@golia/gds'"]
+      const lines = ["import { Button } from '@goliapkg/gds'"]
       lines.push('')
       const props: string[] = []
       if (variant !== 'primary') props.push(`variant="${variant}"`)
@@ -165,7 +165,7 @@ const primitiveItems: DevCenterItem[] = [
 
     stage: ({ config, setConfig, variant }) => (
       <div>
-        <ImportLine text="import { Input } from '@golia/gds'" />
+        <ImportLine text="import { Input } from '@goliapkg/gds'" />
 
         <LivePreview>
           <Input
@@ -217,7 +217,7 @@ const primitiveItems: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Input } from '@golia/gds'"]
+      const lines = ["import { Input } from '@goliapkg/gds'"]
       lines.push('')
       const props: string[] = []
       props.push(`placeholder="${config.placeholder}"`)
@@ -270,7 +270,7 @@ const primitiveItems: DevCenterItem[] = [
 
     stage: ({ config, variant }) => (
       <div>
-        <ImportLine text="import { Badge } from '@golia/gds'" />
+        <ImportLine text="import { Badge } from '@goliapkg/gds'" />
 
         <LivePreview>
           {config.count > 0 ? (
@@ -325,7 +325,7 @@ const primitiveItems: DevCenterItem[] = [
     ),
 
     code: ({ config, variant }) => {
-      const lines = ["import { Badge } from '@golia/gds'", '']
+      const lines = ["import { Badge } from '@goliapkg/gds'", '']
       if (config.count > 0) {
         const props: string[] = []
         if (variant !== 'default') props.push(`variant="${variant}"`)
@@ -377,7 +377,7 @@ const primitiveItems: DevCenterItem[] = [
         <Progress value={90} variant="warning" size="lg" showLabel />
       </div>
     ),
-    code: () => `import { Progress } from '@golia/gds'
+    code: () => `import { Progress } from '@goliapkg/gds'
 
 <Progress value={65} variant="success" showLabel />`,
   },
@@ -394,7 +394,7 @@ const primitiveItems: DevCenterItem[] = [
         <Spinner size="lg" />
       </div>
     ),
-    code: () => `import { Spinner } from '@golia/gds'
+    code: () => `import { Spinner } from '@goliapkg/gds'
 
 <Spinner size="lg" />`,
   },
@@ -419,7 +419,7 @@ const primitiveItems: DevCenterItem[] = [
         </div>
       </div>
     ),
-    code: () => `import { IconButton } from '@golia/gds'
+    code: () => `import { IconButton } from '@goliapkg/gds'
 
 <IconButton icon={<X />} tooltip="Close" />
 <IconButton icon={<Trash2 />} variant="danger" />`,
@@ -439,7 +439,7 @@ const primitiveItems: DevCenterItem[] = [
         <Textarea placeholder="Disabled" disabled rows={2} />
       </div>
     ),
-    code: () => `import { Textarea } from '@golia/gds'
+    code: () => `import { Textarea } from '@goliapkg/gds'
 
 <Textarea placeholder="Message..." rows={3} />
 <Textarea error placeholder="Invalid" />
@@ -464,7 +464,7 @@ const primitiveItems: DevCenterItem[] = [
         </div>
       </div>
     ),
-    code: () => `import { Anchor } from '@golia/gds'
+    code: () => `import { Anchor } from '@goliapkg/gds'
 
 <Anchor href="/docs">Documentation</Anchor>
 <Anchor href="https://..." external>External</Anchor>`,
@@ -495,7 +495,7 @@ const primitiveItems: DevCenterItem[] = [
         </div>
       </div>
     ),
-    code: () => `import { Dot } from '@golia/gds'
+    code: () => `import { Dot } from '@goliapkg/gds'
 
 <Dot color="success" label="Online" />
 <Dot color="danger" pulse label="Recording" />`,
@@ -521,7 +521,7 @@ const primitiveItems: DevCenterItem[] = [
         </div>
       </div>
     ),
-    code: () => `import { Kbd } from '@golia/gds'
+    code: () => `import { Kbd } from '@goliapkg/gds'
 
 <Kbd>⌘</Kbd> <Kbd>K</Kbd>`,
   },
@@ -543,7 +543,7 @@ const primitiveItems: DevCenterItem[] = [
         </div>
       </div>
     ),
-    code: () => `import { Label } from '@golia/gds'
+    code: () => `import { Label } from '@goliapkg/gds'
 
 <Label required>Full name</Label>
 <Input placeholder="Enter your name" />`,
@@ -575,7 +575,7 @@ const primitiveItems: DevCenterItem[] = [
         </div>
       </div>
     ),
-    code: () => `import { Separator } from '@golia/gds'
+    code: () => `import { Separator } from '@goliapkg/gds'
 
 <Separator />
 <Separator variant="dashed" />
@@ -610,7 +610,7 @@ const primitiveItems: DevCenterItem[] = [
         </div>
       </div>
     ),
-    code: () => `import { AspectRatio } from '@golia/gds'
+    code: () => `import { AspectRatio } from '@goliapkg/gds'
 
 <AspectRatio ratio={16 / 9}>
   <img src="..." className="h-full w-full object-cover" />
@@ -635,7 +635,7 @@ const primitiveItems: DevCenterItem[] = [
         </ScrollArea>
       </div>
     ),
-    code: () => `import { ScrollArea } from '@golia/gds'
+    code: () => `import { ScrollArea } from '@goliapkg/gds'
 
 <ScrollArea maxHeight={200}>
   {items.map(item => <div key={item.id}>{item.name}</div>)}
@@ -669,7 +669,7 @@ const primitiveItems: DevCenterItem[] = [
       }
       return (
         <div>
-          <ImportLine text="import { NumberInput } from '@golia/gds'" />
+          <ImportLine text="import { NumberInput } from '@goliapkg/gds'" />
 
           <LivePreview>
             <div className="w-48">
@@ -722,7 +722,7 @@ const primitiveItems: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { NumberInput } from '@golia/gds'", '']
+      const lines = ["import { NumberInput } from '@goliapkg/gds'", '']
       const props: string[] = ['value={val}', 'onChange={setVal}']
       if (config.min !== 0) props.push(`min={${config.min}}`)
       if (config.max !== 100) props.push(`max={${config.max}}`)

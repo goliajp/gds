@@ -17,7 +17,7 @@ const userInfoItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { UserInfo } from '@golia/gds'" />
+      <ImportLine text="import { UserInfo } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex flex-col gap-4">
           <UserInfo name={config.name} role={config.role} size={config.size} />
@@ -37,7 +37,7 @@ const userInfoItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { UserInfo } from '@golia/gds'\n\n<UserInfo name="${config.name}"${config.role ? ` role="${config.role}"` : ''}${config.size !== 'default' ? ` size="${config.size}"` : ''} />`,
+    `import { UserInfo } from '@goliapkg/gds'\n\n<UserInfo name="${config.name}"${config.role ? ` role="${config.role}"` : ''}${config.size !== 'default' ? ` size="${config.size}"` : ''} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -63,7 +63,7 @@ const quickStatItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { QuickStat } from '@golia/gds'" />
+      <ImportLine text="import { QuickStat } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-start gap-8">
           <QuickStat value={config.value} label={config.label} trend={config.trend} />
@@ -83,7 +83,7 @@ const quickStatItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { QuickStat } from '@golia/gds'\n\n<QuickStat value="${config.value}" label="${config.label}"${config.trend !== 0 ? ` trend={${config.trend}}` : ''} />`,
+    `import { QuickStat } from '@goliapkg/gds'\n\n<QuickStat value="${config.value}" label="${config.label}"${config.trend !== 0 ? ` trend={${config.trend}}` : ''} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

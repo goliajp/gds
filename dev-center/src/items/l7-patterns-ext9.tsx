@@ -17,7 +17,7 @@ const stickyHeaderItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { StickyHeader } from '@golia/gds'" />
+      <ImportLine text="import { StickyHeader } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <div className="relative h-48 overflow-y-auto rounded-lg border border-white/[0.04]">
           <StickyHeader glass={config.glass} threshold={config.threshold}>
@@ -46,7 +46,7 @@ const stickyHeaderItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { StickyHeader } from '@golia/gds'\n\n<StickyHeader glass={${config.glass}} threshold={${config.threshold}}>\n  <nav>Header content</nav>\n</StickyHeader>`,
+    `import { StickyHeader } from '@goliapkg/gds'\n\n<StickyHeader glass={${config.glass}} threshold={${config.threshold}}>\n  <nav>Header content</nav>\n</StickyHeader>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

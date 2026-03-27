@@ -20,7 +20,7 @@ const scrollToTopItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { ScrollToTop } from '@golia/gds'" />
+      <ImportLine text="import { ScrollToTop } from '@goliapkg/gds'" />
 
       <LivePreview>
         <div className="flex flex-col items-center gap-3">
@@ -81,7 +81,7 @@ const themeToggleItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { ThemeToggle } from '@golia/gds'" />
+      <ImportLine text="import { ThemeToggle } from '@goliapkg/gds'" />
 
       <LivePreview>
         <ThemeToggleDemo size={config.size} />

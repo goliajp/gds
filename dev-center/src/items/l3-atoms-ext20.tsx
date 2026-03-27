@@ -27,7 +27,7 @@ const timeSinceItem: DevCenterItem = {
 
     return (
       <div>
-        <ImportLine text="import { TimeSince } from '@golia/gds'" />
+        <ImportLine text="import { TimeSince } from '@goliapkg/gds'" />
         <LivePreview>
           <TimeSince date={date} />
         </LivePreview>
@@ -42,7 +42,7 @@ const timeSinceItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { TimeSince } from '@golia/gds'\n\n<TimeSince date={Date.now() - ${config.offset === '5m' ? '5 * 60000' : '...'}} />`,
+    `import { TimeSince } from '@goliapkg/gds'\n\n<TimeSince date={Date.now() - ${config.offset === '5m' ? '5 * 60000' : '...'}} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

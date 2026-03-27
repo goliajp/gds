@@ -16,7 +16,7 @@ const analyticsDashboardItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { AnalyticsDashboard } from '@golia/gds'" />
+      <ImportLine text="import { AnalyticsDashboard } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-full">
           <AnalyticsDashboard
@@ -36,7 +36,7 @@ const analyticsDashboardItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { AnalyticsDashboard } from '@golia/gds'\n\n<AnalyticsDashboard\n  metrics={<MetricRow ... />}\n  charts={<LineChart ... />}\n  data={<DataTable ... />}\n/>`,
+    `import { AnalyticsDashboard } from '@goliapkg/gds'\n\n<AnalyticsDashboard\n  metrics={<MetricRow ... />}\n  charts={<LineChart ... />}\n  data={<DataTable ... />}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

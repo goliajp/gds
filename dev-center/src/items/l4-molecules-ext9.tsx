@@ -43,7 +43,7 @@ const drawerItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Drawer } from '@golia/gds'" />
+      <ImportLine text="import { Drawer } from '@goliapkg/gds'" />
 
       <LivePreview>
         <DrawerDemo height={config.height} glass={config.glass} />

@@ -69,7 +69,7 @@ const radioCardItem: DevCenterItem = {
     }
     return (
       <div>
-        <ImportLine text="import { RadioCard } from '@golia/gds'" />
+        <ImportLine text="import { RadioCard } from '@goliapkg/gds'" />
 
         <LivePreview>
           <div className="w-80">
@@ -121,7 +121,7 @@ const radioCardItem: DevCenterItem = {
   ),
 
   code: ({ config }) => {
-    const lines = ["import { RadioCard } from '@golia/gds'", '']
+    const lines = ["import { RadioCard } from '@goliapkg/gds'", '']
     const props: string[] = ['options={options}', 'value={val}', 'onChange={setVal}']
     if (config.columns !== 1) props.push(`columns={${config.columns}}`)
     if (config.disabled === true) props.push('disabled')
@@ -187,7 +187,7 @@ const mentionInputItem: DevCenterItem = {
     }
     return (
       <div>
-        <ImportLine text="import { MentionInput } from '@golia/gds'" />
+        <ImportLine text="import { MentionInput } from '@goliapkg/gds'" />
 
         <LivePreview>
           <div className="w-80">
@@ -220,7 +220,7 @@ const mentionInputItem: DevCenterItem = {
   ),
 
   code: ({ config }) => {
-    const lines = ["import { MentionInput } from '@golia/gds'", '']
+    const lines = ["import { MentionInput } from '@goliapkg/gds'", '']
     const props: string[] = ['value={val}', 'onChange={setVal}', 'suggestions={users}']
     if (config.placeholder !== '') props.push(`placeholder="${config.placeholder}"`)
     if (config.trigger !== '@') props.push(`trigger="${config.trigger}"`)
@@ -250,7 +250,7 @@ moleculeItemsD.push(mentionInputItem)
 
 // code-block
 
-const sampleCode = `import { Button } from '@golia/gds'
+const sampleCode = `import { Button } from '@goliapkg/gds'
 
 function App() {
   return (
@@ -270,7 +270,7 @@ const codeBlockItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { CodeBlock } from '@golia/gds'" />
+      <ImportLine text="import { CodeBlock } from '@goliapkg/gds'" />
 
       <LivePreview>
         <div className="w-96">
@@ -322,7 +322,7 @@ const codeBlockItem: DevCenterItem = {
   ),
 
   code: ({ config }) => {
-    const lines = ["import { CodeBlock } from '@golia/gds'", '']
+    const lines = ["import { CodeBlock } from '@goliapkg/gds'", '']
     const props: string[] = ['code={code}']
     if (config.language !== '') props.push(`language="${config.language}"`)
     if (config.showLineNumbers === false) props.push('showLineNumbers={false}')

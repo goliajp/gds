@@ -23,7 +23,7 @@ const searchResultsItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { SearchResults } from '@golia/gds'" />
+      <ImportLine text="import { SearchResults } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-80">
           <SearchResults
@@ -45,7 +45,7 @@ const searchResultsItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { SearchResults } from '@golia/gds'\n\n<SearchResults\n  results={results}\n  query="${config.query}"${config.showTotal === 'true' ? '\n  total={results.length}' : ''}\n  onSelect={(id) => navigate(id)}\n/>`,
+    `import { SearchResults } from '@goliapkg/gds'\n\n<SearchResults\n  results={results}\n  query="${config.query}"${config.showTotal === 'true' ? '\n  total={results.length}' : ''}\n  onSelect={(id) => navigate(id)}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -71,7 +71,7 @@ const fileCardItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { FileCard } from '@golia/gds'" />
+      <ImportLine text="import { FileCard } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-48">
           <FileCard
@@ -94,7 +94,7 @@ const fileCardItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { FileCard } from '@golia/gds'\n\n<FileCard\n  name="${config.name}"${config.size !== '' ? `\n  size="${config.size}"` : ''}${config.type !== '' ? `\n  type="${config.type}"` : ''}\n  onClick={() => openFile()}\n/>`,
+    `import { FileCard } from '@goliapkg/gds'\n\n<FileCard\n  name="${config.name}"${config.size !== '' ? `\n  size="${config.size}"` : ''}${config.type !== '' ? `\n  type="${config.type}"` : ''}\n  onClick={() => openFile()}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

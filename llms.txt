@@ -1,4 +1,4 @@
-# @golia/gds
+# @goliapkg/gds
 
 > GOLIA Design System — enterprise-grade React UI component library with 370+ components, contextual depth, glass materials, and AI-native structure. Built by GOLIA for all company React web applications.
 

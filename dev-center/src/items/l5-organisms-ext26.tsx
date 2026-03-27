@@ -26,7 +26,7 @@ const payslipCardItem: DevCenterItem = {
     const totalDed = sampleDeductions.reduce((s, d) => s + d.amount, 0)
     return (
       <div>
-        <ImportLine text="import { PayslipCard } from '@golia/gds'" />
+        <ImportLine text="import { PayslipCard } from '@goliapkg/gds'" />
         <LivePreview>
           <div className="w-72">
             <PayslipCard period="2026-03" gross={gross} deductions={sampleDeductions} net={gross - totalDed} />
@@ -41,7 +41,7 @@ const payslipCardItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { PayslipCard } from '@golia/gds'\n\n<PayslipCard\n  period="2026-03"\n  gross={500000}\n  deductions={[\n    { label: 'Income Tax', amount: 45000 },\n    { label: 'Insurance', amount: 18000 },\n  ]}\n  net={437000}\n/>`,
+    `import { PayslipCard } from '@goliapkg/gds'\n\n<PayslipCard\n  period="2026-03"\n  gross={500000}\n  deductions={[\n    { label: 'Income Tax', amount: 45000 },\n    { label: 'Insurance', amount: 18000 },\n  ]}\n  net={437000}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -68,7 +68,7 @@ const employeeCardItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { EmployeeCard } from '@golia/gds'" />
+      <ImportLine text="import { EmployeeCard } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-80">
           <EmployeeCard
@@ -89,7 +89,7 @@ const employeeCardItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { EmployeeCard } from '@golia/gds'\n\n<EmployeeCard\n  name="Tanaka Yuki"\n  role="Senior Engineer"\n  department="Engineering"\n  status="${config.status}"\n  email="tanaka@golia.jp"\n/>`,
+    `import { EmployeeCard } from '@goliapkg/gds'\n\n<EmployeeCard\n  name="Tanaka Yuki"\n  role="Senior Engineer"\n  department="Engineering"\n  status="${config.status}"\n  email="tanaka@golia.jp"\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

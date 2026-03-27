@@ -17,7 +17,7 @@ const audioPlayerItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { AudioPlayer } from '@golia/gds'" />
+      <ImportLine text="import { AudioPlayer } from '@goliapkg/gds'" />
 
       <LivePreview className="block">
         <div className="mx-auto w-[400px]">

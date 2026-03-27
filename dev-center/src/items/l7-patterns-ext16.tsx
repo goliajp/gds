@@ -16,7 +16,7 @@ const settingsLayoutItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { SettingsLayout } from '@golia/gds'" />
+      <ImportLine text="import { SettingsLayout } from '@goliapkg/gds'" />
       <LivePreview className="!items-start">
         <div className="w-full max-w-lg">
           <SettingsLayout sections={[
@@ -30,7 +30,7 @@ const settingsLayoutItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { SettingsLayout } from '@golia/gds'\n\n<SettingsLayout sections={[\n  { id: 'general', label: 'General', content: <GeneralSettings /> },\n  { id: 'security', label: 'Security', content: <SecuritySettings /> },\n]} />`,
+    `import { SettingsLayout } from '@goliapkg/gds'\n\n<SettingsLayout sections={[\n  { id: 'general', label: 'General', content: <GeneralSettings /> },\n  { id: 'security', label: 'Security', content: <SecuritySettings /> },\n]} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

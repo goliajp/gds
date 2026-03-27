@@ -44,7 +44,7 @@ const signaturePadItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { SignaturePad } from '@golia/gds'" />
+      <ImportLine text="import { SignaturePad } from '@goliapkg/gds'" />
 
       <LivePreview>
         <SignaturePadDemo
@@ -119,7 +119,7 @@ const animatedListItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { AnimatedList } from '@golia/gds'" />
+      <ImportLine text="import { AnimatedList } from '@goliapkg/gds'" />
 
       <LivePreview>
         <AnimatedListDemo animation={config.animation} stagger={config.stagger} />
@@ -179,7 +179,7 @@ const confettiItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Confetti } from '@golia/gds'" />
+      <ImportLine text="import { Confetti } from '@goliapkg/gds'" />
 
       <LivePreview>
         <ConfettiDemo duration={config.duration} particleCount={config.particleCount} />

@@ -17,7 +17,7 @@ const statComparisonItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { StatComparison } from '@golia/gds'" />
+      <ImportLine text="import { StatComparison } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-80">
           <StatComparison
@@ -35,7 +35,7 @@ const statComparisonItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { StatComparison } from '@golia/gds'\n\n<StatComparison\n  left={{ label: 'Before', value: '$1,200' }}\n  right={{ label: 'After', value: '$2,400' }}\n  highlight="${config.highlight}"\n/>`,
+    `import { StatComparison } from '@goliapkg/gds'\n\n<StatComparison\n  left={{ label: 'Before', value: '$1,200' }}\n  right={{ label: 'After', value: '$2,400' }}\n  highlight="${config.highlight}"\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -60,7 +60,7 @@ const formActionsItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { FormActions } from '@golia/gds'" />
+      <ImportLine text="import { FormActions } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-96">
           <FormActions
@@ -82,7 +82,7 @@ const formActionsItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { FormActions } from '@golia/gds'\n\n<FormActions\n  onSave={handleSave}\n  onCancel={handleCancel}\n  ${config.showReset === 'true' ? 'onReset={handleReset}\n  ' : ''}${config.loading === 'true' ? 'loading\n' : ''}/>`,
+    `import { FormActions } from '@goliapkg/gds'\n\n<FormActions\n  onSave={handleSave}\n  onCancel={handleCancel}\n  ${config.showReset === 'true' ? 'onReset={handleReset}\n  ' : ''}${config.loading === 'true' ? 'loading\n' : ''}/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

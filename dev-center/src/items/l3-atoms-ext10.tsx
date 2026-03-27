@@ -21,7 +21,7 @@ const sparkleItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Sparkle } from '@golia/gds'" />
+      <ImportLine text="import { Sparkle } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center justify-center p-8">
           <Sparkle active={config.active} count={config.count} color={config.color}>
@@ -47,7 +47,7 @@ const sparkleItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { Sparkle } from '@golia/gds'\n\n<Sparkle\n  active={${config.active}}\n  count={${config.count}}\n  color="${config.color}"\n>\n  <span>New</span>\n</Sparkle>`,
+    `import { Sparkle } from '@goliapkg/gds'\n\n<Sparkle\n  active={${config.active}}\n  count={${config.count}}\n  color="${config.color}"\n>\n  <span>New</span>\n</Sparkle>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -94,7 +94,7 @@ const animatedNumberItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { AnimatedNumber } from '@golia/gds'" />
+      <ImportLine text="import { AnimatedNumber } from '@goliapkg/gds'" />
       <LivePreview>
         <AnimatedNumberDemo config={config} />
       </LivePreview>
@@ -109,7 +109,7 @@ const animatedNumberItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { AnimatedNumber } from '@golia/gds'\n\n<AnimatedNumber\n  value={${config.value}}\n  duration={${config.duration}}\n/>`,
+    `import { AnimatedNumber } from '@goliapkg/gds'\n\n<AnimatedNumber\n  value={${config.value}}\n  duration={${config.duration}}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

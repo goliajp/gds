@@ -20,7 +20,7 @@ const carouselItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Carousel } from '@golia/gds'" />
+      <ImportLine text="import { Carousel } from '@goliapkg/gds'" />
 
       <LivePreview>
         <div className="w-80">
@@ -81,7 +81,7 @@ const carouselItem: DevCenterItem = {
   ),
 
   code: ({ config }) => {
-    const lines = ["import { Carousel } from '@golia/gds'", '']
+    const lines = ["import { Carousel } from '@goliapkg/gds'", '']
     const props: string[] = []
     if (config.showDots === false) props.push('showDots={false}')
     if (config.showArrows === false) props.push('showArrows={false}')
@@ -133,7 +133,7 @@ const imagePreviewItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { ImagePreview } from '@golia/gds'" />
+      <ImportLine text="import { ImagePreview } from '@goliapkg/gds'" />
 
       <LivePreview>
         <ImagePreview

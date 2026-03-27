@@ -17,7 +17,7 @@ const listItemItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { ListItem } from '@golia/gds'" />
+      <ImportLine text="import { ListItem } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-80 rounded-lg border border-border overflow-hidden">
           <ListItem
@@ -71,7 +71,7 @@ const listItemItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { ListItem } from '@golia/gds'\n\n<ListItem\n  title="Account Settings"${config.showDescription ? '\n  description="Manage your profile"' : ''}${config.showIcon ? '\n  icon={<UserIcon />}' : ''}${config.showTrailing ? '\n  trailing={<ChevronRight />}' : ''}${config.active ? '\n  active' : ''}${config.disabled ? '\n  disabled' : ''}\n  onClick={() => {}}\n/>`,
+    `import { ListItem } from '@goliapkg/gds'\n\n<ListItem\n  title="Account Settings"${config.showDescription ? '\n  description="Manage your profile"' : ''}${config.showIcon ? '\n  icon={<UserIcon />}' : ''}${config.showTrailing ? '\n  trailing={<ChevronRight />}' : ''}${config.active ? '\n  active' : ''}${config.disabled ? '\n  disabled' : ''}\n  onClick={() => {}}\n/>`,
 }
 moleculeItemsO.push(listItemItem)
 

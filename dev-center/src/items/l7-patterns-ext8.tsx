@@ -20,7 +20,7 @@ const statsCardItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { StatsCard } from '@golia/gds'" />
+      <ImportLine text="import { StatsCard } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="grid grid-cols-2 gap-4">
           <StatsCard
@@ -118,7 +118,7 @@ const sidebarItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Sidebar } from '@golia/gds'" />
+      <ImportLine text="import { Sidebar } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <SidebarDemo glass={config.glass} />
       </LivePreview>

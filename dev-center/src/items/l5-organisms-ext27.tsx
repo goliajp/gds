@@ -27,7 +27,7 @@ const transactionListItem: DevCenterItem = {
     const count = Number(config.count)
     return (
       <div>
-        <ImportLine text="import { TransactionList } from '@golia/gds'" />
+        <ImportLine text="import { TransactionList } from '@goliapkg/gds'" />
         <LivePreview>
           <div className="w-80 rounded-lg border border-border">
             <TransactionList transactions={sampleTransactions.slice(0, count)} />
@@ -42,7 +42,7 @@ const transactionListItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { TransactionList } from '@golia/gds'\n\n<TransactionList\n  transactions={[\n    { id: '1', date: '2026-03-25', description: 'Salary', amount: 520000 },\n    { id: '2', date: '2026-03-24', description: 'Rent', amount: -180000 },\n  ]}\n/>`,
+    `import { TransactionList } from '@goliapkg/gds'\n\n<TransactionList\n  transactions={[\n    { id: '1', date: '2026-03-25', description: 'Salary', amount: 520000 },\n    { id: '2', date: '2026-03-24', description: 'Rent', amount: -180000 },\n  ]}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

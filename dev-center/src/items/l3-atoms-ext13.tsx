@@ -20,7 +20,7 @@ const infoTipItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { InfoTip } from '@golia/gds'" />
+      <ImportLine text="import { InfoTip } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-2 p-8">
           <span className="text-sm text-fg">Tax rate</span>
@@ -38,7 +38,7 @@ const infoTipItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { InfoTip } from '@golia/gds'\n\n<InfoTip\n  content="${config.content}"\n  size="${config.size}"\n/>`,
+    `import { InfoTip } from '@goliapkg/gds'\n\n<InfoTip\n  content="${config.content}"\n  size="${config.size}"\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -66,7 +66,7 @@ const pulseIndicatorItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { PulseIndicator } from '@golia/gds'" />
+      <ImportLine text="import { PulseIndicator } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-8 p-8">
           <PulseIndicator color={config.color} label={config.label} size={config.size} />
@@ -85,7 +85,7 @@ const pulseIndicatorItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { PulseIndicator } from '@golia/gds'\n\n<PulseIndicator\n  color="${config.color}"\n  size="${config.size}"${config.label ? `\n  label="${config.label}"` : ''}\n/>`,
+    `import { PulseIndicator } from '@goliapkg/gds'\n\n<PulseIndicator\n  color="${config.color}"\n  size="${config.size}"${config.label ? `\n  label="${config.label}"` : ''}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -114,7 +114,7 @@ const textBadgeItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { TextBadge } from '@golia/gds'" />
+      <ImportLine text="import { TextBadge } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex flex-wrap items-center gap-4 p-8">
           <span className="flex items-center gap-2 text-sm text-fg">
@@ -140,7 +140,7 @@ const textBadgeItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { TextBadge } from '@golia/gds'\n\n<TextBadge\n  label="${config.label}"\n  variant="${config.variant}"\n  size="${config.size}"\n/>`,
+    `import { TextBadge } from '@goliapkg/gds'\n\n<TextBadge\n  label="${config.label}"\n  variant="${config.variant}"\n  size="${config.size}"\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

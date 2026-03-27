@@ -16,7 +16,7 @@ const activityFeedItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { ActivityFeed } from '@golia/gds'" />
+      <ImportLine text="import { ActivityFeed } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-96">
           <ActivityFeed items={[
@@ -31,7 +31,7 @@ const activityFeedItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { ActivityFeed } from '@golia/gds'\n\n<ActivityFeed items={[\n  { id: '1', user: 'Alice', action: 'created', target: 'Project Alpha', timestamp: '2 min ago' },\n  { id: '2', user: 'Bob', action: 'commented on', target: 'Issue #42', timestamp: '5 min ago' },\n]} />`,
+    `import { ActivityFeed } from '@goliapkg/gds'\n\n<ActivityFeed items={[\n  { id: '1', user: 'Alice', action: 'created', target: 'Project Alpha', timestamp: '2 min ago' },\n  { id: '2', user: 'Bob', action: 'commented on', target: 'Issue #42', timestamp: '5 min ago' },\n]} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

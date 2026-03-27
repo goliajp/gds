@@ -17,7 +17,7 @@ const qrCodeItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { QRCode } from '@golia/gds'" />
+      <ImportLine text="import { QRCode } from '@goliapkg/gds'" />
       <LivePreview>
         <QRCode
           value={config.value}
@@ -37,7 +37,7 @@ const qrCodeItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { QRCode } from '@golia/gds'\n\n<QRCode\n  value="${config.value}"\n  size={${config.size}}\n  color="${config.color}"\n/>`,
+    `import { QRCode } from '@goliapkg/gds'\n\n<QRCode\n  value="${config.value}"\n  size={${config.size}}\n  color="${config.color}"\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -63,7 +63,7 @@ const barcodeItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Barcode } from '@golia/gds'" />
+      <ImportLine text="import { Barcode } from '@goliapkg/gds'" />
       <LivePreview>
         <Barcode
           value={config.value}
@@ -87,7 +87,7 @@ const barcodeItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { Barcode } from '@golia/gds'\n\n<Barcode\n  value="${config.value}"\n  width={${config.width}}\n  height={${config.height}}\n  showValue={${config.showValue}}\n  color="${config.color}"\n/>`,
+    `import { Barcode } from '@goliapkg/gds'\n\n<Barcode\n  value="${config.value}"\n  width={${config.width}}\n  height={${config.height}}\n  showValue={${config.showValue}}\n  color="${config.color}"\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

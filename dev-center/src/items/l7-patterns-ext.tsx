@@ -18,7 +18,7 @@ const gridLayoutItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { GridLayout } from '@golia/gds'" />
+      <ImportLine text="import { GridLayout } from '@goliapkg/gds'" />
 
       <LivePreview className="block">
         <GridLayout columns={config.columns} gap={config.gap}>
@@ -68,7 +68,7 @@ const masonryItem: DevCenterItem = {
     const heights = [80, 120, 60, 100, 140, 90, 70, 110, 85]
     return (
       <div>
-        <ImportLine text="import { Masonry } from '@golia/gds'" />
+        <ImportLine text="import { Masonry } from '@goliapkg/gds'" />
 
         <LivePreview className="block">
           <Masonry columns={config.columns} gap={config.gap}>

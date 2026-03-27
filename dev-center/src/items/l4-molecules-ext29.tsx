@@ -17,7 +17,7 @@ const versionBadgeItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { VersionBadge } from '@golia/gds'" />
+      <ImportLine text="import { VersionBadge } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-3">
           <VersionBadge latest={config.latest} version={config.version} />
@@ -35,7 +35,7 @@ const versionBadgeItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { VersionBadge } from '@golia/gds'\n\n<VersionBadge version="${config.version}" latest="${config.latest}" />`,
+    `import { VersionBadge } from '@goliapkg/gds'\n\n<VersionBadge version="${config.version}" latest="${config.latest}" />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -59,7 +59,7 @@ const taskItemItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { TaskItem } from '@golia/gds'" />
+      <ImportLine text="import { TaskItem } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex w-72 flex-col gap-1">
           <TaskItem completed={config.completed === 'true'} dueDate="Mar 30" priority={config.priority} title="Design system review" />
@@ -78,7 +78,7 @@ const taskItemItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { TaskItem } from '@golia/gds'\n\n<TaskItem\n  title="Design system review"\n  priority="${config.priority}"\n  dueDate="Mar 30"\n  ${config.completed === 'true' ? 'completed\n  ' : ''}onToggle={() => {}}\n/>`,
+    `import { TaskItem } from '@goliapkg/gds'\n\n<TaskItem\n  title="Design system review"\n  priority="${config.priority}"\n  dueDate="Mar 30"\n  ${config.completed === 'true' ? 'completed\n  ' : ''}onToggle={() => {}}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

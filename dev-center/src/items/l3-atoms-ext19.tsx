@@ -17,7 +17,7 @@ const statusDotItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { StatusDot } from '@golia/gds'" />
+      <ImportLine text="import { StatusDot } from '@goliapkg/gds'" />
       <LivePreview>
         <StatusDot
           status={config.status as 'connected' | 'connecting' | 'disconnected'}
@@ -35,7 +35,7 @@ const statusDotItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { StatusDot } from '@golia/gds'\n\n<StatusDot status="${config.status}"${config.label !== '' ? ` label="${config.label}"` : ''} />`,
+    `import { StatusDot } from '@goliapkg/gds'\n\n<StatusDot status="${config.status}"${config.label !== '' ? ` label="${config.label}"` : ''} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -59,7 +59,7 @@ const priceItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Price } from '@golia/gds'" />
+      <ImportLine text="import { Price } from '@goliapkg/gds'" />
       <LivePreview>
         <Price
           value={Number(config.value)}
@@ -79,7 +79,7 @@ const priceItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { Price } from '@golia/gds'\n\n<Price value={${config.value}} currency="${config.currency}"${config.showSign === 'true' ? ' showSign' : ''} />`,
+    `import { Price } from '@goliapkg/gds'\n\n<Price value={${config.value}} currency="${config.currency}"${config.showSign === 'true' ? ' showSign' : ''} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

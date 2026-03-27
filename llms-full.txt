@@ -1,4 +1,4 @@
-# @golia/gds — Full AI Reference
+# @goliapkg/gds — Full AI Reference
 
 > GOLIA Design System — 370+ React components across 8 architectural layers.
 > Built by GOLIA for all company React web applications.
@@ -9,12 +9,12 @@
 ## Installation
 
 ```bash
-bun add @golia/gds
+bun add @goliapkg/gds
 ```
 
 ```tsx
-import { Button, Card } from '@golia/gds'
-import '@golia/gds/tokens.css'
+import { Button, Card } from '@goliapkg/gds'
+import '@goliapkg/gds/tokens.css'
 ```
 
 ---
@@ -142,21 +142,21 @@ export type { ButtonProps }
 
 ### cx() — class merging
 ```tsx
-import { cx } from '@golia/gds'
+import { cx } from '@goliapkg/gds'
 // merges classes with tailwind-merge conflict resolution
 cx('p-4 text-sm', condition && 'bg-accent', className)
 ```
 
 ### focusCls — focus ring
 ```tsx
-import { focusCls } from '@golia/gds'
+import { focusCls } from '@goliapkg/gds'
 // standard focus-visible ring for all interactive elements
 // value: 'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg outline-none'
 ```
 
 ### srOnly — screen reader only
 ```tsx
-import { srOnly } from '@golia/gds'
+import { srOnly } from '@goliapkg/gds'
 // visually hidden but accessible to screen readers
 ```
 
@@ -180,7 +180,7 @@ motionClass('spring') // → spring physics animation
 
 ### DOM utilities
 ```tsx
-import { clamp, isActivationKey, mergeRefs, uid } from '@golia/gds'
+import { clamp, isActivationKey, mergeRefs, uid } from '@goliapkg/gds'
 clamp(value, min, max)     // number clamping
 isActivationKey(event)      // Enter or Space key check
 mergeRefs(ref1, ref2)       // combine multiple refs
@@ -189,7 +189,7 @@ uid()                       // unique ID generation
 
 ### Type utilities
 ```tsx
-import type { VariantProps, AsProps, MergeProps, DataRecord } from '@golia/gds'
+import type { VariantProps, AsProps, MergeProps, DataRecord } from '@goliapkg/gds'
 // VariantProps<typeof xxxVariants> — extract variant prop types from CVA
 // AsProps — polymorphic "as" prop support
 // MergeProps — merge two prop types with override
@@ -246,7 +246,7 @@ import {
   useSetThemeColors,
   useResetTheme,
   configureTheme,
-} from '@golia/gds'
+} from '@goliapkg/gds'
 
 // read current theme
 const theme = useTheme()

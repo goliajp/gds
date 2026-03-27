@@ -31,7 +31,7 @@ const sortableTableItem: DevCenterItem = {
     ]
     return (
       <div>
-        <ImportLine text="import { SortableTable } from '@golia/gds'" />
+        <ImportLine text="import { SortableTable } from '@goliapkg/gds'" />
         <LivePreview className="!p-6">
           <SortableTable columns={columns} data={data} defaultSort={{ key: 'name', dir: 'asc' }} />
         </LivePreview>
@@ -40,7 +40,7 @@ const sortableTableItem: DevCenterItem = {
   },
 
   code: () => [
-    "import { SortableTable } from '@golia/gds'",
+    "import { SortableTable } from '@goliapkg/gds'",
     '',
     '<SortableTable',
     '  columns={[',
@@ -90,7 +90,7 @@ const wizardItem: DevCenterItem = {
     }))
     return (
       <div>
-        <ImportLine text="import { Wizard } from '@golia/gds'" />
+        <ImportLine text="import { Wizard } from '@goliapkg/gds'" />
         <LivePreview className="!p-6">
           <Wizard steps={steps} currentStep={step} onStepChange={setStep} />
         </LivePreview>
@@ -105,7 +105,7 @@ const wizardItem: DevCenterItem = {
   ),
 
   code: () => [
-    "import { Wizard } from '@golia/gds'",
+    "import { Wizard } from '@goliapkg/gds'",
     '',
     '<Wizard',
     '  steps={[',

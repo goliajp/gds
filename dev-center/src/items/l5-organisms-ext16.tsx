@@ -42,7 +42,7 @@ const organismItemsExt16: DevCenterItem[] = [
       ]
       return (
         <div>
-          <ImportLine text="import { Changelog } from '@golia/gds'" />
+          <ImportLine text="import { Changelog } from '@goliapkg/gds'" />
           <LivePreview className="!p-6">
             <Changelog entries={entries} />
           </LivePreview>
@@ -51,7 +51,7 @@ const organismItemsExt16: DevCenterItem[] = [
     },
 
     code: () => [
-      "import { Changelog } from '@golia/gds'",
+      "import { Changelog } from '@goliapkg/gds'",
       '',
       '<Changelog',
       '  entries={[',

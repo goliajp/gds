@@ -21,7 +21,7 @@ const mediaGridItem: DevCenterItem = {
     const colors = ['bg-palette-0/30', 'bg-palette-1/30', 'bg-palette-2/30', 'bg-palette-3/30', 'bg-palette-4/30', 'bg-palette-5/30']
     return (
       <div>
-        <ImportLine text="import { MediaGrid } from '@golia/gds'" />
+        <ImportLine text="import { MediaGrid } from '@goliapkg/gds'" />
         <LivePreview className="block">
           <MediaGrid
             columns={config.columns}
@@ -61,7 +61,7 @@ const mediaGridItem: DevCenterItem = {
     if (config.columns !== 4) props.push(`columns={${config.columns}}`)
     if (config.gap !== 'default') props.push(`gap="${config.gap}"`)
     if (config.aspectRatio !== 1) props.push(`aspectRatio={${config.aspectRatio}}`)
-    return `import { MediaGrid } from '@golia/gds'\n\n<MediaGrid${props.length > 0 ? '\n  ' + props.join('\n  ') + '\n' : ''}>\n  <img src="photo1.jpg" />\n  <img src="photo2.jpg" />\n</MediaGrid>`
+    return `import { MediaGrid } from '@goliapkg/gds'\n\n<MediaGrid${props.length > 0 ? '\n  ' + props.join('\n  ') + '\n' : ''}>\n  <img src="photo1.jpg" />\n  <img src="photo2.jpg" />\n</MediaGrid>`
   },
 
   docs: () => (
@@ -89,7 +89,7 @@ const profileCardItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { ProfileCard } from '@golia/gds'" />
+      <ImportLine text="import { ProfileCard } from '@goliapkg/gds'" />
       <LivePreview>
         <ProfileCard
           name={config.name}
@@ -131,7 +131,7 @@ const profileCardItem: DevCenterItem = {
     const props = [`name="${config.name}"`]
     if (config.role !== '') props.push(`role="${config.role}"`)
     if (config.glass === true) props.push('glass')
-    return `import { ProfileCard } from '@golia/gds'\n\n<ProfileCard\n  ${props.join('\n  ')}\n  stats={[{ label: 'Posts', value: '42' }]}\n/>`
+    return `import { ProfileCard } from '@goliapkg/gds'\n\n<ProfileCard\n  ${props.join('\n  ')}\n  stats={[{ label: 'Posts', value: '42' }]}\n/>`
   },
 
   docs: () => (
@@ -161,7 +161,7 @@ const actionBarItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { ActionBar } from '@golia/gds'" />
+      <ImportLine text="import { ActionBar } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <div className="relative h-40 overflow-hidden rounded-lg border border-white/[0.04]">
           <div className="p-4 text-xs text-fg-muted">Form content area...</div>
@@ -209,7 +209,7 @@ const actionBarItem: DevCenterItem = {
     if (config.position !== 'bottom') props.push(`position="${config.position}"`)
     if (config.justify !== 'end') props.push(`justify="${config.justify}"`)
     if (config.glass !== true) props.push('glass={false}')
-    return `import { ActionBar } from '@golia/gds'\n\n<ActionBar${props.length > 0 ? '\n  ' + props.join('\n  ') + '\n' : ''}>\n  <Button variant="ghost">Cancel</Button>\n  <Button>Save</Button>\n</ActionBar>`
+    return `import { ActionBar } from '@goliapkg/gds'\n\n<ActionBar${props.length > 0 ? '\n  ' + props.join('\n  ') + '\n' : ''}>\n  <Button variant="ghost">Cancel</Button>\n  <Button>Save</Button>\n</ActionBar>`
   },
 
   docs: () => (

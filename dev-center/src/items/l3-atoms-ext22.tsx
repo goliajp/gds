@@ -17,7 +17,7 @@ const liveDotItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { LiveDot } from '@golia/gds'" />
+      <ImportLine text="import { LiveDot } from '@goliapkg/gds'" />
       <LivePreview>
         <LiveDot label={config.label} />
       </LivePreview>
@@ -29,7 +29,7 @@ const liveDotItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { LiveDot } from '@golia/gds'\n\n<LiveDot${config.label !== 'LIVE' ? ` label="${config.label}"` : ''} />`,
+    `import { LiveDot } from '@goliapkg/gds'\n\n<LiveDot${config.label !== 'LIVE' ? ` label="${config.label}"` : ''} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -52,7 +52,7 @@ const percentageItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Percentage } from '@golia/gds'" />
+      <ImportLine text="import { Percentage } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-4">
           <Percentage showSign={config.showSign === 'true'} value={Number(config.value)} />
@@ -69,7 +69,7 @@ const percentageItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { Percentage } from '@golia/gds'\n\n<Percentage value={${config.value}} ${config.showSign === 'true' ? 'showSign ' : ''}/>`,
+    `import { Percentage } from '@goliapkg/gds'\n\n<Percentage value={${config.value}} ${config.showSign === 'true' ? 'showSign ' : ''}/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

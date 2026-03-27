@@ -26,7 +26,7 @@ const keyboardShortcutItem: DevCenterItem = {
 
     return (
       <div>
-        <ImportLine text="import { KeyboardShortcut } from '@golia/gds'" />
+        <ImportLine text="import { KeyboardShortcut } from '@goliapkg/gds'" />
         <LivePreview>
           <div className="flex flex-col items-center gap-4 p-8">
             <div className="flex items-center gap-2 text-sm text-fg">
@@ -72,7 +72,7 @@ const keyboardShortcutItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { KeyboardShortcut } from '@golia/gds'\n\n<KeyboardShortcut\n  keys="${config.keys}"\n  onTrigger={() => console.log('triggered')}\n  showBadge={${config.showBadge}}\n  disabled={${config.disabled}}\n/>`,
+    `import { KeyboardShortcut } from '@goliapkg/gds'\n\n<KeyboardShortcut\n  keys="${config.keys}"\n  onTrigger={() => console.log('triggered')}\n  showBadge={${config.showBadge}}\n  disabled={${config.disabled}}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

@@ -16,7 +16,7 @@ const commentThreadItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { CommentThread } from '@golia/gds'" />
+      <ImportLine text="import { CommentThread } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-full max-w-lg">
           <CommentThread
@@ -36,7 +36,7 @@ const commentThreadItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { CommentThread } from '@golia/gds'\n\n<CommentThread\n  comments={[\n    { id: '1', author: 'Alice', content: 'Looks great!', timestamp: '2h ago' },\n    { id: '2', author: 'Bob', content: 'One suggestion.', timestamp: '1h ago',\n      replies: [{ id: '3', author: 'Alice', content: 'Fixed!', timestamp: '30m ago' }] },\n  ]}\n/>`,
+    `import { CommentThread } from '@goliapkg/gds'\n\n<CommentThread\n  comments={[\n    { id: '1', author: 'Alice', content: 'Looks great!', timestamp: '2h ago' },\n    { id: '2', author: 'Bob', content: 'One suggestion.', timestamp: '1h ago',\n      replies: [{ id: '3', author: 'Alice', content: 'Fixed!', timestamp: '30m ago' }] },\n  ]}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

@@ -1,7 +1,7 @@
-// @golia/gds — GOLIA Design System
+// @goliapkg/gds — GOLIA Design System
 // public API surface
 
-// L0 — tokens (CSS imported separately: @import '@golia/gds/tokens.css')
+// L0 — tokens (CSS imported separately: @import '@goliapkg/gds/tokens.css')
 export type { DepInfo } from './l0-tokens/deps'
 export { GDS_DEPS, GDS_INFRA, GDS_INTERNAL_UTILS, LAYER_DEP_CONSTRAINTS } from './l0-tokens/deps'
 // L0 — all token systems

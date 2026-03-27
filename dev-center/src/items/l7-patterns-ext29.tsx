@@ -17,7 +17,7 @@ const wizardLayoutItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { WizardLayout } from '@golia/gds'" />
+      <ImportLine text="import { WizardLayout } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="h-64 border border-border rounded-lg overflow-hidden">
           <WizardLayout
@@ -44,7 +44,7 @@ const wizardLayoutItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { WizardLayout } from '@golia/gds'\n\n<WizardLayout\n  steps={['Account', 'Profile', 'Review', 'Submit']}\n  currentStep={${config.currentStep}}\n  actions={<Button>Continue</Button>}\n>\n  {content}\n</WizardLayout>`,
+    `import { WizardLayout } from '@goliapkg/gds'\n\n<WizardLayout\n  steps={['Account', 'Profile', 'Review', 'Submit']}\n  currentStep={${config.currentStep}}\n  actions={<Button>Continue</Button>}\n>\n  {content}\n</WizardLayout>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

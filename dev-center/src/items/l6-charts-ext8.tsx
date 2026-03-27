@@ -39,7 +39,7 @@ const chartItemsExt8: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { BumpChart } from '@golia/gds'" />
+        <ImportLine text="import { BumpChart } from '@goliapkg/gds'" />
         <LivePreview>
           <BumpChart
             data={bumpData}
@@ -103,7 +103,7 @@ const chartItemsExt8: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { OrderBookChart } from '@golia/gds'" />
+        <ImportLine text="import { OrderBookChart } from '@goliapkg/gds'" />
         <LivePreview>
           <OrderBookChart
             bids={bids}
@@ -167,7 +167,7 @@ const chartItemsExt8: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { WaveformDisplay } from '@golia/gds'" />
+        <ImportLine text="import { WaveformDisplay } from '@goliapkg/gds'" />
         <LivePreview>
           <WaveformDisplay
             data={waveformData}

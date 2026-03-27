@@ -17,7 +17,7 @@ const commandMenuItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { CommandMenu } from '@golia/gds'" />
+      <ImportLine text="import { CommandMenu } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-72">
           <CommandMenu
@@ -55,7 +55,7 @@ const commandMenuItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { CommandMenu } from '@golia/gds'\n\n<CommandMenu\n  items={[\n    { id: 'copy', label: 'Copy', shortcut: '⌘C', group: 'Edit' },\n    { id: 'delete', label: 'Delete', danger: true },\n  ]}\n  onSelect={(id) => console.log(id)}${config.searchable === false ? '\n  searchable={false}' : ''}${config.glass ? '\n  glass' : ''}\n/>`,
+    `import { CommandMenu } from '@goliapkg/gds'\n\n<CommandMenu\n  items={[\n    { id: 'copy', label: 'Copy', shortcut: '⌘C', group: 'Edit' },\n    { id: 'delete', label: 'Delete', danger: true },\n  ]}\n  onSelect={(id) => console.log(id)}${config.searchable === false ? '\n  searchable={false}' : ''}${config.glass ? '\n  glass' : ''}\n/>`,
 }
 moleculeItemsL.push(commandMenuItem)
 
@@ -69,7 +69,7 @@ const tabGroupItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { TabGroup } from '@golia/gds'" />
+      <ImportLine text="import { TabGroup } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-80">
           <TabGroup
@@ -101,7 +101,7 @@ const tabGroupItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { TabGroup } from '@golia/gds'\n\n<TabGroup\n  tabs={[\n    { id: 'general', label: 'General', content: <GeneralPanel /> },\n    { id: 'security', label: 'Security', content: <SecurityPanel /> },\n  ]}${config.glass ? '\n  glass' : ''}\n/>`,
+    `import { TabGroup } from '@goliapkg/gds'\n\n<TabGroup\n  tabs={[\n    { id: 'general', label: 'General', content: <GeneralPanel /> },\n    { id: 'security', label: 'Security', content: <SecurityPanel /> },\n  ]}${config.glass ? '\n  glass' : ''}\n/>`,
 }
 moleculeItemsL.push(tabGroupItem)
 

@@ -17,7 +17,7 @@ const embedItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Embed } from '@golia/gds'" />
+      <ImportLine text="import { Embed } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <Embed
           src="https://www.youtube.com/embed/dQw4w9WgXcQ"
@@ -39,7 +39,7 @@ const embedItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { Embed } from '@golia/gds'\n\n<Embed\n  src="https://www.youtube.com/embed/..."\n  title="Demo video"\n  ratio={${config.ratio}}\n  ${config.glass ? 'glass\n  ' : ''}allowFullscreen={${config.allowFullscreen}}\n/>`,
+    `import { Embed } from '@goliapkg/gds'\n\n<Embed\n  src="https://www.youtube.com/embed/..."\n  title="Demo video"\n  ratio={${config.ratio}}\n  ${config.glass ? 'glass\n  ' : ''}allowFullscreen={${config.allowFullscreen}}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

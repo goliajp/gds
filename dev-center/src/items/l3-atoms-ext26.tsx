@@ -17,7 +17,7 @@ const overflowMenuItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { OverflowMenu } from '@golia/gds'" />
+      <ImportLine text="import { OverflowMenu } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-8">
           <OverflowMenu
@@ -34,7 +34,7 @@ const overflowMenuItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { OverflowMenu } from '@golia/gds'\n\n<OverflowMenu\n  items={[\n    { id: 'edit', label: 'Edit' },\n    { id: 'delete', label: 'Delete' },\n  ]}\n  onSelect={(id) => console.log(id)}\n/>`,
+    `import { OverflowMenu } from '@goliapkg/gds'\n\n<OverflowMenu\n  items={[\n    { id: 'edit', label: 'Edit' },\n    { id: 'delete', label: 'Delete' },\n  ]}\n  onSelect={(id) => console.log(id)}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

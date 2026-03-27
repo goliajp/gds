@@ -18,7 +18,7 @@ const skeletonPatternItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { SkeletonPattern } from '@golia/gds'" />
+      <ImportLine text="import { SkeletonPattern } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <SkeletonPattern variant={config.variant} count={config.count} glass={config.glass} />
       </LivePreview>
@@ -62,7 +62,7 @@ const responsiveContainerItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { ResponsiveContainer } from '@golia/gds'" />
+      <ImportLine text="import { ResponsiveContainer } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <ResponsiveContainer
           mobile={
