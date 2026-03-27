@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { Navigate, Route, Routes, useNavigate, useParams } from 'react-router'
 
 import { useThemeEffect } from '@gds/l1-systems/use-theme'
+import { Kbd } from '@gds/l2-primitives'
 
 import { Inspector } from './components/inspector'
 import { Nav, layers } from './components/nav'
@@ -35,7 +36,7 @@ function ShortcutsModal({ onClose }: { onClose: () => void }) {
       }}
     >
       <div
-        className="rounded-lg border border-white/[0.08] bg-[#1a1a1a] p-6 shadow-2xl"
+        className="rounded-lg border border-border bg-surface p-6 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-4 text-sm font-semibold text-fg">
@@ -44,9 +45,9 @@ function ShortcutsModal({ onClose }: { onClose: () => void }) {
         <div className="space-y-2">
           {shortcutEntries.map(([key, desc]) => (
             <div className="flex items-center gap-4" key={key}>
-              <kbd className="w-16 rounded bg-white/[0.06] px-2 py-0.5 text-center font-mono text-xs text-fg">
+              <Kbd className="w-16 text-center">
                 {key}
-              </kbd>
+              </Kbd>
               <span className="text-xs text-fg-muted/60">{desc}</span>
             </div>
           ))}

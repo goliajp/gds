@@ -3,6 +3,8 @@ import type { RefObject } from 'react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router'
 
+import { cx } from '@gds/utils/cx'
+
 import type { DevCenterItem, LayerMeta } from '../types'
 
 export const layers: LayerMeta[] = [
@@ -192,10 +194,10 @@ export function Nav({ items, searchRef, favorites = [], isFavorite, toggleFavori
                 {starred && (
                   <span className="text-[10px] text-warning/60 shrink-0 leading-none">&#11088;</span>
                 )}
-                <span className={[
+                <span className={cx(
                   'text-xs flex-1 truncate transition-colors',
                   active ? 'text-fg font-medium' : 'text-fg-muted/50 group-hover:text-fg-muted/70',
-                ].join(' ')}>
+                )}>
                   {item.label}
                 </span>
                 {isSearchActive && itemLayer !== undefined && (
@@ -208,10 +210,10 @@ export function Nav({ items, searchRef, favorites = [], isFavorite, toggleFavori
                 )}
                 {onToggleFavorite !== undefined && (
                   <button
-                    className={[
+                    className={cx(
                       'shrink-0 opacity-0 group-hover:opacity-100 transition-opacity text-[10px] leading-none p-0.5',
                       starred ? 'text-warning/60' : 'text-fg-muted/20 hover:text-warning/60',
-                    ].join(' ')}
+                    )}
                     onClick={e => {
                       e.preventDefault()
                       e.stopPropagation()

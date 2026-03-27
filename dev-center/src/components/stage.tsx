@@ -91,7 +91,7 @@ export function Stage({ item, stageProps }: StageComponentProps) {
     <div className="dc-stage flex h-full flex-col overflow-hidden">
       {/* header */}
       <div
-        className="shrink-0 flex items-center border-b border-white/[0.06]"
+        className="shrink-0 flex items-center border-b border-border"
         style={{ padding: 'var(--gds-pad-y, 6px) var(--gds-pad-x-lg, 16px)', gap: 'var(--gds-gap, 8px)' }}
       >
         <h1 className="text-sm font-semibold text-fg">{item.label}</h1>

@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react'
 
 import { codeToHtml } from 'shiki'
 
+import { cx } from '@gds/utils/cx'
+
 // code block — syntax-highlighted with copy button
 export function CodeBlock({ code, lang = 'tsx' }: { code: string; lang?: string }) {
   const [html, setHtml] = useState('')
@@ -36,10 +38,10 @@ export function CodeBlock({ code, lang = 'tsx' }: { code: string; lang?: string 
         {html === '' ? <pre className="text-fg-muted/60"><code>{code}</code></pre> : undefined}
       </div>
       <button
-        className={[
+        className={cx(
           'absolute right-2 top-2 rounded px-1.5 py-0.5 text-xs transition-colors',
           copied ? 'text-success' : 'text-fg-muted/25 hover:text-fg-muted/50',
-        ].join(' ')}
+        )}
         onClick={handleCopy}
         aria-label="Copy code"
       >
@@ -53,11 +55,11 @@ export function CodeBlock({ code, lang = 'tsx' }: { code: string; lang?: string 
 export function LivePreview({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <div
-      className="mt-4 overflow-visible border border-white/[0.06] bg-surface shadow-sm"
+      className="mt-4 overflow-visible border border-border bg-surface shadow-sm"
       style={{ borderRadius: 'var(--gds-radius-card, 12px)' }}
     >
       <div
-        className="flex items-center gap-2 border-b border-white/[0.04] bg-bg-secondary/30 px-3 select-none"
+        className="flex items-center gap-2 border-b border-border/50 bg-bg-secondary px-3 select-none"
         style={{ padding: 'var(--gds-pad-y, 6px) var(--gds-pad-x, 12px)' }}
       >
         <div className="flex items-center gap-1.5">
@@ -67,10 +69,10 @@ export function LivePreview({ children, className }: { children: ReactNode; clas
         </div>
         <span className="text-xs font-semibold tracking-wide text-fg-muted/40 uppercase">Live Preview</span>
       </div>
-      <div className={[
+      <div className={cx(
         'flex min-h-40 items-center justify-center overflow-visible dc-canvas-bg',
         className,
-      ].filter(Boolean).join(' ')} style={{ padding: 'var(--gds-pad-x-lg, 16px)' }}>
+      )} style={{ padding: 'var(--gds-pad-x-lg, 16px)' }}>
         {children}
       </div>
     </div>
@@ -89,15 +91,15 @@ export function DemoCard({ title, description, code, children, full }: {
 
   return (
     <div
-      className={[
-        'flex flex-col overflow-visible border border-white/[0.06] bg-surface shadow-sm transition-colors hover:border-white/[0.1]',
-        full === true ? 'lg:col-span-2' : '',
-      ].join(' ')}
+      className={cx(
+        'flex flex-col overflow-visible border border-border bg-surface shadow-sm transition-colors hover:border-border',
+        full === true && 'lg:col-span-2',
+      )}
       style={{ borderRadius: 'var(--gds-radius-card, 12px)' }}
     >
       {/* title bar */}
       <div
-        className="flex items-center gap-2 border-b border-white/[0.04] bg-bg-secondary/30 select-none"
+        className="flex items-center gap-2 border-b border-border/50 bg-bg-secondary select-none"
         style={{ padding: 'var(--gds-pad-y, 6px) var(--gds-pad-x, 12px)' }}
       >
         <div className="flex items-center gap-1.5">
@@ -113,10 +115,10 @@ export function DemoCard({ title, description, code, children, full }: {
         </div>
         {code !== undefined && (
           <button
-            className={[
+            className={cx(
               'flex items-center gap-1 rounded px-1.5 py-0.5 text-xs transition-colors',
               showCode ? 'text-accent' : 'text-fg-muted/30 hover:bg-bg-tertiary/50 hover:text-fg',
-            ].join(' ')}
+            )}
             onClick={() => setShowCode(prev => !prev)}
           >
             {showCode ? 'Hide' : 'Code'}
@@ -131,7 +133,7 @@ export function DemoCard({ title, description, code, children, full }: {
 
       {/* code block — now with syntax highlighting + copy */}
       {showCode && code !== undefined && (
-        <div className="border-t border-white/[0.04]">
+        <div className="border-t border-border/50">
           <CodeBlock code={code} />
         </div>
       )}
@@ -149,7 +151,7 @@ export function DocSection({ title, columns = 1, children }: {
     <div className="mt-8 scroll-mt-8">
       <h3 className="group mb-4 flex items-center gap-2 text-base font-semibold text-fg">
         {title}
-        <div className="h-px flex-1 bg-white/[0.06]" />
+        <div className="h-px flex-1 bg-border" />
       </h3>
       <div className={
         columns === 3
@@ -178,7 +180,7 @@ export function DocTable({ headers, rows, compact, flexColumn }: {
 
   return (
     <div
-      className="border border-white/[0.06]"
+      className="border border-border"
       style={{ borderRadius: 'var(--gds-radius-lg, 8px)' }}
       data-selectable
     >
@@ -188,11 +190,11 @@ export function DocTable({ headers, rows, compact, flexColumn }: {
             {cols.map((col, ci) => (
               <th
                 key={col}
-                className={[
+                className={cx(
                   'px-3 py-1.5 text-left text-[10px] font-semibold text-fg-muted/60 whitespace-nowrap',
-                  ci < cols.length - 1 ? 'border-r border-r-white/[0.03]' : '',
-                  'border-b border-b-white/[0.06] bg-bg-secondary/30',
-                ].join(' ')}
+                  ci < cols.length - 1 && 'border-r border-r-border/30',
+                  'border-b border-b-border bg-bg-secondary',
+                )}
               >
                 {col}
               </th>
@@ -203,18 +205,18 @@ export function DocTable({ headers, rows, compact, flexColumn }: {
           {rows.map((cells, ri) => (
             <tr
               key={ri}
-              className={ri < rows.length - 1 ? 'border-b border-b-white/[0.03]' : ''}
+              className={ri < rows.length - 1 ? 'border-b border-b-border/30' : ''}
             >
               {cells.map((cell, ci) => (
                 <td
                   key={ci}
-                  className={[
+                  className={cx(
                     'px-3 py-1.5 break-words',
-                    ci < cols.length - 1 ? 'border-r border-r-white/[0.03]' : '',
-                    ci === 0 ? 'font-mono text-accent whitespace-nowrap' : '',
-                    ci === flexIdx ? 'text-fg-muted' : '',
-                    ci > 0 && ci !== flexIdx ? 'text-fg-muted/70 font-mono' : '',
-                  ].join(' ')
+                    ci < cols.length - 1 && 'border-r border-r-border/30',
+                    ci === 0 && 'font-mono text-accent whitespace-nowrap',
+                    ci === flexIdx && 'text-fg-muted',
+                    ci > 0 && ci !== flexIdx && 'text-fg-muted/70 font-mono',
+                  )
                 >
                   {cell}
                 </td>
@@ -262,7 +264,7 @@ export function ImportLine({ text }: { text: string }) {
 
   return (
     <button
-      className="mt-3 flex w-full items-center gap-2 border border-white/[0.06] bg-bg-secondary/40 text-left font-mono text-xs transition-colors hover:border-white/[0.1]"
+      className="mt-3 flex w-full items-center gap-2 border border-border bg-bg-secondary/40 text-left font-mono text-xs transition-colors hover:border-border"
       style={{
         borderRadius: 'var(--gds-radius-md, 6px)',
         padding: 'var(--gds-pad-y, 6px) var(--gds-pad-x, 12px)',
@@ -277,10 +279,10 @@ export function ImportLine({ text }: { text: string }) {
         <span className="text-[#c792ea]"> from</span>
         <span className="text-[#c3e88d]"> &apos;{text.match(/from\s+'([^']+)'/)?.[1] ?? '@goliapkg/gds'}&apos;</span>
       </span>
-      <span className={[
+      <span className={cx(
         'shrink-0 text-xs transition-colors',
         copied ? 'text-success' : 'text-fg-muted/30',
-      ].join(' ')}>
+      )}>
         {copied ? '✓ copied' : 'copy'}
       </span>
     </button>
