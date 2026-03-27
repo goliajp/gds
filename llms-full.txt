@@ -1,7 +1,7 @@
 # @golia/gds — Full AI Reference
 
 > GOLIA Design System — 370+ React components across 8 architectural layers.
-> Built by GOLIA株式会社 for all company React web applications.
+> Built by GOLIA for all company React web applications.
 > This file contains everything an AI needs to learn and use GDS correctly.
 
 ---
