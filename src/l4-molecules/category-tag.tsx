@@ -1,0 +1,37 @@
+import { forwardRef } from 'react'
+
+import { cx } from '../utils/cx'
+
+type CategoryTagProps = React.HTMLAttributes<HTMLDivElement> & {
+  color: string
+  count?: number
+  label: string
+  onClick?: () => void
+}
+
+export const CategoryTag = forwardRef<HTMLDivElement, CategoryTagProps>(
+  function CategoryTag({ className, color, count, label, onClick, ...props }, ref) {
+    return (
+      <div
+        className={cx(
+          'inline-flex items-center gap-2 rounded-md border border-border bg-surface px-2.5 py-1',
+          onClick !== undefined && 'cursor-pointer hover:bg-bg-tertiary',
+          className,
+        )}
+        data-component="category-tag"
+        onClick={onClick}
+        ref={ref}
+        role={onClick !== undefined ? 'button' : undefined}
+        {...props}
+      >
+        <span className="h-3 w-1 shrink-0 rounded-full" style={{ backgroundColor: color }} />
+        <span className="gds-text-label text-fg">{label}</span>
+        {count !== undefined && (
+          <span className="gds-text-label text-fg-muted">{count}</span>
+        )}
+      </div>
+    )
+  },
+)
+
+export type { CategoryTagProps }
