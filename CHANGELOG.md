@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.2.0] - 2026-03-28
+
+### Added
+
+- comprehensive quality improvements: 404 routing, forwardRef, Props exports, 9 test files
+- docs/code/controls for ~80 incomplete dev-center demo items
+- Guides (l-docs) layer with architecture, theming, depth, AI, a11y, glass/motion docs
+- port playground infrastructure: multi-tab inspector, weighted search, favorites, recent, keyboard nav
+- shortcuts modal, ErrorBoundary on stage, collapsible inspector, variant pills in status bar
+- 5 governance guides (philosophy, do/don't/best practices/cookbook)
+- Lab layer with 4 Glass Lab items and 9 Motion system items
+- 5 developer tools (contrast checker, component stats, hooks ref, i18n, media adaptive)
+- 46 new components from admin: container, loading, shimmer, slider, pin-input, data-grid, tour, etc.
+
 ## [0.1.2] - 2026-03-28
 
 ### Added
