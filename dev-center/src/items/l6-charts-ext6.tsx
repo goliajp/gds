@@ -90,6 +90,18 @@ const chartItemsExt6: DevCenterItem[] = [
       </>
     ),
 
+    code: () => {
+      const lines = ["import { ComboChart } from '@goliapkg/gds'"]
+      lines.push('')
+      lines.push('const data = [')
+      lines.push("  { name: 'Jan', revenue: 400, growth: 24 },")
+      lines.push("  { name: 'Feb', revenue: 300, growth: 13 },")
+      lines.push(']')
+      lines.push('')
+      lines.push('<ComboChart data={data} barKey="revenue" lineKey="growth" />')
+      return lines.join('\n')
+    },
+
     docs: () => (
       <div className="space-y-4" data-selectable>
         <DocTable
@@ -153,6 +165,21 @@ const chartItemsExt6: DevCenterItem[] = [
       </>
     ),
 
+    code: () => {
+      const lines = ["import { SunburstChart } from '@goliapkg/gds'"]
+      lines.push('')
+      lines.push('const data = {')
+      lines.push("  name: 'Root',")
+      lines.push('  children: [')
+      lines.push("    { name: 'A', value: 30 },")
+      lines.push("    { name: 'B', value: 20 },")
+      lines.push('  ],')
+      lines.push('}')
+      lines.push('')
+      lines.push('<SunburstChart data={data} />')
+      return lines.join('\n')
+    },
+
     docs: () => (
       <div className="space-y-4" data-selectable>
         <DocTable
@@ -215,6 +242,18 @@ const chartItemsExt6: DevCenterItem[] = [
         <Ctrl label="glass" onChange={(v) => setConfig('glass', v)} type="check" value={config.glass} />
       </>
     ),
+
+    code: () => {
+      const lines = ["import { TimelineChart } from '@goliapkg/gds'"]
+      lines.push('')
+      lines.push('const events = [')
+      lines.push("  { date: '2025-01-15', label: 'Alpha' },")
+      lines.push("  { date: '2025-06-01', label: 'GA' },")
+      lines.push(']')
+      lines.push('')
+      lines.push('<TimelineChart events={events} />')
+      return lines.join('\n')
+    },
 
     docs: () => (
       <div className="space-y-4" data-selectable>

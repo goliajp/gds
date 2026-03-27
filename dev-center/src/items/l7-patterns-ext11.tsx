@@ -48,6 +48,17 @@ const bentoGridItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { BentoGrid } from '@goliapkg/gds'\n\n<BentoGrid columns={${config.columns}} gap="${config.gap}">\n  <div className="col-span-2 row-span-2">Featured</div>\n  <div>Item 1</div>\n  <div>Item 2</div>\n</BentoGrid>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['children', 'Grid items (use col-span-*/row-span-*)', 'ReactNode', '—'],
+        ['columns', 'Number of grid columns', 'number', '4'],
+        ['gap', 'Gap between grid items', "'sm' | 'default' | 'lg'", "'default'"],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+    </div>
+  ),
 }
 patternItemsExt11.push(bentoGridItem)
 
@@ -101,6 +112,19 @@ const featureCardItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { FeatureCard } from '@goliapkg/gds'\n\n<FeatureCard\n  icon={<ZapIcon />}\n  title="${config.title}"\n  description="${config.description}"${config.glass ? '\n  glass' : ''}\n  action={<Button>Learn More</Button>}\n/>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['icon', 'Icon displayed at the top', 'ReactNode', '—'],
+        ['title', 'Feature title', 'string', '—'],
+        ['description', 'Feature description text', 'string', '—'],
+        ['action', 'Optional CTA element', 'ReactNode', '—'],
+        ['glass', 'Glass material effect', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+    </div>
+  ),
 }
 patternItemsExt11.push(featureCardItem)
 
@@ -160,6 +184,21 @@ const pricingCardItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { PricingCard } from '@goliapkg/gds'\n\n<PricingCard\n  name="${config.name}"\n  price="${config.price}"\n  period="${config.period}"\n  features={['Feature 1', 'Feature 2']}${config.highlighted ? '\n  highlighted' : ''}${config.glass ? '\n  glass' : ''}\n  action={<Button>Get Started</Button>}\n/>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['name', 'Tier name', 'string', '—'],
+        ['price', 'Formatted price', 'string', '—'],
+        ['period', 'Billing period label', 'string', "'/month'"],
+        ['features', 'List of included features', 'string[]', '—'],
+        ['action', 'CTA button at the bottom', 'ReactNode', '—'],
+        ['highlighted', 'Emphasize with accent border', 'boolean', 'false'],
+        ['glass', 'Glass material effect', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+    </div>
+  ),
 }
 patternItemsExt11.push(pricingCardItem)
 

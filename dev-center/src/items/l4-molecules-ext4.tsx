@@ -270,6 +270,43 @@ const multiSelectItem: DevCenterItem = {
       <Ctrl type="check" label="glass" value={config.glass} onChange={(v) => setConfig('glass', v)} />
     </>
   ),
+
+  code: ({ config }) => {
+    const lines = ["import { MultiSelect } from '@goliapkg/gds'", '']
+    const props: string[] = ['options={options}', 'value={selected}', 'onChange={setSelected}']
+    if (config.maxDisplay !== 3) props.push(`maxDisplay={${config.maxDisplay}}`)
+    if (config.disabled === true) props.push('disabled')
+    if (config.error === true) props.push('error')
+    if (config.glass === true) props.push('glass')
+    lines.push('<MultiSelect')
+    for (const p of props) lines.push(`  ${p}`)
+    lines.push('/>')
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['options', 'Available options', '{ value: string, label: string }[]', '—'],
+        ['value', 'Currently selected values', 'string[]', '—'],
+        ['onChange', 'Selection change handler', '(value: string[]) => void', '—'],
+        ['placeholder', 'Placeholder text', 'string', "'Select...'"],
+        ['maxDisplay', 'Max chips before "+N more"', 'number', '3'],
+        ['disabled', 'Disabled state', 'boolean', 'false'],
+        ['error', 'Error state', 'boolean', 'false'],
+        ['glass', 'Frosted glass surface', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Use for selecting multiple items from a list with chip display</p>
+          <p>• maxDisplay controls how many chips show before collapsing to "+N more"</p>
+          <p>• Click a chip to deselect, or use the dropdown to toggle selections</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 moleculeItemsE.push(multiSelectItem)
 

@@ -62,6 +62,27 @@ const calloutItem: DevCenterItem = {
 
   code: ({ config, variant }) =>
     `import { Callout } from '@goliapkg/gds'\n\n<Callout variant="${variant}"${config.title ? ` title="${config.title}"` : ''}${config.glass ? ' glass' : ''}>\n  Important information here.\n</Callout>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['variant', 'Visual variant', "'info' | 'tip' | 'warning' | 'danger'", "'info'"],
+        ['title', 'Optional title above content', 'string', '—'],
+        ['children', 'Callout body content', 'ReactNode', '—'],
+        ['icon', 'Custom icon (default per variant)', 'ReactNode', 'auto'],
+        ['glass', 'Glass surface style', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Use info for general notes, tip for helpful hints, warning for caution, danger for critical</p>
+          <p>• Each variant has a default icon that can be overridden via the icon prop</p>
+          <p>• Title is optional — use for longer callouts that need a heading</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 moleculeItemsM.push(calloutItem)
 
@@ -126,6 +147,28 @@ const inlineEditItem: DevCenterItem = {
 
   code: () =>
     `import { InlineEdit } from '@goliapkg/gds'\n\nconst [name, setName] = useState('John')\n\n<InlineEdit\n  value={name}\n  onSave={setName}\n  validate={(v) => v.length < 2 ? 'Too short' : null}\n/>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['value', 'Current display value', 'string', '—'],
+        ['onSave', 'Called when edit is confirmed', '(value: string) => void', '—'],
+        ['onCancel', 'Called when edit is cancelled', '() => void', '—'],
+        ['validate', 'Validation function, returns error or null', '(value: string) => string | null', '—'],
+        ['placeholder', 'Placeholder when value is empty', 'string', "'Click to edit'"],
+        ['disabled', 'Disable editing', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Click the text to enter edit mode, press Enter to save, Escape to cancel</p>
+          <p>• Validate function runs on save — if it returns a string, the error is shown</p>
+          <p>• Use for inline editing of labels, titles, and short text values</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 moleculeItemsM.push(inlineEditItem)
 

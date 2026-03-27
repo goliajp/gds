@@ -56,6 +56,27 @@ const inputGroupItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { InputGroup } from '@goliapkg/gds'\nimport { Input } from '@goliapkg/gds'\n\n<InputGroup${config.prefix ? ` prefix="${config.prefix}"` : ''}${config.suffix ? ` suffix="${config.suffix}"` : ''}${config.error ? ' error' : ''}${config.disabled ? ' disabled' : ''}>\n  <Input placeholder="Amount" />\n</InputGroup>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['children', 'The Input component', 'ReactNode', '—'],
+        ['prefix', 'Element before input (e.g., "$", icon)', 'ReactNode', '—'],
+        ['suffix', 'Element after input (e.g., ".com")', 'ReactNode', '—'],
+        ['error', 'Error border state', 'boolean', 'false'],
+        ['disabled', 'Disable the group', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Wraps an Input with optional prefix/suffix addons</p>
+          <p>• Prefix and suffix can be text strings or ReactNode icons</p>
+          <p>• Error and disabled states propagate visual styling to the group border</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 moleculeItemsK.push(inputGroupItem)
 

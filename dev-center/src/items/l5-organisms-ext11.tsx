@@ -63,6 +63,27 @@ const tableItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { Table } from '@goliapkg/gds'\n\n<Table${config.striped ? ' striped' : ''}${config.compact ? ' compact' : ''}${!config.hoverable ? ' hoverable={false}' : ''}${config.glass ? ' glass' : ''}>\n  <thead>\n    <tr><th>Name</th><th>Role</th></tr>\n  </thead>\n  <tbody>\n    <tr><td>Alice</td><td>Engineer</td></tr>\n  </tbody>\n</Table>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['children', 'Standard table children (thead, tbody, tr, th, td)', 'ReactNode', '—'],
+        ['striped', 'Alternating row colors', 'boolean', 'false'],
+        ['compact', 'Reduced padding', 'boolean', 'false'],
+        ['hoverable', 'Highlight rows on hover', 'boolean', 'true'],
+        ['glass', 'Glass material', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Uses standard HTML table elements — no custom data format needed</p>
+          <p>• Striped and hoverable can be combined for dense data displays</p>
+          <p>• Compact mode reduces cell padding for information-dense layouts</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 organismItemsExt11.push(tableItem)
 
@@ -129,6 +150,29 @@ const richSelectItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { RichSelect } from '@goliapkg/gds'\n\n<RichSelect\n  options={[\n    { value: 'react', label: 'React', description: 'UI library', badge: 'popular' },\n    { value: 'vue', label: 'Vue', description: 'Progressive framework' },\n  ]}\n  value={value}\n  onChange={setValue}\n  placeholder="Choose a framework"\n  ${config.glass ? 'glass\n  ' : ''}${config.error ? 'error\n  ' : ''}${config.disabled ? 'disabled\n  ' : ''}/>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['options', 'Array of options with value, label, description?, icon?, badge?', 'RichSelectOption[]', '—'],
+        ['value', 'Currently selected value', 'string | null', '—'],
+        ['onChange', 'Called when selection changes', '(value: string | null) => void', '—'],
+        ['placeholder', 'Placeholder text', 'string', "'Select...'"],
+        ['disabled', 'Disable the select', 'boolean', 'false'],
+        ['error', 'Error border state', 'boolean', 'false'],
+        ['glass', 'Glass material', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Each option can include description, icon, and badge for richer display</p>
+          <p>• Dropdown closes on selection or outside click</p>
+          <p>• Keyboard navigable — arrow keys to move, Enter to select, Escape to close</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 organismItemsExt11.push(richSelectItem)
 

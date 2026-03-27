@@ -164,6 +164,16 @@ const imagePreviewItem: DevCenterItem = {
     </div>
   ),
 
+  code: () => {
+    const lines = ["import { ImagePreview } from '@goliapkg/gds'", '']
+    lines.push('<ImagePreview')
+    lines.push('  src="/photo.jpg"')
+    lines.push('  alt="Photo"')
+    lines.push('  thumbnailClassName="h-32 w-44"')
+    lines.push('/>')
+    return lines.join('\n')
+  },
+
   docs: () => (
     <div className="space-y-4" data-selectable>
       <DocTable rows={[

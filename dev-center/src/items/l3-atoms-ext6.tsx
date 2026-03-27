@@ -56,6 +56,37 @@ const scrollToTopItem: DevCenterItem = {
       <Ctrl type="check" label="smooth" value={config.smooth} onChange={(v) => setConfig('smooth', v)} />
     </>
   ),
+
+  code: ({ config }) => {
+    const lines = ["import { ScrollToTop } from '@goliapkg/gds'", '']
+    const props: string[] = []
+    if (config.threshold !== 300) props.push(`threshold={${config.threshold}}`)
+    if (config.smooth === false) props.push('smooth={false}')
+    if (props.length === 0) {
+      lines.push('<ScrollToTop />')
+    } else {
+      lines.push(`<ScrollToTop ${props.join(' ')} />`)
+    }
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['threshold', 'Scroll distance before showing', 'number', '300'],
+        ['smooth', 'Use smooth scroll behavior', 'boolean', 'true'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Fixed position at bottom-right corner (bottom-6 right-6)</p>
+          <p>• Automatically hides when near top of page</p>
+          <p>• Uses passive scroll listener for performance</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 atomItemsG.push(scrollToTopItem)
 
@@ -113,6 +144,33 @@ const themeToggleItem: DevCenterItem = {
     <>
       <Ctrl type="pills" label="size" value={config.size} options={['default', 'sm']} onChange={(v) => setConfig('size', v)} />
     </>
+  ),
+
+  code: ({ config }) => {
+    const lines = ["import { ThemeToggle } from '@goliapkg/gds'", '']
+    const props: string[] = ['mode={mode}', 'onChange={setMode}']
+    if (config.size !== 'default') props.push(`size="${config.size}"`)
+    lines.push(`<ThemeToggle ${props.join(' ')} />`)
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['mode', 'Current theme mode', "'dark' | 'light'", '—'],
+        ['onChange', 'Called when toggled', "(mode: 'dark' | 'light') => void", '—'],
+        ['size', 'Button size', "'default' | 'sm'", "'default'"],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Shows sun icon in dark mode, moon icon in light mode</p>
+          <p>• Controlled component — manage mode state externally</p>
+          <p>• Pair with theme system (Jotai atom) for global dark/light switching</p>
+        </div>
+      </div>
+    </div>
   ),
 }
 atomItemsG.push(themeToggleItem)

@@ -57,6 +57,26 @@ const avatarListItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { AvatarList } from '@goliapkg/gds'\n\n<AvatarList\n  users={[\n    { name: 'Alice', role: 'Engineer', status: 'online' },\n    { name: 'Bob', role: 'Designer', status: 'away' },\n  ]}\n  onSelect={(name) => console.log(name)}${config.compact ? '\n  compact' : ''}${config.glass ? '\n  glass' : ''}\n/>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['users', 'User list data', '{ name, role?, src?, status? }[]', '—'],
+        ['onSelect', 'Click handler per user row', '(name: string) => void', '—'],
+        ['compact', 'Hide role, show only name', 'boolean', 'false'],
+        ['glass', 'Glass surface style', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Each user row shows avatar (initials or image), name, and optional role</p>
+          <p>• Status indicator (online/away/busy/offline) shown as colored dot</p>
+          <p>• Compact mode hides role text for dense sidebars</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 organismItemsExt13.push(avatarListItem)
 
@@ -116,6 +136,25 @@ const responsiveTableItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { ResponsiveTable } from '@goliapkg/gds'\n\n<ResponsiveTable\n  columns={[\n    { key: 'name', header: 'Name' },\n    { key: 'role', header: 'Role' },\n  ]}\n  data={[\n    { name: 'Alice', role: 'Engineer' },\n    { name: 'Bob', role: 'Designer' },\n  ]}${config.glass ? '\n  glass' : ''}\n/>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['columns', 'Column definitions', '{ key: string, header: string }[]', '—'],
+        ['data', 'Row data array', 'Record<string, unknown>[]', '—'],
+        ['glass', 'Glass surface style', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Desktop (lg+): renders as a standard table with headers</p>
+          <p>• Mobile (&lt; lg): transforms into card list with label-value pairs</p>
+          <p>• Column key maps to data object properties automatically</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 organismItemsExt13.push(responsiveTableItem)
 

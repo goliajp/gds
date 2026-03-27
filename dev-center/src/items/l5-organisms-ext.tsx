@@ -500,6 +500,21 @@ const organismItemsExt: DevCenterItem[] = [
       </>
     ),
 
+    code: ({ config }) => {
+      const lines = ["import { InfiniteScroll } from '@goliapkg/gds'", '']
+      lines.push('<InfiniteScroll')
+      lines.push('  onLoadMore={loadMore}')
+      if (config.hasMore === false) lines.push('  hasMore={false}')
+      else lines.push('  hasMore={hasMore}')
+      if (config.loading === true) lines.push('  loading')
+      lines.push('>')
+      lines.push('  {items.map((item) => (')
+      lines.push('    <div key={item.id}>{item.label}</div>')
+      lines.push('  ))}')
+      lines.push('</InfiniteScroll>')
+      return lines.join('\n')
+    },
+
     docs: () => (
       <div className="space-y-4" data-selectable>
         <DocTable rows={[
@@ -564,6 +579,19 @@ const organismItemsExt: DevCenterItem[] = [
         <Ctrl type="check" label="disabled" value={config.disabled} onChange={(v) => setConfig('disabled', v)} />
       </>
     ),
+
+    code: ({ config }) => {
+      const lines = ["import { SortableList } from '@goliapkg/gds'", '']
+      lines.push('<SortableList')
+      lines.push('  items={[')
+      lines.push("    { id: 'a', content: <span>First item</span> },")
+      lines.push("    { id: 'b', content: <span>Second item</span> },")
+      lines.push('  ]}')
+      lines.push('  onReorder={setItems}')
+      if (config.disabled === true) lines.push('  disabled')
+      lines.push('/>')
+      return lines.join('\n')
+    },
 
     docs: () => (
       <div className="space-y-4" data-selectable>

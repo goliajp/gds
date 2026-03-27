@@ -52,6 +52,28 @@ const gridLayoutItem: DevCenterItem = {
       <Ctrl type="pills" label="gap" value={config.gap} options={['sm', 'default', 'lg']} onChange={(v) => setConfig('gap', v)} />
     </>
   ),
+
+  code: ({ config }) => {
+    const lines = ["import { GridLayout } from '@goliapkg/gds'"]
+    lines.push('')
+    lines.push(`<GridLayout columns={${config.columns}} gap="${config.gap}">`)
+    lines.push('  <div>Item 1</div>')
+    lines.push('  <div>Item 2</div>')
+    lines.push('  <div>Item 3</div>')
+    lines.push('</GridLayout>')
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['children', 'Grid items', 'ReactNode', '—'],
+        ['columns', 'Column configuration', "number | { sm?, md?, lg?, xl? }", '{ sm: 1, md: 2, lg: 3 }'],
+        ['gap', 'Gap size between items', "'sm' | 'default' | 'lg'", "'default'"],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+    </div>
+  ),
 }
 patternItemsExt.push(gridLayoutItem)
 
@@ -103,6 +125,28 @@ const masonryItem: DevCenterItem = {
       <Ctrl type="pills" label="columns" value={String(config.columns)} options={['2', '3', '4', '5']} onChange={(v) => setConfig('columns', Number(v))} />
       <Ctrl type="number" label="gap" value={config.gap} onChange={(v) => setConfig('gap', v)} min={0} max={48} />
     </>
+  ),
+
+  code: ({ config }) => {
+    const lines = ["import { Masonry } from '@goliapkg/gds'"]
+    lines.push('')
+    lines.push(`<Masonry columns={${config.columns}} gap={${config.gap}}>`)
+    lines.push('  <div>Item 1</div>')
+    lines.push('  <div>Item 2</div>')
+    lines.push('  <div>Item 3</div>')
+    lines.push('</Masonry>')
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['children', 'Masonry items', 'ReactNode', '—'],
+        ['columns', 'Number of columns', 'number', '3'],
+        ['gap', 'Gap in pixels between items', 'number', '16'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+    </div>
   ),
 }
 patternItemsExt.push(masonryItem)

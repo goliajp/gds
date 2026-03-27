@@ -19,6 +19,12 @@ function Shell() {
 
   useThemeEffect()
 
+  const validLayer = layers.some(l => l.id === layerId)
+
+  if (layerId !== undefined && !validLayer) {
+    return <Navigate to={`/${layers[0]?.id ?? 'l-dep'}`} replace />
+  }
+
   if (layerId !== undefined && itemId === undefined && layerItems.length > 0) {
     return <Navigate to={`/${layerId}/${layerItems[0].id}`} replace />
   }
@@ -32,7 +38,12 @@ function Shell() {
         <Nav items={allItems} />
         {activeItem !== undefined
           ? <ItemPanel key={activeItem.id} item={activeItem} />
-          : <main className="flex-1" />
+          : <main className="flex flex-1 items-center justify-center text-fg/40">
+              <div className="text-center">
+                <p className="text-2xl font-semibold">404</p>
+                <p className="mt-2 text-sm">component not found</p>
+              </div>
+            </main>
         }
       </div>
       <StatusBar item={activeItem} totalCount={allItems.length} layerCount={layerItems.length} />

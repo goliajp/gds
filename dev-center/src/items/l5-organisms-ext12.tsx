@@ -57,6 +57,26 @@ const dataListItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { DataList } from '@goliapkg/gds'\n\n<DataList\n  items={[\n    { label: 'Name', value: 'Alice' },\n    { label: 'Role', value: 'Engineer' },\n  ]}${config.layout !== 'vertical' ? `\n  layout="${config.layout}"` : ''}${config.striped ? '\n  striped' : ''}${config.glass ? '\n  glass' : ''}\n/>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['items', 'Key-value pairs to display', '{ label: string, value: ReactNode }[]', '—'],
+        ['layout', 'Label position relative to value', '"vertical" | "horizontal"', '"vertical"'],
+        ['striped', 'Alternating row background', 'boolean', 'false'],
+        ['glass', 'Glass surface style', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Vertical layout stacks label above value, horizontal places them side by side</p>
+          <p>• Values accept ReactNode for rich content (badges, links, etc.)</p>
+          <p>• Combine with striped for better readability in long lists</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 organismItemsExt12.push(dataListItem)
 

@@ -115,6 +115,38 @@ const skeletonItem: DevCenterItem = {
       <Ctrl type="text" label="height" value={config.height} onChange={(v) => setConfig('height', v)} placeholder="e.g. 3rem" />
     </>
   ),
+
+  code: ({ config, variant }) => {
+    const lines = ["import { Skeleton } from '@goliapkg/gds'"]
+    lines.push('')
+    const props: string[] = []
+    if (variant !== 'text') props.push(`variant="${variant}"`)
+    if (config.lines !== 1) props.push(`lines={${config.lines}}`)
+    if (config.width !== '') props.push(`width="${config.width}"`)
+    if (config.height !== '') props.push(`height="${config.height}"`)
+    if (props.length === 0) {
+      lines.push('<Skeleton />')
+    } else {
+      lines.push('<Skeleton')
+      for (const p of props) lines.push(`  ${p}`)
+      lines.push('/>')
+    }
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable
+        rows={[
+          ['variant', 'Shape variant', "'text' | 'circle' | 'rect'", "'text'"],
+          ['width', 'Custom width', 'number | string', '—'],
+          ['height', 'Custom height', 'number | string', '—'],
+          ['lines', 'Number of text lines', 'number', '1'],
+          ['className', 'Additional CSS classes', 'string', '—'],
+        ]}
+      />
+    </div>
+  ),
 }
 primitiveItemsExt.push(skeletonItem)
 
@@ -190,6 +222,37 @@ const truncateItem: DevCenterItem = {
       <Ctrl type="number" label="lines" value={config.lines} onChange={(v) => setConfig('lines', v)} min={1} max={10} />
       <Ctrl type="check" label="expandable" value={config.expandable} onChange={(v) => setConfig('expandable', v)} />
     </>
+  ),
+
+  code: ({ config }) => {
+    const lines = ["import { Truncate } from '@goliapkg/gds'"]
+    lines.push('')
+    const props: string[] = []
+    if (config.lines !== 1) props.push(`lines={${config.lines}}`)
+    if (config.expandable === true) props.push('expandable')
+    if (props.length === 0) {
+      lines.push('<Truncate>Long text content...</Truncate>')
+    } else {
+      lines.push('<Truncate')
+      for (const p of props) lines.push(`  ${p}`)
+      lines.push('>')
+      lines.push('  Long text content...')
+      lines.push('</Truncate>')
+    }
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable
+        rows={[
+          ['children', 'Content to truncate', 'ReactNode', '—'],
+          ['lines', 'Number of lines before truncation', 'number', '1'],
+          ['expandable', 'Click to toggle expand/collapse', 'boolean', 'false'],
+          ['className', 'Additional CSS classes', 'string', '—'],
+        ]}
+      />
+    </div>
   ),
 }
 primitiveItemsExt.push(truncateItem)

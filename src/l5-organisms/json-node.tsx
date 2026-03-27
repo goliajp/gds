@@ -30,6 +30,8 @@ function JsonNull() {
   return <span className="text-fg-muted">null</span>
 }
 
+export type { NodeProps as JsonNodeProps }
+
 export function JsonNode({ value, keyName, depth, defaultExpanded }: NodeProps) {
   const [expanded, setExpanded] = useState(() => isExpandedAtDepth(defaultExpanded, depth))
 

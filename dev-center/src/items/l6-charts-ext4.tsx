@@ -54,6 +54,18 @@ const chartItemsExt4: DevCenterItem[] = [
       </>
     ),
 
+    code: () => {
+      const lines = ["import { WaffleChart } from '@goliapkg/gds'"]
+      lines.push('')
+      lines.push('const data = [')
+      lines.push("  { label: 'Chrome', value: 65 },")
+      lines.push("  { label: 'Firefox', value: 15 },")
+      lines.push(']')
+      lines.push('')
+      lines.push('<WaffleChart data={data} />')
+      return lines.join('\n')
+    },
+
     docs: () => (
       <div className="space-y-4" data-selectable>
         <DocTable
@@ -108,6 +120,18 @@ const chartItemsExt4: DevCenterItem[] = [
         <Ctrl label="glass" onChange={(v) => setConfig('glass', v)} type="check" value={config.glass} />
       </>
     ),
+
+    code: () => {
+      const lines = ["import { RadialBarChart } from '@goliapkg/gds'"]
+      lines.push('')
+      lines.push('const data = [')
+      lines.push("  { name: 'Sales', value: 80 },")
+      lines.push("  { name: 'Marketing', value: 65 },")
+      lines.push(']')
+      lines.push('')
+      lines.push('<RadialBarChart data={data} />')
+      return lines.join('\n')
+    },
 
     docs: () => (
       <div className="space-y-4" data-selectable>

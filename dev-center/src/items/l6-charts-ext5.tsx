@@ -64,6 +64,15 @@ const chartItemsExt5: DevCenterItem[] = [
       </>
     ),
 
+    code: () => {
+      const lines = ["import { Histogram } from '@goliapkg/gds'"]
+      lines.push('')
+      lines.push('const data = [12, 15, 22, 28, 35, 42, 48, 55]')
+      lines.push('')
+      lines.push('<Histogram data={data} bins={10} />')
+      return lines.join('\n')
+    },
+
     docs: () => (
       <div className="space-y-4" data-selectable>
         <DocTable
@@ -122,6 +131,18 @@ const chartItemsExt5: DevCenterItem[] = [
       </>
     ),
 
+    code: () => {
+      const lines = ["import { BoxPlot } from '@goliapkg/gds'"]
+      lines.push('')
+      lines.push('const data = [')
+      lines.push("  { label: 'Group A', values: [2, 4, 6, 8, 10, 12] },")
+      lines.push("  { label: 'Group B', values: [5, 10, 15, 20, 25] },")
+      lines.push(']')
+      lines.push('')
+      lines.push('<BoxPlot data={data} />')
+      return lines.join('\n')
+    },
+
     docs: () => (
       <div className="space-y-4" data-selectable>
         <DocTable
@@ -179,6 +200,24 @@ const chartItemsExt5: DevCenterItem[] = [
         <Ctrl label="glass" onChange={(v) => setConfig('glass', v)} type="check" value={config.glass} />
       </>
     ),
+
+    code: () => {
+      const lines = ["import { FlowChart } from '@goliapkg/gds'"]
+      lines.push('')
+      lines.push('const nodes = [')
+      lines.push("  { id: 'start', label: 'Start', type: 'start' },")
+      lines.push("  { id: 'process', label: 'Process', type: 'process' },")
+      lines.push("  { id: 'end', label: 'End', type: 'end' },")
+      lines.push(']')
+      lines.push('')
+      lines.push('const edges = [')
+      lines.push("  { from: 'start', to: 'process' },")
+      lines.push("  { from: 'process', to: 'end' },")
+      lines.push(']')
+      lines.push('')
+      lines.push('<FlowChart nodes={nodes} edges={edges} />')
+      return lines.join('\n')
+    },
 
     docs: () => (
       <div className="space-y-4" data-selectable>
