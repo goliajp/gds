@@ -989,7 +989,7 @@ const tokenItemsExt6: DevCenterItem[] = [
   {
     id: 'motion',
     label: 'Motion',
-    layer: 'l0',
+    layer: 'l0-motion',
     type: 'reference',
     tags: ['animation', 'transition', 'timing', 'easing', 'popup'],
 
@@ -1062,7 +1062,7 @@ const tokenItemsExt6: DevCenterItem[] = [
   {
     id: 'motion-easing',
     label: 'Easing Visualizer',
-    layer: 'l0',
+    layer: 'l0-motion',
     type: 'reference',
     tags: ['easing', 'cubic-bezier', 'curve', 'timing', 'animation'],
 
@@ -1073,7 +1073,7 @@ const tokenItemsExt6: DevCenterItem[] = [
   {
     id: 'motion-spring',
     label: 'Spring Physics',
-    layer: 'l0',
+    layer: 'l0-motion',
     type: 'reference',
     tags: ['spring', 'physics', 'bounce', 'elastic', 'cubic-bezier', 'tension'],
 
@@ -1084,7 +1084,7 @@ const tokenItemsExt6: DevCenterItem[] = [
   {
     id: 'motion-enter-exit',
     label: 'Enter / Exit',
-    layer: 'l0',
+    layer: 'l0-motion',
     type: 'reference',
     tags: ['enter', 'exit', 'mount', 'unmount', 'fade', 'slide', 'scale', 'flip', 'transition'],
 
@@ -1095,7 +1095,7 @@ const tokenItemsExt6: DevCenterItem[] = [
   {
     id: 'motion-gesture',
     label: 'Gesture Feedback',
-    layer: 'l0',
+    layer: 'l0-motion',
     type: 'reference',
     tags: ['gesture', 'drag', 'swipe', 'long-press', 'zoom', 'pinch', 'feedback'],
 

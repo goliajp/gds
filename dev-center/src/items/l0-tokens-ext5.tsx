@@ -953,7 +953,7 @@ const tokenItemsExt5: DevCenterItem[] = [
   {
     id: 'glass-research',
     label: 'Glass Research',
-    layer: 'l0',
+    layer: 'l0-glass',
     type: 'reference',
     tags: ['ios26', 'liquid-glass', 'research', 'backdrop-filter', 'frosted', 'design-language'],
 
@@ -1048,7 +1048,7 @@ const tokenItemsExt5: DevCenterItem[] = [
   {
     id: 'glass-blur-study',
     label: 'Blur Study',
-    layer: 'l0',
+    layer: 'l0-glass',
     type: 'reference',
     tags: ['glass', 'blur', 'radius', 'saturation', 'opacity', 'matrix', 'study'],
 
@@ -1059,7 +1059,7 @@ const tokenItemsExt5: DevCenterItem[] = [
   {
     id: 'glass-depth',
     label: 'Glass Depth',
-    layer: 'l0',
+    layer: 'l0-glass',
     type: 'reference',
     tags: ['glass', 'depth', 'layers', 'stacking', 'z-index', 'perspective', '3d', 'concentric'],
 
@@ -1070,7 +1070,7 @@ const tokenItemsExt5: DevCenterItem[] = [
   {
     id: 'glass-layers',
     label: 'Glass Layers',
-    layer: 'l0',
+    layer: 'l0-glass',
     type: 'reference',
     tags: ['glass', 'layers', 'backdrop-filter', 'svg', 'div', 'background', 'animation'],
 
