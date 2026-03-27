@@ -104,9 +104,9 @@ function TransitionDemo({ label, property, fromStyle, toStyle, durationMs, easin
 
 const tokenItemsExt2: DevCenterItem[] = [
   {
-    id: 'motion',
-    label: 'Motion',
-    layer: 'l0',
+    id: 'motion-tokens',
+    label: 'Motion Tokens',
+    layer: 'l0-motion',
     type: 'reference',
     tags: ['animation', 'motion', 'duration', 'easing', 'spring', 'keyframe'],
     stage: () => {
@@ -214,9 +214,9 @@ keyframePresets.scaleIn  // { from: { opacity: 0, transform: 'scale(0.95)' }, ..
 keyframePresets.slideUp  // { from: { opacity: 0, transform: 'translateY(8px)' }, ... }`,
   },
   {
-    id: 'glass-lab',
-    label: 'Glass Lab',
-    layer: 'l0',
+    id: 'glass-overview',
+    label: 'Glass Overview',
+    layer: 'l0-glass',
     type: 'reference',
     tags: ['glass', 'blur', 'frosted', 'backdrop', 'material', 'translucent'],
     stage: () => {

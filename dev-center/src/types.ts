@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-type LayerId = 'l-dep' | 'l-docs' | 'l0' | 'l1' | 'l2' | 'l3' | 'l4' | 'l5' | 'l6' | 'l7'
+type LayerId = 'l-dep' | 'l-docs' | 'l0' | 'l0-glass' | 'l0-motion' | 'l1' | 'l2' | 'l3' | 'l4' | 'l5' | 'l6' | 'l7'
 
 type ItemConfig = Record<string, any>
 

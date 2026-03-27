@@ -9,8 +9,8 @@ import type { DevCenterItem } from '../types'
 const tokenItemsExt: DevCenterItem[] = [
   {
     id: 'glass-tokens',
-    label: 'Glass',
-    layer: 'l0',
+    label: 'Glass Tokens',
+    layer: 'l0-glass',
     type: 'reference',
     tags: ['glass', 'blur', 'frosted', 'backdrop'],
     defaultConfig: { level: 'md' },

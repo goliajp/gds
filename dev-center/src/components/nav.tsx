@@ -11,6 +11,8 @@ export const layers: LayerMeta[] = [
   { id: 'l-docs', label: 'Guides', shortLabel: 'DOC', description: 'Architecture & best practices', color: 'var(--gds-accent)' },
   { id: 'l-dep', label: 'Dependencies', shortLabel: 'DEP', description: 'External deps & utilities', color: 'var(--gds-fg-muted)' },
   { id: 'l0', label: 'Tokens', shortLabel: 'L0', description: 'CSS variables, scales', color: 'var(--gds-accent)' },
+  { id: 'l0-glass', label: 'Glass', shortLabel: 'GL', description: 'Glass material system', color: 'var(--gds-palette-3)' },
+  { id: 'l0-motion', label: 'Motion', shortLabel: 'MO', description: 'Animation & spring physics', color: 'var(--gds-palette-4)' },
   { id: 'l1', label: 'Systems', shortLabel: 'L1', description: 'Theme engine, state', color: 'var(--gds-success)' },
   { id: 'l2', label: 'Primitives', shortLabel: 'L2', description: 'Stateless blocks', color: 'var(--gds-warning)' },
   { id: 'l3', label: 'Atoms', shortLabel: 'L3', description: 'Simple elements', color: 'var(--gds-palette-0)' },

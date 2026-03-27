@@ -2372,7 +2372,7 @@ const tokenItemsExt8: DevCenterItem[] = [
   {
     id: 'liquid-glass',
     label: 'Liquid Glass',
-    layer: 'l0',
+    layer: 'l0-glass',
     type: 'reference',
     tags: ['glass', 'blur', 'backdrop', 'frosted', 'translucent', 'ios', 'liquid'],
 
@@ -2437,7 +2437,7 @@ const tokenItemsExt8: DevCenterItem[] = [
   {
     id: 'glass-refraction',
     label: 'Refraction Without Blur',
-    layer: 'l0',
+    layer: 'l0-glass',
     type: 'reference',
     tags: ['glass', 'refraction', 'no-blur', 'gradient', 'shadow', 'svg', 'distortion', 'water', 'technique'],
 
@@ -2448,7 +2448,7 @@ const tokenItemsExt8: DevCenterItem[] = [
   {
     id: 'glass-content-vs-backdrop',
     label: 'Content vs Backdrop',
-    layer: 'l0',
+    layer: 'l0-glass',
     type: 'reference',
     tags: ['glass', 'backdrop-filter', 'content', 'blur', 'children', 'layers', 'behavior'],
 
@@ -2459,7 +2459,7 @@ const tokenItemsExt8: DevCenterItem[] = [
   {
     id: 'glass-edge-cases',
     label: 'Edge Cases',
-    layer: 'l0',
+    layer: 'l0-glass',
     type: 'reference',
     tags: ['glass', 'edge-case', 'border-radius', 'clip-path', 'overflow', 'transform', 'z-index', 'animation', 'behavior'],
 
@@ -2470,7 +2470,7 @@ const tokenItemsExt8: DevCenterItem[] = [
   {
     id: 'glass-dark-light',
     label: 'Dark vs Light Glass',
-    layer: 'l0',
+    layer: 'l0-glass',
     type: 'reference',
     tags: ['glass', 'dark', 'light', 'theme', 'contrast', 'readability', 'rgba'],
 
@@ -2502,7 +2502,7 @@ const tokenItemsExt8: DevCenterItem[] = [
   {
     id: 'glass-fallback',
     label: 'Fallback Behavior',
-    layer: 'l0',
+    layer: 'l0-glass',
     type: 'reference',
     tags: ['glass', 'fallback', 'supports', 'degradation', 'accessibility', 'reduced-transparency'],
 
@@ -2540,7 +2540,7 @@ const tokenItemsExt8: DevCenterItem[] = [
   {
     id: 'glass-materials',
     label: 'Glass Materials',
-    layer: 'l0',
+    layer: 'l0-glass',
     type: 'reference',
     tags: ['glass', 'acrylic', 'mica', 'vibrancy', 'gel', 'crystal', 'frosted', 'composite', 'material'],
 
@@ -2551,7 +2551,7 @@ const tokenItemsExt8: DevCenterItem[] = [
   {
     id: 'glass-physics',
     label: 'Glass Physics',
-    layer: 'l0',
+    layer: 'l0-glass',
     type: 'reference',
     tags: ['glass', 'drag', 'inertia', 'spring', 'physics', 'water', 'animation', 'interaction'],
 
