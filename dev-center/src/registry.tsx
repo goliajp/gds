@@ -4,6 +4,7 @@ import { docsItemsExt } from './items/l-docs-ext'
 
 // l-lab
 import { labItems } from './items/l-lab'
+import { labItemsExt } from './items/l-lab-ext'
 import { labItemsExt2 } from './items/l-lab-ext2'
 
 // l-dep
@@ -181,7 +182,7 @@ export const allItems: DevCenterItem[] = [
   // l-docs
   ...docsItems, ...docsItemsExt,
   // l-lab
-  ...labItems, ...labItemsExt2,
+  ...labItems, ...labItemsExt, ...labItemsExt2,
   // l-dep
   ...depItems, ...depItemsExt, ...depItemsExt2,
   // l0
