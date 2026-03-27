@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.0] - 2026-03-28
+
+### Added
+
+- complete playground coverage: 204/204 items ported to dev-center
+- 6 Design Token reference items (iconography, tokens, token-comparison, elevation, formatting, breakpoints)
+- 8 Glass Lab experiments (liquid-glass, refraction, content-vs-backdrop, edge-cases, dark-light, fallback, materials, physics)
+- 10 Chart items (realtime, waterfall, gantt, polar-area, flame, bullet, choropleth, theming, patterns, colors)
+- component demos for banner, user-card, stat, relative-time, cron-input, data-grid, num-table, step-form, tour, gantt-panel, radio, slider, color-swatch
+- guide-research, audit-standard, patterns overview, responsive-pattern
+
 ## [0.2.0] - 2026-03-28
 
 ### Added
