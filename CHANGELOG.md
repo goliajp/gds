@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.2] - 2026-03-28
+
+### Added
+
+- print button in stage header
+- playground hook tests (use-favorites, use-recent) ported to dev-center
+- dev-center deploy script with LLM files (llms.txt standard)
+
+### Fixed
+
+- DocTable rendering: remove table-fixed + truncate, use auto layout
+- close missing brace in DocTable cx() call
+- remove CLAUDE.md from public LLM files (dev-only)
+
+### Changed
+
+- break scoreColor into focused check functions
+- fix layer organization and clean up type workarounds
+- bootstrap dev-center with GDS semantic tokens and cx()
+- widen inspector panel from 480px to 560px
+- text-white → text-accent-fg in 16 library components
+- form-actions raw buttons → GDS Button
+- split L0 into Tokens / Glass / Motion navigation groups (remove l-lab)
+- library: text-emerald/sky/red → semantic tokens (success/accent/danger)
+- add glass effects (backdrop-blur) to dev-center cards and panels
+
 ## [0.9.1] - 2026-03-28
 
 ### Added
