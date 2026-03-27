@@ -13,7 +13,7 @@ function parseCron(expr: string): string {
   const parts = expr.trim().split(/\s+/)
   if (parts.length !== 5) return `Cron: ${expr}`
 
-  const [minute, hour, dayOfMonth, month, dayOfWeek] = parts
+  const [minute, hour, dayOfMonth, , dayOfWeek] = parts
 
   const time = hour !== '*' && minute !== '*'
     ? `${hour.padStart(2, '0')}:${minute.padStart(2, '0')}`

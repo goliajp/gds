@@ -2,7 +2,6 @@ import { forwardRef } from 'react'
 
 import { Badge } from '../l2-primitives/badge'
 import { cx } from '../utils/cx'
-
 import type { AvatarProps } from './avatar'
 import { Avatar } from './avatar'
 

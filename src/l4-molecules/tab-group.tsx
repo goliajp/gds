@@ -24,7 +24,6 @@ export function TabGroup({ tabs, defaultTab, glass, className }: TabGroupProps) 
   const initialTab = defaultTab ?? (tabs.length > 0 ? tabs[0].id : '')
   const [activeTab, setActiveTab] = useState(initialTab)
 
-  const enabledTabs = tabs.filter((t) => t.disabled !== true)
   const tabItems = tabs.map((t) => ({
     id: t.id,
     label: t.label,

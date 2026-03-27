@@ -2,7 +2,6 @@
 import { forwardRef } from 'react'
 
 import { Button } from '../l2-primitives/button'
-
 import { Dialog } from './dialog'
 
 type ConfirmDialogProps = {

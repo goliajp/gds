@@ -1,7 +1,6 @@
 // command-palette-list — grouped results list (internal)
-import type { CommandItem } from './command-palette'
-
 import { cx } from '../utils/cx'
+import type { CommandItem } from './command-palette'
 
 type CommandPaletteListProps = {
   groups: Map<string, CommandItem[]>

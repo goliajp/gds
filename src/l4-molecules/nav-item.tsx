@@ -1,6 +1,5 @@
 // nav-item — sidebar navigation item with icon, label, and optional badge
 import type { ReactNode } from 'react'
-
 import { forwardRef } from 'react'
 
 import { cx } from '../utils/cx'

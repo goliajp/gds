@@ -3,7 +3,6 @@ import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 
 import { cx } from '../utils/cx'
-
 import type { Particle } from './confetti-physics'
 import { createParticle, drawParticle, updateParticle } from './confetti-physics'
 

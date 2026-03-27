@@ -2,7 +2,6 @@
 import { forwardRef, useMemo } from 'react'
 
 import { cx } from '../utils/cx'
-
 import type { DiffLine } from './diff-algorithm'
 import { computeLcs, lineClass, linePrefix } from './diff-algorithm'
 

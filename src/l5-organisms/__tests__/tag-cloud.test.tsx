@@ -23,7 +23,7 @@ describe('TagCloud', () => {
   })
 
   it('applies accent style to selected tags', () => {
-    const { container } = render(<TagCloud tags={tags} selected={['react']} />)
+    render(<TagCloud tags={tags} selected={['react']} />)
     const reactBtn = screen.getByText('react').closest('button')
     expect(reactBtn?.className).toContain('text-accent')
     const tsBtn = screen.getByText('typescript').closest('button')

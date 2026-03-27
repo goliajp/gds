@@ -1,10 +1,9 @@
 // textarea-counter — textarea with character count display
 import { forwardRef } from 'react'
 
-import { cx } from '../utils/cx'
-
 import type { TextareaProps } from '../l2-primitives/textarea'
 import { Textarea } from '../l2-primitives/textarea'
+import { cx } from '../utils/cx'
 
 type TextareaCounterProps = Omit<TextareaProps, 'onChange'> & {
   maxLength?: number

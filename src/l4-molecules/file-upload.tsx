@@ -1,6 +1,5 @@
 // file-upload — drag-and-drop file upload zone
 import type { ReactNode } from 'react'
-
 import { forwardRef, useCallback, useRef, useState } from 'react'
 
 import { cx } from '../utils/cx'

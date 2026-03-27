@@ -2,7 +2,6 @@
 import { forwardRef, useCallback, useState } from 'react'
 
 import { cx } from '../utils/cx'
-import { mergeRefs } from '../utils/dom'
 
 type Ripple = { id: number; x: number; y: number; size: number }
 

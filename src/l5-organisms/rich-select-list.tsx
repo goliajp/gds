@@ -1,8 +1,7 @@
 // rich-select-list — option list dropdown for rich-select
-import type { RichSelectOption } from './rich-select'
-
 import { cx } from '../utils/cx'
 import { glassClass } from '../utils/glass'
+import type { RichSelectOption } from './rich-select'
 
 type RichSelectListProps = {
   options: RichSelectOption[]
