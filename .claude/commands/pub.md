@@ -12,13 +12,31 @@ Steps:
 
 3. Update `package.json` version field to the new version.
 
-4. Commit: `chore: bump version to x.y.z`
+4. Update `CHANGELOG.md`:
+   - Run `git log <last-tag>..HEAD --oneline` to get all commits since last release
+   - Add a new section at the top (below the header), formatted as:
+     ```
+     ## [x.y.z] - YYYY-MM-DD
 
-5. Checkout master, merge develop with `--no-edit`, tag `x.y.z` with message `release x.y.z`, checkout develop.
+     ### Added
+     - feat commits
 
-6. Push: `git push origin master develop --tags`
+     ### Fixed
+     - fix commits
 
-7. Confirm: print the new version and the GitHub Actions URL so the user can track the publish.
+     ### Changed
+     - refactor/chore/perf/other commits
+     ```
+   - Only include sections that have entries. Skip `chore: bump version` commits.
+   - Keep descriptions concise — use the commit message as-is, no embellishment.
+
+5. Commit: `chore: bump version to x.y.z`
+
+6. Checkout master, merge develop with `--no-edit`, tag `x.y.z` with message `release x.y.z`, checkout develop.
+
+7. Push: `git push origin master develop --tags`
+
+8. Confirm: print the new version and the GitHub Actions URL so the user can track the publish.
 
 IMPORTANT:
 - Must be on `develop` branch at start and end
