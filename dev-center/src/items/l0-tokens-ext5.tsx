@@ -948,12 +948,12 @@ function GlassLayersStage() {
 
 // ---------- exported items ----------
 
-const labItems: DevCenterItem[] = [
+const tokenItemsExt5: DevCenterItem[] = [
   // glass research
   {
     id: 'glass-research',
     label: 'Glass Research',
-    layer: 'l-lab',
+    layer: 'l0',
     type: 'reference',
     tags: ['ios26', 'liquid-glass', 'research', 'backdrop-filter', 'frosted', 'design-language'],
 
@@ -1048,7 +1048,7 @@ const labItems: DevCenterItem[] = [
   {
     id: 'glass-blur-study',
     label: 'Blur Study',
-    layer: 'l-lab',
+    layer: 'l0',
     type: 'reference',
     tags: ['glass', 'blur', 'radius', 'saturation', 'opacity', 'matrix', 'study'],
 
@@ -1059,7 +1059,7 @@ const labItems: DevCenterItem[] = [
   {
     id: 'glass-depth',
     label: 'Glass Depth',
-    layer: 'l-lab',
+    layer: 'l0',
     type: 'reference',
     tags: ['glass', 'depth', 'layers', 'stacking', 'z-index', 'perspective', '3d', 'concentric'],
 
@@ -1070,7 +1070,7 @@ const labItems: DevCenterItem[] = [
   {
     id: 'glass-layers',
     label: 'Glass Layers',
-    layer: 'l-lab',
+    layer: 'l0',
     type: 'reference',
     tags: ['glass', 'layers', 'backdrop-filter', 'svg', 'div', 'background', 'animation'],
 
@@ -1078,4 +1078,4 @@ const labItems: DevCenterItem[] = [
   },
 ]
 
-export { labItems }
+export { tokenItemsExt5 }

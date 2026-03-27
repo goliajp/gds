@@ -9,7 +9,6 @@ import type { DevCenterItem, LayerMeta } from '../types'
 
 export const layers: LayerMeta[] = [
   { id: 'l-docs', label: 'Guides', shortLabel: 'DOC', description: 'Architecture & best practices', color: 'var(--gds-accent)' },
-  { id: 'l-lab', label: 'Lab', shortLabel: 'LAB', description: 'Glass & motion experiments', color: 'var(--gds-warning)' },
   { id: 'l-dep', label: 'Dependencies', shortLabel: 'DEP', description: 'External deps & utilities', color: 'var(--gds-fg-muted)' },
   { id: 'l0', label: 'Tokens', shortLabel: 'L0', description: 'CSS variables, scales', color: 'var(--gds-accent)' },
   { id: 'l1', label: 'Systems', shortLabel: 'L1', description: 'Theme engine, state', color: 'var(--gds-success)' },

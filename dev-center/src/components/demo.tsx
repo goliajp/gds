@@ -55,7 +55,7 @@ export function CodeBlock({ code, lang = 'tsx' }: { code: string; lang?: string 
 export function LivePreview({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <div
-      className="mt-4 overflow-visible border border-border bg-surface shadow-sm"
+      className="mt-4 overflow-visible border border-border bg-surface/80 shadow-sm backdrop-blur-xl"
       style={{ borderRadius: 'var(--gds-radius-card, 12px)' }}
     >
       <div
@@ -92,7 +92,7 @@ export function DemoCard({ title, description, code, children, full }: {
   return (
     <div
       className={cx(
-        'flex flex-col overflow-visible border border-border bg-surface shadow-sm transition-colors hover:border-border',
+        'flex flex-col overflow-visible border border-border bg-surface/80 shadow-sm backdrop-blur-xl transition-colors hover:border-border',
         full === true && 'lg:col-span-2',
       )}
       style={{ borderRadius: 'var(--gds-radius-card, 12px)' }}

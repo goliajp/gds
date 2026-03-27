@@ -36,7 +36,7 @@ function ShortcutsModal({ onClose }: { onClose: () => void }) {
       }}
     >
       <div
-        className="rounded-lg border border-border bg-surface p-6 shadow-2xl"
+        className="rounded-lg border border-border bg-surface/80 backdrop-blur-2xl p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-4 text-sm font-semibold text-fg">
@@ -293,7 +293,7 @@ function ItemPanel({ item, stageProps, controlsProps }: ItemPanelProps) {
       <main className="flex-1 overflow-hidden">
         <Stage item={item} stageProps={stageProps} />
       </main>
-      <aside className="w-[560px] shrink-0 overflow-hidden border-l border-border bg-bg-secondary">
+      <aside className="w-[560px] shrink-0 overflow-hidden border-l border-border bg-bg-secondary/60 backdrop-blur-xl">
         <Inspector item={item} stageProps={stageProps} controlsProps={controlsProps} />
       </aside>
     </>
