@@ -674,7 +674,7 @@ const labItemsExt2: DevCenterItem[] = [
   {
     id: 'motion-micro',
     label: 'Micro-interactions',
-    layer: 'l-lab' as any,
+    layer: 'l-lab',
     type: 'reference',
     tags: ['micro', 'interaction', 'press', 'toggle', 'delete', 'like', 'hover'],
 
@@ -707,7 +707,7 @@ const labItemsExt2: DevCenterItem[] = [
   {
     id: 'motion-gallery',
     label: 'Animation Gallery',
-    layer: 'l-lab' as any,
+    layer: 'l-lab',
     type: 'reference',
     tags: ['keyframes', 'popup', 'shake', 'toast', 'loading', 'marquee', 'animation'],
 
@@ -739,7 +739,7 @@ const labItemsExt2: DevCenterItem[] = [
   {
     id: 'motion-scroll',
     label: 'Scroll Animations',
-    layer: 'l-lab' as any,
+    layer: 'l-lab',
     type: 'reference',
     tags: ['scroll', 'intersection', 'observer', 'reveal', 'fade', 'slide', 'stagger'],
 
@@ -786,7 +786,7 @@ const labItemsExt2: DevCenterItem[] = [
   {
     id: 'motion-transitions',
     label: 'Transition Playground',
-    layer: 'l-lab' as any,
+    layer: 'l-lab',
     type: 'reference',
     tags: ['transition', 'duration', 'easing', 'property', 'interactive'],
 

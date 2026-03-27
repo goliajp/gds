@@ -989,7 +989,7 @@ const labItemsExt: DevCenterItem[] = [
   {
     id: 'motion',
     label: 'Motion',
-    layer: 'l-lab' as any,
+    layer: 'l-lab',
     type: 'reference',
     tags: ['animation', 'transition', 'timing', 'easing', 'popup'],
 
@@ -1062,7 +1062,7 @@ const labItemsExt: DevCenterItem[] = [
   {
     id: 'motion-easing',
     label: 'Easing Visualizer',
-    layer: 'l-lab' as any,
+    layer: 'l-lab',
     type: 'reference',
     tags: ['easing', 'cubic-bezier', 'curve', 'timing', 'animation'],
 
@@ -1073,7 +1073,7 @@ const labItemsExt: DevCenterItem[] = [
   {
     id: 'motion-spring',
     label: 'Spring Physics',
-    layer: 'l-lab' as any,
+    layer: 'l-lab',
     type: 'reference',
     tags: ['spring', 'physics', 'bounce', 'elastic', 'cubic-bezier', 'tension'],
 
@@ -1084,7 +1084,7 @@ const labItemsExt: DevCenterItem[] = [
   {
     id: 'motion-enter-exit',
     label: 'Enter / Exit',
-    layer: 'l-lab' as any,
+    layer: 'l-lab',
     type: 'reference',
     tags: ['enter', 'exit', 'mount', 'unmount', 'fade', 'slide', 'scale', 'flip', 'transition'],
 
@@ -1095,7 +1095,7 @@ const labItemsExt: DevCenterItem[] = [
   {
     id: 'motion-gesture',
     label: 'Gesture Feedback',
-    layer: 'l-lab' as any,
+    layer: 'l-lab',
     type: 'reference',
     tags: ['gesture', 'drag', 'swipe', 'long-press', 'zoom', 'pinch', 'feedback'],
 
