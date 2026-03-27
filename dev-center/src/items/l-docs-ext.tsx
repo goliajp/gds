@@ -3,7 +3,7 @@
 
 import { useState } from 'react'
 
-import { DocSection, DocTable, DemoCard, LivePreview } from '../components/demo'
+import { CodeBlock, DocSection, DocTable, DemoCard, LivePreview } from '../components/demo'
 
 import type { DevCenterItem } from '../types'
 
@@ -581,9 +581,7 @@ const passAAA = ratio >= 7   // true`,
                   <span className="text-[11px] text-fg-muted">{hook.path}</span>
                 </div>
                 <p className="mt-1.5 text-xs text-fg-muted">{hook.description}</p>
-                <pre className="mt-2 rounded bg-bg-tertiary/30 px-3 py-2 font-mono text-[11px] text-fg-muted">
-                  {hook.signature}
-                </pre>
+                <CodeBlock code={hook.signature} />
               </div>
             ))}
           </div>
@@ -591,9 +589,7 @@ const passAAA = ratio >= 7   // true`,
 
         {hooks.map((hook) => (
           <DocSection key={hook.name} title={`${hook.name} usage`}>
-            <pre className="rounded-lg bg-bg-tertiary/30 p-3 font-mono text-[11px] leading-relaxed text-fg-muted">
-              {hook.usage}
-            </pre>
+            <CodeBlock code={hook.usage} />
           </DocSection>
         ))}
       </div>

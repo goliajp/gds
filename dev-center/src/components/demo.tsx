@@ -1,11 +1,56 @@
 // demo — shared components for rich item demos
-// LivePreview, DemoCard, DocSection, DocTable, ImportLine
+// LivePreview, DemoCard, DocSection, DocTable, ImportLine, CodeBlock
 
 import type { ReactNode } from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+
+import { codeToHtml } from 'shiki'
+
+// code block — syntax-highlighted with copy button
+export function CodeBlock({ code, lang = 'tsx' }: { code: string; lang?: string }) {
+  const [html, setHtml] = useState('')
+  const [copied, setCopied] = useState(false)
+
+  useEffect(() => {
+    let cancelled = false
+    codeToHtml(code, { lang, theme: 'vitesse-dark' })
+      .then(result => { if (!cancelled) setHtml(result) })
+      .catch(() => {})
+    return () => { cancelled = true }
+  }, [code, lang])
+
+  function handleCopy() {
+    navigator.clipboard.writeText(code).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1500)
+    }).catch(() => {})
+  }
+
+  return (
+    <div className="relative">
+      <div
+        className="dc-code-block overflow-auto rounded-md bg-[#121212] px-4 py-3 text-xs leading-relaxed"
+        data-selectable
+        dangerouslySetInnerHTML={html !== '' ? { __html: html } : undefined}
+      >
+        {html === '' ? <pre className="text-fg-muted/60"><code>{code}</code></pre> : undefined}
+      </div>
+      <button
+        className={[
+          'absolute right-2 top-2 rounded px-1.5 py-0.5 text-xs transition-colors',
+          copied ? 'text-success' : 'text-fg-muted/25 hover:text-fg-muted/50',
+        ].join(' ')}
+        onClick={handleCopy}
+        aria-label="Copy code"
+      >
+        {copied ? '✓' : 'copy'}
+      </button>
+    </div>
+  )
+}
 
 // live preview — centered canvas with dot grid background
-export function LivePreview({ children, className }: { children: ReactNode, className?: string }) {
+export function LivePreview({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <div
       className="mt-4 overflow-visible border border-white/[0.06] bg-surface shadow-sm"
@@ -84,12 +129,10 @@ export function DemoCard({ title, description, code, children, full }: {
         {children}
       </div>
 
-      {/* code block */}
+      {/* code block — now with syntax highlighting + copy */}
       {showCode && code !== undefined && (
         <div className="border-t border-white/[0.04]">
-          <pre className="overflow-x-auto bg-bg-tertiary/40 px-4 py-3 text-xs leading-relaxed text-fg-muted" data-selectable>
-            <code>{code}</code>
-          </pre>
+          <CodeBlock code={code} />
         </div>
       )}
     </div>
@@ -99,7 +142,7 @@ export function DemoCard({ title, description, code, children, full }: {
 // doc section — titled section with anchor link and optional grid layout
 export function DocSection({ title, columns = 1, children }: {
   title: string
-  columns?: 1 | 2
+  columns?: 1 | 2 | 3
   children: ReactNode
 }) {
   return (
@@ -108,9 +151,12 @@ export function DocSection({ title, columns = 1, children }: {
         {title}
         <div className="h-px flex-1 bg-white/[0.06]" />
       </h3>
-      <div className={columns === 2
-        ? 'grid grid-cols-1 lg:grid-cols-2'
-        : 'flex flex-col'
+      <div className={
+        columns === 3
+          ? 'grid grid-cols-1 lg:grid-cols-3'
+          : columns === 2
+            ? 'grid grid-cols-1 lg:grid-cols-2'
+            : 'flex flex-col'
       } style={{ gap: 'var(--gds-gap-lg, 12px)' }}>
         {children}
       </div>
@@ -134,6 +180,7 @@ export function DocTable({ headers, rows, compact, flexColumn }: {
     <div
       className="overflow-x-auto border border-white/[0.06]"
       style={{ borderRadius: 'var(--gds-radius-lg, 8px)' }}
+      data-selectable
     >
       <table className="w-full text-[12px] border-collapse table-fixed">
         <colgroup>
@@ -236,7 +283,7 @@ export function ImportLine({ text }: { text: string }) {
         <span className="text-fg">{text.match(/\{([^}]+)\}/)?.[1]?.trim() ?? text}</span>
         <span className="text-fg-muted">{' }'}</span>
         <span className="text-[#c792ea]"> from</span>
-        <span className="text-[#c3e88d]"> '{text.match(/from\s+'([^']+)'/)?.[1] ?? '@goliapkg/gds'}'</span>
+        <span className="text-[#c3e88d]"> &apos;{text.match(/from\s+'([^']+)'/)?.[1] ?? '@goliapkg/gds'}&apos;</span>
       </span>
       <span className={[
         'shrink-0 text-xs transition-colors',

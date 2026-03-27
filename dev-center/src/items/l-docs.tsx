@@ -1,6 +1,6 @@
 import { Card } from '@gds/l4-molecules'
 
-import { DocTable, DocSection } from '../components/demo'
+import { CodeBlock, DocTable, DocSection } from '../components/demo'
 
 import type { DevCenterItem } from '../types'
 
@@ -331,7 +331,7 @@ const docsItems: DevCenterItem[] = [
       <div>
         <DocSection title="Installation">
           <div className="space-y-3 text-sm text-fg-muted">
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>bun add @goliapkg/gds</code></pre>
+            <CodeBlock code={`bun add @goliapkg/gds`} />
             <p>GDS requires React 18+ and Tailwind CSS 4+.</p>
           </div>
         </DocSection>
@@ -339,16 +339,16 @@ const docsItems: DevCenterItem[] = [
         <DocSection title="Setup">
           <div className="space-y-3 text-sm text-fg-muted">
             <p>1. Import the CSS variables in your root layout:</p>
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`import '@goliapkg/gds/style.css'`}</code></pre>
+            <CodeBlock code={`import '@goliapkg/gds/style.css'`} />
             <p>2. Initialize the theme provider:</p>
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`import { useThemeEffect } from '@goliapkg/gds'
+            <CodeBlock code={`import { useThemeEffect } from '@goliapkg/gds'
 
 function App() {
   useThemeEffect()
   return <div>...</div>
-}`}</code></pre>
+}`} />
             <p>3. Use components:</p>
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`import { Button, Card, Input } from '@goliapkg/gds'
+            <CodeBlock code={`import { Button, Card, Input } from '@goliapkg/gds'
 
 function MyPage() {
   return (
@@ -357,19 +357,19 @@ function MyPage() {
       <Button>Submit</Button>
     </Card>
   )
-}`}</code></pre>
+}`} />
           </div>
         </DocSection>
 
         <DocSection title="Import Patterns">
           <div className="space-y-3 text-sm text-fg-muted">
             <p>Import directly from the package — all components are tree-shakeable:</p>
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`// named imports (recommended)
+            <CodeBlock code={`// named imports (recommended)
 import { Button, Card, Dialog } from '@goliapkg/gds'
 
 // layer imports (for exploration)
 import { Button } from '@goliapkg/gds/l2-primitives'
-import { Accordion } from '@goliapkg/gds/l4-molecules'`}</code></pre>
+import { Accordion } from '@goliapkg/gds/l4-molecules'`} />
           </div>
         </DocSection>
       </div>
@@ -413,14 +413,14 @@ import { Accordion } from '@goliapkg/gds/l4-molecules'`}</code></pre>
         <DocSection title="Layer System">
           <div className="space-y-3 text-sm text-fg-muted">
             <p>GDS follows a strict 8-layer architecture. Each layer has dependency constraints enforced by ESLint.</p>
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs font-mono"><code>{`L0  Tokens      CSS variables, color derivation, scales
+            <CodeBlock code={`L0  Tokens      CSS variables, color derivation, scales
 L1  Systems     Theme engine (Jotai atoms), hooks
 L2  Primitives  Stateless visual blocks (Button, Input, Badge)
 L3  Atoms       Simple composed elements (Avatar, Switch, Tooltip)
 L4  Molecules   Multi-part stateful (Dialog, Tabs, Accordion)
 L5  Organisms   Complex features (DataTable, Calendar, FileB)
 L6  Charts      Recharts-based data visualization
-L7  Patterns    Page-level layouts (Dashboard, Form, Settings)`}</code></pre>
+L7  Patterns    Page-level layouts (Dashboard, Form, Settings)`} />
           </div>
         </DocSection>
 
@@ -439,21 +439,21 @@ L7  Patterns    Page-level layouts (Dashboard, Form, Settings)`}</code></pre>
         <DocSection title="Anti-Corruption Layer">
           <div className="space-y-3 text-sm text-fg-muted">
             <p>Direct imports of external utilities are forbidden in component code. Use wrappers:</p>
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`// forbidden in components
+            <CodeBlock code={`// forbidden in components
 import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
 // use instead
 import { cx } from '@gds/utils/cx'
 import { focusCls } from '@gds/utils/a11y'
-import type { VariantProps } from '@gds/utils/types'`}</code></pre>
+import type { VariantProps } from '@gds/utils/types'`} />
           </div>
         </DocSection>
 
         <DocSection title="Component Pattern">
           <div className="space-y-3 text-sm text-fg-muted">
             <p>Every library component follows this structure:</p>
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`// 1. CVA variants
+            <CodeBlock code={`// 1. CVA variants
 const buttonVariants = cva('inline-flex ...', {
   variants: { variant: { ... }, size: { ... } },
   defaultVariants: { variant: 'primary', size: 'default' },
@@ -479,7 +479,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 // 4. named exports
 export { Button, buttonVariants }
-export type { ButtonProps }`}</code></pre>
+export type { ButtonProps }`} />
           </div>
         </DocSection>
       </div>
@@ -508,7 +508,7 @@ export type { ButtonProps }`}</code></pre>
         <DocSection title="Theme Engine">
           <div className="space-y-3 text-sm text-fg-muted">
             <p>GDS uses a Jotai-based theme engine with 5 configurable axes:</p>
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`import { useTheme } from '@goliapkg/gds'
+            <CodeBlock code={`import { useTheme } from '@goliapkg/gds'
 
 function ThemeControls() {
   const { mode, setMode, primaryColor, setPrimaryColor } = useTheme()
@@ -520,7 +520,7 @@ function ThemeControls() {
       <button onClick={() => setPrimaryColor('#6366f1')}>Indigo</button>
     </>
   )
-}`}</code></pre>
+}`} />
           </div>
         </DocSection>
 
@@ -537,7 +537,7 @@ function ThemeControls() {
         <DocSection title="Dark-Native Design">
           <div className="space-y-3 text-sm text-fg-muted">
             <p>GDS is dark-native — all color decisions are optimized for dark backgrounds. Light mode is derived from dark tokens.</p>
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`// semantic color tokens (never use raw Tailwind colors)
+            <CodeBlock code={`// semantic color tokens (never use raw Tailwind colors)
 bg-bg          // main background
 bg-surface     // card/panel surface
 text-fg        // primary text
@@ -546,14 +546,14 @@ border-border  // borders
 bg-accent      // primary action color
 text-success   // success state
 text-warning   // warning state
-text-danger    // danger state`}</code></pre>
+text-danger    // danger state`} />
           </div>
         </DocSection>
 
         <DocSection title="CSS Custom Properties">
           <div className="space-y-3 text-sm text-fg-muted">
             <p>All tokens are CSS custom properties, injectable at any scope:</p>
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`// override at component level
+            <CodeBlock code={`// override at component level
 <div style={{ '--gds-accent': '#10b981' }}>
   <Button>Green action</Button>
 </div>
@@ -561,7 +561,7 @@ text-danger    // danger state`}</code></pre>
 // or via Tailwind arbitrary values
 <div className="[--gds-accent:#10b981]">
   <Button>Green action</Button>
-</div>`}</code></pre>
+</div>`} />
           </div>
         </DocSection>
       </div>
@@ -625,7 +625,7 @@ text-danger    // danger state`}</code></pre>
 
         <DocSection title="CSS Utilities">
           <div className="space-y-3 text-sm text-fg-muted">
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`// container components (Card, Dialog, Panel, Sheet)
+            <CodeBlock code={`// container components (Card, Dialog, Panel, Sheet)
 <div className="gds-ctx gds-pad gds-gap gds-radius gds-shadow">
   {children}
 </div>
@@ -638,7 +638,7 @@ gds-gap       // depth-aware gap (use with flex/grid)
 gds-radius    // depth-aware border-radius
 gds-shadow    // depth-aware box-shadow
 gds-text      // depth-aware base font size
-gds-heading   // depth-aware heading font size`}</code></pre>
+gds-heading   // depth-aware heading font size`} />
           </div>
         </DocSection>
 
@@ -646,7 +646,7 @@ gds-heading   // depth-aware heading font size`}</code></pre>
           <div className="space-y-3 text-sm text-fg-muted">
             <p><strong>Container components</strong> (Card, Dialog, Panel): add <code className="rounded bg-bg-tertiary/50 px-1.5 py-0.5 text-xs">gds-ctx</code> to root element + use <code className="rounded bg-bg-tertiary/50 px-1.5 py-0.5 text-xs">gds-*</code> utilities.</p>
             <p><strong>Leaf components</strong> (Button, Input, Badge): do NOT add <code className="rounded bg-bg-tertiary/50 px-1.5 py-0.5 text-xs">gds-ctx</code> — they inherit the current depth.</p>
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`// container component example
+            <CodeBlock code={`// container component example
 function MyPanel({ children }) {
   return (
     <div className="gds-ctx gds-pad gds-radius gds-shadow border border-border bg-surface">
@@ -658,7 +658,7 @@ function MyPanel({ children }) {
 // leaf — just uses current depth values
 function MyLabel({ text }) {
   return <span className="gds-text text-fg-muted">{text}</span>
-}`}</code></pre>
+}`} />
           </div>
         </DocSection>
       </div>
@@ -693,7 +693,7 @@ function MyLabel({ text }) {
         <DocSection title="Data Attributes">
           <div className="space-y-3 text-sm text-fg-muted">
             <p>Every component includes machine-readable attributes:</p>
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`// component identity
+            <CodeBlock code={`// component identity
 data-component="button"      // component type
 data-variant="primary"       // current variant
 data-state="disabled"        // current state
@@ -701,25 +701,25 @@ data-state="disabled"        // current state
 // data tables emit structured output
 data-column="email"          // column identity
 data-row-id="usr_123"        // row identity
-data-sortable="true"         // interaction hints`}</code></pre>
+data-sortable="true"         // interaction hints`} />
           </div>
         </DocSection>
 
         <DocSection title="Typed Props for AI Consumption">
           <div className="space-y-3 text-sm text-fg-muted">
             <p>All types are exported for programmatic introspection:</p>
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`import type { ButtonProps, ButtonVariants } from '@goliapkg/gds'
+            <CodeBlock code={`import type { ButtonProps, ButtonVariants } from '@goliapkg/gds'
 
 // AI can enumerate all valid variants
 type Variant = ButtonProps['variant']  // 'primary' | 'secondary' | 'danger' | 'ghost'
-type Size = ButtonProps['size']        // 'sm' | 'default' | 'lg'`}</code></pre>
+type Size = ButtonProps['size']        // 'sm' | 'default' | 'lg'`} />
           </div>
         </DocSection>
 
         <DocSection title="Command Palette Integration">
           <div className="space-y-3 text-sm text-fg-muted">
             <p>AI agents can invoke any action via the CommandPalette API:</p>
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`import { CommandPalette } from '@goliapkg/gds'
+            <CodeBlock code={`import { CommandPalette } from '@goliapkg/gds'
 
 // actions are typed and discoverable
 const actions = [
@@ -727,7 +727,7 @@ const actions = [
   { id: 'search', label: 'Search', shortcut: '⌘K', action: () => ... },
 ]
 
-<CommandPalette items={actions} />`}</code></pre>
+<CommandPalette items={actions} />`} />
           </div>
         </DocSection>
 
@@ -768,7 +768,7 @@ const actions = [
         <DocSection title="Keyboard-First Design">
           <div className="space-y-3 text-sm text-fg-muted">
             <p>Every action in GDS is reachable by keyboard. No exceptions.</p>
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`// global shortcuts
+            <CodeBlock code={`// global shortcuts
 ⌘K        Command palette
 ⌘,        Settings
 ?         Show all shortcuts
@@ -779,14 +779,14 @@ E         Edit
 D         Delete
 ↑↓        Navigate items
 Enter     Select/confirm
-Escape    Close/cancel`}</code></pre>
+Escape    Close/cancel`} />
           </div>
         </DocSection>
 
         <DocSection title="Focus Management">
           <div className="space-y-3 text-sm text-fg-muted">
             <p>All interactive elements use <code className="rounded bg-bg-tertiary/50 px-1.5 py-0.5 text-xs">focusCls</code> for consistent focus rings:</p>
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`import { focusCls } from '@gds/utils/a11y'
+            <CodeBlock code={`import { focusCls } from '@gds/utils/a11y'
 
 // standard focus ring for all interactive elements
 <button className={cx('px-3 py-2', focusCls)}>
@@ -798,13 +798,13 @@ Escape    Close/cancel`}</code></pre>
   {/* Tab key cycles within dialog */}
   <input autoFocus />
   <Button>Confirm</Button>
-</Dialog>`}</code></pre>
+</Dialog>`} />
           </div>
         </DocSection>
 
         <DocSection title="Screen Reader Support">
           <div className="space-y-3 text-sm text-fg-muted">
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`import { VisuallyHidden, SkipNav } from '@goliapkg/gds'
+            <CodeBlock code={`import { VisuallyHidden, SkipNav } from '@goliapkg/gds'
 
 // skip navigation link
 <SkipNav targetId="main-content" />
@@ -817,7 +817,7 @@ Escape    Close/cancel`}</code></pre>
 
 // ARIA attributes on all interactive components
 <Switch aria-label="Enable notifications" />
-<Tabs aria-label="Settings sections" />`}</code></pre>
+<Tabs aria-label="Settings sections" />`} />
           </div>
         </DocSection>
 
@@ -861,7 +861,7 @@ Escape    Close/cancel`}</code></pre>
         <DocSection title="Glass Material System">
           <div className="space-y-3 text-sm text-fg-muted">
             <p>Glass (frosted translucency) is a material system. Every visual component accepts a <code className="rounded bg-bg-tertiary/50 px-1.5 py-0.5 text-xs">glass</code> boolean prop.</p>
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`// enable glass on any component
+            <CodeBlock code={`// enable glass on any component
 <Card glass>Frosted card</Card>
 <Dialog glass>Frosted dialog</Dialog>
 <Button glass>Frosted button</Button>
@@ -870,14 +870,14 @@ Escape    Close/cancel`}</code></pre>
 // - inline elements: light glass (subtle blur)
 // - overlays/modals: heavy glass (strong blur)
 // - dark mode: lower opacity, more blur
-// - light mode: higher opacity, less blur`}</code></pre>
+// - light mode: higher opacity, less blur`} />
           </div>
         </DocSection>
 
         <DocSection title="Motion System">
           <div className="space-y-3 text-sm text-fg-muted">
             <p>Every component accepts a <code className="rounded bg-bg-tertiary/50 px-1.5 py-0.5 text-xs">motion</code> prop for enter/exit/state-change animations.</p>
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`// built-in motion vocabulary
+            <CodeBlock code={`// built-in motion vocabulary
 <Card motion="fade">        {/* opacity transition */}
 <Dialog motion="scale">     {/* scale + fade */}
 <Toast motion="slide">      {/* slide from edge */}
@@ -888,19 +888,19 @@ import { spring } from '@goliapkg/gds'
 
 spring.gentle    // { tension: 120, friction: 14 }
 spring.snappy    // { tension: 300, friction: 20 }
-spring.bouncy    // { tension: 180, friction: 12 }`}</code></pre>
+spring.bouncy    // { tension: 180, friction: 12 }`} />
           </div>
         </DocSection>
 
         <DocSection title="Reduced Motion">
           <div className="space-y-3 text-sm text-fg-muted">
             <p>When <code className="rounded bg-bg-tertiary/50 px-1.5 py-0.5 text-xs">prefers-reduced-motion</code> is active, all animation is disabled entirely — not degraded, disabled. This is the fastest variant.</p>
-            <pre className="rounded-md bg-bg-tertiary/50 px-4 py-3 text-xs"><code>{`// motion level in theme
+            <CodeBlock code={`// motion level in theme
 const { motionLevel, setMotionLevel } = useTheme()
 
 // levels: 'off' | 'reduced' | 'default' | 'playful'
 setMotionLevel('reduced')  // minimal transitions only
-setMotionLevel('off')      // zero animation`}</code></pre>
+setMotionLevel('off')      // zero animation`} />
           </div>
         </DocSection>
       </div>
@@ -1315,9 +1315,7 @@ import { focusCls } from '@gds/utils/a11y'
                     {recipe.usage}
                   </div>
                 </div>
-                <pre className="overflow-x-auto bg-bg-tertiary/30 p-3 font-mono text-[11px] leading-relaxed text-fg-muted">
-                  {recipe.code}
-                </pre>
+                <CodeBlock code={recipe.code} />
               </div>
             ))}
           </div>
