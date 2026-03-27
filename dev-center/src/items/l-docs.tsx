@@ -1339,6 +1339,104 @@ import { focusCls } from '@gds/utils/a11y'
       </div>
     ),
   },
+
+  // research & benchmarks
+  {
+    id: 'guide-research',
+    label: 'Research',
+    layer: 'l-docs',
+    type: 'reference',
+    tags: ['guide', 'research', 'benchmark', 'comparison', 'reference'],
+
+    stage: () => {
+      const benchmarks = [
+        { ai: true, components: '198', depth: true, glass: true, name: 'GDS (GOLIA)', principles: '10' },
+        { ai: false, components: '~60', depth: false, glass: false, name: 'Material UI', principles: '3' },
+        { ai: false, components: '~70', depth: false, glass: false, name: 'Ant Design', principles: '4' },
+        { ai: false, components: '~30', depth: false, glass: false, name: 'Radix UI', principles: '\u2014' },
+        { ai: false, components: '~40', depth: false, glass: false, name: 'shadcn/ui', principles: '\u2014' },
+        { ai: false, components: '~60', depth: false, glass: false, name: 'Chakra UI', principles: '3' },
+      ]
+
+      const differentiators = [
+        'contextual depth system \u2014 auto-scaling spacing, shadow, and radius by nesting level',
+        'glass as first-class material \u2014 every component accepts glass prop with intensity control',
+        'AI-native structured output \u2014 data-* attributes and typed props for machine parsing',
+        'motion as built-in vocabulary \u2014 spring physics, gesture support, reduced-motion fallback',
+        '40 chart types \u2014 from sparklines to chord diagrams, all theme-aware',
+        'project management components \u2014 GanttPanel, Kanban, Timeline with real interactivity',
+      ]
+
+      const Mark = ({ value }: { value: boolean }) => (
+        <span className={value ? 'text-success' : 'text-fg-muted/20'}>
+          {value ? '\u2713' : '\u2014'}
+        </span>
+      )
+
+      return (
+        <div>
+          <DocSection title="Comparison">
+            <div className="overflow-x-auto rounded-lg border border-border/30">
+              <table className="w-full text-[11px]">
+                <thead>
+                  <tr className="border-b border-border text-left text-fg-muted/50">
+                    {['System', 'Components', 'Principles', 'Depth', 'Glass', 'AI-native'].map((h) => (
+                      <th className="px-3 py-2 font-mono font-medium" key={h}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {benchmarks.map((row, i) => (
+                    <tr
+                      className={`transition-colors hover:bg-surface/30 ${i < benchmarks.length - 1 ? 'border-b border-border/15' : ''} ${i === 0 ? 'bg-accent/5' : ''}`}
+                      key={row.name}
+                    >
+                      <td className={`px-3 py-2 font-mono font-medium ${i === 0 ? 'text-accent' : 'text-fg'}`}>{row.name}</td>
+                      <td className="px-3 py-2 font-mono text-fg-muted tabular-nums">{row.components}</td>
+                      <td className="px-3 py-2 font-mono text-fg-muted tabular-nums">{row.principles}</td>
+                      <td className="px-3 py-2 text-center"><Mark value={row.depth} /></td>
+                      <td className="px-3 py-2 text-center"><Mark value={row.glass} /></td>
+                      <td className="px-3 py-2 text-center"><Mark value={row.ai} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </DocSection>
+
+          <DocSection title="Key Differentiators">
+            <ul className="space-y-1.5">
+              {differentiators.map((item) => (
+                <li className="flex items-start gap-2 text-xs leading-relaxed text-fg-muted" key={item}>
+                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent/40" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </DocSection>
+
+          <DocSection title="References">
+            <div className="space-y-1 text-xs text-fg-muted">
+              <p><span className="font-mono text-accent">.claude/rules/gds-lib.md</span>{' \u2014 GDS library code standards'}</p>
+              <p><span className="font-mono text-accent">.claude/rules/gds-philosophy.md</span>{' \u2014 10 design principles'}</p>
+            </div>
+          </DocSection>
+        </div>
+      )
+    },
+
+    docs: () => (
+      <div className="space-y-3" data-selectable>
+        <div className="font-mono text-xs font-bold tracking-widest text-fg-muted/40 uppercase">
+          summary
+        </div>
+        <div className="space-y-1 text-xs text-fg-muted">
+          <p>GDS compared against 5 major design systems.</p>
+          <p>6 key differentiators documented.</p>
+        </div>
+      </div>
+    ),
+  },
 ]
 
 export { docsItems }
