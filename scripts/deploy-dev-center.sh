@@ -7,7 +7,6 @@ bunx vite build --config dev-center/vite.config.ts --outDir dist-dev-center
 
 echo "Generating LLM files..."
 mkdir -p dev-center/dist-dev-center/llm
-cp .claude/CLAUDE.md dev-center/dist-dev-center/llm/claude.md
 cp .claude/rules/gds-lib.md dev-center/dist-dev-center/llm/gds-lib.md
 cp .claude/rules/gds-philosophy.md dev-center/dist-dev-center/llm/gds-philosophy.md
 cp README.md dev-center/dist-dev-center/llm/readme.md
@@ -20,7 +19,6 @@ cat > dev-center/dist-dev-center/llms.txt << 'EOF'
 
 ## Documentation
 
-- [CLAUDE.md](https://ds.golia.jp/llm/claude.md): Project overview, commands, architecture, coding standards
 - [GDS Library Standards](https://ds.golia.jp/llm/gds-lib.md): Component patterns, CVA, styling, file structure
 - [Design Philosophy](https://ds.golia.jp/llm/gds-philosophy.md): 10 design principles governing every component
 - [README](https://ds.golia.jp/llm/readme.md): Package info, installation, quick start
@@ -36,8 +34,7 @@ cat > dev-center/dist-dev-center/llms.txt << 'EOF'
 EOF
 
 # generate llms-full.txt
-cat dev-center/dist-dev-center/llm/claude.md \
-    dev-center/dist-dev-center/llm/gds-lib.md \
+cat dev-center/dist-dev-center/llm/gds-lib.md \
     dev-center/dist-dev-center/llm/gds-philosophy.md \
     dev-center/dist-dev-center/llm/readme.md \
     > dev-center/dist-dev-center/llms-full.txt
