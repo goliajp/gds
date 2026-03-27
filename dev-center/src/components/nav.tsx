@@ -63,10 +63,7 @@ export function Nav({ items, searchRef, favorites = [], isFavorite, toggleFavori
       .map(r => r.item)
   }, [items, layerItems, search, isSearchActive])
 
-  const isFavorite = useCallback(
-    (id: string) => favorites.includes(id),
-    [favorites],
-  )
+  const checkFavorite = isFavorite ?? ((id: string) => favorites.includes(id))
 
   // keyboard arrow-up/down to navigate items
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
@@ -182,7 +179,7 @@ export function Nav({ items, searchRef, favorites = [], isFavorite, toggleFavori
         <nav className="flex-1 overflow-y-auto px-1.5 pb-2">
           {filteredItems.map(item => {
             const active = item.id === itemId
-            const starred = isFavorite(item.id)
+            const starred = checkFavorite(item.id)
             const itemLayer = isSearchActive ? layers.find(l => l.id === item.layer) : undefined
             return (
               <Link
