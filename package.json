@@ -63,10 +63,7 @@
     "build:lib": "vite build --config vite.config.lib.ts",
     "build:types": "tsc -p tsconfig.build.json",
     "build:css": "cp src/l0-tokens/tokens.css dist/tokens.css && cp src/l0-tokens/fonts.css dist/fonts.css && cp -r src/l0-tokens/fonts dist/fonts",
-    "prepublishOnly": "bun run check && bun run build",
-    "release": "bun run prepublishOnly && npm publish",
-    "check": "bun run test && bun run typecheck && bun run lint",
-    "precommit": "bun run check"
+    "check": "bun run test && bun run typecheck && bun run lint"
   },
   "peerDependencies": {
     "react": ">=19.0.0",
