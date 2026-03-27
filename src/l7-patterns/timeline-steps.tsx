@@ -23,7 +23,7 @@ export function TimelineSteps({ steps, className }: TimelineStepsProps) {
               className={cx(
                 'flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold',
                 step.status === 'completed' && 'bg-success text-white',
-                step.status === 'current' && 'bg-accent text-white animate-pulse',
+                step.status === 'current' && 'bg-accent text-accent-fg animate-pulse',
                 step.status === 'upcoming' && 'bg-bg-tertiary text-fg-muted',
               )}
             >

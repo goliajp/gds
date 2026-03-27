@@ -73,7 +73,7 @@ export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(
         className={cx(
           avatarVariants({ size }),
           src === undefined && paletteColors[colorIdx],
-          src === undefined && 'text-white',
+          src === undefined && 'text-accent-fg',
           glassClass(glass),
           className,
         )}

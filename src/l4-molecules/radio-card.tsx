@@ -74,7 +74,7 @@ export const RadioCard = forwardRef<HTMLDivElement, RadioCardProps>(
                 )}
               >
                 {selected && (
-                  <span className="h-1.5 w-1.5 rounded-full bg-white" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-fg" />
                 )}
               </span>
 

@@ -20,9 +20,9 @@ export const CTABanner = forwardRef<HTMLDivElement, CTABannerProps>(
   function CTABanner({ title, description, actions, variant = 'default', glass, className }, ref) {
     const variantClass =
       variant === 'accent'
-        ? 'bg-accent text-white'
+        ? 'bg-accent text-accent-fg'
         : variant === 'gradient'
-          ? 'bg-gradient-to-r from-accent to-success text-white'
+          ? 'bg-gradient-to-r from-accent to-success text-accent-fg'
           : glass === true
             ? cx(glassClass(glass), 'border border-white/10 bg-bg/60')
             : 'border border-border bg-surface'

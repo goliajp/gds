@@ -69,7 +69,7 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
         >
           <span
             className={cx(
-              'gds-radius-badge bg-white gds-shadow-sm transition-transform',
+              'gds-radius-badge bg-fg gds-shadow-sm transition-transform',
               thumbSizeMap[sizeKey],
               checked ? thumbTranslateMap[sizeKey].on : thumbTranslateMap[sizeKey].off,
             )}

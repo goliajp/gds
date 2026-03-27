@@ -15,7 +15,7 @@ type NotificationDotProps = React.HTMLAttributes<HTMLDivElement> & {
 
 const variantMap: Record<NotificationDotVariant, string> = {
   danger: 'bg-danger text-white',
-  accent: 'bg-accent text-white',
+  accent: 'bg-accent text-accent-fg',
 }
 
 export const NotificationDot = forwardRef<HTMLDivElement, NotificationDotProps>(

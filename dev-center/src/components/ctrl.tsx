@@ -1,5 +1,9 @@
 // ctrl — interactive control widget for inspector panel
 
+import { Input } from '@gds/l2-primitives'
+import { SegmentedControl, Switch } from '@gds/l3-atoms'
+import { cx } from '@gds/utils/cx'
+
 type CtrlBase = {
   label: string
 }
@@ -47,27 +51,20 @@ export function Ctrl(props: CtrlProps) {
       <span className="shrink-0 text-xs text-fg-muted">{props.label}</span>
 
       {props.type === 'pills' && (
-        <div className="flex gap-0.5">
-          {props.options.map(opt => (
-            <button
-              key={opt}
-              className={[
-                'rounded px-2 py-0.5 text-xs transition-colors',
-                opt === props.value
-                  ? 'bg-accent text-accent-fg'
-                  : 'bg-white/[0.05] text-fg-muted hover:text-fg',
-              ].join(' ')}
-              onClick={() => props.onChange(opt)}
-            >
-              {opt}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl
+          size="sm"
+          value={props.value}
+          options={props.options.map(opt => ({ value: opt, label: opt }))}
+          onChange={props.onChange}
+        />
       )}
 
       {props.type === 'select' && (
         <select
-          className="rounded border border-white/[0.08] bg-white/[0.03] px-2 py-1 text-xs text-fg outline-none focus:border-accent/50"
+          className={cx(
+            'rounded border border-white/[0.08] bg-white/[0.03]',
+            'px-2 py-1 text-xs text-fg outline-none focus:border-accent/50',
+          )}
           value={props.value}
           onChange={e => props.onChange(e.target.value)}
         >
@@ -78,8 +75,9 @@ export function Ctrl(props: CtrlProps) {
       )}
 
       {props.type === 'text' && (
-        <input
-          className="w-36 rounded border border-white/[0.08] bg-white/[0.03] px-2 py-1 text-xs text-fg outline-none focus:border-accent/50"
+        <Input
+          inputSize="sm"
+          className="w-36"
           value={props.value}
           placeholder={props.placeholder}
           onChange={e => props.onChange(e.target.value)}
@@ -89,7 +87,10 @@ export function Ctrl(props: CtrlProps) {
       {props.type === 'number' && (
         <input
           type="number"
-          className="w-20 rounded border border-white/[0.08] bg-white/[0.03] px-2 py-1 text-xs text-fg outline-none focus:border-accent/50"
+          className={cx(
+            'w-20 rounded border border-white/[0.08] bg-white/[0.03]',
+            'px-2 py-1 text-xs text-fg outline-none focus:border-accent/50',
+          )}
           value={props.value}
           min={props.min}
           max={props.max}
@@ -98,18 +99,11 @@ export function Ctrl(props: CtrlProps) {
       )}
 
       {props.type === 'check' && (
-        <button
-          className={[
-            'relative h-6 w-11 rounded-full transition-colors',
-            props.value ? 'bg-accent' : 'bg-white/10',
-          ].join(' ')}
-          onClick={() => props.onChange(!props.value)}
-        >
-          <span className={[
-            'absolute top-1 left-1 h-4 w-4 rounded-full bg-white shadow-sm transition-transform',
-            props.value ? 'translate-x-5' : 'translate-x-0',
-          ].join(' ')} />
-        </button>
+        <Switch
+          size="sm"
+          checked={props.value}
+          onChange={props.onChange}
+        />
       )}
     </div>
   )

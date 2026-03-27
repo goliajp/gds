@@ -28,7 +28,7 @@ export const ProgressSteps = forwardRef<HTMLDivElement, ProgressStepsProps>(
                 <div
                   className={cx(
                     'flex h-7 w-7 items-center justify-center rounded-full text-xs font-medium',
-                    isCompleted && 'bg-accent text-white',
+                    isCompleted && 'bg-accent text-accent-fg',
                     isCurrent && 'border-2 border-accent bg-accent/10 text-accent',
                     !isCompleted && !isCurrent && 'border border-border bg-bg-secondary text-fg-muted',
                   )}

@@ -43,7 +43,7 @@ export const Wizard = forwardRef<HTMLDivElement, WizardProps>(
                   type="button"
                   className={cx(
                     'flex h-7 w-7 items-center justify-center rounded-full text-xs font-medium transition-colors',
-                    done && 'bg-accent text-white',
+                    done && 'bg-accent text-accent-fg',
                     isCurrent && 'bg-accent/20 text-accent ring-2 ring-accent',
                     !done && !isCurrent && 'bg-bg-tertiary text-fg-muted',
                   )}

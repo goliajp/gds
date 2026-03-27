@@ -178,24 +178,18 @@ export function DocTable({ headers, rows, compact, flexColumn }: {
 
   return (
     <div
-      className="overflow-x-auto border border-white/[0.06]"
+      className="border border-white/[0.06]"
       style={{ borderRadius: 'var(--gds-radius-lg, 8px)' }}
       data-selectable
     >
-      <table className="w-full text-[12px] border-collapse table-fixed">
-        <colgroup>
-          {cols.map((_, i) => (
-            <col key={i} style={i === flexIdx ? undefined : { width: colWidth(cols, i) }} />
-          ))}
-        </colgroup>
+      <table className="w-full text-[11px] border-collapse">
         <thead>
           <tr>
             {cols.map((col, ci) => (
               <th
                 key={col}
                 className={[
-                  'px-4 text-left text-xs font-semibold text-fg-muted/60',
-                  hPy,
+                  'px-3 py-1.5 text-left text-[10px] font-semibold text-fg-muted/60 whitespace-nowrap',
                   ci < cols.length - 1 ? 'border-r border-r-white/[0.03]' : '',
                   'border-b border-b-white/[0.06] bg-bg-secondary/30',
                 ].join(' ')}
@@ -215,14 +209,12 @@ export function DocTable({ headers, rows, compact, flexColumn }: {
                 <td
                   key={ci}
                   className={[
-                    'px-4 truncate',
-                    cellPy,
+                    'px-3 py-1.5 break-words',
                     ci < cols.length - 1 ? 'border-r border-r-white/[0.03]' : '',
-                    ci === 0 ? 'font-mono text-accent' : '',
+                    ci === 0 ? 'font-mono text-accent whitespace-nowrap' : '',
                     ci === flexIdx ? 'text-fg-muted' : '',
                     ci > 0 && ci !== flexIdx ? 'text-fg-muted/70 font-mono' : '',
-                  ].join(' ')}
-                  title={cell}
+                  ].join(' ')
                 >
                   {cell}
                 </td>

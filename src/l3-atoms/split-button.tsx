@@ -27,7 +27,7 @@ type SplitButtonProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onClick'> & 
 }
 
 const variantClasses: Record<SplitButtonVariant, string> = {
-  primary: 'bg-accent text-white hover:bg-accent/90',
+  primary: 'bg-accent text-accent-fg hover:bg-accent/90',
   secondary: 'bg-bg-secondary text-fg border border-border hover:bg-bg-tertiary',
   danger: 'bg-danger text-white hover:bg-danger/90',
 }
