@@ -26,7 +26,7 @@ export const RibbonBanner = forwardRef<HTMLDivElement, RibbonBannerProps>(
         {...props}
       >
         <div
-          className="flex items-center justify-center text-xs font-bold text-white select-none"
+          className="flex items-center justify-center text-xs font-bold text-accent-fg select-none"
           style={{
             backgroundColor: color ?? 'var(--color-accent)',
             left: isRight ? undefined : -20,

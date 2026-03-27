@@ -5,7 +5,7 @@ import { forwardRef } from 'react'
 import { cx } from '../utils/cx'
 
 const variantMap = {
-  accent: 'bg-accent text-white',
+  accent: 'bg-accent text-accent-fg',
   danger: 'bg-danger text-white',
   success: 'bg-success text-white',
   warning: 'bg-warning text-white',

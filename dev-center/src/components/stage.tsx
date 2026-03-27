@@ -43,7 +43,7 @@ class StageErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryStat
       return (
         <div className="flex h-full items-center justify-center">
           <div className="text-center max-w-md">
-            <div className="text-sm font-medium text-red-400 mb-2">Component Error</div>
+            <div className="text-sm font-medium text-danger mb-2">Component Error</div>
             <div className="text-xs text-fg-muted/50 mb-4 font-mono break-all">{message}</div>
             <button
               type="button"

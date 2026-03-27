@@ -1,6 +1,7 @@
 // data-export-card — format selector + date range + export button
 import { forwardRef, useState } from 'react'
 
+import { Button } from '../l2-primitives/button'
 import { cx } from '../utils/cx'
 
 type DateRange = {
@@ -45,9 +46,9 @@ const DataExportCard = forwardRef<HTMLDivElement, DataExportCardProps>(
               <input type="date" value={to} onChange={(e) => setTo(e.target.value)} className="rounded border border-border bg-bg px-2 py-1.5 gds-text-body text-fg" />
             </div>
           </div>
-          <button type="button" onClick={handleExport} className="mt-1 rounded bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent/90 transition-colors select-none">
+          <Button type="button" onClick={handleExport} className="mt-1">
             Export
-          </button>
+          </Button>
         </div>
       </div>
     )

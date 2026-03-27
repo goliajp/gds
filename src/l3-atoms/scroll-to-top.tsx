@@ -32,7 +32,7 @@ export const ScrollToTop = forwardRef<HTMLButtonElement, ScrollToTopProps>(
         aria-label="Scroll to top"
         onClick={() => window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' })}
         className={cx(
-          'fixed bottom-6 right-6 z-40 flex h-10 w-10 items-center justify-center rounded-full bg-accent text-white shadow-lg transition-opacity hover:bg-accent/90',
+          'fixed bottom-6 right-6 z-40 flex h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-fg shadow-lg transition-opacity hover:bg-accent/90',
           focusCls,
           className,
         )}

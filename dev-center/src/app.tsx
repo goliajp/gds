@@ -292,7 +292,7 @@ function ItemPanel({ item, stageProps, controlsProps }: ItemPanelProps) {
       <main className="flex-1 overflow-hidden">
         <Stage item={item} stageProps={stageProps} />
       </main>
-      <aside className="w-[480px] shrink-0 overflow-hidden border-l border-white/[0.06] bg-white/[0.03]">
+      <aside className="w-[560px] shrink-0 overflow-hidden border-l border-border bg-bg-secondary">
         <Inspector item={item} stageProps={stageProps} controlsProps={controlsProps} />
       </aside>
     </>

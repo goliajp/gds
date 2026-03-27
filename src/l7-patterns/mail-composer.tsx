@@ -45,7 +45,7 @@ export const MailComposer = forwardRef<HTMLFormElement, MailComposerProps>(
         <div className="flex justify-end">
           <button
             type="submit"
-            className="rounded-md bg-accent px-4 py-2 gds-text-body font-medium text-white hover:bg-accent/90 transition-colors"
+            className="rounded-md bg-accent px-4 py-2 gds-text-body font-medium text-accent-fg hover:bg-accent/90 transition-colors"
           >
             Send
           </button>

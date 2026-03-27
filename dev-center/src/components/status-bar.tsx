@@ -78,8 +78,8 @@ export function StatusBar({
           <span
             className={
               item.type === 'interactive'
-                ? 'rounded px-1.5 py-0.5 text-xs font-medium text-emerald-400 bg-emerald-400/10'
-                : 'rounded px-1.5 py-0.5 text-xs font-medium text-sky-400 bg-sky-400/10'
+                ? 'rounded px-1.5 py-0.5 text-xs font-medium text-success bg-success/10'
+                : 'rounded px-1.5 py-0.5 text-xs font-medium text-accent bg-accent/10'
             }
           >
             {item.type}
