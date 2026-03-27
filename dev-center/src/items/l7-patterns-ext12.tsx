@@ -55,6 +55,20 @@ const heroItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { Hero } from '@goliapkg/gds'\n\n<Hero\n  title="${config.title}"\n  subtitle="${config.subtitle}"\n  align="${config.align}"${config.glass ? '\n  glass' : ''}\n  actions={<Button>Get Started</Button>}\n/>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['title', 'Main heading text', 'string', '—'],
+        ['subtitle', 'Supporting description text', 'string', '—'],
+        ['actions', 'CTA buttons area', 'ReactNode', '—'],
+        ['media', 'Image/video slot', 'ReactNode', '—'],
+        ['align', 'Layout alignment', "'left' | 'center'", "'center'"],
+        ['glass', 'Glass material effect', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+    </div>
+  ),
 }
 patternItemsExt12.push(heroItem)
 
@@ -102,6 +116,18 @@ const footerItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { Footer } from '@goliapkg/gds'\n\n<Footer\n  columns={[\n    { title: 'Product', links: [{ label: 'Features', href: '/features' }] },\n  ]}\n  copyright="&copy; 2026 GOLIA"\n  logo={<Logo />}${config.glass ? '\n  glass' : ''}\n/>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['columns', 'Array of link column groups', '{ title: string; links: { label: string; href: string }[] }[]', '—'],
+        ['copyright', 'Copyright text at the bottom', 'string', '—'],
+        ['logo', 'Logo in copyright row', 'ReactNode', '—'],
+        ['glass', 'Glass material effect', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+    </div>
+  ),
 }
 patternItemsExt12.push(footerItem)
 
@@ -153,6 +179,19 @@ const navBarItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { NavBar } from '@goliapkg/gds'\n\n<NavBar\n  logo={<Logo />}\n  links={[\n    { label: 'Home', href: '/', active: true },\n    { label: 'About', href: '/about' },\n  ]}\n  actions={<Button>Sign In</Button>}${!config.sticky ? '\n  sticky={false}' : ''}${!config.glass ? '\n  glass={false}' : ''}\n/>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['logo', 'Brand logo element', 'ReactNode', '—'],
+        ['links', 'Navigation links', '{ label: string; href: string; active?: boolean }[]', '—'],
+        ['actions', 'Action elements on the right', 'ReactNode', '—'],
+        ['sticky', 'Stick to top of viewport', 'boolean', 'true'],
+        ['glass', 'Glass material effect', 'boolean', 'true'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+    </div>
+  ),
 }
 patternItemsExt12.push(navBarItem)
 

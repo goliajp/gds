@@ -84,6 +84,39 @@ const diffViewerItem: DevCenterItem = {
       <Ctrl type="check" label="glass" value={config.glass} onChange={(v) => setConfig('glass', v)} />
     </>
   ),
+
+  code: ({ config }) => {
+    const lines = ["import { DiffViewer } from '@goliapkg/gds'", '']
+    lines.push('<DiffViewer')
+    lines.push('  oldText={originalCode}')
+    lines.push('  newText={modifiedCode}')
+    if (config.mode !== 'unified') lines.push(`  mode="${config.mode}"`)
+    if (config.glass === true) lines.push('  glass')
+    lines.push('/>')
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['oldText', 'Original text', 'string', '—'],
+        ['newText', 'Modified text', 'string', '—'],
+        ['mode', 'Display mode', "'split' | 'unified'", "'unified'"],
+        ['oldTitle', 'Title for old pane (split mode)', 'string', "'Old'"],
+        ['newTitle', 'Title for new pane (split mode)', 'string', "'New'"],
+        ['glass', 'Frosted glass surface', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Unified mode shows additions/removals in a single column with +/- markers</p>
+          <p>• Split mode displays old and new text side by side</p>
+          <p>• Line-level diff highlighting with green/red backgrounds</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 organismItemsExt3.push(diffViewerItem)
 
@@ -156,6 +189,35 @@ const jsonViewerItem: DevCenterItem = {
       <Ctrl type="number" label="expanded" value={config.expanded} onChange={(v) => setConfig('expanded', v)} min={0} max={10} />
       <Ctrl type="check" label="glass" value={config.glass} onChange={(v) => setConfig('glass', v)} />
     </>
+  ),
+
+  code: ({ config }) => {
+    const lines = ["import { JsonViewer } from '@goliapkg/gds'", '']
+    lines.push('<JsonViewer')
+    lines.push('  data={jsonData}')
+    if (config.expanded !== 2) lines.push(`  defaultExpanded={${config.expanded}}`)
+    if (config.glass === true) lines.push('  glass')
+    lines.push('/>')
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['data', 'JSON-serializable value', 'unknown', '—'],
+        ['defaultExpanded', 'Expand depth (true=all)', 'boolean | number', '2'],
+        ['glass', 'Frosted glass surface', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Click to expand/collapse nested objects and arrays</p>
+          <p>• Color-coded by type: strings, numbers, booleans, null</p>
+          <p>• Pass defaultExpanded=true to expand all levels</p>
+        </div>
+      </div>
+    </div>
   ),
 }
 organismItemsExt3.push(jsonViewerItem)
@@ -236,6 +298,33 @@ Built with \`React\` and \`TypeScript\`.`
     <>
       <Ctrl type="check" label="glass" value={config.glass} onChange={(v) => setConfig('glass', v)} />
     </>
+  ),
+
+  code: ({ config }) => {
+    const lines = ["import { MarkdownPreview } from '@goliapkg/gds'", '']
+    lines.push('<MarkdownPreview')
+    lines.push('  content={markdownString}')
+    if (config.glass === true) lines.push('  glass')
+    lines.push('/>')
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['content', 'Markdown string to render', 'string', '—'],
+        ['glass', 'Frosted glass surface', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Supports headings, bold, italic, code blocks, links, blockquotes, lists</p>
+          <p>• Inline code and fenced code blocks rendered with monospace styling</p>
+          <p>• Horizontal rules rendered as subtle dividers</p>
+        </div>
+      </div>
+    </div>
   ),
 }
 organismItemsExt3.push(markdownPreviewItem)

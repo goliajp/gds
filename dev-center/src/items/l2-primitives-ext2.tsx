@@ -60,6 +60,19 @@ const highlightItem: DevCenterItem = {
     </>
   ),
 
+  code: ({ config }) => {
+    const lines = ["import { Highlight } from '@goliapkg/gds'"]
+    lines.push('')
+    const props: string[] = []
+    props.push(`text="${config.text}"`)
+    props.push(`query="${config.query}"`)
+    if (config.caseSensitive === true) props.push('caseSensitive')
+    lines.push('<Highlight')
+    for (const p of props) lines.push(`  ${p}`)
+    lines.push('/>')
+    return lines.join('\n')
+  },
+
   docs: () => (
     <div className="space-y-4" data-selectable>
       <DocTable

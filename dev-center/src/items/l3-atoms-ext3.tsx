@@ -100,6 +100,40 @@ const quickActionItem: DevCenterItem = {
       <Ctrl type="check" label="disabled" value={config.disabled} onChange={(v) => setConfig('disabled', v)} />
     </>
   ),
+
+  code: ({ config }) => {
+    const lines = ["import { QuickAction } from '@goliapkg/gds'", '']
+    const props: string[] = ['icon={<PlusIcon />}']
+    if (config.showLabel === true) props.push('label="Create"')
+    if (config.variant !== 'primary') props.push(`variant="${config.variant}"`)
+    if (config.size !== 'default') props.push(`size="${config.size}"`)
+    if (config.disabled === true) props.push('disabled')
+    props.push('onClick={handleClick}')
+    lines.push(`<QuickAction ${props.join(' ')} />`)
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['icon', 'Icon element', 'ReactNode', '—'],
+        ['label', 'Text below button', 'string', '—'],
+        ['onClick', 'Click handler', '() => void', '—'],
+        ['variant', 'Visual variant', "'primary' | 'secondary'", "'primary'"],
+        ['size', 'Button size', "'sm' | 'default' | 'lg'", "'default'"],
+        ['disabled', 'Disabled state', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Use as a floating action button for primary creation actions</p>
+          <p>• Primary variant uses accent background with shadow for prominence</p>
+          <p>• Includes hover scale and active scale-down for tactile feedback</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 atomItemsD.push(quickActionItem)
 
@@ -155,6 +189,34 @@ const textEffectItem: DevCenterItem = {
       <Ctrl type="pills" label="effect" value={config.effect} options={['gradient', 'highlight', 'glow']} onChange={(v) => setConfig('effect', v)} />
       <Ctrl type="text" label="text" value={config.text} onChange={(v) => setConfig('text', v)} />
     </>
+  ),
+
+  code: ({ config }) => {
+    const lines = ["import { TextEffect } from '@goliapkg/gds'", '']
+    lines.push(`<TextEffect effect="${config.effect}">`)
+    lines.push(`  ${config.text}`)
+    lines.push(`</TextEffect>`)
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['children', 'Text content', 'string', '—'],
+        ['effect', 'Visual effect type', "'gradient' | 'highlight' | 'glow'", '—'],
+        ['gradientFrom', 'Gradient start color (CSS value)', 'string', 'accent'],
+        ['gradientTo', 'Gradient end color (CSS value)', 'string', 'success'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Gradient uses background-clip for smooth multi-color text</p>
+          <p>• Highlight applies accent background with padding for marked text</p>
+          <p>• Glow uses text-shadow for neon-style effect in dark mode</p>
+        </div>
+      </div>
+    </div>
   ),
 }
 atomItemsD.push(textEffectItem)

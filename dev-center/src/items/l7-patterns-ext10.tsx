@@ -64,6 +64,20 @@ const statusPageItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { StatusPage } from '@goliapkg/gds'\n\n<StatusPage\n  code="${config.code}"\n  title="${config.title}"\n  description="${config.description}"\n  action={<Button>Go Home</Button>}\n/>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['code', 'Error code displayed large', 'string | number', '—'],
+        ['title', 'Main heading', 'string', '—'],
+        ['description', 'Explanatory text below title', 'string', '—'],
+        ['action', 'Primary action button', 'ReactNode', '—'],
+        ['secondaryAction', 'Secondary action button', 'ReactNode', '—'],
+        ['illustration', 'Custom illustration above code', 'ReactNode', '—'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+    </div>
+  ),
 }
 patternItemsExt10.push(statusPageItem)
 

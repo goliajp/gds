@@ -55,6 +55,18 @@ const chartItemsExt9: DevCenterItem[] = [
       </>
     ),
 
+    code: () => {
+      const lines = ["import { CalendarHeatmap } from '@goliapkg/gds'"]
+      lines.push('')
+      lines.push('const data = [')
+      lines.push("  { date: '2025-01-01', value: 3 },")
+      lines.push("  { date: '2025-01-02', value: 7 },")
+      lines.push(']')
+      lines.push('')
+      lines.push('<CalendarHeatmap data={data} />')
+      return lines.join('\n')
+    },
+
     docs: () => (
       <div className="space-y-4" data-selectable>
         <DocTable

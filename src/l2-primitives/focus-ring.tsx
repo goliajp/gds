@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react'
+import { forwardRef } from 'react'
 
 import { cx } from '../utils/cx'
 
@@ -10,13 +11,10 @@ type FocusRingProps = {
   className?: string
 }
 
-export function FocusRing({
-  children,
-  color = 'var(--gds-accent)',
-  width = 2,
-  offset = 2,
-  className,
-}: FocusRingProps) {
+const FocusRing = forwardRef<HTMLSpanElement, FocusRingProps>(function FocusRing(
+  { children, color = 'var(--gds-accent)', width = 2, offset = 2, className },
+  ref,
+) {
   const style: CSSProperties = {
     '--focus-ring-color': color,
     '--focus-ring-width': `${width}px`,
@@ -25,6 +23,7 @@ export function FocusRing({
 
   return (
     <span
+      ref={ref}
       className={cx(
         'relative inline-flex [&:focus-within]:outline [&:focus-within]:outline-[length:var(--focus-ring-width)] [&:focus-within]:outline-[color:var(--focus-ring-color)] [&:focus-within]:outline-offset-[var(--focus-ring-offset)]',
         className,
@@ -35,6 +34,7 @@ export function FocusRing({
       {children}
     </span>
   )
-}
+})
 
+export { FocusRing }
 export type { FocusRingProps }

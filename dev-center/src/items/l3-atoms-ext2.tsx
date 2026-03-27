@@ -435,6 +435,35 @@ const editableItem: DevCenterItem = {
       <Ctrl type="check" label="disabled" value={config.disabled} onChange={(v) => setConfig('disabled', v)} />
     </>
   ),
+
+  code: ({ config }) => {
+    const lines = ["import { Editable } from '@goliapkg/gds'", '']
+    const props: string[] = ['value={val}', 'onChange={setVal}']
+    if (config.placeholder !== 'Click to edit') props.push(`placeholder="${config.placeholder}"`)
+    if (config.disabled === true) props.push('disabled')
+    lines.push(`<Editable ${props.join(' ')} />`)
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['value', 'Current text value', 'string', '—'],
+        ['onChange', 'Called on save (Enter or blur)', '(value: string) => void', '—'],
+        ['placeholder', 'Text shown when value is empty', 'string', "'Click to edit'"],
+        ['disabled', 'Disable editing', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Click text to enter edit mode, Enter or blur to save, Escape to cancel</p>
+          <p>• Uses forwardRef — attach refs for external focus management</p>
+          <p>• Empty value displays the placeholder in muted text</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 
 atomItemsC.push(editableItem)
@@ -484,6 +513,45 @@ const toggleGroupItem: DevCenterItem = {
       <Ctrl type="check" label="disabled" value={config.disabled} onChange={(v) => setConfig('disabled', v)} />
     </>
   ),
+
+  code: ({ config }) => {
+    const lines = ["import { ToggleGroup } from '@goliapkg/gds'", '']
+    lines.push(`<ToggleGroup`)
+    lines.push(`  items={[`)
+    lines.push(`    { value: 'bold', label: 'B' },`)
+    lines.push(`    { value: 'italic', label: 'I' },`)
+    lines.push(`    { value: 'underline', label: 'U' },`)
+    lines.push(`  ]}`)
+    lines.push(`  value={selected}`)
+    lines.push(`  onChange={setSelected}`)
+    if (config.exclusive === true) lines.push(`  exclusive`)
+    if (config.size !== 'default') lines.push(`  size="${config.size}"`)
+    if (config.disabled === true) lines.push(`  disabled`)
+    lines.push(`/>`)
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['items', 'Toggle items', '{ value: string, label: ReactNode }[]', '—'],
+        ['value', 'Active values', 'string[]', '—'],
+        ['onChange', 'Called on toggle', '(value: string[]) => void', '—'],
+        ['exclusive', 'Only one active at a time', 'boolean', 'false'],
+        ['size', 'Button size', "'default' | 'sm'", "'default'"],
+        ['disabled', 'Disable all buttons', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Use multi-select for formatting toolbars (bold, italic, underline)</p>
+          <p>• Use exclusive mode for single-select toggle groups</p>
+          <p>• Active items show accent color for clear visual feedback</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 
 atomItemsC.push(toggleGroupItem)
@@ -529,6 +597,16 @@ const resizeHandleItem: DevCenterItem = {
       <Ctrl type="check" label="disabled" value={config.disabled} onChange={(v) => setConfig('disabled', v)} />
     </>
   ),
+
+  code: ({ config, variant }) => {
+    const lines = ["import { ResizeHandle } from '@goliapkg/gds'", '']
+    lines.push(`<ResizeHandle`)
+    if (variant !== 'vertical') lines.push(`  orientation="${variant}"`)
+    lines.push(`  onResize={(delta) => setSize((prev) => prev + delta)}`)
+    if (config.disabled === true) lines.push(`  disabled`)
+    lines.push(`/>`)
+    return lines.join('\n')
+  },
 
   docs: () => (
     <div className="space-y-4" data-selectable>

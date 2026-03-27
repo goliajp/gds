@@ -56,6 +56,28 @@ const commandMenuItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { CommandMenu } from '@goliapkg/gds'\n\n<CommandMenu\n  items={[\n    { id: 'copy', label: 'Copy', shortcut: '⌘C', group: 'Edit' },\n    { id: 'delete', label: 'Delete', danger: true },\n  ]}\n  onSelect={(id) => console.log(id)}${config.searchable === false ? '\n  searchable={false}' : ''}${config.glass ? '\n  glass' : ''}\n/>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['items', 'Menu items with id, label, icon, shortcut, group, danger', 'CommandMenuItem[]', '—'],
+        ['onSelect', 'Called when an item is selected', '(id: string) => void', '—'],
+        ['searchable', 'Show search input', 'boolean', 'true'],
+        ['placeholder', 'Search input placeholder', 'string', "'Type a command...'"],
+        ['glass', 'Glass surface style', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Use for keyboard-driven command palettes (⌘K pattern)</p>
+          <p>• Items can be grouped with the group property</p>
+          <p>• Danger items render in red for destructive actions</p>
+          <p>• ArrowUp/ArrowDown to navigate, Enter to select</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 moleculeItemsL.push(commandMenuItem)
 
@@ -102,6 +124,25 @@ const tabGroupItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { TabGroup } from '@goliapkg/gds'\n\n<TabGroup\n  tabs={[\n    { id: 'general', label: 'General', content: <GeneralPanel /> },\n    { id: 'security', label: 'Security', content: <SecurityPanel /> },\n  ]}${config.glass ? '\n  glass' : ''}\n/>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['tabs', 'Tab definitions: id, label, content, disabled?', 'TabGroupTab[]', '—'],
+        ['defaultTab', 'Initially active tab id', 'string', 'first tab'],
+        ['glass', 'Glass surface style', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Each tab definition includes id, label, content ReactNode, and optional disabled flag</p>
+          <p>• Disabled tabs are visible but not clickable</p>
+          <p>• Content area renders only the active tab's content</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 moleculeItemsL.push(tabGroupItem)
 

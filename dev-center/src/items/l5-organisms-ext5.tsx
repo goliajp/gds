@@ -51,6 +51,38 @@ const parallaxItem: DevCenterItem = {
       <Ctrl type="check" label="disabled" value={config.disabled} onChange={(v) => setConfig('disabled', v)} />
     </>
   ),
+
+  code: ({ config }) => {
+    const lines = ["import { Parallax } from '@goliapkg/gds'", '']
+    lines.push('<Parallax')
+    if (config.speed !== 0.5) lines.push(`  speed={${config.speed}}`)
+    if (config.direction !== 'vertical') lines.push(`  direction="${config.direction}"`)
+    if (config.disabled === true) lines.push('  disabled')
+    lines.push('>')
+    lines.push('  <div>Parallax content</div>')
+    lines.push('</Parallax>')
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['children', 'Content to apply parallax effect', 'ReactNode', '—'],
+        ['speed', 'Parallax speed factor (0=fixed, 1=normal)', 'number', '0.5'],
+        ['direction', 'Scroll direction', "'vertical' | 'horizontal'", "'vertical'"],
+        ['disabled', 'Disable parallax effect', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Speed 0 = element stays fixed, speed 1 = scrolls at normal rate</p>
+          <p>• Uses transform: translate for GPU-accelerated scrolling</p>
+          <p>• Disable on mobile or when prefers-reduced-motion is set</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 organismItemsExt5.push(parallaxItem)
 

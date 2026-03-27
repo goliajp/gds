@@ -12,6 +12,8 @@ type RichSelectListProps = {
   onFocus: (index: number) => void
 }
 
+export type { RichSelectListProps }
+
 export function RichSelectList({ options, value, focusedIndex, glass, onSelect, onFocus }: RichSelectListProps) {
   return (
     <div

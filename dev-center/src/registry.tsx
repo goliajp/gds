@@ -1,3 +1,6 @@
+// l-docs
+import { docsItems } from './items/l-docs'
+
 // l-dep
 import { depItems } from './items/l-dep'
 import { depItemsExt } from './items/l-dep-ext'
@@ -170,6 +173,8 @@ import { patternItemsExt31 } from './items/l7-patterns-ext31'
 import type { DevCenterItem } from './types'
 
 export const allItems: DevCenterItem[] = [
+  // l-docs
+  ...docsItems,
   // l-dep
   ...depItems, ...depItemsExt, ...depItemsExt2,
   // l0

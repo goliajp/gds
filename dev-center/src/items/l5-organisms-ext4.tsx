@@ -79,6 +79,40 @@ const signaturePadItem: DevCenterItem = {
       <Ctrl type="check" label="disabled" value={config.disabled} onChange={(v) => setConfig('disabled', v)} />
     </>
   ),
+
+  code: ({ config }) => {
+    const lines = ["import { SignaturePad } from '@goliapkg/gds'", '']
+    lines.push('<SignaturePad')
+    lines.push('  onSign={(dataUrl) => save(dataUrl)}')
+    if (config.width !== 400) lines.push(`  width={${config.width}}`)
+    if (config.height !== 200) lines.push(`  height={${config.height}}`)
+    if (config.strokeWidth !== 2) lines.push(`  strokeWidth={${config.strokeWidth}}`)
+    if (config.disabled === true) lines.push('  disabled')
+    lines.push('/>')
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['onSign', 'Callback with base64 PNG on sign end', '(dataUrl: string) => void', '—'],
+        ['width', 'Canvas width in pixels', 'number', '400'],
+        ['height', 'Canvas height in pixels', 'number', '200'],
+        ['strokeColor', 'Drawing stroke color', 'string', "'var(--gds-fg)'"],
+        ['strokeWidth', 'Drawing stroke width', 'number', '2'],
+        ['disabled', 'Disabled state', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Canvas-based drawing — captures signature as base64 PNG</p>
+          <p>• Clear button resets the canvas</p>
+          <p>• onSign fires when the user finishes drawing (pointer up)</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 organismItemsExt4.push(signaturePadItem)
 
@@ -144,6 +178,38 @@ const animatedListItem: DevCenterItem = {
       <Ctrl type="number" label="stagger" value={config.stagger} onChange={(v) => setConfig('stagger', v)} min={0} max={200} />
     </>
   ),
+
+  code: ({ config }) => {
+    const lines = ["import { AnimatedList } from '@goliapkg/gds'", '']
+    lines.push('<AnimatedList')
+    if (config.animation !== 'slide-up') lines.push(`  animation="${config.animation}"`)
+    if (config.stagger !== 50) lines.push(`  stagger={${config.stagger}}`)
+    lines.push('>')
+    lines.push('  <div>Item 1</div>')
+    lines.push('  <div>Item 2</div>')
+    lines.push('  <div>Item 3</div>')
+    lines.push('</AnimatedList>')
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['children', 'List items', 'ReactNode', '—'],
+        ['animation', 'Animation type', "'fade' | 'slide-up' | 'slide-left' | 'scale'", "'slide-up'"],
+        ['stagger', 'Delay between items (ms)', 'number', '50'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Each child animates in sequence with configurable stagger delay</p>
+          <p>• Use for lists, menus, or any sequential content entrance</p>
+          <p>• Respects prefers-reduced-motion — disables animation when set</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 organismItemsExt4.push(animatedListItem)
 
@@ -204,6 +270,36 @@ const confettiItem: DevCenterItem = {
       <Ctrl type="number" label="duration" value={config.duration} onChange={(v) => setConfig('duration', v)} min={500} max={10000} />
       <Ctrl type="number" label="particleCount" value={config.particleCount} onChange={(v) => setConfig('particleCount', v)} min={10} max={500} />
     </>
+  ),
+
+  code: ({ config }) => {
+    const lines = ["import { Confetti } from '@goliapkg/gds'", '']
+    lines.push('<Confetti')
+    lines.push('  active={active}')
+    if (config.duration !== 3000) lines.push(`  duration={${config.duration}}`)
+    if (config.particleCount !== 100) lines.push(`  particleCount={${config.particleCount}}`)
+    lines.push('/>')
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['active', 'Trigger confetti animation', 'boolean', '—'],
+        ['duration', 'Animation duration in ms', 'number', '3000'],
+        ['particleCount', 'Number of particles to spawn', 'number', '100'],
+        ['colors', 'Particle colors array', 'string[]', 'palette defaults'],
+        ['className', 'Additional CSS classes on canvas', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Toggle active to true to trigger the animation</p>
+          <p>• Canvas-based rendering with gravity and fade-out physics</p>
+          <p>• Re-trigger by toggling active false then true</p>
+        </div>
+      </div>
+    </div>
   ),
 }
 organismItemsExt4.push(confettiItem)

@@ -48,6 +48,24 @@ const skeletonPatternItem: DevCenterItem = {
       <Ctrl type="check" label="glass" value={config.glass} onChange={(v) => setConfig('glass', v)} />
     </>
   ),
+
+  code: ({ config }) => {
+    const lines = ["import { SkeletonPattern } from '@goliapkg/gds'"]
+    lines.push('')
+    lines.push(`<SkeletonPattern variant="${config.variant}" count={${config.count}}${config.glass ? ' glass' : ''} />`)
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['variant', 'Loading pattern layout', "'card' | 'list' | 'profile' | 'table'", '—'],
+        ['count', 'Repeat count for list/table rows', 'number', '1'],
+        ['glass', 'Glass material background', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+    </div>
+  ),
 }
 patternItemsExt3.push(skeletonPatternItem)
 
@@ -92,6 +110,27 @@ const responsiveContainerItem: DevCenterItem = {
           ]}
         />
       </DocSection>
+    </div>
+  ),
+  code: () => {
+    const lines = ["import { ResponsiveContainer } from '@goliapkg/gds'"]
+    lines.push('')
+    lines.push('<ResponsiveContainer')
+    lines.push('  mobile={<MobileView />}')
+    lines.push('  tablet={<TabletView />}')
+    lines.push('  desktop={<DesktopView />}')
+    lines.push('/>')
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['mobile', 'Content shown below sm breakpoint', 'ReactNode', '—'],
+        ['tablet', 'Content shown between sm and lg', 'ReactNode', 'falls back to mobile'],
+        ['desktop', 'Content shown above lg breakpoint', 'ReactNode', '—'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
     </div>
   ),
 }

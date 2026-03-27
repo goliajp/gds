@@ -63,6 +63,26 @@ const chipGroupItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { ChipGroup } from '@goliapkg/gds'\n\nconst [value, setValue] = useState<string[]>([])\n\n<ChipGroup\n  options={[\n    { value: 'react', label: 'React' },\n    { value: 'vue', label: 'Vue' },\n  ]}\n  value={value}\n  onChange={setValue}${config.exclusive ? '\n  exclusive' : ''}\n/>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['options', 'Available chip options', '{ value: string, label: string }[]', '—'],
+        ['value', 'Currently selected values', 'string[]', '—'],
+        ['onChange', 'Selection change handler', '(value: string[]) => void', '—'],
+        ['exclusive', 'Single select mode (radio behavior)', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Default mode allows multiple selections (checkbox behavior)</p>
+          <p>• Exclusive mode restricts to a single selection (radio behavior)</p>
+          <p>• Use for filter bars, tag selection, and option toggles</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 moleculeItemsN.push(chipGroupItem)
 

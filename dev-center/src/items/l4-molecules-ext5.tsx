@@ -60,6 +60,39 @@ const collapsibleItem: DevCenterItem = {
       <Ctrl type="check" label="defaultOpen" value={config.defaultOpen} onChange={(v) => setConfig('defaultOpen', v)} />
     </>
   ),
+
+  code: ({ config }) => {
+    const lines = ["import { Collapsible } from '@goliapkg/gds'", '']
+    const props: string[] = ['trigger={<button>Toggle</button>}']
+    if (config.defaultOpen === true) props.push('defaultOpen')
+    lines.push('<Collapsible')
+    for (const p of props) lines.push(`  ${p}`)
+    lines.push('>')
+    lines.push('  <div>Collapsible content</div>')
+    lines.push('</Collapsible>')
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['trigger', 'Clickable trigger element', 'ReactNode', '—'],
+        ['children', 'Collapsible content', 'ReactNode', '—'],
+        ['defaultOpen', 'Initial open state (uncontrolled)', 'boolean', 'false'],
+        ['open', 'Controlled open state', 'boolean', '—'],
+        ['onOpenChange', 'Called when open state changes', '(open: boolean) => void', '—'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Supports both controlled (open + onOpenChange) and uncontrolled (defaultOpen) modes</p>
+          <p>• Trigger can be any ReactNode — the component wraps it with a click handler</p>
+          <p>• Content animates open/closed with height transition</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 moleculeItemsF.push(collapsibleItem)
 

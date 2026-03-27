@@ -72,6 +72,29 @@ const listItemItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { ListItem } from '@goliapkg/gds'\n\n<ListItem\n  title="Account Settings"${config.showDescription ? '\n  description="Manage your profile"' : ''}${config.showIcon ? '\n  icon={<UserIcon />}' : ''}${config.showTrailing ? '\n  trailing={<ChevronRight />}' : ''}${config.active ? '\n  active' : ''}${config.disabled ? '\n  disabled' : ''}\n  onClick={() => {}}\n/>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['title', 'Primary text content', 'string', '—'],
+        ['description', 'Secondary text below title', 'string', '—'],
+        ['icon', 'Leading icon element', 'ReactNode', '—'],
+        ['trailing', 'Trailing element (badge, arrow, etc.)', 'ReactNode', '—'],
+        ['onClick', 'Click handler (makes item interactive)', '() => void', '—'],
+        ['active', 'Active/selected state with accent border', 'boolean', 'false'],
+        ['disabled', 'Disabled state with reduced opacity', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Use for settings lists, navigation menus, and selectable item lists</p>
+          <p>• onClick makes the item interactive with hover and focus styles</p>
+          <p>• Trailing slot is ideal for chevrons, badges, or status indicators</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 moleculeItemsO.push(listItemItem)
 

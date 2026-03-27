@@ -61,6 +61,43 @@ const videoPlayerItem: DevCenterItem = {
       <Ctrl type="check" label="glass" value={config.glass} onChange={(v) => setConfig('glass', v)} />
     </>
   ),
+
+  code: ({ config }) => {
+    const lines = ["import { VideoPlayer } from '@goliapkg/gds'", '']
+    lines.push('<VideoPlayer')
+    lines.push('  src="/video.mp4"')
+    lines.push('  poster="/poster.jpg"')
+    if (config.autoPlay === true) lines.push('  autoPlay')
+    if (config.muted === true) lines.push('  muted')
+    if (config.loop === true) lines.push('  loop')
+    if (config.controls === false) lines.push('  controls={false}')
+    if (config.glass === true) lines.push('  glass')
+    lines.push('/>')
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['src', 'Video source URL', 'string', '—'],
+        ['poster', 'Poster image URL', 'string', '—'],
+        ['autoPlay', 'Auto-play on mount', 'boolean', 'false'],
+        ['muted', 'Start muted', 'boolean', 'false'],
+        ['loop', 'Loop playback', 'boolean', 'false'],
+        ['controls', 'Show custom controls overlay', 'boolean', 'true'],
+        ['glass', 'Frosted glass material', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Custom controls overlay with play/pause, progress bar, and volume</p>
+          <p>• Poster image shown before playback starts</p>
+          <p>• Supports standard HTML5 video formats (mp4, webm, ogg)</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 organismItemsExt6.push(videoPlayerItem)
 
@@ -118,6 +155,36 @@ const animatePresenceItem: DevCenterItem = {
       <Ctrl type="number" label="duration" value={config.duration} onChange={(v) => setConfig('duration', v)} min={50} max={1000} />
       <Ctrl type="check" label="visible" value={config.visible} onChange={(v) => setConfig('visible', v)} />
     </>
+  ),
+
+  code: ({ config }) => {
+    const lines = ["import { AnimatePresence } from '@goliapkg/gds'", '']
+    lines.push('<AnimatePresence')
+    if (config.animation !== 'fade') lines.push(`  animation="${config.animation}"`)
+    if (config.duration !== 200) lines.push(`  duration={${config.duration}}`)
+    lines.push('>')
+    lines.push('  {visible && <div>Content</div>}')
+    lines.push('</AnimatePresence>')
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['children', 'Content to animate', 'ReactNode', '—'],
+        ['animation', 'Animation type', "'fade' | 'scale' | 'slide-up' | 'slide-down'", "'fade'"],
+        ['duration', 'Animation duration in ms', 'number', '200'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Animates children on mount and unmount</p>
+          <p>• Conditionally render children inside to trigger exit animation</p>
+          <p>• Respects prefers-reduced-motion — skips animation when set</p>
+        </div>
+      </div>
+    </div>
   ),
 }
 organismItemsExt6.push(animatePresenceItem)

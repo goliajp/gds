@@ -45,4 +45,4 @@ export function MentionList({ filtered, highlightedIndex, onSelect, trigger }: M
   )
 }
 
-export type { MentionSuggestion }
+export type { MentionListProps, MentionSuggestion }

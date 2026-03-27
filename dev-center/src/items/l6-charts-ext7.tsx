@@ -70,6 +70,18 @@ const chartItemsExt7: DevCenterItem[] = [
       </>
     ),
 
+    code: () => {
+      const lines = ["import { StreamChart } from '@goliapkg/gds'"]
+      lines.push('')
+      lines.push('const data = [')
+      lines.push("  { name: 'Jan', frontend: 40, backend: 30 },")
+      lines.push("  { name: 'Feb', frontend: 35, backend: 40 },")
+      lines.push(']')
+      lines.push('')
+      lines.push("<StreamChart data={data} keys={['frontend', 'backend']} />")
+      return lines.join('\n')
+    },
+
     docs: () => (
       <div className="space-y-4" data-selectable>
         <DocTable
@@ -135,6 +147,19 @@ const chartItemsExt7: DevCenterItem[] = [
       </>
     ),
 
+    code: () => {
+      const lines = ["import { ChordDiagram } from '@goliapkg/gds'"]
+      lines.push('')
+      lines.push('const matrix = [')
+      lines.push('  [0, 20, 10],')
+      lines.push('  [20, 0, 15],')
+      lines.push('  [10, 15, 0],')
+      lines.push(']')
+      lines.push('')
+      lines.push("<ChordDiagram matrix={matrix} labels={['A', 'B', 'C']} />")
+      return lines.join('\n')
+    },
+
     docs: () => (
       <div className="space-y-4" data-selectable>
         <DocTable
@@ -198,6 +223,18 @@ const chartItemsExt7: DevCenterItem[] = [
         <Ctrl label="glass" onChange={(v) => setConfig('glass', v)} type="check" value={config.glass} />
       </>
     ),
+
+    code: () => {
+      const lines = ["import { ViolinPlot } from '@goliapkg/gds'"]
+      lines.push('')
+      lines.push('const data = [')
+      lines.push("  { label: 'Team A', values: [2, 3, 4, 5, 5, 6, 7, 8] },")
+      lines.push("  { label: 'Team B', values: [1, 3, 5, 7, 9, 11, 13] },")
+      lines.push(']')
+      lines.push('')
+      lines.push('<ViolinPlot data={data} />')
+      return lines.join('\n')
+    },
 
     docs: () => (
       <div className="space-y-4" data-selectable>

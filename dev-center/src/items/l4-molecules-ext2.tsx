@@ -530,6 +530,36 @@ const loadingOverlayItem: DevCenterItem = {
       <Ctrl type="check" label="glass" value={config.glass} onChange={(v) => setConfig('glass', v)} />
     </>
   ),
+
+  code: ({ config }) => {
+    const lines = ["import { LoadingOverlay } from '@goliapkg/gds'", '']
+    const props: string[] = ['visible']
+    if (config.message !== '') props.push(`message="${config.message}"`)
+    if (config.glass === false) props.push('glass={false}')
+    lines.push('<LoadingOverlay')
+    for (const p of props) lines.push(`  ${p}`)
+    lines.push('/>')
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['visible', 'Show/hide the overlay', 'boolean', '—'],
+        ['message', 'Optional text below spinner', 'string', '—'],
+        ['glass', 'Enable frosted glass backdrop', 'boolean', 'true'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Place inside a relative-positioned container to scope the overlay</p>
+          <p>• Glass is enabled by default — pass glass=false for a solid backdrop</p>
+          <p>• Use for async operations like form submission or data loading</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 
 moleculeItemsC.push(loadingOverlayItem)

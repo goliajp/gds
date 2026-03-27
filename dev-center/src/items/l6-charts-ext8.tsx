@@ -71,6 +71,18 @@ const chartItemsExt8: DevCenterItem[] = [
       </>
     ),
 
+    code: () => {
+      const lines = ["import { BumpChart } from '@goliapkg/gds'"]
+      lines.push('')
+      lines.push('const data = [')
+      lines.push("  { week: 'W1', alpha: 1, beta: 3, gamma: 2 },")
+      lines.push("  { week: 'W2', alpha: 2, beta: 1, gamma: 3 },")
+      lines.push(']')
+      lines.push('')
+      lines.push("<BumpChart data={data} series={['alpha', 'beta', 'gamma']} xKey=\"week\" />")
+      return lines.join('\n')
+    },
+
     docs: () => (
       <div className="space-y-4" data-selectable>
         <DocTable
@@ -134,6 +146,22 @@ const chartItemsExt8: DevCenterItem[] = [
         <Ctrl label="glass" onChange={(v) => setConfig('glass', v)} type="check" value={config.glass} />
       </>
     ),
+
+    code: () => {
+      const lines = ["import { OrderBookChart } from '@goliapkg/gds'"]
+      lines.push('')
+      lines.push('const bids = [')
+      lines.push('  { price: 99, depth: 120 },')
+      lines.push('  { price: 100, depth: 50 },')
+      lines.push(']')
+      lines.push('const asks = [')
+      lines.push('  { price: 101, depth: 40 },')
+      lines.push('  { price: 102, depth: 100 },')
+      lines.push(']')
+      lines.push('')
+      lines.push('<OrderBookChart bids={bids} asks={asks} />')
+      return lines.join('\n')
+    },
 
     docs: () => (
       <div className="space-y-4" data-selectable>
@@ -202,6 +230,15 @@ const chartItemsExt8: DevCenterItem[] = [
         <Ctrl label="glass" onChange={(v) => setConfig('glass', v)} type="check" value={config.glass} />
       </>
     ),
+
+    code: () => {
+      const lines = ["import { WaveformDisplay } from '@goliapkg/gds'"]
+      lines.push('')
+      lines.push('const data = Array.from({ length: 80 }, () => Math.random())')
+      lines.push('')
+      lines.push('<WaveformDisplay data={data} progress={0.4} />')
+      return lines.join('\n')
+    },
 
     docs: () => (
       <div className="space-y-4" data-selectable>

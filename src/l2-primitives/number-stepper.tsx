@@ -1,4 +1,6 @@
 // number-stepper — increment/decrement buttons for number-input
+import { forwardRef } from 'react'
+
 import { cx } from '../utils/cx'
 
 type NumberStepperProps = {
@@ -10,10 +12,14 @@ type NumberStepperProps = {
 const btnBase =
   'flex items-center justify-center select-none px-2 text-fg-muted hover:text-fg hover:bg-bg-tertiary transition-colors disabled:cursor-not-allowed disabled:opacity-50'
 
-export function NumberStepper({ direction, disabled, onClick }: NumberStepperProps) {
+const NumberStepper = forwardRef<HTMLButtonElement, NumberStepperProps>(function NumberStepper(
+  { direction, disabled, onClick },
+  ref,
+) {
   const isDecrement = direction === 'decrement'
   return (
     <button
+      ref={ref}
       aria-label={direction}
       className={cx(
         btnBase,
@@ -27,4 +33,7 @@ export function NumberStepper({ direction, disabled, onClick }: NumberStepperPro
       {isDecrement ? '-' : '+'}
     </button>
   )
-}
+})
+
+export { NumberStepper }
+export type { NumberStepperProps }

@@ -54,6 +54,38 @@ const copyButtonItem: DevCenterItem = {
       <Ctrl type="pills" label="size" value={config.size} options={['default', 'sm']} onChange={(v) => setConfig('size', v)} />
     </>
   ),
+
+  code: ({ config }) => {
+    const lines = ["import { CopyButton } from '@goliapkg/gds'", '']
+    const props: string[] = ['text="npm install @goliapkg/gds"']
+    if (config.label !== 'Copy') props.push(`label="${config.label}"`)
+    if (config.copiedLabel !== 'Copied!') props.push(`copiedLabel="${config.copiedLabel}"`)
+    if (config.variant !== 'default') props.push(`variant="${config.variant}"`)
+    if (config.size !== 'default') props.push(`size="${config.size}"`)
+    lines.push(`<CopyButton ${props.join(' ')} />`)
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['text', 'Text to copy to clipboard', 'string', '—'],
+        ['label', 'Button label', 'string', "'Copy'"],
+        ['copiedLabel', 'Label shown after copying', 'string', "'Copied!'"],
+        ['variant', 'Visual variant', "'default' | 'ghost'", "'default'"],
+        ['size', 'Button size', "'default' | 'sm'", "'default'"],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Shows a check icon and copiedLabel for 1.5s after copying</p>
+          <p>• Uses navigator.clipboard API for secure clipboard access</p>
+          <p>• Pair with code blocks or command lines for copy-to-clipboard UX</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 atomItemsE.push(copyButtonItem)
 
@@ -102,6 +134,35 @@ const countdownItem: DevCenterItem = {
       <Ctrl type="check" label="showSeconds" value={config.showSeconds} onChange={(v) => setConfig('showSeconds', v)} />
       <Ctrl type="number" label="minutesFromNow" value={config.minutesFromNow} onChange={(v) => setConfig('minutesFromNow', v)} min={1} max={10080} />
     </>
+  ),
+
+  code: ({ config }) => {
+    const lines = ["import { Countdown } from '@goliapkg/gds'", '']
+    const props: string[] = ['targetDate={targetDate}']
+    if (config.showDays === false) props.push('showDays={false}')
+    if (config.showSeconds === false) props.push('showSeconds={false}')
+    lines.push(`<Countdown ${props.join(' ')} />`)
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['targetDate', 'Countdown target time', 'Date | string | number', '—'],
+        ['onComplete', 'Fires when countdown reaches zero', '() => void', '—'],
+        ['showDays', 'Show days segment', 'boolean', 'true'],
+        ['showSeconds', 'Show seconds segment', 'boolean', 'true'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Updates every second with tabular-nums for stable layout</p>
+          <p>• Accepts Date, ISO string, or Unix timestamp as targetDate</p>
+          <p>• Use onComplete callback for post-countdown actions</p>
+        </div>
+      </div>
+    </div>
   ),
 }
 atomItemsE.push(countdownItem)

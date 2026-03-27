@@ -56,6 +56,25 @@ const descriptionListItem: DevCenterItem = {
 
   code: ({ config, variant }) =>
     `import { DescriptionList } from '@goliapkg/gds'\n\n<DescriptionList\n  items={[\n    { term: 'Name', description: 'Alice' },\n    { term: 'Role', description: 'Engineer' },\n  ]}${variant !== 'stacked' ? `\n  layout="${variant}"` : ''}${config.dividers === false ? '\n  dividers={false}' : ''}\n/>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['items', 'Term-description pairs', '{ term: string, description: ReactNode }[]', '—'],
+        ['layout', 'Layout direction', "'stacked' | 'horizontal'", "'stacked'"],
+        ['dividers', 'Show divider lines between items', 'boolean', 'true'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Stacked layout places term above description, horizontal places them side by side</p>
+          <p>• Uses semantic dl/dt/dd elements for accessibility</p>
+          <p>• Dividers help separate items in long lists</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 organismItemsExt14.push(descriptionListItem)
 
@@ -106,6 +125,24 @@ const errorBoundaryItem: DevCenterItem = {
 
   code: () =>
     `import { ErrorBoundary } from '@goliapkg/gds'\n\n<ErrorBoundary\n  fallback={<p>Something went wrong</p>}\n  onError={(error) => console.error(error)}\n>\n  <MyComponent />\n</ErrorBoundary>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['children', 'Content to render', 'ReactNode', '—'],
+        ['fallback', 'Custom error UI', 'ReactNode | (error: Error) => ReactNode', '—'],
+        ['onError', 'Error callback for logging', '(error: Error, info: ErrorInfo) => void', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Catches render errors in any descendant component tree</p>
+          <p>• Default fallback shows a styled error message with retry option</p>
+          <p>• Use onError to log errors to your monitoring service</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 organismItemsExt14.push(errorBoundaryItem)
 

@@ -61,6 +61,19 @@ const statsCardItem: DevCenterItem = {
     </>
   ),
 
+  code: ({ config }) => {
+    const lines = ["import { StatsCard } from '@goliapkg/gds'"]
+    lines.push('')
+    lines.push('<StatsCard')
+    lines.push(`  label="${config.label}"`)
+    lines.push(`  value="${config.value}"`)
+    lines.push(`  trend={${config.trend}}`)
+    lines.push('  sparkData={[2, 5, 3, 8, 6, 9, 7, 12]}')
+    if (config.glass) lines.push('  glass')
+    lines.push('/>')
+    return lines.join('\n')
+  },
+
   docs: () => (
     <div className="space-y-4" data-selectable>
       <DocTable rows={[
@@ -140,6 +153,19 @@ const sidebarItem: DevCenterItem = {
       <Ctrl type="check" label="glass" value={config.glass} onChange={(v) => setConfig('glass', v)} />
     </>
   ),
+
+  code: ({ config }) => {
+    const lines = ["import { Sidebar } from '@goliapkg/gds'"]
+    lines.push('')
+    lines.push('<Sidebar')
+    lines.push('  collapsed={collapsed}')
+    lines.push('  onCollapse={setCollapsed}')
+    if (config.glass) lines.push('  glass')
+    lines.push('>')
+    lines.push('  <NavItems />')
+    lines.push('</Sidebar>')
+    return lines.join('\n')
+  },
 
   docs: () => (
     <div className="space-y-4" data-selectable>

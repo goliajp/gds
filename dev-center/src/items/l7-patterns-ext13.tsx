@@ -55,6 +55,20 @@ const testimonialItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { Testimonial } from '@goliapkg/gds'\n\n<Testimonial\n  quote="${config.quote}"\n  author="${config.author}"${config.role ? `\n  role="${config.role}"` : ''}${config.rating ? `\n  rating={${config.rating}}` : ''}${config.glass ? '\n  glass' : ''}\n/>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['quote', 'Quote text', 'string', '—'],
+        ['author', 'Author name', 'string', '—'],
+        ['role', 'Author role/title', 'string', '—'],
+        ['avatar', 'Author photo URL', 'string', '—'],
+        ['rating', 'Star rating 1-5', 'number', '—'],
+        ['glass', 'Glass material effect', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+    </div>
+  ),
 }
 patternItemsExt13.push(testimonialItem)
 
@@ -101,6 +115,17 @@ const faqItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { FAQ } from '@goliapkg/gds'\n\n<FAQ\n  title="${config.title}"\n  items={[\n    { question: 'What is GDS?', answer: 'A design system.' },\n    { question: 'Is it free?', answer: 'Yes.' },\n  ]}${config.glass ? '\n  glass' : ''}\n/>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['items', 'Array of FAQ entries', '{ question: string; answer: string }[]', '—'],
+        ['title', 'Section heading', 'string', "'FAQ'"],
+        ['glass', 'Glass material effect', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+    </div>
+  ),
 }
 patternItemsExt13.push(faqItem)
 
@@ -149,6 +174,19 @@ const ctaBannerItem: DevCenterItem = {
 
   code: ({ config }) =>
     `import { CTABanner } from '@goliapkg/gds'\n\n<CTABanner\n  title="${config.title}"${config.description ? `\n  description="${config.description}"` : ''}${config.variant !== 'default' ? `\n  variant="${config.variant}"` : ''}${config.glass ? '\n  glass' : ''}\n  actions={<Button>Get Started</Button>}\n/>`,
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['title', 'Main heading text', 'string', '—'],
+        ['description', 'Supporting text below title', 'string', '—'],
+        ['actions', 'Action buttons', 'ReactNode', '—'],
+        ['variant', 'Visual style variant', "'default' | 'accent' | 'gradient'", "'default'"],
+        ['glass', 'Glass material effect', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+    </div>
+  ),
 }
 patternItemsExt13.push(ctaBannerItem)
 

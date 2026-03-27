@@ -75,6 +75,37 @@ const kpiDashboardItem: DevCenterItem = {
       <Ctrl type="check" label="glass" value={config.glass} onChange={(v) => setConfig('glass', v)} />
     </>
   ),
+
+  code: ({ config }) => {
+    const lines = ["import { KPIDashboard } from '@goliapkg/gds'"]
+    lines.push('')
+    lines.push('const metrics = [')
+    lines.push("  { title: 'Revenue', value: '$42.5k', change: 12 },")
+    lines.push("  { title: 'Users', value: '1,284', change: 8 },")
+    lines.push(']')
+    lines.push('')
+    lines.push('<KPIDashboard')
+    lines.push(`  title="${config.title}"`)
+    lines.push('  metrics={metrics}')
+    if (config.showChart) lines.push('  chart={<MyChart />}')
+    if (config.showTable) lines.push('  table={<MyTable />}')
+    if (config.glass) lines.push('  glass')
+    lines.push('/>')
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['title', 'Dashboard heading', 'string', '—'],
+        ['metrics', 'Array of KPI metrics', '{ title: string; value: string; change?: number }[]', '—'],
+        ['chart', 'Chart element slot', 'ReactNode', '—'],
+        ['table', 'Table element slot', 'ReactNode', '—'],
+        ['glass', 'Glass material', 'boolean', 'false'],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+    </div>
+  ),
 }
 patternItemsExt2.push(kpiDashboardItem)
 

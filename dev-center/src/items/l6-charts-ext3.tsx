@@ -68,6 +68,21 @@ const chartItemsExt3: DevCenterItem[] = [
       </>
     ),
 
+    code: () => {
+      const lines = ["import { NetworkGraph } from '@goliapkg/gds'"]
+      lines.push('')
+      lines.push('<NetworkGraph')
+      lines.push('  nodes={[')
+      lines.push("    { id: 'a', label: 'Node A', group: 0 },")
+      lines.push("    { id: 'b', label: 'Node B', group: 1 },")
+      lines.push('  ]}')
+      lines.push('  edges={[')
+      lines.push("    { source: 'a', target: 'b' },")
+      lines.push('  ]}')
+      lines.push('/>')
+      return lines.join('\n')
+    },
+
     docs: () => (
       <div className="space-y-4" data-selectable>
         <DocTable

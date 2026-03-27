@@ -60,6 +60,38 @@ const progressCircleItem: DevCenterItem = {
       <Ctrl type="pills" label="variant" value={config.variant} options={['accent', 'success', 'warning', 'danger']} onChange={(v) => setConfig('variant', v)} />
     </>
   ),
+
+  code: ({ config }) => {
+    const lines = ["import { ProgressCircle } from '@goliapkg/gds'", '']
+    const props: string[] = [`value={${config.value}}`]
+    if (config.size !== 64) props.push(`size={${config.size}}`)
+    if (config.strokeWidth !== 4) props.push(`strokeWidth={${config.strokeWidth}}`)
+    if (config.showValue === false) props.push('showValue={false}')
+    if (config.variant !== 'accent') props.push(`variant="${config.variant}"`)
+    lines.push(`<ProgressCircle ${props.join(' ')} />`)
+    return lines.join('\n')
+  },
+
+  docs: () => (
+    <div className="space-y-4" data-selectable>
+      <DocTable rows={[
+        ['value', 'Progress percentage (0-100)', 'number', '—'],
+        ['size', 'Diameter in pixels', 'number', '64'],
+        ['strokeWidth', 'Stroke width in pixels', 'number', '4'],
+        ['showValue', 'Show percentage text in center', 'boolean', 'true'],
+        ['variant', 'Color variant', "'accent' | 'success' | 'warning' | 'danger'", "'accent'"],
+        ['className', 'Additional CSS classes', 'string', '—'],
+      ]} />
+      <div>
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
+        <div className="space-y-1 text-[10px] text-fg-muted/50">
+          <p>• Uses SVG with strokeDasharray for smooth arc rendering</p>
+          <p>• Value is clamped between 0 and 100 automatically</p>
+          <p>• Use semantic variants to indicate status (success, warning, danger)</p>
+        </div>
+      </div>
+    </div>
+  ),
 }
 atomItemsF.push(progressCircleItem)
 
