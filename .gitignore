@@ -7,3 +7,4 @@ coverage/
 *.log
 .vite/
 .eslintcache
+dist-dev-center/
