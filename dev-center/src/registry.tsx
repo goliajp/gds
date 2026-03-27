@@ -1,11 +1,13 @@
 // l-docs
 import { docsItems } from './items/l-docs'
 import { docsItemsExt } from './items/l-docs-ext'
+import { docsItemsExt2 } from './items/l-docs-ext2'
 
 // l-lab
 import { labItems } from './items/l-lab'
 import { labItemsExt } from './items/l-lab-ext'
 import { labItemsExt2 } from './items/l-lab-ext2'
+import { labItemsExt3 } from './items/l-lab-ext3'
 
 // l-dep
 import { depItems } from './items/l-dep'
@@ -17,6 +19,7 @@ import { tokenItems } from './items/l0-tokens'
 import { tokenItemsExt } from './items/l0-tokens-ext'
 import { tokenItemsExt2 } from './items/l0-tokens-ext2'
 import { tokenItemsExt3 } from './items/l0-tokens-ext3'
+import { tokenItemsExt4 } from './items/l0-tokens-ext4'
 
 // l1
 import { systemItems } from './items/l1-systems'
@@ -29,6 +32,7 @@ import { primitiveItemsExt3 } from './items/l2-primitives-ext3'
 import { primitiveItemsExt4 } from './items/l2-primitives-ext4'
 import { primitiveItemsExt5 } from './items/l2-primitives-ext5'
 import { primitiveItemsExt6 } from './items/l2-primitives-ext6'
+import { primitiveItemsExt7 } from './items/l2-primitives-ext7'
 
 // l3
 import { atomItems } from './items/l3-atoms'
@@ -58,6 +62,7 @@ import { atomItemsX } from './items/l3-atoms-ext23'
 import { atomItemsY } from './items/l3-atoms-ext24'
 import { atomItemsZ } from './items/l3-atoms-ext25'
 import { atomItemsAA } from './items/l3-atoms-ext26'
+import { atomItemsAB } from './items/l3-atoms-ext27'
 
 // l4
 import { moleculeItems } from './items/l4-molecules'
@@ -93,6 +98,7 @@ import { moleculeItemsAD } from './items/l4-molecules-ext29'
 import { moleculeItemsAE } from './items/l4-molecules-ext30'
 import { moleculeItemsAF } from './items/l4-molecules-ext31'
 import { moleculeItemsAG } from './items/l4-molecules-ext32'
+import { moleculeItemsAH } from './items/l4-molecules-ext33'
 
 // l5
 import { organismItems } from './items/l5-organisms'
@@ -129,6 +135,7 @@ import { organismItemsExt30 } from './items/l5-organisms-ext30'
 import { organismItemsExt31 } from './items/l5-organisms-ext31'
 import { organismItemsExt32 } from './items/l5-organisms-ext32'
 import { organismItemsExt33 } from './items/l5-organisms-ext33'
+import { organismItemsExt34 } from './items/l5-organisms-ext34'
 
 // l6
 import { chartItems } from './items/l6-charts'
@@ -141,6 +148,7 @@ import { chartItemsExt6 } from './items/l6-charts-ext6'
 import { chartItemsExt7 } from './items/l6-charts-ext7'
 import { chartItemsExt8 } from './items/l6-charts-ext8'
 import { chartItemsExt9 } from './items/l6-charts-ext9'
+import { chartItemsExt10 } from './items/l6-charts-ext10'
 
 // l7
 import { patternItems } from './items/l7-patterns'
@@ -175,36 +183,37 @@ import { patternItemsExt28 } from './items/l7-patterns-ext28'
 import { patternItemsExt29 } from './items/l7-patterns-ext29'
 import { patternItemsExt30 } from './items/l7-patterns-ext30'
 import { patternItemsExt31 } from './items/l7-patterns-ext31'
+import { patternItemsExt32 } from './items/l7-patterns-ext32'
 
 import type { DevCenterItem } from './types'
 
 export const allItems: DevCenterItem[] = [
   // l-docs
-  ...docsItems, ...docsItemsExt,
+  ...docsItems, ...docsItemsExt, ...docsItemsExt2,
   // l-lab
-  ...labItems, ...labItemsExt, ...labItemsExt2,
+  ...labItems, ...labItemsExt, ...labItemsExt2, ...labItemsExt3,
   // l-dep
   ...depItems, ...depItemsExt, ...depItemsExt2,
   // l0
-  ...tokenItems, ...tokenItemsExt, ...tokenItemsExt2, ...tokenItemsExt3,
+  ...tokenItems, ...tokenItemsExt, ...tokenItemsExt2, ...tokenItemsExt3, ...tokenItemsExt4,
   // l1
   ...systemItems,
   // l2
-  ...primitiveItems, ...primitiveItemsExt, ...primitiveItemsExt2, ...primitiveItemsExt3, ...primitiveItemsExt4, ...primitiveItemsExt5, ...primitiveItemsExt6,
+  ...primitiveItems, ...primitiveItemsExt, ...primitiveItemsExt2, ...primitiveItemsExt3, ...primitiveItemsExt4, ...primitiveItemsExt5, ...primitiveItemsExt6, ...primitiveItemsExt7,
   // l3
   ...atomItems, ...atomItemsB, ...atomItemsC, ...atomItemsD, ...atomItemsE, ...atomItemsF,
-  ...atomItemsG, ...atomItemsH, ...atomItemsI, ...atomItemsJ, ...atomItemsK, ...atomItemsL, ...atomItemsM, ...atomItemsN, ...atomItemsO, ...atomItemsP, ...atomItemsQ, ...atomItemsR, ...atomItemsS, ...atomItemsT, ...atomItemsU, ...atomItemsV, ...atomItemsW, ...atomItemsX, ...atomItemsY, ...atomItemsZ, ...atomItemsAA,
+  ...atomItemsG, ...atomItemsH, ...atomItemsI, ...atomItemsJ, ...atomItemsK, ...atomItemsL, ...atomItemsM, ...atomItemsN, ...atomItemsO, ...atomItemsP, ...atomItemsQ, ...atomItemsR, ...atomItemsS, ...atomItemsT, ...atomItemsU, ...atomItemsV, ...atomItemsW, ...atomItemsX, ...atomItemsY, ...atomItemsZ, ...atomItemsAA, ...atomItemsAB,
   // l4
   ...moleculeItems, ...moleculeItemsB, ...moleculeItemsC, ...moleculeItemsD, ...moleculeItemsE, ...moleculeItemsF,
-  ...moleculeItemsG, ...moleculeItemsH, ...moleculeItemsI, ...moleculeItemsJ, ...moleculeItemsK, ...moleculeItemsL, ...moleculeItemsM, ...moleculeItemsN, ...moleculeItemsO, ...moleculeItemsP, ...moleculeItemsQ, ...moleculeItemsR, ...moleculeItemsS, ...moleculeItemsT, ...moleculeItemsU, ...moleculeItemsV, ...moleculeItemsW, ...moleculeItemsX, ...moleculeItemsY, ...moleculeItemsZ, ...moleculeItemsAA, ...moleculeItemsAB, ...moleculeItemsAC, ...moleculeItemsAD, ...moleculeItemsAE, ...moleculeItemsAF, ...moleculeItemsAG,
+  ...moleculeItemsG, ...moleculeItemsH, ...moleculeItemsI, ...moleculeItemsJ, ...moleculeItemsK, ...moleculeItemsL, ...moleculeItemsM, ...moleculeItemsN, ...moleculeItemsO, ...moleculeItemsP, ...moleculeItemsQ, ...moleculeItemsR, ...moleculeItemsS, ...moleculeItemsT, ...moleculeItemsU, ...moleculeItemsV, ...moleculeItemsW, ...moleculeItemsX, ...moleculeItemsY, ...moleculeItemsZ, ...moleculeItemsAA, ...moleculeItemsAB, ...moleculeItemsAC, ...moleculeItemsAD, ...moleculeItemsAE, ...moleculeItemsAF, ...moleculeItemsAG, ...moleculeItemsAH,
   // l5
   ...organismItems, ...organismItemsExt, ...organismItemsExt2, ...organismItemsExt3, ...organismItemsExt4,
   ...organismItemsExt5, ...organismItemsExt6, ...organismItemsExt7, ...organismItemsExt8, ...organismItemsExt9,
-  ...organismItemsExt10, ...organismItemsExt11, ...organismItemsExt12, ...organismItemsExt13, ...organismItemsExt14, ...organismItemsExt15, ...organismItemsExt16, ...organismItemsExt17, ...organismItemsExt18, ...organismItemsExt19, ...organismItemsExt20, ...organismItemsExt21, ...organismItemsExt22, ...organismItemsExt23, ...organismItemsExt24, ...organismItemsExt25, ...organismItemsExt26, ...organismItemsExt27, ...organismItemsExt28, ...organismItemsExt29, ...organismItemsExt30, ...organismItemsExt31, ...organismItemsExt32, ...organismItemsExt33,
+  ...organismItemsExt10, ...organismItemsExt11, ...organismItemsExt12, ...organismItemsExt13, ...organismItemsExt14, ...organismItemsExt15, ...organismItemsExt16, ...organismItemsExt17, ...organismItemsExt18, ...organismItemsExt19, ...organismItemsExt20, ...organismItemsExt21, ...organismItemsExt22, ...organismItemsExt23, ...organismItemsExt24, ...organismItemsExt25, ...organismItemsExt26, ...organismItemsExt27, ...organismItemsExt28, ...organismItemsExt29, ...organismItemsExt30, ...organismItemsExt31, ...organismItemsExt32, ...organismItemsExt33, ...organismItemsExt34,
   // l6
   ...chartItems, ...chartItemsExt, ...chartItemsExt2, ...chartItemsExt3, ...chartItemsExt4,
-  ...chartItemsExt5, ...chartItemsExt6, ...chartItemsExt7, ...chartItemsExt8, ...chartItemsExt9,
+  ...chartItemsExt5, ...chartItemsExt6, ...chartItemsExt7, ...chartItemsExt8, ...chartItemsExt9, ...chartItemsExt10,
   // l7
   ...patternItems, ...patternItemsExt, ...patternItemsExt2, ...patternItemsExt3, ...patternItemsExt4,
-  ...patternItemsExt5, ...patternItemsExt6, ...patternItemsExt7, ...patternItemsExt8, ...patternItemsExt9, ...patternItemsExt10, ...patternItemsExt11, ...patternItemsExt12, ...patternItemsExt13, ...patternItemsExt14, ...patternItemsExt15, ...patternItemsExt16, ...patternItemsExt17, ...patternItemsExt18, ...patternItemsExt19, ...patternItemsExt20, ...patternItemsExt21, ...patternItemsExt22, ...patternItemsExt23, ...patternItemsExt24, ...patternItemsExt25, ...patternItemsExt26, ...patternItemsExt27, ...patternItemsExt28, ...patternItemsExt29, ...patternItemsExt30, ...patternItemsExt31,
+  ...patternItemsExt5, ...patternItemsExt6, ...patternItemsExt7, ...patternItemsExt8, ...patternItemsExt9, ...patternItemsExt10, ...patternItemsExt11, ...patternItemsExt12, ...patternItemsExt13, ...patternItemsExt14, ...patternItemsExt15, ...patternItemsExt16, ...patternItemsExt17, ...patternItemsExt18, ...patternItemsExt19, ...patternItemsExt20, ...patternItemsExt21, ...patternItemsExt22, ...patternItemsExt23, ...patternItemsExt24, ...patternItemsExt25, ...patternItemsExt26, ...patternItemsExt27, ...patternItemsExt28, ...patternItemsExt29, ...patternItemsExt30, ...patternItemsExt31, ...patternItemsExt32,
 ]
