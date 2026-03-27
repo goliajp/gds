@@ -1,11 +1,14 @@
 import type { ReactNode } from 'react'
 import { useEffect, useRef, useState } from 'react'
 
+import { ChevronLeft, ChevronRight, Copy, Check, RotateCcw } from 'lucide-react'
 import { codeToHtml } from 'shiki'
 
 import { layers } from './nav'
 
 import type { ControlsProps, DevCenterItem, StageProps } from '../types'
+
+type InspectorTab = 'props' | 'docs' | 'code'
 
 type InspectorProps = {
   item: DevCenterItem | undefined
@@ -14,6 +17,47 @@ type InspectorProps = {
 }
 
 export function Inspector({ item, stageProps, controlsProps }: InspectorProps) {
+  const [collapsed, setCollapsed] = useState(false)
+  const [tab, setTab] = useState<InspectorTab>('props')
+
+  const hasControls = item?.controls !== undefined
+  const hasVariants = item?.variants !== undefined && item.variants.length > 1
+  const hasDocs = item?.docs !== undefined
+  const hasCode = item?.code !== undefined
+
+  // compute smart default tab
+  const defaultTab: InspectorTab = hasControls || hasVariants
+    ? 'props'
+    : hasDocs
+      ? 'docs'
+      : 'code'
+
+  // reset tab when item changes
+  useEffect(() => {
+    const newDefault: InspectorTab = (item?.controls !== undefined || (item?.variants !== undefined && item.variants.length > 1))
+      ? 'props'
+      : item?.docs !== undefined
+        ? 'docs'
+        : 'code'
+    setTab(newDefault)
+  }, [item?.id]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // collapsed strip
+  if (collapsed) {
+    return (
+      <button
+        className="flex w-7 shrink-0 flex-col items-center gap-2 border-l border-white/[0.06] bg-white/[0.02] pt-3 text-fg-muted/40 transition-colors hover:bg-white/[0.04] hover:text-fg-muted/60"
+        onClick={() => setCollapsed(false)}
+        title="expand inspector"
+      >
+        <ChevronLeft className="h-3.5 w-3.5" />
+        <span className="text-[10px] tracking-wider [writing-mode:vertical-lr]">
+          Inspector
+        </span>
+      </button>
+    )
+  }
+
   if (item === undefined) {
     return (
       <div className="flex h-full items-center justify-center text-xs text-fg-muted/20">
@@ -23,13 +67,21 @@ export function Inspector({ item, stageProps, controlsProps }: InspectorProps) {
   }
 
   const meta = layers.find(l => l.id === item.layer)
-  const hasControls = item.controls !== undefined
-  const hasCode = item.code !== undefined
-  const hasDocs = item.docs !== undefined
+
+  const availableTabs: { id: InspectorTab; label: string }[] = [
+    ...(hasControls || hasVariants ? [{ id: 'props' as const, label: 'Props' }] : []),
+    ...(hasDocs ? [{ id: 'docs' as const, label: 'Docs' }] : []),
+    ...(hasCode ? [{ id: 'code' as const, label: 'Code' }] : []),
+  ]
+
+  // guard: if current tab is unavailable, fall back
+  const activeTab = availableTabs.some(t => t.id === tab)
+    ? tab
+    : availableTabs[0]?.id ?? defaultTab
 
   return (
-    <div className="flex h-full flex-col overflow-y-auto">
-      {/* component info header */}
+    <div className="flex h-full flex-col">
+      {/* header: item name, layer badge, type badge, tags */}
       <div className="shrink-0 border-b border-white/[0.06] px-4 py-3">
         <div className="flex items-center gap-2">
           <span className="text-xs font-semibold text-fg">{item.label}</span>
@@ -53,64 +105,62 @@ export function Inspector({ item, stageProps, controlsProps }: InspectorProps) {
             {item.type}
           </span>
           {item.tags !== undefined && item.tags.length > 0 && (
-            <span className="text-xs text-fg-muted/30 truncate">
+            <span className="truncate text-xs text-fg-muted/30">
               {item.tags.join(' · ')}
             </span>
           )}
         </div>
       </div>
 
-      {/* controls section */}
-      {hasControls && (
-        <InspectorSection title="Controls" defaultOpen>
-          <div className="px-4 pb-3">
-            {item.controls!(controlsProps)}
-          </div>
-        </InspectorSection>
+      {/* tab bar + collapse button */}
+      {availableTabs.length > 0 && (
+        <div className="flex shrink-0 items-center border-b border-white/[0.06]">
+          {availableTabs.map(t => (
+            <button
+              key={t.id}
+              className={[
+                'flex-1 px-3 py-2 text-xs transition-colors',
+                activeTab === t.id
+                  ? 'border-b-2 border-accent font-medium text-accent'
+                  : 'text-fg-muted/50 hover:text-fg-muted/80',
+              ].join(' ')}
+              onClick={() => setTab(t.id)}
+            >
+              {t.label}
+            </button>
+          ))}
+          <button
+            className="mx-1 rounded p-1 text-fg-muted/20 transition-colors hover:bg-white/[0.04] hover:text-fg-muted/50"
+            onClick={() => setCollapsed(true)}
+            title="collapse inspector"
+          >
+            <ChevronRight className="h-3.5 w-3.5" />
+          </button>
+        </div>
       )}
 
-      {/* variants */}
-      {item.variants !== undefined && item.variants.length > 1 && (
-        <InspectorSection title="Variants" defaultOpen>
-          <div className="px-4 pb-3">
-            <div className="flex flex-wrap gap-1">
-              {item.variants.map(v => (
-                <button
-                  key={v}
-                  className={[
-                    'rounded px-2 py-0.5 text-xs transition-colors',
-                    v === controlsProps.variant
-                      ? 'bg-accent text-accent-fg'
-                      : 'bg-fg-muted/5 text-fg-muted/50 hover:text-fg-muted/80',
-                  ].join(' ')}
-                  onClick={() => controlsProps.setVariant(v)}
-                >
-                  {v}
-                </button>
-              ))}
-            </div>
-          </div>
-        </InspectorSection>
-      )}
+      {/* tab content */}
+      <div className="flex-1 overflow-y-auto">
+        {activeTab === 'props' && (
+          <PropsPanel
+            item={item}
+            controlsProps={controlsProps}
+          />
+        )}
 
-      {/* code section */}
-      {hasCode && (
-        <InspectorSection title="Code" defaultOpen>
-          <CodeBlock item={item} stageProps={stageProps} />
-        </InspectorSection>
-      )}
-
-      {/* docs section */}
-      {hasDocs && (
-        <InspectorSection title="API Reference" defaultOpen={!hasControls && !hasCode}>
-          <div className="px-4 pb-3">
+        {activeTab === 'docs' && hasDocs && (
+          <div className="px-4 py-3">
             {item.docs!()}
           </div>
-        </InspectorSection>
-      )}
+        )}
 
-      {/* empty state */}
-      {!hasControls && !hasCode && !hasDocs && (
+        {activeTab === 'code' && hasCode && (
+          <CodePanel item={item} stageProps={stageProps} />
+        )}
+      </div>
+
+      {/* empty state when no tabs available */}
+      {availableTabs.length === 0 && (
         <div className="flex flex-1 items-center justify-center text-xs text-fg-muted/20">
           No inspector content
         </div>
@@ -119,40 +169,61 @@ export function Inspector({ item, stageProps, controlsProps }: InspectorProps) {
   )
 }
 
-// collapsible section
-function InspectorSection({ title, defaultOpen = false, children }: {
-  title: string
-  defaultOpen?: boolean
-  children: ReactNode
+// props tab: controls + variants + reset button
+function PropsPanel({ item, controlsProps }: {
+  item: DevCenterItem
+  controlsProps: ControlsProps
 }) {
-  const [open, setOpen] = useState(defaultOpen)
+  const hasControls = item.controls !== undefined
+  const hasVariants = item.variants !== undefined && item.variants.length > 1
 
   return (
-    <div className="border-b border-white/[0.04]">
+    <div className="flex flex-col gap-3 px-4 py-3">
+      {/* variant selector */}
+      {hasVariants && (
+        <div>
+          <div className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-fg-muted/40">
+            Variant
+          </div>
+          <div className="flex flex-wrap gap-1">
+            {item.variants!.map(v => (
+              <button
+                key={v}
+                className={[
+                  'rounded px-2 py-0.5 text-xs transition-colors',
+                  v === controlsProps.variant
+                    ? 'bg-accent text-accent-fg'
+                    : 'bg-fg-muted/5 text-fg-muted/50 hover:text-fg-muted/80',
+                ].join(' ')}
+                onClick={() => controlsProps.setVariant(v)}
+              >
+                {v}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* controls */}
+      {hasControls && item.controls!(controlsProps)}
+
+      {/* reset button */}
       <button
-        className="flex w-full items-center gap-2 px-4 py-2 text-left transition-colors hover:bg-fg-muted/3"
-        onClick={() => setOpen(prev => !prev)}
+        className="mt-1 flex w-full items-center justify-center gap-1.5 rounded border border-white/[0.06] py-1.5 text-xs text-fg-muted/40 transition-colors hover:bg-white/[0.04] hover:text-fg-muted/60"
+        onClick={controlsProps.resetConfig}
       >
-        <svg
-          className={[
-            'h-3 w-3 shrink-0 text-fg-muted/30 transition-transform',
-            open ? 'rotate-90' : '',
-          ].join(' ')}
-          viewBox="0 0 16 16" fill="currentColor"
-        >
-          <path d="M6 3l5 5-5 5V3z" />
-        </svg>
-        <span className="text-xs font-semibold uppercase tracking-[0.08em] text-fg-muted/40">
-          {title}
-        </span>
+        <RotateCcw className="h-3 w-3" />
+        Reset to defaults
       </button>
-      {open && children}
     </div>
   )
 }
 
-// code block with shiki syntax highlighting + copy
-function CodeBlock({ item, stageProps }: { item: DevCenterItem; stageProps: StageProps }) {
+// code tab: syntax-highlighted code with copy button
+function CodePanel({ item, stageProps }: {
+  item: DevCenterItem
+  stageProps: StageProps
+}) {
   const [copied, setCopied] = useState(false)
   const [html, setHtml] = useState('')
   const containerRef = useRef<HTMLDivElement>(null)
@@ -189,24 +260,29 @@ function CodeBlock({ item, stageProps }: { item: DevCenterItem; stageProps: Stag
   }
 
   return (
-    <div className="relative px-3 pb-3">
+    <div className="flex flex-col">
+      {/* copy bar */}
+      <div className="flex items-center justify-between border-b border-white/[0.04] px-3 py-1.5">
+        <span className="text-[10px] text-fg-muted/30">TSX</span>
+        <button
+          className="flex items-center gap-1 rounded px-1.5 py-0.5 text-[11px] text-fg-muted/30 transition-colors hover:text-fg-muted/60"
+          onClick={handleCopy}
+        >
+          {copied
+            ? <><Check className="h-3 w-3 text-success" /> copied</>
+            : <><Copy className="h-3 w-3" /> copy</>
+          }
+        </button>
+      </div>
+      {/* highlighted code */}
       <div
         ref={containerRef}
-        className="dc-code-block overflow-auto rounded-md bg-[#121212] px-3 py-2.5 text-xs leading-relaxed"
+        className="dc-code-block overflow-auto px-3 py-2.5 text-xs leading-relaxed"
         data-selectable
         dangerouslySetInnerHTML={html !== '' ? { __html: html } : undefined}
       >
         {html === '' ? <pre className="text-fg-muted/50"><code>{code}</code></pre> : undefined}
       </div>
-      <button
-        className={[
-          'absolute right-4 top-1.5 rounded px-1.5 py-0.5 text-xs transition-colors',
-          copied ? 'text-success' : 'text-fg-muted/25 hover:text-fg-muted/50',
-        ].join(' ')}
-        onClick={handleCopy}
-      >
-        {copied ? '✓' : 'copy'}
-      </button>
     </div>
   )
 }
