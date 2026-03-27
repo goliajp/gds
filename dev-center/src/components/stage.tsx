@@ -1,6 +1,67 @@
+import { Component } from 'react'
+
+import type { ReactNode } from 'react'
+
 import { layers } from './nav'
 
 import type { DevCenterItem, StageProps } from '../types'
+
+// error boundary
+
+type ErrorBoundaryProps = {
+  children: ReactNode
+  resetKey: string
+}
+
+type ErrorBoundaryState = {
+  hasError: boolean
+  error: unknown
+}
+
+class StageErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props)
+    this.state = { hasError: false, error: null }
+  }
+
+  static getDerivedStateFromError(error: unknown): ErrorBoundaryState {
+    return { hasError: true, error }
+  }
+
+  componentDidUpdate(prevProps: ErrorBoundaryProps) {
+    if (prevProps.resetKey !== this.props.resetKey && this.state.hasError) {
+      this.setState({ hasError: false, error: null })
+    }
+  }
+
+  render() {
+    if (this.state.hasError) {
+      const message = this.state.error instanceof Error
+        ? this.state.error.message
+        : 'An unexpected error occurred'
+
+      return (
+        <div className="flex h-full items-center justify-center">
+          <div className="text-center max-w-md">
+            <div className="text-sm font-medium text-red-400 mb-2">Component Error</div>
+            <div className="text-xs text-fg-muted/50 mb-4 font-mono break-all">{message}</div>
+            <button
+              type="button"
+              onClick={() => this.setState({ hasError: false, error: null })}
+              className="rounded px-3 py-1.5 text-xs font-medium text-fg bg-fg-muted/10 hover:bg-fg-muted/15"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+      )
+    }
+
+    return this.props.children
+  }
+}
+
+// stage component
 
 type StageComponentProps = {
   item: DevCenterItem | undefined
@@ -56,9 +117,11 @@ export function Stage({ item, stageProps }: StageComponentProps) {
         )}
       </div>
 
-      {/* content */}
+      {/* content — wrapped in error boundary, resets on item change */}
       <div className="flex-1 overflow-y-auto" style={{ padding: 'var(--gds-pad-x-lg, 16px)' }}>
-        {stageContent}
+        <StageErrorBoundary resetKey={item.id}>
+          {stageContent}
+        </StageErrorBoundary>
       </div>
     </div>
   )
