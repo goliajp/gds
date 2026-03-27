@@ -1,6 +1,6 @@
 {
   "name": "@goliapkg/gds",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "GOLIA Design System — enterprise-grade UI component library with contextual depth, glass materials, AI-native structure, and 10 design principles",
   "license": "MIT",
   "type": "module",
