@@ -16,7 +16,7 @@ const payrollDashboardItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { PayrollDashboard } from '@golia/gds'" />
+      <ImportLine text="import { PayrollDashboard } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-[600px]">
           <PayrollDashboard
@@ -36,7 +36,7 @@ const payrollDashboardItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { PayrollDashboard } from '@golia/gds'\n\n<PayrollDashboard\n  metrics={<MetricCards />}\n  chart={<PayrollChart />}\n  transactions={<TransactionList />}\n/>`,
+    `import { PayrollDashboard } from '@goliapkg/gds'\n\n<PayrollDashboard\n  metrics={<MetricCards />}\n  chart={<PayrollChart />}\n  transactions={<TransactionList />}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -61,7 +61,7 @@ const hrDashboardItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { HRDashboard } from '@golia/gds'" />
+      <ImportLine text="import { HRDashboard } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-[600px]">
           <HRDashboard
@@ -81,7 +81,7 @@ const hrDashboardItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { HRDashboard } from '@golia/gds'\n\n<HRDashboard\n  stats={<StatCards />}\n  onboarding={<OnboardingList />}\n  departments={<DepartmentBreakdown />}\n/>`,
+    `import { HRDashboard } from '@goliapkg/gds'\n\n<HRDashboard\n  stats={<StatCards />}\n  onboarding={<OnboardingList />}\n  departments={<DepartmentBreakdown />}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

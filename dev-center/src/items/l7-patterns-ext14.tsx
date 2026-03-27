@@ -25,7 +25,7 @@ const patternItemsExt14: DevCenterItem[] = [
       const steps = allSteps.slice(0, Number(config.stepCount))
       return (
         <div>
-          <ImportLine text="import { TimelineSteps } from '@golia/gds'" />
+          <ImportLine text="import { TimelineSteps } from '@goliapkg/gds'" />
 
           <LivePreview className="!p-6">
             <TimelineSteps steps={steps} />
@@ -58,7 +58,7 @@ const patternItemsExt14: DevCenterItem[] = [
     ),
 
     code: () => [
-      "import { TimelineSteps } from '@golia/gds'",
+      "import { TimelineSteps } from '@goliapkg/gds'",
       '',
       '<TimelineSteps',
       '  steps={[',
@@ -103,7 +103,7 @@ const patternItemsExt14: DevCenterItem[] = [
       ]
       return (
         <div>
-          <ImportLine text="import { ComparisonTable } from '@golia/gds'" />
+          <ImportLine text="import { ComparisonTable } from '@goliapkg/gds'" />
 
           <LivePreview className="!p-6">
             <ComparisonTable
@@ -147,7 +147,7 @@ const patternItemsExt14: DevCenterItem[] = [
     ),
 
     code: () => [
-      "import { ComparisonTable } from '@golia/gds'",
+      "import { ComparisonTable } from '@goliapkg/gds'",
       '',
       '<ComparisonTable',
       "  features={['Storage', 'Users', 'Support']}",

@@ -18,7 +18,7 @@ const avatarBadgeItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { AvatarBadge } from '@golia/gds'" />
+      <ImportLine text="import { AvatarBadge } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-6">
           <AvatarBadge
@@ -44,7 +44,7 @@ const avatarBadgeItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { AvatarBadge } from '@golia/gds'\n\n<AvatarBadge\n  name="${config.name}"\n  count={${config.count}}\n  maxCount={${config.maxCount}}\n  size="${config.size}"\n/>`,
+    `import { AvatarBadge } from '@goliapkg/gds'\n\n<AvatarBadge\n  name="${config.name}"\n  count={${config.count}}\n  maxCount={${config.maxCount}}\n  size="${config.size}"\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -72,7 +72,7 @@ const cursorFollowItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { CursorFollow } from '@golia/gds'" />
+      <ImportLine text="import { CursorFollow } from '@goliapkg/gds'" />
       <LivePreview>
         <CursorFollow
           className="h-48 w-full rounded-lg border border-white/[0.06] bg-white/[0.02]"
@@ -93,7 +93,7 @@ const cursorFollowItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { CursorFollow } from '@golia/gds'\n\n<CursorFollow smooth={${config.smooth}}>\n  <div className="h-6 w-6 rounded-full bg-accent" />\n</CursorFollow>`,
+    `import { CursorFollow } from '@goliapkg/gds'\n\n<CursorFollow smooth={${config.smooth}}>\n  <div className="h-6 w-6 rounded-full bg-accent" />\n</CursorFollow>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

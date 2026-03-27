@@ -93,7 +93,7 @@ const organismItems: DevCenterItem[] = [
       ]
       return (
         <div>
-          <ImportLine text="import { DataTable } from '@golia/gds'" />
+          <ImportLine text="import { DataTable } from '@goliapkg/gds'" />
 
           <LivePreview className="!p-4">
             <DataTable columns={columns} data={data} glass={config.glass} loading={config.loading} />
@@ -129,7 +129,7 @@ const organismItems: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { DataTable } from '@golia/gds'", '']
+      const lines = ["import { DataTable } from '@goliapkg/gds'", '']
       const props: string[] = ['columns={columns}', 'data={data}']
       if (config.glass === true) props.push('glass')
       if (config.loading === true) props.push('loading')
@@ -174,7 +174,7 @@ const organismItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { CommandPalette } from '@golia/gds'" />
+        <ImportLine text="import { CommandPalette } from '@goliapkg/gds'" />
 
         <LivePreview>
           <CommandPaletteDemo />
@@ -201,7 +201,7 @@ const organismItems: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { CommandPalette } from '@golia/gds'", '']
+      const lines = ["import { CommandPalette } from '@goliapkg/gds'", '']
       lines.push('<CommandPalette')
       lines.push('  open={open}')
       lines.push('  onClose={() => setOpen(false)}')
@@ -254,7 +254,7 @@ const organismItems: DevCenterItem[] = [
       const items = allItems.slice(0, Number(config.itemCount))
       return (
         <div>
-          <ImportLine text="import { Timeline } from '@golia/gds'" />
+          <ImportLine text="import { Timeline } from '@goliapkg/gds'" />
 
           <LivePreview className="!justify-start">
             <Timeline items={items} />
@@ -287,7 +287,7 @@ const organismItems: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Timeline } from '@golia/gds'", '']
+      const lines = ["import { Timeline } from '@goliapkg/gds'", '']
       lines.push('<Timeline')
       lines.push('  items={[')
       lines.push("    { id: '1', title: 'Created', variant: 'success', date: '2026-01-15' },")
@@ -336,7 +336,7 @@ const organismItems: DevCenterItem[] = [
 
     stage: () => (
       <div>
-        <ImportLine text="import { Calendar } from '@golia/gds'" />
+        <ImportLine text="import { Calendar } from '@goliapkg/gds'" />
 
         <LivePreview>
           <CalendarDemo />
@@ -360,7 +360,7 @@ const organismItems: DevCenterItem[] = [
     ),
 
     code: () => {
-      const lines = ["import { Calendar } from '@golia/gds'", '']
+      const lines = ["import { Calendar } from '@goliapkg/gds'", '']
       lines.push('const [date, setDate] = useState<Date>()')
       lines.push('')
       lines.push('<Calendar')
@@ -400,7 +400,7 @@ const organismItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { DatePicker } from '@golia/gds'" />
+        <ImportLine text="import { DatePicker } from '@goliapkg/gds'" />
 
         <LivePreview>
           <DatePickerDemo />
@@ -425,7 +425,7 @@ const organismItems: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { DatePicker } from '@golia/gds'", '']
+      const lines = ["import { DatePicker } from '@goliapkg/gds'", '']
       const props: string[] = ['value={date}', 'onChange={setDate}']
       if (config.glass === true) props.push('glass')
       if (config.placeholder !== 'Select date') props.push(`placeholder="${config.placeholder}"`)
@@ -480,7 +480,7 @@ const organismItems: DevCenterItem[] = [
       const files = [...folders, ...allFiles.slice(0, Number(config.fileCount))]
       return (
         <div>
-          <ImportLine text="import { FileBrowser } from '@golia/gds'" />
+          <ImportLine text="import { FileBrowser } from '@goliapkg/gds'" />
 
           <LivePreview className="!p-4">
             <FileBrowser files={files} onNavigate={() => {}} onSelect={() => {}} />
@@ -513,7 +513,7 @@ const organismItems: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { FileBrowser } from '@golia/gds'", '']
+      const lines = ["import { FileBrowser } from '@goliapkg/gds'", '']
       lines.push('<FileBrowser')
       lines.push('  files={files}')
       lines.push('  onNavigate={(id) => navigate(id)}')

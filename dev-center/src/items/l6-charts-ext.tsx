@@ -79,7 +79,7 @@ const chartItemsExt: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { HeatmapChart } from '@golia/gds'" />
+        <ImportLine text="import { HeatmapChart } from '@goliapkg/gds'" />
         <LivePreview>
           <HeatmapChart data={heatmapData} xLabels={['Mon', 'Tue', 'Wed', 'Thu', 'Fri']} yLabels={['Q1', 'Q2', 'Q3', 'Q4']} cellSize={config.cellSize} glass={config.glass} />
         </LivePreview>
@@ -105,7 +105,7 @@ const chartItemsExt: DevCenterItem[] = [
       const props = [`data={grid}`, `xLabels={['Mon', 'Tue', 'Wed']}`, `yLabels={['AM', 'PM']}`]
       if (config.cellSize !== 32) props.push(`cellSize={${config.cellSize}}`)
       if (config.glass === true) props.push('glass')
-      return `import { HeatmapChart } from '@golia/gds'\n\n<HeatmapChart\n  ${props.join('\n  ')}\n/>`
+      return `import { HeatmapChart } from '@goliapkg/gds'\n\n<HeatmapChart\n  ${props.join('\n  ')}\n/>`
     },
 
     docs: () => (
@@ -139,7 +139,7 @@ const chartItemsExt: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { RadarChart } from '@golia/gds'" />
+        <ImportLine text="import { RadarChart } from '@goliapkg/gds'" />
         <LivePreview>
           <RadarChart data={radarData} dataKey="value" height={config.height} glass={config.glass} color={colorVar(config.color)} />
         </LivePreview>
@@ -167,7 +167,7 @@ const chartItemsExt: DevCenterItem[] = [
       if (config.height !== 300) props.push(`height={${config.height}}`)
       if (config.glass === true) props.push('glass')
       if (config.color !== 'accent') props.push(`color="var(--gds-${config.color})"`)
-      return `import { RadarChart } from '@golia/gds'\n\n<RadarChart\n  ${props.join('\n  ')}\n/>`
+      return `import { RadarChart } from '@goliapkg/gds'\n\n<RadarChart\n  ${props.join('\n  ')}\n/>`
     },
 
     docs: () => (
@@ -201,7 +201,7 @@ const chartItemsExt: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { SankeyChart } from '@golia/gds'" />
+        <ImportLine text="import { SankeyChart } from '@goliapkg/gds'" />
         <LivePreview>
           <SankeyChart nodes={sankeyNodes} links={sankeyLinks} height={config.height} glass={config.glass} />
         </LivePreview>
@@ -227,7 +227,7 @@ const chartItemsExt: DevCenterItem[] = [
       ]
       if (config.height !== 300) props.push(`height={${config.height}}`)
       if (config.glass === true) props.push('glass')
-      return `import { SankeyChart } from '@golia/gds'\n\n<SankeyChart\n  ${props.join('\n  ')}\n/>`
+      return `import { SankeyChart } from '@goliapkg/gds'\n\n<SankeyChart\n  ${props.join('\n  ')}\n/>`
     },
 
     docs: () => (
@@ -261,7 +261,7 @@ const chartItemsExt: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { ScatterChart } from '@golia/gds'" />
+        <ImportLine text="import { ScatterChart } from '@goliapkg/gds'" />
         <LivePreview>
           <ScatterChart data={scatterData} xKey="x" yKey="y" height={config.height} glass={config.glass} color={colorVar(config.color)} />
         </LivePreview>
@@ -289,7 +289,7 @@ const chartItemsExt: DevCenterItem[] = [
       if (config.height !== 300) props.push(`height={${config.height}}`)
       if (config.glass === true) props.push('glass')
       if (config.color !== 'accent') props.push(`color="var(--gds-${config.color})"`)
-      return `import { ScatterChart } from '@golia/gds'\n\n<ScatterChart\n  ${props.join('\n  ')}\n/>`
+      return `import { ScatterChart } from '@goliapkg/gds'\n\n<ScatterChart\n  ${props.join('\n  ')}\n/>`
     },
 
     docs: () => (
@@ -323,7 +323,7 @@ const chartItemsExt: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { Sparkline } from '@golia/gds'" />
+        <ImportLine text="import { Sparkline } from '@goliapkg/gds'" />
         <LivePreview>
           <Sparkline data={sparklineData} dataKey="v" height={config.height} width={config.width} glass={config.glass} color={colorVar(config.color)} />
         </LivePreview>
@@ -357,7 +357,7 @@ const chartItemsExt: DevCenterItem[] = [
       if (config.height !== 32) props.push(`height={${config.height}}`)
       if (config.glass === true) props.push('glass')
       if (config.color !== 'accent') props.push(`color="var(--gds-${config.color})"`)
-      return `import { Sparkline } from '@golia/gds'\n\n<Sparkline\n  ${props.join('\n  ')}\n/>`
+      return `import { Sparkline } from '@goliapkg/gds'\n\n<Sparkline\n  ${props.join('\n  ')}\n/>`
     },
 
     docs: () => (
@@ -391,7 +391,7 @@ const chartItemsExt: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { TreemapChart } from '@golia/gds'" />
+        <ImportLine text="import { TreemapChart } from '@goliapkg/gds'" />
         <LivePreview>
           <TreemapChart data={treemapData} height={config.height} glass={config.glass} color={colorVar(config.color)} />
         </LivePreview>
@@ -419,7 +419,7 @@ const chartItemsExt: DevCenterItem[] = [
       if (config.height !== 300) props.push(`height={${config.height}}`)
       if (config.glass === true) props.push('glass')
       if (config.color !== 'accent') props.push(`color="var(--gds-${config.color})"`)
-      return `import { TreemapChart } from '@golia/gds'\n\n<TreemapChart\n  ${props.join('\n  ')}\n/>`
+      return `import { TreemapChart } from '@goliapkg/gds'\n\n<TreemapChart\n  ${props.join('\n  ')}\n/>`
     },
 
     docs: () => (

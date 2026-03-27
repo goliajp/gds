@@ -236,7 +236,7 @@ export function ImportLine({ text }: { text: string }) {
         <span className="text-fg">{text.match(/\{([^}]+)\}/)?.[1]?.trim() ?? text}</span>
         <span className="text-fg-muted">{' }'}</span>
         <span className="text-[#c792ea]"> from</span>
-        <span className="text-[#c3e88d]"> '{text.match(/from\s+'([^']+)'/)?.[1] ?? '@golia/gds'}'</span>
+        <span className="text-[#c3e88d]"> '{text.match(/from\s+'([^']+)'/)?.[1] ?? '@goliapkg/gds'}'</span>
       </span>
       <span className={[
         'shrink-0 text-xs transition-colors',

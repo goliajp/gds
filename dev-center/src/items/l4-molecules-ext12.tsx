@@ -20,7 +20,7 @@ const calloutItem: DevCenterItem = {
 
   stage: ({ config, variant }) => (
     <div>
-      <ImportLine text="import { Callout } from '@golia/gds'" />
+      <ImportLine text="import { Callout } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-80 space-y-3">
           <Callout variant={variant as any} title={config.title} glass={config.glass}>
@@ -61,7 +61,7 @@ const calloutItem: DevCenterItem = {
   ),
 
   code: ({ config, variant }) =>
-    `import { Callout } from '@golia/gds'\n\n<Callout variant="${variant}"${config.title ? ` title="${config.title}"` : ''}${config.glass ? ' glass' : ''}>\n  Important information here.\n</Callout>`,
+    `import { Callout } from '@goliapkg/gds'\n\n<Callout variant="${variant}"${config.title ? ` title="${config.title}"` : ''}${config.glass ? ' glass' : ''}>\n  Important information here.\n</Callout>`,
 }
 moleculeItemsM.push(calloutItem)
 
@@ -91,7 +91,7 @@ const inlineEditItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { InlineEdit } from '@golia/gds'" />
+      <ImportLine text="import { InlineEdit } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="space-y-4">
           <InlineEditDemo disabled={config.disabled} />
@@ -125,7 +125,7 @@ const inlineEditItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { InlineEdit } from '@golia/gds'\n\nconst [name, setName] = useState('John')\n\n<InlineEdit\n  value={name}\n  onSave={setName}\n  validate={(v) => v.length < 2 ? 'Too short' : null}\n/>`,
+    `import { InlineEdit } from '@goliapkg/gds'\n\nconst [name, setName] = useState('John')\n\n<InlineEdit\n  value={name}\n  onSave={setName}\n  validate={(v) => v.length < 2 ? 'Too short' : null}\n/>`,
 }
 moleculeItemsM.push(inlineEditItem)
 

@@ -18,7 +18,7 @@ const testimonialItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Testimonial } from '@golia/gds'" />
+      <ImportLine text="import { Testimonial } from '@goliapkg/gds'" />
       <LivePreview>
         <Testimonial
           quote={config.quote}
@@ -54,7 +54,7 @@ const testimonialItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { Testimonial } from '@golia/gds'\n\n<Testimonial\n  quote="${config.quote}"\n  author="${config.author}"${config.role ? `\n  role="${config.role}"` : ''}${config.rating ? `\n  rating={${config.rating}}` : ''}${config.glass ? '\n  glass' : ''}\n/>`,
+    `import { Testimonial } from '@goliapkg/gds'\n\n<Testimonial\n  quote="${config.quote}"\n  author="${config.author}"${config.role ? `\n  role="${config.role}"` : ''}${config.rating ? `\n  rating={${config.rating}}` : ''}${config.glass ? '\n  glass' : ''}\n/>`,
 }
 patternItemsExt13.push(testimonialItem)
 
@@ -68,13 +68,13 @@ const faqItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { FAQ } from '@golia/gds'" />
+      <ImportLine text="import { FAQ } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <FAQ
           title={config.title}
           items={[
             { question: 'What is GDS?', answer: 'GOLIA Design System — a comprehensive component library for building modern web applications.' },
-            { question: 'How do I install it?', answer: 'Run bun add @golia/gds and import components directly.' },
+            { question: 'How do I install it?', answer: 'Run bun add @goliapkg/gds and import components directly.' },
             { question: 'Is it open source?', answer: 'Yes, GDS is fully open source under the MIT license.' },
           ]}
           glass={config.glass}
@@ -100,7 +100,7 @@ const faqItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { FAQ } from '@golia/gds'\n\n<FAQ\n  title="${config.title}"\n  items={[\n    { question: 'What is GDS?', answer: 'A design system.' },\n    { question: 'Is it free?', answer: 'Yes.' },\n  ]}${config.glass ? '\n  glass' : ''}\n/>`,
+    `import { FAQ } from '@goliapkg/gds'\n\n<FAQ\n  title="${config.title}"\n  items={[\n    { question: 'What is GDS?', answer: 'A design system.' },\n    { question: 'Is it free?', answer: 'Yes.' },\n  ]}${config.glass ? '\n  glass' : ''}\n/>`,
 }
 patternItemsExt13.push(faqItem)
 
@@ -114,7 +114,7 @@ const ctaBannerItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { CTABanner } from '@golia/gds'" />
+      <ImportLine text="import { CTABanner } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <CTABanner
           title={config.title}
@@ -148,7 +148,7 @@ const ctaBannerItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { CTABanner } from '@golia/gds'\n\n<CTABanner\n  title="${config.title}"${config.description ? `\n  description="${config.description}"` : ''}${config.variant !== 'default' ? `\n  variant="${config.variant}"` : ''}${config.glass ? '\n  glass' : ''}\n  actions={<Button>Get Started</Button>}\n/>`,
+    `import { CTABanner } from '@goliapkg/gds'\n\n<CTABanner\n  title="${config.title}"${config.description ? `\n  description="${config.description}"` : ''}${config.variant !== 'default' ? `\n  variant="${config.variant}"` : ''}${config.glass ? '\n  glass' : ''}\n  actions={<Button>Get Started</Button>}\n/>`,
 }
 patternItemsExt13.push(ctaBannerItem)
 

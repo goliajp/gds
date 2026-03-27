@@ -17,7 +17,7 @@ const glowDotItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { GlowDot } from '@golia/gds'" />
+      <ImportLine text="import { GlowDot } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-6">
           <GlowDot color={config.color} size={config.size} />
@@ -40,7 +40,7 @@ const glowDotItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { GlowDot } from '@golia/gds'\n\n<GlowDot color="${config.color}"${config.size !== 'default' ? ` size="${config.size}"` : ''} />`,
+    `import { GlowDot } from '@goliapkg/gds'\n\n<GlowDot color="${config.color}"${config.size !== 'default' ? ` size="${config.size}"` : ''} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -64,7 +64,7 @@ const keyValueItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { KeyValue } from '@golia/gds'" />
+      <ImportLine text="import { KeyValue } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex flex-col gap-3">
           <KeyValue label={config.label} value={config.value} mono={config.mono === 'true'} />
@@ -84,7 +84,7 @@ const keyValueItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { KeyValue } from '@golia/gds'\n\n<KeyValue label="${config.label}" value="${config.value}"${config.mono === 'true' ? ' mono' : ''} />`,
+    `import { KeyValue } from '@goliapkg/gds'\n\n<KeyValue label="${config.label}" value="${config.value}"${config.mono === 'true' ? ' mono' : ''} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

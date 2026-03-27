@@ -22,7 +22,7 @@ const dividerItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Divider } from '@golia/gds'" />
+      <ImportLine text="import { Divider } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex flex-col gap-4 p-8" style={{ minWidth: 240, minHeight: config.orientation === 'vertical' ? 120 : undefined }}>
           {config.orientation === 'vertical' ? (
@@ -54,7 +54,7 @@ const dividerItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { Divider } from '@golia/gds'\n\n<Divider\n  orientation="${config.orientation}"${config.hasIcon ? '\n  icon={<span>or</span>}' : ''}\n/>`,
+    `import { Divider } from '@goliapkg/gds'\n\n<Divider\n  orientation="${config.orientation}"${config.hasIcon ? '\n  icon={<span>or</span>}' : ''}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -81,7 +81,7 @@ const badgeDotItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { BadgeDot } from '@golia/gds'" />
+      <ImportLine text="import { BadgeDot } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-8 p-8">
           <BadgeDot color={config.color} show={config.show}>
@@ -107,7 +107,7 @@ const badgeDotItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { BadgeDot } from '@golia/gds'\n\n<BadgeDot color="${config.color}" show={${config.show}}>\n  <Icon />\n</BadgeDot>`,
+    `import { BadgeDot } from '@goliapkg/gds'\n\n<BadgeDot color="${config.color}" show={${config.show}}>\n  <Icon />\n</BadgeDot>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -150,7 +150,7 @@ const screenOverlayItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { ScreenOverlay } from '@golia/gds'" />
+      <ImportLine text="import { ScreenOverlay } from '@goliapkg/gds'" />
       <LivePreview>
         <ScreenOverlayDemo config={config} />
       </LivePreview>
@@ -162,7 +162,7 @@ const screenOverlayItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { ScreenOverlay } from '@golia/gds'\n\n<ScreenOverlay\n  visible={open}\n  onClick={() => setOpen(false)}${config.glass ? '\n  glass' : ''}\n/>`,
+    `import { ScreenOverlay } from '@goliapkg/gds'\n\n<ScreenOverlay\n  visible={open}\n  onClick={() => setOpen(false)}${config.glass ? '\n  glass' : ''}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

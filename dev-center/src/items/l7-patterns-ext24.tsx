@@ -27,7 +27,7 @@ const devopsLayoutItem: DevCenterItem = {
     const [tab, setTab] = useState('overview')
     return (
       <div>
-        <ImportLine text="import { DevOpsLayout } from '@golia/gds'" />
+        <ImportLine text="import { DevOpsLayout } from '@goliapkg/gds'" />
         <LivePreview>
           <div className="h-48 border border-border rounded-lg overflow-hidden">
             <DevOpsLayout
@@ -49,7 +49,7 @@ const devopsLayoutItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { DevOpsLayout } from '@golia/gds'\n\n<DevOpsLayout\n  tabs={[{ id: 'overview', label: 'Overview' }, ...]}\n  activeTab={activeTab}\n  onTabChange={setActiveTab}\n  statusBar={<StatusMetrics />}\n>\n  {children}\n</DevOpsLayout>`,
+    `import { DevOpsLayout } from '@goliapkg/gds'\n\n<DevOpsLayout\n  tabs={[{ id: 'overview', label: 'Overview' }, ...]}\n  activeTab={activeTab}\n  onTabChange={setActiveTab}\n  statusBar={<StatusMetrics />}\n>\n  {children}\n</DevOpsLayout>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -82,7 +82,7 @@ const serverOverviewItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { ServerOverview } from '@golia/gds'" />
+      <ImportLine text="import { ServerOverview } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-[600px]">
           <ServerOverview servers={sampleServers} />
@@ -92,7 +92,7 @@ const serverOverviewItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { ServerOverview } from '@golia/gds'\n\n<ServerOverview\n  servers={[\n    { name: 't01', location: 'Tokyo', status: 'online', metrics: { cpu: 45, mem: 60, disk: 30 } },\n    { name: 'backup', location: 'Nagoya', status: 'offline' },\n  ]}\n/>`,
+    `import { ServerOverview } from '@goliapkg/gds'\n\n<ServerOverview\n  servers={[\n    { name: 't01', location: 'Tokyo', status: 'online', metrics: { cpu: 45, mem: 60, disk: 30 } },\n    { name: 'backup', location: 'Nagoya', status: 'offline' },\n  ]}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

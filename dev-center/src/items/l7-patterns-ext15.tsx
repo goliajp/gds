@@ -16,7 +16,7 @@ const patternItemsExt15: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { LoginForm } from '@golia/gds'" />
+        <ImportLine text="import { LoginForm } from '@goliapkg/gds'" />
         <LivePreview className="!p-6">
           <LoginForm
             onSubmit={() => {}}
@@ -39,7 +39,7 @@ const patternItemsExt15: DevCenterItem[] = [
     ),
 
     code: ({ config }) => [
-      "import { LoginForm } from '@golia/gds'",
+      "import { LoginForm } from '@goliapkg/gds'",
       '',
       '<LoginForm',
       '  onSubmit={(data) => login(data)}',

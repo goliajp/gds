@@ -39,7 +39,7 @@ const filterBarItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { FilterBar } from '@golia/gds'" />
+      <ImportLine text="import { FilterBar } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-full max-w-lg p-8">
           <FilterBarDemo />
@@ -49,7 +49,7 @@ const filterBarItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { FilterBar } from '@golia/gds'\n\n<FilterBar\n  filters={[\n    { id: 'status', label: 'Active', active: true },\n    { id: 'role', label: 'Admin', active: false },\n  ]}\n  onChange={(id, active) => update(id, active)}\n  onClear={() => clearAll()}\n/>`,
+    `import { FilterBar } from '@goliapkg/gds'\n\n<FilterBar\n  filters={[\n    { id: 'status', label: 'Active', active: true },\n    { id: 'role', label: 'Admin', active: false },\n  ]}\n  onChange={(id, active) => update(id, active)}\n  onClear={() => clearAll()}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -82,7 +82,7 @@ const actionMenuItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { ActionMenu } from '@golia/gds'" />
+      <ImportLine text="import { ActionMenu } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-8 p-8">
           <div className="flex items-center gap-3 rounded-lg border border-border bg-bg-secondary px-4 py-2">
@@ -99,7 +99,7 @@ const actionMenuItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { ActionMenu } from '@golia/gds'\n\n<ActionMenu\n  items={[\n    { id: 'edit', label: 'Edit' },\n    { id: 'delete', label: 'Delete', danger: true },\n  ]}\n  onSelect={(id) => handleAction(id)}\n/>`,
+    `import { ActionMenu } from '@goliapkg/gds'\n\n<ActionMenu\n  items={[\n    { id: 'edit', label: 'Edit' },\n    { id: 'delete', label: 'Delete', danger: true },\n  ]}\n  onSelect={(id) => handleAction(id)}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -129,7 +129,7 @@ const formFieldItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { FieldWrapper } from '@golia/gds'" />
+      <ImportLine text="import { FieldWrapper } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-full max-w-sm p-8">
           <FieldWrapper
@@ -155,7 +155,7 @@ const formFieldItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { FieldWrapper } from '@golia/gds'\nimport { Input } from '@golia/gds'\n\n<FieldWrapper\n  label="${config.label}"${config.required ? '\n  required' : ''}${config.error ? `\n  error="${config.error}"` : ''}${config.helperText ? `\n  helperText="${config.helperText}"` : ''}\n>\n  <Input placeholder="you@example.com" />\n</FieldWrapper>`,
+    `import { FieldWrapper } from '@goliapkg/gds'\nimport { Input } from '@goliapkg/gds'\n\n<FieldWrapper\n  label="${config.label}"${config.required ? '\n  required' : ''}${config.error ? `\n  error="${config.error}"` : ''}${config.helperText ? `\n  helperText="${config.helperText}"` : ''}\n>\n  <Input placeholder="you@example.com" />\n</FieldWrapper>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

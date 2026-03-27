@@ -49,7 +49,7 @@ const stepperFormItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { StepperForm } from '@golia/gds'" />
+      <ImportLine text="import { StepperForm } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <StepperForm
           steps={demoSteps}
@@ -83,7 +83,7 @@ const stepperFormItem: DevCenterItem = {
     ]
     if (config.glass === true) props.push('glass')
     if (config.completeLabel !== 'Complete') props.push(`completeLabel="${config.completeLabel}"`)
-    return `import { StepperForm } from '@golia/gds'\n\n<StepperForm\n  ${props.join('\n  ')}\n/>`
+    return `import { StepperForm } from '@goliapkg/gds'\n\n<StepperForm\n  ${props.join('\n  ')}\n/>`
   },
 
   docs: () => (

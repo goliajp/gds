@@ -17,7 +17,7 @@ const starRatingItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { StarRating } from '@golia/gds'" />
+      <ImportLine text="import { StarRating } from '@goliapkg/gds'" />
       <LivePreview>
         <StarRating
           value={Number(config.value)}
@@ -37,7 +37,7 @@ const starRatingItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { StarRating } from '@golia/gds'\n\n<StarRating value={${config.value}} size="${config.size}" max={${config.max}} />`,
+    `import { StarRating } from '@goliapkg/gds'\n\n<StarRating value={${config.value}} size="${config.size}" max={${config.max}} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

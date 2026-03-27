@@ -17,7 +17,7 @@ const sliderFieldItem: DevCenterItem = {
 
   stage: ({ config, setConfig }) => (
     <div>
-      <ImportLine text="import { SliderField } from '@golia/gds'" />
+      <ImportLine text="import { SliderField } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-72 space-y-4">
           <SliderField label="Volume" value={config.value} onChange={(v) => setConfig('value', v)} min={config.min} max={config.max} unit={config.unit} />
@@ -35,7 +35,7 @@ const sliderFieldItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { SliderField } from '@golia/gds'\n\n<SliderField label="Volume" value={${config.value}} onChange={setValue}${config.unit ? ` unit="${config.unit}"` : ''} />`,
+    `import { SliderField } from '@goliapkg/gds'\n\n<SliderField label="Volume" value={${config.value}} onChange={setValue}${config.unit ? ` unit="${config.unit}"` : ''} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -64,7 +64,7 @@ const toggleFieldItem: DevCenterItem = {
 
   stage: ({ config, setConfig }) => (
     <div>
-      <ImportLine text="import { ToggleField } from '@golia/gds'" />
+      <ImportLine text="import { ToggleField } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-72 space-y-3">
           <ToggleField label="Dark mode" description="Use dark color scheme" checked={config.checked} onChange={(v) => setConfig('checked', v)} disabled={config.disabled} />
@@ -83,7 +83,7 @@ const toggleFieldItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { ToggleField } from '@golia/gds'\n\n<ToggleField\n  label="Dark mode"\n  description="Use dark color scheme"\n  checked={${config.checked}}\n  onChange={setChecked}${config.disabled ? '\n  disabled' : ''}\n/>`,
+    `import { ToggleField } from '@goliapkg/gds'\n\n<ToggleField\n  label="Dark mode"\n  description="Use dark color scheme"\n  checked={${config.checked}}\n  onChange={setChecked}${config.disabled ? '\n  disabled' : ''}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

@@ -16,7 +16,7 @@ const adminLayoutItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { AdminLayout } from '@golia/gds'" />
+      <ImportLine text="import { AdminLayout } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="h-64 border border-border rounded-lg overflow-hidden">
           <AdminLayout
@@ -38,7 +38,7 @@ const adminLayoutItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { AdminLayout } from '@golia/gds'\n\n<AdminLayout\n  sidebar={<SideNav />}\n  topbar={<TopBar />}\n>\n  {children}\n</AdminLayout>`,
+    `import { AdminLayout } from '@goliapkg/gds'\n\n<AdminLayout\n  sidebar={<SideNav />}\n  topbar={<TopBar />}\n>\n  {children}\n</AdminLayout>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

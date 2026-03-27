@@ -18,7 +18,7 @@ const collapsibleItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Collapsible } from '@golia/gds'" />
+      <ImportLine text="import { Collapsible } from '@goliapkg/gds'" />
 
       <LivePreview className="block">
         <div className="w-full max-w-sm">

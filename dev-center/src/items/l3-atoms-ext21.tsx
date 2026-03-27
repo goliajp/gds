@@ -17,7 +17,7 @@ const verifiedBadgeItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { VerifiedBadge } from '@golia/gds'" />
+      <ImportLine text="import { VerifiedBadge } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-3">
           <span className="text-sm text-fg">Username</span>
@@ -35,7 +35,7 @@ const verifiedBadgeItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { VerifiedBadge } from '@golia/gds'\n\n<VerifiedBadge variant="${config.variant}" size="${config.size}" />`,
+    `import { VerifiedBadge } from '@goliapkg/gds'\n\n<VerifiedBadge variant="${config.variant}" size="${config.size}" />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -59,7 +59,7 @@ const diffIndicatorItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { DiffIndicator } from '@golia/gds'" />
+      <ImportLine text="import { DiffIndicator } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-4">
           <DiffIndicator inverted={config.inverted === 'true'} unit="%" value={Number(config.value)} />
@@ -76,7 +76,7 @@ const diffIndicatorItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { DiffIndicator } from '@golia/gds'\n\n<DiffIndicator value={${config.value}} unit="%" ${config.inverted === 'true' ? 'inverted ' : ''}/>`,
+    `import { DiffIndicator } from '@goliapkg/gds'\n\n<DiffIndicator value={${config.value}} unit="%" ${config.inverted === 'true' ? 'inverted ' : ''}/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

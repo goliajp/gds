@@ -37,7 +37,7 @@ const chartItemsExt9: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { CalendarHeatmap } from '@golia/gds'" />
+        <ImportLine text="import { CalendarHeatmap } from '@goliapkg/gds'" />
         <LivePreview className="block overflow-x-auto">
           <CalendarHeatmap
             data={sampleData}

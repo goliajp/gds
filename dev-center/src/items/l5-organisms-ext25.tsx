@@ -17,7 +17,7 @@ const systemHealthItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { SystemHealth } from '@golia/gds'" />
+      <ImportLine text="import { SystemHealth } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-80">
           <SystemHealth metrics={[
@@ -39,7 +39,7 @@ const systemHealthItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { SystemHealth } from '@golia/gds'\n\n<SystemHealth\n  metrics={[\n    { label: 'CPU', value: 45, max: 100, unit: '%' },\n    { label: 'Memory', value: 12, max: 16, unit: 'GB' },\n    { label: 'Disk', value: 180, max: 500, unit: 'GB' },\n  ]}\n/>`,
+    `import { SystemHealth } from '@goliapkg/gds'\n\n<SystemHealth\n  metrics={[\n    { label: 'CPU', value: 45, max: 100, unit: '%' },\n    { label: 'Memory', value: 12, max: 16, unit: 'GB' },\n    { label: 'Disk', value: 180, max: 500, unit: 'GB' },\n  ]}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -72,7 +72,7 @@ const containerListItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { ContainerList } from '@golia/gds'" />
+      <ImportLine text="import { ContainerList } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-[500px]">
           <ContainerList containers={sampleContainers} />
@@ -82,7 +82,7 @@ const containerListItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { ContainerList } from '@golia/gds'\n\n<ContainerList\n  containers={[\n    { name: 'api-server', image: 'goliajp/server:latest', status: 'running', ports: '3100:3100' },\n    { name: 'postgres', image: 'postgres:16', status: 'stopped' },\n  ]}\n/>`,
+    `import { ContainerList } from '@goliapkg/gds'\n\n<ContainerList\n  containers={[\n    { name: 'api-server', image: 'goliajp/server:latest', status: 'running', ports: '3100:3100' },\n    { name: 'postgres', image: 'postgres:16', status: 'stopped' },\n  ]}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

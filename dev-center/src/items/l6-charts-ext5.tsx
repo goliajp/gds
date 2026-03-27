@@ -37,7 +37,7 @@ const chartItemsExt5: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { Histogram } from '@golia/gds'" />
+        <ImportLine text="import { Histogram } from '@goliapkg/gds'" />
         <LivePreview>
           <Histogram data={histogramData} bins={config.bins} height={config.height} glass={config.glass} />
         </LivePreview>
@@ -96,7 +96,7 @@ const chartItemsExt5: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { BoxPlot } from '@golia/gds'" />
+        <ImportLine text="import { BoxPlot } from '@goliapkg/gds'" />
         <LivePreview>
           <BoxPlot data={boxPlotData} width={config.width} height={config.height} glass={config.glass} />
         </LivePreview>
@@ -153,7 +153,7 @@ const chartItemsExt5: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { FlowChart } from '@golia/gds'" />
+        <ImportLine text="import { FlowChart } from '@goliapkg/gds'" />
         <LivePreview>
           <FlowChart nodes={flowNodes} edges={flowEdges} width={config.width} height={config.height} glass={config.glass} />
         </LivePreview>

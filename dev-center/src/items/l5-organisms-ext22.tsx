@@ -19,7 +19,7 @@ const deployLogItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { DeployLog } from '@golia/gds'" />
+      <ImportLine text="import { DeployLog } from '@goliapkg/gds'" />
       <LivePreview>
         <DeployLog entries={[
           { project: 'admin', device: 't01', version: 'v2.1.0', status: 'success', timestamp: '2m ago' },
@@ -31,7 +31,7 @@ const deployLogItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { DeployLog } from '@golia/gds'\n\n<DeployLog entries={[\n  { project: 'admin', device: 't01', version: 'v2.1.0', status: 'success', timestamp: '2m ago' },\n  { project: 'server', device: 't01', version: 'v1.8.3', status: 'failure', timestamp: '15m ago' },\n]} />`,
+    `import { DeployLog } from '@goliapkg/gds'\n\n<DeployLog entries={[\n  { project: 'admin', device: 't01', version: 'v2.1.0', status: 'success', timestamp: '2m ago' },\n  { project: 'server', device: 't01', version: 'v1.8.3', status: 'failure', timestamp: '15m ago' },\n]} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -81,7 +81,7 @@ const tagCloudItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { TagCloud } from '@golia/gds'" />
+      <ImportLine text="import { TagCloud } from '@goliapkg/gds'" />
       <LivePreview>
         <TagCloudDemo />
       </LivePreview>
@@ -89,7 +89,7 @@ const tagCloudItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { TagCloud } from '@golia/gds'\n\n<TagCloud\n  tags={[\n    { label: 'react', count: 42 },\n    { label: 'typescript', count: 38 },\n  ]}\n  selected={selected}\n  onToggle={handleToggle}\n/>`,
+    `import { TagCloud } from '@goliapkg/gds'\n\n<TagCloud\n  tags={[\n    { label: 'react', count: 42 },\n    { label: 'typescript', count: 38 },\n  ]}\n  selected={selected}\n  onToggle={handleToggle}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

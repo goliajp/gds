@@ -16,7 +16,7 @@ const emptyPlaceholderItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { EmptyPlaceholder } from '@golia/gds'" />
+      <ImportLine text="import { EmptyPlaceholder } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-72 border border-border rounded-lg">
           <EmptyPlaceholder
@@ -30,7 +30,7 @@ const emptyPlaceholderItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { EmptyPlaceholder } from '@golia/gds'\n\n<EmptyPlaceholder\n  message="No results found"\n  icon={<SearchIcon />}\n  action={<Button size="sm">Clear filters</Button>}\n/>`,
+    `import { EmptyPlaceholder } from '@goliapkg/gds'\n\n<EmptyPlaceholder\n  message="No results found"\n  icon={<SearchIcon />}\n  action={<Button size="sm">Clear filters</Button>}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -55,7 +55,7 @@ const infoRowItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { InfoRow } from '@golia/gds'" />
+      <ImportLine text="import { InfoRow } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-64 space-y-2">
           <InfoRow label="CPU" value="12%" icon={<span>&#9881;</span>} />
@@ -67,7 +67,7 @@ const infoRowItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { InfoRow } from '@golia/gds'\n\n<InfoRow label="CPU" value="12%" icon={<CpuIcon />} />\n<InfoRow label="Memory" value="4.2 GB" icon={<MemoryIcon />} />`,
+    `import { InfoRow } from '@goliapkg/gds'\n\n<InfoRow label="CPU" value="12%" icon={<CpuIcon />} />\n<InfoRow label="Memory" value="4.2 GB" icon={<MemoryIcon />} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

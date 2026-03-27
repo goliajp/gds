@@ -17,7 +17,7 @@ const quickLinksItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { QuickLinks } from '@golia/gds'" />
+      <ImportLine text="import { QuickLinks } from '@goliapkg/gds'" />
       <LivePreview>
         <QuickLinks
           columns={config.columns}
@@ -37,7 +37,7 @@ const quickLinksItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { QuickLinks } from '@golia/gds'\n\n<QuickLinks\n  columns={${config.columns}}\n  links={[\n    { label: 'Dashboard', onClick: handleClick },\n    { label: 'Settings', href: '/settings' },\n  ]}\n/>`,
+    `import { QuickLinks } from '@goliapkg/gds'\n\n<QuickLinks\n  columns={${config.columns}}\n  links={[\n    { label: 'Dashboard', onClick: handleClick },\n    { label: 'Settings', href: '/settings' },\n  ]}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -61,7 +61,7 @@ const weatherWidgetItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { WeatherWidget } from '@golia/gds'" />
+      <ImportLine text="import { WeatherWidget } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-start gap-4">
           <WeatherWidget temp={config.temp} condition={config.condition} location={config.location} unit={config.unit} />
@@ -81,7 +81,7 @@ const weatherWidgetItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { WeatherWidget } from '@golia/gds'\n\n<WeatherWidget temp={${config.temp}} condition="${config.condition}" location="${config.location}"${config.unit !== 'C' ? ` unit="${config.unit}"` : ''} />`,
+    `import { WeatherWidget } from '@goliapkg/gds'\n\n<WeatherWidget temp={${config.temp}} condition="${config.condition}" location="${config.location}"${config.unit !== 'C' ? ` unit="${config.unit}"` : ''} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

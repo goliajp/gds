@@ -41,7 +41,7 @@ const spotlightItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Spotlight } from '@golia/gds'" />
+      <ImportLine text="import { Spotlight } from '@goliapkg/gds'" />
       <LivePreview>
         <SpotlightDemo placement={config.placement} />
       </LivePreview>
@@ -71,7 +71,7 @@ const spotlightItem: DevCenterItem = {
     ]
     if (config.placement !== 'bottom') props.push(`placement="${config.placement}"`)
     props.push('onClose={() => setActive(false)}')
-    return `import { Spotlight } from '@golia/gds'\n\nconst buttonRef = useRef<HTMLButtonElement>(null)\nconst [active, setActive] = useState(false)\n\n<Spotlight\n  ${props.join('\n  ')}\n/>`
+    return `import { Spotlight } from '@goliapkg/gds'\n\nconst buttonRef = useRef<HTMLButtonElement>(null)\nconst [active, setActive] = useState(false)\n\n<Spotlight\n  ${props.join('\n  ')}\n/>`
   },
 
   docs: () => (

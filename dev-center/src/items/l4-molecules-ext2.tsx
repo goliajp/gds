@@ -62,7 +62,7 @@ const comboboxItem: DevCenterItem = {
     }
     return (
       <div>
-        <ImportLine text="import { Combobox } from '@golia/gds'" />
+        <ImportLine text="import { Combobox } from '@goliapkg/gds'" />
 
         <LivePreview>
           <div className="w-60">
@@ -110,7 +110,7 @@ const comboboxItem: DevCenterItem = {
   ),
 
   code: ({ config }) => {
-    const lines = ["import { Combobox } from '@golia/gds'", '']
+    const lines = ["import { Combobox } from '@goliapkg/gds'", '']
     const props: string[] = ['options={options}', 'value={val}', 'onChange={setVal}']
     if (config.placeholder !== 'Select...') props.push(`placeholder="${config.placeholder}"`)
     if (config.searchPlaceholder !== 'Search...') props.push(`searchPlaceholder="${config.searchPlaceholder}"`)
@@ -176,7 +176,7 @@ const timePickerItem: DevCenterItem = {
     }
     return (
       <div>
-        <ImportLine text="import { TimePicker } from '@golia/gds'" />
+        <ImportLine text="import { TimePicker } from '@goliapkg/gds'" />
 
         <LivePreview>
           <div className="w-48">
@@ -224,7 +224,7 @@ const timePickerItem: DevCenterItem = {
   ),
 
   code: ({ config }) => {
-    const lines = ["import { TimePicker } from '@golia/gds'", '']
+    const lines = ["import { TimePicker } from '@goliapkg/gds'", '']
     const props: string[] = ['value={val}', 'onChange={setVal}']
     if (config.minuteStep !== 15) props.push(`minuteStep={${config.minuteStep}}`)
     if (config.placeholder !== 'Select time') props.push(`placeholder="${config.placeholder}"`)
@@ -273,7 +273,7 @@ const fileUploadItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { FileUpload } from '@golia/gds'" />
+      <ImportLine text="import { FileUpload } from '@goliapkg/gds'" />
 
       <LivePreview>
         <div className="w-72">
@@ -340,7 +340,7 @@ const fileUploadItem: DevCenterItem = {
   ),
 
   code: ({ config }) => {
-    const lines = ["import { FileUpload } from '@golia/gds'", '']
+    const lines = ["import { FileUpload } from '@goliapkg/gds'", '']
     const props: string[] = ['onFiles={(files) => handleFiles(files)}']
     if (config.multiple === true) props.push('multiple')
     if (config.disabled === true) props.push('disabled')
@@ -391,7 +391,7 @@ const notificationItem: DevCenterItem = {
 
   stage: ({ config, variant }) => (
     <div>
-      <ImportLine text="import { Notification } from '@golia/gds'" />
+      <ImportLine text="import { Notification } from '@goliapkg/gds'" />
 
       <LivePreview className="flex-col gap-3">
         <Notification
@@ -441,7 +441,7 @@ const notificationItem: DevCenterItem = {
   ),
 
   code: ({ config, variant }) => {
-    const lines = ["import { Notification } from '@golia/gds'", '']
+    const lines = ["import { Notification } from '@goliapkg/gds'", '']
     lines.push(`<Notification`)
     if (variant !== 'info') lines.push(`  variant="${variant}"`)
     lines.push(`  title="System maintenance scheduled"`)
@@ -489,7 +489,7 @@ const loadingOverlayItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { LoadingOverlay } from '@golia/gds'" />
+      <ImportLine text="import { LoadingOverlay } from '@goliapkg/gds'" />
 
       <LivePreview>
         <div className="relative h-32 w-64 rounded-lg border border-border bg-bg-secondary p-4">
@@ -557,7 +557,7 @@ const colorPickerItem: DevCenterItem = {
     }
     return (
       <div>
-        <ImportLine text="import { ColorPicker } from '@golia/gds'" />
+        <ImportLine text="import { ColorPicker } from '@goliapkg/gds'" />
 
         <LivePreview>
           <ColorPickerDemo />
@@ -592,7 +592,7 @@ const colorPickerItem: DevCenterItem = {
   ),
 
   code: ({ config }) => {
-    const lines = ["import { ColorPicker } from '@golia/gds'", '']
+    const lines = ["import { ColorPicker } from '@goliapkg/gds'", '']
     const props: string[] = ['value={color}', 'onChange={setColor}']
     if (config.showInput === false) props.push('showInput={false}')
     if (config.disabled === true) props.push('disabled')

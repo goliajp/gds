@@ -22,7 +22,7 @@ const notificationListItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { NotificationList } from '@golia/gds'" />
+      <ImportLine text="import { NotificationList } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-80">
           <NotificationList
@@ -36,7 +36,7 @@ const notificationListItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { NotificationList } from '@golia/gds'\n\n<NotificationList\n  notifications={[\n    { id: '1', title: 'Deploy complete', message: 'v2.0 live', timestamp: '2m ago' },\n  ]}\n  onRead={(id) => markRead(id)}\n  onReadAll={() => markAllRead()}\n/>`,
+    `import { NotificationList } from '@goliapkg/gds'\n\n<NotificationList\n  notifications={[\n    { id: '1', title: 'Deploy complete', message: 'v2.0 live', timestamp: '2m ago' },\n  ]}\n  onRead={(id) => markRead(id)}\n  onReadAll={() => markAllRead()}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

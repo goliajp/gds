@@ -21,7 +21,7 @@ const gradientBorderItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { GradientBorder } from '@golia/gds'" />
+      <ImportLine text="import { GradientBorder } from '@goliapkg/gds'" />
       <LivePreview>
         <GradientBorder
           gradient={config.gradient}
@@ -56,7 +56,7 @@ const gradientBorderItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { GradientBorder } from '@golia/gds'\n\n<GradientBorder\n  gradient="${config.gradient}"\n  width={${config.width}}\n  radius={${config.radius}}\n>\n  <div className="p-6">Content</div>\n</GradientBorder>`,
+    `import { GradientBorder } from '@goliapkg/gds'\n\n<GradientBorder\n  gradient="${config.gradient}"\n  width={${config.width}}\n  radius={${config.radius}}\n>\n  <div className="p-6">Content</div>\n</GradientBorder>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

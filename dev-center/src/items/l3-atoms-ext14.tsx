@@ -21,7 +21,7 @@ const visualCounterItem: DevCenterItem = {
     const [value, setValue] = useState(3)
     return (
       <div>
-        <ImportLine text="import { VisualCounter } from '@golia/gds'" />
+        <ImportLine text="import { VisualCounter } from '@goliapkg/gds'" />
         <LivePreview>
           <div className="flex items-center gap-8 p-8">
             <VisualCounter value={value} onChange={setValue} min={Number(config.min)} max={Number(config.max)} step={Number(config.step)} />
@@ -40,7 +40,7 @@ const visualCounterItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { VisualCounter } from '@golia/gds'\n\n<VisualCounter\n  value={count}\n  onChange={setCount}\n  min={${config.min}}\n  max={${config.max}}\n  step={${config.step}}\n/>`,
+    `import { VisualCounter } from '@goliapkg/gds'\n\n<VisualCounter\n  value={count}\n  onChange={setCount}\n  min={${config.min}}\n  max={${config.max}}\n  step={${config.step}}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -68,7 +68,7 @@ const ribbonItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Ribbon } from '@golia/gds'" />
+      <ImportLine text="import { Ribbon } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex gap-8 p-8">
           <Ribbon label={config.label} variant={config.variant} position={config.position}>
@@ -90,7 +90,7 @@ const ribbonItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { Ribbon } from '@golia/gds'\n\n<Ribbon label="${config.label}" variant="${config.variant}" position="${config.position}">\n  <Card>...</Card>\n</Ribbon>`,
+    `import { Ribbon } from '@goliapkg/gds'\n\n<Ribbon label="${config.label}" variant="${config.variant}" position="${config.position}">\n  <Card>...</Card>\n</Ribbon>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

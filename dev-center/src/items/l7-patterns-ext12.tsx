@@ -18,7 +18,7 @@ const heroItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Hero } from '@golia/gds'" />
+      <ImportLine text="import { Hero } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <Hero
           title={config.title}
@@ -54,7 +54,7 @@ const heroItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { Hero } from '@golia/gds'\n\n<Hero\n  title="${config.title}"\n  subtitle="${config.subtitle}"\n  align="${config.align}"${config.glass ? '\n  glass' : ''}\n  actions={<Button>Get Started</Button>}\n/>`,
+    `import { Hero } from '@goliapkg/gds'\n\n<Hero\n  title="${config.title}"\n  subtitle="${config.subtitle}"\n  align="${config.align}"${config.glass ? '\n  glass' : ''}\n  actions={<Button>Get Started</Button>}\n/>`,
 }
 patternItemsExt12.push(heroItem)
 
@@ -68,7 +68,7 @@ const footerItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Footer } from '@golia/gds'" />
+      <ImportLine text="import { Footer } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <Footer
           columns={[
@@ -101,7 +101,7 @@ const footerItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { Footer } from '@golia/gds'\n\n<Footer\n  columns={[\n    { title: 'Product', links: [{ label: 'Features', href: '/features' }] },\n  ]}\n  copyright="&copy; 2026 GOLIA"\n  logo={<Logo />}${config.glass ? '\n  glass' : ''}\n/>`,
+    `import { Footer } from '@goliapkg/gds'\n\n<Footer\n  columns={[\n    { title: 'Product', links: [{ label: 'Features', href: '/features' }] },\n  ]}\n  copyright="&copy; 2026 GOLIA"\n  logo={<Logo />}${config.glass ? '\n  glass' : ''}\n/>`,
 }
 patternItemsExt12.push(footerItem)
 
@@ -115,7 +115,7 @@ const navBarItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { NavBar } from '@golia/gds'" />
+      <ImportLine text="import { NavBar } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <NavBar
           logo={<span className="text-sm font-bold text-fg">GOLIA</span>}
@@ -152,7 +152,7 @@ const navBarItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { NavBar } from '@golia/gds'\n\n<NavBar\n  logo={<Logo />}\n  links={[\n    { label: 'Home', href: '/', active: true },\n    { label: 'About', href: '/about' },\n  ]}\n  actions={<Button>Sign In</Button>}${!config.sticky ? '\n  sticky={false}' : ''}${!config.glass ? '\n  glass={false}' : ''}\n/>`,
+    `import { NavBar } from '@goliapkg/gds'\n\n<NavBar\n  logo={<Logo />}\n  links={[\n    { label: 'Home', href: '/', active: true },\n    { label: 'About', href: '/about' },\n  ]}\n  actions={<Button>Sign In</Button>}${!config.sticky ? '\n  sticky={false}' : ''}${!config.glass ? '\n  glass={false}' : ''}\n/>`,
 }
 patternItemsExt12.push(navBarItem)
 

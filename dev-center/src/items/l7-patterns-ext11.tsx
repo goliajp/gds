@@ -18,7 +18,7 @@ const bentoGridItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { BentoGrid } from '@golia/gds'" />
+      <ImportLine text="import { BentoGrid } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <BentoGrid columns={Number(config.columns)} gap={config.gap}>
           <div className="col-span-2 row-span-2 rounded-lg border border-border bg-surface p-4 text-fg-muted text-xs">2x2 span</div>
@@ -47,7 +47,7 @@ const bentoGridItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { BentoGrid } from '@golia/gds'\n\n<BentoGrid columns={${config.columns}} gap="${config.gap}">\n  <div className="col-span-2 row-span-2">Featured</div>\n  <div>Item 1</div>\n  <div>Item 2</div>\n</BentoGrid>`,
+    `import { BentoGrid } from '@goliapkg/gds'\n\n<BentoGrid columns={${config.columns}} gap="${config.gap}">\n  <div className="col-span-2 row-span-2">Featured</div>\n  <div>Item 1</div>\n  <div>Item 2</div>\n</BentoGrid>`,
 }
 patternItemsExt11.push(bentoGridItem)
 
@@ -61,7 +61,7 @@ const featureCardItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { FeatureCard } from '@golia/gds'" />
+      <ImportLine text="import { FeatureCard } from '@goliapkg/gds'" />
       <LivePreview>
         <FeatureCard
           icon={<svg className="h-6 w-6" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>}
@@ -100,7 +100,7 @@ const featureCardItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { FeatureCard } from '@golia/gds'\n\n<FeatureCard\n  icon={<ZapIcon />}\n  title="${config.title}"\n  description="${config.description}"${config.glass ? '\n  glass' : ''}\n  action={<Button>Learn More</Button>}\n/>`,
+    `import { FeatureCard } from '@goliapkg/gds'\n\n<FeatureCard\n  icon={<ZapIcon />}\n  title="${config.title}"\n  description="${config.description}"${config.glass ? '\n  glass' : ''}\n  action={<Button>Learn More</Button>}\n/>`,
 }
 patternItemsExt11.push(featureCardItem)
 
@@ -114,7 +114,7 @@ const pricingCardItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { PricingCard } from '@golia/gds'" />
+      <ImportLine text="import { PricingCard } from '@goliapkg/gds'" />
       <LivePreview>
         <PricingCard
           name={config.name}
@@ -159,7 +159,7 @@ const pricingCardItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { PricingCard } from '@golia/gds'\n\n<PricingCard\n  name="${config.name}"\n  price="${config.price}"\n  period="${config.period}"\n  features={['Feature 1', 'Feature 2']}${config.highlighted ? '\n  highlighted' : ''}${config.glass ? '\n  glass' : ''}\n  action={<Button>Get Started</Button>}\n/>`,
+    `import { PricingCard } from '@goliapkg/gds'\n\n<PricingCard\n  name="${config.name}"\n  price="${config.price}"\n  period="${config.period}"\n  features={['Feature 1', 'Feature 2']}${config.highlighted ? '\n  highlighted' : ''}${config.glass ? '\n  glass' : ''}\n  action={<Button>Get Started</Button>}\n/>`,
 }
 patternItemsExt11.push(pricingCardItem)
 

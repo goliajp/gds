@@ -15,7 +15,7 @@ const dashboardLayoutItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { DashboardLayout } from '@golia/gds'" />
+      <ImportLine text="import { DashboardLayout } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="h-64 w-full max-w-2xl overflow-hidden rounded-lg border border-border">
           <div className="flex h-full bg-bg">
@@ -47,7 +47,7 @@ const dashboardLayoutItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { DashboardLayout } from '@golia/gds'\n\n<DashboardLayout\n  sidebar={<Nav />}\n  ${config.showHeader === 'true' ? 'header={<Header />}\n  ' : ''}sidebarWidth={${config.sidebarWidth}}\n>\n  {children}\n</DashboardLayout>`,
+    `import { DashboardLayout } from '@goliapkg/gds'\n\n<DashboardLayout\n  sidebar={<Nav />}\n  ${config.showHeader === 'true' ? 'header={<Header />}\n  ' : ''}sidebarWidth={${config.sidebarWidth}}\n>\n  {children}\n</DashboardLayout>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

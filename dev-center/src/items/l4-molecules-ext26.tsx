@@ -17,7 +17,7 @@ const currencyDisplayItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { CurrencyDisplay } from '@golia/gds'" />
+      <ImportLine text="import { CurrencyDisplay } from '@goliapkg/gds'" />
       <LivePreview>
         <CurrencyDisplay
           amount={Number(config.amount)}
@@ -36,7 +36,7 @@ const currencyDisplayItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { CurrencyDisplay } from '@golia/gds'\n\n<CurrencyDisplay\n  amount={${config.amount}}\n  change={${config.change}}\n  period="${config.period}"\n/>`,
+    `import { CurrencyDisplay } from '@goliapkg/gds'\n\n<CurrencyDisplay\n  amount={${config.amount}}\n  change={${config.change}}\n  period="${config.period}"\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -62,7 +62,7 @@ const auditEntryItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { AuditEntry } from '@golia/gds'" />
+      <ImportLine text="import { AuditEntry } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-96 space-y-1">
           <AuditEntry timestamp="09:15" user="Alice" action="approved" target="Payslip #42" variant={config.variant} />
@@ -78,7 +78,7 @@ const auditEntryItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { AuditEntry } from '@golia/gds'\n\n<AuditEntry\n  timestamp="09:15"\n  user="Alice"\n  action="approved"\n  target="Payslip #42"\n  variant="${config.variant}"\n/>`,
+    `import { AuditEntry } from '@goliapkg/gds'\n\n<AuditEntry\n  timestamp="09:15"\n  user="Alice"\n  action="approved"\n  target="Payslip #42"\n  variant="${config.variant}"\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

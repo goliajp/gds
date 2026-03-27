@@ -17,7 +17,7 @@ const onlineIndicatorItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { OnlineIndicator } from '@golia/gds'" />
+      <ImportLine text="import { OnlineIndicator } from '@goliapkg/gds'" />
       <LivePreview>
         <OnlineIndicator
           online={config.online === 'true'}
@@ -35,7 +35,7 @@ const onlineIndicatorItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { OnlineIndicator } from '@golia/gds'\n\n<OnlineIndicator online={${config.online}}${config.label !== '' ? ` label="${config.label}"` : ''} />`,
+    `import { OnlineIndicator } from '@goliapkg/gds'\n\n<OnlineIndicator online={${config.online}}${config.label !== '' ? ` label="${config.label}"` : ''} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -65,7 +65,7 @@ const truncatedListItem: DevCenterItem = {
 
     return (
       <div>
-        <ImportLine text="import { TruncatedList } from '@golia/gds'" />
+        <ImportLine text="import { TruncatedList } from '@goliapkg/gds'" />
         <LivePreview>
           <TruncatedList items={items} max={Number(config.max)} />
         </LivePreview>
@@ -81,7 +81,7 @@ const truncatedListItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { TruncatedList } from '@golia/gds'\n\n<TruncatedList items={tags} max={${config.max}} />`,
+    `import { TruncatedList } from '@goliapkg/gds'\n\n<TruncatedList items={tags} max={${config.max}} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

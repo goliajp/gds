@@ -27,7 +27,7 @@ const auditLogItem: DevCenterItem = {
     const count = Number(config.count)
     return (
       <div>
-        <ImportLine text="import { AuditLog } from '@golia/gds'" />
+        <ImportLine text="import { AuditLog } from '@goliapkg/gds'" />
         <LivePreview>
           <div className="w-96 rounded-lg border border-border">
             <AuditLog entries={sampleEntries.slice(0, count)} />
@@ -42,7 +42,7 @@ const auditLogItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { AuditLog } from '@golia/gds'\n\n<AuditLog entries={[\n  { id: '1', timestamp: '09:00', user: 'Alice', action: 'created', target: 'Invoice' },\n  { id: '2', timestamp: '09:15', user: 'Bob', action: 'updated', variant: 'warning' },\n]} />`,
+    `import { AuditLog } from '@goliapkg/gds'\n\n<AuditLog entries={[\n  { id: '1', timestamp: '09:00', user: 'Alice', action: 'created', target: 'Invoice' },\n  { id: '2', timestamp: '09:15', user: 'Bob', action: 'updated', variant: 'warning' },\n]} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -75,7 +75,7 @@ const heatmapTableItem: DevCenterItem = {
     const count = Number(config.rows)
     return (
       <div>
-        <ImportLine text="import { HeatmapTable } from '@golia/gds'" />
+        <ImportLine text="import { HeatmapTable } from '@goliapkg/gds'" />
         <LivePreview>
           <div className="w-80">
             <HeatmapTable headers={heatmapHeaders} rows={heatmapRows.slice(0, count)} />
@@ -90,7 +90,7 @@ const heatmapTableItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { HeatmapTable } from '@golia/gds'\n\n<HeatmapTable\n  headers={['Mon', 'Tue', 'Wed', 'Thu', 'Fri']}\n  rows={[\n    { label: 'Week 1', values: [8, 7, 9, 6, 8] },\n    { label: 'Week 2', values: [4, 8, 10, 7, 5] },\n  ]}\n/>`,
+    `import { HeatmapTable } from '@goliapkg/gds'\n\n<HeatmapTable\n  headers={['Mon', 'Tue', 'Wed', 'Thu', 'Fri']}\n  rows={[\n    { label: 'Week 1', values: [8, 7, 9, 6, 8] },\n    { label: 'Week 2', values: [4, 8, 10, 7, 5] },\n  ]}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

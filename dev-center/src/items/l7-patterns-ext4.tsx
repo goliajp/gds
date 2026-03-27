@@ -19,7 +19,7 @@ const loadingStatesItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { LoadingStates } from '@golia/gds'" />
+      <ImportLine text="import { LoadingStates } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <div className="relative min-h-[160px] w-full">
           <LoadingStates variant={config.variant} message={config.message} glass={config.glass} />
@@ -59,7 +59,7 @@ const loadingStatesItem: DevCenterItem = {
     const props = [`variant="${config.variant}"`]
     if (config.message !== '') props.push(`message="${config.message}"`)
     if (config.glass === true) props.push('glass')
-    return `import { LoadingStates } from '@golia/gds'\n\n<LoadingStates\n  ${props.join('\n  ')}\n/>`
+    return `import { LoadingStates } from '@goliapkg/gds'\n\n<LoadingStates\n  ${props.join('\n  ')}\n/>`
   },
 
   docs: () => (
@@ -86,7 +86,7 @@ const compositionPatternItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { CompositionPattern } from '@golia/gds'" />
+      <ImportLine text="import { CompositionPattern } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <div className="h-[300px] w-full overflow-hidden rounded-lg border border-border">
           <CompositionPattern
@@ -140,7 +140,7 @@ const compositionPatternItem: DevCenterItem = {
     if (config.showFooter === true) props.push('footer={<Footer />}')
     if (config.sidebarPosition !== 'left') props.push(`sidebarPosition="${config.sidebarPosition}"`)
     if (config.sidebarWidth !== 240) props.push(`sidebarWidth={${config.sidebarWidth}}`)
-    return `import { CompositionPattern } from '@golia/gds'\n\n<CompositionPattern\n  ${props.join('\n  ')}\n/>`
+    return `import { CompositionPattern } from '@goliapkg/gds'\n\n<CompositionPattern\n  ${props.join('\n  ')}\n/>`
   },
 
   docs: () => (
@@ -171,7 +171,7 @@ const formPatternItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { FormPattern } from '@golia/gds'" />
+      <ImportLine text="import { FormPattern } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <FormPattern
           title={config.title}
@@ -232,7 +232,7 @@ const formPatternItem: DevCenterItem = {
     if (config.description !== '') props.push(`description="${config.description}"`)
     props.push('sections={[\n    { title: \'Section 1\', fields: <Fields /> },\n  ]}')
     if (config.showActions === true) props.push('actions={<><Button variant="secondary">Cancel</Button><Button>Save</Button></>}')
-    return `import { FormPattern } from '@golia/gds'\n\n<FormPattern\n  ${props.join('\n  ')}\n/>`
+    return `import { FormPattern } from '@goliapkg/gds'\n\n<FormPattern\n  ${props.join('\n  ')}\n/>`
   },
 
   docs: () => (

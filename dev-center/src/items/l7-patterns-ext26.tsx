@@ -27,7 +27,7 @@ const calendarViewItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { CalendarView } from '@golia/gds'" />
+      <ImportLine text="import { CalendarView } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-72">
           <CalendarView events={sampleEvents} month={Number(config.month)} year={2026} />
@@ -41,7 +41,7 @@ const calendarViewItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { CalendarView } from '@golia/gds'\n\n<CalendarView\n  year={2026}\n  month={${config.month}}\n  events={[\n    { date: 7, label: 'Payday', color: 'var(--color-success)' },\n    { date: 15, label: 'Deadline', color: 'var(--color-danger)' },\n  ]}\n  onDateClick={(day) => console.log(day)}\n/>`,
+    `import { CalendarView } from '@goliapkg/gds'\n\n<CalendarView\n  year={2026}\n  month={${config.month}}\n  events={[\n    { date: 7, label: 'Payday', color: 'var(--color-success)' },\n    { date: 15, label: 'Deadline', color: 'var(--color-danger)' },\n  ]}\n  onDateClick={(day) => console.log(day)}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

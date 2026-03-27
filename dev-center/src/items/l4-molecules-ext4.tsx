@@ -20,7 +20,7 @@ const panelItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Panel } from '@golia/gds'" />
+      <ImportLine text="import { Panel } from '@goliapkg/gds'" />
 
       <LivePreview>
         <div className="w-[400px] flex flex-col gap-3">
@@ -141,7 +141,7 @@ const dockItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Dock } from '@golia/gds'" />
+      <ImportLine text="import { Dock } from '@goliapkg/gds'" />
 
       <LivePreview>
         <Dock
@@ -220,7 +220,7 @@ const multiSelectItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { MultiSelect } from '@golia/gds'" />
+      <ImportLine text="import { MultiSelect } from '@goliapkg/gds'" />
 
       <LivePreview>
         <MultiSelectDemo

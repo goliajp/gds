@@ -1,4 +1,4 @@
-# @golia/gds
+# @goliapkg/gds
 
 **GOLIA Design System** — enterprise-grade React UI component library built by [GOLIA](https://github.com/goliajp).
 
@@ -36,12 +36,12 @@ Each layer has **strict dependency constraints** enforced by ESLint — higher l
 ## Quick Start
 
 ```bash
-bun add @golia/gds
+bun add @goliapkg/gds
 ```
 
 ```tsx
-import { Button, Card, CardHeader, CardContent } from '@golia/gds'
-import '@golia/gds/tokens.css'
+import { Button, Card, CardHeader, CardContent } from '@goliapkg/gds'
+import '@goliapkg/gds/tokens.css'
 
 function App() {
   return (

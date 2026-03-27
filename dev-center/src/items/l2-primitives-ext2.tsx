@@ -17,7 +17,7 @@ const highlightItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Highlight } from '@golia/gds'" />
+      <ImportLine text="import { Highlight } from '@goliapkg/gds'" />
 
       <LivePreview>
         <Highlight

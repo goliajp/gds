@@ -17,7 +17,7 @@ const navItemItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { NavItem } from '@golia/gds'" />
+      <ImportLine text="import { NavItem } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-56 border border-border rounded-lg bg-surface">
           <NavItem label="Dashboard" active={config.active === 'true'} badge={Number(config.badge) > 0 ? Number(config.badge) : undefined} collapsed={config.collapsed === 'true'} />
@@ -37,7 +37,7 @@ const navItemItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { NavItem } from '@golia/gds'\n\n<NavItem\n  label="Dashboard"${config.active === 'true' ? '\n  active' : ''}${Number(config.badge) > 0 ? `\n  badge={${config.badge}}` : ''}${config.collapsed === 'true' ? '\n  collapsed' : ''}\n/>`,
+    `import { NavItem } from '@goliapkg/gds'\n\n<NavItem\n  label="Dashboard"${config.active === 'true' ? '\n  active' : ''}${Number(config.badge) > 0 ? `\n  badge={${config.badge}}` : ''}${config.collapsed === 'true' ? '\n  collapsed' : ''}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -71,7 +71,7 @@ const userMenuItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { UserMenu } from '@golia/gds'" />
+      <ImportLine text="import { UserMenu } from '@goliapkg/gds'" />
       <LivePreview>
         <UserMenu
           name={config.name}
@@ -91,7 +91,7 @@ const userMenuItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { UserMenu } from '@golia/gds'\n\n<UserMenu\n  name="${config.name}"${config.role !== '' ? `\n  role="${config.role}"` : ''}\n  items={[{ id: 'profile', label: 'Profile' }, ...]}\n  onSelect={(id) => handleSelect(id)}\n/>`,
+    `import { UserMenu } from '@goliapkg/gds'\n\n<UserMenu\n  name="${config.name}"${config.role !== '' ? `\n  role="${config.role}"` : ''}\n  items={[{ id: 'profile', label: 'Profile' }, ...]}\n  onSelect={(id) => handleSelect(id)}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

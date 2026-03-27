@@ -39,7 +39,7 @@ const chartItemsExt7: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { StreamChart } from '@golia/gds'" />
+        <ImportLine text="import { StreamChart } from '@goliapkg/gds'" />
         <LivePreview>
           <StreamChart
             data={streamData}
@@ -102,7 +102,7 @@ const chartItemsExt7: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { ChordDiagram } from '@golia/gds'" />
+        <ImportLine text="import { ChordDiagram } from '@goliapkg/gds'" />
         <LivePreview>
           <ChordDiagram
             matrix={chordMatrix}
@@ -168,7 +168,7 @@ const chartItemsExt7: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { ViolinPlot } from '@golia/gds'" />
+        <ImportLine text="import { ViolinPlot } from '@goliapkg/gds'" />
         <LivePreview>
           <ViolinPlot
             data={violinData}

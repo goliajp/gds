@@ -30,7 +30,7 @@ const chartItemsExt4: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { WaffleChart } from '@golia/gds'" />
+        <ImportLine text="import { WaffleChart } from '@goliapkg/gds'" />
         <LivePreview>
           <WaffleChart data={waffleData} size={config.size} glass={config.glass} />
         </LivePreview>
@@ -84,7 +84,7 @@ const chartItemsExt4: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { RadialBarChart } from '@golia/gds'" />
+        <ImportLine text="import { RadialBarChart } from '@goliapkg/gds'" />
         <LivePreview>
           <RadialBarChart data={radialData} height={config.height} glass={config.glass} />
         </LivePreview>

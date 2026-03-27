@@ -18,7 +18,7 @@ const inputGroupItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { InputGroup } from '@golia/gds'" />
+      <ImportLine text="import { InputGroup } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-72">
           <InputGroup
@@ -55,7 +55,7 @@ const inputGroupItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { InputGroup } from '@golia/gds'\nimport { Input } from '@golia/gds'\n\n<InputGroup${config.prefix ? ` prefix="${config.prefix}"` : ''}${config.suffix ? ` suffix="${config.suffix}"` : ''}${config.error ? ' error' : ''}${config.disabled ? ' disabled' : ''}>\n  <Input placeholder="Amount" />\n</InputGroup>`,
+    `import { InputGroup } from '@goliapkg/gds'\nimport { Input } from '@goliapkg/gds'\n\n<InputGroup${config.prefix ? ` prefix="${config.prefix}"` : ''}${config.suffix ? ` suffix="${config.suffix}"` : ''}${config.error ? ' error' : ''}${config.disabled ? ' disabled' : ''}>\n  <Input placeholder="Amount" />\n</InputGroup>`,
 }
 moleculeItemsK.push(inputGroupItem)
 

@@ -36,7 +36,7 @@ const chipGroupItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { ChipGroup } from '@golia/gds'" />
+      <ImportLine text="import { ChipGroup } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-80">
           <ChipGroupDemo exclusive={config.exclusive} />
@@ -62,7 +62,7 @@ const chipGroupItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { ChipGroup } from '@golia/gds'\n\nconst [value, setValue] = useState<string[]>([])\n\n<ChipGroup\n  options={[\n    { value: 'react', label: 'React' },\n    { value: 'vue', label: 'Vue' },\n  ]}\n  value={value}\n  onChange={setValue}${config.exclusive ? '\n  exclusive' : ''}\n/>`,
+    `import { ChipGroup } from '@goliapkg/gds'\n\nconst [value, setValue] = useState<string[]>([])\n\n<ChipGroup\n  options={[\n    { value: 'react', label: 'React' },\n    { value: 'vue', label: 'Vue' },\n  ]}\n  value={value}\n  onChange={setValue}${config.exclusive ? '\n  exclusive' : ''}\n/>`,
 }
 moleculeItemsN.push(chipGroupItem)
 

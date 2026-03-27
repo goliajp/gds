@@ -38,7 +38,7 @@ const notificationCenterItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { NotificationCenter } from '@golia/gds'" />
+      <ImportLine text="import { NotificationCenter } from '@goliapkg/gds'" />
       <LivePreview className="!items-start !justify-start">
         <div className="w-full max-w-md">
           <NotificationCenterDemo glass={config.glass} />
@@ -54,7 +54,7 @@ const notificationCenterItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { NotificationCenter } from '@golia/gds'\n\n<NotificationCenter\n  notifications={[\n    { id: '1', title: 'Build succeeded', variant: 'success' },\n    { id: '2', title: 'Disk warning', variant: 'warning' },\n  ]}\n  onDismiss={(id) => dismiss(id)}\n  onClear={() => clearAll()}\n/>`,
+    `import { NotificationCenter } from '@goliapkg/gds'\n\n<NotificationCenter\n  notifications={[\n    { id: '1', title: 'Build succeeded', variant: 'success' },\n    { id: '2', title: 'Disk warning', variant: 'warning' },\n  ]}\n  onDismiss={(id) => dismiss(id)}\n  onClear={() => clearAll()}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

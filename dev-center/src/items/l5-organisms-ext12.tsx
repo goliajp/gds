@@ -18,7 +18,7 @@ const dataListItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { DataList } from '@golia/gds'" />
+      <ImportLine text="import { DataList } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-80">
           <DataList
@@ -56,7 +56,7 @@ const dataListItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { DataList } from '@golia/gds'\n\n<DataList\n  items={[\n    { label: 'Name', value: 'Alice' },\n    { label: 'Role', value: 'Engineer' },\n  ]}${config.layout !== 'vertical' ? `\n  layout="${config.layout}"` : ''}${config.striped ? '\n  striped' : ''}${config.glass ? '\n  glass' : ''}\n/>`,
+    `import { DataList } from '@goliapkg/gds'\n\n<DataList\n  items={[\n    { label: 'Name', value: 'Alice' },\n    { label: 'Role', value: 'Engineer' },\n  ]}${config.layout !== 'vertical' ? `\n  layout="${config.layout}"` : ''}${config.striped ? '\n  striped' : ''}${config.glass ? '\n  glass' : ''}\n/>`,
 }
 organismItemsExt12.push(dataListItem)
 

@@ -17,7 +17,7 @@ const timelineEntryItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { TimelineEntry } from '@golia/gds'" />
+      <ImportLine text="import { TimelineEntry } from '@goliapkg/gds'" />
       <LivePreview>
         <div>
           <TimelineEntry variant={config.variant as 'danger' | 'default' | 'success' | 'warning'}>
@@ -44,7 +44,7 @@ const timelineEntryItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { TimelineEntry } from '@golia/gds'\n\n<TimelineEntry variant="${config.variant}"${config.last === 'true' ? ' last' : ''}>\n  <div>Event content</div>\n</TimelineEntry>`,
+    `import { TimelineEntry } from '@goliapkg/gds'\n\n<TimelineEntry variant="${config.variant}"${config.last === 'true' ? ' last' : ''}>\n  <div>Event content</div>\n</TimelineEntry>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -70,7 +70,7 @@ const categoryTagItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { CategoryTag } from '@golia/gds'" />
+      <ImportLine text="import { CategoryTag } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex flex-wrap gap-2">
           <CategoryTag label={config.label} color={config.color} count={config.count !== '' ? Number(config.count) : undefined} />
@@ -90,7 +90,7 @@ const categoryTagItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { CategoryTag } from '@golia/gds'\n\n<CategoryTag label="${config.label}" color="${config.color}"${config.count !== '' ? ` count={${config.count}}` : ''} />`,
+    `import { CategoryTag } from '@goliapkg/gds'\n\n<CategoryTag label="${config.label}" color="${config.color}"${config.count !== '' ? ` count={${config.count}}` : ''} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

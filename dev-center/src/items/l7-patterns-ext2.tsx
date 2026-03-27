@@ -25,7 +25,7 @@ const kpiDashboardItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { KPIDashboard } from '@golia/gds'" />
+      <ImportLine text="import { KPIDashboard } from '@goliapkg/gds'" />
 
       <LivePreview className="block">
         <KPIDashboard

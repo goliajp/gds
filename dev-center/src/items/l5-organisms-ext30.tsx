@@ -22,7 +22,7 @@ const recentActivityItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { RecentActivity } from '@golia/gds'" />
+      <ImportLine text="import { RecentActivity } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-80">
           <RecentActivity items={sampleItems} />
@@ -32,7 +32,7 @@ const recentActivityItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { RecentActivity } from '@golia/gds'\n\n<RecentActivity\n  title="Recent Activity"\n  items={[\n    { user: 'Alice', action: 'pushed to main', timestamp: '2m ago' },\n    { user: 'Bob', action: 'merged PR #42', timestamp: '10m ago' },\n  ]}\n/>`,
+    `import { RecentActivity } from '@goliapkg/gds'\n\n<RecentActivity\n  title="Recent Activity"\n  items={[\n    { user: 'Alice', action: 'pushed to main', timestamp: '2m ago' },\n    { user: 'Bob', action: 'merged PR #42', timestamp: '10m ago' },\n  ]}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

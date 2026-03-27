@@ -17,7 +17,7 @@ const patternItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { MetricCard } from '@golia/gds'" />
+        <ImportLine text="import { MetricCard } from '@goliapkg/gds'" />
         <LivePreview>
           <MetricCard title={config.title} value={config.value} change={config.change} glass={config.glass} />
         </LivePreview>
@@ -57,7 +57,7 @@ const patternItems: DevCenterItem[] = [
       const props = [`title="${config.title}"`, `value="${config.value}"`]
       if (config.change !== 0) props.push(`change={${config.change}}`)
       if (config.glass === true) props.push('glass')
-      return `import { MetricCard } from '@golia/gds'\n\n<MetricCard\n  ${props.join('\n  ')}\n/>`
+      return `import { MetricCard } from '@goliapkg/gds'\n\n<MetricCard\n  ${props.join('\n  ')}\n/>`
     },
 
     docs: () => (
@@ -92,7 +92,7 @@ const patternItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { StatGrid, MetricCard } from '@golia/gds'" />
+        <ImportLine text="import { StatGrid, MetricCard } from '@goliapkg/gds'" />
         <LivePreview className="block">
           <StatGrid columns={config.columns}>
             <MetricCard title="CPU" value="42%" glass={config.glass} />
@@ -131,7 +131,7 @@ const patternItems: DevCenterItem[] = [
     code: ({ config }) => {
       const cols = config.columns !== 3 ? ` columns={${config.columns}}` : ''
       const glass = config.glass === true ? ' glass' : ''
-      return `import { StatGrid, MetricCard } from '@golia/gds'\n\n<StatGrid${cols}>\n  <MetricCard title="CPU" value="42%"${glass} />\n  <MetricCard title="Memory" value="68%"${glass} />\n  <MetricCard title="Disk" value="23%"${glass} />\n</StatGrid>`
+      return `import { StatGrid, MetricCard } from '@goliapkg/gds'\n\n<StatGrid${cols}>\n  <MetricCard title="CPU" value="42%"${glass} />\n  <MetricCard title="Memory" value="68%"${glass} />\n  <MetricCard title="Disk" value="23%"${glass} />\n</StatGrid>`
     },
 
     docs: () => (
@@ -162,7 +162,7 @@ const patternItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { EmptyState } from '@golia/gds'" />
+        <ImportLine text="import { EmptyState } from '@goliapkg/gds'" />
         <LivePreview>
           <EmptyState
             title={config.title}
@@ -193,7 +193,7 @@ const patternItems: DevCenterItem[] = [
       const props = [`title="${config.title}"`]
       if (config.description !== '') props.push(`description="${config.description}"`)
       if (config.showAction === true) props.push(`action={<Button>Clear Filters</Button>}`)
-      return `import { EmptyState } from '@golia/gds'\n\n<EmptyState\n  ${props.join('\n  ')}\n/>`
+      return `import { EmptyState } from '@goliapkg/gds'\n\n<EmptyState\n  ${props.join('\n  ')}\n/>`
     },
 
     docs: () => (
@@ -226,7 +226,7 @@ const patternItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { FormLayout } from '@golia/gds'" />
+        <ImportLine text="import { FormLayout } from '@goliapkg/gds'" />
         <LivePreview className="block">
           <FormLayout
             title={config.title}
@@ -280,7 +280,7 @@ const patternItems: DevCenterItem[] = [
       if (config.title !== '') props.push(`title="${config.title}"`)
       if (config.description !== '') props.push(`description="${config.description}"`)
       if (config.showActions === true) props.push(`actions={<><Button variant="secondary">Cancel</Button><Button>Save</Button></>}`)
-      return `import { FormLayout } from '@golia/gds'\n\n<FormLayout\n  ${props.join('\n  ')}\n>\n  {children}\n</FormLayout>`
+      return `import { FormLayout } from '@goliapkg/gds'\n\n<FormLayout\n  ${props.join('\n  ')}\n>\n  {children}\n</FormLayout>`
     },
 
     docs: () => (
@@ -313,7 +313,7 @@ const patternItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { GlassPanel } from '@golia/gds'" />
+        <ImportLine text="import { GlassPanel } from '@goliapkg/gds'" />
         <LivePreview>
           <div className="relative h-48 w-full rounded-xl bg-gradient-to-br from-accent/30 via-success/20 to-warning/10 p-4">
             <GlassPanel blur={config.blur} padding={config.padding}>
@@ -353,7 +353,7 @@ const patternItems: DevCenterItem[] = [
       if (config.blur !== 'default') props.push(`blur="${config.blur}"`)
       if (config.padding !== 'default') props.push(`padding="${config.padding}"`)
       const propsStr = props.length > 0 ? ` ${props.join(' ')}` : ''
-      return `import { GlassPanel } from '@golia/gds'\n\n<GlassPanel${propsStr}>\n  <h3>Title</h3>\n  <p>Content with frosted glass background</p>\n</GlassPanel>`
+      return `import { GlassPanel } from '@goliapkg/gds'\n\n<GlassPanel${propsStr}>\n  <h3>Title</h3>\n  <p>Content with frosted glass background</p>\n</GlassPanel>`
     },
 
     docs: () => (
@@ -385,7 +385,7 @@ const patternItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { MiniDashboard, MetricCard } from '@golia/gds'" />
+        <ImportLine text="import { MiniDashboard, MetricCard } from '@goliapkg/gds'" />
         <LivePreview className="block">
           <MiniDashboard title={config.title} glass={config.glass}>
             <div className="grid grid-cols-3 gap-3">
@@ -430,7 +430,7 @@ const patternItems: DevCenterItem[] = [
       if (config.title !== '') props.push(`title="${config.title}"`)
       if (config.glass === true) props.push('glass')
       const propsStr = props.length > 0 ? ` ${props.join(' ')}` : ''
-      return `import { MiniDashboard } from '@golia/gds'\n\n<MiniDashboard${propsStr}>\n  {children}\n</MiniDashboard>`
+      return `import { MiniDashboard } from '@goliapkg/gds'\n\n<MiniDashboard${propsStr}>\n  {children}\n</MiniDashboard>`
     },
 
     docs: () => (

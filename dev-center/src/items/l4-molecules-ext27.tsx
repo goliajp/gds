@@ -22,7 +22,7 @@ const toolbarGroupItem: DevCenterItem = {
     const count = Number(config.count)
     return (
       <div>
-        <ImportLine text="import { ToolbarGroup } from '@golia/gds'" />
+        <ImportLine text="import { ToolbarGroup } from '@goliapkg/gds'" />
         <LivePreview>
           <ToolbarGroup>
             {labels.slice(0, count).map((l) => (
@@ -39,7 +39,7 @@ const toolbarGroupItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { ToolbarGroup } from '@golia/gds'\n\n<ToolbarGroup>\n  <button>Bold</button>\n  <button>Italic</button>\n  <button>Underline</button>\n</ToolbarGroup>`,
+    `import { ToolbarGroup } from '@goliapkg/gds'\n\n<ToolbarGroup>\n  <button>Bold</button>\n  <button>Italic</button>\n  <button>Underline</button>\n</ToolbarGroup>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -64,7 +64,7 @@ const inputWithButtonItem: DevCenterItem = {
     const [val, setVal] = useState('')
     return (
       <div>
-        <ImportLine text="import { InputWithButton } from '@golia/gds'" />
+        <ImportLine text="import { InputWithButton } from '@goliapkg/gds'" />
         <LivePreview>
           <div className="w-64">
             <InputWithButton
@@ -85,7 +85,7 @@ const inputWithButtonItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { InputWithButton } from '@golia/gds'\n\n<InputWithButton\n  value={value}\n  onChange={setValue}\n  buttonLabel="${config.buttonLabel}"\n  onSubmit={handleSubmit}\n  placeholder="Type something..."\n/>`,
+    `import { InputWithButton } from '@goliapkg/gds'\n\n<InputWithButton\n  value={value}\n  onChange={setValue}\n  buttonLabel="${config.buttonLabel}"\n  onSubmit={handleSubmit}\n  placeholder="Type something..."\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

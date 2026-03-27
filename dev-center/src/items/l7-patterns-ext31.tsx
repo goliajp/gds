@@ -17,7 +17,7 @@ const dataExportCardItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { DataExportCard } from '@golia/gds'" />
+      <ImportLine text="import { DataExportCard } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-80">
           <DataExportCard
@@ -35,7 +35,7 @@ const dataExportCardItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { DataExportCard } from '@golia/gds'\n\n<DataExportCard\n  formats={['CSV', 'JSON', 'Excel']}\n  onExport={(format, dateRange) => download(format, dateRange)}${config.title !== 'Export Data' ? `\n  title="${config.title}"` : ''}\n/>`,
+    `import { DataExportCard } from '@goliapkg/gds'\n\n<DataExportCard\n  formats={['CSV', 'JSON', 'Excel']}\n  onExport={(format, dateRange) => download(format, dateRange)}${config.title !== 'Export Data' ? `\n  title="${config.title}"` : ''}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

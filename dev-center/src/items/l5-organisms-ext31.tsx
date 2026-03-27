@@ -25,7 +25,7 @@ const notificationToastItem: DevCenterItem = {
 
     return (
       <div>
-        <ImportLine text="import { NotificationToast } from '@golia/gds'" />
+        <ImportLine text="import { NotificationToast } from '@goliapkg/gds'" />
         <LivePreview>
           <div className="flex flex-col gap-3">
             <button
@@ -54,7 +54,7 @@ const notificationToastItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { NotificationToast } from '@golia/gds'\n\n<NotificationToast\n  toasts={toasts}\n  onDismiss={(id) => removeToast(id)}\n  position="top-right"\n/>`,
+    `import { NotificationToast } from '@goliapkg/gds'\n\n<NotificationToast\n  toasts={toasts}\n  onDismiss={(id) => removeToast(id)}\n  position="top-right"\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

@@ -16,7 +16,7 @@ const projectDashboardItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { ProjectDashboard } from '@golia/gds'" />
+      <ImportLine text="import { ProjectDashboard } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-full">
           <ProjectDashboard
@@ -52,7 +52,7 @@ const projectDashboardItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { ProjectDashboard } from '@golia/gds'\n\n<ProjectDashboard\n  progress={<ProgressBar value={75} />}\n  team={<AvatarList users={team} />}\n  activity={<ActivityFeed items={events} />}\n  tasks={<TaskBoard sections={sections} />}\n/>`,
+    `import { ProjectDashboard } from '@goliapkg/gds'\n\n<ProjectDashboard\n  progress={<ProgressBar value={75} />}\n  team={<AvatarList users={team} />}\n  activity={<ActivityFeed items={events} />}\n  tasks={<TaskBoard sections={sections} />}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

@@ -18,7 +18,7 @@ const progressCircleItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { ProgressCircle } from '@golia/gds'" />
+      <ImportLine text="import { ProgressCircle } from '@goliapkg/gds'" />
 
       <LivePreview>
         <div className="flex items-center gap-6">

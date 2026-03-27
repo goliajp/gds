@@ -17,7 +17,7 @@ const kvTableItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { KvTable } from '@golia/gds'" />
+      <ImportLine text="import { KvTable } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-80">
           <KvTable
@@ -43,7 +43,7 @@ const kvTableItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { KvTable } from '@golia/gds'\n\n<KvTable\n  items={[\n    { key: 'Name', value: 'Tanaka Taro' },\n    { key: 'Email', value: 'taro@golia.jp', copyable: true },\n  ]}\n  columns={${config.columns}}\n  ${config.striped === 'true' ? 'striped\n' : ''}/>`,
+    `import { KvTable } from '@goliapkg/gds'\n\n<KvTable\n  items={[\n    { key: 'Name', value: 'Tanaka Taro' },\n    { key: 'Email', value: 'taro@golia.jp', copyable: true },\n  ]}\n  columns={${config.columns}}\n  ${config.striped === 'true' ? 'striped\n' : ''}/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -68,7 +68,7 @@ const statusBarComponentItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { StatusBarComponent } from '@golia/gds'" />
+      <ImportLine text="import { StatusBarComponent } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-full">
           <StatusBarComponent items={['production', 'v2.4.1', 'admin@golia.jp', 'API: healthy']} />
@@ -78,7 +78,7 @@ const statusBarComponentItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { StatusBarComponent } from '@golia/gds'\n\n<StatusBarComponent\n  items={['production', 'v2.4.1', 'admin@golia.jp', 'API: healthy']}\n/>`,
+    `import { StatusBarComponent } from '@goliapkg/gds'\n\n<StatusBarComponent\n  items={['production', 'v2.4.1', 'admin@golia.jp', 'API: healthy']}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -101,7 +101,7 @@ const metricRowItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { MetricRow } from '@golia/gds'" />
+      <ImportLine text="import { MetricRow } from '@goliapkg/gds'" />
       <LivePreview>
         <MetricRow
           metrics={[
@@ -116,7 +116,7 @@ const metricRowItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { MetricRow } from '@golia/gds'\n\n<MetricRow\n  metrics={[\n    { label: 'CPU', value: '3%', variant: 'success' },\n    { label: 'MEM', value: '45%' },\n    { label: 'DISK', value: '78%', variant: 'warning' },\n    { label: 'NET', value: '12', unit: 'Mbps' },\n  ]}\n/>`,
+    `import { MetricRow } from '@goliapkg/gds'\n\n<MetricRow\n  metrics={[\n    { label: 'CPU', value: '3%', variant: 'success' },\n    { label: 'MEM', value: '45%' },\n    { label: 'DISK', value: '78%', variant: 'warning' },\n    { label: 'NET', value: '12', unit: 'Mbps' },\n  ]}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

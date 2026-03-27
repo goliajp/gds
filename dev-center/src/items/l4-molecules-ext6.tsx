@@ -32,7 +32,7 @@ const emojiPickerItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { EmojiPicker } from '@golia/gds'" />
+      <ImportLine text="import { EmojiPicker } from '@goliapkg/gds'" />
       <LivePreview>
         <EmojiPickerDemo glass={config.glass} columns={config.columns} />
       </LivePreview>
@@ -58,7 +58,7 @@ const emojiPickerItem: DevCenterItem = {
     const props = ['onSelect={(emoji) => setSelected(emoji)}']
     if (config.glass === true) props.push('glass')
     if (config.columns !== 8) props.push(`columns={${config.columns}}`)
-    return `import { EmojiPicker } from '@golia/gds'\n\n<EmojiPicker\n  ${props.join('\n  ')}\n/>`
+    return `import { EmojiPicker } from '@goliapkg/gds'\n\n<EmojiPicker\n  ${props.join('\n  ')}\n/>`
   },
 
   docs: () => (

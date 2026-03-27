@@ -19,7 +19,7 @@ const skeletonGroupItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { SkeletonGroup } from '@golia/gds'" />
+      <ImportLine text="import { SkeletonGroup } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-64 p-4">
           <SkeletonGroup variant={config.variant} count={Number(config.count)} />
@@ -36,7 +36,7 @@ const skeletonGroupItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { SkeletonGroup } from '@golia/gds'\n\n<SkeletonGroup variant="${config.variant}" count={${config.count}} />`,
+    `import { SkeletonGroup } from '@goliapkg/gds'\n\n<SkeletonGroup variant="${config.variant}" count={${config.count}} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -67,7 +67,7 @@ const switchGroupItem: DevCenterItem = {
 
     return (
       <div>
-        <ImportLine text="import { SwitchGroup } from '@golia/gds'" />
+        <ImportLine text="import { SwitchGroup } from '@goliapkg/gds'" />
         <LivePreview>
           <div className="w-80">
             <SwitchGroup
@@ -86,7 +86,7 @@ const switchGroupItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { SwitchGroup } from '@golia/gds'\n\n<SwitchGroup\n  items={[\n    { id: 'dark', label: 'Dark mode', checked: true },\n    { id: 'notify', label: 'Notifications', checked: false },\n  ]}\n  onChange={(id, checked) => update(id, checked)}\n/>`,
+    `import { SwitchGroup } from '@goliapkg/gds'\n\n<SwitchGroup\n  items={[\n    { id: 'dark', label: 'Dark mode', checked: true },\n    { id: 'notify', label: 'Notifications', checked: false },\n  ]}\n  onChange={(id, checked) => update(id, checked)}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

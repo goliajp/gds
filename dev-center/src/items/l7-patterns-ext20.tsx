@@ -17,7 +17,7 @@ const inboxLayoutItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { InboxLayout } from '@golia/gds'" />
+      <ImportLine text="import { InboxLayout } from '@goliapkg/gds'" />
       <LivePreview className="!p-0 !min-h-64">
         <div className="h-64 w-full">
           <InboxLayout
@@ -47,7 +47,7 @@ const inboxLayoutItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { InboxLayout } from '@golia/gds'\n\n<InboxLayout\n  listWidth={${config.listWidth}}\n  list={<EmailList />}\n  detail={<EmailDetail />}\n/>`,
+    `import { InboxLayout } from '@goliapkg/gds'\n\n<InboxLayout\n  listWidth={${config.listWidth}}\n  list={<EmailList />}\n  detail={<EmailDetail />}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

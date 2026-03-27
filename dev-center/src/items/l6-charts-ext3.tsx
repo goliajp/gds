@@ -35,7 +35,7 @@ const chartItemsExt3: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { NetworkGraph } from '@golia/gds'" />
+        <ImportLine text="import { NetworkGraph } from '@goliapkg/gds'" />
         <LivePreview>
           <NetworkGraph
             nodes={sampleNodes}

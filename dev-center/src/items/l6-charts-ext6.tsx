@@ -55,7 +55,7 @@ const chartItemsExt6: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { ComboChart } from '@golia/gds'" />
+        <ImportLine text="import { ComboChart } from '@goliapkg/gds'" />
         <LivePreview>
           <ComboChart
             barKey="revenue"
@@ -122,7 +122,7 @@ const chartItemsExt6: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { SunburstChart } from '@golia/gds'" />
+        <ImportLine text="import { SunburstChart } from '@goliapkg/gds'" />
         <LivePreview>
           <SunburstChart
             data={sunburstData}
@@ -185,7 +185,7 @@ const chartItemsExt6: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { TimelineChart } from '@golia/gds'" />
+        <ImportLine text="import { TimelineChart } from '@goliapkg/gds'" />
         <LivePreview>
           <TimelineChart
             events={timelineEvents}

@@ -106,7 +106,7 @@ const rangeSliderItem: DevCenterItem = {
 
   stage: ({ config, setConfig }) => (
     <div>
-      <ImportLine text="import { RangeSlider } from '@golia/gds'" />
+      <ImportLine text="import { RangeSlider } from '@goliapkg/gds'" />
 
       <LivePreview>
         <div className="w-64">
@@ -162,7 +162,7 @@ const rangeSliderItem: DevCenterItem = {
   ),
 
   code: ({ config }) => {
-    const lines = ["import { RangeSlider } from '@golia/gds'", '']
+    const lines = ["import { RangeSlider } from '@goliapkg/gds'", '']
     const props: string[] = [`value={${config.value}}`, 'onChange={setVal}']
     if (config.min !== 0) props.push(`min={${config.min}}`)
     if (config.max !== 100) props.push(`max={${config.max}}`)
@@ -209,7 +209,7 @@ const segmentedControlItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { SegmentedControl } from '@golia/gds'" />
+      <ImportLine text="import { SegmentedControl } from '@goliapkg/gds'" />
 
       <LivePreview>
         <SegmentedControlDemo size={config.size} glass={config.glass} />
@@ -249,7 +249,7 @@ const segmentedControlItem: DevCenterItem = {
   ),
 
   code: ({ config }) => {
-    const lines = ["import { SegmentedControl } from '@golia/gds'", '']
+    const lines = ["import { SegmentedControl } from '@goliapkg/gds'", '']
     lines.push(`<SegmentedControl`)
     lines.push(`  options={[`)
     lines.push(`    { value: 'list', label: 'List' },`)
@@ -300,7 +300,7 @@ const splitButtonItem: DevCenterItem = {
 
   stage: ({ config, variant }) => (
     <div>
-      <ImportLine text="import { SplitButton } from '@golia/gds'" />
+      <ImportLine text="import { SplitButton } from '@goliapkg/gds'" />
 
       <LivePreview>
         <SplitButton
@@ -352,7 +352,7 @@ const splitButtonItem: DevCenterItem = {
   ),
 
   code: ({ config, variant }) => {
-    const lines = ["import { SplitButton } from '@golia/gds'", '']
+    const lines = ["import { SplitButton } from '@goliapkg/gds'", '']
     lines.push(`<SplitButton`)
     if (variant !== 'primary') lines.push(`  variant="${variant}"`)
     if (config.size !== 'default') lines.push(`  size="${config.size}"`)
@@ -403,7 +403,7 @@ const editableItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Editable } from '@golia/gds'" />
+      <ImportLine text="import { Editable } from '@goliapkg/gds'" />
 
       <LivePreview>
         <EditableDemo placeholder={config.placeholder} disabled={config.disabled} />
@@ -449,7 +449,7 @@ const toggleGroupItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { ToggleGroup } from '@golia/gds'" />
+      <ImportLine text="import { ToggleGroup } from '@goliapkg/gds'" />
 
       <LivePreview>
         <ToggleGroupDemo exclusive={config.exclusive} size={config.size} disabled={config.disabled} />
@@ -499,7 +499,7 @@ const resizeHandleItem: DevCenterItem = {
 
   stage: ({ config, variant }) => (
     <div>
-      <ImportLine text="import { ResizeHandle } from '@golia/gds'" />
+      <ImportLine text="import { ResizeHandle } from '@goliapkg/gds'" />
 
       <LivePreview className="!h-48">
         <ResizeHandleDemo orientation={variant as 'horizontal' | 'vertical'} />

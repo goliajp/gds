@@ -17,7 +17,7 @@ const monitorGridItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { MonitorGrid } from '@golia/gds'" />
+      <ImportLine text="import { MonitorGrid } from '@goliapkg/gds'" />
       <LivePreview>
         <MonitorGrid>
           <ServiceCard name="api.golia.jp" status="healthy" metrics={[{ label: 'CPU', value: '3%' }]} />
@@ -29,7 +29,7 @@ const monitorGridItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { MonitorGrid } from '@golia/gds'\nimport { ServiceCard } from '@golia/gds'\n\n<MonitorGrid>\n  <ServiceCard name="api.golia.jp" status="healthy" />\n  <ServiceCard name="db-primary" status="warning" />\n</MonitorGrid>`,
+    `import { MonitorGrid } from '@goliapkg/gds'\nimport { ServiceCard } from '@goliapkg/gds'\n\n<MonitorGrid>\n  <ServiceCard name="api.golia.jp" status="healthy" />\n  <ServiceCard name="db-primary" status="warning" />\n</MonitorGrid>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -53,7 +53,7 @@ const mailComposerItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { MailComposer } from '@golia/gds'" />
+      <ImportLine text="import { MailComposer } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-full max-w-md">
           <MailComposer
@@ -66,7 +66,7 @@ const mailComposerItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { MailComposer } from '@golia/gds'\n\n<MailComposer\n  defaultTo="team@golia.jp"\n  onSend={(data) => sendEmail(data)}\n/>`,
+    `import { MailComposer } from '@goliapkg/gds'\n\n<MailComposer\n  defaultTo="team@golia.jp"\n  onSend={(data) => sendEmail(data)}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

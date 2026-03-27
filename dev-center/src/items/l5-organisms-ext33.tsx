@@ -17,7 +17,7 @@ const permissionMatrixItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { PermissionMatrix } from '@golia/gds'" />
+      <ImportLine text="import { PermissionMatrix } from '@goliapkg/gds'" />
       <LivePreview>
         <PermissionMatrix
           roles={['Admin', 'Editor', 'Viewer']}
@@ -39,7 +39,7 @@ const permissionMatrixItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { PermissionMatrix } from '@golia/gds'\n\n<PermissionMatrix\n  roles={['Admin', 'Editor', 'Viewer']}\n  permissions={['Read', 'Write', 'Delete']}\n  values={[[true, true, true], [true, true, false], [true, false, false]]}${config.readonly ? '\n  readonly' : '\n  onChange={(perm, role, val) => update(perm, role, val)}'}\n/>`,
+    `import { PermissionMatrix } from '@goliapkg/gds'\n\n<PermissionMatrix\n  roles={['Admin', 'Editor', 'Viewer']}\n  permissions={['Read', 'Write', 'Delete']}\n  values={[[true, true, true], [true, true, false], [true, false, false]]}${config.readonly ? '\n  readonly' : '\n  onChange={(perm, role, val) => update(perm, role, val)}'}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -66,7 +66,7 @@ const cronScheduleItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { CronSchedule } from '@golia/gds'" />
+      <ImportLine text="import { CronSchedule } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="space-y-3">
           <CronSchedule expression={config.expression} />
@@ -83,7 +83,7 @@ const cronScheduleItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { CronSchedule } from '@golia/gds'\n\n<CronSchedule expression="${config.expression}" />`,
+    `import { CronSchedule } from '@goliapkg/gds'\n\n<CronSchedule expression="${config.expression}" />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

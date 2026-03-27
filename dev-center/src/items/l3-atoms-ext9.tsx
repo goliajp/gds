@@ -18,7 +18,7 @@ const marqueeItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Marquee } from '@golia/gds'" />
+      <ImportLine text="import { Marquee } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-full overflow-hidden rounded-lg border border-white/[0.06] bg-white/[0.02] p-2">
           <Marquee speed={config.speed} direction={config.direction} pauseOnHover={config.pauseOnHover}>
@@ -42,7 +42,7 @@ const marqueeItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { Marquee } from '@golia/gds'\n\n<Marquee\n  speed={${config.speed}}\n  direction="${config.direction}"\n  pauseOnHover={${config.pauseOnHover}}\n>\n  <span>Scrolling content</span>\n</Marquee>`,
+    `import { Marquee } from '@goliapkg/gds'\n\n<Marquee\n  speed={${config.speed}}\n  direction="${config.direction}"\n  pauseOnHover={${config.pauseOnHover}}\n>\n  <span>Scrolling content</span>\n</Marquee>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -69,7 +69,7 @@ const typewriterItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Typewriter } from '@golia/gds'" />
+      <ImportLine text="import { Typewriter } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-2">
           <Typewriter
@@ -95,7 +95,7 @@ const typewriterItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { Typewriter } from '@golia/gds'\n\n<Typewriter\n  text="${config.text}"\n  speed={${config.speed}}\n  delay={${config.delay}}\n  cursor={${config.cursor}}\n/>`,
+    `import { Typewriter } from '@goliapkg/gds'\n\n<Typewriter\n  text="${config.text}"\n  speed={${config.speed}}\n  delay={${config.delay}}\n  cursor={${config.cursor}}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -123,7 +123,7 @@ const countUpItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { CountUp } from '@golia/gds'" />
+      <ImportLine text="import { CountUp } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-8">
           <CountUp
@@ -153,7 +153,7 @@ const countUpItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { CountUp } from '@golia/gds'\n\n<CountUp\n  value={${config.value}}\n  duration={${config.duration}}\n  decimals={${config.decimals}}${config.prefix !== '' ? `\n  prefix="${config.prefix}"` : ''}${config.suffix !== '' ? `\n  suffix="${config.suffix}"` : ''}\n  separator="${config.separator}"\n/>`,
+    `import { CountUp } from '@goliapkg/gds'\n\n<CountUp\n  value={${config.value}}\n  duration={${config.duration}}\n  decimals={${config.decimals}}${config.prefix !== '' ? `\n  prefix="${config.prefix}"` : ''}${config.suffix !== '' ? `\n  suffix="${config.suffix}"` : ''}\n  separator="${config.separator}"\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

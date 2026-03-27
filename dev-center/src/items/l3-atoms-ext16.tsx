@@ -27,7 +27,7 @@ const checkboxGroupItem: DevCenterItem = {
 
     return (
       <div>
-        <ImportLine text="import { CheckboxGroup } from '@golia/gds'" />
+        <ImportLine text="import { CheckboxGroup } from '@goliapkg/gds'" />
         <LivePreview>
           <CheckboxGroup
             disabled={config.disabled === 'true'}
@@ -49,7 +49,7 @@ const checkboxGroupItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { CheckboxGroup } from '@golia/gds'\n\n<CheckboxGroup\n  options={[{ label: 'Apple', value: 'apple' }, ...]}\n  value={value}\n  onChange={setValue}\n  selectAll={${config.selectAll}}\n/>`,
+    `import { CheckboxGroup } from '@goliapkg/gds'\n\n<CheckboxGroup\n  options={[{ label: 'Apple', value: 'apple' }, ...]}\n  value={value}\n  onChange={setValue}\n  selectAll={${config.selectAll}}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -79,7 +79,7 @@ const textareaCounterItem: DevCenterItem = {
 
     return (
       <div>
-        <ImportLine text="import { TextareaCounter } from '@golia/gds'" />
+        <ImportLine text="import { TextareaCounter } from '@goliapkg/gds'" />
         <LivePreview>
           <div className="w-72">
             <TextareaCounter
@@ -99,7 +99,7 @@ const textareaCounterItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { TextareaCounter } from '@golia/gds'\n\n<TextareaCounter\n  value={value}\n  onChange={setValue}\n  ${config.maxLength !== '' ? `maxLength={${config.maxLength}}\n  ` : ''}placeholder="Type something..."\n/>`,
+    `import { TextareaCounter } from '@goliapkg/gds'\n\n<TextareaCounter\n  value={value}\n  onChange={setValue}\n  ${config.maxLength !== '' ? `maxLength={${config.maxLength}}\n  ` : ''}placeholder="Type something..."\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

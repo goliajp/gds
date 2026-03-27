@@ -19,7 +19,7 @@ const videoPlayerItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { VideoPlayer } from '@golia/gds'" />
+      <ImportLine text="import { VideoPlayer } from '@goliapkg/gds'" />
 
       <LivePreview className="block">
         <div className="mx-auto w-[400px]">
@@ -77,7 +77,7 @@ const animatePresenceItem: DevCenterItem = {
 
     return (
       <div>
-        <ImportLine text="import { AnimatePresence } from '@golia/gds'" />
+        <ImportLine text="import { AnimatePresence } from '@goliapkg/gds'" />
 
         <LivePreview className="block">
           <div className="flex flex-col items-center gap-4">

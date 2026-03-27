@@ -26,7 +26,7 @@ const dateDisplayItem: DevCenterItem = {
 
     return (
       <div>
-        <ImportLine text="import { DateDisplay } from '@golia/gds'" />
+        <ImportLine text="import { DateDisplay } from '@goliapkg/gds'" />
         <LivePreview>
           <DateDisplay date={date} format={config.format as 'relative' | 'absolute' | 'auto'} />
         </LivePreview>
@@ -42,7 +42,7 @@ const dateDisplayItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { DateDisplay } from '@golia/gds'\n\n<DateDisplay date={someDate} format="${config.format}" />`,
+    `import { DateDisplay } from '@goliapkg/gds'\n\n<DateDisplay date={someDate} format="${config.format}" />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -66,7 +66,7 @@ const copyFieldItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { CopyField } from '@golia/gds'" />
+      <ImportLine text="import { CopyField } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-72">
           <CopyField
@@ -84,7 +84,7 @@ const copyFieldItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { CopyField } from '@golia/gds'\n\n<CopyField\n  value="sk-proj-abc123def456"\n  label="API Key"\n  ${config.masked === 'true' ? 'masked\n' : ''}/>`,
+    `import { CopyField } from '@goliapkg/gds'\n\n<CopyField\n  value="sk-proj-abc123def456"\n  label="API Key"\n  ${config.masked === 'true' ? 'masked\n' : ''}/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

@@ -42,7 +42,7 @@ const atomItemsB: DevCenterItem[] = [
 
     stage: ({ config, variant }) => (
       <div>
-        <ImportLine text="import { StatusBadge } from '@golia/gds'" />
+        <ImportLine text="import { StatusBadge } from '@goliapkg/gds'" />
 
         <LivePreview>
           <StatusBadge
@@ -103,7 +103,7 @@ const atomItemsB: DevCenterItem[] = [
     ),
 
     code: ({ config, variant }) => {
-      const lines = ["import { StatusBadge } from '@golia/gds'", '']
+      const lines = ["import { StatusBadge } from '@goliapkg/gds'", '']
       const props: string[] = [`status="${variant}"`]
       if (config.label !== '') props.push(`label="${config.label}"`)
       if (config.size !== 'default') props.push(`size="${config.size}"`)
@@ -143,7 +143,7 @@ const atomItemsB: DevCenterItem[] = [
 
     stage: ({ config, setConfig }) => (
       <div>
-        <ImportLine text="import { RadioGroup } from '@golia/gds'" />
+        <ImportLine text="import { RadioGroup } from '@goliapkg/gds'" />
 
         <LivePreview>
           <RadioGroup
@@ -208,7 +208,7 @@ const atomItemsB: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { RadioGroup } from '@golia/gds'", '']
+      const lines = ["import { RadioGroup } from '@goliapkg/gds'", '']
       const props: string[] = ['value={val}', 'onChange={setVal}']
       if (config.direction !== 'vertical') props.push(`direction="${config.direction}"`)
       if (config.disabled === true) props.push('disabled')
@@ -253,7 +253,7 @@ const atomItemsB: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { Meter } from '@golia/gds'" />
+        <ImportLine text="import { Meter } from '@goliapkg/gds'" />
 
         <LivePreview>
           <div className="max-w-sm w-full">
@@ -316,7 +316,7 @@ const atomItemsB: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Meter } from '@golia/gds'", '']
+      const lines = ["import { Meter } from '@goliapkg/gds'", '']
       const props: string[] = [`value={${config.value}}`]
       if (config.label !== '') props.push(`label="${config.label}"`)
       if (config.variant !== 'auto') props.push(`variant="${config.variant}"`)
@@ -359,7 +359,7 @@ const atomItemsB: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { LoadingDots } from '@golia/gds'" />
+        <ImportLine text="import { LoadingDots } from '@goliapkg/gds'" />
 
         <LivePreview>
           <LoadingDots count={config.count} size={config.size} />
@@ -411,7 +411,7 @@ const atomItemsB: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { LoadingDots } from '@golia/gds'", '']
+      const lines = ["import { LoadingDots } from '@goliapkg/gds'", '']
       const props: string[] = []
       if (config.size !== 'default') props.push(`size="${config.size}"`)
       if (config.count !== 3) props.push(`count={${config.count}}`)
@@ -447,7 +447,7 @@ const atomItemsB: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { Popover } from '@golia/gds'" />
+        <ImportLine text="import { Popover } from '@goliapkg/gds'" />
 
         <LivePreview>
           <Popover
@@ -504,7 +504,7 @@ const atomItemsB: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Popover } from '@golia/gds'", '']
+      const lines = ["import { Popover } from '@goliapkg/gds'", '']
       lines.push('<Popover')
       lines.push('  trigger={<Button>Open</Button>}')
       lines.push('  content={<div>Content here</div>}')
@@ -566,7 +566,7 @@ const tagInputItem: DevCenterItem = {
     }
     return (
       <div>
-        <ImportLine text="import { TagInput } from '@golia/gds'" />
+        <ImportLine text="import { TagInput } from '@goliapkg/gds'" />
 
         <LivePreview>
           <div className="w-72">
@@ -614,7 +614,7 @@ const tagInputItem: DevCenterItem = {
   ),
 
   code: ({ config }) => {
-    const lines = ["import { TagInput } from '@golia/gds'", '']
+    const lines = ["import { TagInput } from '@goliapkg/gds'", '']
     const props: string[] = ['value={tags}', 'onChange={setTags}']
     if (config.placeholder !== '') props.push(`placeholder="${config.placeholder}"`)
     if (config.maxTags > 0) props.push(`maxTags={${config.maxTags}}`)

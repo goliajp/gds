@@ -19,7 +19,7 @@ const mediaObjectItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { MediaObject } from '@golia/gds'" />
+      <ImportLine text="import { MediaObject } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-80">
           <MediaObject
@@ -43,7 +43,7 @@ const mediaObjectItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { MediaObject } from '@golia/gds'\n\n<MediaObject\n  media={<Avatar name="Alice" />}\n  align="${config.align}"\n  ${config.reverse === 'true' ? 'reverse\n' : ''}>\n  <p>Content here</p>\n</MediaObject>`,
+    `import { MediaObject } from '@goliapkg/gds'\n\n<MediaObject\n  media={<Avatar name="Alice" />}\n  align="${config.align}"\n  ${config.reverse === 'true' ? 'reverse\n' : ''}>\n  <p>Content here</p>\n</MediaObject>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -69,7 +69,7 @@ const progressStepsItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { ProgressSteps } from '@golia/gds'" />
+      <ImportLine text="import { ProgressSteps } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-full max-w-md">
           <ProgressSteps steps={['Upload', 'Review', 'Confirm', 'Done']} current={Number(config.current)} />
@@ -83,7 +83,7 @@ const progressStepsItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { ProgressSteps } from '@golia/gds'\n\n<ProgressSteps\n  steps={['Upload', 'Review', 'Confirm', 'Done']}\n  current={${config.current}}\n/>`,
+    `import { ProgressSteps } from '@goliapkg/gds'\n\n<ProgressSteps\n  steps={['Upload', 'Review', 'Confirm', 'Done']}\n  current={${config.current}}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

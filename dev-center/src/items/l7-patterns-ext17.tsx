@@ -18,7 +18,7 @@ const pageHeaderItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { PageHeader } from '@golia/gds'" />
+      <ImportLine text="import { PageHeader } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-full max-w-lg">
           <PageHeader
@@ -40,7 +40,7 @@ const pageHeaderItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { PageHeader } from '@golia/gds'\n\n<PageHeader\n  title="Users"\n  ${config.showSubtitle === 'true' ? 'subtitle="Manage team members"\n  ' : ''}${config.showBreadcrumb === 'true' ? 'breadcrumb={[{ label: "Home", href: "/" }, { label: "Users" }]}\n  ' : ''}actions={<Button>Add user</Button>}\n/>`,
+    `import { PageHeader } from '@goliapkg/gds'\n\n<PageHeader\n  title="Users"\n  ${config.showSubtitle === 'true' ? 'subtitle="Manage team members"\n  ' : ''}${config.showBreadcrumb === 'true' ? 'breadcrumb={[{ label: "Home", href: "/" }, { label: "Users" }]}\n  ' : ''}actions={<Button>Add user</Button>}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

@@ -80,7 +80,7 @@ const tokenItems: DevCenterItem[] = [
 
       return (
         <div>
-          <ImportLine text="import { FIXED_COLORS, deriveDarkPalette } from '@golia/gds'" />
+          <ImportLine text="import { FIXED_COLORS, deriveDarkPalette } from '@goliapkg/gds'" />
 
           <DocSection title="Semantic colors (derived from primary)">
             <DemoCard title="Accent & Status" description="Derived from primaryColor — changes with theme preset">
@@ -211,7 +211,7 @@ const tokenItems: DevCenterItem[] = [
 
       return (
         <div>
-          <ImportLine text="import { fontStack, fontWeight, fontPreset, presetToStyle } from '@golia/gds'" />
+          <ImportLine text="import { fontStack, fontWeight, fontPreset, presetToStyle } from '@goliapkg/gds'" />
 
           <DocSection title="Static text scale">
             <DemoCard title="Size Scale" description="Fixed sizes from 2xs to 2xl" full>
@@ -331,7 +331,7 @@ const tokenItems: DevCenterItem[] = [
 <div style={{ fontFamily: 'var(--gds-font-flex)' }}>Tabular</div>
 
 // font presets (programmatic)
-import { presetToStyle } from '@golia/gds'
+import { presetToStyle } from '@goliapkg/gds'
 <span style={presetToStyle('finance')}>$1,234.56</span>`,
   },
   {

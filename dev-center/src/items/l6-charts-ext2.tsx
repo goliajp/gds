@@ -51,7 +51,7 @@ const chartItemsExt2: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { WordCloud } from '@golia/gds'" />
+        <ImportLine text="import { WordCloud } from '@goliapkg/gds'" />
         <LivePreview>
           <WordCloud
             glass={config.glass}
@@ -87,7 +87,7 @@ const chartItemsExt2: DevCenterItem[] = [
       if (config.maxFontSize !== 48) props.push(`maxFontSize={${config.maxFontSize}}`)
       if (config.minFontSize !== 12) props.push(`minFontSize={${config.minFontSize}}`)
       if (config.glass === true) props.push('glass')
-      return `import { WordCloud } from '@golia/gds'\n\n<WordCloud\n  ${props.join('\n  ')}\n/>`
+      return `import { WordCloud } from '@goliapkg/gds'\n\n<WordCloud\n  ${props.join('\n  ')}\n/>`
     },
 
     docs: () => (
@@ -120,7 +120,7 @@ const chartItemsExt2: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { BubbleChart } from '@golia/gds'" />
+        <ImportLine text="import { BubbleChart } from '@goliapkg/gds'" />
         <LivePreview>
           <BubbleChart data={bubbleData} glass={config.glass} height={config.height} xLabel="Revenue" yLabel="Growth" />
         </LivePreview>
@@ -146,7 +146,7 @@ const chartItemsExt2: DevCenterItem[] = [
       const props = [`data={data}`, `xLabel="X"`, `yLabel="Y"`]
       if (config.height !== 300) props.push(`height={${config.height}}`)
       if (config.glass === true) props.push('glass')
-      return `import { BubbleChart } from '@golia/gds'\n\n<BubbleChart\n  ${props.join('\n  ')}\n/>`
+      return `import { BubbleChart } from '@goliapkg/gds'\n\n<BubbleChart\n  ${props.join('\n  ')}\n/>`
     },
 
     docs: () => (
@@ -179,7 +179,7 @@ const chartItemsExt2: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { CandlestickChart } from '@golia/gds'" />
+        <ImportLine text="import { CandlestickChart } from '@goliapkg/gds'" />
         <LivePreview>
           <CandlestickChart data={candlestickData} glass={config.glass} height={config.height} />
         </LivePreview>
@@ -202,7 +202,7 @@ const chartItemsExt2: DevCenterItem[] = [
       const props = [`data={ohlcData}`]
       if (config.height !== 300) props.push(`height={${config.height}}`)
       if (config.glass === true) props.push('glass')
-      return `import { CandlestickChart } from '@golia/gds'\n\n<CandlestickChart\n  ${props.join('\n  ')}\n/>`
+      return `import { CandlestickChart } from '@goliapkg/gds'\n\n<CandlestickChart\n  ${props.join('\n  ')}\n/>`
     },
 
     docs: () => (

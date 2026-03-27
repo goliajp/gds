@@ -32,7 +32,7 @@ const passwordInputItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { PasswordInput } from '@golia/gds'" />
+      <ImportLine text="import { PasswordInput } from '@goliapkg/gds'" />
       <LivePreview>
         <PasswordDemo showStrength={config.showStrength} error={config.error} />
       </LivePreview>
@@ -58,7 +58,7 @@ const passwordInputItem: DevCenterItem = {
     const props = ['value={value}', 'onChange={handler}']
     if (config.showStrength === true) props.push('showStrength')
     if (config.error === true) props.push('error')
-    return `import { PasswordInput } from '@golia/gds'\n\n<PasswordInput\n  ${props.join('\n  ')}\n/>`
+    return `import { PasswordInput } from '@goliapkg/gds'\n\n<PasswordInput\n  ${props.join('\n  ')}\n/>`
   },
 
   docs: () => (
@@ -101,7 +101,7 @@ const searchInputItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { SearchInput } from '@golia/gds'" />
+      <ImportLine text="import { SearchInput } from '@goliapkg/gds'" />
       <LivePreview>
         <SearchDemo loading={config.loading} clearable={config.clearable} disabled={config.disabled} />
       </LivePreview>
@@ -129,7 +129,7 @@ const searchInputItem: DevCenterItem = {
     if (config.loading === true) props.push('loading')
     if (config.clearable === false) props.push('clearable={false}')
     if (config.disabled === true) props.push('disabled')
-    return `import { SearchInput } from '@golia/gds'\n\n<SearchInput\n  ${props.join('\n  ')}\n/>`
+    return `import { SearchInput } from '@goliapkg/gds'\n\n<SearchInput\n  ${props.join('\n  ')}\n/>`
   },
 
   docs: () => (
@@ -174,7 +174,7 @@ const dateRangeInputItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { DateRangeInput } from '@golia/gds'" />
+      <ImportLine text="import { DateRangeInput } from '@goliapkg/gds'" />
       <LivePreview>
         <DateRangeDemo error={config.error} disabled={config.disabled} />
       </LivePreview>
@@ -200,7 +200,7 @@ const dateRangeInputItem: DevCenterItem = {
     const props = ['startDate={start}', 'endDate={end}', 'onChange={handler}']
     if (config.error === true) props.push('error')
     if (config.disabled === true) props.push('disabled')
-    return `import { DateRangeInput } from '@golia/gds'\n\n<DateRangeInput\n  ${props.join('\n  ')}\n/>`
+    return `import { DateRangeInput } from '@goliapkg/gds'\n\n<DateRangeInput\n  ${props.join('\n  ')}\n/>`
   },
 
   docs: () => (

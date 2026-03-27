@@ -19,7 +19,7 @@ const rippleEffectItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { RippleEffect } from '@golia/gds'" />
+      <ImportLine text="import { RippleEffect } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center justify-center gap-6 p-8">
           <RippleEffect
@@ -57,7 +57,7 @@ const rippleEffectItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { RippleEffect } from '@golia/gds'\n\n<RippleEffect\n  color="${config.color}"\n  disabled={${config.disabled}}\n>\n  <Button>Click me</Button>\n</RippleEffect>`,
+    `import { RippleEffect } from '@goliapkg/gds'\n\n<RippleEffect\n  color="${config.color}"\n  disabled={${config.disabled}}\n>\n  <Button>Click me</Button>\n</RippleEffect>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -83,7 +83,7 @@ const magneticButtonItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { MagneticButton } from '@golia/gds'" />
+      <ImportLine text="import { MagneticButton } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center justify-center gap-8 p-12">
           <MagneticButton strength={config.strength} radius={config.radius}>
@@ -107,7 +107,7 @@ const magneticButtonItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { MagneticButton } from '@golia/gds'\n\n<MagneticButton\n  strength={${config.strength}}\n  radius={${config.radius}}\n>\n  <Button>Hover me</Button>\n</MagneticButton>`,
+    `import { MagneticButton } from '@goliapkg/gds'\n\n<MagneticButton\n  strength={${config.strength}}\n  radius={${config.radius}}\n>\n  <Button>Hover me</Button>\n</MagneticButton>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

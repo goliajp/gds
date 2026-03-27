@@ -63,7 +63,7 @@ const atomItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { Avatar } from '@golia/gds'" />
+        <ImportLine text="import { Avatar } from '@goliapkg/gds'" />
 
         <LivePreview>
           <Avatar
@@ -123,7 +123,7 @@ const atomItems: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Avatar } from '@golia/gds'", '']
+      const lines = ["import { Avatar } from '@goliapkg/gds'", '']
       const props: string[] = []
       if (config.name !== '') props.push(`name="${config.name}"`)
       if (config.size !== 'default') props.push(`size="${config.size}"`)
@@ -164,7 +164,7 @@ const atomItems: DevCenterItem[] = [
 
     stage: ({ config, setConfig }) => (
       <div>
-        <ImportLine text="import { Checkbox } from '@golia/gds'" />
+        <ImportLine text="import { Checkbox } from '@goliapkg/gds'" />
 
         <LivePreview>
           <Checkbox
@@ -198,7 +198,7 @@ const atomItems: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Checkbox } from '@golia/gds'", '']
+      const lines = ["import { Checkbox } from '@goliapkg/gds'", '']
       const props: string[] = ['checked={val}', 'onChange={setVal}']
       if (config.disabled === true) props.push('disabled')
       if (config.label !== '') props.push(`label="${config.label}"`)
@@ -237,7 +237,7 @@ const atomItems: DevCenterItem[] = [
 
     stage: ({ config, setConfig }) => (
       <div>
-        <ImportLine text="import { Switch } from '@golia/gds'" />
+        <ImportLine text="import { Switch } from '@goliapkg/gds'" />
 
         <LivePreview>
           <Switch
@@ -288,7 +288,7 @@ const atomItems: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Switch } from '@golia/gds'", '']
+      const lines = ["import { Switch } from '@goliapkg/gds'", '']
       const props: string[] = ['checked={on}', 'onChange={setOn}']
       if (config.size !== 'default') props.push(`size="${config.size}"`)
       if (config.disabled === true) props.push('disabled')
@@ -329,7 +329,7 @@ const atomItems: DevCenterItem[] = [
 
     stage: ({ config, variant }) => (
       <div>
-        <ImportLine text="import { Chip } from '@golia/gds'" />
+        <ImportLine text="import { Chip } from '@goliapkg/gds'" />
 
         <LivePreview>
           <Chip
@@ -380,7 +380,7 @@ const atomItems: DevCenterItem[] = [
     ),
 
     code: ({ config, variant }) => {
-      const lines = ["import { Chip } from '@golia/gds'", '']
+      const lines = ["import { Chip } from '@goliapkg/gds'", '']
       const props: string[] = [`label="${config.label}"`]
       if (variant !== 'default') props.push(`variant="${variant}"`)
       if (config.glass === true) props.push('glass')
@@ -421,7 +421,7 @@ const atomItems: DevCenterItem[] = [
 
     stage: ({ config, setConfig }) => (
       <div>
-        <ImportLine text="import { Rating } from '@golia/gds'" />
+        <ImportLine text="import { Rating } from '@goliapkg/gds'" />
 
         <LivePreview>
           <Rating
@@ -471,7 +471,7 @@ const atomItems: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Rating } from '@golia/gds'", '']
+      const lines = ["import { Rating } from '@goliapkg/gds'", '']
       const props: string[] = ['value={val}']
       if (config.readonly !== true) props.push('onChange={setVal}')
       if (config.max !== 5) props.push(`max={${config.max}}`)
@@ -513,7 +513,7 @@ const atomItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { Tooltip } from '@golia/gds'" />
+        <ImportLine text="import { Tooltip } from '@goliapkg/gds'" />
 
         <LivePreview>
           <Tooltip
@@ -567,7 +567,7 @@ const atomItems: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Tooltip } from '@golia/gds'", '']
+      const lines = ["import { Tooltip } from '@goliapkg/gds'", '']
       const props: string[] = [`content="${config.content}"`]
       if (config.placement !== 'top') props.push(`placement="${config.placement}"`)
       if (config.delay !== 300) props.push(`delay={${config.delay}}`)

@@ -20,7 +20,7 @@ const glowEffectItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { GlowEffect } from '@golia/gds'" />
+      <ImportLine text="import { GlowEffect } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center justify-center p-12">
           <GlowEffect color={config.color} intensity={config.intensity}>
@@ -59,7 +59,7 @@ const glowEffectItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { GlowEffect } from '@golia/gds'\n\n<GlowEffect\n  color="${config.color}"\n  intensity="${config.intensity}"\n>\n  <div>Content</div>\n</GlowEffect>`,
+    `import { GlowEffect } from '@goliapkg/gds'\n\n<GlowEffect\n  color="${config.color}"\n  intensity="${config.intensity}"\n>\n  <div>Content</div>\n</GlowEffect>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

@@ -70,7 +70,7 @@ const chartItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { BarChart } from '@golia/gds'" />
+        <ImportLine text="import { BarChart } from '@goliapkg/gds'" />
         <LivePreview>
           <BarChart data={barChartData} dataKey="value" height={config.height} glass={config.glass} color={colorVar(config.color)} />
         </LivePreview>
@@ -100,7 +100,7 @@ const chartItems: DevCenterItem[] = [
       if (config.height !== 300) props.push(`height={${config.height}}`)
       if (config.glass === true) props.push('glass')
       if (config.color !== 'accent') props.push(`color="var(--gds-${config.color})"`)
-      return `import { BarChart } from '@golia/gds'\n\n<BarChart\n  ${props.join('\n  ')}\n/>`
+      return `import { BarChart } from '@goliapkg/gds'\n\n<BarChart\n  ${props.join('\n  ')}\n/>`
     },
 
     docs: () => (
@@ -135,7 +135,7 @@ const chartItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { LineChart } from '@golia/gds'" />
+        <ImportLine text="import { LineChart } from '@goliapkg/gds'" />
         <LivePreview>
           <LineChart data={lineChartData} dataKey="value" height={config.height} glass={config.glass} color={colorVar(config.color)} />
         </LivePreview>
@@ -163,7 +163,7 @@ const chartItems: DevCenterItem[] = [
       if (config.height !== 300) props.push(`height={${config.height}}`)
       if (config.glass === true) props.push('glass')
       if (config.color !== 'accent') props.push(`color="var(--gds-${config.color})"`)
-      return `import { LineChart } from '@golia/gds'\n\n<LineChart\n  ${props.join('\n  ')}\n/>`
+      return `import { LineChart } from '@goliapkg/gds'\n\n<LineChart\n  ${props.join('\n  ')}\n/>`
     },
 
     docs: () => (
@@ -198,7 +198,7 @@ const chartItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { PieChart } from '@golia/gds'" />
+        <ImportLine text="import { PieChart } from '@goliapkg/gds'" />
         <LivePreview>
           <PieChart data={pieChartData} dataKey="value" height={config.height} glass={config.glass} innerRadius={config.innerRadius} />
         </LivePreview>
@@ -226,7 +226,7 @@ const chartItems: DevCenterItem[] = [
       if (config.height !== 300) props.push(`height={${config.height}}`)
       if (config.innerRadius > 0) props.push(`innerRadius={${config.innerRadius}}`)
       if (config.glass === true) props.push('glass')
-      return `import { PieChart } from '@golia/gds'\n\n<PieChart\n  ${props.join('\n  ')}\n/>`
+      return `import { PieChart } from '@goliapkg/gds'\n\n<PieChart\n  ${props.join('\n  ')}\n/>`
     },
 
     docs: () => (
@@ -261,7 +261,7 @@ const chartItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { AreaChart } from '@golia/gds'" />
+        <ImportLine text="import { AreaChart } from '@goliapkg/gds'" />
         <LivePreview>
           <AreaChart data={areaChartData} dataKey="value" height={config.height} glass={config.glass} color={colorVar(config.color)} />
         </LivePreview>
@@ -291,7 +291,7 @@ const chartItems: DevCenterItem[] = [
       if (config.height !== 300) props.push(`height={${config.height}}`)
       if (config.glass === true) props.push('glass')
       if (config.color !== 'accent') props.push(`color="var(--gds-${config.color})"`)
-      return `import { AreaChart } from '@golia/gds'\n\n<AreaChart\n  ${props.join('\n  ')}\n/>`
+      return `import { AreaChart } from '@goliapkg/gds'\n\n<AreaChart\n  ${props.join('\n  ')}\n/>`
     },
 
     docs: () => (
@@ -325,7 +325,7 @@ const chartItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { FunnelChart } from '@golia/gds'" />
+        <ImportLine text="import { FunnelChart } from '@goliapkg/gds'" />
         <LivePreview>
           <FunnelChart data={funnelData} dataKey="value" height={config.height} glass={config.glass} />
         </LivePreview>
@@ -353,7 +353,7 @@ const chartItems: DevCenterItem[] = [
       const props = [`data={stages}`, `dataKey="value"`]
       if (config.height !== 300) props.push(`height={${config.height}}`)
       if (config.glass === true) props.push('glass')
-      return `import { FunnelChart } from '@golia/gds'\n\n<FunnelChart\n  ${props.join('\n  ')}\n/>`
+      return `import { FunnelChart } from '@goliapkg/gds'\n\n<FunnelChart\n  ${props.join('\n  ')}\n/>`
     },
 
     docs: () => (
@@ -386,7 +386,7 @@ const chartItems: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { Gauge } from '@golia/gds'" />
+        <ImportLine text="import { Gauge } from '@goliapkg/gds'" />
         <LivePreview>
           <Gauge value={config.value} max={config.max} label={config.label} height={config.height} glass={config.glass} color={colorVar(config.color)} />
         </LivePreview>
@@ -423,7 +423,7 @@ const chartItems: DevCenterItem[] = [
       if (config.height !== 200) props.push(`height={${config.height}}`)
       if (config.glass === true) props.push('glass')
       if (config.color !== 'accent') props.push(`color="var(--gds-${config.color})"`)
-      return `import { Gauge } from '@golia/gds'\n\n<Gauge\n  ${props.join('\n  ')}\n/>`
+      return `import { Gauge } from '@goliapkg/gds'\n\n<Gauge\n  ${props.join('\n  ')}\n/>`
     },
 
     docs: () => (

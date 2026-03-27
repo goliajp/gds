@@ -24,7 +24,7 @@ const avatarListItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { AvatarList } from '@golia/gds'" />
+      <ImportLine text="import { AvatarList } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-64">
           <AvatarList
@@ -56,7 +56,7 @@ const avatarListItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { AvatarList } from '@golia/gds'\n\n<AvatarList\n  users={[\n    { name: 'Alice', role: 'Engineer', status: 'online' },\n    { name: 'Bob', role: 'Designer', status: 'away' },\n  ]}\n  onSelect={(name) => console.log(name)}${config.compact ? '\n  compact' : ''}${config.glass ? '\n  glass' : ''}\n/>`,
+    `import { AvatarList } from '@goliapkg/gds'\n\n<AvatarList\n  users={[\n    { name: 'Alice', role: 'Engineer', status: 'online' },\n    { name: 'Bob', role: 'Designer', status: 'away' },\n  ]}\n  onSelect={(name) => console.log(name)}${config.compact ? '\n  compact' : ''}${config.glass ? '\n  glass' : ''}\n/>`,
 }
 organismItemsExt13.push(avatarListItem)
 
@@ -82,7 +82,7 @@ const responsiveTableItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { ResponsiveTable } from '@golia/gds'" />
+      <ImportLine text="import { ResponsiveTable } from '@goliapkg/gds'" />
       <LivePreview>
         <ResponsiveTable
           columns={tableCols}
@@ -115,7 +115,7 @@ const responsiveTableItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { ResponsiveTable } from '@golia/gds'\n\n<ResponsiveTable\n  columns={[\n    { key: 'name', header: 'Name' },\n    { key: 'role', header: 'Role' },\n  ]}\n  data={[\n    { name: 'Alice', role: 'Engineer' },\n    { name: 'Bob', role: 'Designer' },\n  ]}${config.glass ? '\n  glass' : ''}\n/>`,
+    `import { ResponsiveTable } from '@goliapkg/gds'\n\n<ResponsiveTable\n  columns={[\n    { key: 'name', header: 'Name' },\n    { key: 'role', header: 'Role' },\n  ]}\n  data={[\n    { name: 'Alice', role: 'Engineer' },\n    { name: 'Bob', role: 'Designer' },\n  ]}${config.glass ? '\n  glass' : ''}\n/>`,
 }
 organismItemsExt13.push(responsiveTableItem)
 

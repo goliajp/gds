@@ -17,7 +17,7 @@ const metricTileItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { MetricTile } from '@golia/gds'" />
+      <ImportLine text="import { MetricTile } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex gap-3">
           <MetricTile label="CPU" unit="%" value={config.value} variant={config.variant} />
@@ -36,7 +36,7 @@ const metricTileItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { MetricTile } from '@golia/gds'\n\n<MetricTile label="CPU" value={${config.value}} unit="%" variant="${config.variant}" />`,
+    `import { MetricTile } from '@goliapkg/gds'\n\n<MetricTile label="CPU" value={${config.value}} unit="%" variant="${config.variant}" />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -62,7 +62,7 @@ const actionCardItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { ActionCard } from '@golia/gds'" />
+      <ImportLine text="import { ActionCard } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex flex-col gap-2 w-64">
           <ActionCard title="Create Project" description="Start a new project from scratch" onClick={() => {}} />
@@ -73,7 +73,7 @@ const actionCardItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { ActionCard } from '@golia/gds'\n\n<ActionCard\n  title="Create Project"\n  description="Start a new project"\n  onClick={() => navigate('/new')}\n/>`,
+    `import { ActionCard } from '@goliapkg/gds'\n\n<ActionCard\n  title="Create Project"\n  description="Start a new project"\n  onClick={() => navigate('/new')}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

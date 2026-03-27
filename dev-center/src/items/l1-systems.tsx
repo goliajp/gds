@@ -28,7 +28,7 @@ const systemItems: DevCenterItem[] = [
     },
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { useTheme, useSetThemeMode, useSetThemeShape, useThemeEffect } from '@golia/gds'" />
+        <ImportLine text="import { useTheme, useSetThemeMode, useSetThemeShape, useThemeEffect } from '@goliapkg/gds'" />
 
         <DocSection title="Live component samples">
           <DemoCard title="Buttons" description="Primary and secondary variants respond to theme axes" full>
@@ -160,7 +160,7 @@ const systemItems: DevCenterItem[] = [
   useSetThemeMotion,
   useThemeEffect,
   configureTheme,
-} from '@golia/gds'
+} from '@goliapkg/gds'
 
 // 1. apply theme to document (call once in App root)
 useThemeEffect()
@@ -206,7 +206,7 @@ configureTheme({
 
       return (
         <div>
-          <ImportLine text="import { useTheme, useSetThemeMode, useSetThemeShape } from '@golia/gds'" />
+          <ImportLine text="import { useTheme, useSetThemeMode, useSetThemeShape } from '@goliapkg/gds'" />
 
           <DocSection title="Theme axes">
             <DemoCard title="6 Dimensional Axes" description="Each axis independently controls a visual dimension" full>
@@ -308,7 +308,7 @@ configureTheme({
         ]} />
       </div>
     ),
-    code: () => `import { useTheme, useSetThemeMode, useSetThemeShape } from '@golia/gds'
+    code: () => `import { useTheme, useSetThemeMode, useSetThemeShape } from '@goliapkg/gds'
 
 // read theme
 const theme = useTheme()
@@ -321,7 +321,7 @@ const setShape = useSetThemeShape()
 setShape('rounded')
 
 // apply to document (call once in App root)
-import { useThemeEffect } from '@golia/gds'
+import { useThemeEffect } from '@goliapkg/gds'
 useThemeEffect()
 
 // theme state shape

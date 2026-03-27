@@ -96,7 +96,7 @@ const moleculeItemsB: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { Dropdown } from '@golia/gds'" />
+        <ImportLine text="import { Dropdown } from '@goliapkg/gds'" />
 
         <LivePreview>
           <Dropdown
@@ -163,7 +163,7 @@ const moleculeItemsB: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Dropdown } from '@golia/gds'", '']
+      const lines = ["import { Dropdown } from '@goliapkg/gds'", '']
       lines.push(`<Dropdown`)
       lines.push(`  trigger={<Button>Actions</Button>}`)
       if (config.align !== 'start') lines.push(`  align="${config.align}"`)
@@ -220,7 +220,7 @@ const moleculeItemsB: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { HoverCard } from '@golia/gds'" />
+        <ImportLine text="import { HoverCard } from '@goliapkg/gds'" />
 
         <LivePreview>
           <HoverCard
@@ -285,7 +285,7 @@ const moleculeItemsB: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { HoverCard } from '@golia/gds'", '']
+      const lines = ["import { HoverCard } from '@goliapkg/gds'", '']
       const props: string[] = ['trigger={<span>Hover me</span>}']
       if (config.placement !== 'bottom') props.push(`placement="${config.placement}"`)
       if (config.delay !== 300) props.push(`delay={${config.delay}}`)
@@ -325,7 +325,7 @@ const moleculeItemsB: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { Pagination } from '@golia/gds'" />
+        <ImportLine text="import { Pagination } from '@goliapkg/gds'" />
 
         <LivePreview>
           <PaginationDemo totalPages={config.totalPages} siblings={config.siblings} />
@@ -356,7 +356,7 @@ const moleculeItemsB: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Pagination } from '@golia/gds'", '']
+      const lines = ["import { Pagination } from '@goliapkg/gds'", '']
       const props = [`page={page}`, `totalPages={${config.totalPages}}`, `onPageChange={setPage}`]
       if (config.siblings !== 1) props.push(`siblings={${config.siblings}}`)
       lines.push(`<Pagination ${props.join(' ')} />`)
@@ -394,7 +394,7 @@ const moleculeItemsB: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { Select } from '@golia/gds'" />
+        <ImportLine text="import { Select } from '@goliapkg/gds'" />
 
         <LivePreview>
           <div className="w-60">
@@ -440,7 +440,7 @@ const moleculeItemsB: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Select } from '@golia/gds'", '']
+      const lines = ["import { Select } from '@goliapkg/gds'", '']
       const props: string[] = []
       if (config.inputSize !== 'default') props.push(`inputSize="${config.inputSize}"`)
       if (config.error === true) props.push('error')
@@ -483,7 +483,7 @@ const moleculeItemsB: DevCenterItem[] = [
 
     stage: ({ config }) => (
       <div>
-        <ImportLine text="import { Sheet } from '@golia/gds'" />
+        <ImportLine text="import { Sheet } from '@goliapkg/gds'" />
 
         <LivePreview>
           <SheetDemo side={config.side} glass={config.glass} title={config.title} width={config.width} />
@@ -516,7 +516,7 @@ const moleculeItemsB: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Sheet } from '@golia/gds'", '']
+      const lines = ["import { Sheet } from '@goliapkg/gds'", '']
       const props: string[] = ['open={open}', 'onClose={close}']
       if (config.side !== 'right') props.push(`side="${config.side}"`)
       if (config.title !== '') props.push(`title="${config.title}"`)
@@ -576,7 +576,7 @@ const moleculeItemsB: DevCenterItem[] = [
           ]
       return (
         <div>
-          <ImportLine text="import { Stepper } from '@golia/gds'" />
+          <ImportLine text="import { Stepper } from '@goliapkg/gds'" />
 
           <LivePreview>
             <Stepper steps={steps} current={config.current} orientation={config.orientation} />
@@ -625,7 +625,7 @@ const moleculeItemsB: DevCenterItem[] = [
     ),
 
     code: ({ config }) => {
-      const lines = ["import { Stepper } from '@golia/gds'", '']
+      const lines = ["import { Stepper } from '@goliapkg/gds'", '']
       const props: string[] = []
       if (config.orientation !== 'horizontal') props.push(`orientation="${config.orientation}"`)
       props.push(`current={${config.current}}`)
@@ -684,7 +684,7 @@ const moleculeItemsB: DevCenterItem[] = [
 
     stage: ({ config, variant }) => (
       <div>
-        <ImportLine text="import { Toast } from '@golia/gds'" />
+        <ImportLine text="import { Toast } from '@goliapkg/gds'" />
 
         <LivePreview>
           <div className="max-w-sm">
@@ -729,7 +729,7 @@ const moleculeItemsB: DevCenterItem[] = [
     ),
 
     code: ({ config, variant }) => {
-      const lines = ["import { Toast } from '@golia/gds'", '']
+      const lines = ["import { Toast } from '@goliapkg/gds'", '']
       const props: string[] = []
       if (variant !== 'default') props.push(`variant="${variant}"`)
       props.push(`title="${config.title}"`)

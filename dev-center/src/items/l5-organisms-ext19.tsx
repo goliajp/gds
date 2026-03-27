@@ -18,7 +18,7 @@ const cookieBannerItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { CookieBanner } from '@golia/gds'" />
+      <ImportLine text="import { CookieBanner } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="relative h-32 w-full overflow-hidden rounded-lg border border-border">
           <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 border-t border-border bg-surface/80 px-4 py-3 backdrop-blur-lg">
@@ -34,7 +34,7 @@ const cookieBannerItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { CookieBanner } from '@golia/gds'\n\n<CookieBanner\n  onAccept={() => saveCookieConsent()}\n  onReject={() => rejectCookies()}\n  message="We use cookies..."\n/>`,
+    `import { CookieBanner } from '@goliapkg/gds'\n\n<CookieBanner\n  onAccept={() => saveCookieConsent()}\n  onReject={() => rejectCookies()}\n  message="We use cookies..."\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -62,7 +62,7 @@ const markdownEditorItem: DevCenterItem = {
 
     return (
       <div>
-        <ImportLine text="import { MarkdownEditor } from '@golia/gds'" />
+        <ImportLine text="import { MarkdownEditor } from '@goliapkg/gds'" />
         <LivePreview>
           <div className="w-full max-w-2xl">
             <MarkdownEditor value={value} onChange={setValue} placeholder="Write markdown..." />
@@ -73,7 +73,7 @@ const markdownEditorItem: DevCenterItem = {
   },
 
   code: () =>
-    `import { MarkdownEditor } from '@golia/gds'\n\n<MarkdownEditor\n  value={value}\n  onChange={setValue}\n  placeholder="Write markdown..."\n/>`,
+    `import { MarkdownEditor } from '@goliapkg/gds'\n\n<MarkdownEditor\n  value={value}\n  onChange={setValue}\n  placeholder="Write markdown..."\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

@@ -20,7 +20,7 @@ const tableItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Table } from '@golia/gds'" />
+      <ImportLine text="import { Table } from '@goliapkg/gds'" />
       <LivePreview className="block">
         <Table striped={config.striped} compact={config.compact} hoverable={config.hoverable} glass={config.glass}>
           <thead>
@@ -62,7 +62,7 @@ const tableItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { Table } from '@golia/gds'\n\n<Table${config.striped ? ' striped' : ''}${config.compact ? ' compact' : ''}${!config.hoverable ? ' hoverable={false}' : ''}${config.glass ? ' glass' : ''}>\n  <thead>\n    <tr><th>Name</th><th>Role</th></tr>\n  </thead>\n  <tbody>\n    <tr><td>Alice</td><td>Engineer</td></tr>\n  </tbody>\n</Table>`,
+    `import { Table } from '@goliapkg/gds'\n\n<Table${config.striped ? ' striped' : ''}${config.compact ? ' compact' : ''}${!config.hoverable ? ' hoverable={false}' : ''}${config.glass ? ' glass' : ''}>\n  <thead>\n    <tr><th>Name</th><th>Role</th></tr>\n  </thead>\n  <tbody>\n    <tr><td>Alice</td><td>Engineer</td></tr>\n  </tbody>\n</Table>`,
 }
 organismItemsExt11.push(tableItem)
 
@@ -97,7 +97,7 @@ const richSelectItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { RichSelect } from '@golia/gds'" />
+      <ImportLine text="import { RichSelect } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-72">
           <RichSelectDemo glass={config.glass} error={config.error} disabled={config.disabled} />
@@ -128,7 +128,7 @@ const richSelectItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { RichSelect } from '@golia/gds'\n\n<RichSelect\n  options={[\n    { value: 'react', label: 'React', description: 'UI library', badge: 'popular' },\n    { value: 'vue', label: 'Vue', description: 'Progressive framework' },\n  ]}\n  value={value}\n  onChange={setValue}\n  placeholder="Choose a framework"\n  ${config.glass ? 'glass\n  ' : ''}${config.error ? 'error\n  ' : ''}${config.disabled ? 'disabled\n  ' : ''}/>`,
+    `import { RichSelect } from '@goliapkg/gds'\n\n<RichSelect\n  options={[\n    { value: 'react', label: 'React', description: 'UI library', badge: 'popular' },\n    { value: 'vue', label: 'Vue', description: 'Progressive framework' },\n  ]}\n  value={value}\n  onChange={setValue}\n  placeholder="Choose a framework"\n  ${config.glass ? 'glass\n  ' : ''}${config.error ? 'error\n  ' : ''}${config.disabled ? 'disabled\n  ' : ''}/>`,
 }
 organismItemsExt11.push(richSelectItem)
 

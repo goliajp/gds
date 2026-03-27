@@ -17,7 +17,7 @@ const certBadgeItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { CertBadge } from '@golia/gds'" />
+      <ImportLine text="import { CertBadge } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex flex-col gap-2">
           <CertBadge domain={config.domain} expiresAt="2026-12-01" status={config.status} />
@@ -34,7 +34,7 @@ const certBadgeItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { CertBadge } from '@golia/gds'\n\n<CertBadge\n  domain="${config.domain}"\n  expiresAt="2026-12-01"\n  status="${config.status}"\n/>`,
+    `import { CertBadge } from '@goliapkg/gds'\n\n<CertBadge\n  domain="${config.domain}"\n  expiresAt="2026-12-01"\n  status="${config.status}"\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -59,7 +59,7 @@ const environmentBadgeItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { EnvironmentBadge } from '@golia/gds'" />
+      <ImportLine text="import { EnvironmentBadge } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-2">
           <EnvironmentBadge env={config.env} showDot={config.showDot === 'true'} />
@@ -76,7 +76,7 @@ const environmentBadgeItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { EnvironmentBadge } from '@golia/gds'\n\n<EnvironmentBadge\n  env="${config.env}"${config.showDot === 'false' ? '\n  showDot={false}' : ''}\n/>`,
+    `import { EnvironmentBadge } from '@goliapkg/gds'\n\n<EnvironmentBadge\n  env="${config.env}"${config.showDot === 'false' ? '\n  showDot={false}' : ''}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

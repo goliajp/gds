@@ -17,7 +17,7 @@ const trendArrowItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { TrendArrow } from '@golia/gds'" />
+      <ImportLine text="import { TrendArrow } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-4">
           <TrendArrow direction={config.direction} size={config.size} />
@@ -34,7 +34,7 @@ const trendArrowItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { TrendArrow } from '@golia/gds'\n\n<TrendArrow direction="${config.direction}"${config.size !== 'default' ? ` size="${config.size}"` : ''} />`,
+    `import { TrendArrow } from '@goliapkg/gds'\n\n<TrendArrow direction="${config.direction}"${config.size !== 'default' ? ` size="${config.size}"` : ''} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
@@ -58,7 +58,7 @@ const heatCellItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { HeatCell } from '@golia/gds'" />
+      <ImportLine text="import { HeatCell } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-2">
           {[10, 30, 50, 75, 100].map((v) => (
@@ -77,7 +77,7 @@ const heatCellItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { HeatCell } from '@golia/gds'\n\n<HeatCell value={${config.value}}${config.showValue === 'true' ? ' showValue' : ''} />`,
+    `import { HeatCell } from '@goliapkg/gds'\n\n<HeatCell value={${config.value}}${config.showValue === 'true' ? ' showValue' : ''} />`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

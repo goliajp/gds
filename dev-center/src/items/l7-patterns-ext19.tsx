@@ -16,7 +16,7 @@ const onboardingCardItem: DevCenterItem = {
 
   stage: () => (
     <div>
-      <ImportLine text="import { OnboardingCard } from '@golia/gds'" />
+      <ImportLine text="import { OnboardingCard } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-full max-w-sm">
           <OnboardingCard
@@ -33,7 +33,7 @@ const onboardingCardItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { OnboardingCard } from '@golia/gds'\n\n<OnboardingCard\n  title="Getting Started"\n  steps={[\n    { label: 'Create account', completed: true },\n    { label: 'Verify email', completed: true },\n    { label: 'Set up profile', completed: false },\n    { label: 'Invite team', completed: false },\n  ]}\n/>`,
+    `import { OnboardingCard } from '@goliapkg/gds'\n\n<OnboardingCard\n  title="Getting Started"\n  steps={[\n    { label: 'Create account', completed: true },\n    { label: 'Verify email', completed: true },\n    { label: 'Set up profile', completed: false },\n    { label: 'Invite team', completed: false },\n  ]}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

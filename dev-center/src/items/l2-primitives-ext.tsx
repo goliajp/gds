@@ -19,7 +19,7 @@ const skeletonItem: DevCenterItem = {
 
   stage: ({ config, variant }) => (
     <div>
-      <ImportLine text="import { Skeleton } from '@golia/gds'" />
+      <ImportLine text="import { Skeleton } from '@goliapkg/gds'" />
 
       <LivePreview>
         <div className="w-[300px] flex flex-col gap-4">
@@ -129,7 +129,7 @@ const truncateItem: DevCenterItem = {
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { Truncate } from '@golia/gds'" />
+      <ImportLine text="import { Truncate } from '@goliapkg/gds'" />
 
       <LivePreview>
         <div className="w-[300px]">
