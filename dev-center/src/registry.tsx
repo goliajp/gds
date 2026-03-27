@@ -3,12 +3,6 @@ import { docsItems } from './items/l-docs'
 import { docsItemsExt } from './items/l-docs-ext'
 import { docsItemsExt2 } from './items/l-docs-ext2'
 
-// l-lab
-import { labItems } from './items/l-lab'
-import { labItemsExt } from './items/l-lab-ext'
-import { labItemsExt2 } from './items/l-lab-ext2'
-import { labItemsExt3 } from './items/l-lab-ext3'
-
 // l-dep
 import { depItems } from './items/l-dep'
 import { depItemsExt } from './items/l-dep-ext'
@@ -20,6 +14,10 @@ import { tokenItemsExt } from './items/l0-tokens-ext'
 import { tokenItemsExt2 } from './items/l0-tokens-ext2'
 import { tokenItemsExt3 } from './items/l0-tokens-ext3'
 import { tokenItemsExt4 } from './items/l0-tokens-ext4'
+import { tokenItemsExt5 } from './items/l0-tokens-ext5'
+import { tokenItemsExt6 } from './items/l0-tokens-ext6'
+import { tokenItemsExt7 } from './items/l0-tokens-ext7'
+import { tokenItemsExt8 } from './items/l0-tokens-ext8'
 
 // l1
 import { systemItems } from './items/l1-systems'
@@ -191,11 +189,10 @@ export const allItems: DevCenterItem[] = [
   // l-docs
   ...docsItems, ...docsItemsExt, ...docsItemsExt2,
   // l-lab
-  ...labItems, ...labItemsExt, ...labItemsExt2, ...labItemsExt3,
   // l-dep
   ...depItems, ...depItemsExt, ...depItemsExt2,
   // l0
-  ...tokenItems, ...tokenItemsExt, ...tokenItemsExt2, ...tokenItemsExt3, ...tokenItemsExt4,
+  ...tokenItems, ...tokenItemsExt, ...tokenItemsExt2, ...tokenItemsExt3, ...tokenItemsExt4, ...tokenItemsExt5, ...tokenItemsExt6, ...tokenItemsExt7, ...tokenItemsExt8,
   // l1
   ...systemItems,
   // l2

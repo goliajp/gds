@@ -670,11 +670,11 @@ function TransitionPlayground() {
 
 // ─── exports ───
 
-const labItemsExt2: DevCenterItem[] = [
+const tokenItemsExt7: DevCenterItem[] = [
   {
     id: 'motion-micro',
     label: 'Micro-interactions',
-    layer: 'l-lab',
+    layer: 'l0',
     type: 'reference',
     tags: ['micro', 'interaction', 'press', 'toggle', 'delete', 'like', 'hover'],
 
@@ -707,7 +707,7 @@ const labItemsExt2: DevCenterItem[] = [
   {
     id: 'motion-gallery',
     label: 'Animation Gallery',
-    layer: 'l-lab',
+    layer: 'l0',
     type: 'reference',
     tags: ['keyframes', 'popup', 'shake', 'toast', 'loading', 'marquee', 'animation'],
 
@@ -739,7 +739,7 @@ const labItemsExt2: DevCenterItem[] = [
   {
     id: 'motion-scroll',
     label: 'Scroll Animations',
-    layer: 'l-lab',
+    layer: 'l0',
     type: 'reference',
     tags: ['scroll', 'intersection', 'observer', 'reveal', 'fade', 'slide', 'stagger'],
 
@@ -786,7 +786,7 @@ const labItemsExt2: DevCenterItem[] = [
   {
     id: 'motion-transitions',
     label: 'Transition Playground',
-    layer: 'l-lab',
+    layer: 'l0',
     type: 'reference',
     tags: ['transition', 'duration', 'easing', 'property', 'interactive'],
 
@@ -794,4 +794,4 @@ const labItemsExt2: DevCenterItem[] = [
   },
 ]
 
-export { labItemsExt2 }
+export { tokenItemsExt7 }
