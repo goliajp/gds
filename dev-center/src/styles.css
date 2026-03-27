@@ -1,0 +1,281 @@
+@import 'tailwindcss';
+@import '../../src/l0-tokens/tokens.css';
+@import '../../src/l0-tokens/fonts.css';
+
+/* ensure Tailwind scans GDS source files for utility class names */
+@source "../../src/**/*.{ts,tsx}";
+
+@theme {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --color-bg: var(--gds-bg);
+  --color-bg-secondary: var(--gds-bg-secondary);
+  --color-bg-tertiary: var(--gds-bg-tertiary);
+  --color-fg: var(--gds-fg);
+  --color-fg-secondary: var(--gds-fg-secondary);
+  --color-fg-muted: var(--gds-fg-muted);
+  --color-border: var(--gds-border);
+  --color-border-strong: var(--gds-border-strong);
+  --color-accent: var(--gds-accent);
+  --color-accent-hover: var(--gds-accent-hover);
+  --color-accent-fg: var(--gds-accent-fg);
+  --color-success: var(--gds-success);
+  --color-warning: var(--gds-warning);
+  --color-danger: var(--gds-danger);
+  --color-surface: var(--gds-surface);
+  --color-surface-raised: var(--gds-surface-raised);
+  --color-overlay: var(--gds-overlay);
+  --color-palette-0: var(--gds-palette-0);
+  --color-palette-1: var(--gds-palette-1);
+  --color-palette-2: var(--gds-palette-2);
+  --color-palette-3: var(--gds-palette-3);
+  --color-palette-4: var(--gds-palette-4);
+  --color-palette-5: var(--gds-palette-5);
+  --color-palette-6: var(--gds-palette-6);
+  --color-palette-7: var(--gds-palette-7);
+  --color-palette-8: var(--gds-palette-8);
+  --color-palette-9: var(--gds-palette-9);
+  --color-dot: var(--gds-dot);
+  --color-status-active: var(--gds-status-active);
+  --color-status-inactive: var(--gds-status-inactive);
+  --color-status-pending: var(--gds-status-pending);
+  --color-status-draft: var(--gds-status-draft);
+  --color-priority-critical: var(--gds-priority-critical);
+  --color-priority-high: var(--gds-priority-high);
+  --color-priority-medium: var(--gds-priority-medium);
+  --color-priority-low: var(--gds-priority-low);
+  --color-action-create: var(--gds-action-create);
+  --color-action-update: var(--gds-action-update);
+  --color-action-delete: var(--gds-action-delete);
+}
+
+/* user-select: off globally */
+* { user-select: none; }
+[data-selectable], [data-selectable] *, input, textarea, select, pre, code, td { user-select: text; }
+
+html {
+  background: var(--gds-bg);
+  color: var(--gds-fg);
+  font-feature-settings: 'tnum' 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* scrollbar — minimal */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.06); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.12); }
+
+/* stagger entrance */
+.stagger > * { animation: gds-slide-up var(--gds-duration-normal, 200ms) var(--gds-ease-out, ease) both; }
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 50ms; }
+.stagger > *:nth-child(3) { animation-delay: 100ms; }
+.stagger > *:nth-child(4) { animation-delay: 150ms; }
+.stagger > *:nth-child(5) { animation-delay: 200ms; }
+.stagger > *:nth-child(6) { animation-delay: 250ms; }
+.stagger > *:nth-child(7) { animation-delay: 300ms; }
+.stagger > *:nth-child(8) { animation-delay: 350ms; }
+
+/* default transitions */
+button, a, [role="button"], input, select, textarea {
+  transition: all var(--gds-duration-fast, 100ms) var(--gds-ease-default, ease);
+}
+
+/* spring hover utility */
+.spring-hover {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease;
+}
+
+/* ============================================================
+   NAV — layer column
+   ============================================================ */
+.dc-layer-col {
+  background: rgba(255, 255, 255, 0.03);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.dc-layer-link {
+  color: rgba(255, 255, 255, 0.3);
+}
+.dc-layer-link:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+.dc-layer-link[data-active] {
+  background: rgba(255, 255, 255, 0.06);
+}
+.dc-layer-link[data-active] {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================================
+   NAV — item column
+   ============================================================ */
+.dc-item-col {
+  background: rgba(255, 255, 255, 0.02);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+.dc-item-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* search input */
+.dc-search-input {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--gds-fg);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.dc-search-input:focus {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--gds-accent, #3b82f6);
+}
+
+/* item links */
+.dc-item-link:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+.dc-item-link[data-active] {
+  background: color-mix(in srgb, var(--gds-accent) 8%, transparent);
+}
+.dc-item-link[data-active]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--gds-accent);
+}
+.dc-item-link { position: relative; }
+
+.dc-item-badge {
+  color: var(--gds-accent);
+}
+
+/* ============================================================
+   STAGE
+   ============================================================ */
+.dc-stage {
+  background: var(--gds-bg);
+}
+
+/* canvas background — dot grid for preview areas */
+.dc-canvas-bg {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* ============================================================
+   INSPECTOR
+   ============================================================ */
+.dc-inspector-tab {
+  position: relative;
+  color: rgba(255, 255, 255, 0.35);
+  transition: color 0.15s ease;
+}
+.dc-inspector-tab:hover {
+  color: rgba(255, 255, 255, 0.6);
+}
+.dc-inspector-tab[data-active] {
+  color: var(--gds-accent);
+}
+.dc-inspector-tab[data-active]::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gds-accent);
+  border-radius: 1px 1px 0 0;
+}
+
+/* ============================================================
+   THEME TOOLBAR
+   ============================================================ */
+.dc-theme-toolbar {
+  background: rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* ============================================================
+   STATUS BAR
+   ============================================================ */
+.dc-status-bar {
+  background: rgba(0, 0, 0, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* ============================================================
+   GLASS — for demo stages
+   ============================================================ */
+.dc-glass {
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--gds-ctx-radius, 12px);
+  background: var(--gds-surface);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+/* shiki code blocks */
+.dc-code-block pre {
+  margin: 0;
+  background: transparent !important;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.dc-code-block code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* easing track container query */
+.easing-track { container-type: inline-size; }
+
+/* color slider */
+.color-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, var(--slider-from, #888), var(--slider-to, #888));
+  outline: none;
+  cursor: pointer;
+}
+.color-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--slider-thumb, var(--gds-accent));
+  border: 3px solid var(--gds-bg, #0f172a);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  cursor: grab;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.color-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+.color-slider::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.05); }
+.color-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--slider-thumb, var(--gds-accent));
+  border: 3px solid var(--gds-bg, #0f172a);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  cursor: grab;
+}
+.color-slider::-moz-range-track {
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, var(--slider-from, #888), var(--slider-to, #888));
+}
