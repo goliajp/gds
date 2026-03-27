@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.1] - 2026-03-28
+
+### Added
+
+- syntax highlighting (shiki) and copy button on all dev-center code blocks
+- reusable CodeBlock component with vitesse-dark theme
+- data-selectable on DocTable for text selection
+
+### Fixed
+
+- resolve duplicate isFavorite declaration in nav.tsx (dev-center crash)
+
+### Changed
+
+- add missing l3-atoms index exports for ported components
+
 ## [0.9.0] - 2026-03-28
 
 ### Added
