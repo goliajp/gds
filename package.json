@@ -7,7 +7,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "author": "GOLIA株式会社 <dev@golia.co.jp> (https://golia.co.jp)",
+  "author": "GOLIA <dev@golia.jp> (https://golia.jp)",
   "homepage": "https://github.com/goliajp/gds#readme",
   "repository": {
     "type": "git",

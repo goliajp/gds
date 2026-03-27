@@ -1,6 +1,6 @@
 # @golia/gds
 
-**GOLIA Design System** — enterprise-grade React UI component library built by [GOLIA株式会社](https://github.com/goliajp).
+**GOLIA Design System** — enterprise-grade React UI component library built by [GOLIA](https://github.com/goliajp).
 
 Powering all GOLIA React web applications with a unified, AI-friendly component system.
 
@@ -98,4 +98,4 @@ Every component follows the same pattern: **CVA variants → typed Props → for
 
 ## License
 
-[MIT](LICENSE) — GOLIA株式会社
+[MIT](LICENSE) — GOLIA
