@@ -360,6 +360,25 @@ describe('useDrag', () => {
 
     expect(onDrag).not.toHaveBeenCalled()
   })
+
+  it('starts dragging when vertical movement exceeds threshold', () => {
+    const onDrag = vi.fn()
+    const { result } = renderHook(() => useDrag(onDrag))
+
+    act(() => result.current.onPointerDown(pointerEvent({ clientX: 100, clientY: 100 })))
+    // move only in Y direction past threshold
+    act(() =>
+      result.current.onPointerMove(
+        pointerEvent({ clientX: 100, clientY: 100 + drag.startThreshold + 5 }),
+      ),
+    )
+
+    expect(onDrag).toHaveBeenCalledWith({
+      dx: 0,
+      dy: drag.startThreshold + 5,
+      isDragging: true,
+    })
+  })
 })
 
 describe('applyInertia', () => {

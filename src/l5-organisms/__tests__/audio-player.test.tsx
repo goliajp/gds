@@ -192,4 +192,65 @@ describe('AudioPlayer', () => {
     })
     fireEvent.click(progressBar, { clientX: 100 })
   })
+
+  it('toggles pause state on second click', () => {
+    render(<AudioPlayer src="test.mp3" />)
+    const audio = screen.getByTestId('audio-element') as HTMLAudioElement
+    const playBtn = screen.getByTestId('play-button')
+
+    let paused = true
+    Object.defineProperty(audio, 'paused', { get: () => paused, configurable: true })
+    audio.play = vi.fn().mockImplementation(() => { paused = false; return Promise.resolve() })
+    audio.pause = vi.fn().mockImplementation(() => { paused = true })
+
+    // play
+    fireEvent.click(playBtn)
+    expect(audio.play).toHaveBeenCalled()
+    expect(playBtn).toHaveAttribute('aria-label', 'Pause')
+
+    // pause
+    fireEvent.click(playBtn)
+    expect(audio.pause).toHaveBeenCalled()
+    expect(playBtn).toHaveAttribute('aria-label', 'Play')
+  })
+
+  it('handles seek at different positions', () => {
+    render(<AudioPlayer src="test.mp3" />)
+    const audio = screen.getByTestId('audio-element') as HTMLAudioElement
+
+    Object.defineProperty(audio, 'duration', { value: 200, writable: true })
+    fireEvent.loadedMetadata(audio)
+
+    const progressBar = screen.getByTestId('progress-bar')
+    vi.spyOn(progressBar, 'getBoundingClientRect').mockReturnValue({
+      left: 100, width: 400, top: 0, right: 500, bottom: 10, height: 10, x: 100, y: 0, toJSON: vi.fn(),
+    })
+
+    // click at 25% position: (200 - 100) / 400 = 0.25
+    fireEvent.click(progressBar, { clientX: 200 })
+    expect(audio.currentTime).toBe(50) // 0.25 * 200
+  })
+
+  it('displays aria attributes on progress bar', () => {
+    render(<AudioPlayer src="test.mp3" />)
+    const audio = screen.getByTestId('audio-element') as HTMLAudioElement
+
+    Object.defineProperty(audio, 'duration', { value: 120, writable: true })
+    fireEvent.loadedMetadata(audio)
+
+    Object.defineProperty(audio, 'currentTime', { value: 30, writable: true })
+    fireEvent.timeUpdate(audio)
+
+    const progressBar = screen.getByTestId('progress-bar')
+    expect(progressBar).toHaveAttribute('aria-valuemax', '120')
+    expect(progressBar).toHaveAttribute('aria-valuenow', '30')
+    expect(progressBar).toHaveAttribute('aria-valuemin', '0')
+  })
+
+  it('applies glass=false correctly — no glass classes', () => {
+    const { container } = render(<AudioPlayer src="test.mp3" glass={false} />)
+    const el = container.querySelector('[data-component="audio-player"]')
+    expect(el?.className).not.toContain('gds-glass')
+    expect(el?.className).not.toContain('border-white/10')
+  })
 })

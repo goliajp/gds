@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
 import { CalendarHeatmap } from '../calendar-heatmap'
@@ -103,5 +103,34 @@ describe('CalendarHeatmap', () => {
     const labels = Array.from(texts).map((t) => t.textContent)
     // DAY_LABELS has Mon, Wed, Fri
     expect(labels.some((l) => l === 'Mon')).toBe(true)
+  })
+
+  it('shows tooltip on mouse enter and hides on mouse leave', () => {
+    const { container } = render(
+      <CalendarHeatmap data={data} startDate="2025-06-01" endDate="2025-06-30" />,
+    )
+    const rects = container.querySelectorAll('rect')
+    expect(rects.length).toBeGreaterThan(0)
+
+    // mouse enter on a rect
+    fireEvent.mouseEnter(rects[0])
+    // tooltip should appear
+    const tooltip = container.querySelector('.pointer-events-none.fixed')
+    expect(tooltip).not.toBeNull()
+
+    // mouse leave
+    fireEvent.mouseLeave(rects[0])
+    // tooltip should disappear
+    const tooltipAfter = container.querySelector('.pointer-events-none.fixed')
+    expect(tooltipAfter).toBeNull()
+  })
+
+  it('forwards ref to SVG element', () => {
+    const ref = { current: null as SVGSVGElement | null }
+    render(
+      <CalendarHeatmap data={data} startDate="2025-01-01" endDate="2025-03-01" ref={ref} />,
+    )
+    expect(ref.current).not.toBeNull()
+    expect(ref.current?.tagName).toBe('svg')
   })
 })
