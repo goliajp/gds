@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.7] - 2026-03-29
+
+### Fixed
+
+- rewrite GlowEffect from filter:blur to box-shadow (fixes overflow clipping and stacking context issues)
+
 ## [1.0.6] - 2026-03-29
 
 ### Fixed
