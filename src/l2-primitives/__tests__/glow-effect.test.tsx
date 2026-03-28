@@ -27,26 +27,26 @@ describe('GlowEffect', () => {
   it('applies default intensity styles', () => {
     const { container } = render(<GlowEffect>Content</GlowEffect>)
     const glow = container.querySelector('[aria-hidden]') as HTMLElement
-    expect(glow.style.filter).toBe('blur(48px)')
-    expect(glow.style.opacity).toBe('0.12')
-    expect(glow.style.inset).toBe('-16px')
+    expect(glow.style.filter).toBe('blur(40px)')
+    expect(glow.style.opacity).toBe('0.2')
+    expect(glow.style.inset).toBe('-20px')
     expect(glow.style.borderRadius).toBe('16px')
   })
 
   it('applies sm intensity styles', () => {
     const { container } = render(<GlowEffect intensity="sm">Content</GlowEffect>)
     const glow = container.querySelector('[aria-hidden]') as HTMLElement
-    expect(glow.style.filter).toBe('blur(32px)')
-    expect(glow.style.opacity).toBe('0.08')
-    expect(glow.style.inset).toBe('-10px')
+    expect(glow.style.filter).toBe('blur(28px)')
+    expect(glow.style.opacity).toBe('0.15')
+    expect(glow.style.inset).toBe('-12px')
   })
 
   it('applies lg intensity styles', () => {
     const { container } = render(<GlowEffect intensity="lg">Content</GlowEffect>)
     const glow = container.querySelector('[aria-hidden]') as HTMLElement
-    expect(glow.style.filter).toBe('blur(64px)')
-    expect(glow.style.opacity).toBe('0.18')
-    expect(glow.style.inset).toBe('-24px')
+    expect(glow.style.filter).toBe('blur(56px)')
+    expect(glow.style.opacity).toBe('0.3')
+    expect(glow.style.inset).toBe('-28px')
   })
 
   it('applies custom color', () => {

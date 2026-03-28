@@ -12,9 +12,9 @@ type IntensityConfig = {
 }
 
 const intensityMap: Record<GlowIntensity, IntensityConfig> = {
-  sm: { blur: 32, opacity: 0.08, spread: 10 },
-  default: { blur: 48, opacity: 0.12, spread: 16 },
-  lg: { blur: 64, opacity: 0.18, spread: 24 },
+  sm: { blur: 28, opacity: 0.15, spread: 12 },
+  default: { blur: 40, opacity: 0.2, spread: 20 },
+  lg: { blur: 56, opacity: 0.3, spread: 28 },
 }
 
 export type GlowEffectProps = {
