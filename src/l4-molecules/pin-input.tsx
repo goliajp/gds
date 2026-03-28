@@ -5,7 +5,7 @@ import { forwardRef, useCallback, useRef, useState } from 'react'
 import { focusCls } from '../utils/a11y'
 import { cx } from '../utils/cx'
 
-type PinInputProps = React.HTMLAttributes<HTMLDivElement> & {
+type PinInputProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
   disabled?: boolean
   error?: boolean
   length?: number
