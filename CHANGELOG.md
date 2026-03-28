@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.10] - 2026-03-29
+
+### Fixed
+
+- even padding in Card + CardContent/CardFooter (top padding was larger due to mt-3 stacking with Card padding)
+
 ## [1.0.9] - 2026-03-29
 
 ### Added
