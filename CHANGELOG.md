@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.3] - 2026-03-28
+
+### Fixed
+
+- guard Highlight against undefined text/query props (route change crash)
+
+### Changed
+
+- register every item as explicit route, no wildcards or dynamic params
+- item state resets naturally on route change (component remount)
+
 ## [0.9.2] - 2026-03-28
 
 ### Added
