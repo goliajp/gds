@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.7] - 2026-03-28
+
+### Fixed
+
+- unified callback naming: NotificationToast/NotificationCenter `onDismiss` → `onClose` — **breaking**
+- replaced index-as-key with stable keys in 13 dynamic list components (DataTable, SortableTable, Breadcrumb, Stepper, etc.)
+
+### Changed
+
+- boosted L1-systems coverage: use-theme branches 25% → 100%
+- boosted L6-charts coverage: branches 76% → 87.5%
+- boosted L7-patterns coverage: branches 78% → 94%
+- global: statements 90.4%, branches 85.78%, functions 91.56%, lines 92.32%
+- total: 390 test files, 2830 test cases
+
 ## [0.9.6] - 2026-03-28
 
 ### Added
