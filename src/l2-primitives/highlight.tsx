@@ -21,7 +21,7 @@ export const Highlight = forwardRef<HTMLSpanElement, HighlightProps>(
     },
     ref,
   ) {
-    if (query === '') {
+    if (query === undefined || query === null || query === '') {
       return (
         <span className={className} data-component="highlight" ref={ref} {...props}>
           {text}
@@ -29,9 +29,11 @@ export const Highlight = forwardRef<HTMLSpanElement, HighlightProps>(
       )
     }
 
+    const safeText = text ?? ''
+    const safeQuery = query ?? ''
     const flags = caseSensitive ? 'g' : 'gi'
-    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-    const parts = text.split(new RegExp(`(${escaped})`, flags))
+    const escaped = safeQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const parts = safeText.split(new RegExp(`(${escaped})`, flags))
 
     return (
       <span className={cx(className)} data-component="highlight" ref={ref} {...props}>
