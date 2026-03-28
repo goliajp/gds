@@ -5,6 +5,54 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.0] - 2026-03-28
+
+GDS v1 — production-ready release after 6 rounds of systematic audit and hardening.
+
+### Highlights
+
+- **370+ components** across 8 architectural layers
+- **93%+ branch coverage** — 393 test files, 3400+ test cases, all layers above 90%
+- **Strict layer enforcement** — ESLint rules prevent cross-layer imports and unauthorized external dependencies
+- **Anti-corruption wrappers** — cx(), VariantProps, renderPortal() — no raw external imports in component code
+- **Full keyboard accessibility** — focus trapping in all overlays, Enter/Space on all interactive elements
+- **Type safety** — zero `any`, zero `@ts-ignore`, instanceof guards on DOM casts
+- **Tree-shakeable** — per-layer subpath exports, multi-entry build, sideEffects: false
+- **Complete public API** — all hooks, utilities, and types exported from barrel
+
+### Breaking Changes (since 0.9.4)
+
+- `Truncate` component: `expandable` prop removed, replaced with controlled `expanded` + `onToggle`
+- `NotificationToast` / `NotificationCenter`: `onDismiss` renamed to `onClose`
+
+### Added (since 0.9.4)
+
+- `renderPortal()` utility wrapping react-dom createPortal behind anti-corruption layer
+- ESLint per-layer dependency constraints (cross-layer + external dep enforcement)
+- subpath exports: `@goliapkg/gds/primitives`, `/atoms`, `/molecules`, `/organisms`, `/charts`, `/patterns`, `/utils`
+- multi-entry vite build for per-layer tree-shaking
+- barrel exports for 25+ previously missing utilities and types
+- `forwardRef` added to KeyboardShortcut and Sparkle
+- `data-component` attribute added to InfoTip
+- `useFocusTrap` added to Sheet and Drawer
+- keyboard support (Enter/Space) added to Popover, CopyToClipboard, CategoryTag
+- dev-center CodeBlock: token-level syntax highlighting with line numbers and language auto-detection
+- 1400+ new test cases across all layers
+
+### Fixed (since 0.9.4)
+
+- react-dom violations in L2/L4 eliminated via renderPortal wrapper
+- unsafe `as HTMLElement` casts in gesture hooks replaced with `instanceof Element` guard
+- non-null assertion in Tree component replaced with optional chaining
+- index-as-key anti-pattern fixed in 13 dynamic list components
+- `any` type in CandlestickChart replaced with proper CandleShapeProps
+- react-router moved from dependencies to devDependencies
+- L2 dependency constraint corrected to include class-variance-authority
+
+### Changed (since 0.9.4)
+
+- CLAUDE.md, README.md updated to reflect v1 architecture, quality standards, and API surface
+
 ## [0.9.10] - 2026-03-28
 
 ### Fixed
