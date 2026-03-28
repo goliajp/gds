@@ -41,10 +41,9 @@ export const GlowEffect = forwardRef<HTMLDivElement, GlowEffectProps>(
             inset: `-${config.spread}px`,
             opacity: config.opacity,
             position: 'absolute',
-            zIndex: -1,
           }}
         />
-        {children}
+        <div className="relative">{children}</div>
       </div>
     )
   },
