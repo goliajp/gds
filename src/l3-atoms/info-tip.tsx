@@ -18,7 +18,7 @@ export const InfoTip = forwardRef<HTMLDivElement, InfoTipProps>(
   function InfoTip({ className, content, size = 'default', ...props }, ref) {
     return (
       <Tooltip content={content} ref={ref} {...props}>
-        <span className={cx('inline-flex cursor-help items-center text-fg-muted/60 hover:text-fg-muted', className)}>
+        <span className={cx('inline-flex cursor-help items-center text-fg-muted/60 hover:text-fg-muted', className)} data-component="info-tip">
           <svg className={sizeClasses[size]} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="10" />
             <path d="M12 16v-4M12 8h.01" />

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { useCallback, useEffect } from 'react'
+import { forwardRef, useCallback, useEffect } from 'react'
 
 import { Kbd } from '../l2-primitives/kbd'
 import { cx } from '../utils/cx'
@@ -50,47 +50,46 @@ function formatKeyLabel(part: string): string {
   return map[part.toLowerCase()] ?? part.toUpperCase()
 }
 
-export function KeyboardShortcut({
-  keys,
-  onTrigger,
-  showBadge = false,
-  disabled = false,
-  className,
-}: KeyboardShortcutProps) {
-  const { modifiers, mainKey } = parseKeys(keys)
+export const KeyboardShortcut = forwardRef<HTMLSpanElement, KeyboardShortcutProps>(
+  function KeyboardShortcut(
+    { keys, onTrigger, showBadge = false, disabled = false, className },
+    ref,
+  ) {
+    const { modifiers, mainKey } = parseKeys(keys)
 
-  const handler = useCallback(
-    (e: KeyboardEvent) => {
-      if (disabled) return
-      if (e.ctrlKey !== modifiers.ctrl) return
-      if (e.metaKey !== modifiers.meta) return
-      if (e.shiftKey !== modifiers.shift) return
-      if (e.altKey !== modifiers.alt) return
-      if (e.key.toLowerCase() !== mainKey) return
+    const handler = useCallback(
+      (e: KeyboardEvent) => {
+        if (disabled) return
+        if (e.ctrlKey !== modifiers.ctrl) return
+        if (e.metaKey !== modifiers.meta) return
+        if (e.shiftKey !== modifiers.shift) return
+        if (e.altKey !== modifiers.alt) return
+        if (e.key.toLowerCase() !== mainKey) return
 
-      e.preventDefault()
-      onTrigger()
-    },
-    [disabled, modifiers.ctrl, modifiers.meta, modifiers.shift, modifiers.alt, mainKey, onTrigger],
-  )
+        e.preventDefault()
+        onTrigger()
+      },
+      [disabled, modifiers.ctrl, modifiers.meta, modifiers.shift, modifiers.alt, mainKey, onTrigger],
+    )
 
-  useEffect(() => {
-    window.addEventListener('keydown', handler)
-    return () => window.removeEventListener('keydown', handler)
-  }, [handler])
+    useEffect(() => {
+      window.addEventListener('keydown', handler)
+      return () => window.removeEventListener('keydown', handler)
+    }, [handler])
 
-  if (!showBadge) return null
+    if (!showBadge) return null
 
-  const parts = keys.split('+')
-  const badges: ReactNode[] = parts.map((part, i) => (
-    <Kbd key={i}>{formatKeyLabel(part)}</Kbd>
-  ))
+    const parts = keys.split('+')
+    const badges: ReactNode[] = parts.map((part, i) => (
+      <Kbd key={i}>{formatKeyLabel(part)}</Kbd>
+    ))
 
-  return (
-    <span className={cx('inline-flex items-center gap-1', className)} data-component="keyboard-shortcut">
-      {badges}
-    </span>
-  )
-}
+    return (
+      <span ref={ref} className={cx('inline-flex items-center gap-1', className)} data-component="keyboard-shortcut">
+        {badges}
+      </span>
+    )
+  },
+)
 
 export type { KeyboardShortcutProps }

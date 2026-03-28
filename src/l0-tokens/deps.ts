@@ -26,7 +26,7 @@ export const GDS_DEPS: DepInfo[] = [
     role: 'DOM binding for React — portal, createRoot',
     layer: 'L-dep',
     type: 'peer',
-    usedBy: ['L1-systems', 'L5-organisms'],
+    usedBy: ['L-dep utils (portal wrapper)'],
   },
 
   // runtime — bundled with gds
@@ -109,6 +109,7 @@ export const GDS_INTERNAL_UTILS = [
   { name: 'useIsMobile', module: 'utils/hooks', role: 'boolean mobile breakpoint', usedBy: 'L2+' },
   { name: 'useIsDesktop', module: 'utils/hooks', role: 'boolean desktop breakpoint', usedBy: 'L2+' },
   { name: 'useFocusTrap', module: 'utils/hooks', role: 'trap tab focus in container', usedBy: 'L5+' },
+  { name: 'renderPortal', module: 'utils/portal', role: 'portal rendering via react-dom createPortal', usedBy: 'L2+' },
 ] as const
 
 // engineering infrastructure — enforced at every layer, not optional
@@ -142,10 +143,10 @@ export const GDS_INFRA = {
 export const LAYER_DEP_CONSTRAINTS: Record<string, string[]> = {
   'L0-tokens': ['tailwindcss'],
   'L1-systems': ['react', 'jotai'],
-  'L2-primitives': ['react', 'clsx', 'tailwind-merge'],
+  'L2-primitives': ['react', 'clsx', 'tailwind-merge', 'class-variance-authority'],
   'L3-atoms': ['react', 'clsx', 'tailwind-merge', 'class-variance-authority', 'lucide-react'],
   'L4-molecules': ['react', 'clsx', 'tailwind-merge', 'class-variance-authority', 'lucide-react'],
-  'L5-organisms': ['react', 'react-dom', 'clsx', 'tailwind-merge', 'class-variance-authority', 'lucide-react'],
+  'L5-organisms': ['react', 'clsx', 'tailwind-merge', 'class-variance-authority', 'lucide-react'],
   'L6-charts': ['react', 'clsx', 'tailwind-merge', 'recharts', 'lucide-react'],
   'L7-patterns': ['react', 'clsx', 'tailwind-merge'],
 }

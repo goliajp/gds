@@ -1,25 +1,25 @@
 // truncate — text truncation with ellipsis, single or multi-line clamp
 import type { ReactNode } from 'react'
-import { forwardRef, useState } from 'react'
+import { forwardRef } from 'react'
 
 import { cx } from '../utils/cx'
 
 export type TruncateProps = {
   children: ReactNode
   lines?: number
-  expandable?: boolean
+  expanded?: boolean
+  onToggle?: () => void
   className?: string
 }
 
 export const Truncate = forwardRef<HTMLDivElement, TruncateProps>(
   function Truncate(
-    { children, lines = 1, expandable = false, className },
+    { children, lines = 1, expanded = false, onToggle, className },
     ref,
   ) {
-    const [expanded, setExpanded] = useState(false)
-
     const shouldClamp = !expanded
     const isSingleLine = lines === 1
+    const isInteractive = onToggle !== undefined
 
     const clampStyle = !isSingleLine && shouldClamp
       ? {
@@ -30,24 +30,20 @@ export const Truncate = forwardRef<HTMLDivElement, TruncateProps>(
         }
       : undefined
 
-    const handleClick = expandable
-      ? () => setExpanded((prev) => !prev)
-      : undefined
-
     return (
       <div
         ref={ref}
         className={cx(
           isSingleLine && shouldClamp && 'truncate',
-          expandable && 'cursor-pointer',
+          isInteractive && 'cursor-pointer',
           className,
         )}
         style={clampStyle}
-        onClick={handleClick}
+        onClick={isInteractive ? onToggle : undefined}
         data-component="truncate"
         data-expanded={expanded ? 'true' : undefined}
-        role={expandable ? 'button' : undefined}
-        tabIndex={expandable ? 0 : undefined}
+        role={isInteractive ? 'button' : undefined}
+        tabIndex={isInteractive ? 0 : undefined}
       >
         {children}
       </div>

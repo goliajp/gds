@@ -1,8 +1,8 @@
 // confetti — canvas-based celebration particle animation
 import { useEffect, useRef } from 'react'
-import { createPortal } from 'react-dom'
 
 import { cx } from '../utils/cx'
+import { renderPortal } from '../utils/portal'
 import type { Particle } from './confetti-physics'
 import { createParticle, drawParticle, updateParticle } from './confetti-physics'
 
@@ -96,13 +96,12 @@ export function Confetti({
 
   if (!active) return null
 
-  return createPortal(
+  return renderPortal(
     <canvas
       ref={canvasRef}
       className={cx('fixed inset-0 pointer-events-none z-[9999]', className)}
       data-component="confetti"
     />,
-    document.body,
   )
 }
 

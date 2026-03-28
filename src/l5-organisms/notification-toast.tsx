@@ -1,9 +1,9 @@
 // notification-toast — renders stacked toasts with auto-dismiss via portal
 import { forwardRef, useEffect } from 'react'
-import { createPortal } from 'react-dom'
 
 import { Toast } from '../l4-molecules/toast'
 import { cx } from '../utils/cx'
+import { renderPortal } from '../utils/portal'
 
 type ToastEntry = {
   id: string
@@ -42,7 +42,7 @@ export const NotificationToast = forwardRef<HTMLDivElement, NotificationToastPro
 
     if (toasts.length === 0) return null
 
-    return createPortal(
+    return renderPortal(
       <div
         ref={ref}
         className={cx('fixed z-50 flex w-80 flex-col gap-2', positionMap[position], className)}
@@ -52,7 +52,6 @@ export const NotificationToast = forwardRef<HTMLDivElement, NotificationToastPro
           <Toast key={t.id} title={t.title} description={t.message} variant={variantToToast(t.variant)} onClose={() => onDismiss(t.id)} />
         ))}
       </div>,
-      document.body,
     )
   },
 )

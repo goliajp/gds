@@ -36,6 +36,42 @@
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./tokens": {
+      "import": "./dist/l0-tokens/index.js",
+      "types": "./dist/l0-tokens/index.d.ts"
+    },
+    "./systems": {
+      "import": "./dist/l1-systems/index.js",
+      "types": "./dist/l1-systems/index.d.ts"
+    },
+    "./primitives": {
+      "import": "./dist/l2-primitives/index.js",
+      "types": "./dist/l2-primitives/index.d.ts"
+    },
+    "./atoms": {
+      "import": "./dist/l3-atoms/index.js",
+      "types": "./dist/l3-atoms/index.d.ts"
+    },
+    "./molecules": {
+      "import": "./dist/l4-molecules/index.js",
+      "types": "./dist/l4-molecules/index.d.ts"
+    },
+    "./organisms": {
+      "import": "./dist/l5-organisms/index.js",
+      "types": "./dist/l5-organisms/index.d.ts"
+    },
+    "./charts": {
+      "import": "./dist/l6-charts/index.js",
+      "types": "./dist/l6-charts/index.d.ts"
+    },
+    "./patterns": {
+      "import": "./dist/l7-patterns/index.js",
+      "types": "./dist/l7-patterns/index.d.ts"
+    },
+    "./utils": {
+      "import": "./dist/utils/index.js",
+      "types": "./dist/utils/index.d.ts"
+    },
     "./tokens.css": "./dist/tokens.css",
     "./fonts.css": "./dist/fonts.css",
     "./package.json": "./package.json"

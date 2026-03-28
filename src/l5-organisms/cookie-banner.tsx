@@ -1,9 +1,9 @@
 // cookie-banner — GDPR-style consent banner with accept/reject
 import { forwardRef } from 'react'
-import { createPortal } from 'react-dom'
 
 import { Button } from '../l2-primitives/button'
 import { cx } from '../utils/cx'
+import { renderPortal } from '../utils/portal'
 
 type CookieBannerProps = {
   onAccept: () => void
@@ -40,8 +40,7 @@ const CookieBannerInner = forwardRef<HTMLDivElement, CookieBannerProps>(
 
 const CookieBanner = forwardRef<HTMLDivElement, CookieBannerProps>(
   function CookieBanner(props, ref) {
-    if (typeof document === 'undefined') return null
-    return createPortal(<CookieBannerInner {...props} ref={ref} />, document.body)
+    return renderPortal(<CookieBannerInner {...props} ref={ref} />)
   },
 )
 
