@@ -2,7 +2,7 @@ import { forwardRef } from 'react'
 
 import { cx } from '../utils/cx'
 
-type InputWithButtonProps = React.HTMLAttributes<HTMLDivElement> & {
+type InputWithButtonProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
   buttonLabel: string
   disabled?: boolean
   onChange: (value: string) => void

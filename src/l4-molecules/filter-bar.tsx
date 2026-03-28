@@ -6,7 +6,7 @@ import { cx } from '../utils/cx'
 
 type FilterItem = { id: string; label: string; active: boolean }
 
-type FilterBarProps = React.HTMLAttributes<HTMLDivElement> & {
+type FilterBarProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
   filters: FilterItem[]
   onChange: (id: string, active: boolean) => void
   onClear?: () => void

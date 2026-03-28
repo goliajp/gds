@@ -12,7 +12,7 @@ type ToggleGroupItem = {
 
 type ToggleGroupSize = 'default' | 'sm'
 
-type ToggleGroupProps = React.HTMLAttributes<HTMLDivElement> & {
+type ToggleGroupProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
   items: ToggleGroupItem[]
   value: string[]
   onChange: (value: string[]) => void
