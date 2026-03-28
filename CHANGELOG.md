@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.4] - 2026-03-29
+
+### Changed
+
+- rename dev-center to web (official website)
+- read version from package.json in website toolbar
+- add /deploy command for website deployment
+- add auto-deploy to /pub workflow
+
 ## [1.0.3] - 2026-03-29
 
 ### Fixed
