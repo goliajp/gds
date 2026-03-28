@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.9] - 2026-03-28
+
+### Changed
+
+- all 9 layers now above 90% branch coverage
+- utils 85% → 96%, L6-charts 88% → 93%, L5-organisms 91% → 92%
+- global: statements 95.6%, branches 93.1%, functions 95.9%, lines 97.1%
+- total: 393 test files, 3432 test cases
+- exported CandleShape from candlestick-chart for direct unit testing
+
 ## [0.9.8] - 2026-03-28
 
 ### Changed
