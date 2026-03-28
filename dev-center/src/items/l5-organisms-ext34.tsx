@@ -5,7 +5,7 @@ import { Ctrl } from '../components/ctrl'
 import { DocTable, DemoCard, DocSection, ImportLine, LivePreview } from '../components/demo'
 
 import { Button } from '@gds/l2-primitives'
-import { CronSchedule, DataGrid, StepForm, Tour } from '@gds/l5-organisms'
+import { DataGrid, StepForm, Tour } from '@gds/l5-organisms'
 
 import type { DevCenterItem } from '../types'
 
@@ -652,77 +652,6 @@ const organismItemsExt34: DevCenterItem[] = [
             <p>• Built on GanttChart with toolbar, filters, search, and task detail panel</p>
             <p>• Supports day/week/month view modes with zoom controls</p>
             <p>• Summary stats: total tasks, % complete, overdue, blocked</p>
-          </div>
-        </div>
-      </div>
-    ),
-  },
-  {
-    id: 'cron-input',
-    label: 'CronSchedule',
-    layer: 'l5',
-    type: 'interactive',
-    tags: ['cron', 'schedule', 'time', 'automation'],
-    defaultConfig: { expression: '30 9 * * 1' },
-
-    stage: ({ config }) => (
-      <div>
-        <ImportLine text="import { CronSchedule } from '@goliapkg/gds'" />
-
-        <LivePreview>
-          <CronSchedule expression={config.expression} />
-        </LivePreview>
-
-        <DocSection title="Examples" columns={2}>
-          <DemoCard title="Common Schedules" description="Human-readable cron display" code={`<CronSchedule expression="0 9 * * *" />`}>
-            <div className="flex flex-col gap-3">
-              <CronSchedule expression="0 9 * * *" />
-              <CronSchedule expression="0 0 * * *" />
-              <CronSchedule expression="* * * * *" />
-            </div>
-          </DemoCard>
-          <DemoCard title="Weekly & Monthly" description="Day-specific schedules" code={`<CronSchedule expression="30 9 * * 1" />`}>
-            <div className="flex flex-col gap-3">
-              <CronSchedule expression="30 9 * * 1" />
-              <CronSchedule expression="0 18 * * 5" />
-              <CronSchedule expression="0 0 1 * *" />
-            </div>
-          </DemoCard>
-        </DocSection>
-      </div>
-    ),
-
-    controls: ({ config, setConfig }) => (
-      <>
-        <Ctrl label="expression" type="text" value={config.expression} onChange={v => setConfig('expression', v)} />
-      </>
-    ),
-
-    code: ({ config }) => {
-      const lines = ["import { CronSchedule } from '@goliapkg/gds'", '']
-      lines.push(`<CronSchedule expression="${config.expression}" />`)
-      return lines.join('\n')
-    },
-
-    docs: () => (
-      <div className="space-y-4" data-selectable>
-        <DocTable rows={[
-          ['expression', 'Standard 5-field cron expression', 'string', '—'],
-          ['className', 'Additional CSS classes', 'string', '—'],
-        ]} />
-        <div>
-          <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Cron Format</div>
-          <div className="space-y-1 text-[10px] text-fg-muted/50">
-            <p>• Format: minute hour day-of-month month day-of-week</p>
-            <p>• * = every, specific number = at that value</p>
-            <p>• Day of week: 0 = Sunday, 1 = Monday, etc.</p>
-          </div>
-        </div>
-        <div>
-          <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Guidelines</div>
-          <div className="space-y-1 text-[10px] text-fg-muted/50">
-            <p>• Displays raw expression as code + human-readable description</p>
-            <p>• Use for automation schedules, recurring tasks, CI/CD configs</p>
           </div>
         </div>
       </div>
