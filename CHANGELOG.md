@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.6] - 2026-03-28
+
+### Added
+
+- 563 tests for 46 previously untested components across L2-L5
+- L2: loading, shimmer, slider, container (80 tests)
+- L3: 14 atoms including animated-counter, bounce-dot, color-swatch, countdown-badge, gradient-text, hotkey, percentage-circle, progress-ring, pulse-ring, relative-time, ribbon-banner, scroll-progress, shortcut-display, zoom-on-hover (153 tests)
+- L4: 22 molecules including banner, before-after, code-snippet, pin-input, drop-zone, notification-bell, glass-button, glass-card, user-card, watermark (244 tests)
+- L5: data-grid, masonry-grid, progress-timeline, responsive-stack, step-form, tour (86 tests)
+
+### Changed
+
+- coverage: branches 73.99% → 83.23%, all 4 metrics now above 80% threshold
+- total: 390 test files, 2602 test cases
+
 ## [0.9.5] - 2026-03-28
 
 ### Added
