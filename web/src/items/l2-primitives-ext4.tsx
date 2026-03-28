@@ -32,7 +32,7 @@ const glowEffectItem: DevCenterItem = {
         <LivePreview>
           <div className="flex items-center justify-center p-12">
             <GlowEffect color={cssColor} intensity={config.intensity} radius={12}>
-              <div className="rounded-xl bg-bg px-8 py-6 text-center shadow-lg">
+              <div className="rounded-xl bg-bg px-8 py-6 text-center">
                 <p className="text-fg gds-heading font-medium">Glow Effect</p>
                 <p className="text-fg-muted gds-text-body mt-1">Content with a colored aura</p>
               </div>
@@ -70,16 +70,16 @@ const glowEffectItem: DevCenterItem = {
       danger: 'var(--gds-danger)',
     }
     const cssColor = colorMap[config.color] ?? 'var(--gds-accent)'
-    return `import { GlowEffect } from '@goliapkg/gds'\n\n<GlowEffect\n  color="${cssColor}"\n  intensity="${config.intensity}"\n>\n  <div>Content</div>\n</GlowEffect>`
+    return `import { GlowEffect } from '@goliapkg/gds'\n\n<GlowEffect\n  color="${cssColor}"\n  intensity="${config.intensity}"\n  radius={12}\n>\n  <div className="rounded-xl bg-bg px-8 py-6">\n    Content\n  </div>\n</GlowEffect>`
   },
 
   docs: () => (
     <div className="space-y-4" data-selectable>
       <DocTable rows={[
-        ['children', 'Content to display with glow behind it', 'ReactNode', '—'],
+        ['children', 'Content to display with glow around it', 'ReactNode', '—'],
         ['color', 'CSS color for the glow', 'string', 'var(--gds-accent)'],
-        ['intensity', 'Blur and opacity level', '"sm" | "default" | "lg"', '"default"'],
-        ['radius', 'Border radius of the glow layer (px)', 'number', '16'],
+        ['intensity', 'Glow strength', '"sm" | "default" | "lg"', '"default"'],
+        ['radius', 'Border radius of the glow (px)', 'number', '—'],
         ['className', 'Container CSS classes', 'string', '—'],
       ]} />
     </div>
