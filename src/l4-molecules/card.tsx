@@ -28,7 +28,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
       return (
         <div
           ref={ref}
-          className={cx('gds-ctx animate-pulse gds-radius-card border border-border bg-bg-tertiary', paddingMap[padding], className)}
+          className={cx('gds-ctx flex flex-col gds-gap animate-pulse gds-radius-card border border-border bg-bg-tertiary', paddingMap[padding], className)}
           data-component="card"
           data-state="loading"
         >
@@ -41,7 +41,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
       <div
         ref={ref}
         className={cx(
-          'gds-ctx gds-radius-card border',
+          'gds-ctx flex flex-col gds-gap gds-radius-card border',
           glass ? cx(glassClass(glass), 'border-white/10 bg-bg/60') : 'border-border bg-surface',
           paddingMap[padding],
           className,
@@ -79,7 +79,7 @@ export type CardContentProps = {
 }
 
 export function CardContent({ children, className }: CardContentProps) {
-  return <div className={cx('mt-3', className)}>{children}</div>
+  return <div className={className}>{children}</div>
 }
 
 export type CardFooterProps = {
@@ -88,5 +88,5 @@ export type CardFooterProps = {
 }
 
 export function CardFooter({ children, className }: CardFooterProps) {
-  return <div className={cx('mt-3 flex items-center gds-gap-sm border-t border-border pt-3', className)}>{children}</div>
+  return <div className={cx('flex items-center gds-gap-sm border-t border-border pt-3', className)}>{children}</div>
 }
