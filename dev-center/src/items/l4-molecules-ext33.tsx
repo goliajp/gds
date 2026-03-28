@@ -211,8 +211,8 @@ const moleculeItemsAH: DevCenterItem[] = [
     ),
   },
   {
-    id: 'stat',
-    label: 'Stat',
+    id: 'quick-stat',
+    label: 'QuickStat',
     layer: 'l4',
     type: 'interactive',
     tags: ['metric', 'kpi', 'number', 'trend'],
