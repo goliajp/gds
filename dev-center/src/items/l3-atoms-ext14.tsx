@@ -24,7 +24,7 @@ const visualCounterItem: DevCenterItem = {
         <ImportLine text="import { VisualCounter } from '@goliapkg/gds'" />
         <LivePreview>
           <div className="flex items-center gap-8 p-8">
-            <VisualCounter value={value} onChange={setValue} min={Number(config.min)} max={Number(config.max)} step={Number(config.step)} />
+            <VisualCounter value={value} onChange={setValue} min={Number(config.min ?? 0)} max={Number(config.max ?? 0)} step={Number(config.step ?? 0)} />
           </div>
         </LivePreview>
       </div>

@@ -20,8 +20,8 @@ const starRatingItem: DevCenterItem = {
       <ImportLine text="import { StarRating } from '@goliapkg/gds'" />
       <LivePreview>
         <StarRating
-          value={Number(config.value)}
-          max={Number(config.max)}
+          value={Number(config.value ?? 0)}
+          max={Number(config.max ?? 0)}
           size={config.size as 'sm' | 'default' | 'lg'}
         />
       </LivePreview>

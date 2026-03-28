@@ -55,7 +55,7 @@ const percentageItem: DevCenterItem = {
       <ImportLine text="import { Percentage } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-4">
-          <Percentage showSign={config.showSign === 'true'} value={Number(config.value)} />
+          <Percentage showSign={config.showSign === 'true'} value={Number(config.value ?? 0)} />
         </div>
       </LivePreview>
     </div>

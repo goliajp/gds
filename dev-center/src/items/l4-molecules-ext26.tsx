@@ -20,8 +20,8 @@ const currencyDisplayItem: DevCenterItem = {
       <ImportLine text="import { CurrencyDisplay } from '@goliapkg/gds'" />
       <LivePreview>
         <CurrencyDisplay
-          amount={Number(config.amount)}
-          change={Number(config.change)}
+          amount={Number(config.amount) || 0}
+          change={Number(config.change) || 0}
           period={config.period}
         />
       </LivePreview>

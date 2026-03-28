@@ -22,7 +22,7 @@ const skeletonGroupItem: DevCenterItem = {
       <ImportLine text="import { SkeletonGroup } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-64 p-4">
-          <SkeletonGroup variant={config.variant} count={Number(config.count)} />
+          <SkeletonGroup variant={config.variant} count={Number(config.count ?? 0)} />
         </div>
       </LivePreview>
     </div>

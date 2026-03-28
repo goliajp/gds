@@ -123,7 +123,7 @@ const atomItemsAB: DevCenterItem[] = [
     defaultConfig: { minutesAgo: 5, prefix: '' },
 
     stage: ({ config }) => {
-      const date = new Date(Date.now() - Number(config.minutesAgo) * 60 * 1000)
+      const date = new Date(Date.now() - Number(config.minutesAgo ?? 0) * 60 * 1000)
       return (
         <div>
           <ImportLine text="import { RelativeTime } from '@goliapkg/gds'" />

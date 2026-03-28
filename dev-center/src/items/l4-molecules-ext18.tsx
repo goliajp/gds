@@ -73,7 +73,7 @@ const bulkActionBarItem: DevCenterItem = {
   defaultConfig: { count: '3' },
 
   stage: ({ config }) => {
-    const [count, setCount] = useState(Number(config.count))
+    const [count, setCount] = useState(Number(config.count ?? 0))
 
     return (
       <div>
