@@ -55,10 +55,13 @@ bun add @goliapkg/gds
 ```css
 @import 'tailwindcss';
 @import '@goliapkg/gds/tokens.css';
+@import '@goliapkg/gds/theme.css';
 
 /* required: let Tailwind scan GDS component classes */
 @source "../node_modules/@goliapkg/gds/dist/**/*.js";
 ```
+
+`tokens.css` provides GDS utilities (`gds-shadow-sm`, `gds-radius-card`, etc.). `theme.css` maps GDS tokens to Tailwind's built-in utilities (`shadow-sm`, `rounded-lg`, `bg-bg`, `text-fg`, etc.) so you can use standard Tailwind classes with GDS theme values.
 
 ### 3. Theme provider (`app.tsx`)
 
