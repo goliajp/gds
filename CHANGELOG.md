@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.2] - 2026-03-29
+
+### Fixed
+
+- rewrite GlowEffect to inline styles with improved glow spread
+- add rounded-inherit and -z-1 as @utility in tokens.css for general use
+- fix dev-center GlowEffect color pills using unreadable CSS variable strings
+
 ## [1.0.1] - 2026-03-28
 
 ### Fixed
