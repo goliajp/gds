@@ -139,7 +139,7 @@ function ItemPage({ item }: { item: DevCenterItem }) {
     <div className="flex h-screen flex-col overflow-hidden bg-bg">
       <ThemeToolbar />
       <div className="flex flex-1 overflow-hidden">
-        <Nav items={allItems} favorites={favorites} isFavorite={isFavorite} toggleFavorite={toggleFavorite} recent={recent} />
+        <Nav items={allItems} activeLayerId={item.layer} activeItemId={item.id} favorites={favorites} isFavorite={isFavorite} toggleFavorite={toggleFavorite} recent={recent} />
         <main className="flex-1 overflow-hidden">
           <Stage item={item} stageProps={stageProps} />
         </main>
