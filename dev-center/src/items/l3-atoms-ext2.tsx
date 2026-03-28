@@ -420,10 +420,10 @@ const editableItem: DevCenterItem = {
 
       <DocSection title="API" columns={1}>
         <DocTable rows={[
-          { prop: 'value', type: 'string', default: '—', description: 'Current text value' },
-          { prop: 'onChange', type: '(value: string) => void', default: '—', description: 'Called on save (Enter or blur)' },
-          { prop: 'placeholder', type: 'string', default: "'Click to edit'", description: 'Text shown when value is empty' },
-          { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disable editing' },
+          ['value', 'Current text value', 'string', '—'],
+          ['onChange', 'Called on save (Enter or blur)', '(value: string) => void', '—'],
+          ['placeholder', 'Text shown when value is empty', 'string', "'Click to edit'"],
+          ['disabled', 'Disable editing', 'boolean', 'false'],
         ]} />
       </DocSection>
     </div>
@@ -495,12 +495,12 @@ const toggleGroupItem: DevCenterItem = {
 
       <DocSection title="API" columns={1}>
         <DocTable rows={[
-          { prop: 'items', type: '{ value: string, label: ReactNode }[]', default: '—', description: 'Toggle items' },
-          { prop: 'value', type: 'string[]', default: '—', description: 'Active values' },
-          { prop: 'onChange', type: '(value: string[]) => void', default: '—', description: 'Called on toggle' },
-          { prop: 'exclusive', type: 'boolean', default: 'false', description: 'Only one active at a time' },
-          { prop: 'size', type: "'default' | 'sm'", default: "'default'", description: 'Button size' },
-          { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disable all buttons' },
+          ['items', 'Toggle items', "{ value: string, label: ReactNode }[]", '—'],
+          ['value', 'Active values', 'string[]', '—'],
+          ['onChange', 'Called on toggle', '(value: string[]) => void', '—'],
+          ['exclusive', 'Only one active at a time', 'boolean', 'false'],
+          ['size', 'Button size', "'default' | 'sm'", "'default'"],
+          ['disabled', 'Disable all buttons', 'boolean', 'false'],
         ]} />
       </DocSection>
     </div>
