@@ -73,7 +73,10 @@
       "types": "./dist/utils/index.d.ts"
     },
     "./tokens.css": "./dist/tokens.css",
+    "./theme.css": "./dist/theme.css",
     "./fonts.css": "./dist/fonts.css",
+    "./llms.txt": "./llms.txt",
+    "./llms-full.txt": "./llms-full.txt",
     "./package.json": "./package.json"
   },
   "files": [
@@ -98,7 +101,7 @@
     "build": "bun run clean && bun run build:lib && bun run build:types && bun run build:css",
     "build:lib": "vite build --config vite.config.lib.ts",
     "build:types": "tsc -p tsconfig.build.json",
-    "build:css": "cp src/l0-tokens/tokens.css dist/tokens.css && cp src/l0-tokens/fonts.css dist/fonts.css && cp -r src/l0-tokens/fonts dist/fonts",
+    "build:css": "cp src/l0-tokens/tokens.css dist/tokens.css && cp src/l0-tokens/theme.css dist/theme.css && cp src/l0-tokens/fonts.css dist/fonts.css && cp -r src/l0-tokens/fonts dist/fonts",
     "check": "bun run test && bun run typecheck && bun run lint"
   },
   "peerDependencies": {
