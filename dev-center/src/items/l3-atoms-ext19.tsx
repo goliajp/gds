@@ -62,7 +62,7 @@ const priceItem: DevCenterItem = {
       <ImportLine text="import { Price } from '@goliapkg/gds'" />
       <LivePreview>
         <Price
-          value={Number(config.value)}
+          value={Number(config.value ?? 0)}
           currency={config.currency}
           showSign={config.showSign === 'true'}
         />

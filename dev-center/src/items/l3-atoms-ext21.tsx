@@ -62,7 +62,7 @@ const diffIndicatorItem: DevCenterItem = {
       <ImportLine text="import { DiffIndicator } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="flex items-center gap-4">
-          <DiffIndicator inverted={config.inverted === 'true'} unit="%" value={Number(config.value)} />
+          <DiffIndicator inverted={config.inverted === 'true'} unit="%" value={Number(config.value ?? 0)} />
         </div>
       </LivePreview>
     </div>

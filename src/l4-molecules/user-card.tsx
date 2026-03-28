@@ -28,7 +28,7 @@ export type UserCardProps = {
 
 export const UserCard = forwardRef<HTMLDivElement, UserCardProps>(
   function UserCard({ name, avatar, role, department, email, status, glass, className, children }, ref) {
-    const initials = name
+    const initials = (name ?? '')
       .split(' ')
       .map((w) => w[0])
       .join('')

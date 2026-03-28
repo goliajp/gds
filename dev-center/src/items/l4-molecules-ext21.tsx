@@ -27,7 +27,7 @@ const kvTableItem: DevCenterItem = {
               { key: 'Department', value: 'Engineering' },
               { key: 'Location', value: 'Tokyo' },
             ]}
-            columns={Number(config.columns) as 1 | 2}
+            columns={Number(config.columns ?? 0) as 1 | 2}
             striped={config.striped === 'true'}
           />
         </div>

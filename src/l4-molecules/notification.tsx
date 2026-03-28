@@ -69,7 +69,7 @@ const Notification = forwardRef<HTMLDivElement, NotificationProps>(
       <div
         ref={ref}
         className={cx(
-          'flex w-full items-start gds-gap gds-radius-popover border border-l-2 gds-pad-x gds-pad-y',
+          'flex w-full items-start gds-gap gds-radius-popover border border-border border-l-2 gds-pad-x gds-pad-y',
           borderColorMap[v],
           bgColorMap[v],
           glass === true && glassClass(glass),

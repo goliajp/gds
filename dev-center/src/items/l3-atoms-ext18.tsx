@@ -59,7 +59,7 @@ const truncatedListItem: DevCenterItem = {
 
   stage: ({ config }) => {
     const names = ['Alice', 'Bob', 'Carol', 'Dave', 'Eve', 'Frank', 'Grace', 'Hank']
-    const items = names.slice(0, Number(config.count)).map((n) => (
+    const items = names.slice(0, Number(config.count ?? 0)).map((n) => (
       <span key={n} className="rounded-full bg-accent/10 px-2 py-0.5 text-xs text-accent">{n}</span>
     ))
 
@@ -67,7 +67,7 @@ const truncatedListItem: DevCenterItem = {
       <div>
         <ImportLine text="import { TruncatedList } from '@goliapkg/gds'" />
         <LivePreview>
-          <TruncatedList items={items} max={Number(config.max)} />
+          <TruncatedList items={items} max={Number(config.max ?? 0)} />
         </LivePreview>
       </div>
     )

@@ -19,7 +19,7 @@ const toolbarGroupItem: DevCenterItem = {
 
   stage: ({ config }) => {
     const labels = ['Bold', 'Italic', 'Underline', 'Strike']
-    const count = Number(config.count)
+    const count = Number(config.count ?? 0)
     return (
       <div>
         <ImportLine text="import { ToolbarGroup } from '@goliapkg/gds'" />

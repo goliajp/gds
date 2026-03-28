@@ -83,7 +83,7 @@ const wizardItem: DevCenterItem = {
 
   stage: ({ config }) => {
     const [step, setStep] = useState(0)
-    const count = Number(config.stepCount)
+    const count = Number(config.stepCount ?? 0)
     const steps = Array.from({ length: count }, (_, i) => ({
       title: `Step ${i + 1}`,
       content: <div className="rounded-lg border border-border p-4 text-sm text-fg-muted">Content for step {i + 1}</div>,

@@ -20,7 +20,7 @@ const navItemItem: DevCenterItem = {
       <ImportLine text="import { NavItem } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-56 border border-border rounded-lg bg-surface">
-          <NavItem label="Dashboard" active={config.active === 'true'} badge={Number(config.badge) > 0 ? Number(config.badge) : undefined} collapsed={config.collapsed === 'true'} />
+          <NavItem label="Dashboard" active={config.active === 'true'} badge={Number(config.badge ?? 0) > 0 ? Number(config.badge ?? 0) : undefined} collapsed={config.collapsed === 'true'} />
           <NavItem label="Settings" collapsed={config.collapsed === 'true'} />
           <NavItem label="Inbox" badge={3} collapsed={config.collapsed === 'true'} />
         </div>
@@ -37,7 +37,7 @@ const navItemItem: DevCenterItem = {
   ),
 
   code: ({ config }) =>
-    `import { NavItem } from '@goliapkg/gds'\n\n<NavItem\n  label="Dashboard"${config.active === 'true' ? '\n  active' : ''}${Number(config.badge) > 0 ? `\n  badge={${config.badge}}` : ''}${config.collapsed === 'true' ? '\n  collapsed' : ''}\n/>`,
+    `import { NavItem } from '@goliapkg/gds'\n\n<NavItem\n  label="Dashboard"${config.active === 'true' ? '\n  active' : ''}${Number(config.badge ?? 0) > 0 ? `\n  badge={${config.badge}}` : ''}${config.collapsed === 'true' ? '\n  collapsed' : ''}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>

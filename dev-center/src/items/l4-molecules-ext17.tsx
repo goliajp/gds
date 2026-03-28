@@ -72,7 +72,7 @@ const progressStepsItem: DevCenterItem = {
       <ImportLine text="import { ProgressSteps } from '@goliapkg/gds'" />
       <LivePreview>
         <div className="w-full max-w-md">
-          <ProgressSteps steps={['Upload', 'Review', 'Confirm', 'Done']} current={Number(config.current)} />
+          <ProgressSteps steps={['Upload', 'Review', 'Confirm', 'Done']} current={Number(config.current ?? 0)} />
         </div>
       </LivePreview>
     </div>
