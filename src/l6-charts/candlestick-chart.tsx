@@ -28,7 +28,7 @@ export type CandlestickChartProps = {
   className?: string
 }
 
-type PreparedCandle = {
+export type PreparedCandle = {
   date: string
   bodyBottom: number
   bodyHeight: number
@@ -37,7 +37,7 @@ type PreparedCandle = {
   low: number
 }
 
-type CandleShapeProps = {
+export type CandleShapeProps = {
   x?: number
   y?: number
   width?: number
@@ -45,7 +45,8 @@ type CandleShapeProps = {
   payload?: PreparedCandle
 }
 
-function CandleShape(shapeProps: CandleShapeProps) {
+// exported for testing
+export function CandleShape(shapeProps: CandleShapeProps) {
   const { x = 0, y = 0, width = 0, height: h = 0, payload } = shapeProps
   if (payload === undefined) return null
   if (h === 0 && payload.bodyHeight === 0) return null

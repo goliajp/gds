@@ -1,7 +1,8 @@
 import { render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
-import { CandlestickChart } from '../candlestick-chart'
+import type { PreparedCandle } from '../candlestick-chart'
+import { CandleShape, CandlestickChart } from '../candlestick-chart'
 
 const data = [
   { date: '2026-01-01', open: 100, high: 110, low: 95, close: 105 },
@@ -138,5 +139,71 @@ describe('CandlestickChart', () => {
     const el = container.querySelector('[data-component="candlestick-chart"]')
     expect(el?.className).toContain('backdrop-blur-md')
     expect(el?.className).toContain('extra')
+  })
+})
+
+describe('CandleShape', () => {
+  const payload: PreparedCandle = {
+    date: '2026-01-01',
+    bodyBottom: 95,
+    bodyHeight: 10,
+    fill: '#22c55e',
+    high: 110,
+    low: 90,
+  }
+
+  it('returns null when payload is undefined', () => {
+    const { container } = render(
+      <svg><CandleShape x={10} y={20} width={8} height={10} /></svg>,
+    )
+    // no g element rendered
+    expect(container.querySelector('g')).toBeNull()
+  })
+
+  it('returns null when h and bodyHeight are both 0', () => {
+    const zeroPayload: PreparedCandle = { ...payload, bodyHeight: 0 }
+    const { container } = render(
+      <svg><CandleShape x={10} y={20} width={8} height={0} payload={zeroPayload} /></svg>,
+    )
+    expect(container.querySelector('g')).toBeNull()
+  })
+
+  it('renders wick and body when payload is valid', () => {
+    const { container } = render(
+      <svg><CandleShape x={10} y={20} width={8} height={10} payload={payload} /></svg>,
+    )
+    expect(container.querySelector('g')).not.toBeNull()
+    expect(container.querySelector('line')).not.toBeNull()
+    expect(container.querySelector('rect')).not.toBeNull()
+  })
+
+  it('renders with default values when x/y/width/height are omitted', () => {
+    const { container } = render(
+      <svg><CandleShape payload={payload} /></svg>,
+    )
+    // defaults to x=0, y=0, width=0, height=0
+    // h=0 but bodyHeight=10 > 0, so it should render
+    expect(container.querySelector('g')).not.toBeNull()
+  })
+
+  it('sets minimum height of 1 for the rect', () => {
+    const tinyPayload: PreparedCandle = { ...payload, bodyHeight: 5 }
+    const { container } = render(
+      <svg><CandleShape x={10} y={20} width={8} height={0} payload={tinyPayload} /></svg>,
+    )
+    // h=0 but bodyHeight=5 > 0, so it renders; rect height = max(0, 1) = 1
+    const rect = container.querySelector('rect')
+    expect(rect).not.toBeNull()
+    expect(rect?.getAttribute('height')).toBe('1')
+  })
+
+  it('uses fill from payload', () => {
+    const { container } = render(
+      <svg><CandleShape x={10} y={20} width={8} height={10} payload={payload} /></svg>,
+    )
+    const rect = container.querySelector('rect')
+    expect(rect?.getAttribute('fill')).toBe('#22c55e')
+    const line = container.querySelector('line')
+    expect(line?.getAttribute('stroke')).toBe('#22c55e')
   })
 })

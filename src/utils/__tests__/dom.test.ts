@@ -1,6 +1,7 @@
-import { describe, expect, it } from 'vitest'
+import { createRef } from 'react'
+import { describe, expect, it, vi } from 'vitest'
 
-import { clamp, isActivationKey, uid } from '../dom'
+import { clamp, isActivationKey, mergeRefs, uid } from '../dom'
 
 describe('clamp', () => {
   it('clamps below min', () => {
@@ -39,5 +40,46 @@ describe('uid', () => {
 
   it('supports custom prefix', () => {
     expect(uid('test')).toMatch(/^test-/)
+  })
+})
+
+describe('mergeRefs', () => {
+  it('calls function refs with the value', () => {
+    const fn = vi.fn()
+    const merged = mergeRefs(fn)
+    const el = document.createElement('div')
+    merged(el)
+    expect(fn).toHaveBeenCalledWith(el)
+  })
+
+  it('sets object ref current', () => {
+    const ref = createRef<HTMLDivElement>()
+    const merged = mergeRefs(ref)
+    const el = document.createElement('div')
+    merged(el)
+    expect(ref.current).toBe(el)
+  })
+
+  it('handles mixed function and object refs', () => {
+    const fn = vi.fn()
+    const ref = createRef<HTMLDivElement>()
+    const merged = mergeRefs(fn, ref)
+    const el = document.createElement('div')
+    merged(el)
+    expect(fn).toHaveBeenCalledWith(el)
+    expect(ref.current).toBe(el)
+  })
+
+  it('skips undefined and null refs', () => {
+    const fn = vi.fn()
+    const merged = mergeRefs(undefined, null as unknown as undefined, fn)
+    const el = document.createElement('div')
+    merged(el)
+    expect(fn).toHaveBeenCalledWith(el)
+  })
+
+  it('handles no refs', () => {
+    const merged = mergeRefs<HTMLDivElement>()
+    expect(() => merged(document.createElement('div'))).not.toThrow()
   })
 })

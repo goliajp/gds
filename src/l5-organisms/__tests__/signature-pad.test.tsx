@@ -154,6 +154,80 @@ describe('SignaturePad', () => {
     expect(onSign).not.toHaveBeenCalled()
   })
 
+  it('fires mouse events without crash even when canvas ctx unavailable', () => {
+    // in happy-dom, canvas.getContext('2d') returns null, so startDraw bails early
+    // this test verifies the null-guard branches (lines 40-41, 53-55) are exercised
+    const onSign = vi.fn()
+    const { container } = render(<SignaturePad onSign={onSign} />)
+    const canvas = container.querySelector('canvas')!
+
+    fireEvent.mouseDown(canvas, { clientX: 50, clientY: 50 })
+    fireEvent.mouseMove(canvas, { clientX: 60, clientY: 60 })
+    fireEvent.mouseUp(canvas)
+
+    // onSign not called because canvas ctx is null in happy-dom
+    // the important thing is it doesn't crash
+  })
+
+  it('fires touch events without crash covering null ctx branches', () => {
+    const onSign = vi.fn()
+    const { container } = render(<SignaturePad onSign={onSign} />)
+    const canvas = container.querySelector('canvas')!
+
+    fireEvent.touchStart(canvas, {
+      touches: [{ clientX: 50, clientY: 50 }],
+      preventDefault: vi.fn(),
+    })
+    fireEvent.touchMove(canvas, {
+      touches: [{ clientX: 60, clientY: 60 }],
+      preventDefault: vi.fn(),
+    })
+    fireEvent.touchEnd(canvas, {
+      changedTouches: [{ clientX: 60, clientY: 60 }],
+      preventDefault: vi.fn(),
+    })
+    // does not crash
+  })
+
+  it('mouseLeave after mouseDown does not crash', () => {
+    const onSign = vi.fn()
+    const { container } = render(<SignaturePad onSign={onSign} />)
+    const canvas = container.querySelector('canvas')!
+
+    fireEvent.mouseDown(canvas, { clientX: 10, clientY: 10 })
+    fireEvent.mouseLeave(canvas)
+    // endDraw called but isDrawingRef is false (ctx was null), so onSign not called
+  })
+
+  it('accepts custom strokeColor and strokeWidth without crash', () => {
+    const { container } = render(
+      <SignaturePad onSign={vi.fn()} strokeColor="#ff0000" strokeWidth={5} />,
+    )
+    const canvas = container.querySelector('canvas')!
+
+    fireEvent.mouseDown(canvas, { clientX: 50, clientY: 50 })
+    fireEvent.mouseMove(canvas, { clientX: 60, clientY: 60 })
+    fireEvent.mouseUp(canvas)
+  })
+
+  it('endDraw does nothing when isDrawing is false', () => {
+    // this directly tests the guard at line 64: if (!isDrawingRef.current) return
+    const onSign = vi.fn()
+    const { container } = render(<SignaturePad onSign={onSign} />)
+    const canvas = container.querySelector('canvas')!
+
+    // mouseUp without prior mouseDown
+    fireEvent.mouseUp(canvas)
+    expect(onSign).not.toHaveBeenCalled()
+
+    // touchEnd without prior touchStart
+    fireEvent.touchEnd(canvas, {
+      changedTouches: [{ clientX: 0, clientY: 0 }],
+      preventDefault: vi.fn(),
+    })
+    expect(onSign).not.toHaveBeenCalled()
+  })
+
   it('applies custom className', () => {
     const { container } = render(<SignaturePad onSign={() => {}} className="my-pad" />)
     const root = container.querySelector('[data-component="signature-pad"]')

@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { act, fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 
 import { VideoPlayer } from '../video-player'
@@ -226,5 +226,76 @@ describe('VideoPlayer', () => {
     const { container } = render(<VideoPlayer src="test.mp4" />)
     const el = container.querySelector('[data-component="video-player"]')
     expect(el?.className).not.toContain('gds-glass')
+  })
+
+  it('auto-hides controls after timeout while playing', () => {
+    vi.useFakeTimers()
+
+    render(<VideoPlayer src="test.mp4" />)
+    const video = screen.getByTestId('video-element') as HTMLVideoElement
+
+    let paused = true
+    Object.defineProperty(video, 'paused', { get: () => paused, configurable: true })
+    video.play = vi.fn().mockImplementation(() => { paused = false; return Promise.resolve() })
+
+    // start playing
+    fireEvent.click(screen.getByTestId('play-button'))
+
+    // controls should be visible initially
+    expect(screen.getByTestId('controls').className).toContain('opacity-100')
+
+    // advance past the 3000ms hide timer
+    act(() => {
+      vi.advanceTimersByTime(3100)
+    })
+
+    // controls should be hidden now
+    expect(screen.getByTestId('controls').className).toContain('opacity-0')
+
+    vi.useRealTimers()
+  })
+
+  it('requestFullscreen is called when not in fullscreen', () => {
+    render(<VideoPlayer src="test.mp4" />)
+    const video = screen.getByTestId('video-element') as HTMLVideoElement
+
+    // ensure not in fullscreen
+    Object.defineProperty(document, 'fullscreenElement', { value: null, configurable: true })
+    video.requestFullscreen = vi.fn().mockResolvedValue(undefined)
+
+    fireEvent.click(screen.getByTestId('fullscreen-button'))
+    expect(video.requestFullscreen).toHaveBeenCalled()
+  })
+
+  it('resets hide timer on mouse move while playing', () => {
+    vi.useFakeTimers()
+
+    const { container } = render(<VideoPlayer src="test.mp4" />)
+    const video = screen.getByTestId('video-element') as HTMLVideoElement
+    const el = container.querySelector('[data-component="video-player"]')!
+
+    let paused = true
+    Object.defineProperty(video, 'paused', { get: () => paused, configurable: true })
+    video.play = vi.fn().mockImplementation(() => { paused = false; return Promise.resolve() })
+
+    fireEvent.click(screen.getByTestId('play-button'))
+
+    // advance partway
+    act(() => {
+      vi.advanceTimersByTime(2000)
+    })
+
+    // mouse move should reset the timer
+    fireEvent.mouseMove(el)
+
+    // advance another 2000ms (total 4000 from start, but only 2000 from last move)
+    act(() => {
+      vi.advanceTimersByTime(2000)
+    })
+
+    // controls should still be visible since timer was reset
+    expect(screen.getByTestId('controls').className).toContain('opacity-100')
+
+    vi.useRealTimers()
   })
 })

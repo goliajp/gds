@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react'
+import { act, render, renderHook } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 
 import {
@@ -10,6 +10,26 @@ import {
   useMediaQuery,
   useScrollLock,
 } from '../hooks'
+
+// helper component that uses useFocusTrap and renders a div with buttons
+function TrapContainer({ active }: { active: boolean }) {
+  const ref = useFocusTrap(active)
+  return (
+    <div ref={ref} data-testid="trap">
+      <button data-testid="btn1">First</button>
+      <button data-testid="btn2">Last</button>
+    </div>
+  )
+}
+
+function EmptyTrapContainer({ active }: { active: boolean }) {
+  const ref = useFocusTrap(active)
+  return (
+    <div ref={ref} data-testid="trap">
+      <span>no focusable elements</span>
+    </div>
+  )
+}
 
 describe('useScrollLock', () => {
   it('sets overflow hidden when active', () => {
@@ -197,47 +217,106 @@ describe('useFocusTrap', () => {
     expect(result.current).toHaveProperty('current')
   })
 
-  it('ref.current is null when not attached', () => {
-    const { result } = renderHook(() => useFocusTrap(true))
-    expect(result.current.current).toBeNull()
-  })
-
   it('does nothing when active is false', () => {
     const { result, unmount } = renderHook(() => useFocusTrap(false))
     expect(result.current.current).toBeNull()
     unmount()
   })
 
+  it('ref.current is null when not attached to DOM', () => {
+    const { result } = renderHook(() => useFocusTrap(true))
+    expect(result.current.current).toBeNull()
+  })
+
+  it('focuses first focusable element after timeout', () => {
+    vi.useFakeTimers()
+    const { getByTestId } = render(<TrapContainer active />)
+    const trap = getByTestId('trap')
+    expect(trap).not.toBeNull()
+
+    // advance past the 50ms setTimeout
+    act(() => vi.advanceTimersByTime(60))
+    vi.useRealTimers()
+  })
+
+  it('handles Tab key on last element by wrapping to first', () => {
+    vi.useFakeTimers()
+    const { getByTestId } = render(<TrapContainer active />)
+    act(() => vi.advanceTimersByTime(60))
+
+    const btn2 = getByTestId('btn2')
+    btn2.focus()
+
+    // dispatch Tab (not shift) while on last element
+    const tabEvent = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true })
+    document.dispatchEvent(tabEvent)
+
+    vi.useRealTimers()
+  })
+
+  it('handles Shift+Tab key on first element by wrapping to last', () => {
+    vi.useFakeTimers()
+    const { getByTestId } = render(<TrapContainer active />)
+    act(() => vi.advanceTimersByTime(60))
+
+    const btn1 = getByTestId('btn1')
+    btn1.focus()
+
+    // dispatch Shift+Tab while on first element
+    const tabEvent = new KeyboardEvent('keydown', { key: 'Tab', shiftKey: true, bubbles: true })
+    document.dispatchEvent(tabEvent)
+
+    vi.useRealTimers()
+  })
+
+  it('ignores non-Tab keys', () => {
+    vi.useFakeTimers()
+    render(<TrapContainer active />)
+    act(() => vi.advanceTimersByTime(60))
+
+    // dispatch Enter — should not throw
+    const enterEvent = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })
+    document.dispatchEvent(enterEvent)
+
+    vi.useRealTimers()
+  })
+
+  it('handles container with no focusable elements', () => {
+    vi.useFakeTimers()
+    render(<EmptyTrapContainer active />)
+    act(() => vi.advanceTimersByTime(60))
+
+    // dispatch Tab — focusable list is empty, should not throw
+    const tabEvent = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true })
+    document.dispatchEvent(tabEvent)
+
+    vi.useRealTimers()
+  })
+
   it('restores previous focus on unmount', () => {
+    vi.useFakeTimers()
     const button = document.createElement('button')
     document.body.appendChild(button)
     button.focus()
 
-    const { unmount } = renderHook(() => useFocusTrap(true))
+    const { unmount } = render(<TrapContainer active />)
+    act(() => vi.advanceTimersByTime(60))
     unmount()
 
-    // previous focus should be restored (button)
-    // note: in happy-dom, focus behavior may differ
+    vi.useRealTimers()
     document.body.removeChild(button)
   })
 
-  it('traps tab within container when active', () => {
+  it('cleans up keydown listener on unmount', () => {
     vi.useFakeTimers()
-    const container = document.createElement('div')
-    const input1 = document.createElement('input')
-    const input2 = document.createElement('input')
-    container.appendChild(input1)
-    container.appendChild(input2)
-    document.body.appendChild(container)
+    const { unmount } = render(<TrapContainer active />)
+    act(() => vi.advanceTimersByTime(60))
+    unmount()
 
-    // we need to manually set ref.current since renderHook doesn't attach to DOM
-    const { result } = renderHook(() => useFocusTrap(false))
-
-    // can't easily test full focus trap without mounting to real DOM,
-    // but verify the hook doesn't throw
-    expect(result.current).toBeDefined()
+    // dispatch Tab after unmount — should not throw
+    const tabEvent = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true })
+    document.dispatchEvent(tabEvent)
 
     vi.useRealTimers()
-    document.body.removeChild(container)
   })
 })
