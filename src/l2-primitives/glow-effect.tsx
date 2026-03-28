@@ -12,21 +12,22 @@ type IntensityConfig = {
 }
 
 const intensityMap: Record<GlowIntensity, IntensityConfig> = {
-  sm: { blur: 28, opacity: 0.12, spread: 12 },
-  default: { blur: 40, opacity: 0.15, spread: 20 },
-  lg: { blur: 60, opacity: 0.25, spread: 30 },
+  sm: { blur: 32, opacity: 0.08, spread: 10 },
+  default: { blur: 48, opacity: 0.12, spread: 16 },
+  lg: { blur: 64, opacity: 0.18, spread: 24 },
 }
 
 export type GlowEffectProps = {
   children: React.ReactNode
+  className?: string
   color?: string
   intensity?: GlowIntensity
-  className?: string
+  radius?: number
 }
 
 export const GlowEffect = forwardRef<HTMLDivElement, GlowEffectProps>(
   function GlowEffect(
-    { children, color = 'var(--gds-accent)', intensity = 'default', className },
+    { children, className, color = 'var(--gds-accent)', intensity = 'default', radius = 16 },
     ref,
   ) {
     const config = intensityMap[intensity]
@@ -36,7 +37,7 @@ export const GlowEffect = forwardRef<HTMLDivElement, GlowEffectProps>(
           aria-hidden
           style={{
             backgroundColor: color,
-            borderRadius: 'inherit',
+            borderRadius: `${radius}px`,
             filter: `blur(${config.blur}px)`,
             inset: `-${config.spread}px`,
             opacity: config.opacity,

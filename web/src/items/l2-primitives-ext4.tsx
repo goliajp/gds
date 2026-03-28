@@ -31,8 +31,8 @@ const glowEffectItem: DevCenterItem = {
         <ImportLine text="import { GlowEffect } from '@goliapkg/gds'" />
         <LivePreview>
           <div className="flex items-center justify-center p-12">
-            <GlowEffect color={cssColor} intensity={config.intensity}>
-              <div className="rounded-xl bg-bg px-8 py-6 text-center">
+            <GlowEffect color={cssColor} intensity={config.intensity} radius={12}>
+              <div className="rounded-xl bg-bg px-8 py-6 text-center shadow-lg">
                 <p className="text-fg gds-heading font-medium">Glow Effect</p>
                 <p className="text-fg-muted gds-text-body mt-1">Content with a colored aura</p>
               </div>
@@ -79,6 +79,7 @@ const glowEffectItem: DevCenterItem = {
         ['children', 'Content to display with glow behind it', 'ReactNode', '—'],
         ['color', 'CSS color for the glow', 'string', 'var(--gds-accent)'],
         ['intensity', 'Blur and opacity level', '"sm" | "default" | "lg"', '"default"'],
+        ['radius', 'Border radius of the glow layer (px)', 'number', '16'],
         ['className', 'Container CSS classes', 'string', '—'],
       ]} />
     </div>

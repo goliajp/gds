@@ -18,9 +18,7 @@ describe('GlowEffect', () => {
   it('uses DOM order instead of negative z-index for layering', () => {
     const { container } = render(<GlowEffect>Content</GlowEffect>)
     const glow = container.querySelector('[aria-hidden]') as HTMLElement
-    // glow layer should not use z-index
     expect(glow.style.zIndex).toBe('')
-    // children wrapper should have relative class to establish stacking context above glow
     const childWrapper = glow.nextElementSibling as HTMLElement
     expect(childWrapper.className).toContain('relative')
     expect(childWrapper.textContent).toBe('Content')
@@ -29,31 +27,38 @@ describe('GlowEffect', () => {
   it('applies default intensity styles', () => {
     const { container } = render(<GlowEffect>Content</GlowEffect>)
     const glow = container.querySelector('[aria-hidden]') as HTMLElement
-    expect(glow.style.filter).toBe('blur(40px)')
-    expect(glow.style.opacity).toBe('0.15')
-    expect(glow.style.inset).toBe('-20px')
+    expect(glow.style.filter).toBe('blur(48px)')
+    expect(glow.style.opacity).toBe('0.12')
+    expect(glow.style.inset).toBe('-16px')
+    expect(glow.style.borderRadius).toBe('16px')
   })
 
   it('applies sm intensity styles', () => {
     const { container } = render(<GlowEffect intensity="sm">Content</GlowEffect>)
     const glow = container.querySelector('[aria-hidden]') as HTMLElement
-    expect(glow.style.filter).toBe('blur(28px)')
-    expect(glow.style.opacity).toBe('0.12')
-    expect(glow.style.inset).toBe('-12px')
+    expect(glow.style.filter).toBe('blur(32px)')
+    expect(glow.style.opacity).toBe('0.08')
+    expect(glow.style.inset).toBe('-10px')
   })
 
   it('applies lg intensity styles', () => {
     const { container } = render(<GlowEffect intensity="lg">Content</GlowEffect>)
     const glow = container.querySelector('[aria-hidden]') as HTMLElement
-    expect(glow.style.filter).toBe('blur(60px)')
-    expect(glow.style.opacity).toBe('0.25')
-    expect(glow.style.inset).toBe('-30px')
+    expect(glow.style.filter).toBe('blur(64px)')
+    expect(glow.style.opacity).toBe('0.18')
+    expect(glow.style.inset).toBe('-24px')
   })
 
   it('applies custom color', () => {
     const { container } = render(<GlowEffect color="red">Content</GlowEffect>)
     const glow = container.querySelector('[aria-hidden]') as HTMLElement
     expect(glow.style.backgroundColor).toBe('red')
+  })
+
+  it('applies custom radius', () => {
+    const { container } = render(<GlowEffect radius={24}>Content</GlowEffect>)
+    const glow = container.querySelector('[aria-hidden]') as HTMLElement
+    expect(glow.style.borderRadius).toBe('24px')
   })
 
   it('has data-component attribute', () => {
