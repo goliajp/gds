@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { SortableTable, Wizard } from '@gds/l4-molecules'
+import { Wizard } from '@gds/l4-molecules'
 
 import { Ctrl } from '../components/ctrl'
 import { DocTable, ImportLine, LivePreview } from '../components/demo'
@@ -8,70 +8,6 @@ import { DocTable, ImportLine, LivePreview } from '../components/demo'
 import type { DevCenterItem } from '../types'
 
 const moleculeItemsQ: DevCenterItem[] = []
-
-const sortableTableItem: DevCenterItem = {
-  id: 'sortable-table',
-  label: 'SortableTable',
-  layer: 'l4',
-  type: 'interactive',
-  tags: ['table', 'sort', 'data', 'grid', 'molecule'],
-  defaultConfig: {},
-
-  stage: () => {
-    const columns = [
-      { key: 'name', header: 'Name' },
-      { key: 'role', header: 'Role' },
-      { key: 'age', header: 'Age' },
-    ]
-    const data = [
-      { name: 'Alice', role: 'Engineer', age: 30 },
-      { name: 'Bob', role: 'Designer', age: 35 },
-      { name: 'Charlie', role: 'PM', age: 25 },
-      { name: 'Diana', role: 'Engineer', age: 28 },
-    ]
-    return (
-      <div>
-        <ImportLine text="import { SortableTable } from '@goliapkg/gds'" />
-        <LivePreview className="!p-6">
-          <SortableTable columns={columns} data={data} defaultSort={{ key: 'name', dir: 'asc' }} />
-        </LivePreview>
-      </div>
-    )
-  },
-
-  code: () => [
-    "import { SortableTable } from '@goliapkg/gds'",
-    '',
-    '<SortableTable',
-    '  columns={[',
-    "    { key: 'name', header: 'Name' },",
-    "    { key: 'role', header: 'Role' },",
-    '  ]}',
-    '  data={rows}',
-    "  defaultSort={{ key: 'name', dir: 'asc' }}",
-    '/>',
-  ].join('\n'),
-
-  docs: () => (
-    <div className="space-y-4" data-selectable>
-      <DocTable rows={[
-        ['columns', 'Column definitions', 'SortableColumn[]', '—'],
-        ['data', 'Row data array', 'Record<string, unknown>[]', '—'],
-        ['defaultSort', 'Initial sort state', '{ key: string, dir: "asc" | "desc" }', '—'],
-        ['className', 'Root element class', 'string', '—'],
-      ]} />
-      <div>
-        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">SortableColumn</div>
-        <DocTable rows={[
-          ['key', 'Data field key', 'string', '—'],
-          ['header', 'Header label', 'string', '—'],
-          ['sortable', 'Enable sorting for this column', 'boolean', 'true'],
-        ]} />
-      </div>
-    </div>
-  ),
-}
-moleculeItemsQ.push(sortableTableItem)
 
 const wizardItem: DevCenterItem = {
   id: 'wizard',
