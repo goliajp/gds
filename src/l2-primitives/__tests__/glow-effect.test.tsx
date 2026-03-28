@@ -9,60 +9,57 @@ describe('GlowEffect', () => {
     expect(screen.getByText('Hello')).toBeInTheDocument()
   })
 
-  it('has a glow div with aria-hidden', () => {
-    const { container } = render(<GlowEffect>Content</GlowEffect>)
-    const glow = container.querySelector('[aria-hidden]')
-    expect(glow).toBeInTheDocument()
-  })
-
-  it('uses DOM order instead of negative z-index for layering', () => {
-    const { container } = render(<GlowEffect>Content</GlowEffect>)
-    const glow = container.querySelector('[aria-hidden]') as HTMLElement
-    expect(glow.style.zIndex).toBe('')
-    const childWrapper = glow.nextElementSibling as HTMLElement
-    expect(childWrapper.className).toContain('relative')
-    expect(childWrapper.textContent).toBe('Content')
-  })
-
-  it('applies default intensity styles', () => {
-    const { container } = render(<GlowEffect>Content</GlowEffect>)
-    const glow = container.querySelector('[aria-hidden]') as HTMLElement
-    expect(glow.style.filter).toBe('blur(40px)')
-    expect(glow.style.opacity).toBe('0.2')
-    expect(glow.style.inset).toBe('-20px')
-    expect(glow.style.borderRadius).toBe('16px')
-  })
-
-  it('applies sm intensity styles', () => {
-    const { container } = render(<GlowEffect intensity="sm">Content</GlowEffect>)
-    const glow = container.querySelector('[aria-hidden]') as HTMLElement
-    expect(glow.style.filter).toBe('blur(28px)')
-    expect(glow.style.opacity).toBe('0.15')
-    expect(glow.style.inset).toBe('-12px')
-  })
-
-  it('applies lg intensity styles', () => {
-    const { container } = render(<GlowEffect intensity="lg">Content</GlowEffect>)
-    const glow = container.querySelector('[aria-hidden]') as HTMLElement
-    expect(glow.style.filter).toBe('blur(56px)')
-    expect(glow.style.opacity).toBe('0.3')
-    expect(glow.style.inset).toBe('-28px')
-  })
-
-  it('applies custom color', () => {
-    const { container } = render(<GlowEffect color="red">Content</GlowEffect>)
-    const glow = container.querySelector('[aria-hidden]') as HTMLElement
-    expect(glow.style.backgroundColor).toBe('red')
-  })
-
-  it('applies custom radius', () => {
-    const { container } = render(<GlowEffect radius={24}>Content</GlowEffect>)
-    const glow = container.querySelector('[aria-hidden]') as HTMLElement
-    expect(glow.style.borderRadius).toBe('24px')
-  })
-
   it('has data-component attribute', () => {
     const { container } = render(<GlowEffect>Content</GlowEffect>)
     expect(container.querySelector('[data-component="glow-effect"]')).toBeInTheDocument()
+  })
+
+  it('renders as a single DOM node wrapping children', () => {
+    const { container } = render(<GlowEffect>Content</GlowEffect>)
+    const root = container.querySelector('[data-component="glow-effect"]') as HTMLElement
+    expect(root.textContent).toBe('Content')
+    expect(root.querySelector('[aria-hidden]')).toBeNull()
+  })
+
+  it('applies default intensity as box-shadow with dual layers', () => {
+    const { container } = render(<GlowEffect>Content</GlowEffect>)
+    const root = container.querySelector('[data-component="glow-effect"]') as HTMLElement
+    expect(root.style.boxShadow).toContain('32px')
+    expect(root.style.boxShadow).toContain('8px')
+    expect(root.style.boxShadow).toContain('color-mix')
+    // dual shadow (outer + inner)
+    expect(root.style.boxShadow.split(',').length).toBeGreaterThanOrEqual(2)
+  })
+
+  it('applies sm intensity', () => {
+    const { container } = render(<GlowEffect intensity="sm">Content</GlowEffect>)
+    const root = container.querySelector('[data-component="glow-effect"]') as HTMLElement
+    expect(root.style.boxShadow).toContain('20px')
+    expect(root.style.boxShadow).toContain('15%')
+  })
+
+  it('applies lg intensity', () => {
+    const { container } = render(<GlowEffect intensity="lg">Content</GlowEffect>)
+    const root = container.querySelector('[data-component="glow-effect"]') as HTMLElement
+    expect(root.style.boxShadow).toContain('48px')
+    expect(root.style.boxShadow).toContain('25%')
+  })
+
+  it('applies custom color in box-shadow', () => {
+    const { container } = render(<GlowEffect color="var(--gds-danger)">Content</GlowEffect>)
+    const root = container.querySelector('[data-component="glow-effect"]') as HTMLElement
+    expect(root.style.boxShadow).toContain('var(--gds-danger)')
+  })
+
+  it('applies border-radius when radius prop is provided', () => {
+    const { container } = render(<GlowEffect radius={12}>Content</GlowEffect>)
+    const root = container.querySelector('[data-component="glow-effect"]') as HTMLElement
+    expect(root.style.borderRadius).toBe('12px')
+  })
+
+  it('does not set border-radius when radius prop is omitted', () => {
+    const { container } = render(<GlowEffect>Content</GlowEffect>)
+    const root = container.querySelector('[data-component="glow-effect"]') as HTMLElement
+    expect(root.style.borderRadius).toBe('')
   })
 })
