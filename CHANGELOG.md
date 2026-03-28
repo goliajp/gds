@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.1] - 2026-03-28
+
+### Fixed
+
+- resolve PinInput onChange type conflict with HTMLAttributes
+
 ## [1.0.0] - 2026-03-28
 
 GDS v1 — production-ready release after 6 rounds of systematic audit and hardening.
