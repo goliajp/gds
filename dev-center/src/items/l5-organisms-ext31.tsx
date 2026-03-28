@@ -41,7 +41,7 @@ const notificationToastItem: DevCenterItem = {
           </div>
           <NotificationToast
             toasts={toasts}
-            onDismiss={(id) => setToasts((prev) => prev.filter((t) => t.id !== id))}
+            onClose={(id) => setToasts((prev) => prev.filter((t) => t.id !== id))}
             position={config.position}
           />
         </LivePreview>
@@ -54,13 +54,13 @@ const notificationToastItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { NotificationToast } from '@goliapkg/gds'\n\n<NotificationToast\n  toasts={toasts}\n  onDismiss={(id) => removeToast(id)}\n  position="top-right"\n/>`,
+    `import { NotificationToast } from '@goliapkg/gds'\n\n<NotificationToast\n  toasts={toasts}\n  onClose={(id) => removeToast(id)}\n  position="top-right"\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
       <DocTable rows={[
         ['toasts', 'Array of toast entries', '{ id, title, message?, variant? }[]', '—'],
-        ['onDismiss', 'Callback when a toast is dismissed', '(id: string) => void', '—'],
+        ['onClose', 'Callback when a toast is dismissed', '(id: string) => void', '—'],
         ['position', 'Stack position on screen', "'top-right' | 'bottom-right'", "'top-right'"],
         ['className', 'Additional CSS classes', 'string', '—'],
       ]} />

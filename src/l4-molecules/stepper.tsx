@@ -42,7 +42,7 @@ export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
 
           return (
             <div
-              key={i}
+              key={`${step.label}-${i}`}
               className={cx(
                 'flex',
                 isHoriz ? 'flex-1 items-center' : 'items-start',

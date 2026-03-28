@@ -17,10 +17,10 @@ describe('NotificationCenter', () => {
     expect(screen.getByText('New comment')).toBeDefined()
   })
 
-  it('shows dismiss buttons when onDismiss provided', () => {
-    const onDismiss = vi.fn()
+  it('shows dismiss buttons when onClose provided', () => {
+    const onClose = vi.fn()
     const { container } = render(
-      <NotificationCenter notifications={sampleNotifications} onDismiss={onDismiss} />,
+      <NotificationCenter notifications={sampleNotifications} onClose={onClose} />,
     )
     const dismissButtons = container.querySelectorAll('[aria-label="Dismiss"]')
     expect(dismissButtons.length).toBe(3)

@@ -28,4 +28,36 @@ describe('ServerOverview', () => {
     // t01 has 3 bars (cpu, mem, disk), t02 has none
     expect(bars.length).toBe(3)
   })
+
+  it('shows online status with success color', () => {
+    const { container } = render(<ServerOverview servers={servers} />)
+    const dots = container.querySelectorAll('.rounded-full')
+    const onlineDot = Array.from(dots).find((d) => d.className.includes('bg-success'))
+    expect(onlineDot).not.toBeUndefined()
+  })
+
+  it('shows offline status with danger color', () => {
+    const { container } = render(<ServerOverview servers={servers} />)
+    const dots = container.querySelectorAll('.rounded-full')
+    const offlineDot = Array.from(dots).find((d) => d.className.includes('bg-danger'))
+    expect(offlineDot).not.toBeUndefined()
+  })
+
+  it('renders warning variant for metrics >= 70', () => {
+    const highServers = [
+      { name: 'h01', location: 'Tokyo', status: 'online' as const, metrics: { cpu: 75, mem: 50, disk: 30 } },
+    ]
+    const { container } = render(<ServerOverview servers={highServers} />)
+    const bars = container.querySelectorAll('[role="progressbar"]')
+    expect(bars.length).toBe(3)
+  })
+
+  it('renders danger variant for metrics >= 90', () => {
+    const criticalServers = [
+      { name: 'c01', location: 'Tokyo', status: 'online' as const, metrics: { cpu: 95, mem: 50, disk: 30 } },
+    ]
+    const { container } = render(<ServerOverview servers={criticalServers} />)
+    const bars = container.querySelectorAll('[role="progressbar"]')
+    expect(bars.length).toBe(3)
+  })
 })

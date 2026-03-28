@@ -19,7 +19,7 @@ export type NotificationCenterProps = React.HTMLAttributes<HTMLDivElement> & {
   glass?: boolean
   notifications: NotificationItem[]
   onClear?: () => void
-  onDismiss?: (id: string) => void
+  onClose?: (id: string) => void
 }
 
 export const NotificationCenter = forwardRef<HTMLDivElement, NotificationCenterProps>(
@@ -30,7 +30,7 @@ export const NotificationCenter = forwardRef<HTMLDivElement, NotificationCenterP
       glass,
       notifications,
       onClear,
-      onDismiss,
+      onClose,
       ...props
     },
     ref,
@@ -70,7 +70,7 @@ export const NotificationCenter = forwardRef<HTMLDivElement, NotificationCenterP
                   title={n.title}
                   description={n.message}
                   variant={n.variant ?? 'info'}
-                  onClose={onDismiss !== undefined ? () => onDismiss(n.id) : undefined}
+                  onClose={onClose !== undefined ? () => onClose(n.id) : undefined}
                 />
               ))}
             </div>

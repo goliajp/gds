@@ -44,7 +44,7 @@ export const StepForm = forwardRef<HTMLDivElement, StepFormProps>(
         {/* step indicators */}
         <div className="flex items-center gap-2">
           {steps.map((step, i) => (
-            <div key={i} className="flex items-center gap-2">
+            <div key={`${step.label}-${i}`} className="flex items-center gap-2">
               {i > 0 && <div className={cx('h-px w-8', i <= current ? 'bg-accent' : 'bg-border')} />}
               <div className="flex items-center gap-2">
                 <div

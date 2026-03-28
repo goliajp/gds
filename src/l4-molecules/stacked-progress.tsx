@@ -37,7 +37,7 @@ export const StackedProgress = forwardRef<HTMLDivElement, StackedProgressProps>(
 
             return (
               <div
-                key={i}
+                key={`${seg.label}-${i}`}
                 className="transition-all duration-300"
                 style={{ width: `${pct}%`, backgroundColor: color }}
               />
@@ -51,7 +51,7 @@ export const StackedProgress = forwardRef<HTMLDivElement, StackedProgressProps>(
               const color = seg.color ?? defaultColors[i % defaultColors.length]
 
               return (
-                <div key={i} className="flex items-center gap-1.5 gds-text-body text-fg-muted">
+                <div key={`${seg.label}-${i}`} className="flex items-center gap-1.5 gds-text-body text-fg-muted">
                   <div
                     className="h-2 w-2 rounded-full"
                     style={{ backgroundColor: color }}

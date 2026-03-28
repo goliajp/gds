@@ -24,4 +24,21 @@ describe('MiniDashboard', () => {
     const el = container.querySelector('[data-component="mini-dashboard"]')
     expect(el?.className).toContain('gds-ctx')
   })
+
+  it('applies glass classes when glass is true', () => {
+    const { container } = render(<MiniDashboard glass>Content</MiniDashboard>)
+    const el = container.querySelector('[data-component="mini-dashboard"]')
+    expect(el?.className).toContain('gds-glass')
+  })
+
+  it('applies surface background when glass is false', () => {
+    const { container } = render(<MiniDashboard>Content</MiniDashboard>)
+    const el = container.querySelector('[data-component="mini-dashboard"]')
+    expect(el?.className).toContain('bg-surface')
+  })
+
+  it('does not render title when not provided', () => {
+    const { container } = render(<MiniDashboard>Content</MiniDashboard>)
+    expect(container.querySelector('h2')).toBeNull()
+  })
 })

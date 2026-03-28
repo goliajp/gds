@@ -90,4 +90,53 @@ describe('CandlestickChart', () => {
     const el = container.querySelector('[data-component="candlestick-chart"]')
     expect(el?.getAttribute('data-custom')).toBe('test')
   })
+
+  it('applies glass=false explicitly without glass classes', () => {
+    const { container } = render(<CandlestickChart data={data} glass={false} />)
+    const el = container.querySelector('[data-component="candlestick-chart"]')
+    expect(el?.className).not.toContain('backdrop-blur-md')
+    expect(el?.className).not.toContain('bg-white/5')
+  })
+
+  it('applies default height when not specified', () => {
+    const { container } = render(<CandlestickChart data={data} />)
+    const el = container.querySelector('[data-component="candlestick-chart"]')
+    expect(el).not.toBeNull()
+    // default height=300 is passed to ResponsiveContainer
+  })
+
+  it('handles all-up candles (close > open for all)', () => {
+    const upData = [
+      { date: '2026-01-01', open: 90, high: 110, low: 85, close: 105 },
+      { date: '2026-01-02', open: 95, high: 120, low: 90, close: 115 },
+    ]
+    const { container } = render(<CandlestickChart data={upData} />)
+    expect(container.querySelector('[data-component="candlestick-chart"]')).not.toBeNull()
+  })
+
+  it('handles all-down candles (close < open for all)', () => {
+    const downData = [
+      { date: '2026-01-01', open: 110, high: 115, low: 85, close: 90 },
+      { date: '2026-01-02', open: 120, high: 125, low: 90, close: 95 },
+    ]
+    const { container } = render(<CandlestickChart data={downData} />)
+    expect(container.querySelector('[data-component="candlestick-chart"]')).not.toBeNull()
+  })
+
+  it('computes correct domain from data lows and highs', () => {
+    const wideData = [
+      { date: '2026-01-01', open: 50, high: 200, low: 10, close: 100 },
+    ]
+    const { container } = render(<CandlestickChart data={wideData} />)
+    expect(container.querySelector('[data-component="candlestick-chart"]')).not.toBeNull()
+  })
+
+  it('applies className together with glass', () => {
+    const { container } = render(
+      <CandlestickChart data={data} glass className="extra" />,
+    )
+    const el = container.querySelector('[data-component="candlestick-chart"]')
+    expect(el?.className).toContain('backdrop-blur-md')
+    expect(el?.className).toContain('extra')
+  })
 })

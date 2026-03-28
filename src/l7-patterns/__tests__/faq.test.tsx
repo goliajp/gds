@@ -27,4 +27,21 @@ describe('FAQ', () => {
     expect(el).toBeDefined()
     expect(el).not.toBeNull()
   })
+
+  it('renders custom title', () => {
+    render(<FAQ items={items} title="Help Center" />)
+    expect(screen.getByText('Help Center')).toBeDefined()
+  })
+
+  it('applies glass classes when glass is true', () => {
+    const { container } = render(<FAQ items={items} glass />)
+    const el = container.querySelector('[data-component="faq"]')
+    expect(el?.className).toContain('gds-glass')
+  })
+
+  it('applies surface background when glass is false', () => {
+    const { container } = render(<FAQ items={items} />)
+    const el = container.querySelector('[data-component="faq"]')
+    expect(el?.className).toContain('bg-surface')
+  })
 })

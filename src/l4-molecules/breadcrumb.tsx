@@ -38,7 +38,7 @@ export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
       <nav ref={ref} aria-label="Breadcrumb" className={cx(className)} data-component="breadcrumb">
         <ol className="flex items-center gds-gap-sm gds-text-body text-fg-muted">
           {visibleItems.map((item, i) => (
-            <li key={i} className="flex items-center gds-gap-sm">
+            <li key={`${item.label}-${i}`} className="flex items-center gds-gap-sm">
               {i > 0 && (
                 <span className="text-fg-muted/50" aria-hidden="true">{separator}</span>
               )}

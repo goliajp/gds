@@ -28,4 +28,24 @@ describe('Toolbar', () => {
     const { container } = render(<Toolbar><button>Bold</button></Toolbar>)
     expect(container.querySelector('[data-component="toolbar"]')).toBeDefined()
   })
+
+  it('applies bottom position', () => {
+    const { container } = render(<Toolbar position="bottom"><button>Bold</button></Toolbar>)
+    const bar = container.querySelector('[data-component="toolbar"]')
+    expect(bar?.className).toContain('border-t')
+    expect(bar?.getAttribute('data-position')).toBe('bottom')
+  })
+
+  it('applies surface background for non-floating without glass', () => {
+    const { container } = render(<Toolbar glass={false}><button>Bold</button></Toolbar>)
+    const bar = container.querySelector('[data-component="toolbar"]')
+    expect(bar?.className).toContain('bg-surface')
+  })
+
+  it('applies border for floating without glass', () => {
+    const { container } = render(<Toolbar position="floating" glass={false}><button>Bold</button></Toolbar>)
+    const bar = container.querySelector('[data-component="toolbar"]')
+    expect(bar?.className).toContain('border')
+    expect(bar?.className).toContain('bg-surface')
+  })
 })

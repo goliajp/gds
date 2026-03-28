@@ -23,7 +23,7 @@ export const ProgressSteps = forwardRef<HTMLDivElement, ProgressStepsProps>(
           const isCurrent = i === current
 
           return (
-            <div key={i} className="flex flex-1 items-center" role="listitem">
+            <div key={`${label}-${i}`} className="flex flex-1 items-center" role="listitem">
               <div className="flex flex-col items-center gap-1">
                 <div
                   className={cx(

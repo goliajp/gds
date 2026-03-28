@@ -27,4 +27,44 @@ describe('CTABanner', () => {
     expect(el?.getAttribute('data-variant')).toBe('accent')
     expect(el?.className).toContain('bg-accent')
   })
+
+  it('applies gradient variant', () => {
+    const { container } = render(
+      <CTABanner title="Go" variant="gradient" actions={<button>OK</button>} />,
+    )
+    const el = container.querySelector('[data-component="cta-banner"]')
+    expect(el?.className).toContain('bg-gradient-to-r')
+  })
+
+  it('applies glass class for default variant with glass', () => {
+    const { container } = render(
+      <CTABanner title="Go" glass actions={<button>OK</button>} />,
+    )
+    const el = container.querySelector('[data-component="cta-banner"]')
+    expect(el?.className).toContain('gds-glass')
+  })
+
+  it('applies surface background for default variant without glass', () => {
+    const { container } = render(
+      <CTABanner title="Go" actions={<button>OK</button>} />,
+    )
+    const el = container.querySelector('[data-component="cta-banner"]')
+    expect(el?.className).toContain('bg-surface')
+  })
+
+  it('applies fg text color for default variant title', () => {
+    const { container } = render(
+      <CTABanner title="Go" actions={<button>OK</button>} />,
+    )
+    const h2 = container.querySelector('h2')
+    expect(h2?.className).toContain('text-fg')
+  })
+
+  it('applies opacity for non-default description', () => {
+    const { container } = render(
+      <CTABanner title="Go" description="Desc" variant="accent" actions={<button>OK</button>} />,
+    )
+    const p = container.querySelector('p')
+    expect(p?.className).toContain('opacity-80')
+  })
 })

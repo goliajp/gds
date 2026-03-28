@@ -39,7 +39,7 @@ export const Changelog = forwardRef<HTMLDivElement, ChangelogProps>(
             </div>
             <ul className="flex flex-col gap-1">
               {entry.changes.map((change, i) => (
-                <li key={i} className="flex items-start gap-2 gds-text text-fg">
+                <li key={`${change.type}-${i}`} className="flex items-start gap-2 gds-text text-fg">
                   <span className={cx(
                     'mt-0.5 shrink-0 rounded-full px-1.5 py-px text-[9px] font-bold uppercase leading-tight',
                     typeColors[change.type],

@@ -68,7 +68,7 @@ export const DataGrid = forwardRef<HTMLTableElement, DataGridProps>(
             )}
             {rows.map((row, i) => (
               <tr
-                key={i}
+                key={`${String(row[columns[0]?.key ?? ''] ?? '')}-${i}`}
                 className={cx(
                   'border-b border-border/20',
                   striped && i % 2 === 1 && 'bg-bg-secondary/30',

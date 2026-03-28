@@ -32,4 +32,43 @@ describe('CalendarView', () => {
     fireEvent.click(screen.getByText('15'))
     expect(onClick).toHaveBeenCalledWith(15)
   })
+
+  it('renders event dots on days with events', () => {
+    const events = [
+      { date: 5, label: 'Meeting', color: 'red' },
+      { date: 5, label: 'Lunch' },
+    ]
+    const { container } = render(<CalendarView month={3} year={2026} events={events} />)
+    const dots = container.querySelectorAll('.rounded-full')
+    expect(dots.length).toBeGreaterThanOrEqual(2)
+  })
+
+  it('uses default accent color when event has no color', () => {
+    const events = [{ date: 10, label: 'Task' }]
+    const { container } = render(<CalendarView month={3} year={2026} events={events} />)
+    const dot = container.querySelector('.rounded-full') as HTMLElement
+    expect(dot?.style.backgroundColor).toBe('var(--color-accent)')
+  })
+
+  it('does not call onDateClick when clicking empty cell', () => {
+    const onClick = vi.fn()
+    // march 2026 starts on sunday, so first cell is day 1, no blank cells before
+    // use february 2026 which starts on sunday too — let's use april 2026 which starts on wednesday
+    const { container } = render(<CalendarView month={4} year={2026} onDateClick={onClick} />)
+    // the first 3 cells are blank (april 2026 starts on wednesday)
+    const grid = container.querySelector('.grid')
+    const cells = grid?.children
+    // first 7 are weekday headers, next cells start with blanks
+    if (cells !== undefined && cells.length > 7) {
+      fireEvent.click(cells[7] as HTMLElement)
+    }
+    // clicking a blank cell should not call onDateClick
+    expect(onClick).not.toHaveBeenCalled()
+  })
+
+  it('applies custom className', () => {
+    const { container } = render(<CalendarView month={3} year={2026} className="my-cal" />)
+    const el = container.querySelector('[data-component="calendar-view"]')
+    expect(el?.className).toContain('my-cal')
+  })
 })

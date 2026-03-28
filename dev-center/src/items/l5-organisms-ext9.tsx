@@ -22,7 +22,7 @@ function NotificationCenterDemo({ glass }: { glass: boolean }) {
     <NotificationCenter
       notifications={items}
       glass={glass}
-      onDismiss={(id) => setItems((prev) => prev.filter((n) => n.id !== id))}
+      onClose={(id) => setItems((prev) => prev.filter((n) => n.id !== id))}
       onClear={() => setItems([])}
     />
   )
@@ -54,13 +54,13 @@ const notificationCenterItem: DevCenterItem = {
   ),
 
   code: () =>
-    `import { NotificationCenter } from '@goliapkg/gds'\n\n<NotificationCenter\n  notifications={[\n    { id: '1', title: 'Build succeeded', variant: 'success' },\n    { id: '2', title: 'Disk warning', variant: 'warning' },\n  ]}\n  onDismiss={(id) => dismiss(id)}\n  onClear={() => clearAll()}\n/>`,
+    `import { NotificationCenter } from '@goliapkg/gds'\n\n<NotificationCenter\n  notifications={[\n    { id: '1', title: 'Build succeeded', variant: 'success' },\n    { id: '2', title: 'Disk warning', variant: 'warning' },\n  ]}\n  onClose={(id) => dismiss(id)}\n  onClear={() => clearAll()}\n/>`,
 
   docs: () => (
     <div className="space-y-4" data-selectable>
       <DocTable rows={[
         ['notifications', 'Notification items array', '{ id, title, message?, variant?, timestamp? }[]', '—'],
-        ['onDismiss', 'Callback when dismissing one', '(id: string) => void', '—'],
+        ['onClose', 'Callback when dismissing one', '(id: string) => void', '—'],
         ['onClear', 'Callback to clear all', '() => void', '—'],
         ['emptyMessage', 'Text when empty', 'string', "'No notifications'"],
         ['glass', 'Glass material', 'boolean', 'false'],

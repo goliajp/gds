@@ -68,7 +68,7 @@ export const SortableTable = forwardRef<HTMLDivElement, SortableTableProps>(
           </thead>
           <tbody>
             {sorted.map((row, i) => (
-              <tr key={i} className="border-b border-border last:border-0 transition-colors hover:bg-bg-tertiary/30">
+              <tr key={`${String(row[columns[0]?.key ?? ''] ?? '')}-${i}`} className="border-b border-border last:border-0 transition-colors hover:bg-bg-tertiary/30">
                 {columns.map((col) => (
                   <td key={col.key} className="px-3 py-1.5 text-fg">
                     {String(row[col.key] ?? '')}

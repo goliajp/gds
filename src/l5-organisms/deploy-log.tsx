@@ -28,7 +28,7 @@ export const DeployLog = forwardRef<HTMLDivElement, DeployLogProps>(
           </thead>
           <tbody>
             {entries.map((e, i) => (
-              <tr key={i} className="border-t border-border gds-text-body hover:bg-bg-tertiary/30 transition-colors">
+              <tr key={`${e.project}-${e.timestamp}-${i}`} className="border-t border-border gds-text-body hover:bg-bg-tertiary/30 transition-colors">
                 <td className="px-3 py-1.5 font-medium text-fg">{e.project}</td>
                 <td className="px-3 py-1.5 text-fg-muted">{e.device}</td>
                 <td className="px-3 py-1.5 font-mono text-fg-muted">{e.version}</td>

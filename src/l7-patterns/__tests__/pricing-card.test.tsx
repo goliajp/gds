@@ -27,4 +27,38 @@ describe('PricingCard', () => {
     expect(el?.getAttribute('data-highlighted')).toBe('true')
     expect(el?.className).toContain('border-accent')
   })
+
+  it('applies glass class when not highlighted and glass is true', () => {
+    const { container } = render(<PricingCard name="Pro" price="$29" features={[]} glass />)
+    const el = container.querySelector('[data-component="pricing-card"]')
+    expect(el?.className).toContain('gds-glass')
+  })
+
+  it('applies surface background when not highlighted and not glass', () => {
+    const { container } = render(<PricingCard name="Pro" price="$29" features={[]} />)
+    const el = container.querySelector('[data-component="pricing-card"]')
+    expect(el?.className).toContain('bg-surface')
+  })
+
+  it('renders action slot', () => {
+    render(<PricingCard name="Pro" price="$29" features={[]} action={<button>Buy Now</button>} />)
+    expect(screen.getByText('Buy Now')).toBeDefined()
+  })
+
+  it('does not render action when undefined', () => {
+    const { container } = render(<PricingCard name="Pro" price="$29" features={[]} />)
+    expect(container.textContent).not.toContain('Buy Now')
+  })
+
+  it('renders custom period', () => {
+    render(<PricingCard name="Pro" price="$29" period="/year" features={[]} />)
+    expect(screen.getByText('/year')).toBeDefined()
+  })
+
+  it('applies glass on highlighted card', () => {
+    const { container } = render(<PricingCard name="Pro" price="$29" features={[]} highlighted glass />)
+    const el = container.querySelector('[data-component="pricing-card"]')
+    expect(el?.className).toContain('gds-glass')
+    expect(el?.className).toContain('border-accent')
+  })
 })

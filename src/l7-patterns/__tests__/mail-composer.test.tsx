@@ -29,4 +29,27 @@ describe('MailComposer', () => {
       body: 'World',
     })
   })
+
+  it('sends empty values when no input provided', () => {
+    const onSend = vi.fn()
+    render(<MailComposer onSend={onSend} />)
+    fireEvent.click(screen.getByText('Send'))
+    expect(onSend).toHaveBeenCalledWith({
+      to: '',
+      subject: '',
+      body: '',
+    })
+  })
+
+  it('applies custom className', () => {
+    const { container } = render(<MailComposer onSend={() => {}} className="my-form" />)
+    const el = container.querySelector('[data-component="mail-composer"]')
+    expect(el?.className).toContain('my-form')
+  })
+
+  it('sets default empty value for to field when no defaultTo', () => {
+    render(<MailComposer onSend={() => {}} />)
+    const toInput = screen.getByPlaceholderText('To') as HTMLInputElement
+    expect(toInput.defaultValue).toBe('')
+  })
 })
