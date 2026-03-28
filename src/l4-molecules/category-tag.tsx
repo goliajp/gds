@@ -1,6 +1,7 @@
 import { forwardRef } from 'react'
 
 import { cx } from '../utils/cx'
+import { isActivationKey } from '../utils/dom'
 
 type CategoryTagProps = React.HTMLAttributes<HTMLDivElement> & {
   color: string
@@ -20,8 +21,10 @@ export const CategoryTag = forwardRef<HTMLDivElement, CategoryTagProps>(
         )}
         data-component="category-tag"
         onClick={onClick}
+        onKeyDown={onClick !== undefined ? (e) => { if (isActivationKey(e)) { e.preventDefault(); onClick() } } : undefined}
         ref={ref}
         role={onClick !== undefined ? 'button' : undefined}
+        tabIndex={onClick !== undefined ? 0 : undefined}
         {...props}
       >
         <span className="h-3 w-1 shrink-0 rounded-full" style={{ backgroundColor: color }} />

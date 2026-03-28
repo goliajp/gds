@@ -34,7 +34,7 @@ export function useSwipe(onSwipe: SwipeHandler) {
       currentY: e.clientY,
       pointerId: e.pointerId,
     }
-    ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
+    ;if (e.target instanceof Element) e.target.setPointerCapture(e.pointerId)
   }, [])
 
   const onPointerMove = useCallback((e: React.PointerEvent) => {
@@ -137,7 +137,7 @@ export function useDrag(onDrag: DragHandler, onDragEnd?: (state: DragState) => v
       pointerId: e.pointerId,
     }
     isDragging.current = false
-    ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
+    ;if (e.target instanceof Element) e.target.setPointerCapture(e.pointerId)
   }, [])
 
   const onPointerMove = useCallback((e: React.PointerEvent) => {

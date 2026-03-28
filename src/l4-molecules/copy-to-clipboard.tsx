@@ -4,6 +4,7 @@ import { forwardRef, useCallback, useRef, useState } from 'react'
 
 import { focusCls } from '../utils/a11y'
 import { cx } from '../utils/cx'
+import { isActivationKey } from '../utils/dom'
 
 export type CopyToClipboardProps = {
   children: ReactNode
@@ -38,6 +39,7 @@ export const CopyToClipboard = forwardRef<HTMLSpanElement, CopyToClipboardProps>
         className={cx('relative inline-flex cursor-pointer select-none', focusCls, className)}
         data-component="copy-to-clipboard"
         onClick={handleClick}
+        onKeyDown={(e) => { if (isActivationKey(e)) { e.preventDefault(); handleClick() } }}
         role="button"
         tabIndex={0}
       >
