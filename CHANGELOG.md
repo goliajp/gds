@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.9] - 2026-03-29
+
+### Added
+
+- `theme.css` — `@import '@goliapkg/gds/theme.css'` maps GDS tokens to Tailwind @theme (shadow-sm, rounded-lg, bg-bg, text-fg, etc.)
+- `llms.txt` and `llms-full.txt` subpath exports in npm package
+
 ## [1.0.8] - 2026-03-29
 
 ### Fixed
