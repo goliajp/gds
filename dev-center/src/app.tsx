@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Navigate, Route, Routes, useNavigate, useParams } from 'react-router'
+import { Navigate, Route, Routes, useNavigate } from 'react-router'
 
 import { useThemeEffect } from '@gds/l1-systems/use-theme'
 import { Kbd } from '@gds/l2-primitives'
@@ -13,9 +13,9 @@ import { useFavorites } from './hooks/use-favorites'
 import { useRecent } from './hooks/use-recent'
 import { allItems } from './registry'
 
-import type { ItemConfig } from './types'
+import type { DevCenterItem, ItemConfig } from './types'
 
-// shortcuts data for the modal
+// shortcuts
 const shortcutEntries: [string, string][] = [
   ['/', 'Focus search'],
   ['?', 'Show shortcuts'],
@@ -31,32 +31,23 @@ function ShortcutsModal({ onClose }: { onClose: () => void }) {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose()
-      }}
+      onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
     >
       <div
         className="rounded-lg border border-border bg-surface/80 backdrop-blur-2xl p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="mb-4 text-sm font-semibold text-fg">
-          Keyboard Shortcuts
-        </div>
+        <div className="mb-4 text-sm font-semibold text-fg">Keyboard Shortcuts</div>
         <div className="space-y-2">
           {shortcutEntries.map(([key, desc]) => (
             <div className="flex items-center gap-4" key={key}>
-              <Kbd className="w-16 text-center">
-                {key}
-              </Kbd>
+              <Kbd className="w-16 text-center">{key}</Kbd>
               <span className="text-xs text-fg-muted/60">{desc}</span>
             </div>
           ))}
         </div>
         <div className="mt-4 text-center">
-          <button
-            className="text-xs text-fg-muted/30 hover:text-fg-muted/60 transition-colors"
-            onClick={onClose}
-          >
+          <button className="text-xs text-fg-muted/30 hover:text-fg-muted/60 transition-colors" onClick={onClose}>
             Press ? or Escape to close
           </button>
         </div>
@@ -65,11 +56,10 @@ function ShortcutsModal({ onClose }: { onClose: () => void }) {
   )
 }
 
-// layout shell — handles nav, toolbar, shortcuts, favorites
-function Shell() {
-  const { layerId } = useParams<{ layerId: string; itemId: string }>()
+// each item is a full page — route change = remount = clean state
+function ItemPage({ item }: { item: DevCenterItem }) {
   const navigate = useNavigate()
-  const layerItems = allItems.filter(i => i.layer === layerId)
+  const layerItems = allItems.filter(i => i.layer === item.layer)
 
   useThemeEffect()
 
@@ -77,251 +67,125 @@ function Shell() {
   const { recent, addRecent } = useRecent()
   const [showShortcuts, setShowShortcuts] = useState(false)
 
-  const validLayer = layers.some(l => l.id === layerId)
-
-  if (layerId !== undefined && !validLayer) {
-    return <Navigate to={`/${layers[0]?.id ?? 'l-dep'}`} replace />
-  }
-
-  return (
-    <div className="flex h-screen flex-col overflow-hidden bg-bg">
-      <ThemeToolbar />
-      <div className="flex flex-1 overflow-hidden">
-        <Nav
-          items={allItems}
-          favorites={favorites}
-          isFavorite={isFavorite}
-          toggleFavorite={toggleFavorite}
-          recent={recent}
-        />
-        <Routes>
-          <Route
-            path=":itemId"
-            element={
-              <ItemPage
-                layerId={layerId ?? ''}
-                layerItems={layerItems}
-                favorites={favorites}
-                toggleFavorite={toggleFavorite}
-                addRecent={addRecent}
-                showShortcuts={showShortcuts}
-                setShowShortcuts={setShowShortcuts}
-                navigate={navigate}
-              />
-            }
-          />
-          <Route
-            index
-            element={
-              layerItems.length > 0
-                ? <Navigate to={layerItems[0].id} replace />
-                : <main className="flex flex-1 items-center justify-center text-fg/40">
-                    <div className="text-center">
-                      <p className="text-2xl font-semibold">404</p>
-                      <p className="mt-2 text-sm">component not found</p>
-                    </div>
-                  </main>
-            }
-          />
-        </Routes>
-      </div>
-
-      {showShortcuts && (
-        <ShortcutsModal onClose={() => setShowShortcuts(false)} />
-      )}
-    </div>
-  )
-}
-
-// item page — one per route, state resets naturally on route change
-type ItemPageProps = {
-  layerId: string
-  layerItems: (typeof allItems)
-  favorites: string[]
-  toggleFavorite: (id: string) => void
-  addRecent: (id: string) => void
-  showShortcuts: boolean
-  setShowShortcuts: (v: boolean | ((prev: boolean) => boolean)) => void
-  navigate: ReturnType<typeof useNavigate>
-}
-
-function ItemPage({
-  layerId,
-  layerItems,
-  favorites: _favorites,
-  toggleFavorite,
-  addRecent,
-  showShortcuts,
-  setShowShortcuts,
-  navigate,
-}: ItemPageProps) {
-  const { itemId } = useParams<{ itemId: string }>()
-  const activeItem = allItems.find(item => item.id === itemId && item.layer === layerId)
-
-  // state lives here — route change = component remount = fresh state
-  const [variant, setVariant] = useState(activeItem?.variants?.[0] ?? '')
-  const [config, setConfigRaw] = useState<ItemConfig>(activeItem?.defaultConfig ?? {})
+  const [variant, setVariant] = useState(item.variants?.[0] ?? '')
+  const [config, setConfigRaw] = useState<ItemConfig>(item.defaultConfig ?? {})
 
   const setConfig = useCallback((key: string, val: unknown) => {
     setConfigRaw(prev => ({ ...prev, [key]: val }))
   }, [])
 
   const resetConfig = useCallback(() => {
-    setConfigRaw(activeItem?.defaultConfig ?? {})
-    setVariant(activeItem?.variants?.[0] ?? '')
-  }, [activeItem])
+    setConfigRaw(item.defaultConfig ?? {})
+    setVariant(item.variants?.[0] ?? '')
+  }, [item])
 
-  // track recent visits
-  useEffect(() => {
-    if (itemId !== undefined) {
-      addRecent(itemId)
-    }
-  }, [itemId, addRecent])
+  useEffect(() => { addRecent(item.id) }, [item.id, addRecent])
 
-  // keyboard navigation
+  // keyboard
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement)?.tagName
       const isInput = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT'
 
-      if (e.key === '/' && !isInput) {
-        e.preventDefault()
-        const searchInput = document.querySelector<HTMLInputElement>('.dc-search-input')
-        if (searchInput !== null) searchInput.focus()
-        return
-      }
-
-      if (e.key === '?' && !isInput) {
-        e.preventDefault()
-        setShowShortcuts((v: boolean) => !v)
-        return
-      }
-
-      if (e.key === 'f' && !isInput) {
-        e.preventDefault()
-        if (itemId !== undefined) toggleFavorite(itemId)
-        return
-      }
-
+      if (e.key === '/' && !isInput) { e.preventDefault(); document.querySelector<HTMLInputElement>('.dc-search-input')?.focus(); return }
+      if (e.key === '?' && !isInput) { e.preventDefault(); setShowShortcuts(v => !v); return }
+      if (e.key === 'f' && !isInput) { e.preventDefault(); toggleFavorite(item.id); return }
       if (e.key === 'd' && !isInput) {
         e.preventDefault()
         const el = document.documentElement
-        const current = el.getAttribute('data-theme')
-        if (current === 'light') {
-          el.setAttribute('data-theme', 'dark')
-        } else {
-          el.setAttribute('data-theme', 'light')
-        }
+        el.setAttribute('data-theme', el.getAttribute('data-theme') === 'light' ? 'dark' : 'light')
         return
       }
 
       if ((e.key === '[' || e.key === ']') && !isInput) {
         e.preventDefault()
-        const currentLayerIdx = layers.findIndex(l => l.id === layerId)
-        if (currentLayerIdx < 0) return
-
-        let nextLayerIdx = currentLayerIdx
-        if (e.key === '[' && currentLayerIdx > 0) {
-          nextLayerIdx = currentLayerIdx - 1
-        }
-        if (e.key === ']' && currentLayerIdx < layers.length - 1) {
-          nextLayerIdx = currentLayerIdx + 1
-        }
-        if (nextLayerIdx !== currentLayerIdx) {
-          const nextLayer = layers[nextLayerIdx]
-          const firstItem = allItems.find(i => i.layer === nextLayer.id)
-          if (firstItem !== undefined) {
-            navigate(`/${nextLayer.id}/${firstItem.id}`)
-          } else {
-            navigate(`/${nextLayer.id}`)
-          }
+        const idx = layers.findIndex(l => l.id === item.layer)
+        if (idx < 0) return
+        const next = e.key === '[' ? Math.max(0, idx - 1) : Math.min(layers.length - 1, idx + 1)
+        if (next !== idx) {
+          const layer = layers[next]
+          const first = allItems.find(i => i.layer === layer.id)
+          navigate(first !== undefined ? `/${layer.id}/${first.id}` : `/${layer.id}`)
         }
         return
       }
 
       if (isInput) return
-
-      const variants = activeItem?.variants
+      const variants = item.variants
 
       if (e.key === 'ArrowLeft' && variants !== undefined && variants.length > 1) {
         e.preventDefault()
         const vi = variants.indexOf(variant)
-        if (vi > 0) {
-          setVariant(variants[vi - 1])
-        } else {
-          setVariant(variants[variants.length - 1])
-        }
+        setVariant(variants[vi > 0 ? vi - 1 : variants.length - 1])
       }
-
       if (e.key === 'ArrowRight' && variants !== undefined && variants.length > 1) {
         e.preventDefault()
         const vi = variants.indexOf(variant)
-        if (vi < variants.length - 1) {
-          setVariant(variants[vi + 1])
-        } else {
-          setVariant(variants[0])
-        }
+        setVariant(variants[vi < variants.length - 1 ? vi + 1 : 0])
       }
-
       if (e.key === 'Escape') {
-        if (showShortcuts) {
-          setShowShortcuts(false)
-          return
-        }
-        if (variants !== undefined && variants.length > 0) {
-          setVariant(variants[0])
-        }
+        if (showShortcuts) { setShowShortcuts(false); return }
+        if (variants !== undefined && variants.length > 0) setVariant(variants[0])
       }
     }
-
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [activeItem, itemId, layerId, variant, showShortcuts, navigate, toggleFavorite, setShowShortcuts])
-
-  if (activeItem === undefined) {
-    return (
-      <>
-        <main className="flex flex-1 items-center justify-center text-fg/40">
-          <div className="text-center">
-            <p className="text-2xl font-semibold">404</p>
-            <p className="mt-2 text-sm">component not found</p>
-          </div>
-        </main>
-        <StatusBar item={undefined} totalCount={allItems.length} layerCount={layerItems.length} />
-      </>
-    )
-  }
+  }, [item, variant, showShortcuts, navigate, toggleFavorite])
 
   const stageProps = { config, setConfig, variant }
   const controlsProps = { config, setConfig, variant, setVariant, resetConfig }
 
   return (
-    <>
+    <div className="flex h-screen flex-col overflow-hidden bg-bg">
+      <ThemeToolbar />
       <div className="flex flex-1 overflow-hidden">
+        <Nav items={allItems} favorites={favorites} isFavorite={isFavorite} toggleFavorite={toggleFavorite} recent={recent} />
         <main className="flex-1 overflow-hidden">
-          <Stage item={activeItem} stageProps={stageProps} />
+          <Stage item={item} stageProps={stageProps} />
         </main>
         <aside className="w-[560px] shrink-0 overflow-hidden border-l border-border bg-bg-secondary/60 backdrop-blur-xl">
-          <Inspector item={activeItem} stageProps={stageProps} controlsProps={controlsProps} />
+          <Inspector item={item} stageProps={stageProps} controlsProps={controlsProps} />
         </aside>
       </div>
       <StatusBar
-        item={activeItem}
+        item={item}
         totalCount={allItems.length}
         layerCount={layerItems.length}
         variant={variant}
-        variants={activeItem.variants}
+        variants={item.variants}
         onVariantChange={setVariant}
       />
-    </>
+      {showShortcuts && <ShortcutsModal onClose={() => setShowShortcuts(false)} />}
+    </div>
   )
 }
 
+// every item registered as an explicit route — no wildcards, no dynamic params
 export function App() {
+  const firstItem = allItems[0]
+
   return (
     <Routes>
-      <Route path="/:layerId/*" element={<Shell />} />
-      <Route path="*" element={<Navigate to={`/${layers[0]?.id ?? 'l-docs'}`} replace />} />
+      {allItems.map(item => (
+        <Route
+          key={`${item.layer}/${item.id}`}
+          path={`/${item.layer}/${item.id}`}
+          element={<ItemPage item={item} />}
+        />
+      ))}
+
+      {layers.map(layer => {
+        const first = allItems.find(i => i.layer === layer.id)
+        return (
+          <Route
+            key={layer.id}
+            path={`/${layer.id}`}
+            element={first !== undefined ? <Navigate to={`/${layer.id}/${first.id}`} replace /> : <Navigate to="/" replace />}
+          />
+        )
+      })}
+
+      <Route path="/" element={<Navigate to={firstItem !== undefined ? `/${firstItem.layer}/${firstItem.id}` : '/l-docs'} replace />} />
     </Routes>
   )
 }
