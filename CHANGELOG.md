@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.8] - 2026-03-28
+
+### Changed
+
+- all layers now above 90% branch coverage (up from 74% at 0.9.4)
+- L0-tokens 83% → 92%, L1-systems 77% → 93%, L3-atoms 87% → 95%
+- L4-molecules 85% → 93%, L5-organisms 80% → 91%, L6-charts 76% → 88%, L7-patterns 78% → 94%
+- global: statements 94.8%, branches 92.2%, functions 95.2%, lines 96.3%
+- total: 391 test files, 3345 test cases (up from 344/2039 at 0.9.4)
+
 ## [0.9.7] - 2026-03-28
 
 ### Fixed
