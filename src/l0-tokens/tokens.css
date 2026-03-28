@@ -233,6 +233,13 @@
   }
 }
 
+/* ===== GENERAL UTILITIES =====
+ * custom utilities used by GDS components that are not built into Tailwind
+ * consumers get these automatically via tokens.css import
+ */
+@utility rounded-inherit { border-radius: inherit; }
+@utility -z-1 { z-index: -1; }
+
 /* ===== INTERACTION DEFAULTS =====
  * user-select off by default — gestures need this
  * selectable areas opt-in via [data-selectable], input, textarea, pre, code, td
