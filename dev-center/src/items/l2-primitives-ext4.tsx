@@ -14,25 +14,34 @@ const glowEffectItem: DevCenterItem = {
   type: 'interactive',
   tags: ['glow', 'aura', 'light', 'decorative', 'container', 'primitive'],
   defaultConfig: {
-    color: 'var(--gds-accent)',
+    color: 'accent',
     intensity: 'default',
   },
 
-  stage: ({ config }) => (
-    <div>
-      <ImportLine text="import { GlowEffect } from '@goliapkg/gds'" />
-      <LivePreview>
-        <div className="flex items-center justify-center p-12">
-          <GlowEffect color={config.color} intensity={config.intensity}>
-            <div className="rounded-xl bg-bg px-8 py-6 text-center">
-              <p className="text-fg gds-heading font-medium">Glow Effect</p>
-              <p className="text-fg-muted gds-text-body mt-1">Content with a colored aura</p>
-            </div>
-          </GlowEffect>
-        </div>
-      </LivePreview>
-    </div>
-  ),
+  stage: ({ config }) => {
+    const colorMap: Record<string, string> = {
+      accent: 'var(--gds-accent)',
+      success: 'var(--gds-success)',
+      warning: 'var(--gds-warning)',
+      danger: 'var(--gds-danger)',
+    }
+    const cssColor = colorMap[config.color] ?? 'var(--gds-accent)'
+    return (
+      <div>
+        <ImportLine text="import { GlowEffect } from '@goliapkg/gds'" />
+        <LivePreview>
+          <div className="flex items-center justify-center p-12">
+            <GlowEffect color={cssColor} intensity={config.intensity}>
+              <div className="rounded-xl bg-bg px-8 py-6 text-center">
+                <p className="text-fg gds-heading font-medium">Glow Effect</p>
+                <p className="text-fg-muted gds-text-body mt-1">Content with a colored aura</p>
+              </div>
+            </GlowEffect>
+          </div>
+        </LivePreview>
+      </div>
+    )
+  },
 
   controls: ({ config, setConfig }) => (
     <>
@@ -47,19 +56,22 @@ const glowEffectItem: DevCenterItem = {
         type="pills"
         label="color"
         value={config.color}
-        options={[
-          'var(--gds-accent)',
-          'var(--gds-success)',
-          'var(--gds-warning)',
-          'var(--gds-danger)',
-        ]}
+        options={['accent', 'success', 'warning', 'danger']}
         onChange={(v) => setConfig('color', v)}
       />
     </>
   ),
 
-  code: ({ config }) =>
-    `import { GlowEffect } from '@goliapkg/gds'\n\n<GlowEffect\n  color="${config.color}"\n  intensity="${config.intensity}"\n>\n  <div>Content</div>\n</GlowEffect>`,
+  code: ({ config }) => {
+    const colorMap: Record<string, string> = {
+      accent: 'var(--gds-accent)',
+      success: 'var(--gds-success)',
+      warning: 'var(--gds-warning)',
+      danger: 'var(--gds-danger)',
+    }
+    const cssColor = colorMap[config.color] ?? 'var(--gds-accent)'
+    return `import { GlowEffect } from '@goliapkg/gds'\n\n<GlowEffect\n  color="${cssColor}"\n  intensity="${config.intensity}"\n>\n  <div>Content</div>\n</GlowEffect>`
+  },
 
   docs: () => (
     <div className="space-y-4" data-selectable>
