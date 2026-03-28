@@ -516,9 +516,9 @@ const loadingOverlayItem: DevCenterItem = {
 
       <DocSection title="API" columns={1}>
         <DocTable rows={[
-          { prop: 'visible', type: 'boolean', default: '—', description: 'Show/hide the overlay' },
-          { prop: 'message', type: 'string', default: '—', description: 'Optional text below spinner' },
-          { prop: 'glass', type: 'boolean', default: 'true', description: 'Enable frosted glass backdrop' },
+          ['visible', 'Show/hide the overlay', 'boolean', '—'],
+          ['message', 'Optional text below spinner', 'string', '—'],
+          ['glass', 'Enable frosted glass backdrop', 'boolean', 'true'],
         ]} />
       </DocSection>
     </div>
