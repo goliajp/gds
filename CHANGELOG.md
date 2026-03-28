@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.4] - 2026-03-28
+
+### Fixed
+
+- pass activeLayerId/activeItemId to Nav as props (fix empty nav on route change)
+- add key to ItemPage for proper remount on route change
+- convert object DocTable rows to string arrays in editable/toggle-group/loading-overlay
+- guard config values with ?? 0 and fix notification border color
+- deduplicate items — remove accessibility/philosophy/icons from l-dep
+
+### Changed
+
+- reorganize component layers: move TagInput/PinInput/Popover/OverflowMenu/SplitButton/Editable from L3 to L4
+- move SortableTable from L4 to L5
+- merge TimeSince into RelativeTime, merge OtpInput into PinInput
+- clean up content overlaps: remove time-since, sortable-table demos, rename stat → quick-stat
+- deduplicate content and fix layer assignment across all items
+- register every item as explicit route, no wildcards or dynamic params
+- 344 tests, 2038 cases, typecheck + lint clean
+
 ## [0.9.3] - 2026-03-28
 
 ### Fixed
