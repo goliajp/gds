@@ -170,7 +170,7 @@ export function App() {
         <Route
           key={`${item.layer}/${item.id}`}
           path={`/${item.layer}/${item.id}`}
-          element={<ItemPage item={item} />}
+          element={<ItemPage key={`${item.layer}/${item.id}`} item={item} />}
         />
       ))}
 
