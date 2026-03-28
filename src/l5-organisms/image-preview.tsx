@@ -1,9 +1,9 @@
 // image-preview — lightbox image viewer with fullscreen overlay
 import { forwardRef, useCallback, useEffect, useState } from 'react'
-import { createPortal } from 'react-dom'
 
 import { focusCls } from '../utils/a11y'
 import { cx } from '../utils/cx'
+import { renderPortal } from '../utils/portal'
 
 export type ImagePreviewProps = {
   src: string
@@ -55,7 +55,7 @@ export const ImagePreview = forwardRef<HTMLDivElement, ImagePreviewProps>(
         </button>
 
         {/* lightbox overlay */}
-        {open && createPortal(
+        {open && renderPortal(
           <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
             onClick={(e) => { if (e.target === e.currentTarget) handleClose() }}
@@ -83,7 +83,6 @@ export const ImagePreview = forwardRef<HTMLDivElement, ImagePreviewProps>(
               className="max-h-[90vh] max-w-[90vw] object-contain"
             />
           </div>,
-          document.body,
         )}
       </div>
     )

@@ -13,9 +13,20 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: {
+        'index': resolve(__dirname, 'src/index.ts'),
+        'l0-tokens/index': resolve(__dirname, 'src/l0-tokens/index.ts'),
+        'l1-systems/index': resolve(__dirname, 'src/l1-systems/index.ts'),
+        'l2-primitives/index': resolve(__dirname, 'src/l2-primitives/index.ts'),
+        'l3-atoms/index': resolve(__dirname, 'src/l3-atoms/index.ts'),
+        'l4-molecules/index': resolve(__dirname, 'src/l4-molecules/index.ts'),
+        'l5-organisms/index': resolve(__dirname, 'src/l5-organisms/index.ts'),
+        'l6-charts/index': resolve(__dirname, 'src/l6-charts/index.ts'),
+        'l7-patterns/index': resolve(__dirname, 'src/l7-patterns/index.ts'),
+        'utils/index': resolve(__dirname, 'src/utils/index.ts'),
+      },
       formats: ['es'],
-      fileName: 'index',
+      fileName: (_format, entryName) => `${entryName}.js`,
     },
     rollupOptions: {
       external: [

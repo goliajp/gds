@@ -21,6 +21,7 @@ export {
   useSetThemeMode,
   useSetThemeMotion,
   useSetThemePreset,
+  useSetThemePrimaryColor,
   useSetThemeShape,
   useTheme,
   useThemeEffect,
@@ -48,11 +49,30 @@ export * from './l7-patterns'
 export { focusCls, srOnly } from './utils/a11y'
 export { cx } from './utils/cx'
 export { clamp, isActivationKey, mergeRefs, uid } from './utils/dom'
+export type { DragHandler, DragState, SwipeHandler } from './utils/gesture'
+export { applyInertia, useDrag, useLongPress, useSwipe } from './utils/gesture'
+export { glassClass, glassSurface } from './utils/glass'
+export {
+  useClickOutside, useEscapeKey, useFocusTrap,
+  useIsDesktop, useIsMobile, useMediaQuery, useScrollLock,
+} from './utils/hooks'
+export { motionClass, motionClassWithSpeed } from './utils/motion'
+export { renderPortal } from './utils/portal'
 export type {
+  Align,
   AsProps,
+  ComponentBase,
+  DataAttributes,
   DataRecord,
+  GlassMotionProps,
   MergeProps,
+  MotionPreset,
+  Orientation,
   PartialExcept,
+  Placement,
   RequireKeys,
+  Side,
+  Size,
+  SvgProps,
   VariantProps,
 } from './utils/types'

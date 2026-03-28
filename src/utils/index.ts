@@ -12,6 +12,7 @@ export {
   useIsDesktop, useIsMobile, useMediaQuery, useScrollLock,
 } from './hooks'
 export { motionClass, motionClassWithSpeed } from './motion'
+export { renderPortal } from './portal'
 export type {
   Align,
   AsProps,

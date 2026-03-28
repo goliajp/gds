@@ -1,8 +1,8 @@
 import { forwardRef } from 'react'
-import { createPortal } from 'react-dom'
 
 import { cx } from '../utils/cx'
 import { glassClass } from '../utils/glass'
+import { renderPortal } from '../utils/portal'
 
 type ScreenOverlayProps = {
   visible: boolean
@@ -32,8 +32,7 @@ const ScreenOverlayInner = forwardRef<HTMLDivElement, ScreenOverlayProps>(
 
 export const ScreenOverlay = forwardRef<HTMLDivElement, ScreenOverlayProps>(
   function ScreenOverlay(props, ref) {
-    if (typeof document === 'undefined') return null
-    return createPortal(<ScreenOverlayInner ref={ref} {...props} />, document.body)
+    return renderPortal(<ScreenOverlayInner ref={ref} {...props} />)
   },
 )
 

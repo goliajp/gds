@@ -54,10 +54,10 @@ Each layer has strict import rules (enforced via ESLint):
 |-------|-------------------------------|
 | L0 | tailwindcss only |
 | L1 | react, jotai |
-| L2 | react, clsx, tailwind-merge (via cx) |
-| L3-L4 | + class-variance-authority, lucide-react |
-| L5 | + react-dom |
-| L6 | recharts (no cva) |
+| L2 | react, clsx, tailwind-merge (via cx), class-variance-authority |
+| L3-L4 | + lucide-react |
+| L5 | + lucide-react |
+| L6 | recharts (no cva, no lucide) |
 | L7 | react, clsx, tailwind-merge only |
 
 ### Anti-Corruption Layer (utils/)

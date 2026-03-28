@@ -37,14 +37,17 @@ type PreparedCandle = {
   low: number
 }
 
-function CandleShape(shapeProps: any) {
-  const { x, y, width, height: h, payload } = shapeProps as {
-    x: number
-    y: number
-    width: number
-    height: number
-    payload: PreparedCandle
-  }
+type CandleShapeProps = {
+  x?: number
+  y?: number
+  width?: number
+  height?: number
+  payload?: PreparedCandle
+}
+
+function CandleShape(shapeProps: CandleShapeProps) {
+  const { x = 0, y = 0, width = 0, height: h = 0, payload } = shapeProps
+  if (payload === undefined) return null
   if (h === 0 && payload.bodyHeight === 0) return null
   const centerX = x + width / 2
   // wick: from high to low in chart coordinates

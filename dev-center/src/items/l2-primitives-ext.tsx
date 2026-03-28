@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { Ctrl } from '../components/ctrl'
 import { DocTable, DemoCard, DocSection, ImportLine, LivePreview } from '../components/demo'
 
@@ -151,24 +153,37 @@ const skeletonItem: DevCenterItem = {
 primitiveItemsExt.push(skeletonItem)
 
 // truncate
+// helper for controlled expand demo
+function ExpandDemo() {
+  const [expanded, setExpanded] = useState(false)
+  return (
+    <div className="w-full">
+      <Truncate lines={2} expanded={expanded} onToggle={() => setExpanded(!expanded)}>
+        This text starts clamped to 2 lines. Click anywhere to expand and see the full content.
+        Click again to collapse. This pattern is useful for preview cards and comment sections.
+      </Truncate>
+    </div>
+  )
+}
+
 const truncateItem: DevCenterItem = {
   id: 'truncate',
   label: 'Truncate',
   layer: 'l2',
   type: 'interactive',
   tags: ['truncate', 'ellipsis', 'clamp', 'text', 'overflow'],
-  defaultConfig: { lines: 1, expandable: false },
+  defaultConfig: { lines: 1, expanded: false },
 
-  stage: ({ config }) => (
+  stage: ({ config, setConfig }) => (
     <div>
       <ImportLine text="import { Truncate } from '@goliapkg/gds'" />
 
       <LivePreview>
         <div className="w-[300px]">
-          <Truncate lines={config.lines} expandable={config.expandable}>
+          <Truncate lines={config.lines} expanded={config.expanded} onToggle={() => setConfig('expanded', !config.expanded)}>
             This is a long piece of text that demonstrates the truncation behavior of the Truncate component.
             It can handle both single-line ellipsis and multi-line clamping with configurable line counts.
-            Click to expand when the expandable prop is enabled.
+            Pass expanded + onToggle to make it interactive.
           </Truncate>
         </div>
       </LivePreview>
@@ -193,14 +208,9 @@ const truncateItem: DevCenterItem = {
         </DemoCard>
       </DocSection>
 
-      <DocSection title="Expandable" columns={1}>
-        <DemoCard title="Click to expand" description="Click toggles between clamped and full" full code={`<Truncate lines={2} expandable>Long text...</Truncate>`}>
-          <div className="w-full">
-            <Truncate lines={2} expandable>
-              This expandable text starts clamped to 2 lines. Click anywhere on the text to expand it and see the full content.
-              Click again to collapse it back. This pattern is useful for preview cards and comment sections.
-            </Truncate>
-          </div>
+      <DocSection title="Controlled Expand" columns={1}>
+        <DemoCard title="Click to expand" description="Parent controls expanded state" full code={`const [expanded, setExpanded] = useState(false)\n\n<Truncate lines={2} expanded={expanded} onToggle={() => setExpanded(!expanded)}>\n  Long text...\n</Truncate>`}>
+          <ExpandDemo />
         </DemoCard>
       </DocSection>
 
@@ -209,7 +219,8 @@ const truncateItem: DevCenterItem = {
           rows={[
             ['children', 'ReactNode', '—', 'Content to truncate'],
             ['lines', 'number', '1', 'Number of lines before truncation'],
-            ['expandable', 'boolean', 'false', 'Click to toggle expand/collapse'],
+            ['expanded', 'boolean', 'false', 'Whether content is expanded (controlled)'],
+            ['onToggle', '() => void', '—', 'Callback to toggle expanded state'],
             ['className', 'string', '—', 'Additional CSS classes'],
           ]}
         />
@@ -220,7 +231,7 @@ const truncateItem: DevCenterItem = {
   controls: ({ config, setConfig }) => (
     <>
       <Ctrl type="number" label="lines" value={config.lines} onChange={(v) => setConfig('lines', v)} min={1} max={10} />
-      <Ctrl type="check" label="expandable" value={config.expandable} onChange={(v) => setConfig('expandable', v)} />
+      <Ctrl type="check" label="expanded" value={config.expanded} onChange={(v) => setConfig('expanded', v)} />
     </>
   ),
 
@@ -229,16 +240,13 @@ const truncateItem: DevCenterItem = {
     lines.push('')
     const props: string[] = []
     if (config.lines !== 1) props.push(`lines={${config.lines}}`)
-    if (config.expandable === true) props.push('expandable')
-    if (props.length === 0) {
-      lines.push('<Truncate>Long text content...</Truncate>')
-    } else {
-      lines.push('<Truncate')
-      for (const p of props) lines.push(`  ${p}`)
-      lines.push('>')
-      lines.push('  Long text content...')
-      lines.push('</Truncate>')
-    }
+    if (config.expanded === true) props.push('expanded')
+    props.push('onToggle={handleToggle}')
+    lines.push('<Truncate')
+    for (const p of props) lines.push(`  ${p}`)
+    lines.push('>')
+    lines.push('  Long text content...')
+    lines.push('</Truncate>')
     return lines.join('\n')
   },
 
@@ -248,7 +256,8 @@ const truncateItem: DevCenterItem = {
         rows={[
           ['children', 'Content to truncate', 'ReactNode', '—'],
           ['lines', 'Number of lines before truncation', 'number', '1'],
-          ['expandable', 'Click to toggle expand/collapse', 'boolean', 'false'],
+          ['expanded', 'Whether content is expanded', 'boolean', 'false'],
+          ['onToggle', 'Toggle expanded callback', '() => void', '—'],
           ['className', 'Additional CSS classes', 'string', '—'],
         ]}
       />

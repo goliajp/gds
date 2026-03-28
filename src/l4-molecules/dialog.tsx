@@ -1,12 +1,12 @@
 // dialog — modal overlay with focus trap, scroll lock, escape key
 import type { ReactNode } from 'react'
 import { forwardRef } from 'react'
-import { createPortal } from 'react-dom'
 
 import { focusCls } from '../utils/a11y'
 import { cx } from '../utils/cx'
 import { glassClass } from '../utils/glass'
 import { useEscapeKey, useFocusTrap, useScrollLock } from '../utils/hooks'
+import { renderPortal } from '../utils/portal'
 
 type DialogWidth = 'default' | 'lg' | 'sm' | 'xl'
 
@@ -36,7 +36,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
 
     if (!open) return null
 
-    return createPortal(
+    return renderPortal(
       <div
         className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
         onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
@@ -78,7 +78,6 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
           <div className="gds-pad-x-lg gds-pad-y-lg">{children}</div>
         </div>
       </div>,
-      document.body,
     )
   },
 )

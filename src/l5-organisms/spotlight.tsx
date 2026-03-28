@@ -1,9 +1,9 @@
 // spotlight — dims everything except a target element for onboarding/tutorials
 import type { ReactNode } from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { createPortal } from 'react-dom'
 
 import { cx } from '../utils/cx'
+import { renderPortal } from '../utils/portal'
 
 type Rect = { top: number; left: number; width: number; height: number }
 
@@ -141,5 +141,5 @@ export function Spotlight({
     </div>
   )
 
-  return createPortal(overlay, document.body)
+  return renderPortal(overlay)
 }

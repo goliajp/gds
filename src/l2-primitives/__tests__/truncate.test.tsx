@@ -1,5 +1,5 @@
 import { fireEvent, render } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import { Truncate } from '../truncate'
 
@@ -13,25 +13,31 @@ describe('Truncate', () => {
   it('applies line-clamp styles for multi-line', () => {
     const { container } = render(<Truncate lines={3}>multi line text</Truncate>)
     const el = container.querySelector('[data-component="truncate"]') as HTMLElement
-    // jsdom doesn't fully support -webkit-box in style object, check overflow instead
     expect(el.style.overflow).toBe('hidden')
-    // should not have single-line truncate class
     expect(el.className).not.toContain('truncate')
   })
 
-  it('expands on click when expandable', () => {
+  it('calls onToggle on click when controlled', () => {
+    const onToggle = vi.fn()
     const { container } = render(
-      <Truncate lines={2} expandable>
-        expandable text
+      <Truncate lines={2} onToggle={onToggle}>
+        controlled text
       </Truncate>,
     )
     const el = container.querySelector('[data-component="truncate"]') as HTMLElement
-    // initially clamped — has overflow hidden
     expect(el.style.overflow).toBe('hidden')
-    // click to expand
     fireEvent.click(el)
+    expect(onToggle).toHaveBeenCalledOnce()
+  })
+
+  it('removes clamp when expanded is true', () => {
+    const { container } = render(
+      <Truncate lines={2} expanded onToggle={() => {}}>
+        expanded text
+      </Truncate>,
+    )
+    const el = container.querySelector('[data-component="truncate"]') as HTMLElement
     expect(el.getAttribute('data-expanded')).toBe('true')
-    // styles should be removed when expanded (no inline style)
     expect(el.style.overflow).toBe('')
   })
 

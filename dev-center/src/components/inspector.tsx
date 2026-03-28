@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { ChevronLeft, ChevronRight, Copy, Check, RotateCcw } from 'lucide-react'
-import { codeToHtml } from 'shiki'
+import { ChevronLeft, ChevronRight, RotateCcw } from 'lucide-react'
 
 import { cx } from '@gds/utils/cx'
 
+import { CodeBlock } from './demo'
 import { layers } from './nav'
 
 import type { ControlsProps, DevCenterItem, StageProps } from '../types'
@@ -221,15 +221,11 @@ function PropsPanel({ item, controlsProps }: {
   )
 }
 
-// code tab: syntax-highlighted code with copy button
+// code tab: reuses CodeBlock from demo
 function CodePanel({ item, stageProps }: {
   item: DevCenterItem
   stageProps: StageProps
 }) {
-  const [copied, setCopied] = useState(false)
-  const [html, setHtml] = useState('')
-  const containerRef = useRef<HTMLDivElement>(null)
-
   function getCode(): string | undefined {
     if (item.code === undefined) return undefined
     if (item.code.length > 0) {
@@ -239,52 +235,7 @@ function CodePanel({ item, stageProps }: {
   }
 
   const code = getCode()
-
-  useEffect(() => {
-    if (code === undefined) return
-    let cancelled = false
-    codeToHtml(code, {
-      lang: 'tsx',
-      theme: 'vitesse-dark',
-    }).then(result => {
-      if (!cancelled) setHtml(result)
-    }).catch(() => {})
-    return () => { cancelled = true }
-  }, [code])
-
   if (code === undefined) return null
 
-  function handleCopy() {
-    navigator.clipboard.writeText(code!).then(() => {
-      setCopied(true)
-      setTimeout(() => setCopied(false), 1500)
-    }).catch(() => {})
-  }
-
-  return (
-    <div className="flex flex-col">
-      {/* copy bar */}
-      <div className="flex items-center justify-between border-b border-border/50 px-3 py-1.5">
-        <span className="text-[10px] text-fg-muted/30">TSX</span>
-        <button
-          className="flex items-center gap-1 rounded px-1.5 py-0.5 text-[11px] text-fg-muted/30 transition-colors hover:text-fg-muted/60"
-          onClick={handleCopy}
-        >
-          {copied
-            ? <><Check className="h-3 w-3 text-success" /> copied</>
-            : <><Copy className="h-3 w-3" /> copy</>
-          }
-        </button>
-      </div>
-      {/* highlighted code */}
-      <div
-        ref={containerRef}
-        className="dc-code-block overflow-auto px-3 py-2.5 text-xs leading-relaxed"
-        data-selectable
-        dangerouslySetInnerHTML={html !== '' ? { __html: html } : undefined}
-      >
-        {html === '' ? <pre className="text-fg-muted/50"><code>{code}</code></pre> : undefined}
-      </div>
-    </div>
-  )
+  return <CodeBlock code={code} />
 }

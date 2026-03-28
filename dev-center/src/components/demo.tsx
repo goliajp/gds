@@ -1,25 +1,59 @@
 // demo — shared components for rich item demos
 // LivePreview, DemoCard, DocSection, DocTable, ImportLine, CodeBlock
 
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import { useEffect, useState } from 'react'
 
-import { codeToHtml } from 'shiki'
+import { codeToTokens } from 'shiki'
 
 import { cx } from '@gds/utils/cx'
 
-// code block — syntax-highlighted with copy button
-export function CodeBlock({ code, lang = 'tsx' }: { code: string; lang?: string }) {
-  const [html, setHtml] = useState('')
+// language metadata — color + display label per language
+const langMeta: Record<string, { color: string; label: string }> = {
+  tsx: { color: '#61dafb', label: 'tsx' },
+  jsx: { color: '#61dafb', label: 'jsx' },
+  ts: { color: '#3178c6', label: 'ts' },
+  typescript: { color: '#3178c6', label: 'ts' },
+  js: { color: '#f7df1e', label: 'js' },
+  javascript: { color: '#f7df1e', label: 'js' },
+  css: { color: '#a855f7', label: 'css' },
+  bash: { color: '#4eaa25', label: 'bash' },
+  shell: { color: '#4eaa25', label: 'shell' },
+  sh: { color: '#4eaa25', label: 'sh' },
+  json: { color: '#f59e0b', label: 'json' },
+  html: { color: '#e34c26', label: 'html' },
+  text: { color: '#6b7280', label: 'text' },
+  plaintext: { color: '#6b7280', label: 'text' },
+}
+
+// auto-detect language from code content
+function detectLang(code: string): string {
+  const s = code.trimStart()
+  if (/^(\$\s|bun |npm |npx |yarn |pnpm |git |cd |ls |mkdir |rm |cp |mv |curl |wget |brew )/.test(s)) return 'bash'
+  if (/^#!\//.test(s)) return 'bash'
+  if (/^(@import|@apply|@theme|@media|@keyframes|@source)/.test(s)) return 'css'
+  if (/^\.[a-z][\w-]*\s*\{/m.test(s)) return 'css'
+  if (/^[\[{]/.test(s.trim()) && /"/.test(s)) return 'json'
+  // plain text: no code-like characters and no code keywords
+  if (!/[(){};=<>]/.test(s) && !/^(import|export|const|let|var|type|function)\s/.test(s)) return 'text'
+  return 'tsx'
+}
+
+type Token = { content: string; color?: string; fontStyle?: number }
+
+// code block — token-level syntax highlighting with line numbers
+export function CodeBlock({ code, lang }: { code: string; lang?: string }) {
+  const resolvedLang = lang ?? detectLang(code)
+  const [tokens, setTokens] = useState<Token[][] | null>(null)
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     let cancelled = false
-    codeToHtml(code, { lang, theme: 'vitesse-dark' })
-      .then(result => { if (!cancelled) setHtml(result) })
+    codeToTokens(code, { lang: resolvedLang, theme: 'vitesse-dark' })
+      .then(result => { if (!cancelled) setTokens(result.tokens) })
       .catch(() => {})
     return () => { cancelled = true }
-  }, [code, lang])
+  }, [code, resolvedLang])
 
   function handleCopy() {
     navigator.clipboard.writeText(code).then(() => {
@@ -28,25 +62,62 @@ export function CodeBlock({ code, lang = 'tsx' }: { code: string; lang?: string 
     }).catch(() => {})
   }
 
+  // fall back to plain text lines while tokens load
+  const lines = tokens ?? code.split('\n').map(line => [{ content: line }])
+  const gutterW = Math.max(2, String(lines.length).length)
+  const meta = langMeta[resolvedLang] ?? { color: '#6b7280', label: resolvedLang }
+
   return (
-    <div className="relative">
-      <div
-        className="dc-code-block overflow-auto rounded-md bg-[#121212] px-4 py-3 text-xs leading-relaxed"
-        data-selectable
-        dangerouslySetInnerHTML={html !== '' ? { __html: html } : undefined}
-      >
-        {html === '' ? <pre className="text-fg-muted/60"><code>{code}</code></pre> : undefined}
+    <div className="dc-syntax overflow-hidden rounded-md border border-white/[0.06] bg-[#0d0d0d]">
+      {/* header: language badge + copy */}
+      <div className="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.02] px-3 py-1">
+        <span
+          className="select-none text-[10px] font-semibold tracking-wider uppercase"
+          style={{ color: meta.color }}
+        >
+          {meta.label}
+        </span>
+        <button
+          className={cx(
+            'select-none rounded px-1.5 py-0.5 text-[10px] transition-colors',
+            copied ? 'text-success' : 'text-white/15 hover:text-white/40',
+          )}
+          onClick={handleCopy}
+          aria-label="Copy code"
+        >
+          {copied ? '✓' : 'copy'}
+        </button>
       </div>
-      <button
-        className={cx(
-          'absolute right-2 top-2 rounded px-1.5 py-0.5 text-xs transition-colors',
-          copied ? 'text-success' : 'text-fg-muted/25 hover:text-fg-muted/50',
-        )}
-        onClick={handleCopy}
-        aria-label="Copy code"
-      >
-        {copied ? '✓' : 'copy'}
-      </button>
+      {/* code body with line number gutter */}
+      <div className="overflow-x-auto" data-selectable>
+        <pre className="m-0 py-1.5" style={{ tabSize: 2 }}>
+          <code className="block">
+            {lines.map((lineTokens, i) => (
+              <div key={i} className="dc-syntax-line flex">
+                <span
+                  className="shrink-0 select-none pr-3 text-right text-[11px] leading-5 text-white/[0.12]"
+                  style={{ minWidth: `${gutterW + 1.5}ch`, paddingLeft: '12px' }}
+                  data-line={i + 1}
+                >
+                  {i + 1}
+                </span>
+                <span className="flex-1 border-l border-white/[0.04] pl-3 pr-4 text-[12px] leading-5 whitespace-pre">
+                  {lineTokens.map((token, j) => {
+                    const st: CSSProperties = {}
+                    if (token.color !== undefined) st.color = token.color
+                    if (token.fontStyle !== undefined) {
+                      if (token.fontStyle & 1) st.fontStyle = 'italic'
+                      if (token.fontStyle & 2) st.fontWeight = 'bold'
+                      if (token.fontStyle & 4) st.textDecoration = 'underline'
+                    }
+                    return <span key={j} style={st}>{token.content}</span>
+                  })}
+                </span>
+              </div>
+            ))}
+          </code>
+        </pre>
+      </div>
     </div>
   )
 }

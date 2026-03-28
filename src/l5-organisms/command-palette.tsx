@@ -1,10 +1,10 @@
 // command-palette — searchable command launcher overlay
 import type { ReactNode } from 'react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { createPortal } from 'react-dom'
 
 import { cx } from '../utils/cx'
 import { useEscapeKey, useScrollLock } from '../utils/hooks'
+import { renderPortal } from '../utils/portal'
 import { CommandPaletteList } from './command-palette-list'
 
 export type CommandItem = {
@@ -98,7 +98,7 @@ export function CommandPalette({
 
   if (!open) return null
 
-  return createPortal(
+  return renderPortal(
     <div
       className="fixed inset-0 z-50 flex items-start justify-center bg-black/60 pt-[15vh]"
       data-component="command-palette"
@@ -152,6 +152,5 @@ export function CommandPalette({
         </div>
       </div>
     </div>,
-    document.body,
   )
 }

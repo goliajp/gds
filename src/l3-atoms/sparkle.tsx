@@ -1,4 +1,6 @@
 // sparkle — animated sparkle/star particles around a child element
+import { forwardRef } from 'react'
+
 import { cx } from '../utils/cx'
 
 export type SparkleProps = {
@@ -29,38 +31,37 @@ function starStyle(i: number, count: number): React.CSSProperties {
   }
 }
 
-export function Sparkle({
-  children,
-  active = true,
-  count = 3,
-  color = 'var(--gds-accent)',
-  className,
-}: SparkleProps) {
-  const particles = Array.from({ length: count }, (_, i) => i)
+export const Sparkle = forwardRef<HTMLSpanElement, SparkleProps>(
+  function Sparkle(
+    { children, active = true, count = 3, color = 'var(--gds-accent)', className },
+    ref,
+  ) {
+    const particles = Array.from({ length: count }, (_, i) => i)
 
-  return (
-    <span className={cx('relative inline-block', className)} data-component="sparkle">
-      {children}
-      {active &&
-        particles.map((i) => (
-          <svg
-            key={i}
-            viewBox="0 0 24 24"
-            fill={color}
-            style={starStyle(i, count)}
-            aria-hidden="true"
-          >
-            <path d={STAR_PATH} />
-          </svg>
-        ))}
-      {active && (
-        <style>{`
-          @keyframes gds-sparkle {
-            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
-            50% { opacity: 1; transform: scale(1) rotate(180deg); }
-          }
-        `}</style>
-      )}
-    </span>
-  )
-}
+    return (
+      <span ref={ref} className={cx('relative inline-block', className)} data-component="sparkle">
+        {children}
+        {active &&
+          particles.map((i) => (
+            <svg
+              key={i}
+              viewBox="0 0 24 24"
+              fill={color}
+              style={starStyle(i, count)}
+              aria-hidden="true"
+            >
+              <path d={STAR_PATH} />
+            </svg>
+          ))}
+        {active && (
+          <style>{`
+            @keyframes gds-sparkle {
+              0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+              50% { opacity: 1; transform: scale(1) rotate(180deg); }
+            }
+          `}</style>
+        )}
+      </span>
+    )
+  },
+)
