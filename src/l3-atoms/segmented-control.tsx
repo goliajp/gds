@@ -12,7 +12,7 @@ type SegmentedControlOption = {
 
 type SegmentedControlSize = 'default' | 'sm'
 
-type SegmentedControlProps = React.HTMLAttributes<HTMLDivElement> & {
+type SegmentedControlProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
   options: SegmentedControlOption[]
   value: string
   onChange: (value: string) => void

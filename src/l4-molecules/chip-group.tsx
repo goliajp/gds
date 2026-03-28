@@ -6,7 +6,7 @@ import { cx } from '../utils/cx'
 
 type ChipGroupOption = { value: string; label: string }
 
-type ChipGroupProps = React.HTMLAttributes<HTMLDivElement> & {
+type ChipGroupProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
   options: ChipGroupOption[]
   value: string[]
   onChange: (value: string[]) => void
