@@ -15,6 +15,17 @@ describe('GlowEffect', () => {
     expect(glow).toBeInTheDocument()
   })
 
+  it('uses DOM order instead of negative z-index for layering', () => {
+    const { container } = render(<GlowEffect>Content</GlowEffect>)
+    const glow = container.querySelector('[aria-hidden]') as HTMLElement
+    // glow layer should not use z-index
+    expect(glow.style.zIndex).toBe('')
+    // children wrapper should have relative class to establish stacking context above glow
+    const childWrapper = glow.nextElementSibling as HTMLElement
+    expect(childWrapper.className).toContain('relative')
+    expect(childWrapper.textContent).toBe('Content')
+  })
+
   it('applies default intensity styles', () => {
     const { container } = render(<GlowEffect>Content</GlowEffect>)
     const glow = container.querySelector('[aria-hidden]') as HTMLElement
