@@ -4,8 +4,9 @@ import { forwardRef } from 'react'
 
 import { focusCls } from '../utils/a11y'
 import { cx } from '../utils/cx'
+import { mergeRefs } from '../utils/dom'
 import { glassClass } from '../utils/glass'
-import { useEscapeKey, useScrollLock } from '../utils/hooks'
+import { useEscapeKey, useFocusTrap, useScrollLock } from '../utils/hooks'
 
 type SheetSide = 'left' | 'right'
 
@@ -23,6 +24,7 @@ export type SheetProps = {
 
 export const Sheet = forwardRef<HTMLDivElement, SheetProps>(
   function Sheet({ open, onClose, children, side = 'right', title, description, glass, width = 320, className }, ref) {
+    const trapRef = useFocusTrap(open)
     useScrollLock(open)
     useEscapeKey(open, onClose)
 
@@ -39,7 +41,7 @@ export const Sheet = forwardRef<HTMLDivElement, SheetProps>(
         data-state="open"
       >
         <div
-          ref={ref}
+          ref={mergeRefs(ref, trapRef)}
           style={style}
           className={cx(
             'gds-ctx fixed bottom-0 top-0 flex flex-col border gds-shadow-xl transition-transform duration-200',

@@ -89,7 +89,7 @@ function TreeNodeItem({
       </button>
       {hasChildren && isExpanded && (
         <div>
-          {node.children!.map((child) => (
+          {node.children?.map((child) => (
             <TreeNodeItem
               key={child.id}
               node={child}

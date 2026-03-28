@@ -4,8 +4,9 @@ import { forwardRef } from 'react'
 
 import { focusCls } from '../utils/a11y'
 import { cx } from '../utils/cx'
+import { mergeRefs } from '../utils/dom'
 import { glassClass } from '../utils/glass'
-import { useEscapeKey, useScrollLock } from '../utils/hooks'
+import { useEscapeKey, useFocusTrap, useScrollLock } from '../utils/hooks'
 
 type DrawerHeight = 'sm' | 'default' | 'lg' | 'full'
 
@@ -28,6 +29,7 @@ export type DrawerProps = {
 
 export const Drawer = forwardRef<HTMLDivElement, DrawerProps>(
   function Drawer({ open, onClose, title, children, height = 'default', glass, className }, ref) {
+    const trapRef = useFocusTrap(open)
     useScrollLock(open)
     useEscapeKey(open, onClose)
 
@@ -41,7 +43,7 @@ export const Drawer = forwardRef<HTMLDivElement, DrawerProps>(
         data-state="open"
       >
         <div
-          ref={ref}
+          ref={mergeRefs(ref, trapRef)}
           className={cx(
             'gds-ctx fixed inset-x-0 bottom-0 flex flex-col rounded-t-xl border-t transition-transform duration-200',
             heightMap[height],

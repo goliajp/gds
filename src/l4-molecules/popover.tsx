@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { forwardRef, useRef, useState } from 'react'
 
 import { cx } from '../utils/cx'
+import { isActivationKey } from '../utils/dom'
 import { useClickOutside, useEscapeKey } from '../utils/hooks'
 
 const placementClasses: Record<string, Record<string, string>> = {
@@ -59,7 +60,12 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
         }}
         {...props}
       >
-        <span onClick={() => setOpen((v) => !v)} role="button" tabIndex={0}>
+        <span
+          onClick={() => setOpen((v) => !v)}
+          onKeyDown={(e) => { if (isActivationKey(e)) { e.preventDefault(); setOpen((v) => !v) } }}
+          role="button"
+          tabIndex={0}
+        >
           {trigger}
         </span>
         {open && (
