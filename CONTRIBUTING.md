@@ -8,7 +8,7 @@ Thank you for your interest in contributing to the GOLIA Design System.
 git clone git@github.com:goliajp/gds.git
 cd gds
 bun install
-bun dev          # start dev-center at localhost:5175
+bun dev          # start website at localhost:5175
 ```
 
 ## Branch Strategy
@@ -87,7 +87,7 @@ Components belong to a specific layer. Each layer has strict dependency constrai
 
 1. Create the component in the correct layer directory
 2. Export from the layer's `index.ts`
-3. Add a demo item in `dev-center/src/items/`
+3. Add a demo item in `web/src/items/`
 4. Write tests (aim for 80%+ coverage)
 5. Run `bun run check` before committing
 

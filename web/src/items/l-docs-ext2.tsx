@@ -148,7 +148,7 @@ aria-modal="true"
           <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">Process</div>
           <div className="space-y-1.5 text-[10px] text-fg-muted/50">
             <p>1. Create component following GDS lib standards</p>
-            <p>2. Add dev-center item with all variants exercisable</p>
+            <p>2. Add website demo item with all variants exercisable</p>
             <p>3. Toggle dark mode and verify all states</p>
             <p>4. Tab through with keyboard, verify focus rings</p>
             <p>5. Check with screen reader (VoiceOver)</p>
