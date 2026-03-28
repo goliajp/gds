@@ -47,4 +47,17 @@ describe('StepperForm', () => {
     const prevBtn = screen.getByText('Previous')
     expect(prevBtn).toHaveAttribute('disabled')
   })
+
+  it('applies glass class when glass is true', () => {
+    const { container } = render(<StepperForm steps={steps} glass />)
+    const el = container.querySelector('[data-component="stepper-form"]')
+    expect(el?.className).toContain('backdrop-blur-xl')
+  })
+
+  it('uses custom completeLabel', () => {
+    render(<StepperForm steps={steps} completeLabel="Finish" />)
+    fireEvent.click(screen.getByText('Next'))
+    fireEvent.click(screen.getByText('Next'))
+    expect(screen.getByText('Finish')).toBeDefined()
+  })
 })

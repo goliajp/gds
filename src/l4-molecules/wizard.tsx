@@ -35,7 +35,7 @@ export const Wizard = forwardRef<HTMLDivElement, WizardProps>(
             const done = i < active
             const isCurrent = i === active
             return (
-              <div key={i} className="flex items-center">
+              <div key={`${step.title}-${i}`} className="flex items-center">
                 {i > 0 && (
                   <div className={cx('h-px w-8', done ? 'bg-accent' : 'bg-border')} />
                 )}

@@ -25,4 +25,17 @@ describe('MonitorGrid', () => {
     const el = container.querySelector('[data-component="monitor-grid"]')
     expect(el?.className).toContain('my-grid')
   })
+
+  it('applies custom columns when specified', () => {
+    const { container } = render(<MonitorGrid columns={3}><div>x</div></MonitorGrid>)
+    const el = container.querySelector('[data-component="monitor-grid"]')
+    expect(el?.className).toContain('grid-cols-3')
+  })
+
+  it('uses responsive columns by default', () => {
+    const { container } = render(<MonitorGrid><div>x</div></MonitorGrid>)
+    const el = container.querySelector('[data-component="monitor-grid"]')
+    expect(el?.className).toContain('sm:grid-cols-2')
+    expect(el?.className).toContain('lg:grid-cols-3')
+  })
 })

@@ -43,7 +43,7 @@ export const ProgressTimeline = forwardRef<HTMLDivElement, ProgressTimelineProps
 
           {milestones.map((milestone, i) => (
             <div
-              key={i}
+              key={`${milestone.label}-${i}`}
               className="relative z-10 flex flex-col items-center gap-1"
             >
               {/* circle */}

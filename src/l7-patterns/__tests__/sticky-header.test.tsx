@@ -25,4 +25,31 @@ describe('StickyHeader', () => {
     const el = container.querySelector('[data-component="sticky-header"]')
     expect(el).not.toBeNull()
   })
+
+  it('applies glass class when glass is true and sticky', async () => {
+    Object.defineProperty(window, 'scrollY', { value: 100, writable: true })
+    const { container } = render(<StickyHeader glass threshold={0}><span>test</span></StickyHeader>)
+    const { fireEvent } = await import('@testing-library/react')
+    fireEvent.scroll(window)
+    const el = container.querySelector('[data-component="sticky-header"]')
+    expect(el?.className).toContain('shadow-md')
+  })
+
+  it('disables glass when glass is false', () => {
+    const { container } = render(<StickyHeader glass={false}><span>test</span></StickyHeader>)
+    const el = container.querySelector('[data-component="sticky-header"]')
+    expect(el?.className).not.toContain('gds-glass')
+  })
+
+  it('applies custom className', () => {
+    const { container } = render(<StickyHeader className="my-header"><span>test</span></StickyHeader>)
+    const el = container.querySelector('[data-component="sticky-header"]')
+    expect(el?.className).toContain('my-header')
+  })
+
+  it('sets data-sticky attribute', () => {
+    const { container } = render(<StickyHeader><span>test</span></StickyHeader>)
+    const el = container.querySelector('[data-component="sticky-header"]')
+    expect(el?.getAttribute('data-sticky')).toBe('false')
+  })
 })

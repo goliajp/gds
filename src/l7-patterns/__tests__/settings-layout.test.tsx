@@ -34,4 +34,21 @@ describe('SettingsLayout', () => {
     await user.click(screen.getByText('Security'))
     expect(screen.getByText('Security settings')).toBeDefined()
   })
+
+  it('uses defaultSection when provided', () => {
+    render(<SettingsLayout sections={sections} defaultSection="billing" />)
+    expect(screen.getByText('Billing settings')).toBeDefined()
+  })
+
+  it('applies custom className', () => {
+    const { container } = render(<SettingsLayout sections={sections} className="my-settings" />)
+    const el = container.querySelector('[data-component="settings-layout"]')
+    expect(el?.className).toContain('my-settings')
+  })
+
+  it('renders nothing when active section not found', () => {
+    const { container } = render(<SettingsLayout sections={[]} />)
+    const content = container.querySelector('[data-component="settings-layout"] > div:last-child')
+    expect(content?.children.length).toBe(0)
+  })
 })

@@ -44,4 +44,39 @@ describe('MediaGrid', () => {
     const aspectDiv = container.querySelector('[data-component="aspect-ratio"]')
     expect(aspectDiv).not.toBeNull()
   })
+
+  it('applies responsive columns by default', () => {
+    const { container } = render(
+      <MediaGrid><div>1</div></MediaGrid>,
+    )
+    const grid = container.querySelector('[data-component="media-grid"]')
+    expect(grid?.className).toContain('sm:grid-cols-2')
+    expect(grid?.className).toContain('md:grid-cols-3')
+    expect(grid?.className).toContain('lg:grid-cols-4')
+  })
+
+  it('applies responsive columns with partial breakpoints', () => {
+    const { container } = render(
+      <MediaGrid columns={{ sm: 1, lg: 3 }}><div>1</div></MediaGrid>,
+    )
+    const grid = container.querySelector('[data-component="media-grid"]')
+    expect(grid?.className).toContain('sm:grid-cols-1')
+    expect(grid?.className).toContain('lg:grid-cols-3')
+  })
+
+  it('applies small gap', () => {
+    const { container } = render(
+      <MediaGrid gap="sm"><div>1</div></MediaGrid>,
+    )
+    const grid = container.querySelector('[data-component="media-grid"]')
+    expect(grid?.className).toContain('gds-gap-sm')
+  })
+
+  it('applies large gap', () => {
+    const { container } = render(
+      <MediaGrid gap="lg"><div>1</div></MediaGrid>,
+    )
+    const grid = container.querySelector('[data-component="media-grid"]')
+    expect(grid?.className).toContain('gds-gap-lg')
+  })
 })

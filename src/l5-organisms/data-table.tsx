@@ -132,7 +132,7 @@ function DataTableInner<T extends Record<string, unknown>>(
           )}
           {loading !== true && data.map((row, i) => (
             <tr
-              key={i}
+              key={`${String(row[columns[0]?.key ?? ''] ?? '')}-${i}`}
               className={cx(
                 'border-b border-border transition-colors',
                 i % 2 === 1 && 'bg-bg-secondary/30',

@@ -25,4 +25,20 @@ describe('Hero', () => {
     expect(el?.getAttribute('data-variant')).toBe('left')
     expect(el?.className).toContain('flex')
   })
+
+  it('renders media in center align', () => {
+    render(<Hero title="Welcome" media={<div>hero-img</div>} />)
+    expect(screen.getByText('hero-img')).toBeDefined()
+  })
+
+  it('applies glass class when glass is true', () => {
+    const { container } = render(<Hero title="Welcome" glass />)
+    const el = container.querySelector('[data-component="hero"]')
+    expect(el?.className).toContain('gds-glass')
+  })
+
+  it('renders media in left-aligned layout beside text', () => {
+    render(<Hero title="Welcome" align="left" media={<div>side-img</div>} />)
+    expect(screen.getByText('side-img')).toBeDefined()
+  })
 })

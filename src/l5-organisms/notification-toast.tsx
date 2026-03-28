@@ -16,7 +16,7 @@ type NotificationToastPosition = 'bottom-right' | 'top-right'
 
 type NotificationToastProps = {
   className?: string
-  onDismiss: (id: string) => void
+  onClose: (id: string) => void
   position?: NotificationToastPosition
   toasts: ToastEntry[]
 }
@@ -32,13 +32,13 @@ const variantToToast = (v?: ToastEntry['variant']) => {
 }
 
 export const NotificationToast = forwardRef<HTMLDivElement, NotificationToastProps>(
-  function NotificationToast({ toasts, onDismiss, position = 'top-right', className }, ref) {
+  function NotificationToast({ toasts, onClose, position = 'top-right', className }, ref) {
     useEffect(() => {
       const timers = toasts.map((t) =>
-        window.setTimeout(() => onDismiss(t.id), 5000),
+        window.setTimeout(() => onClose(t.id), 5000),
       )
       return () => timers.forEach((id) => window.clearTimeout(id))
-    }, [toasts, onDismiss])
+    }, [toasts, onClose])
 
     if (toasts.length === 0) return null
 
@@ -49,7 +49,7 @@ export const NotificationToast = forwardRef<HTMLDivElement, NotificationToastPro
         data-component="notification-toast"
       >
         {toasts.map((t) => (
-          <Toast key={t.id} title={t.title} description={t.message} variant={variantToToast(t.variant)} onClose={() => onDismiss(t.id)} />
+          <Toast key={t.id} title={t.title} description={t.message} variant={variantToToast(t.variant)} onClose={() => onClose(t.id)} />
         ))}
       </div>,
     )
