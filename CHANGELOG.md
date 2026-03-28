@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.6] - 2026-03-29
+
+### Fixed
+
+- increase GlowEffect opacity for visible color distinction on dark backgrounds
+
 ## [1.0.5] - 2026-03-29
 
 ### Fixed
