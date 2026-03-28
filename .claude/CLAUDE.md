@@ -8,24 +8,25 @@ Always reply in Chinese (中文).
 
 ## Project Overview
 
-GDS (GOLIA Design System) — standalone React component library with an interactive dev-center for documentation and playground.
+GDS (GOLIA Design System) v1 — production-grade React component library with 370+ components, 93%+ branch coverage, and strict 8-layer architecture. Includes an interactive dev-center for documentation and playground.
 
-- `src/` — library source (tokens, systems, primitives → patterns)
+- `src/` — library source (8 layers: tokens → systems → primitives → atoms → molecules → organisms → charts → patterns)
 - `dev-center/` — interactive component browser & playground (150+ demos)
+- `utils/` — anti-corruption layer wrapping external dependencies
 
 ## Commands
 
 ```bash
 bun install                        # install dependencies
 bun dev                            # start dev-center (Vite, port 5175)
-bun test                           # run vitest
+bun test                           # run vitest (393 files, 3400+ cases)
 bun run test:watch                 # vitest in watch mode
-bun run test:coverage              # coverage report (80% threshold)
+bun run test:coverage              # coverage report (93%+ branches, all layers >90%)
 bunx vitest run src/l3-atoms/__tests__/button.test.tsx  # run single test
-bun run lint                       # eslint check
+bun run lint                       # eslint check (layer constraints enforced)
 bun run lint:fix                   # eslint auto-fix
-bun run typecheck                  # tsc --noEmit
-bun run build                      # build library (vite lib + tsc declarations)
+bun run typecheck                  # tsc --noEmit (strict, zero any)
+bun run build                      # build library (multi-entry vite + tsc declarations)
 bun run check                      # all checks (test + typecheck + lint)
 ```
 
@@ -36,37 +37,49 @@ bun run check                      # all checks (test + typecheck + lint)
 ```
 src/
 ├── l0-tokens/     — CSS variables, color derivation, scales, motion, glass, gestures
-├── l1-systems/    — Theme engine (Jotai atoms), hooks, state management
-├── l2-primitives/ — Stateless visual blocks
-├── l3-atoms/      — Simple composed elements (CVA variants)
-├── l4-molecules/  — Multi-part, stateful components
-├── l5-organisms/  — Complex features (DataTable, Calendar...)
-├── l6-charts/     — Recharts-based data visualization
-├── l7-patterns/   — Page-level layouts
-└── utils/         — Anti-corruption layer (cx, a11y, dom, types, motion, glass)
+├── l1-systems/    — Theme engine (Jotai atoms), hooks, 5-axis state management
+├── l2-primitives/ — 31 stateless visual blocks (Button, Input, Badge...)
+├── l3-atoms/      — 71 simple composed elements (Avatar, Checkbox, Tooltip...)
+├── l4-molecules/  — 109 multi-part, stateful components (Card, Dialog, Tabs...)
+├── l5-organisms/  — 73 complex features (DataTable, Calendar, Kanban...)
+├── l6-charts/     — 31 Recharts-based data visualization
+├── l7-patterns/   — 55 page-level layouts (Dashboard, Admin, Hero...)
+└── utils/         — Anti-corruption layer (cx, a11y, dom, types, motion, glass, portal)
 ```
 
-### Layer Dependency Constraints
+### Layer Dependency Constraints (ESLint enforced)
 
-Each layer has strict import rules (enforced via ESLint):
+Each layer has strict import rules. ESLint `no-restricted-imports` blocks both cross-layer violations and unauthorized external deps.
 
 | Layer | Allowed External Dependencies |
 |-------|-------------------------------|
 | L0 | tailwindcss only |
 | L1 | react, jotai |
 | L2 | react, clsx, tailwind-merge (via cx), class-variance-authority |
-| L3-L4 | + lucide-react |
-| L5 | + lucide-react |
+| L3-L5 | + lucide-react |
 | L6 | recharts (no cva, no lucide) |
 | L7 | react, clsx, tailwind-merge only |
 
+**Cross-layer rule:** Ln can only import from Lm where m < n. ESLint blocks reverse imports.
+
 ### Anti-Corruption Layer (utils/)
 
-Direct imports of `clsx`, `tailwind-merge`, `class-variance-authority` are **forbidden** in component code. Use wrappers:
+Direct imports of external packages are **forbidden** in component code. Use wrappers:
 
 - `cx()` from `@gds/utils/cx` — replaces direct clsx/tailwind-merge
 - `VariantProps` from `@gds/utils/types` — replaces direct CVA type import
 - `focusCls` from `@gds/utils/a11y` — standard focus ring class
+- `renderPortal()` from `@gds/utils/portal` — replaces direct react-dom createPortal
+
+### Subpath Exports
+
+Consumers can import by layer for optimal tree-shaking:
+
+```tsx
+import { Button } from '@goliapkg/gds/primitives'
+import { Card } from '@goliapkg/gds/molecules'
+import { BarChart } from '@goliapkg/gds/charts'
+```
 
 ### Path Alias
 
@@ -85,6 +98,18 @@ Every library component follows this structure:
 3. **forwardRef** — all DOM-wrapping components use `forwardRef`
 4. **cx()** for class merging, **focusCls** on interactive elements
 5. **glass/motion** — optional `glass?: boolean` and `motion` props
+6. **data-component** — all components have `data-component="name"` for AI/test targeting
+7. **...props spread** — remaining HTML attributes forwarded to root DOM element
+8. **Keyboard support** — all `role="button"` elements have `onKeyDown` for Enter/Space
+
+## Quality Standards
+
+- **93%+ branch coverage**, all 9 layers above 90%
+- **393 test files**, 3400+ test cases
+- **Zero `any`** in production code
+- **Zero `@ts-ignore`** — no type suppression
+- **a11y**: focus trap in all overlays (Dialog, Sheet, Drawer), keyboard support on all interactive elements
+- **SSR safe**: all `window`/`document` access guarded or inside effects
 
 ## Coding Standards
 
