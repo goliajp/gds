@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.10] - 2026-03-28
+
+### Fixed
+
+- Sheet and Drawer now trap focus within panel (added useFocusTrap)
+- Popover trigger now keyboard accessible (Enter/Space to toggle)
+- CopyToClipboard now keyboard accessible (Enter/Space to copy)
+- CategoryTag now keyboard accessible when onClick is provided
+- unsafe `as HTMLElement` cast in gesture hooks replaced with `instanceof Element` guard
+- non-null assertion `children!` in Tree replaced with optional chaining
+- react-router moved from dependencies to devDependencies (not used in library code)
+
 ## [0.9.9] - 2026-03-28
 
 ### Changed
