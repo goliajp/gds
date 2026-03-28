@@ -100,6 +100,11 @@ export function ThemeToolbar() {
       >
         Reset
       </button>
+
+      <div className="ml-auto shrink-0" />
+      <span className="shrink-0 rounded-md bg-accent/15 px-2 py-0.5 text-[11px] font-bold tracking-wider text-accent select-none">
+        v1.0.0
+      </span>
     </div>
   )
 }
