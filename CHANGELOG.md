@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.5] - 2026-03-29
+
+### Fixed
+
+- tune GlowEffect visual quality — softer blur, lower opacity, explicit radius prop
+
 ## [1.0.4] - 2026-03-29
 
 ### Changed
