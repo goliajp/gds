@@ -42,6 +42,64 @@ function App() {
 }
 ```
 
+## Integration Guide (Tailwind v4)
+
+### 1. Install
+
+```bash
+bun add @goliapkg/gds
+```
+
+### 2. CSS setup (`index.css`)
+
+```css
+@import 'tailwindcss';
+@import '@goliapkg/gds/tokens.css';
+
+/* required: let Tailwind scan GDS component classes */
+@source "../node_modules/@goliapkg/gds/dist/**/*.js";
+```
+
+### 3. Theme provider (`app.tsx`)
+
+```tsx
+import { Provider } from 'jotai'
+import { useThemeEffect } from '@goliapkg/gds/systems'
+
+function ThemeInit() {
+  useThemeEffect()
+  return null
+}
+
+function App() {
+  return (
+    <Provider>
+      <ThemeInit />
+      {/* your app */}
+    </Provider>
+  )
+}
+```
+
+### 4. FOUC prevention (`index.html`)
+
+Add this script to `<head>` to prevent flash of unstyled content on page load:
+
+```html
+<script>
+  try {
+    const t = JSON.parse(localStorage.getItem('gds-theme') ?? '{}')
+    if (t.mode === 'dark' || (!t.mode && matchMedia('(prefers-color-scheme:dark)').matches))
+      document.documentElement.classList.add('dark')
+  } catch {}
+</script>
+```
+
+### Troubleshooting
+
+- **GDS classes not working?** — Make sure you have the `@source` line in your CSS. Tailwind v4 won't scan `node_modules` by default.
+- **`bun add` shows "no version matching"?** — Delete `bun.lock` and re-run `bun install`. This is a bun registry cache issue.
+
 ## Subpath Imports
 
 Import only what you need for optimal bundle size:
