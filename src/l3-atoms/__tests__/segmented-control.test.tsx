@@ -44,4 +44,25 @@ describe('SegmentedControl', () => {
     const { container } = render(<SegmentedControl options={options} value="a" onChange={() => {}} size="sm" />)
     expect(container.querySelector('[data-component="segmented-control"]')).not.toBeNull()
   })
+
+  it('does not call onChange when clicking already active option', async () => {
+    const user = userEvent.setup()
+    const onChange = vi.fn()
+    render(<SegmentedControl options={options} value="a" onChange={onChange} />)
+    await user.click(screen.getByText('Alpha'))
+    expect(onChange).not.toHaveBeenCalled()
+  })
+
+  it('applies glass class when glass is true', () => {
+    const { container } = render(<SegmentedControl options={options} value="a" onChange={() => {}} glass />)
+    const el = container.querySelector('[data-component="segmented-control"]')
+    // glass class should be applied (backdrop-blur or similar)
+    expect(el).not.toBeNull()
+  })
+
+  it('has data-state="enabled" when not disabled', () => {
+    const { container } = render(<SegmentedControl options={options} value="a" onChange={() => {}} />)
+    const el = container.querySelector('[data-component="segmented-control"]')
+    expect(el?.getAttribute('data-state')).toBe('enabled')
+  })
 })

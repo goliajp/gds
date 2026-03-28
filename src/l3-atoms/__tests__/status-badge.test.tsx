@@ -47,4 +47,15 @@ describe('StatusBadge', () => {
       expect(container.querySelector(`[data-state="${status}"]`)).not.toBeNull()
     }
   })
+
+  it('renders with sm size', () => {
+    const { container } = render(<StatusBadge status="active" size="sm" />)
+    const el = container.querySelector('[data-component="status-badge"]')
+    expect(el?.className).toContain('py-px')
+  })
+
+  it('does not render icon span when icon is not provided', () => {
+    const { container } = render(<StatusBadge status="active" />)
+    expect(container.querySelector('.gds-icon-child-sm')).toBeNull()
+  })
 })

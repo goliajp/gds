@@ -28,4 +28,20 @@ describe('TextareaCounter', () => {
     const { container } = render(<TextareaCounter value="" onChange={vi.fn()} />)
     expect(container.querySelector('[data-component="textarea-counter"]')).not.toBeNull()
   })
+
+  it('shows danger style when near limit (90%+)', () => {
+    const { container } = render(
+      <TextareaCounter value={'a'.repeat(95)} onChange={vi.fn()} maxLength={100} />,
+    )
+    const counter = container.querySelector('[data-component="textarea-counter"] > div:last-child')
+    expect(counter?.className).toContain('text-danger')
+  })
+
+  it('shows muted style when not near limit', () => {
+    const { container } = render(
+      <TextareaCounter value="hello" onChange={vi.fn()} maxLength={100} />,
+    )
+    const counter = container.querySelector('[data-component="textarea-counter"] > div:last-child')
+    expect(counter?.className).toContain('text-fg-muted')
+  })
 })

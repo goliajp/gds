@@ -45,4 +45,43 @@ describe('Popover', () => {
     await user.click(screen.getByText('Open'))
     expect(container.querySelector('[data-state="closed"]')).not.toBeNull()
   })
+
+  it('applies placement and align classes', async () => {
+    const user = userEvent.setup()
+    const { container } = render(
+      <Popover content={<div>Content</div>} trigger={<button>Open</button>} placement="top" align="end" />,
+    )
+    await user.click(screen.getByText('Open'))
+    const popup = container.querySelector('.absolute.z-50')
+    expect(popup?.className).toContain('bottom-full')
+    expect(popup?.className).toContain('right-0')
+  })
+
+  it('applies right placement', async () => {
+    const user = userEvent.setup()
+    const { container } = render(
+      <Popover content={<div>Content</div>} trigger={<button>Open</button>} placement="right" align="center" />,
+    )
+    await user.click(screen.getByText('Open'))
+    const popup = container.querySelector('.absolute.z-50')
+    expect(popup?.className).toContain('left-full')
+  })
+
+  it('applies left placement', async () => {
+    const user = userEvent.setup()
+    const { container } = render(
+      <Popover content={<div>Content</div>} trigger={<button>Open</button>} placement="left" />,
+    )
+    await user.click(screen.getByText('Open'))
+    const popup = container.querySelector('.absolute.z-50')
+    expect(popup?.className).toContain('right-full')
+  })
+
+  it('forwards ref object', () => {
+    const ref = { current: null } as React.RefObject<HTMLDivElement | null>
+    render(
+      <Popover content={<div>C</div>} trigger={<button>O</button>} ref={ref} />,
+    )
+    expect(ref.current).not.toBeNull()
+  })
 })

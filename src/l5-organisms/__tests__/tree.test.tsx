@@ -51,4 +51,69 @@ describe('Tree', () => {
     await user.click(screen.getByText('README.md'))
     expect(onSelect).toHaveBeenCalledWith('readme')
   })
+
+  it('collapses expanded node on second click', async () => {
+    const user = userEvent.setup()
+    render(<Tree nodes={nodes} />)
+    await user.click(screen.getByText('src'))
+    expect(screen.getByText('index.ts')).toBeDefined()
+    await user.click(screen.getByText('src'))
+    expect(screen.queryByText('index.ts')).toBeNull()
+  })
+
+  it('renders with defaultExpanded', () => {
+    render(<Tree nodes={nodes} defaultExpanded={['src']} />)
+    expect(screen.getByText('index.ts')).toBeDefined()
+    expect(screen.getByText('app.tsx')).toBeDefined()
+  })
+
+  it('highlights selected node', () => {
+    const { container } = render(<Tree nodes={nodes} selected="readme" />)
+    const selectedBtn = container.querySelector('[data-state="selected"]')
+    expect(selectedBtn).not.toBeNull()
+    expect(selectedBtn?.textContent).toContain('README.md')
+  })
+
+  it('renders custom icon when provided', () => {
+    const nodesWithIcon = [
+      { id: 'file', label: 'file.ts', icon: <span data-testid="custom-icon">I</span> },
+    ]
+    render(<Tree nodes={nodesWithIcon} />)
+    expect(screen.getByTestId('custom-icon')).toBeDefined()
+  })
+
+  it('renders disabled node', () => {
+    const nodesWithDisabled = [
+      { id: 'locked', label: 'locked.txt', disabled: true },
+    ]
+    const { container } = render(<Tree nodes={nodesWithDisabled} />)
+    const button = container.querySelector('button')!
+    expect(button.disabled).toBe(true)
+    expect(button.className).toContain('opacity-50')
+  })
+
+  it('does not call onSelect when disabled node is clicked', async () => {
+    const user = userEvent.setup()
+    const onSelect = vi.fn()
+    const nodesWithDisabled = [
+      { id: 'locked', label: 'locked.txt', disabled: true },
+    ]
+    render(<Tree nodes={nodesWithDisabled} onSelect={onSelect} />)
+    // disabled button won't fire click
+    await user.click(screen.getByText('locked.txt'))
+    expect(onSelect).not.toHaveBeenCalled()
+  })
+
+  it('applies custom className', () => {
+    const { container } = render(<Tree nodes={nodes} className="my-tree" />)
+    const root = container.querySelector('[data-component="tree"]')
+    expect(root?.className).toContain('my-tree')
+  })
+
+  it('forwards ref', () => {
+    const ref = { current: null as HTMLDivElement | null }
+    render(<Tree nodes={nodes} ref={ref} />)
+    expect(ref.current).not.toBeNull()
+    expect(ref.current?.getAttribute('data-component')).toBe('tree')
+  })
 })

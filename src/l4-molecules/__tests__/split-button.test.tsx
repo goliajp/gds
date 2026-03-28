@@ -48,4 +48,55 @@ describe('SplitButton', () => {
     await user.keyboard('{Escape}')
     expect(screen.queryByText('Save as Draft')).toBeNull()
   })
+
+  it('renders with secondary variant', () => {
+    const { container } = render(
+      <SplitButton items={items} onSelect={() => {}} variant="secondary">Save</SplitButton>,
+    )
+    const el = container.querySelector('[data-component="split-button"]')
+    expect(el?.getAttribute('data-variant')).toBe('secondary')
+  })
+
+  it('renders with danger variant', () => {
+    const { container } = render(
+      <SplitButton items={items} onSelect={() => {}} variant="danger">Delete</SplitButton>,
+    )
+    const el = container.querySelector('[data-component="split-button"]')
+    expect(el?.getAttribute('data-variant')).toBe('danger')
+  })
+
+  it('renders with sm size', () => {
+    const { container } = render(
+      <SplitButton items={items} onSelect={() => {}} size="sm">Save</SplitButton>,
+    )
+    const mainBtn = container.querySelector('button')
+    expect(mainBtn?.className).toContain('text-xs')
+  })
+
+  it('renders with lg size', () => {
+    const { container } = render(
+      <SplitButton items={items} onSelect={() => {}} size="lg">Save</SplitButton>,
+    )
+    const mainBtn = container.querySelector('button')
+    expect(mainBtn?.className).toContain('px-4')
+  })
+
+  it('disables both buttons when disabled', () => {
+    const { container } = render(
+      <SplitButton items={items} onSelect={() => {}} disabled>Save</SplitButton>,
+    )
+    const buttons = container.querySelectorAll('button')
+    expect(buttons[0]?.disabled).toBe(true)
+    expect(buttons[1]?.disabled).toBe(true)
+  })
+
+  it('renders danger item with danger styling in dropdown', async () => {
+    const user = userEvent.setup()
+    render(
+      <SplitButton items={items} onSelect={() => {}}>Save</SplitButton>,
+    )
+    await user.click(screen.getByLabelText('More actions'))
+    const deleteBtn = screen.getByText('Delete')
+    expect(deleteBtn.className).toContain('text-danger')
+  })
 })

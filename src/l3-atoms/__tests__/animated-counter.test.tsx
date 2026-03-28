@@ -60,4 +60,22 @@ describe('AnimatedCounter', () => {
     // default format with integer returns toLocaleString
     expect(screen.getByText('0')).toBeDefined()
   })
+
+  it('renders non-integer with default format', () => {
+    render(<AnimatedCounter value={3.14} />)
+    // default format for non-integer uses maximumFractionDigits: 2
+    expect(screen.getByText('3.14')).toBeDefined()
+  })
+
+  it('does not render prefix span when prefix is undefined', () => {
+    const { container } = render(<AnimatedCounter value={5} />)
+    const spans = container.querySelectorAll('[data-component="animated-counter"] > span')
+    expect(spans.length).toBe(0)
+  })
+
+  it('does not render suffix span when suffix is undefined', () => {
+    const { container } = render(<AnimatedCounter value={5} />)
+    const spans = container.querySelectorAll('[data-component="animated-counter"] > span')
+    expect(spans.length).toBe(0)
+  })
 })

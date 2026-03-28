@@ -50,4 +50,60 @@ describe('CommandMenu', () => {
     const deleteBtn = screen.getByTestId('command-menu-item-delete')
     expect(deleteBtn.className).toContain('text-danger')
   })
+
+  it('shows "No results" when search yields nothing', async () => {
+    const user = userEvent.setup()
+    render(<CommandMenu items={items} onSelect={vi.fn()} />)
+    const input = screen.getByTestId('command-menu-search')
+    await user.type(input, 'zzzzz')
+    expect(screen.getByText('No results')).toBeDefined()
+  })
+
+  it('hides search when searchable is false', () => {
+    render(<CommandMenu items={items} onSelect={vi.fn()} searchable={false} />)
+    expect(screen.queryByTestId('command-menu-search')).toBeNull()
+  })
+
+  it('renders items with icons', () => {
+    const itemsWithIcons = [
+      { id: 'a', label: 'Item A', icon: <span data-testid="icon-a">A</span> },
+    ]
+    render(<CommandMenu items={itemsWithIcons} onSelect={vi.fn()} />)
+    expect(screen.getByTestId('icon-a')).toBeDefined()
+  })
+
+  it('renders items with shortcuts', () => {
+    const itemsWithShortcut = [
+      { id: 'a', label: 'Item A', shortcut: '⌘A' },
+    ]
+    render(<CommandMenu items={itemsWithShortcut} onSelect={vi.fn()} />)
+    expect(screen.getByText('⌘A')).toBeDefined()
+  })
+
+  it('renders group headers', () => {
+    const groupedItems = [
+      { id: 'a', label: 'Item A', group: 'Actions' },
+      { id: 'b', label: 'Item B', group: 'Navigation' },
+    ]
+    render(<CommandMenu items={groupedItems} onSelect={vi.fn()} />)
+    expect(screen.getByText('Actions')).toBeDefined()
+    expect(screen.getByText('Navigation')).toBeDefined()
+  })
+
+  it('navigates up with ArrowUp', async () => {
+    const user = userEvent.setup()
+    const onSelect = vi.fn()
+    render(<CommandMenu items={items} onSelect={onSelect} />)
+    const input = screen.getByTestId('command-menu-search')
+    await user.click(input)
+    await user.keyboard('{ArrowUp}{Enter}')
+    // wraps around: from index 0 to last item (delete)
+    expect(onSelect).toHaveBeenCalledWith('delete')
+  })
+
+  it('applies glass styling', () => {
+    const { container } = render(<CommandMenu items={items} onSelect={vi.fn()} glass />)
+    const el = container.querySelector('[data-component="command-menu"]')
+    expect(el?.className).toContain('bg-bg/60')
+  })
 })

@@ -22,4 +22,21 @@ describe('TruncatedList', () => {
     expect(screen.getByText('B')).toBeDefined()
     expect(screen.getByText('+3 more')).toBeDefined()
   })
+
+  it('uses custom moreLabel function', () => {
+    render(
+      <TruncatedList
+        items={['A', 'B', 'C', 'D']}
+        max={1}
+        moreLabel={(n) => `and ${n} others`}
+      />,
+    )
+    expect(screen.getByText('and 3 others')).toBeDefined()
+  })
+
+  it('does not show more label when items exactly equal max', () => {
+    const { container } = render(<TruncatedList items={['A', 'B', 'C']} max={3} />)
+    const moreSpan = container.querySelector('.text-fg-muted')
+    expect(moreSpan).toBeNull()
+  })
 })

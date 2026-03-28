@@ -61,4 +61,18 @@ describe('Switch', () => {
     await user.click(screen.getByRole('switch'))
     expect(onChange).not.toHaveBeenCalled()
   })
+
+  it('does not render label when label is not provided', () => {
+    const { container } = render(<Switch />)
+    const spans = container.querySelectorAll('[data-component="switch"] > span')
+    // no label span should exist
+    expect(spans.length).toBe(0)
+  })
+
+  it('works without onChange handler', async () => {
+    // should not throw when clicked without onChange
+    const user = userEvent.setup()
+    render(<Switch />)
+    await user.click(screen.getByRole('switch'))
+  })
 })

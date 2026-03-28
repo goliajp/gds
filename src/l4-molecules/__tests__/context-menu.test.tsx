@@ -56,4 +56,57 @@ describe('ContextMenu', () => {
     // 3 clickable items (copy, paste, delete), no button for separator
     expect(buttons.length).toBe(3)
   })
+
+  it('renders item with icon', () => {
+    const itemsWithIcon = [
+      { id: 'edit', label: 'Edit', icon: <span data-testid="edit-icon">✏</span> },
+    ]
+    const { container } = render(
+      <ContextMenu trigger={<span>Trigger</span>} items={itemsWithIcon} onSelect={vi.fn()} />,
+    )
+    fireEvent.contextMenu(container.querySelector('[data-component="context-menu"]')!)
+    expect(screen.getByTestId('edit-icon')).toBeDefined()
+  })
+
+  it('renders item with shortcut', () => {
+    const itemsWithShortcut = [
+      { id: 'copy', label: 'Copy', shortcut: '⌘C' },
+    ]
+    const { container } = render(
+      <ContextMenu trigger={<span>Trigger</span>} items={itemsWithShortcut} onSelect={vi.fn()} />,
+    )
+    fireEvent.contextMenu(container.querySelector('[data-component="context-menu"]')!)
+    expect(screen.getByText('⌘C')).toBeDefined()
+  })
+
+  it('renders disabled item', () => {
+    const itemsWithDisabled = [
+      { id: 'locked', label: 'Locked', disabled: true },
+    ]
+    const { container } = render(
+      <ContextMenu trigger={<span>Trigger</span>} items={itemsWithDisabled} onSelect={vi.fn()} />,
+    )
+    fireEvent.contextMenu(container.querySelector('[data-component="context-menu"]')!)
+    const btn = screen.getByText('Locked')
+    expect(btn.closest('button')?.disabled).toBe(true)
+  })
+
+  it('closes menu after selecting item', () => {
+    const { container } = render(
+      <ContextMenu trigger={<span>Trigger</span>} items={items} onSelect={vi.fn()} />,
+    )
+    fireEvent.contextMenu(container.querySelector('[data-component="context-menu"]')!)
+    expect(container.querySelector('[data-state="open"]')).not.toBeNull()
+    fireEvent.click(screen.getByText('Copy'))
+    expect(container.querySelector('[data-state="closed"]')).not.toBeNull()
+  })
+
+  it('applies danger class to danger items', () => {
+    const { container } = render(
+      <ContextMenu trigger={<span>Trigger</span>} items={items} onSelect={vi.fn()} />,
+    )
+    fireEvent.contextMenu(container.querySelector('[data-component="context-menu"]')!)
+    const deleteBtn = screen.getByText('Delete')
+    expect(deleteBtn.closest('button')?.className).toContain('text-danger')
+  })
 })

@@ -63,4 +63,69 @@ describe('BeforeAfter', () => {
     )
     expect(refNode).not.toBeNull()
   })
+
+  it('accepts a ref object', () => {
+    const ref = { current: null } as React.RefObject<HTMLDivElement | null>
+    render(
+      <BeforeAfter before={<div>B</div>} after={<div>A</div>} ref={ref} />,
+    )
+    expect(ref.current).not.toBeNull()
+  })
+
+  it('updates position on pointerDown', () => {
+    const { container } = render(<BeforeAfter before={<div>B</div>} after={<div>A</div>} />)
+    const el = container.querySelector('[data-component="before-after"]') as HTMLElement
+
+    // mock getBoundingClientRect
+    el.getBoundingClientRect = () => ({
+      left: 0, top: 0, right: 200, bottom: 100, width: 200, height: 100, x: 0, y: 0, toJSON: () => {},
+    })
+
+    fireEvent.pointerDown(el, { clientX: 100, pointerId: 1 })
+    const divider = container.querySelector('[data-component="before-after"] > div:last-child')
+    expect(divider?.getAttribute('style')).toContain('50%')
+  })
+
+  it('updates position on pointerMove after pointerDown', () => {
+    const { container } = render(<BeforeAfter before={<div>B</div>} after={<div>A</div>} />)
+    const el = container.querySelector('[data-component="before-after"]') as HTMLElement
+
+    el.getBoundingClientRect = () => ({
+      left: 0, top: 0, right: 200, bottom: 100, width: 200, height: 100, x: 0, y: 0, toJSON: () => {},
+    })
+
+    fireEvent.pointerDown(el, { clientX: 100, pointerId: 1 })
+    fireEvent.pointerMove(el, { clientX: 150 })
+    const divider = container.querySelector('[data-component="before-after"] > div:last-child')
+    expect(divider?.getAttribute('style')).toContain('75%')
+  })
+
+  it('stops dragging on pointerUp', () => {
+    const { container } = render(<BeforeAfter before={<div>B</div>} after={<div>A</div>} />)
+    const el = container.querySelector('[data-component="before-after"]') as HTMLElement
+
+    el.getBoundingClientRect = () => ({
+      left: 0, top: 0, right: 200, bottom: 100, width: 200, height: 100, x: 0, y: 0, toJSON: () => {},
+    })
+
+    fireEvent.pointerDown(el, { clientX: 100, pointerId: 1 })
+    fireEvent.pointerUp(el)
+    fireEvent.pointerMove(el, { clientX: 150 })
+    // position should still be from pointerDown (50%), not updated to 75%
+    const divider = container.querySelector('[data-component="before-after"] > div:last-child')
+    expect(divider?.getAttribute('style')).toContain('50%')
+  })
+
+  it('clamps position to 0-100 range', () => {
+    const { container } = render(<BeforeAfter before={<div>B</div>} after={<div>A</div>} />)
+    const el = container.querySelector('[data-component="before-after"]') as HTMLElement
+
+    el.getBoundingClientRect = () => ({
+      left: 0, top: 0, right: 200, bottom: 100, width: 200, height: 100, x: 0, y: 0, toJSON: () => {},
+    })
+
+    fireEvent.pointerDown(el, { clientX: -50, pointerId: 1 })
+    const divider = container.querySelector('[data-component="before-after"] > div:last-child')
+    expect(divider?.getAttribute('style')).toContain('0%')
+  })
 })

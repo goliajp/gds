@@ -40,4 +40,30 @@ describe('Alert', () => {
     render(<Alert>No close</Alert>)
     expect(screen.queryByLabelText('Dismiss')).toBeNull()
   })
+
+  it('renders all variant types', () => {
+    const variants = ['info', 'success', 'warning', 'danger'] as const
+    for (const variant of variants) {
+      const { container } = render(<Alert variant={variant}>Msg</Alert>)
+      const el = container.querySelector('[data-component="alert"]')
+      expect(el?.getAttribute('data-variant')).toBe(variant)
+    }
+  })
+
+  it('renders title when provided', () => {
+    render(<Alert title="Important">Details</Alert>)
+    expect(screen.getByText('Important')).toBeDefined()
+  })
+
+  it('does not render title when not provided', () => {
+    render(<Alert>Just body</Alert>)
+    // no <p> with mb-0.5 class for title
+    expect(screen.queryByText('Important')).toBeNull()
+  })
+
+  it('applies glass styling when glass is true', () => {
+    const { container } = render(<Alert glass>Glass alert</Alert>)
+    const el = container.querySelector('[data-component="alert"]')
+    expect(el?.className).toContain('gds-glass')
+  })
 })

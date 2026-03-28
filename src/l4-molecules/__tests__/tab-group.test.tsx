@@ -45,4 +45,33 @@ describe('TabGroup', () => {
     const { container } = render(<TabGroup tabs={tabs} />)
     expect(container.querySelector('[data-component="tab-group"]')).not.toBeNull()
   })
+
+  it('uses defaultTab when specified', () => {
+    render(<TabGroup tabs={tabs} defaultTab="security" />)
+    expect(screen.getByText('Security content')).toBeDefined()
+    expect(screen.queryByText('General content')).toBeNull()
+  })
+
+  it('applies glass styling when glass is true', () => {
+    const { container } = render(<TabGroup tabs={tabs} glass />)
+    const el = container.querySelector('[data-component="tab-group"]')
+    expect(el?.className).toContain('bg-bg/60')
+  })
+
+  it('does not apply glass styling when glass is false', () => {
+    const { container } = render(<TabGroup tabs={tabs} glass={false} />)
+    const el = container.querySelector('[data-component="tab-group"]')
+    expect(el?.className).not.toContain('bg-bg/60')
+  })
+
+  it('handles empty tabs array', () => {
+    const { container } = render(<TabGroup tabs={[]} />)
+    expect(container.querySelector('[data-component="tab-group"]')).not.toBeNull()
+  })
+
+  it('applies custom className', () => {
+    const { container } = render(<TabGroup tabs={tabs} className="extra" />)
+    const el = container.querySelector('[data-component="tab-group"]')
+    expect(el?.className).toContain('extra')
+  })
 })
