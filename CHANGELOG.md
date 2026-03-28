@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.5] - 2026-03-28
+
+### Added
+
+- renderPortal utility — anti-corruption wrapper for react-dom createPortal
+- ESLint per-layer dependency constraints enforcing LAYER_DEP_CONSTRAINTS
+- ESLint cross-layer import prevention (lower layers cannot import higher layers)
+- subpath exports: @goliapkg/gds/primitives, /atoms, /molecules, /organisms, /charts, /patterns, /utils
+- multi-entry vite build for per-layer tree-shaking
+- missing barrel exports: useSetThemePrimaryColor, gesture/glass/motion/hooks utilities, 10+ types
+- forwardRef to KeyboardShortcut and Sparkle
+- data-component attribute to InfoTip
+- dev-center CodeBlock: token-level syntax highlighting with line numbers and language auto-detection
+
+### Changed
+
+- Truncate refactored to controlled component (expandable → expanded + onToggle) — **breaking**
+- all createPortal usages migrated to renderPortal (8 files)
+- L2 dependency constraint updated to include class-variance-authority (matches actual usage)
+- candlestick-chart CandleShape typed properly (removed any)
+
 ## [0.9.4] - 2026-03-28
 
 ### Fixed
