@@ -3,18 +3,18 @@ import { useState } from 'react'
 import { Ctrl } from '../components/ctrl'
 import { DocTable, DemoCard, DocSection, ImportLine, LivePreview } from '../components/demo'
 
-import { CurrencyInput, OtpInput, PhoneInput } from '@gds/l4-molecules'
+import { CurrencyInput, PhoneInput, PinInput } from '@gds/l4-molecules'
 
 import type { DevCenterItem } from '../types'
 
 const moleculeItemsH: DevCenterItem[] = []
 
-// otp input demo
-function OtpDemo({ length, error }: { length: number, error: boolean }) {
+// pin input demo
+function PinDemo({ length, error, mask }: { length: number; error: boolean; mask: boolean }) {
   const [value, setValue] = useState('')
   return (
     <div className="flex flex-col items-center gap-3">
-      <OtpInput value={value} onChange={setValue} length={length} error={error} />
+      <PinInput value={value} onChange={setValue} length={length} error={error} mask={mask} />
       {value !== '' && (
         <p className="text-xs text-fg-muted">Value: {value}</p>
       )}
@@ -22,26 +22,26 @@ function OtpDemo({ length, error }: { length: number, error: boolean }) {
   )
 }
 
-const otpInputItem: DevCenterItem = {
-  id: 'otp-input',
-  label: 'OtpInput',
+const pinInputItem: DevCenterItem = {
+  id: 'pin-input',
+  label: 'PinInput',
   layer: 'l4',
   type: 'interactive',
   tags: ['otp', 'pin', 'code', 'verification', 'input', 'digit'],
-  defaultConfig: { length: 6, error: false },
+  defaultConfig: { length: 4, error: false, mask: false },
 
   stage: ({ config }) => (
     <div>
-      <ImportLine text="import { OtpInput } from '@goliapkg/gds'" />
+      <ImportLine text="import { PinInput } from '@goliapkg/gds'" />
       <LivePreview>
-        <OtpDemo length={config.length} error={config.error} />
+        <PinDemo length={Number(config.length ?? 4)} error={config.error} mask={config.mask} />
       </LivePreview>
       <DocSection title="Variants" columns={2}>
-        <DemoCard title="4 Digits" description="Short OTP code" code={`<OtpInput value={value} onChange={setValue} length={4} />`}>
-          <OtpDemo length={4} error={false} />
+        <DemoCard title="4 Digits" description="Short PIN code" code={`<PinInput value={val} onChange={setVal} length={4} />`}>
+          <PinDemo length={4} error={false} mask={false} />
         </DemoCard>
-        <DemoCard title="Error" description="Invalid code state" code={`<OtpInput value={value} onChange={setValue} error />`}>
-          <OtpDemo length={6} error={true} />
+        <DemoCard title="Masked" description="Password-style dots" code={`<PinInput value={val} onChange={setVal} mask />`}>
+          <PinDemo length={4} error={false} mask={true} />
         </DemoCard>
       </DocSection>
     </div>
@@ -51,31 +51,34 @@ const otpInputItem: DevCenterItem = {
     <>
       <Ctrl type="number" label="length" value={config.length} min={4} max={8} onChange={(v) => setConfig('length', v)} />
       <Ctrl type="check" label="error" value={config.error} onChange={(v) => setConfig('error', v)} />
+      <Ctrl type="check" label="mask" value={config.mask} onChange={(v) => setConfig('mask', v)} />
     </>
   ),
 
   code: ({ config }) => {
-    const props = ['value={value}', 'onChange={setValue}']
-    if (config.length !== 6) props.push(`length={${config.length}}`)
+    const props = ['value={val}', 'onChange={setVal}']
+    if (config.length !== 4) props.push(`length={${config.length}}`)
     if (config.error === true) props.push('error')
-    return `import { OtpInput } from '@goliapkg/gds'\n\n<OtpInput\n  ${props.join('\n  ')}\n/>`
+    if (config.mask === true) props.push('mask')
+    return `import { PinInput } from '@goliapkg/gds'\n\n<PinInput\n  ${props.join('\n  ')}\n/>`
   },
 
   docs: () => (
     <div className="space-y-4" data-selectable>
       <DocTable rows={[
-        ['value', 'Current OTP string', 'string', '""'],
+        ['value', 'Current input string', 'string', '—'],
         ['onChange', 'Called when value changes', '(value: string) => void', '—'],
         ['onComplete', 'Called when all digits filled', '(value: string) => void', '—'],
-        ['length', 'Number of digit boxes', 'number', '6'],
+        ['length', 'Number of input boxes', 'number', '4'],
+        ['mask', 'Show dots instead of characters', 'boolean', 'false'],
+        ['numeric', 'Only allow digits', 'boolean', 'false'],
         ['error', 'Error state styling', 'boolean', 'false'],
         ['disabled', 'Disable all inputs', 'boolean', 'false'],
-        ['className', 'Additional CSS classes', 'string', '—'],
       ]} />
     </div>
   ),
 }
-moleculeItemsH.push(otpInputItem)
+moleculeItemsH.push(pinInputItem)
 
 // phone input demo
 function PhoneDemo({ error, disabled }: { error: boolean, disabled: boolean }) {

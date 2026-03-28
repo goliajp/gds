@@ -1,4 +1,4 @@
-import { OverflowMenu } from '@gds/l3-atoms'
+import { OverflowMenu } from '@gds/l4-molecules'
 
 import { Ctrl } from '../components/ctrl'
 import { DocTable, ImportLine, LivePreview } from '../components/demo'
@@ -10,7 +10,7 @@ const atomItemsAA: DevCenterItem[] = []
 const overflowMenuItem: DevCenterItem = {
   id: 'overflow-menu',
   label: 'OverflowMenu',
-  layer: 'l3',
+  layer: 'l4',
   type: 'interactive',
   tags: ['overflow', 'menu', 'more', 'actions', 'ellipsis', 'atom'],
   defaultConfig: {},

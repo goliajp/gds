@@ -7,11 +7,10 @@ import { Button } from '@gds/l2-primitives'
 import {
   LoadingDots,
   Meter,
-  Popover,
   RadioGroup,
   StatusBadge,
-  TagInput,
 } from '@gds/l3-atoms'
+import { Popover, TagInput } from '@gds/l4-molecules'
 
 import type { DevCenterItem } from '../types'
 
@@ -440,7 +439,7 @@ const atomItemsB: DevCenterItem[] = [
   {
     id: 'popover',
     label: 'Popover',
-    layer: 'l3',
+    layer: 'l4',
     type: 'interactive',
     tags: ['popup', 'floating', 'dropdown'],
     defaultConfig: { placement: 'bottom', align: 'start' },
@@ -544,7 +543,7 @@ function TagInputStateless() {
 const tagInputItem: DevCenterItem = {
   id: 'tag-input',
   label: 'TagInput',
-  layer: 'l3',
+  layer: 'l4',
   type: 'interactive',
   tags: ['form', 'tags', 'chips', 'multi'],
   defaultConfig: { maxTags: 0, error: false, disabled: false, glass: false, placeholder: 'Add tag...' },

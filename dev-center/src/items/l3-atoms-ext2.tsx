@@ -4,13 +4,12 @@ import { Ctrl } from '../components/ctrl'
 import { DocTable, DemoCard, DocSection, ImportLine, LivePreview } from '../components/demo'
 
 import {
-  Editable,
   RangeSlider,
   ResizeHandle,
   SegmentedControl,
-  SplitButton,
   ToggleGroup,
 } from '@gds/l3-atoms'
+import { Editable, SplitButton } from '@gds/l4-molecules'
 
 import type { DevCenterItem } from '../types'
 
@@ -292,7 +291,7 @@ atomItemsC.push(segmentedControlItem)
 const splitButtonItem: DevCenterItem = {
   id: 'split-button',
   label: 'SplitButton',
-  layer: 'l3',
+  layer: 'l4',
   type: 'interactive',
   tags: ['button', 'dropdown', 'actions', 'menu'],
   variants: ['primary', 'secondary', 'danger'],
@@ -396,7 +395,7 @@ atomItemsC.push(splitButtonItem)
 const editableItem: DevCenterItem = {
   id: 'editable',
   label: 'Editable',
-  layer: 'l3',
+  layer: 'l4',
   type: 'interactive',
   tags: ['inline', 'edit', 'text', 'input'],
   defaultConfig: { placeholder: 'Click to edit', disabled: false },

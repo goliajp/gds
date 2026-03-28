@@ -7,7 +7,6 @@ import {
   Chip,
   LoadingDots,
   Meter,
-  Popover,
   RadioGroup,
   Rating,
   StatusBadge,
@@ -38,10 +37,6 @@ describe('l3-atoms barrel exports', () => {
 
   it('exports Meter', () => {
     expect(Meter).toBeDefined()
-  })
-
-  it('exports Popover', () => {
-    expect(Popover).toBeDefined()
   })
 
   it('exports RadioGroup', () => {
