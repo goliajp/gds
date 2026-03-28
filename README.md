@@ -98,7 +98,7 @@ Anti-corruption wrappers: `cx()` for clsx+tailwind-merge, `VariantProps` for CVA
 git clone git@github.com:goliajp/gds.git
 cd gds
 bun install
-bun dev              # dev-center at localhost:5175
+bun dev              # website at localhost:5175
 bun test             # run vitest
 bun run test:coverage # coverage report (93%+ branches)
 bun run check        # test + typecheck + lint
@@ -129,7 +129,7 @@ GDS is designed to be learned and applied by AI. Key entry points:
 | Layer rules | `src/l0-tokens/deps.ts` |
 | Philosophy | `.claude/rules/gds-philosophy.md` |
 | Standards | `.claude/rules/gds-lib.md` |
-| Live demos | `dev-center/src/items/` (150+ demos) |
+| Live demos | `web/src/items/` (150+ demos) |
 
 Every component: **CVA variants → typed Props → forwardRef → cx() → focusCls → data-component**. Learn one, apply to all.
 

@@ -8,17 +8,17 @@ Always reply in Chinese (中文).
 
 ## Project Overview
 
-GDS (GOLIA Design System) v1 — production-grade React component library with 370+ components, 93%+ branch coverage, and strict 8-layer architecture. Includes an interactive dev-center for documentation and playground.
+GDS (GOLIA Design System) v1 — production-grade React component library with 370+ components, 93%+ branch coverage, and strict 8-layer architecture. Includes an official website with interactive playground.
 
 - `src/` — library source (8 layers: tokens → systems → primitives → atoms → molecules → organisms → charts → patterns)
-- `dev-center/` — interactive component browser & playground (150+ demos)
+- `web/` — official website: component browser, playground & documentation (150+ demos)
 - `utils/` — anti-corruption layer wrapping external dependencies
 
 ## Commands
 
 ```bash
 bun install                        # install dependencies
-bun dev                            # start dev-center (Vite, port 5175)
+bun dev                            # start website (Vite, port 5175)
 bun test                           # run vitest (393 files, 3400+ cases)
 bun run test:watch                 # vitest in watch mode
 bun run test:coverage              # coverage report (93%+ branches, all layers >90%)
@@ -83,7 +83,7 @@ import { BarChart } from '@goliapkg/gds/charts'
 
 ### Path Alias
 
-`@gds/*` → `./src/*` (configured in tsconfig.json and dev-center/vite.config.ts)
+`@gds/*` → `./src/*` (configured in tsconfig.json and web/vite.config.ts)
 
 ### Contextual Depth System
 

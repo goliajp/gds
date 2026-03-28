@@ -11,6 +11,8 @@ import {
   useTheme,
 } from '@gds/l1-systems/use-theme'
 
+import { version } from '../../../package.json'
+
 const presetColors = [
   { label: 'Blue', color: '#3b82f6' },
   { label: 'Teal', color: '#14b8a6' },
@@ -103,7 +105,7 @@ export function ThemeToolbar() {
 
       <div className="ml-auto shrink-0" />
       <span className="shrink-0 rounded-md bg-accent/15 px-2 py-0.5 text-[11px] font-bold tracking-wider text-accent select-none">
-        v1.0.0
+        v{version}
       </span>
     </div>
   )

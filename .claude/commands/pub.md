@@ -38,6 +38,8 @@ Steps:
 
 8. Confirm: print the new version and the GitHub Actions URL so the user can track the publish.
 
+9. Run `/deploy` to build and deploy the website to production.
+
 IMPORTANT:
 - Must be on `develop` branch at start and end
 - Never use `git flow release` commands — do the merge/tag manually for simplicity
