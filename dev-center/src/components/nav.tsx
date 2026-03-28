@@ -1,7 +1,7 @@
 import type { RefObject } from 'react'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 
 import { cx } from '@gds/utils/cx'
 
@@ -37,6 +37,8 @@ function scoreItem(item: DevCenterItem, q: string): number {
 
 type NavProps = {
   items: DevCenterItem[]
+  activeLayerId: string
+  activeItemId: string
   searchRef?: RefObject<HTMLInputElement | null>
   favorites?: string[]
   isFavorite?: (id: string) => boolean
@@ -45,8 +47,9 @@ type NavProps = {
   recent?: string[]
 }
 
-export function Nav({ items, searchRef, favorites = [], isFavorite, toggleFavorite, onToggleFavorite, recent = [] }: NavProps) {
-  const { layerId, itemId } = useParams<{ layerId: string; itemId: string }>()
+export function Nav({ items, activeLayerId, activeItemId, searchRef, favorites = [], isFavorite, toggleFavorite, onToggleFavorite, recent = [] }: NavProps) {
+  const layerId = activeLayerId
+  const itemId = activeItemId
   const navigate = useNavigate()
   const [search, setSearch] = useState('')
 
