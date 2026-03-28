@@ -169,4 +169,27 @@ describe('AudioPlayer', () => {
     render(<AudioPlayer src="test.mp3" />)
     expect(screen.getByTestId('time-display')).toHaveTextContent('0:00 / 0:00')
   })
+
+  it('does not apply glass classes when glass is not provided', () => {
+    const { container } = render(<AudioPlayer src="test.mp3" />)
+    const el = container.querySelector('[data-component="audio-player"]')
+    expect(el?.className).not.toContain('gds-glass')
+    expect(el?.className).not.toContain('border-white/10')
+  })
+
+  it('progress bar shows 0% when duration is 0', () => {
+    render(<AudioPlayer src="test.mp3" />)
+    const progressBar = screen.getByTestId('progress-bar')
+    const inner = progressBar.firstElementChild as HTMLElement
+    expect(inner.style.width).toBe('0%')
+  })
+
+  it('seek does not crash when duration is 0', () => {
+    render(<AudioPlayer src="test.mp3" />)
+    const progressBar = screen.getByTestId('progress-bar')
+    vi.spyOn(progressBar, 'getBoundingClientRect').mockReturnValue({
+      left: 0, width: 200, top: 0, right: 200, bottom: 10, height: 10, x: 0, y: 0, toJSON: vi.fn(),
+    })
+    fireEvent.click(progressBar, { clientX: 100 })
+  })
 })

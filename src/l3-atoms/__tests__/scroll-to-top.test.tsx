@@ -1,5 +1,6 @@
-import { render } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { fireEvent, render } from '@testing-library/react'
+import { act } from 'react'
+import { describe, expect, it, vi } from 'vitest'
 
 import { ScrollToTop } from '../scroll-to-top'
 
@@ -28,5 +29,44 @@ describe('ScrollToTop', () => {
     const { container } = render(<ScrollToTop threshold={0} />)
     const btn = container.querySelector('button')
     expect(btn?.getAttribute('aria-label')).toBe('Scroll to top')
+  })
+
+  it('calls window.scrollTo with smooth behavior on click', () => {
+    const scrollTo = vi.fn()
+    Object.defineProperty(window, 'scrollTo', { value: scrollTo, writable: true })
+
+    const { container } = render(<ScrollToTop threshold={0} />)
+    const btn = container.querySelector('button')!
+    fireEvent.click(btn)
+    expect(scrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' })
+  })
+
+  it('calls window.scrollTo with auto behavior when smooth is false', () => {
+    const scrollTo = vi.fn()
+    Object.defineProperty(window, 'scrollTo', { value: scrollTo, writable: true })
+
+    const { container } = render(<ScrollToTop threshold={0} smooth={false} />)
+    const btn = container.querySelector('button')!
+    fireEvent.click(btn)
+    expect(scrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'auto' })
+  })
+
+  it('becomes visible when scrollY crosses threshold via scroll event', () => {
+    Object.defineProperty(window, 'scrollY', { value: 0, writable: true, configurable: true })
+
+    const { container } = render(<ScrollToTop threshold={100} />)
+    expect(container.querySelector('[data-component="scroll-to-top"]')).toBeNull()
+
+    Object.defineProperty(window, 'scrollY', { value: 200, writable: true, configurable: true })
+    act(() => {
+      window.dispatchEvent(new Event('scroll'))
+    })
+    expect(container.querySelector('[data-component="scroll-to-top"]')).not.toBeNull()
+  })
+
+  it('applies custom className', () => {
+    const { container } = render(<ScrollToTop threshold={0} className="my-class" />)
+    const btn = container.querySelector('[data-component="scroll-to-top"]')
+    expect(btn?.className).toContain('my-class')
   })
 })

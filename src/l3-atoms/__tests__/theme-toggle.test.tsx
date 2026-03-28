@@ -33,4 +33,18 @@ describe('ThemeToggle', () => {
     const { container } = render(<ThemeToggle mode="dark" onChange={vi.fn()} />)
     expect(container.querySelector('[data-component="theme-toggle"]')).not.toBeNull()
   })
+
+  it('toggles from light to dark on click', async () => {
+    const user = userEvent.setup()
+    const onChange = vi.fn()
+    render(<ThemeToggle mode="light" onChange={onChange} />)
+    await user.click(screen.getByRole('button'))
+    expect(onChange).toHaveBeenCalledWith('dark')
+  })
+
+  it('renders with sm size', () => {
+    const { container } = render(<ThemeToggle mode="dark" onChange={vi.fn()} size="sm" />)
+    const btn = container.querySelector('[data-component="theme-toggle"]')
+    expect(btn?.className).toContain('h-6')
+  })
 })

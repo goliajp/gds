@@ -200,4 +200,31 @@ describe('VideoPlayer', () => {
     render(<VideoPlayer src="test.mp4" />)
     expect(screen.getByTestId('time-display')).toHaveTextContent('0:00 / 0:00')
   })
+
+  it('does not attach mouse handlers when controls=false', () => {
+    const { container } = render(<VideoPlayer src="test.mp4" controls={false} />)
+    const el = container.querySelector('[data-component="video-player"]')!
+    // mouseMove and mouseLeave should not cause errors
+    fireEvent.mouseMove(el)
+    fireEvent.mouseLeave(el)
+  })
+
+  it('handles fullscreen exit when already in fullscreen', () => {
+    render(<VideoPlayer src="test.mp4" />)
+    // simulate being in fullscreen
+    Object.defineProperty(document, 'fullscreenElement', { value: document.body, configurable: true })
+    document.exitFullscreen = vi.fn().mockResolvedValue(undefined)
+
+    fireEvent.click(screen.getByTestId('fullscreen-button'))
+    expect(document.exitFullscreen).toHaveBeenCalled()
+
+    // restore
+    Object.defineProperty(document, 'fullscreenElement', { value: null, configurable: true })
+  })
+
+  it('does not apply glass class when glass is false', () => {
+    const { container } = render(<VideoPlayer src="test.mp4" />)
+    const el = container.querySelector('[data-component="video-player"]')
+    expect(el?.className).not.toContain('gds-glass')
+  })
 })

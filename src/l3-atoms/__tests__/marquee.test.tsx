@@ -30,4 +30,32 @@ describe('Marquee', () => {
     const { container } = render(<Marquee>x</Marquee>)
     expect(container.querySelector('[data-component="marquee"]')).toBeInTheDocument()
   })
+
+  it('sets right-to-left animation when direction is "right"', () => {
+    const { container } = render(<Marquee direction="right">text</Marquee>)
+    const inner = container.querySelector('[data-component="marquee"] > div')
+    const style = inner!.getAttribute('style') ?? ''
+    expect(style).toContain('--marquee-from: -50%')
+    expect(style).toContain('--marquee-to: 0%')
+  })
+
+  it('sets left-to-right animation when direction is "left" (default)', () => {
+    const { container } = render(<Marquee>text</Marquee>)
+    const inner = container.querySelector('[data-component="marquee"] > div')
+    const style = inner!.getAttribute('style') ?? ''
+    expect(style).toContain('--marquee-from: 0%')
+    expect(style).toContain('--marquee-to: -50%')
+  })
+
+  it('does not apply hover pause class when pauseOnHover is false', () => {
+    const { container } = render(<Marquee pauseOnHover={false}>text</Marquee>)
+    const inner = container.querySelector('[data-component="marquee"] > div')
+    expect(inner!.className).not.toContain('hover:')
+  })
+
+  it('applies custom className', () => {
+    const { container } = render(<Marquee className="my-marquee">text</Marquee>)
+    const el = container.querySelector('[data-component="marquee"]')
+    expect(el?.className).toContain('my-marquee')
+  })
 })

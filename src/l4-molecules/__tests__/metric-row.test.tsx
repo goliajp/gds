@@ -27,4 +27,30 @@ describe('MetricRow', () => {
     const valueEl = container.querySelector('.text-danger')
     expect(valueEl).not.toBeNull()
   })
+
+  it('renders unit when provided', () => {
+    render(<MetricRow metrics={[{ label: 'Speed', value: 120, unit: 'km/h' }]} />)
+    expect(screen.getByText('km/h')).toBeDefined()
+  })
+
+  it('does not render unit when not provided', () => {
+    render(<MetricRow metrics={[{ label: 'Speed', value: 120 }]} />)
+    expect(screen.queryByText('km/h')).toBeNull()
+  })
+
+  it('uses default variant color when variant is not specified', () => {
+    const { container } = render(<MetricRow metrics={[{ label: 'Test', value: 1 }]} />)
+    const valueEl = container.querySelector('.text-fg')
+    expect(valueEl).not.toBeNull()
+  })
+
+  it('applies success variant', () => {
+    const { container } = render(<MetricRow metrics={[{ label: 'OK', value: 99, variant: 'success' }]} />)
+    expect(container.querySelector('.text-success')).not.toBeNull()
+  })
+
+  it('applies warning variant', () => {
+    const { container } = render(<MetricRow metrics={[{ label: 'WARN', value: 80, variant: 'warning' }]} />)
+    expect(container.querySelector('.text-warning')).not.toBeNull()
+  })
 })

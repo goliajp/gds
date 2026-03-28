@@ -42,4 +42,48 @@ describe('KeyboardShortcut', () => {
     )
     expect(container.querySelector('[data-component="keyboard-shortcut"]')).not.toBeNull()
   })
+
+  it('does not render anything when showBadge is false', () => {
+    const { container } = render(
+      <KeyboardShortcut keys="ctrl+s" onTrigger={() => {}} />,
+    )
+    expect(container.querySelector('[data-component="keyboard-shortcut"]')).toBeNull()
+  })
+
+  it('parses shift modifier', () => {
+    const onTrigger = vi.fn()
+    render(<KeyboardShortcut keys="shift+a" onTrigger={onTrigger} />)
+    fireEvent.keyDown(window, { key: 'a', shiftKey: true })
+    expect(onTrigger).toHaveBeenCalledOnce()
+  })
+
+  it('parses alt modifier', () => {
+    const onTrigger = vi.fn()
+    render(<KeyboardShortcut keys="alt+x" onTrigger={onTrigger} />)
+    fireEvent.keyDown(window, { key: 'x', altKey: true })
+    expect(onTrigger).toHaveBeenCalledOnce()
+  })
+
+  it('parses cmd as meta modifier', () => {
+    const onTrigger = vi.fn()
+    render(<KeyboardShortcut keys="cmd+z" onTrigger={onTrigger} />)
+    fireEvent.keyDown(window, { key: 'z', metaKey: true })
+    expect(onTrigger).toHaveBeenCalledOnce()
+  })
+
+  it('does not trigger when modifier does not match', () => {
+    const onTrigger = vi.fn()
+    render(<KeyboardShortcut keys="ctrl+k" onTrigger={onTrigger} />)
+    // press with metaKey instead of ctrlKey
+    fireEvent.keyDown(window, { key: 'k', metaKey: true })
+    expect(onTrigger).not.toHaveBeenCalled()
+  })
+
+  it('formats labels correctly in badge mode', () => {
+    const { container } = render(
+      <KeyboardShortcut keys="shift+alt+k" onTrigger={() => {}} showBadge />,
+    )
+    const kbds = container.querySelectorAll('kbd')
+    expect(kbds.length).toBe(3)
+  })
 })

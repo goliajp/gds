@@ -121,4 +121,28 @@ describe('font presets', () => {
     const style = presetToStyle('body')
     expect(style.fontVariationSettings).toBeUndefined()
   })
+
+  it('presetToStyle includes fontFeatureSettings when features present', () => {
+    const style = presetToStyle('code')
+    expect(style.fontFeatureSettings).toContain('liga')
+  })
+
+  it('presetToStyle omits fontFeatureSettings when features empty', () => {
+    const style = presetToStyle('h1')
+    expect(style.fontFeatureSettings).toBeUndefined()
+  })
+
+  it('presetToStyle omits fontStyle when italic is not set', () => {
+    const style = presetToStyle('body')
+    expect(style.fontStyle).toBeUndefined()
+  })
+
+  it('fontToCssVars includes all weight tokens', () => {
+    const vars = fontToCssVars()
+    expect(vars['--gds-font-light']).toBe('300')
+    expect(vars['--gds-font-regular']).toBe('400')
+    expect(vars['--gds-font-medium']).toBe('500')
+    expect(vars['--gds-font-semibold']).toBe('600')
+    expect(vars['--gds-font-bold']).toBe('700')
+  })
 })

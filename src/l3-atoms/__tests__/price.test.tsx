@@ -20,4 +20,28 @@ describe('Price', () => {
     const el = container.querySelector('[data-component="price"]')
     expect(el?.textContent).toBe('-\u00a5500')
   })
+
+  it('shows plus sign when showSign is true and value is positive', () => {
+    const { container } = render(<Price value={100} showSign />)
+    const el = container.querySelector('[data-component="price"]')
+    expect(el?.textContent).toBe('+\u00a5100')
+  })
+
+  it('does not show plus sign for zero value even with showSign', () => {
+    const { container } = render(<Price value={0} showSign />)
+    const el = container.querySelector('[data-component="price"]')
+    expect(el?.textContent).toBe('\u00a50')
+  })
+
+  it('renders zero value with default text color', () => {
+    const { container } = render(<Price value={0} />)
+    const el = container.querySelector('[data-component="price"]')
+    expect(el?.className).toContain('text-fg')
+  })
+
+  it('applies custom currency symbol', () => {
+    const { container } = render(<Price value={42} currency="$" />)
+    const el = container.querySelector('[data-component="price"]')
+    expect(el?.textContent).toBe('$42')
+  })
 })

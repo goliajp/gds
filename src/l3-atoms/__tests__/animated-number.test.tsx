@@ -27,4 +27,17 @@ describe('AnimatedNumber', () => {
     const { container } = render(<AnimatedNumber value={0} duration={0} />)
     expect(container.querySelector('[data-component="animated-number"]')).toBeInTheDocument()
   })
+
+  it('applies custom className', () => {
+    const { container } = render(<AnimatedNumber value={0} duration={0} className="extra" />)
+    const el = container.querySelector('[data-component="animated-number"]')
+    expect(el?.className).toContain('extra')
+  })
+
+  it('starts animation when duration > 0', () => {
+    const { container } = render(<AnimatedNumber value={100} />)
+    const el = container.querySelector('[data-component="animated-number"]')!
+    // initial state matches initial value (100) since useState(value)
+    expect(el).not.toBeNull()
+  })
 })

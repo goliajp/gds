@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 
 import { Spotlight } from '../spotlight'
@@ -63,5 +63,76 @@ describe('Spotlight', () => {
     const overlay = document.querySelector('[data-component="spotlight"]') as HTMLElement
     overlay.click()
     expect(onClose).toHaveBeenCalledOnce()
+  })
+
+  it('shows "Got it" button when onClose is provided', () => {
+    const ref = makeTargetRef()
+    render(<Spotlight active={true} targetRef={ref} onClose={vi.fn()} />)
+    expect(screen.getByText('Got it')).toBeDefined()
+  })
+
+  it('does not show "Got it" button when onClose is not provided', () => {
+    const ref = makeTargetRef()
+    render(<Spotlight active={true} targetRef={ref} />)
+    expect(screen.queryByText('Got it')).toBeNull()
+  })
+
+  it('does not show title when not provided', () => {
+    const ref = makeTargetRef()
+    render(<Spotlight active={true} targetRef={ref} description="Only desc" />)
+    expect(screen.getByText('Only desc')).toBeDefined()
+  })
+
+  it('does not show description when not provided', () => {
+    const ref = makeTargetRef()
+    render(<Spotlight active={true} targetRef={ref} title="Only title" />)
+    expect(screen.getByText('Only title')).toBeDefined()
+  })
+
+  it('renders with placement=top', () => {
+    const ref = makeTargetRef()
+    render(<Spotlight active={true} targetRef={ref} placement="top" title="Top" />)
+    expect(screen.getByText('Top')).toBeDefined()
+  })
+
+  it('renders with placement=left', () => {
+    const ref = makeTargetRef()
+    render(<Spotlight active={true} targetRef={ref} placement="left" title="Left" />)
+    expect(screen.getByText('Left')).toBeDefined()
+  })
+
+  it('renders with placement=right', () => {
+    const ref = makeTargetRef()
+    render(<Spotlight active={true} targetRef={ref} placement="right" title="Right" />)
+    expect(screen.getByText('Right')).toBeDefined()
+  })
+
+  it('calls onClose on Escape key', () => {
+    const ref = makeTargetRef()
+    const onClose = vi.fn()
+    render(<Spotlight active={true} targetRef={ref} onClose={onClose} />)
+    fireEvent.keyDown(window, { key: 'Escape' })
+    expect(onClose).toHaveBeenCalledOnce()
+  })
+
+  it('does not call onClose on non-Escape key', () => {
+    const ref = makeTargetRef()
+    const onClose = vi.fn()
+    render(<Spotlight active={true} targetRef={ref} onClose={onClose} />)
+    fireEvent.keyDown(window, { key: 'Enter' })
+    expect(onClose).not.toHaveBeenCalled()
+  })
+
+  it('applies custom className', () => {
+    const ref = makeTargetRef()
+    render(<Spotlight active={true} targetRef={ref} className="my-spotlight" />)
+    const overlay = document.querySelector('[data-component="spotlight"]')
+    expect(overlay?.className).toContain('my-spotlight')
+  })
+
+  it('renders nothing when target ref is null', () => {
+    const ref = { current: null }
+    render(<Spotlight active={true} targetRef={ref} title="Nothing" />)
+    expect(document.querySelector('[data-component="spotlight"]')).toBeNull()
   })
 })

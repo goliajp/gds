@@ -57,4 +57,43 @@ describe('Dialog', () => {
     await user.click(backdrop)
     expect(onClose).toHaveBeenCalledOnce()
   })
+
+  it('applies glass styling', () => {
+    render(
+      <Dialog open={true} onClose={vi.fn()} glass>Content</Dialog>,
+    )
+    const dialog = document.querySelector('.gds-ctx')
+    expect(dialog?.className).toContain('bg-bg/60')
+    expect(dialog?.className).toContain('gds-glass')
+  })
+
+  it('uses custom width', () => {
+    render(
+      <Dialog open={true} onClose={vi.fn()} width="sm">Content</Dialog>,
+    )
+    const dialog = document.querySelector('.gds-ctx')
+    expect(dialog?.className).toContain('max-w-sm')
+  })
+
+  it('uses xl width', () => {
+    render(
+      <Dialog open={true} onClose={vi.fn()} width="xl">Content</Dialog>,
+    )
+    const dialog = document.querySelector('.gds-ctx')
+    expect(dialog?.className).toContain('max-w-4xl')
+  })
+
+  it('renders description without title', () => {
+    render(
+      <Dialog open={true} onClose={vi.fn()} description="Description only">Content</Dialog>,
+    )
+    expect(screen.getByText('Description only')).toBeDefined()
+  })
+
+  it('does not render header section when no title or description', () => {
+    render(
+      <Dialog open={true} onClose={vi.fn()}>Content only</Dialog>,
+    )
+    expect(screen.queryByLabelText('Close')).toBeNull()
+  })
 })

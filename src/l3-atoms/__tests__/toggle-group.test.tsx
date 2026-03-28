@@ -49,4 +49,28 @@ describe('ToggleGroup', () => {
     await user.click(screen.getByText('Alpha'))
     expect(onChange).not.toHaveBeenCalled()
   })
+
+  it('does not deselect in exclusive mode when clicking active item', async () => {
+    const user = userEvent.setup()
+    const onChange = vi.fn()
+    render(<ToggleGroup items={items} value={['a']} onChange={onChange} exclusive />)
+    await user.click(screen.getByText('Alpha'))
+    // clicking already-selected item in exclusive mode should not call onChange
+    expect(onChange).not.toHaveBeenCalled()
+  })
+
+  it('applies sm size classes', () => {
+    const { container } = render(<ToggleGroup items={items} value={[]} onChange={() => {}} size="sm" />)
+    const buttons = container.querySelectorAll('button')
+    expect(buttons[0]?.className).toContain('text-[11px]')
+  })
+
+  it('renders border between items except last', () => {
+    const { container } = render(<ToggleGroup items={items} value={[]} onChange={() => {}} />)
+    const buttons = container.querySelectorAll('button')
+    expect(buttons[0]?.className).toContain('border-r')
+    expect(buttons[1]?.className).toContain('border-r')
+    // last button should NOT have border-r
+    expect(buttons[2]?.className).not.toContain('border-r')
+  })
 })

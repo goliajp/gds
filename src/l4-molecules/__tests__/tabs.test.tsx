@@ -49,4 +49,29 @@ describe('Tabs', () => {
     await user.click(screen.getByText('Billing'))
     expect(onChange).toHaveBeenCalledWith('billing')
   })
+
+  it('applies glass styling when glass is true', () => {
+    const { container } = render(
+      <Tabs tabs={tabs} active="general" onChange={vi.fn()} glass />,
+    )
+    const el = container.querySelector('[data-component="tabs"]')
+    expect(el?.className).toContain('bg-bg/60')
+    expect(el?.className).toContain('gds-glass')
+  })
+
+  it('does not apply glass styling when glass is not set', () => {
+    const { container } = render(
+      <Tabs tabs={tabs} active="general" onChange={vi.fn()} />,
+    )
+    const el = container.querySelector('[data-component="tabs"]')
+    expect(el?.className).not.toContain('bg-bg/60')
+  })
+
+  it('uses sm size variant', () => {
+    const { container } = render(
+      <Tabs tabs={tabs} active="general" onChange={vi.fn()} size="sm" />,
+    )
+    const tabButtons = container.querySelectorAll('[role="tab"]')
+    expect(tabButtons[0]?.className).toContain('gds-pad-x-sm')
+  })
 })

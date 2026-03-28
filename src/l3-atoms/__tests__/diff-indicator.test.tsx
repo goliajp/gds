@@ -26,4 +26,25 @@ describe('DiffIndicator', () => {
     // positive + inverted = bad = danger
     expect(el?.className).toContain('text-danger')
   })
+
+  it('shows zero value with neutral direction and muted color', () => {
+    const { container } = render(<DiffIndicator value={0} />)
+    const el = container.querySelector('[data-component="diff-indicator"]')
+    expect(el?.getAttribute('data-direction')).toBe('neutral')
+    expect(el?.className).toContain('text-fg-muted')
+    expect(el?.textContent).toBe('0')
+  })
+
+  it('shows unit when provided', () => {
+    const { container } = render(<DiffIndicator value={10} unit="%" />)
+    const el = container.querySelector('[data-component="diff-indicator"]')
+    expect(el?.textContent).toContain('%')
+  })
+
+  it('inverted negative value shows success color', () => {
+    const { container } = render(<DiffIndicator inverted value={-3} />)
+    const el = container.querySelector('[data-component="diff-indicator"]')
+    // negative + inverted = good = success
+    expect(el?.className).toContain('text-success')
+  })
 })

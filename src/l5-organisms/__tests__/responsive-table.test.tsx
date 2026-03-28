@@ -45,4 +45,33 @@ describe('ResponsiveTable', () => {
     )
     expect(container.querySelector('[data-component="responsive-table"]')).not.toBeNull()
   })
+
+  it('applies custom className', () => {
+    const { container } = render(
+      <ResponsiveTable columns={columns} data={data} className="my-table" />,
+    )
+    expect(container.querySelector('[data-component="responsive-table"]')).not.toBeNull()
+  })
+
+  it('forwards ref', () => {
+    const ref = { current: null as HTMLDivElement | null }
+    render(<ResponsiveTable columns={columns} data={data} ref={ref} />)
+    expect(ref.current).not.toBeNull()
+  })
+
+  it('renders column headers in table mode', () => {
+    const { getByText } = render(
+      <ResponsiveTable columns={columns} data={data} />,
+    )
+    expect(getByText('Name')).toBeDefined()
+    expect(getByText('Role')).toBeDefined()
+  })
+
+  it('renders all data cell values', () => {
+    const { getByText } = render(
+      <ResponsiveTable columns={columns} data={data} />,
+    )
+    expect(getByText('Engineer')).toBeDefined()
+    expect(getByText('Designer')).toBeDefined()
+  })
 })

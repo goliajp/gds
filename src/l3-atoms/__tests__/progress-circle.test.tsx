@@ -33,4 +33,27 @@ describe('ProgressCircle', () => {
     const foreground = circles[1]
     expect(foreground?.getAttribute('class')).toContain('stroke-danger')
   })
+
+  it('hides value text when showValue is false', () => {
+    const { container } = render(<ProgressCircle value={75} showValue={false} />)
+    expect(container.querySelector('text')).toBeNull()
+  })
+
+  it('clamps value above 100', () => {
+    render(<ProgressCircle value={150} />)
+    expect(screen.getByText('100%')).toBeDefined()
+  })
+
+  it('clamps value below 0', () => {
+    render(<ProgressCircle value={-10} />)
+    expect(screen.getByText('0%')).toBeDefined()
+  })
+
+  it('applies all variant colors', () => {
+    for (const v of ['success', 'warning'] as const) {
+      const { container } = render(<ProgressCircle value={50} variant={v} />)
+      const circles = container.querySelectorAll('circle')
+      expect(circles[1]?.getAttribute('class')).toContain(`stroke-${v}`)
+    }
+  })
 })

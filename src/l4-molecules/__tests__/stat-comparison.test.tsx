@@ -23,4 +23,31 @@ describe('StatComparison', () => {
     render(<StatComparison left={{ label: 'A', value: 1 }} right={{ label: 'B', value: 2 }} />)
     expect(screen.getByText('vs')).toBeDefined()
   })
+
+  it('highlights left side when highlight="left"', () => {
+    const { container } = render(
+      <StatComparison left={{ label: 'A', value: 1 }} right={{ label: 'B', value: 2 }} highlight="left" />,
+    )
+    const sides = container.querySelectorAll('[data-component="stat-comparison"] > div')
+    expect(sides[0]?.className).toContain('border-accent')
+    expect(sides[1]?.className).not.toContain('border-accent')
+  })
+
+  it('highlights right side when highlight="right"', () => {
+    const { container } = render(
+      <StatComparison left={{ label: 'A', value: 1 }} right={{ label: 'B', value: 2 }} highlight="right" />,
+    )
+    const sides = container.querySelectorAll('[data-component="stat-comparison"] > div')
+    expect(sides[0]?.className).not.toContain('border-accent')
+    expect(sides[1]?.className).toContain('border-accent')
+  })
+
+  it('no highlight when highlight="none"', () => {
+    const { container } = render(
+      <StatComparison left={{ label: 'A', value: 1 }} right={{ label: 'B', value: 2 }} highlight="none" />,
+    )
+    const sides = container.querySelectorAll('[data-component="stat-comparison"] > div')
+    expect(sides[0]?.className).not.toContain('border-accent')
+    expect(sides[1]?.className).not.toContain('border-accent')
+  })
 })

@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { describe, expect, it, vi } from 'vitest'
 
 import { ColorSwatch } from '../color-swatch'
 
@@ -69,5 +69,42 @@ describe('ColorSwatch', () => {
     const { container } = render(<ColorSwatch className="extra" color="#000" />)
     const el = container.querySelector('[data-component="color-swatch"]')
     expect(el?.classList.contains('extra')).toBe(true)
+  })
+
+  it('copies color to clipboard and shows "Copied!" on click', async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined)
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText },
+      writable: true,
+      configurable: true,
+    })
+
+    const { container } = render(<ColorSwatch color="#ff0000" copyable />)
+    const button = container.querySelector('button')!
+    fireEvent.click(button)
+
+    await waitFor(() => {
+      expect(writeText).toHaveBeenCalledWith('#ff0000')
+      expect(screen.getByText('Copied!')).toBeDefined()
+    })
+  })
+
+  it('clears previous timer on rapid clicks', async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined)
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText },
+      writable: true,
+      configurable: true,
+    })
+
+    const { container } = render(<ColorSwatch color="#abc" copyable />)
+    const button = container.querySelector('button')!
+
+    fireEvent.click(button)
+    await waitFor(() => expect(screen.getByText('Copied!')).toBeDefined())
+
+    // click again rapidly — should clear the previous timer
+    fireEvent.click(button)
+    await waitFor(() => expect(writeText).toHaveBeenCalledTimes(2))
   })
 })
