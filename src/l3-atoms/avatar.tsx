@@ -57,10 +57,15 @@ type AvatarStatus = 'away' | 'busy' | 'offline' | 'online'
 
 type AvatarProps = React.HTMLAttributes<HTMLSpanElement> &
   VariantProps<typeof avatarVariants> & {
+    /** Enable frosted glass translucency effect */
     glass?: boolean
+    /** Show pulse skeleton placeholder */
     loading?: boolean
+    /** Display name — used for initials and color hashing */
     name?: string
+    /** Image URL; falls back to initials when absent */
     src?: string
+    /** Presence indicator dot in bottom-right corner */
     status?: AvatarStatus
   }
 

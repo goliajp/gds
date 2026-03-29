@@ -36,11 +36,21 @@ const inputVariants = cva(
 
 type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> &
   VariantProps<typeof inputVariants> & {
+    /** Height and text scale preset (named inputSize to avoid HTML conflict) */
+    inputSize?: 'default' | 'sm'
+    /** Show red border for validation error state */
+    error?: boolean
+    /** Show clear button when input has value */
     clearable?: boolean
+    /** Enable frosted glass translucency effect */
     glass?: boolean
+    /** Icon element rendered on the left side */
     icon?: ReactNode
+    /** Show spinner on the right side */
     loading?: boolean
+    /** Callback when clear button is clicked */
     onClear?: () => void
+    /** Icon element rendered on the right side */
     rightIcon?: ReactNode
   }
 

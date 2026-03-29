@@ -19,12 +19,18 @@ const widthMap: Record<DialogWidth, string> = {
 }
 
 export type DialogProps = {
+  /** Whether the dialog is visible */
   open: boolean
+  /** Called when backdrop click, escape key, or close button */
   onClose: () => void
+  /** Header title text */
   title?: string
+  /** Subtitle shown below the title */
   description?: string
   children: ReactNode
+  /** Enable frosted glass translucency effect */
   glass?: boolean
+  /** Max-width preset for the dialog panel */
   width?: DialogWidth
   className?: string
 }
