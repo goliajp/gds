@@ -32,4 +32,9 @@ export const StatusDot = forwardRef<HTMLSpanElement, StatusDotProps>(
   },
 )
 
+const statusDotVariants = {
+  status: dotCls,
+} as const
+
+export { statusDotVariants }
 export type { StatusDotProps, StatusDotStatus }

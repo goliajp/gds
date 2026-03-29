@@ -81,3 +81,19 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
     )
   },
 )
+
+type DialogFooterProps = {
+  children: ReactNode
+  className?: string
+}
+
+function DialogFooter({ children, className }: DialogFooterProps) {
+  return (
+    <div className={cx('flex items-center justify-end gds-gap-sm border-t border-border gds-pad-x-lg gds-pad-y', className)}>
+      {children}
+    </div>
+  )
+}
+
+export { DialogFooter }
+export type { DialogFooterProps }

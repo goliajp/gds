@@ -63,4 +63,12 @@ export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
   },
 )
 
+const checkboxVariants = {
+  state: {
+    checked: 'border-accent bg-accent',
+    unchecked: 'border-border bg-bg hover:border-accent/50',
+  },
+} as const
+
+export { checkboxVariants }
 export type { CheckboxProps }

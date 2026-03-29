@@ -12,7 +12,7 @@ export type TabItem = {
   count?: number
 }
 
-const tabVariants = cva(
+export const tabVariants = cva(
   cx('relative inline-flex items-center border-b-2 transition-colors', focusCls),
   {
     variants: {
