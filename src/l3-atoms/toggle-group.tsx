@@ -10,7 +10,7 @@ type ToggleGroupItem = {
   label: ReactNode
 }
 
-type ToggleGroupSize = 'default' | 'sm'
+type ToggleGroupSize = 'default' | 'lg' | 'sm'
 
 type ToggleGroupProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
   items: ToggleGroupItem[]
@@ -21,10 +21,15 @@ type ToggleGroupProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> &
   disabled?: boolean
 }
 
-const sizeClasses: Record<ToggleGroupSize, string> = {
-  default: 'px-3 py-1.5 text-xs',
-  sm: 'px-2 py-1 text-[11px]',
-}
+const toggleGroupVariants = {
+  size: {
+    sm: 'px-2 py-1 text-[11px]',
+    default: 'px-3 py-1.5 text-xs',
+    lg: 'px-4 py-2 text-sm',
+  },
+} as const
+
+const toggleItemVariants = toggleGroupVariants
 
 const ToggleGroup = forwardRef<HTMLDivElement, ToggleGroupProps>(
   function ToggleGroup(
@@ -69,7 +74,7 @@ const ToggleGroup = forwardRef<HTMLDivElement, ToggleGroupProps>(
               aria-pressed={isActive}
               className={cx(
                 'transition-colors',
-                sizeClasses[size ?? 'default'],
+                toggleGroupVariants.size[size ?? 'default'],
                 !isLast && 'border-r border-border',
                 focusCls,
                 isActive ? 'bg-accent/10 text-accent' : 'text-fg-muted hover:bg-bg-tertiary',
@@ -87,5 +92,5 @@ const ToggleGroup = forwardRef<HTMLDivElement, ToggleGroupProps>(
   },
 )
 
-export { ToggleGroup }
+export { ToggleGroup, toggleGroupVariants, toggleItemVariants }
 export type { ToggleGroupItem, ToggleGroupProps, ToggleGroupSize }

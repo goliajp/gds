@@ -42,7 +42,9 @@ type NumberInputProps = VariantProps<typeof numberInputVariants> & {
   min?: number
   onChange: (value: number | null) => void
   placeholder?: string
+  prefix?: string
   step?: number
+  suffix?: string
   value: number | null
 }
 
@@ -59,7 +61,7 @@ function clamp(val: number, min?: number, max?: number): number {
 
 const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
   function NumberInput(
-    { className, disabled, error, glass, inputSize, max, min, onChange, placeholder, step = 1, value },
+    { className, disabled, error, glass, inputSize, max, min, onChange, placeholder, prefix, step = 1, suffix, value },
     ref,
   ) {
     const handleDecrement = useCallback(() => {
@@ -114,6 +116,7 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
         data-component="number-input"
       >
         <NumberStepper direction="decrement" disabled={disabled} onClick={handleDecrement} />
+        {prefix !== undefined && <span className="shrink-0 select-none pl-1 text-fg-muted/50">{prefix}</span>}
         <input
           className={cx(
             'min-w-0 flex-1 bg-transparent text-center outline-none placeholder:text-fg-muted/50',
@@ -127,6 +130,7 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
           type="number"
           value={value ?? ''}
         />
+        {suffix !== undefined && <span className="shrink-0 select-none pr-1 text-fg-muted/50">{suffix}</span>}
         <NumberStepper direction="increment" disabled={disabled} onClick={handleIncrement} />
       </div>
     )

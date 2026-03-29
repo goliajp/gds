@@ -55,4 +55,13 @@ export const StatusBadge = forwardRef<HTMLSpanElement, StatusBadgeProps>(
   },
 )
 
+const statusBadgeVariants = {
+  status: statusColorMap,
+  size: {
+    default: 'gds-pad-x-sm gds-pad-y-sm gds-text-body',
+    sm: 'gds-pad-x-sm py-px gds-text-caption',
+  },
+} as const
+
+export { statusBadgeVariants }
 export type { StatusBadgeProps, StatusType }

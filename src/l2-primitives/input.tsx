@@ -36,18 +36,59 @@ const inputVariants = cva(
 
 type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> &
   VariantProps<typeof inputVariants> & {
+    clearable?: boolean
     glass?: boolean
     icon?: ReactNode
+    loading?: boolean
+    onClear?: () => void
     rightIcon?: ReactNode
   }
 
+// inline spinner SVG (no lucide dependency at L2)
+function InlineSpinner() {
+  return (
+    <svg className="h-3.5 w-3.5 animate-spin text-fg-muted" fill="none" viewBox="0 0 24 24">
+      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+      <path className="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" fill="currentColor" />
+    </svg>
+  )
+}
+
+// inline X SVG for clear button
+function InlineClear() {
+  return (
+    <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+      <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   function Input(
-    { className, error, glass, icon, inputSize, rightIcon, ...props },
+    { className, clearable, error, glass, icon, inputSize, loading, onClear, rightIcon, value, ...props },
     ref,
   ) {
     const hasLeft = icon !== undefined
-    const hasRight = rightIcon !== undefined
+    const showClear = clearable === true && value !== undefined && value !== ''
+    const showLoading = loading === true
+    const hasRight = rightIcon !== undefined || showClear || showLoading
+
+    // rightmost element: loading > clear > rightIcon
+    const rightElement = showLoading
+      ? <InlineSpinner />
+      : showClear
+        ? (
+          <button
+            aria-label="Clear"
+            className="text-fg-muted/50 hover:text-fg-muted transition-colors"
+            onClick={onClear}
+            tabIndex={-1}
+            type="button"
+          >
+            <InlineClear />
+          </button>
+        )
+        : rightIcon
 
     if (!hasLeft && !hasRight) {
       return (
@@ -61,6 +102,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
           data-component="input"
           ref={ref}
+          value={value}
           {...props}
         />
       )
@@ -83,11 +125,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             className,
           )}
           ref={ref}
+          value={value}
           {...props}
         />
         {hasRight && (
           <span className="absolute top-1/2 right-2.5 -translate-y-1/2 text-fg-muted/50 gds-icon-child-sm">
-            {rightIcon}
+            {rightElement}
           </span>
         )}
       </div>

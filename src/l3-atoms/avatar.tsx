@@ -58,13 +58,14 @@ type AvatarStatus = 'away' | 'busy' | 'offline' | 'online'
 type AvatarProps = React.HTMLAttributes<HTMLSpanElement> &
   VariantProps<typeof avatarVariants> & {
     glass?: boolean
+    loading?: boolean
     name?: string
     src?: string
     status?: AvatarStatus
   }
 
 export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(
-  function Avatar({ className, glass, name, size = 'default', src, status, ...props }, ref) {
+  function Avatar({ className, glass, loading, name, size = 'default', src, status, ...props }, ref) {
     const sizeKey = size ?? 'default'
     const colorIdx = name !== undefined ? hashName(name) % 10 : 0
 
@@ -81,7 +82,9 @@ export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(
         ref={ref}
         {...props}
       >
-        {src !== undefined ? (
+        {loading === true ? (
+          <span className="absolute inset-0 animate-pulse rounded-full bg-fg-muted/20" />
+        ) : src !== undefined ? (
           <img alt={name ?? ''} className="absolute inset-0 h-full w-full rounded-full object-cover" src={src} />
         ) : (
           <span>{name !== undefined ? getInitials(name) : '?'}</span>
