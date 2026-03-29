@@ -149,8 +149,14 @@ type DataTableProps<T = unknown> = {
   emptyIcon?: ReactNode
 
   // structural
-  /** Title shown in toolbar */
+  /** Title shown in toolbar (ReactNode or use title+subtitle for structured layout) */
   caption?: ReactNode
+  /** Table title — shown left-aligned in toolbar */
+  title?: string
+  /** Subtitle shown next to title (e.g. row count) */
+  subtitle?: string
+  /** Action buttons in toolbar right area (e.g. refresh, add) */
+  toolbarActions?: ReactNode
   /** Content below the table */
   footer?: ReactNode
 
