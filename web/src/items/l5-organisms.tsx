@@ -78,14 +78,14 @@ const organismItems: DevCenterItem[] = [
 
     stage: ({ config }) => {
       const allColumns = [
-        { key: 'name', header: 'Name', sortable: true },
-        { key: 'role', header: 'Role', sortable: true },
-        { key: 'status', header: 'Status' },
-        { key: 'email', header: 'Email' },
-        { key: 'joined', header: 'Joined' },
+        { key: 'name', label: 'Name', sortable: true },
+        { key: 'role', label: 'Role', sortable: true },
+        { key: 'status', label: 'Status' },
+        { key: 'email', label: 'Email' },
+        { key: 'joined', label: 'Joined' },
       ]
       const columns = allColumns.slice(0, Number(config.columnCount))
-      const data = [
+      const rows = [
         { name: 'Alice', role: 'Engineer', status: 'Active', email: 'alice@co.io', joined: '2025-01' },
         { name: 'Bob', role: 'Designer', status: 'Away', email: 'bob@co.io', joined: '2025-03' },
         { name: 'Charlie', role: 'PM', status: 'Active', email: 'charlie@co.io', joined: '2025-06' },
@@ -96,24 +96,24 @@ const organismItems: DevCenterItem[] = [
           <ImportLine text="import { DataTable } from '@goliapkg/gds'" />
 
           <LivePreview className="!p-4">
-            <DataTable columns={columns} data={data} glass={config.glass} loading={config.loading} />
+            <DataTable columns={columns} rows={rows} glass={config.glass} loading={config.loading} striped />
           </LivePreview>
 
           <DocSection title="States" columns={2}>
-            <DemoCard title="Loading" description="Skeleton rows while data fetches" code={`<DataTable columns={cols} data={[]} loading />`}>
-              <DataTable columns={allColumns.slice(0, 3)} data={[]} loading />
+            <DemoCard title="Loading" description="Skeleton rows while data fetches" code={`<DataTable columns={cols} rows={[]} loading />`}>
+              <DataTable columns={allColumns.slice(0, 3)} rows={[]} loading />
             </DemoCard>
-            <DemoCard title="Empty" description="Fallback when no rows" code={`<DataTable columns={cols} data={[]} emptyText="Nothing here" />`}>
-              <DataTable columns={allColumns.slice(0, 3)} data={[]} emptyText="Nothing here" />
+            <DemoCard title="Empty" description="Fallback when no rows" code={`<DataTable columns={cols} rows={[]} emptyMessage="Nothing here" />`}>
+              <DataTable columns={allColumns.slice(0, 3)} rows={[]} emptyMessage="Nothing here" />
             </DemoCard>
           </DocSection>
 
           <DocSection title="Variants" columns={2}>
-            <DemoCard title="Glass" description="Frosted translucent surface" code={`<DataTable columns={cols} data={rows} glass />`}>
-              <DataTable columns={allColumns.slice(0, 3)} data={data.slice(0, 2)} glass />
+            <DemoCard title="Glass" description="Frosted translucent surface" code={`<DataTable columns={cols} rows={rows} glass />`}>
+              <DataTable columns={allColumns.slice(0, 3)} rows={rows.slice(0, 2)} glass />
             </DemoCard>
-            <DemoCard title="Sortable Columns" description="Click header to toggle sort" code={`<DataTable columns={[{ key: 'name', header: 'Name', sortable: true }]} data={rows} />`}>
-              <DataTable columns={allColumns.slice(0, 3)} data={data.slice(0, 2)} sortKey="name" sortDir="asc" />
+            <DemoCard title="Sortable Columns" description="Click header to toggle sort" code={`<DataTable columns={[{ key: 'name', label: 'Name', sortable: true }]} rows={rows} />`}>
+              <DataTable columns={allColumns.slice(0, 3)} rows={rows.slice(0, 2)} sortKey="name" sortDir="asc" />
             </DemoCard>
           </DocSection>
         </div>
