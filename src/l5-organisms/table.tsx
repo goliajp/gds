@@ -13,6 +13,80 @@ export type TableProps = React.HTMLAttributes<HTMLTableElement> & {
   className?: string
 }
 
+// semantic sub-components for manual table composition
+
+export const Thead = forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(
+  function Thead({ className, ...props }, ref) {
+    return <thead ref={ref} className={className} {...props} />
+  },
+)
+
+export const Tbody = forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(
+  function Tbody({ className, ...props }, ref) {
+    return <tbody ref={ref} className={className} {...props} />
+  },
+)
+
+export const Tfoot = forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(
+  function Tfoot({ className, ...props }, ref) {
+    return <tfoot ref={ref} className={cx('bg-bg-secondary font-semibold', className)} {...props} />
+  },
+)
+
+export const Tr = forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTMLTableRowElement>>(
+  function Tr({ className, ...props }, ref) {
+    return <tr ref={ref} className={cx('transition-colors', className)} {...props} />
+  },
+)
+
+export const Th = forwardRef<HTMLTableCellElement, React.ThHTMLAttributes<HTMLTableCellElement>>(
+  function Th({ className, ...props }, ref) {
+    return <th ref={ref} className={cx('border border-border bg-bg-secondary px-2.5 py-1.5 text-left text-xs font-semibold tracking-wide whitespace-nowrap text-fg-muted', className)} {...props} />
+  },
+)
+
+export const Td = forwardRef<HTMLTableCellElement, React.TdHTMLAttributes<HTMLTableCellElement>>(
+  function Td({ className, ...props }, ref) {
+    return <td ref={ref} className={cx('border border-border/60 px-2.5 py-1.5 text-xs whitespace-nowrap text-fg', className)} {...props} />
+  },
+)
+
+export const ThNum = forwardRef<HTMLTableCellElement, React.ThHTMLAttributes<HTMLTableCellElement>>(
+  function ThNum({ className, ...props }, ref) {
+    return <th ref={ref} className={cx('border border-border bg-bg-secondary px-2.5 py-1.5 text-right text-xs font-semibold tracking-wide whitespace-nowrap text-fg-muted', className)} {...props} />
+  },
+)
+
+export const TdNum = forwardRef<HTMLTableCellElement, React.TdHTMLAttributes<HTMLTableCellElement>>(
+  function TdNum({ className, ...props }, ref) {
+    return <td ref={ref} className={cx('border border-border/60 px-2.5 py-1.5 text-right text-xs tabular-nums whitespace-nowrap text-fg', className)} {...props} />
+  },
+)
+
+export const TdMuted = forwardRef<HTMLTableCellElement, React.TdHTMLAttributes<HTMLTableCellElement>>(
+  function TdMuted({ className, ...props }, ref) {
+    return <td ref={ref} className={cx('border border-border/60 px-2.5 py-1.5 text-xs whitespace-nowrap text-fg-muted', className)} {...props} />
+  },
+)
+
+export const TdFoot = forwardRef<HTMLTableCellElement, React.TdHTMLAttributes<HTMLTableCellElement>>(
+  function TdFoot({ className, ...props }, ref) {
+    return <td ref={ref} className={cx('border border-border bg-bg-secondary px-2.5 py-1.5 text-xs font-semibold whitespace-nowrap text-fg', className)} {...props} />
+  },
+)
+
+export const TableCaption = forwardRef<HTMLTableCaptionElement, React.HTMLAttributes<HTMLTableCaptionElement>>(
+  function TableCaption({ className, ...props }, ref) {
+    return <caption ref={ref} className={cx('mt-2 text-xs text-fg-muted', className)} {...props} />
+  },
+)
+
+export const TableFooter = forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(
+  function TableFooter({ className, ...props }, ref) {
+    return <tfoot ref={ref} className={cx('bg-bg-secondary font-semibold', className)} {...props} />
+  },
+)
+
 export const Table = forwardRef<HTMLTableElement, TableProps>(
   function Table({ striped, compact, hoverable = true, glass, className, children, ...props }, ref) {
     return (

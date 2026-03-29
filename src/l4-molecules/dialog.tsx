@@ -8,10 +8,11 @@ import { glassClass } from '../utils/glass'
 import { useEscapeKey, useFocusTrap, useScrollLock } from '../utils/hooks'
 import { renderPortal } from '../utils/portal'
 
-type DialogWidth = 'default' | 'lg' | 'sm' | 'xl'
+type DialogWidth = 'default' | 'lg' | 'md' | 'sm' | 'xl'
 
 const widthMap: Record<DialogWidth, string> = {
   sm: 'max-w-sm',
+  md: 'max-w-lg',
   default: 'max-w-lg',
   lg: 'max-w-2xl',
   xl: 'max-w-4xl',
