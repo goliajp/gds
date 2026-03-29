@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.4.3] - 2026-03-29
+
+### Added
+
+- GanttChart: 19 test cases covering all features (bars, milestones, dependencies, critical path, collapse, resize, progress, click)
+
+### Fixed
+
+- DataTable web demo updated to new API (label/rows instead of header/data)
+- NumberInput export formatting
+
+### Quality
+
+- 400 test files, 3,476 test cases, zero failures
+- 3 rounds of deep audit complete
+
 ## [1.4.2] - 2026-03-29
 
 ### Fixed
