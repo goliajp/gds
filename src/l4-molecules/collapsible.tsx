@@ -56,5 +56,16 @@ const Collapsible = forwardRef<HTMLDivElement, CollapsibleProps>(
   },
 )
 
-export { Collapsible }
-export type { CollapsibleProps }
+// composition sub-components for admin compatibility
+type CollapsibleTriggerProps = { children: ReactNode; className?: string }
+function CollapsibleTrigger({ children, className }: CollapsibleTriggerProps) {
+  return <div className={className}>{children}</div>
+}
+
+type CollapsibleContentProps = { children: ReactNode; className?: string }
+function CollapsibleContent({ children, className }: CollapsibleContentProps) {
+  return <div className={className}>{children}</div>
+}
+
+export { Collapsible, CollapsibleContent, CollapsibleTrigger }
+export type { CollapsibleContentProps, CollapsibleProps, CollapsibleTriggerProps }

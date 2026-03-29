@@ -26,6 +26,63 @@ const dotColors: Record<string, string> = {
   danger: 'bg-danger',
 }
 
+// composition sub-components
+
+export type TimelineGroupProps = {
+  children: ReactNode
+  className?: string
+  label: string
+}
+
+export function TimelineGroup({ children, className, label }: TimelineGroupProps) {
+  return (
+    <div className={cx('', className)}>
+      <div className="mb-2 pl-6 text-xs font-semibold text-fg-muted">{label}</div>
+      <div className="flex flex-col gap-4">{children}</div>
+    </div>
+  )
+}
+
+export type TimelineItemComponentProps = {
+  children?: ReactNode
+  className?: string
+  description?: ReactNode
+  icon?: ReactNode
+  status?: 'danger' | 'default' | 'success' | 'warning'
+  timestamp?: string
+  title: ReactNode
+}
+
+export function TimelineItemComponent({
+  children,
+  className,
+  description,
+  icon,
+  status = 'default',
+  timestamp,
+  title,
+}: TimelineItemComponentProps) {
+  return (
+    <div className={cx('relative flex gds-gap pl-6', className)}>
+      <div className="absolute left-0 top-1.5">
+        {icon !== undefined ? (
+          <span className="flex h-[15px] w-[15px] items-center justify-center text-fg-muted">{icon}</span>
+        ) : (
+          <span className={cx('block h-[15px] w-[15px] gds-radius-badge border-2 border-bg', dotColors[status])} />
+        )}
+      </div>
+      <div className="min-w-0 flex-1 pb-1">
+        <div className="flex items-baseline justify-between gds-gap-sm">
+          <span className="text-sm font-medium text-fg">{title}</span>
+          {timestamp !== undefined && <span className="shrink-0 gds-text-body text-fg-muted">{timestamp}</span>}
+        </div>
+        {description !== undefined && <p className="mt-0.5 gds-text-body text-fg-muted">{description}</p>}
+        {children}
+      </div>
+    </div>
+  )
+}
+
 export const Timeline = forwardRef<HTMLDivElement, TimelineProps>(
   function Timeline({ items, className }, ref) {
     return (
