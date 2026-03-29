@@ -4,12 +4,11 @@ import { forwardRef, useMemo, useState } from 'react'
 
 import { cx } from '../../utils/cx'
 import { glassSurface } from '../../utils/glass'
-
-import type { DataTableProps } from './data-table-types'
 import { DataTableBody } from './data-table-body'
 import { DataTableHead } from './data-table-head'
 import { DataTablePagination } from './data-table-pagination'
 import { DataTableToolbar } from './data-table-toolbar'
+import type { DataTableProps } from './data-table-types'
 import { downloadCsv, resolveRowKey } from './data-table-utils'
 
 function DataTableInner<T>(
@@ -87,7 +86,8 @@ function DataTableInner<T>(
   } = props
 
   // backward compat
-  const allRows = (rowsProp ?? dataProp ?? []) as T[]
+  const resolvedRows = rowsProp ?? dataProp
+  const allRows = useMemo(() => (resolvedRows ?? []) as T[], [resolvedRows])
   const emptyMessage = emptyMessageProp ?? emptyTextProp ?? 'No data'
 
   // column toggle state (local)
@@ -201,6 +201,7 @@ function DataTableInner<T>(
             someSelected={someSelected}
             onToggleSelectAll={handleToggleSelectAll}
             hasActions={actions !== undefined}
+            hasExpand={renderExpanded !== undefined && onToggleExpand !== undefined}
             bordered={bordered}
             columnFilters={columnFilters}
             onColumnFilterChange={onColumnFilterChange}

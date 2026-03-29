@@ -1,5 +1,5 @@
-import { cx } from '../../utils/cx'
 import { focusCls } from '../../utils/a11y'
+import { cx } from '../../utils/cx'
 
 type DataTablePaginationProps = {
   currentPage: number

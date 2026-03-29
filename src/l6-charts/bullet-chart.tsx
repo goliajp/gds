@@ -24,16 +24,15 @@ export function BulletChart({
   ranges,
   target,
 }: BulletChartProps) {
-  const thresholds = ranges ?? [max * 0.33, max * 0.66, max]
-
   const computed = useMemo(() => {
+    const thresholds = ranges ?? [max * 0.33, max * 0.66, max]
     const scale = (v: number) => (v / max) * WIDTH
     return {
       actualWidth: scale(Math.min(actual, max)),
       rangeWidths: thresholds.map((t) => scale(Math.min(t, max))),
       targetX: scale(Math.min(target, max)),
     }
-  }, [actual, max, target, thresholds])
+  }, [actual, max, target, ranges])
 
   const barY = (TOTAL_HEIGHT - BAR_HEIGHT) / 2
 
