@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.5.1] - 2026-03-29
+
+### Added
+
+- tests for all 36 new v1.5.0 components (144 test cases)
+- total: 436 test files, 3,620 test cases
+
 ## [1.5.0] - 2026-03-29
 
 ### Added
