@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.7.0] - 2026-03-30
+
+### Added
+
+- `info` semantic color (`--gds-info` / `text-info` / `bg-info`) — blue, for informational states, links, DNS tags
+- Card `onClick` prop — cursor-pointer + hover effect for clickable cards
+- CardHeader `children` mode — `title` now optional, supports custom layout
+- GlowDot `pulse` prop — CSS pulse animation for attention/alert states
+- DataTable `title` + `subtitle` + `toolbarActions` — structured caption layout
+
 ## [1.6.1] - 2026-03-29
 
 ### Added
