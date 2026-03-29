@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.2.0] - 2026-03-29
+
+### Added
+
+- **DataTable major upgrade** — modular architecture (7 files), 35+ props:
+  - Pagination: page, pageSize, pageSizeOptions, totalRows
+  - Selection: selectable, selectedKeys, onToggleSelect, onToggleSelectAll
+  - Global filter: globalFilter, globalFilterValue, highlightMatches
+  - Column filters: columnFilters, onColumnFilterChange
+  - Expandable rows: expandedKeys, onToggleExpand, renderExpanded
+  - Batch actions: batchActions
+  - Column toggle: columnToggle
+  - CSV export: exportCsv, exportFilename
+  - Density: compact/default/comfortable
+  - Row features: striped, bordered, stickyHeader, rowNumbers, highlightOnHover
+  - Actions column, aggregate footer, caption, footer
+  - Column: label, align, format, hidden, muted, searchable, filterable, aggregate
+- Dialog: `md` width alias (same as `default`, for admin compatibility)
+- Table sub-components: Thead, Tbody, Tfoot, Tr, Th, Td, ThNum, TdNum, TdMuted, TdFoot, TableCaption, TableFooter
+- DialogFooter sub-component
+
+### Backward Compatibility
+
+- Column.header → Column.label (both accepted via alias)
+- data prop → rows (both accepted via alias)
+- emptyText → emptyMessage (both accepted via alias)
+- Column.render supports both (row) and (value, row, index) signatures
+
 ## [1.1.0] - 2026-03-29
 
 ### Added
