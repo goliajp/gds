@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.3.0] - 2026-03-29
+
+### Added
+
+- BulletChart (L6): performance comparison with actual/target/ranges
+- FlameChart (L6): hierarchical flame graph for profiling
+- WaterfallChart (L6): cumulative bridge chart for financial analysis
+- RealtimeChart (L6): canvas-based streaming chart for high-frequency data
+- AnnotatedChart (L6): line chart with interactive annotation markers
+- DonutGauge (L6): multi-ring concentric gauge for KPI comparison
+
 ## [1.2.0] - 2026-03-29
 
 ### Added
