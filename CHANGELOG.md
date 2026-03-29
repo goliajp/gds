@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.4.2] - 2026-03-29
+
+### Fixed
+
+- Alert: add forwardRef (consumers can now use ref for scroll-into-view, measurements)
+- AnnotatedChart: keyboard accessibility on SVG annotation markers (was click-only, now supports Enter/Space)
+- README/CLAUDE.md: corrected component counts (380+), test counts (399/3457), layer counts
+
 ## [1.4.1] - 2026-03-29
 
 ### Fixed
