@@ -2,11 +2,11 @@
 
 **GOLIA Design System** — production-grade React UI component library built by [GOLIA](https://github.com/goliajp).
 
-370+ components across 8 architectural layers, from design tokens to full-page patterns.
+380+ components across 8 architectural layers, from design tokens to full-page patterns.
 
 ## Features
 
-- **370+ components** across 8 layers (tokens → primitives → atoms → molecules → organisms → charts → patterns)
+- **380+ components** across 8 layers (tokens → primitives → atoms → molecules → organisms → charts → patterns)
 - **Strict layer architecture** — dependency constraints enforced by ESLint, anti-corruption wrappers for all external deps
 - **93% branch coverage** — 393 test files, 3400+ test cases, all layers above 90%
 - **AI-native** — semantic `data-component`/`data-variant`/`data-state` attributes, typed props, machine-readable docs
@@ -119,6 +119,10 @@ import { DataTable, Calendar } from '@goliapkg/gds/organisms'
 import { BarChart, LineChart } from '@goliapkg/gds/charts'
 import { AdminLayout, Hero } from '@goliapkg/gds/patterns'
 import { cx, focusCls, renderPortal } from '@goliapkg/gds/utils'
+
+// theme & tokens
+import { useThemeEffect, useSetThemeMode } from '@goliapkg/gds/systems'
+import { generateDefaultCssVars } from '@goliapkg/gds/tokens'
 ```
 
 ## Architecture
@@ -130,8 +134,8 @@ src/
 ├── l2-primitives/  31 stateless visual blocks (Button, Input, Badge, Spinner...)
 ├── l3-atoms/       71 simple composed elements (Avatar, Checkbox, Tooltip, Rating...)
 ├── l4-molecules/   109 multi-part components (Card, Dialog, Tabs, Select, ColorPicker...)
-├── l5-organisms/   73 complex features (DataTable, Calendar, Kanban, CommandPalette...)
-├── l6-charts/      31 Recharts-based visualizations (Bar, Line, Heatmap, Sankey...)
+├── l5-organisms/   74 complex features (DataTable, GanttChart, Calendar, Kanban...)
+├── l6-charts/      37 data visualizations (Bar, Line, Heatmap, Gantt, Flame, Realtime...)
 ├── l7-patterns/    55 page-level layouts (Dashboard, Admin, Hero, LoginForm...)
 └── utils/          anti-corruption layer (cx, a11y, dom, types, motion, glass, portal)
 ```
@@ -170,8 +174,8 @@ bun run build        # build library
 
 | Metric | Value |
 |--------|-------|
-| Test files | 393 |
-| Test cases | 3,400+ |
+| Test files | 399 |
+| Test cases | 3,457+ |
 | Branch coverage | 93%+ |
 | Line coverage | 97%+ |
 | TypeScript | strict, zero `any` |
