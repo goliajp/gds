@@ -1,9 +1,8 @@
 import type { ReactNode } from 'react'
 
 import { cx } from '../../utils/cx'
-
 import type { DataColumn, Density } from './data-table-types'
-import { computeAggregate, getCellValue, getDensity, getLabel, resolveRowKey } from './data-table-utils'
+import { computeAggregate, getCellValue, getDensity, resolveRowKey } from './data-table-utils'
 
 // skeleton loading rows
 function SkeletonRows<T>({
@@ -168,7 +167,8 @@ export function DataTableBody<T>({
 }: DataTableBodyProps<T>) {
   const d = getDensity(density)
   const borderCls = bordered === true ? 'border border-border' : ''
-  const totalCols = columns.length + (hasSelection ? 1 : 0) + (rowNumbers ? 1 : 0) + (actions !== undefined ? 1 : 0)
+  const hasExpand = renderExpanded !== undefined && onToggleExpand !== undefined
+  const totalCols = columns.length + (hasExpand ? 1 : 0) + (hasSelection ? 1 : 0) + (rowNumbers ? 1 : 0) + (actions !== undefined ? 1 : 0)
   const hasAggregate = columns.some((c) => c.aggregate !== undefined)
 
   return (
@@ -209,6 +209,18 @@ export function DataTableBody<T>({
               )}
               onClick={onRowClick !== undefined ? () => onRowClick(row) : undefined}
             >
+              {hasExpand && (
+                <td className={cx(d.td, borderCls, 'w-8 text-center')}>
+                  <button
+                    className="text-fg-muted/50 transition-transform hover:text-fg-muted"
+                    onClick={(e) => { e.stopPropagation(); onToggleExpand?.(key) }}
+                    style={{ transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)' }}
+                    type="button"
+                  >
+                    &#9654;
+                  </button>
+                </td>
+              )}
               {hasSelection && (
                 <td className={cx(d.td, borderCls, 'w-8 text-center')}>
                   <input
@@ -261,6 +273,7 @@ export function DataTableBody<T>({
       })}
       {loading !== true && error === undefined && hasAggregate && rows.length > 0 && (
         <tr className="border-t-2 border-border bg-bg-secondary/50 font-semibold">
+          {hasExpand && <td className={cx(d.td, borderCls)} />}
           {hasSelection && <td className={cx(d.td, borderCls)} />}
           {rowNumbers === true && <td className={cx(d.td, borderCls)} />}
           {columns.map((col) => (

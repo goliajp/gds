@@ -1,7 +1,6 @@
+import { cva } from 'class-variance-authority'
 import type { ReactNode } from 'react'
 import { forwardRef } from 'react'
-
-import { cva } from 'class-variance-authority'
 
 import { cx } from '../utils/cx'
 import type { VariantProps } from '../utils/types'

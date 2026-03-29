@@ -2,7 +2,6 @@ import { useState } from 'react'
 
 import { focusCls } from '../../utils/a11y'
 import { cx } from '../../utils/cx'
-
 import type { BatchAction, DataColumn } from './data-table-types'
 import { getLabel } from './data-table-utils'
 

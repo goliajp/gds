@@ -1,5 +1,4 @@
 import { cx } from '../../utils/cx'
-
 import type { DataColumn, Density, SortDir } from './data-table-types'
 import { getDensity, getLabel } from './data-table-utils'
 
@@ -32,6 +31,7 @@ type DataTableHeadProps<T> = {
   someSelected?: boolean
   onToggleSelectAll?: () => void
   hasActions?: boolean
+  hasExpand?: boolean
   bordered?: boolean
   // column filters
   columnFilters?: Record<string, string>
@@ -51,6 +51,7 @@ export function DataTableHead<T>({
   someSelected,
   onToggleSelectAll,
   hasActions,
+  hasExpand,
   bordered,
   columnFilters,
   onColumnFilterChange,
@@ -62,6 +63,7 @@ export function DataTableHead<T>({
   return (
     <thead>
       <tr className={cx('bg-bg-secondary/50', stickyHeader === true && 'sticky top-0 z-10')}>
+        {hasExpand === true && <th className={cx(d.th, borderCls, 'w-8')} />}
         {hasSelection && (
           <th className={cx(d.th, borderCls, 'w-8 text-center')}>
             <input
@@ -109,6 +111,7 @@ export function DataTableHead<T>({
       </tr>
       {hasFilters && (
         <tr className="bg-bg-secondary/30">
+          {hasExpand === true && <th className={cx(d.th, borderCls)} />}
           {hasSelection && <th className={cx(d.th, borderCls)} />}
           {rowNumbers === true && <th className={cx(d.th, borderCls)} />}
           {columns.map((col) => (

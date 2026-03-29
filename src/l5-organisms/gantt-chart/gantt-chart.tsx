@@ -3,7 +3,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { focusCls } from '../../utils/a11y'
 import { cx } from '../../utils/cx'
-
 import type { DragState, GanttChartProps, GanttTask, GroupedRow, TooltipState } from './gantt-chart-types'
 import {
   colLabel, colWidth, computeCriticalPath, DAY_MS, fmtDate,
