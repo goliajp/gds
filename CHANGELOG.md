@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] - 2026-03-29
+
+### Added
+
+- Divider: `label` prop, `variant` (dashed/dotted/solid), `dividerVariants` export
+- Input: `clearable`, `loading`, `onClear` props
+- NumberInput: `prefix`, `suffix` props
+- Avatar: `loading` prop
+- ToggleGroup: `lg` size variant
+- DialogFooter sub-component
+- Variants exports: checkboxVariants, statusBadgeVariants, statusDotVariants, toggleGroupVariants, toggleItemVariants, tabVariants
+
+### Breaking Changes
+
+- Divider now uses CVA with variant prop (previously plain component)
+- ToggleGroup internal sizeClasses renamed to toggleGroupVariants
+
 ## [1.0.10] - 2026-03-29
 
 ### Fixed
