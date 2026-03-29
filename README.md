@@ -67,10 +67,11 @@ bun add @goliapkg/gds
 
 ```tsx
 import { Provider } from 'jotai'
-import { useThemeEffect } from '@goliapkg/gds/systems'
+import { useFonts, useThemeEffect } from '@goliapkg/gds/systems'
 
 function ThemeInit() {
   useThemeEffect()
+  useFonts() // auto-inject CJK fonts (Noto Sans SC/JP/KR) from Google Fonts CDN
   return null
 }
 

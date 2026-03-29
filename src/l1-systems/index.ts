@@ -20,3 +20,6 @@ export {
   useTheme,
   useThemeEffect,
 } from './use-theme'
+
+// fonts
+export { useFonts } from './use-fonts'
