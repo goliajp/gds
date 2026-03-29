@@ -88,8 +88,9 @@ describe('DataTable', () => {
       { key: 'name', header: 'Name', sortable: true },
       { key: 'age', header: 'Age' },
     ]
-    const { container } = render(<DataTable columns={sortableCols} data={data} />)
-    // sortable column should have cursor-pointer
+    const onSort = vi.fn()
+    const { container } = render(<DataTable columns={sortableCols} data={data} onSort={onSort} />)
+    // sortable column with onSort should have cursor-pointer
     const headers = container.querySelectorAll('th')
     expect(headers[0].className).toContain('cursor-pointer')
     expect(headers[1].className).not.toContain('cursor-pointer')
@@ -180,8 +181,8 @@ describe('DataTable', () => {
     expect(el?.className).toContain('my-table')
   })
 
-  it('applies striped row styling on odd rows', () => {
-    const { container } = render(<DataTable columns={columns} data={data} />)
+  it('applies striped row styling on odd rows when striped is true', () => {
+    const { container } = render(<DataTable columns={columns} data={data} striped />)
     const rows = container.querySelectorAll('tbody tr')
     // second row (index 1) should have striped class
     expect(rows[1].className).toContain('bg-bg-secondary/30')
