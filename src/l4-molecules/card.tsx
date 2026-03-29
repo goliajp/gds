@@ -16,8 +16,11 @@ const paddingMap: Record<CardPadding, string> = {
 
 export type CardProps = {
   children: ReactNode
+  /** Enable frosted glass translucency effect */
   glass?: boolean
+  /** Inner padding preset */
   padding?: CardPadding
+  /** Show pulse skeleton placeholder */
   loading?: boolean
   className?: string
 }

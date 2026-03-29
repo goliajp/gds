@@ -32,13 +32,24 @@ const buttonVariants = cva(
   },
 )
 
+type ButtonSize = 'default' | 'lg' | 'sm'
+type ButtonVariant = 'danger' | 'ghost' | 'primary' | 'secondary'
+
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof buttonVariants> & {
+    /** Visual style: primary, secondary, ghost, danger */
+    variant?: 'danger' | 'ghost' | 'primary' | 'secondary'
+    /** Height and text scale preset */
+    size?: 'default' | 'lg' | 'sm'
     fullWidth?: boolean
+    /** Enable frosted glass translucency effect */
     glass?: boolean
+    /** Icon element rendered before children */
     icon?: ReactNode
     iconRight?: ReactNode
+    /** Show spinner and disable interaction */
     loading?: boolean
+    /** Animation preset name (e.g. 'fade', 'scale') */
     motion?: string
   }
 
@@ -113,4 +124,4 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 )
 
 export { buttonVariants }
-export type { ButtonProps }
+export type { ButtonProps, ButtonSize, ButtonVariant }
