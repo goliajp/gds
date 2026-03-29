@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.5.0] - 2026-03-29
+
+### Added
+
+- **42 new components + 5 sub-components** for admin 100% migration:
+  - Sub-components: CollapsibleContent/Trigger, TimelineGroup/Item, KanbanCard/Column
+  - L3 (6): AnimatedBorder, NumberFlow, Orbit, Stagger, TrendIndicator, VolumeSlider
+  - L4 (26): ActivityLog, BottomBar, CircularMenu, CommandBar/Float, ComparisonBar, CountdownTimer, FeatureFlag, FlipCard, GlitchText, LiveMetric, MatrixRain, MediaContainer, MorphingShape, NetworkStatus, NoiseOverlay, NumTable, OtpInput, ParticleField, Reveal, Scoreboard, StatTrend, TextReveal, TextScramble, TiltCard, UploadProgress
+  - L6 (3): ChoroplethMap, PolarAreaChart, StockTicker
+  - L7 (1): Stat (animated counter, sparkline, trend, motion, glass)
+
 ## [1.4.3] - 2026-03-29
 
 ### Added
