@@ -1,5 +1,6 @@
 // alert — contextual feedback banner with variant colors and optional close
 import { cva } from 'class-variance-authority'
+import { forwardRef } from 'react'
 
 import { focusCls } from '../utils/a11y'
 import { cx } from '../utils/cx'
@@ -57,11 +58,13 @@ export type AlertProps = React.HTMLAttributes<HTMLDivElement> &
     glass?: boolean
   }
 
-export function Alert({ children, title, variant = 'default', onClose, glass, className, ...props }: AlertProps) {
+export const Alert = forwardRef<HTMLDivElement, AlertProps>(
+  function Alert({ children, title, variant = 'default', onClose, glass, className, ...props }, ref) {
   const v = variant ?? 'default'
 
   return (
     <div
+      ref={ref}
       className={cx(
         alertVariants({ variant }),
         glass === true && glassClass(glass),
@@ -91,6 +94,7 @@ export function Alert({ children, title, variant = 'default', onClose, glass, cl
       )}
     </div>
   )
-}
+  },
+)
 
 export { alertVariants }

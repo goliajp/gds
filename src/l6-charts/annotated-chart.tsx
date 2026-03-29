@@ -48,13 +48,17 @@ export function AnnotatedChart({ annotations, className, data, height = 200 }: A
           if (idx < 0) return null
           const pos = scaled[idx]
           return (
-            <g key={i}>
+            <g
+              className="cursor-pointer outline-none"
+              key={i}
+              onClick={() => setActiveIdx(activeIdx === i ? null : i)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveIdx(activeIdx === i ? null : i) } }}
+              role="button"
+              tabIndex={0}
+            >
               <rect
-                className="cursor-pointer"
                 fill={ann.color ?? 'currentColor'}
                 height={8}
-                onClick={() => setActiveIdx(activeIdx === i ? null : i)}
-                role="button"
                 rx={1}
                 transform={`translate(${pos.sx}, ${pos.sy}) rotate(45) translate(-4, -4)`}
                 width={8}

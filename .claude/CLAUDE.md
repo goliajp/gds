@@ -8,7 +8,7 @@ Always reply in Chinese (中文).
 
 ## Project Overview
 
-GDS (GOLIA Design System) v1 — production-grade React component library with 370+ components, 93%+ branch coverage, and strict 8-layer architecture. Includes an official website with interactive playground.
+GDS (GOLIA Design System) v1 — production-grade React component library with 380+ components, 93%+ branch coverage, and strict 8-layer architecture. Includes an official website with interactive playground.
 
 - `src/` — library source (8 layers: tokens → systems → primitives → atoms → molecules → organisms → charts → patterns)
 - `web/` — official website: component browser, playground & documentation (150+ demos)
@@ -19,7 +19,7 @@ GDS (GOLIA Design System) v1 — production-grade React component library with 3
 ```bash
 bun install                        # install dependencies
 bun dev                            # start website (Vite, port 5175)
-bun test                           # run vitest (393 files, 3400+ cases)
+bun test                           # run vitest (399 files, 3457+ cases)
 bun run test:watch                 # vitest in watch mode
 bun run test:coverage              # coverage report (93%+ branches, all layers >90%)
 bunx vitest run src/l3-atoms/__tests__/button.test.tsx  # run single test
@@ -41,8 +41,8 @@ src/
 ├── l2-primitives/ — 31 stateless visual blocks (Button, Input, Badge...)
 ├── l3-atoms/      — 71 simple composed elements (Avatar, Checkbox, Tooltip...)
 ├── l4-molecules/  — 109 multi-part, stateful components (Card, Dialog, Tabs...)
-├── l5-organisms/  — 73 complex features (DataTable, Calendar, Kanban...)
-├── l6-charts/     — 31 Recharts-based data visualization
+├── l5-organisms/  — 74 complex features (DataTable, GanttChart, Calendar, Kanban...)
+├── l6-charts/     — 37 data visualizations (Bar, Line, Heatmap, Gantt, Flame, Realtime...)
 ├── l7-patterns/   — 55 page-level layouts (Dashboard, Admin, Hero...)
 └── utils/         — Anti-corruption layer (cx, a11y, dom, types, motion, glass, portal)
 ```
@@ -105,7 +105,7 @@ Every library component follows this structure:
 ## Quality Standards
 
 - **93%+ branch coverage**, all 9 layers above 90%
-- **393 test files**, 3400+ test cases
+- **399 test files**, 3457+ test cases
 - **Zero `any`** in production code
 - **Zero `@ts-ignore`** — no type suppression
 - **a11y**: focus trap in all overlays (Dialog, Sheet, Drawer), keyboard support on all interactive elements
