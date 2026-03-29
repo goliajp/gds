@@ -80,6 +80,9 @@ function DataTableInner<T>(
     emptyIcon,
     // structural
     caption,
+    title,
+    subtitle,
+    toolbarActions,
     footer,
     // actions
     actions,
@@ -184,6 +187,9 @@ function DataTableInner<T>(
         batchActions={batchActions}
         selectedKeys={selectedKeys}
         caption={caption}
+        title={title}
+        subtitle={subtitle}
+        toolbarActions={toolbarActions}
       />
 
       <div className="overflow-auto">

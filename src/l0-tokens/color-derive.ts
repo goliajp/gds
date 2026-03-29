@@ -9,6 +9,8 @@ import { darken, hexToHsl, hslToHex, hslToRgb, lighten, withAlpha } from './colo
 export const FIXED_COLORS = {
   // danger = red — universal stop/error/destructive
   danger: { dark: '#ef4444', light: '#dc2626' },
+  // info = blue — informational, links, neutral highlights
+  info: { dark: '#3b82f6', light: '#2563eb' },
   // warning = amber — universal caution
   warning: { dark: '#f59e0b', light: '#d97706' },
   // success = green — universal positive/go
@@ -204,6 +206,7 @@ export function paletteToVars(
 
     // fixed semantic colors — NEVER change per primaryColor
     '--gds-danger': isDark ? fc.danger.dark : fc.danger.light,
+    '--gds-info': isDark ? fc.info.dark : fc.info.light,
     '--gds-warning': isDark ? fc.warning.dark : fc.warning.light,
     '--gds-success': isDark ? fc.success.dark : fc.success.light,
 

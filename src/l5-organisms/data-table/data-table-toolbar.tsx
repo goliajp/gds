@@ -24,6 +24,9 @@ type DataTableToolbarProps<T> = {
   selectedKeys?: Set<string>
   // caption
   caption?: React.ReactNode
+  title?: string
+  subtitle?: string
+  toolbarActions?: React.ReactNode
 }
 
 export function DataTableToolbar<T>({
@@ -40,6 +43,9 @@ export function DataTableToolbar<T>({
   batchActions,
   selectedKeys,
   caption,
+  title,
+  subtitle,
+  toolbarActions,
 }: DataTableToolbarProps<T>) {
   const [showColumnMenu, setShowColumnMenu] = useState(false)
   const someSelected = selectedKeys !== undefined && selectedKeys.size > 0
@@ -48,6 +54,8 @@ export function DataTableToolbar<T>({
     || columnToggle === true
     || exportCsv === true
     || caption !== undefined
+    || title !== undefined
+    || toolbarActions !== undefined
     || someSelected
 
   if (!hasContent) return null
@@ -56,6 +64,15 @@ export function DataTableToolbar<T>({
     <div className="flex items-center gap-2 border-b border-border px-3 py-2">
       {caption !== undefined && (
         <span className="text-xs font-semibold text-fg">{caption}</span>
+      )}
+      {caption === undefined && title !== undefined && (
+        <div className="flex items-baseline gap-2">
+          <span className="text-xs font-semibold text-fg">{title}</span>
+          {subtitle !== undefined && <span className="text-[11px] text-fg-muted">{subtitle}</span>}
+        </div>
+      )}
+      {toolbarActions !== undefined && (
+        <div className="flex items-center gap-1">{toolbarActions}</div>
       )}
 
       {someSelected && batchActions !== undefined && (

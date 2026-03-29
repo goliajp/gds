@@ -22,6 +22,7 @@
   --color-accent-fg: var(--gds-accent-fg);
   --color-overlay: var(--gds-overlay);
   --color-danger: var(--gds-danger);
+  --color-info: var(--gds-info);
   --color-warning: var(--gds-warning);
   --color-success: var(--gds-success);
 

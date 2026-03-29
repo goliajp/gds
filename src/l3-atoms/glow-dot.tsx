@@ -8,6 +8,8 @@ type GlowDotSize = 'default' | 'lg' | 'sm'
 
 type GlowDotProps = React.HTMLAttributes<HTMLSpanElement> & {
   color?: GlowDotColor
+  /** Enable pulse animation for attention states */
+  pulse?: boolean
   size?: GlowDotSize
 }
 
@@ -25,11 +27,11 @@ const sizeMap: Record<GlowDotSize, string> = {
 }
 
 export const GlowDot = forwardRef<HTMLSpanElement, GlowDotProps>(
-  function GlowDot({ color = 'accent', size = 'default', className, ...props }, ref) {
+  function GlowDot({ color = 'accent', pulse, size = 'default', className, ...props }, ref) {
     return (
       <span
         ref={ref}
-        className={cx('inline-block rounded-full', colorMap[color], sizeMap[size], className)}
+        className={cx('inline-block rounded-full', colorMap[color], sizeMap[size], pulse === true && 'animate-pulse', className)}
         data-component="glow-dot"
         data-variant={color}
         {...props}

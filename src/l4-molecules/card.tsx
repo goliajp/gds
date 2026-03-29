@@ -16,17 +16,19 @@ const paddingMap: Record<CardPadding, string> = {
 
 export type CardProps = {
   children: ReactNode
+  className?: string
   /** Enable frosted glass translucency effect */
   glass?: boolean
-  /** Inner padding preset */
-  padding?: CardPadding
   /** Show pulse skeleton placeholder */
   loading?: boolean
-  className?: string
+  /** Click handler — adds cursor-pointer and hover effect */
+  onClick?: () => void
+  /** Inner padding preset */
+  padding?: CardPadding
 }
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
-  function Card({ children, glass, padding = 'default', loading, className }, ref) {
+  function Card({ children, className, glass, loading, onClick, padding = 'default' }, ref) {
     if (loading === true) {
       return (
         <div
@@ -44,12 +46,14 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
       <div
         ref={ref}
         className={cx(
-          'gds-ctx flex flex-col gds-gap gds-radius-card border',
+          'gds-ctx flex flex-col gds-gap gds-radius-card border transition-colors',
           glass ? cx(glassClass(glass), 'border-white/10 bg-bg/60') : 'border-border bg-surface',
+          onClick !== undefined && 'cursor-pointer hover:border-fg-muted/40 hover:bg-surface/80',
           paddingMap[padding],
           className,
         )}
         data-component="card"
+        onClick={onClick}
       >
         {children}
       </div>
@@ -58,17 +62,21 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
 )
 
 export type CardHeaderProps = {
-  title: string
-  description?: string
   action?: ReactNode
+  children?: ReactNode
   className?: string
+  description?: string
+  title?: string
 }
 
-export function CardHeader({ title, description, action, className }: CardHeaderProps) {
+export function CardHeader({ action, children, className, description, title }: CardHeaderProps) {
+  if (children !== undefined) {
+    return <div className={cx('flex items-start justify-between gds-gap', className)}>{children}</div>
+  }
   return (
     <div className={cx('flex items-start justify-between gds-gap', className)}>
       <div className="min-w-0">
-        <h3 className="text-sm font-semibold text-fg">{title}</h3>
+        {title !== undefined && <h3 className="text-sm font-semibold text-fg">{title}</h3>}
         {description !== undefined && <p className="mt-0.5 gds-text-body text-fg-muted">{description}</p>}
       </div>
       {action !== undefined && <div className="shrink-0">{action}</div>}
