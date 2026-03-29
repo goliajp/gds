@@ -137,5 +137,5 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
   },
 )
 
-export { NumberInput,numberInputVariants }
+export { NumberInput, numberInputVariants }
 export type { NumberInputProps }
