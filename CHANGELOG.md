@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.4.1] - 2026-03-29
+
+### Fixed
+
+- DataTable: useMemo dependency bug causing stale data on every render
+- BulletChart: useMemo dependency bug causing infinite re-renders
+- DataTable expandable rows: expand/collapse button was missing (onToggleExpand accepted but not wired)
+- import/export sorting across all new files
+
+### Added
+
+- tests for 6 new charts: BulletChart, FlameChart, WaterfallChart, RealtimeChart, AnnotatedChart, DonutGauge (20 cases)
+- total: 399 test files, 3457 test cases
+
 ## [1.4.0] - 2026-03-29
 
 ### Added
