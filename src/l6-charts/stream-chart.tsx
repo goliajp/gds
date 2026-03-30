@@ -47,7 +47,7 @@ export const StreamChart = forwardRef<HTMLDivElement, StreamChartProps>(
             <XAxis
               dataKey={xKey}
               stroke="var(--gds-fg-muted, #6b7280)"
-              tick={{ fontSize: 11 }}
+              tick={{ fill: 'var(--gds-fg-muted, #6b7280)', fontSize: 11 }}
             />
             <Tooltip />
             {keys.map((key, i) => (

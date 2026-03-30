@@ -131,12 +131,12 @@ export const CandlestickChart = forwardRef<
           <XAxis
             dataKey="date"
             stroke="var(--gds-fg-muted, #6b7280)"
-            tick={{ fontSize: 11 }}
+            tick={{ fill: 'var(--gds-fg-muted, #6b7280)', fontSize: 11 }}
           />
           <YAxis
             domain={domain}
             stroke="var(--gds-fg-muted, #6b7280)"
-            tick={{ fontSize: 11 }}
+            tick={{ fill: 'var(--gds-fg-muted, #6b7280)', fontSize: 11 }}
           />
           <Tooltip />
           <Bar dataKey="bodyHeight" shape={<CandleShape />} stackId="candle" />

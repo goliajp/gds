@@ -74,13 +74,13 @@ export const OrderBookChart = forwardRef<HTMLDivElement, OrderBookChartProps>(
             <XAxis
               dataKey="price"
               stroke="var(--gds-fg-muted, #6b7280)"
-              tick={{ fontSize: 11 }}
+              tick={{ fill: 'var(--gds-fg-muted, #6b7280)', fontSize: 11 }}
               type="number"
               domain={['dataMin', 'dataMax']}
             />
             <YAxis
               stroke="var(--gds-fg-muted, #6b7280)"
-              tick={{ fontSize: 11 }}
+              tick={{ fill: 'var(--gds-fg-muted, #6b7280)', fontSize: 11 }}
             />
             <Tooltip />
             <Area

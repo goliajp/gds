@@ -42,14 +42,14 @@ export const BubbleChart = forwardRef<HTMLDivElement, BubbleChartProps>(
               dataKey="x"
               name={xLabel}
               stroke="var(--gds-fg-muted, #6b7280)"
-              tick={{ fontSize: 11 }}
+              tick={{ fill: 'var(--gds-fg-muted, #6b7280)', fontSize: 11 }}
               type="number"
             />
             <YAxis
               dataKey="y"
               name={yLabel}
               stroke="var(--gds-fg-muted, #6b7280)"
-              tick={{ fontSize: 11 }}
+              tick={{ fill: 'var(--gds-fg-muted, #6b7280)', fontSize: 11 }}
               type="number"
             />
             <ZAxis dataKey="z" range={[20, 400]} type="number" />
