@@ -11,14 +11,22 @@ describe('Progress', () => {
 
   it('forwards ref to outer div', () => {
     let el: HTMLDivElement | null = null
-    render(<Progress ref={(node) => { el = node }} />)
+    render(
+      <Progress
+        ref={(node) => {
+          el = node
+        }}
+      />
+    )
     expect(el).not.toBeNull()
     expect(el!.getAttribute('data-component')).toBe('progress')
   })
 
   it('has data-component="progress"', () => {
     render(<Progress data-testid="prog" />)
-    expect(screen.getByTestId('prog').getAttribute('data-component')).toBe('progress')
+    expect(screen.getByTestId('prog').getAttribute('data-component')).toBe(
+      'progress'
+    )
   })
 
   it('merges className on outer div', () => {
@@ -36,17 +44,23 @@ describe('Progress', () => {
 
   it('clamps value to 0 when negative', () => {
     render(<Progress value={-10} />)
-    expect(screen.getByRole('progressbar').getAttribute('aria-valuenow')).toBe('0')
+    expect(screen.getByRole('progressbar').getAttribute('aria-valuenow')).toBe(
+      '0'
+    )
   })
 
   it('clamps value to 100 when exceeding', () => {
     render(<Progress value={200} />)
-    expect(screen.getByRole('progressbar').getAttribute('aria-valuenow')).toBe('100')
+    expect(screen.getByRole('progressbar').getAttribute('aria-valuenow')).toBe(
+      '100'
+    )
   })
 
   it('defaults value to 0', () => {
     render(<Progress />)
-    expect(screen.getByRole('progressbar').getAttribute('aria-valuenow')).toBe('0')
+    expect(screen.getByRole('progressbar').getAttribute('aria-valuenow')).toBe(
+      '0'
+    )
   })
 
   it('shows label when showLabel is true', () => {

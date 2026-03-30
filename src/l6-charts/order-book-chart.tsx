@@ -38,11 +38,19 @@ export const OrderBookChart = forwardRef<HTMLDivElement, OrderBookChartProps>(
       className,
       ...props
     },
-    ref,
+    ref
   ) {
     const combined = useMemo(() => {
-      const bidPoints = bids.map((b) => ({ price: b.price, bidDepth: b.depth, askDepth: undefined }))
-      const askPoints = asks.map((a) => ({ price: a.price, bidDepth: undefined, askDepth: a.depth }))
+      const bidPoints = bids.map((b) => ({
+        price: b.price,
+        bidDepth: b.depth,
+        askDepth: undefined,
+      }))
+      const askPoints = asks.map((a) => ({
+        price: a.price,
+        bidDepth: undefined,
+        askDepth: a.depth,
+      }))
       return [...bidPoints, ...askPoints].sort((a, b) => a.price - b.price)
     }, [bids, asks])
 
@@ -50,16 +58,19 @@ export const OrderBookChart = forwardRef<HTMLDivElement, OrderBookChartProps>(
       <div
         ref={ref}
         className={cx(
-          'w-full gds-radius-popover border border-border',
-          glass && 'backdrop-blur-md bg-white/5',
-          className,
+          'gds-radius-popover border-border w-full border',
+          glass && 'bg-white/5 backdrop-blur-md',
+          className
         )}
         data-component="order-book-chart"
         {...props}
       >
         <ResponsiveContainer height={height} width="100%">
           <AreaChart data={combined}>
-            <CartesianGrid stroke="var(--gds-border, #e5e7eb)" strokeDasharray="3 3" />
+            <CartesianGrid
+              stroke="var(--gds-border, #e5e7eb)"
+              strokeDasharray="3 3"
+            />
             <XAxis
               dataKey="price"
               stroke="var(--gds-fg-muted, #6b7280)"
@@ -67,7 +78,10 @@ export const OrderBookChart = forwardRef<HTMLDivElement, OrderBookChartProps>(
               type="number"
               domain={['dataMin', 'dataMax']}
             />
-            <YAxis stroke="var(--gds-fg-muted, #6b7280)" tick={{ fontSize: 11 }} />
+            <YAxis
+              stroke="var(--gds-fg-muted, #6b7280)"
+              tick={{ fontSize: 11 }}
+            />
             <Tooltip />
             <Area
               dataKey="bidDepth"
@@ -91,5 +105,5 @@ export const OrderBookChart = forwardRef<HTMLDivElement, OrderBookChartProps>(
         </ResponsiveContainer>
       </div>
     )
-  },
+  }
 )

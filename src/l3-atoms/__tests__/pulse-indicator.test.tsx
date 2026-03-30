@@ -6,7 +6,9 @@ import { PulseIndicator } from '../pulse-indicator'
 describe('PulseIndicator', () => {
   it('renders with data-component', () => {
     const { container } = render(<PulseIndicator />)
-    expect(container.querySelector('[data-component="pulse-indicator"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="pulse-indicator"]')
+    ).not.toBeNull()
   })
 
   it('renders ping animation element', () => {

@@ -18,24 +18,37 @@ type RibbonProps = React.HTMLAttributes<HTMLDivElement> & {
   position?: 'top-left' | 'top-right'
 }
 
-export const Ribbon = forwardRef<HTMLDivElement, RibbonProps>(
-  function Ribbon({ children, label, variant = 'accent', position = 'top-right', className, ...props }, ref) {
-    const isRight = position === 'top-right'
-    return (
-      <div ref={ref} className={cx('relative overflow-hidden', className)} data-component="ribbon" {...props}>
-        <div
-          className={cx(
-            'pointer-events-none absolute top-3 z-10 px-6 py-0.5 text-[10px] font-bold uppercase tracking-wider shadow-sm',
-            variantMap[variant],
-            isRight ? '-right-6 rotate-45' : '-left-6 -rotate-45',
-          )}
-        >
-          {label}
-        </div>
-        {children}
-      </div>
-    )
+export const Ribbon = forwardRef<HTMLDivElement, RibbonProps>(function Ribbon(
+  {
+    children,
+    label,
+    variant = 'accent',
+    position = 'top-right',
+    className,
+    ...props
   },
-)
+  ref
+) {
+  const isRight = position === 'top-right'
+  return (
+    <div
+      ref={ref}
+      className={cx('relative overflow-hidden', className)}
+      data-component="ribbon"
+      {...props}
+    >
+      <div
+        className={cx(
+          'pointer-events-none absolute top-3 z-10 px-6 py-0.5 text-[10px] font-bold tracking-wider uppercase shadow-sm',
+          variantMap[variant],
+          isRight ? '-right-6 rotate-45' : '-left-6 -rotate-45'
+        )}
+      >
+        {label}
+      </div>
+      {children}
+    </div>
+  )
+})
 
 export type { RibbonProps }

@@ -14,7 +14,10 @@ type LoginFormData = {
   remember: boolean
 }
 
-type LoginFormProps = Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> & {
+type LoginFormProps = Omit<
+  React.HTMLAttributes<HTMLFormElement>,
+  'onSubmit'
+> & {
   onSubmit: (data: LoginFormData) => void
   title?: string
   error?: string
@@ -24,8 +27,16 @@ type LoginFormProps = Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> & 
 
 export const LoginForm = forwardRef<HTMLFormElement, LoginFormProps>(
   function LoginForm(
-    { onSubmit, title = 'Sign in', error, loading = false, glass = false, className, ...props },
-    ref,
+    {
+      onSubmit,
+      title = 'Sign in',
+      error,
+      loading = false,
+      glass = false,
+      className,
+      ...props
+    },
+    ref
   ) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -40,34 +51,54 @@ export const LoginForm = forwardRef<HTMLFormElement, LoginFormProps>(
       <form
         ref={ref}
         className={cx(
-          'flex w-full max-w-sm flex-col gap-4 rounded-lg border border-border p-6',
+          'border-border flex w-full max-w-sm flex-col gap-4 rounded-lg border p-6',
           glassClass(glass),
           !glass && 'bg-bg',
-          className,
+          className
         )}
         data-component="login-form"
         onSubmit={handleSubmit}
         {...props}
       >
-        <h2 className="text-center font-semibold text-fg gds-heading">{title}</h2>
+        <h2 className="text-fg gds-heading text-center font-semibold">
+          {title}
+        </h2>
         {error !== undefined && (
-          <div className="rounded-md bg-danger/10 px-3 py-2 text-xs text-danger">{error}</div>
+          <div className="bg-danger/10 text-danger rounded-md px-3 py-2 text-xs">
+            {error}
+          </div>
         )}
         <div className="flex flex-col gap-1">
           <Label>Email</Label>
-          <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required />
+          <Input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@example.com"
+            required
+          />
         </div>
         <div className="flex flex-col gap-1">
           <Label>Password</Label>
-          <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required />
+          <Input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="••••••••"
+            required
+          />
         </div>
-        <Checkbox checked={remember} onChange={setRemember} label="Remember me" />
+        <Checkbox
+          checked={remember}
+          onChange={setRemember}
+          label="Remember me"
+        />
         <Button type="submit" disabled={loading} className="w-full">
           {loading ? 'Signing in...' : 'Sign in'}
         </Button>
       </form>
     )
-  },
+  }
 )
 
 export type { LoginFormData, LoginFormProps }

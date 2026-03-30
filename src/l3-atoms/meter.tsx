@@ -39,61 +39,65 @@ type MeterProps = React.HTMLAttributes<HTMLDivElement> &
     variant?: 'auto' | 'danger' | 'default' | 'success' | 'warning'
   }
 
-export const Meter = forwardRef<HTMLDivElement, MeterProps>(
-  function Meter(
-    {
-      className,
-      label,
-      max = 100,
-      min = 0,
-      showValue = true,
-      size,
-      value,
-      variant = 'auto',
-      ...props
-    },
-    ref,
-  ) {
-    const range = max - min
-    const pct = range > 0 ? Math.max(0, Math.min(1, (value - min) / range)) : 0
-    const barColor = variant === 'auto' ? getAutoColor(pct) : (variantColors[variant] ?? 'bg-accent')
-
-    return (
-      <div
-        className={cx('w-full', className)}
-        data-component="meter"
-        ref={ref}
-        {...props}
-      >
-        {(label !== undefined || showValue) && (
-          <div className="mb-1 flex items-center justify-between">
-            {label !== undefined && (
-              <span className="gds-text-body font-medium text-fg">{label}</span>
-            )}
-            {showValue && (
-              <span className="font-mono gds-text-label text-fg-muted tabular-nums">
-                {Math.round(pct * 100)}%
-              </span>
-            )}
-          </div>
-        )}
-        <div
-          aria-label={label}
-          aria-valuemax={max}
-          aria-valuemin={min}
-          aria-valuenow={value}
-          className={meterVariants({ size })}
-          role="meter"
-        >
-          <div
-            className={cx('h-full gds-radius-badge transition-all duration-500', barColor)}
-            style={{ width: `${pct * 100}%` }}
-          />
-        </div>
-      </div>
-    )
+export const Meter = forwardRef<HTMLDivElement, MeterProps>(function Meter(
+  {
+    className,
+    label,
+    max = 100,
+    min = 0,
+    showValue = true,
+    size,
+    value,
+    variant = 'auto',
+    ...props
   },
-)
+  ref
+) {
+  const range = max - min
+  const pct = range > 0 ? Math.max(0, Math.min(1, (value - min) / range)) : 0
+  const barColor =
+    variant === 'auto'
+      ? getAutoColor(pct)
+      : (variantColors[variant] ?? 'bg-accent')
+
+  return (
+    <div
+      className={cx('w-full', className)}
+      data-component="meter"
+      ref={ref}
+      {...props}
+    >
+      {(label !== undefined || showValue) && (
+        <div className="mb-1 flex items-center justify-between">
+          {label !== undefined && (
+            <span className="gds-text-body text-fg font-medium">{label}</span>
+          )}
+          {showValue && (
+            <span className="gds-text-label text-fg-muted font-mono tabular-nums">
+              {Math.round(pct * 100)}%
+            </span>
+          )}
+        </div>
+      )}
+      <div
+        aria-label={label}
+        aria-valuemax={max}
+        aria-valuemin={min}
+        aria-valuenow={value}
+        className={meterVariants({ size })}
+        role="meter"
+      >
+        <div
+          className={cx(
+            'gds-radius-badge h-full transition-all duration-500',
+            barColor
+          )}
+          style={{ width: `${pct * 100}%` }}
+        />
+      </div>
+    </div>
+  )
+})
 
 export { meterVariants }
 export type { MeterProps }

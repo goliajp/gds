@@ -38,18 +38,48 @@ export function DonutGauge({ className, rings, size = 160 }: DonutGaugeProps) {
           const color = ring.color ?? defaultColors[i % defaultColors.length]
           return (
             <g key={i}>
-              <circle className="text-fg-muted/10" cx={center} cy={center} fill="none" r={r} stroke="currentColor" strokeWidth={ringWidth} />
-              <circle className="transition-all duration-500" cx={center} cy={center} fill="none" r={r} stroke={color} strokeDasharray={`${dashLen} ${circumference - dashLen}`} strokeDashoffset={circumference / 4} strokeLinecap="round" strokeWidth={ringWidth} />
+              <circle
+                className="text-fg-muted/10"
+                cx={center}
+                cy={center}
+                fill="none"
+                r={r}
+                stroke="currentColor"
+                strokeWidth={ringWidth}
+              />
+              <circle
+                className="transition-all duration-500"
+                cx={center}
+                cy={center}
+                fill="none"
+                r={r}
+                stroke={color}
+                strokeDasharray={`${dashLen} ${circumference - dashLen}`}
+                strokeDashoffset={circumference / 4}
+                strokeLinecap="round"
+                strokeWidth={ringWidth}
+              />
             </g>
           )
         })}
       </svg>
       <div className="mt-2 flex flex-wrap gap-3">
         {rings.map((ring, i) => (
-          <div className="flex items-center gap-1.5 text-xs text-fg-muted" key={i}>
-            <div className="h-2 w-2 rounded-full" style={{ backgroundColor: ring.color ?? defaultColors[i % defaultColors.length] }} />
+          <div
+            className="text-fg-muted flex items-center gap-1.5 text-xs"
+            key={i}
+          >
+            <div
+              className="h-2 w-2 rounded-full"
+              style={{
+                backgroundColor:
+                  ring.color ?? defaultColors[i % defaultColors.length],
+              }}
+            />
             <span>{ring.label}</span>
-            <span className="font-medium text-fg tabular-nums">{ring.value}/{ring.max}</span>
+            <span className="text-fg font-medium tabular-nums">
+              {ring.value}/{ring.max}
+            </span>
           </div>
         ))}
       </div>

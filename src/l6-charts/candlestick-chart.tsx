@@ -77,67 +77,71 @@ export function CandleShape(shapeProps: CandleShapeProps) {
   )
 }
 
-export const CandlestickChart = forwardRef<HTMLDivElement, CandlestickChartProps>(
-  function CandlestickChart(
-    {
-      data,
-      height = 300,
-      upColor = 'var(--gds-success, #22c55e)',
-      downColor = 'var(--gds-danger, #ef4444)',
-      glass,
-      className,
-      ...props
-    },
-    ref,
-  ) {
-    const prepared = useMemo(
-      () =>
-        data.map((d) => ({
-          date: d.date,
-          bodyBottom: Math.min(d.open, d.close),
-          bodyHeight: Math.abs(d.close - d.open),
-          fill: d.close >= d.open ? upColor : downColor,
-          high: d.high,
-          low: d.low,
-        })),
-      [data, upColor, downColor],
-    )
-
-    const domain = useMemo(() => {
-      const lows = data.map((d) => d.low)
-      const highs = data.map((d) => d.high)
-      return [Math.min(...lows), Math.max(...highs)]
-    }, [data])
-
-    return (
-      <div
-        className={cx(
-          'w-full gds-radius-popover border border-[var(--gds-border,#e5e7eb)]',
-          glass && 'backdrop-blur-md bg-white/5',
-          className,
-        )}
-        data-component="candlestick-chart"
-        ref={ref}
-        {...props}
-      >
-        <ResponsiveContainer height={height} width="100%">
-          <ComposedChart data={prepared}>
-            <CartesianGrid stroke="var(--gds-border, #e5e7eb)" strokeDasharray="3 3" />
-            <XAxis dataKey="date" stroke="var(--gds-fg-muted, #6b7280)" tick={{ fontSize: 11 }} />
-            <YAxis
-              domain={domain}
-              stroke="var(--gds-fg-muted, #6b7280)"
-              tick={{ fontSize: 11 }}
-            />
-            <Tooltip />
-            <Bar
-              dataKey="bodyHeight"
-              shape={<CandleShape />}
-              stackId="candle"
-            />
-          </ComposedChart>
-        </ResponsiveContainer>
-      </div>
-    )
+export const CandlestickChart = forwardRef<
+  HTMLDivElement,
+  CandlestickChartProps
+>(function CandlestickChart(
+  {
+    data,
+    height = 300,
+    upColor = 'var(--gds-success, #22c55e)',
+    downColor = 'var(--gds-danger, #ef4444)',
+    glass,
+    className,
+    ...props
   },
-)
+  ref
+) {
+  const prepared = useMemo(
+    () =>
+      data.map((d) => ({
+        date: d.date,
+        bodyBottom: Math.min(d.open, d.close),
+        bodyHeight: Math.abs(d.close - d.open),
+        fill: d.close >= d.open ? upColor : downColor,
+        high: d.high,
+        low: d.low,
+      })),
+    [data, upColor, downColor]
+  )
+
+  const domain = useMemo(() => {
+    const lows = data.map((d) => d.low)
+    const highs = data.map((d) => d.high)
+    return [Math.min(...lows), Math.max(...highs)]
+  }, [data])
+
+  return (
+    <div
+      className={cx(
+        'gds-radius-popover w-full border border-[var(--gds-border,#e5e7eb)]',
+        glass && 'bg-white/5 backdrop-blur-md',
+        className
+      )}
+      data-component="candlestick-chart"
+      ref={ref}
+      {...props}
+    >
+      <ResponsiveContainer height={height} width="100%">
+        <ComposedChart data={prepared}>
+          <CartesianGrid
+            stroke="var(--gds-border, #e5e7eb)"
+            strokeDasharray="3 3"
+          />
+          <XAxis
+            dataKey="date"
+            stroke="var(--gds-fg-muted, #6b7280)"
+            tick={{ fontSize: 11 }}
+          />
+          <YAxis
+            domain={domain}
+            stroke="var(--gds-fg-muted, #6b7280)"
+            tick={{ fontSize: 11 }}
+          />
+          <Tooltip />
+          <Bar dataKey="bodyHeight" shape={<CandleShape />} stackId="candle" />
+        </ComposedChart>
+      </ResponsiveContainer>
+    </div>
+  )
+})

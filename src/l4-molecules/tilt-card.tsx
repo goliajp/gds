@@ -14,7 +14,9 @@ export type TiltCardProps = {
 export const TiltCard = forwardRef<HTMLDivElement, TiltCardProps>(
   function TiltCard({ children, className, glare, maxTilt = 15 }, ref) {
     const innerRef = useRef<HTMLDivElement | null>(null)
-    const [transform, setTransform] = useState('perspective(800px) rotateX(0deg) rotateY(0deg)')
+    const [transform, setTransform] = useState(
+      'perspective(800px) rotateX(0deg) rotateY(0deg)'
+    )
     const [glareStyle, setGlareStyle] = useState<React.CSSProperties>({})
 
     const handleMouseMove = useCallback(
@@ -28,7 +30,9 @@ export const TiltCard = forwardRef<HTMLDivElement, TiltCardProps>(
         const rotateX = (0.5 - y) * maxTilt * 2
         const rotateY = (x - 0.5) * maxTilt * 2
 
-        setTransform(`perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`)
+        setTransform(
+          `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
+        )
 
         if (glare === true) {
           setGlareStyle({
@@ -36,7 +40,7 @@ export const TiltCard = forwardRef<HTMLDivElement, TiltCardProps>(
           })
         }
       },
-      [maxTilt, glare],
+      [maxTilt, glare]
     )
 
     const handleMouseLeave = useCallback(() => {
@@ -50,10 +54,14 @@ export const TiltCard = forwardRef<HTMLDivElement, TiltCardProps>(
           innerRef.current = node
           if (typeof ref === 'function') ref(node)
           else if (ref !== null && ref !== undefined) {
-            (ref as React.MutableRefObject<HTMLDivElement | null>).current = node
+            ;(ref as React.MutableRefObject<HTMLDivElement | null>).current =
+              node
           }
         }}
-        className={cx('relative overflow-hidden transition-transform duration-150 ease-out', className)}
+        className={cx(
+          'relative overflow-hidden transition-transform duration-150 ease-out',
+          className
+        )}
         style={{ transform }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -61,9 +69,12 @@ export const TiltCard = forwardRef<HTMLDivElement, TiltCardProps>(
       >
         {children}
         {glare === true && (
-          <div className="pointer-events-none absolute inset-0" style={glareStyle} />
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={glareStyle}
+          />
         )}
       </div>
     )
-  },
+  }
 )

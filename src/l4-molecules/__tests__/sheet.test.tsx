@@ -7,14 +7,18 @@ import { Sheet } from '../sheet'
 describe('Sheet', () => {
   it('renders nothing when closed', () => {
     const { container } = render(
-      <Sheet open={false} onClose={vi.fn()}>Content</Sheet>,
+      <Sheet open={false} onClose={vi.fn()}>
+        Content
+      </Sheet>
     )
     expect(container.querySelector('[data-component="sheet"]')).toBeNull()
   })
 
   it('renders when open', () => {
     const { container } = render(
-      <Sheet open={true} onClose={vi.fn()}>Sheet body</Sheet>,
+      <Sheet open={true} onClose={vi.fn()}>
+        Sheet body
+      </Sheet>
     )
     expect(container.querySelector('[data-component="sheet"]')).not.toBeNull()
     expect(screen.getByText('Sheet body')).toBeDefined()
@@ -22,16 +26,23 @@ describe('Sheet', () => {
 
   it('has data-state="open" when open', () => {
     const { container } = render(
-      <Sheet open={true} onClose={vi.fn()}>Content</Sheet>,
+      <Sheet open={true} onClose={vi.fn()}>
+        Content
+      </Sheet>
     )
     expect(container.querySelector('[data-state="open"]')).not.toBeNull()
   })
 
   it('renders title and description', () => {
     render(
-      <Sheet open={true} onClose={vi.fn()} title="Settings" description="Configure options">
+      <Sheet
+        open={true}
+        onClose={vi.fn()}
+        title="Settings"
+        description="Configure options"
+      >
         Body
-      </Sheet>,
+      </Sheet>
     )
     expect(screen.getByText('Settings')).toBeDefined()
     expect(screen.getByText('Configure options')).toBeDefined()
@@ -41,7 +52,9 @@ describe('Sheet', () => {
     const user = userEvent.setup()
     const onClose = vi.fn()
     render(
-      <Sheet open={true} onClose={onClose} title="Title">Content</Sheet>,
+      <Sheet open={true} onClose={onClose} title="Title">
+        Content
+      </Sheet>
     )
     await user.click(screen.getByLabelText('Close'))
     expect(onClose).toHaveBeenCalledOnce()
@@ -51,7 +64,9 @@ describe('Sheet', () => {
     const user = userEvent.setup()
     const onClose = vi.fn()
     const { container } = render(
-      <Sheet open={true} onClose={onClose}>Content</Sheet>,
+      <Sheet open={true} onClose={onClose}>
+        Content
+      </Sheet>
     )
     const backdrop = container.querySelector('[data-component="sheet"]')!
     await user.click(backdrop)

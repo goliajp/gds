@@ -11,7 +11,13 @@ describe('Dot', () => {
 
   it('forwards ref', () => {
     let el: HTMLSpanElement | null = null
-    render(<Dot ref={(node) => { el = node }} />)
+    render(
+      <Dot
+        ref={(node) => {
+          el = node
+        }}
+      />
+    )
     expect(el).toBeTruthy()
     expect(el!.tagName).toBe('SPAN')
   })

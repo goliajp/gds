@@ -1,11 +1,5 @@
 // video-player — styled html5 video player with custom controls
-import {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import { forwardRef, useCallback, useEffect, useRef, useState } from 'react'
 
 import { cx } from '../utils/cx'
 import { VideoControls } from './video-controls'
@@ -33,7 +27,7 @@ export const VideoPlayer = forwardRef<HTMLDivElement, VideoPlayerProps>(
       glass = false,
       className,
     },
-    ref,
+    ref
   ) {
     const videoRef = useRef<HTMLVideoElement>(null)
     const hideTimerRef = useRef<ReturnType<typeof setTimeout>>(null)
@@ -102,7 +96,7 @@ export const VideoPlayer = forwardRef<HTMLDivElement, VideoPlayerProps>(
         const ratio = (e.clientX - rect.left) / rect.width
         video.currentTime = ratio * duration
       },
-      [duration],
+      [duration]
     )
 
     const handleFullscreen = useCallback(() => {
@@ -124,9 +118,9 @@ export const VideoPlayer = forwardRef<HTMLDivElement, VideoPlayerProps>(
       <div
         ref={ref}
         className={cx(
-          'relative overflow-hidden gds-radius-card',
+          'gds-radius-card relative overflow-hidden',
           glass && 'gds-glass',
-          className,
+          className
         )}
         data-component="video-player"
         onMouseMove={controls ? resetHideTimer : undefined}
@@ -161,5 +155,5 @@ export const VideoPlayer = forwardRef<HTMLDivElement, VideoPlayerProps>(
         )}
       </div>
     )
-  },
+  }
 )

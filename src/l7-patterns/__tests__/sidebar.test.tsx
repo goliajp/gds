@@ -6,34 +6,62 @@ import { Sidebar, SidebarItem } from '../sidebar'
 
 describe('Sidebar', () => {
   it('renders children', () => {
-    render(<Sidebar><span>Nav Item</span></Sidebar>)
+    render(
+      <Sidebar>
+        <span>Nav Item</span>
+      </Sidebar>
+    )
     expect(screen.getByText('Nav Item')).toBeDefined()
   })
 
   it('uses collapsed width when collapsed', () => {
-    const { container } = render(<Sidebar collapsed collapsedWidth={48}><span>x</span></Sidebar>)
-    const el = container.querySelector('[data-component="sidebar"]') as HTMLElement
+    const { container } = render(
+      <Sidebar collapsed collapsedWidth={48}>
+        <span>x</span>
+      </Sidebar>
+    )
+    const el = container.querySelector(
+      '[data-component="sidebar"]'
+    ) as HTMLElement
     expect(el.style.width).toBe('48px')
   })
 
   it('uses expanded width when not collapsed', () => {
-    const { container } = render(<Sidebar width={280}><span>x</span></Sidebar>)
-    const el = container.querySelector('[data-component="sidebar"]') as HTMLElement
+    const { container } = render(
+      <Sidebar width={280}>
+        <span>x</span>
+      </Sidebar>
+    )
+    const el = container.querySelector(
+      '[data-component="sidebar"]'
+    ) as HTMLElement
     expect(el.style.width).toBe('280px')
   })
 
   it('has data-component attribute', () => {
-    const { container } = render(<Sidebar><span>x</span></Sidebar>)
+    const { container } = render(
+      <Sidebar>
+        <span>x</span>
+      </Sidebar>
+    )
     expect(container.querySelector('[data-component="sidebar"]')).not.toBeNull()
   })
 
   it('renders collapse button when onCollapse is provided', () => {
-    const { container } = render(<Sidebar onCollapse={() => {}}><span>x</span></Sidebar>)
+    const { container } = render(
+      <Sidebar onCollapse={() => {}}>
+        <span>x</span>
+      </Sidebar>
+    )
     expect(container.querySelector('button')).not.toBeNull()
   })
 
   it('does not render collapse button without onCollapse', () => {
-    const { container } = render(<Sidebar><span>x</span></Sidebar>)
+    const { container } = render(
+      <Sidebar>
+        <span>x</span>
+      </Sidebar>
+    )
     expect(container.querySelector('button')).toBeNull()
   })
 
@@ -41,55 +69,91 @@ describe('Sidebar', () => {
     const { default: userEvent } = await import('@testing-library/user-event')
     const user = userEvent.setup()
     const onCollapse = vi.fn()
-    const { container } = render(<Sidebar collapsed={false} onCollapse={onCollapse}><span>x</span></Sidebar>)
+    const { container } = render(
+      <Sidebar collapsed={false} onCollapse={onCollapse}>
+        <span>x</span>
+      </Sidebar>
+    )
     await user.click(container.querySelector('button')!)
     expect(onCollapse).toHaveBeenCalledWith(true)
   })
 
   it('applies right position border', () => {
-    const { container } = render(<Sidebar position="right"><span>x</span></Sidebar>)
+    const { container } = render(
+      <Sidebar position="right">
+        <span>x</span>
+      </Sidebar>
+    )
     const el = container.querySelector('[data-component="sidebar"]')
     expect(el?.className).toContain('border-l')
   })
 
   it('applies left position border by default', () => {
-    const { container } = render(<Sidebar><span>x</span></Sidebar>)
+    const { container } = render(
+      <Sidebar>
+        <span>x</span>
+      </Sidebar>
+    )
     const el = container.querySelector('[data-component="sidebar"]')
     expect(el?.className).toContain('border-r')
   })
 
   it('applies glass classes when glass is true', () => {
-    const { container } = render(<Sidebar glass><span>x</span></Sidebar>)
+    const { container } = render(
+      <Sidebar glass>
+        <span>x</span>
+      </Sidebar>
+    )
     const el = container.querySelector('[data-component="sidebar"]')
     expect(el?.className).toContain('gds-glass')
   })
 
   it('applies surface background when glass is false', () => {
-    const { container } = render(<Sidebar><span>x</span></Sidebar>)
+    const { container } = render(
+      <Sidebar>
+        <span>x</span>
+      </Sidebar>
+    )
     const el = container.querySelector('[data-component="sidebar"]')
     expect(el?.className).toContain('bg-surface')
   })
 
   it('sets data-collapsed attribute', () => {
-    const { container } = render(<Sidebar collapsed><span>x</span></Sidebar>)
+    const { container } = render(
+      <Sidebar collapsed>
+        <span>x</span>
+      </Sidebar>
+    )
     const el = container.querySelector('[data-component="sidebar"]')
     expect(el?.getAttribute('data-collapsed')).toBe('true')
   })
 
   it('rotates chevron for right position', () => {
-    const { container } = render(<Sidebar position="right" onCollapse={() => {}}><span>x</span></Sidebar>)
+    const { container } = render(
+      <Sidebar position="right" onCollapse={() => {}}>
+        <span>x</span>
+      </Sidebar>
+    )
     const svg = container.querySelector('svg')
     expect(svg?.getAttribute('class')).toContain('rotate-180')
   })
 
   it('rotates chevron when collapsed', () => {
-    const { container } = render(<Sidebar collapsed onCollapse={() => {}}><span>x</span></Sidebar>)
+    const { container } = render(
+      <Sidebar collapsed onCollapse={() => {}}>
+        <span>x</span>
+      </Sidebar>
+    )
     const svg = container.querySelector('svg')
     expect(svg?.getAttribute('class')).toContain('rotate-180')
   })
 
   it('resets rotation for collapsed + right position', () => {
-    const { container } = render(<Sidebar collapsed position="right" onCollapse={() => {}}><span>x</span></Sidebar>)
+    const { container } = render(
+      <Sidebar collapsed position="right" onCollapse={() => {}}>
+        <span>x</span>
+      </Sidebar>
+    )
     const svg = container.querySelector('svg')
     expect(svg?.getAttribute('class')).toContain('rotate-0')
   })
@@ -101,7 +165,11 @@ describe('Sidebar', () => {
       { icon: <span>I1</span>, label: 'Dashboard' },
       { icon: <span>I2</span>, label: 'Settings' },
     ]
-    render(<Sidebar items={sidebarItems}><span /></Sidebar>)
+    render(
+      <Sidebar items={sidebarItems}>
+        <span />
+      </Sidebar>
+    )
     expect(screen.getByText('Dashboard')).toBeDefined()
     expect(screen.getByText('Settings')).toBeDefined()
   })
@@ -110,7 +178,7 @@ describe('Sidebar', () => {
     render(
       <Sidebar>
         <SidebarItem icon={<span>IC</span>} label="Inbox" badge={42} />
-      </Sidebar>,
+      </Sidebar>
     )
     expect(screen.getByText('42')).toBeDefined()
     expect(screen.getByText('Inbox')).toBeDefined()
@@ -120,7 +188,7 @@ describe('Sidebar', () => {
     const { container } = render(
       <Sidebar>
         <SidebarItem icon={<span>IC</span>} label="Active Item" active />
-      </Sidebar>,
+      </Sidebar>
     )
     const item = container.querySelector('[data-component="sidebar-item"]')
     expect(item?.getAttribute('data-state')).toBe('active')
@@ -131,7 +199,7 @@ describe('Sidebar', () => {
     const { container } = render(
       <Sidebar>
         <SidebarItem icon={<span>IC</span>} label="Link" href="/dashboard" />
-      </Sidebar>,
+      </Sidebar>
     )
     const link = container.querySelector('a[href="/dashboard"]')
     expect(link).not.toBeNull()
@@ -142,8 +210,12 @@ describe('Sidebar', () => {
     const onClick = vi.fn()
     render(
       <Sidebar>
-        <SidebarItem icon={<span>IC</span>} label="Clickable" onClick={onClick} />
-      </Sidebar>,
+        <SidebarItem
+          icon={<span>IC</span>}
+          label="Clickable"
+          onClick={onClick}
+        />
+      </Sidebar>
     )
     await user.click(screen.getByText('Clickable'))
     expect(onClick).toHaveBeenCalled()
@@ -154,7 +226,7 @@ describe('Sidebar', () => {
     render(
       <Sidebar collapsed>
         <SidebarItem icon={<span>IC</span>} label="Tooltip Label" />
-      </Sidebar>,
+      </Sidebar>
     )
     // label should not be visible when collapsed (no truncated text span)
     expect(screen.queryByText('Tooltip Label')).toBeNull()
@@ -168,7 +240,7 @@ describe('Sidebar', () => {
     render(
       <Sidebar collapsed>
         <SidebarItem icon={<span>IC</span>} label="Hidden Label" />
-      </Sidebar>,
+      </Sidebar>
     )
     // the label span should not be rendered
     expect(screen.queryByText('Hidden Label')).toBeNull()
@@ -178,7 +250,7 @@ describe('Sidebar', () => {
     const { container } = render(
       <Sidebar collapsed>
         <SidebarItem icon={<span>IC</span>} label="Badged" badge={5} />
-      </Sidebar>,
+      </Sidebar>
     )
     // should render small dot instead of full badge
     const dot = container.querySelector('.bg-danger')
@@ -186,9 +258,17 @@ describe('Sidebar', () => {
   })
 
   it('renders zero items without crash', () => {
-    render(<Sidebar items={[]}><span /></Sidebar>)
+    render(
+      <Sidebar items={[]}>
+        <span />
+      </Sidebar>
+    )
     // should have no sidebar-item elements
-    const { container } = render(<Sidebar><span /></Sidebar>)
+    const { container } = render(
+      <Sidebar>
+        <span />
+      </Sidebar>
+    )
     expect(container.querySelector('[data-component="sidebar"]')).not.toBeNull()
   })
 })

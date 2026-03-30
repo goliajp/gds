@@ -30,23 +30,31 @@ const statusLabel: Record<ServiceCardStatus, string> = {
 }
 
 export const ServiceCard = forwardRef<HTMLDivElement, ServiceCardProps>(
-  function ServiceCard({ name, description, status, metrics, tags, url, className }, ref) {
+  function ServiceCard(
+    { name, description, status, metrics, tags, url, className },
+    ref
+  ) {
     return (
       <div
         ref={ref}
-        className={cx('gds-ctx gds-radius-card border border-border bg-surface gds-pad', className)}
+        className={cx(
+          'gds-ctx gds-radius-card border-border bg-surface gds-pad border',
+          className
+        )}
         data-component="service-card"
         data-state={status}
       >
         {/* header */}
         <div className="flex items-center gap-2">
           <span className={cx('h-2.5 w-2.5 rounded-full', statusDot[status])} />
-          <span className="font-semibold text-fg">{name}</span>
-          <span className="ml-auto text-xs text-fg-muted">{statusLabel[status]}</span>
+          <span className="text-fg font-semibold">{name}</span>
+          <span className="text-fg-muted ml-auto text-xs">
+            {statusLabel[status]}
+          </span>
         </div>
 
         {description !== undefined && (
-          <p className="mt-1.5 gds-text-body text-fg-muted">{description}</p>
+          <p className="gds-text-body text-fg-muted mt-1.5">{description}</p>
         )}
 
         {/* metrics */}
@@ -55,7 +63,7 @@ export const ServiceCard = forwardRef<HTMLDivElement, ServiceCardProps>(
             {metrics.map((m) => (
               <div key={m.label} className="flex gap-1">
                 <span className="text-fg-muted">{m.label}</span>
-                <span className="font-medium text-fg">{m.value}</span>
+                <span className="text-fg font-medium">{m.value}</span>
               </div>
             ))}
           </div>
@@ -65,12 +73,20 @@ export const ServiceCard = forwardRef<HTMLDivElement, ServiceCardProps>(
         {(tags !== undefined || url !== undefined) && (
           <div className="mt-3 flex flex-wrap items-center gap-1.5">
             {tags?.map((tag) => (
-              <span key={tag} className="rounded-full bg-bg-tertiary px-2 py-0.5 text-[10px] text-fg-muted">
+              <span
+                key={tag}
+                className="bg-bg-tertiary text-fg-muted rounded-full px-2 py-0.5 text-[10px]"
+              >
                 {tag}
               </span>
             ))}
             {url !== undefined && (
-              <a href={url} target="_blank" rel="noreferrer" className="ml-auto text-xs text-accent hover:underline">
+              <a
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+                className="text-accent ml-auto text-xs hover:underline"
+              >
                 {url}
               </a>
             )}
@@ -78,5 +94,5 @@ export const ServiceCard = forwardRef<HTMLDivElement, ServiceCardProps>(
         )}
       </div>
     )
-  },
+  }
 )

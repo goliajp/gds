@@ -16,7 +16,9 @@ describe('ChoroplethMap', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<ChoroplethMap data={data} />)
-    expect(container.querySelector('[data-component="choropleth-map"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="choropleth-map"]')
+    ).not.toBeNull()
   })
 
   it('renders SVG region paths', () => {
@@ -26,7 +28,11 @@ describe('ChoroplethMap', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<ChoroplethMap className="custom" data={data} />)
-    expect(container.querySelector('[data-component="choropleth-map"]')?.className).toContain('custom')
+    const { container } = render(
+      <ChoroplethMap className="custom" data={data} />
+    )
+    expect(
+      container.querySelector('[data-component="choropleth-map"]')?.className
+    ).toContain('custom')
   })
 })

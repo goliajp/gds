@@ -20,18 +20,18 @@ export const MiniDashboard = forwardRef<HTMLDivElement, MiniDashboardProps>(
         className={cx(
           'gds-ctx gds-radius-card border',
           glass === true
-            ? cx(glassClass(glass), 'border-white/10 bg-bg/60')
+            ? cx(glassClass(glass), 'bg-bg/60 border-white/10')
             : 'border-border bg-surface',
           'gds-pad-x-lg gds-pad-y-lg',
-          className,
+          className
         )}
         data-component="mini-dashboard"
       >
         {title !== undefined && (
-          <h2 className="mb-3 gds-text-body font-semibold text-fg">{title}</h2>
+          <h2 className="gds-text-body text-fg mb-3 font-semibold">{title}</h2>
         )}
         {children}
       </div>
     )
-  },
+  }
 )

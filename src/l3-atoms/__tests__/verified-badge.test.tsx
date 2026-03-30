@@ -6,7 +6,9 @@ import { VerifiedBadge } from '../verified-badge'
 describe('VerifiedBadge', () => {
   it('has data-component="verified-badge"', () => {
     const { container } = render(<VerifiedBadge />)
-    expect(container.querySelector('[data-component="verified-badge"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="verified-badge"]')
+    ).not.toBeNull()
   })
 
   it('renders correct variant data attribute', () => {

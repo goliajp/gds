@@ -15,7 +15,8 @@ type HeatmapTableProps = React.HTMLAttributes<HTMLTableElement> & {
 
 export const HeatmapTable = forwardRef<HTMLTableElement, HeatmapTableProps>(
   function HeatmapTable({ className, headers, maxValue, rows, ...props }, ref) {
-    const resolvedMax = maxValue ?? Math.max(1, ...rows.flatMap((r) => r.values))
+    const resolvedMax =
+      maxValue ?? Math.max(1, ...rows.flatMap((r) => r.values))
 
     return (
       <table
@@ -26,23 +27,30 @@ export const HeatmapTable = forwardRef<HTMLTableElement, HeatmapTableProps>(
       >
         <thead>
           <tr>
-            <th className="p-1.5 text-left font-medium text-fg-muted" />
+            <th className="text-fg-muted p-1.5 text-left font-medium" />
             {headers.map((h) => (
-              <th className="p-1.5 text-center font-medium text-fg-muted" key={h}>{h}</th>
+              <th
+                className="text-fg-muted p-1.5 text-center font-medium"
+                key={h}
+              >
+                {h}
+              </th>
             ))}
           </tr>
         </thead>
         <tbody>
           {rows.map((row) => (
             <tr key={row.label}>
-              <td className="p-1.5 font-medium text-fg">{row.label}</td>
+              <td className="text-fg p-1.5 font-medium">{row.label}</td>
               {row.values.map((val, i) => {
                 const intensity = Math.min(val / resolvedMax, 1)
                 return (
                   <td
-                    className="p-1.5 text-center tabular-nums text-fg"
+                    className="text-fg p-1.5 text-center tabular-nums"
                     key={i}
-                    style={{ backgroundColor: `color-mix(in srgb, var(--color-accent) ${Math.round(intensity * 20)}%, transparent)` }}
+                    style={{
+                      backgroundColor: `color-mix(in srgb, var(--color-accent) ${Math.round(intensity * 20)}%, transparent)`,
+                    }}
                   >
                     {val}
                   </td>
@@ -53,7 +61,7 @@ export const HeatmapTable = forwardRef<HTMLTableElement, HeatmapTableProps>(
         </tbody>
       </table>
     )
-  },
+  }
 )
 
 export type { HeatmapRow, HeatmapTableProps }

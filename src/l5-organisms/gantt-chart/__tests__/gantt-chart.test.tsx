@@ -65,13 +65,17 @@ describe('GanttChart', () => {
   })
 
   it('renders dependency arrows when enabled', () => {
-    const { container } = render(<GanttChart showDependencies={true} tasks={tasks} />)
+    const { container } = render(
+      <GanttChart showDependencies={true} tasks={tasks} />
+    )
     const deps = container.querySelectorAll('[data-dependency]')
     expect(deps.length).toBe(2)
   })
 
   it('hides dependency arrows when disabled', () => {
-    const { container } = render(<GanttChart showDependencies={false} tasks={tasks} />)
+    const { container } = render(
+      <GanttChart showDependencies={false} tasks={tasks} />
+    )
     const deps = container.querySelectorAll('[data-dependency]')
     expect(deps.length).toBe(0)
   })
@@ -83,10 +87,19 @@ describe('GanttChart', () => {
     const end = new Date(today)
     end.setDate(end.getDate() + 5)
     const todayTasks: GanttTask[] = [
-      { end: end.toISOString(), id: 't1', label: 'Current', start: start.toISOString() },
+      {
+        end: end.toISOString(),
+        id: 't1',
+        label: 'Current',
+        start: start.toISOString(),
+      },
     ]
-    const { container } = render(<GanttChart showToday={true} tasks={todayTasks} />)
-    expect(container.querySelector('[data-testid="today-line"]')).toBeInTheDocument()
+    const { container } = render(
+      <GanttChart showToday={true} tasks={todayTasks} />
+    )
+    expect(
+      container.querySelector('[data-testid="today-line"]')
+    ).toBeInTheDocument()
   })
 
   it('renders group headers', () => {
@@ -105,27 +118,37 @@ describe('GanttChart', () => {
   })
 
   it('applies className', () => {
-    const { container } = render(<GanttChart className="custom-class" tasks={tasks} />)
+    const { container } = render(
+      <GanttChart className="custom-class" tasks={tasks} />
+    )
     expect(container.firstChild).toHaveClass('custom-class')
   })
 
   it('renders progress fill when showProgress is true', () => {
-    const { container } = render(<GanttChart showProgress={true} tasks={tasks} />)
+    const { container } = render(
+      <GanttChart showProgress={true} tasks={tasks} />
+    )
     const fills = container.querySelectorAll('[data-progress]')
     expect(fills.length).toBe(2)
   })
 
   it('hides progress fill when showProgress is false', () => {
-    const { container } = render(<GanttChart showProgress={false} tasks={tasks} />)
+    const { container } = render(
+      <GanttChart showProgress={false} tasks={tasks} />
+    )
     expect(container.querySelectorAll('[data-progress]').length).toBe(0)
   })
 
   it('calls onTaskClick when task bar is clicked', () => {
     const onClick = vi.fn()
-    const { container } = render(<GanttChart onTaskClick={onClick} tasks={tasks} />)
+    const { container } = render(
+      <GanttChart onTaskClick={onClick} tasks={tasks} />
+    )
     const bar = container.querySelector('[data-task="1"]')
     if (bar !== null) fireEvent.click(bar)
-    expect(onClick).toHaveBeenCalledWith(expect.objectContaining({ id: '1', label: 'Design' }))
+    expect(onClick).toHaveBeenCalledWith(
+      expect.objectContaining({ id: '1', label: 'Design' })
+    )
   })
 
   it('renders with empty tasks', () => {
@@ -144,25 +167,39 @@ describe('GanttChart', () => {
   })
 
   it('highlights critical path tasks', () => {
-    const { container } = render(<GanttChart showCriticalPath={true} tasks={tasks} />)
-    expect(container.querySelectorAll('[data-critical-path="true"]').length).toBeGreaterThan(0)
+    const { container } = render(
+      <GanttChart showCriticalPath={true} tasks={tasks} />
+    )
+    expect(
+      container.querySelectorAll('[data-critical-path="true"]').length
+    ).toBeGreaterThan(0)
   })
 
   it('does not highlight critical path when disabled', () => {
-    const { container } = render(<GanttChart showCriticalPath={false} tasks={tasks} />)
-    expect(container.querySelectorAll('[data-critical-path="true"]').length).toBe(0)
+    const { container } = render(
+      <GanttChart showCriticalPath={false} tasks={tasks} />
+    )
+    expect(
+      container.querySelectorAll('[data-critical-path="true"]').length
+    ).toBe(0)
   })
 
   it('calls onTaskClick when milestone is clicked', () => {
     const onClick = vi.fn()
-    const { container } = render(<GanttChart onTaskClick={onClick} tasks={tasks} />)
+    const { container } = render(
+      <GanttChart onTaskClick={onClick} tasks={tasks} />
+    )
     const milestone = container.querySelector('[data-milestone="4"]')
     if (milestone !== null) fireEvent.click(milestone)
-    expect(onClick).toHaveBeenCalledWith(expect.objectContaining({ id: '4', label: 'Launch', milestone: true }))
+    expect(onClick).toHaveBeenCalledWith(
+      expect.objectContaining({ id: '4', label: 'Launch', milestone: true })
+    )
   })
 
   it('has data-component attribute', () => {
     const { container } = render(<GanttChart tasks={tasks} />)
-    expect(container.querySelector('[data-component="gantt-chart"]')).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="gantt-chart"]')
+    ).toBeInTheDocument()
   })
 })

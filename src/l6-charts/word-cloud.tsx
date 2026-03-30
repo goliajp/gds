@@ -15,8 +15,16 @@ export type WordCloudProps = {
 
 export const WordCloud = forwardRef<HTMLDivElement, WordCloudProps>(
   function WordCloud(
-    { words, maxFontSize = 48, minFontSize = 12, glass, height = 300, className, ...props },
-    ref,
+    {
+      words,
+      maxFontSize = 48,
+      minFontSize = 12,
+      glass,
+      height = 300,
+      className,
+      ...props
+    },
+    ref
   ) {
     const weights = words.map((w) => w.weight)
     const minW = Math.min(...weights)
@@ -26,9 +34,9 @@ export const WordCloud = forwardRef<HTMLDivElement, WordCloudProps>(
     return (
       <div
         className={cx(
-          'flex flex-wrap items-center justify-center gap-2 overflow-hidden gds-radius-popover border border-[var(--gds-border,#e5e7eb)]',
-          glass && 'backdrop-blur-md bg-white/5',
-          className,
+          'gds-radius-popover flex flex-wrap items-center justify-center gap-2 overflow-hidden border border-[var(--gds-border,#e5e7eb)]',
+          glass && 'bg-white/5 backdrop-blur-md',
+          className
         )}
         data-component="word-cloud"
         ref={ref}
@@ -37,10 +45,12 @@ export const WordCloud = forwardRef<HTMLDivElement, WordCloudProps>(
       >
         {words.map((w, i) => {
           const t = range === 0 ? 0.5 : (w.weight - minW) / range
-          const fontSize = Math.round(minFontSize + t * (maxFontSize - minFontSize))
+          const fontSize = Math.round(
+            minFontSize + t * (maxFontSize - minFontSize)
+          )
           return (
             <span
-              className="inline-block select-none px-1"
+              className="inline-block px-1 select-none"
               key={`${w.text}-${i}`}
               style={{ fontSize, color: PALETTE[i % PALETTE.length] }}
             >
@@ -50,5 +60,5 @@ export const WordCloud = forwardRef<HTMLDivElement, WordCloudProps>(
         })}
       </div>
     )
-  },
+  }
 )

@@ -26,7 +26,13 @@ describe('nodeTotal', () => {
     const node = {
       name: 'Root',
       children: [
-        { name: 'A', children: [{ name: 'A1', value: 5 }, { name: 'A2', value: 3 }] },
+        {
+          name: 'A',
+          children: [
+            { name: 'A1', value: 5 },
+            { name: 'A2', value: 3 },
+          ],
+        },
         { name: 'B', value: 10 },
       ],
     }

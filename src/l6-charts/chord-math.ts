@@ -24,21 +24,37 @@ export type ChordSpan = {
   targetEnd: number
 }
 
-export function polarToCartesian(cx: number, cy: number, r: number, angle: number) {
+export function polarToCartesian(
+  cx: number,
+  cy: number,
+  r: number,
+  angle: number
+) {
   return {
     x: cx + r * Math.cos(angle),
     y: cy + r * Math.sin(angle),
   }
 }
 
-export function arcPath(cx: number, cy: number, r: number, startAngle: number, endAngle: number) {
+export function arcPath(
+  cx: number,
+  cy: number,
+  r: number,
+  startAngle: number,
+  endAngle: number
+) {
   const start = polarToCartesian(cx, cy, r, endAngle)
   const end = polarToCartesian(cx, cy, r, startAngle)
   const largeArc = endAngle - startAngle > Math.PI ? 1 : 0
   return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArc} 0 ${end.x} ${end.y}`
 }
 
-export function computeArcs(totals: number[], grandTotal: number, n: number, gap: number): ArcSpan[] {
+export function computeArcs(
+  totals: number[],
+  grandTotal: number,
+  n: number,
+  gap: number
+): ArcSpan[] {
   const totalAngle = 2 * Math.PI - n * gap
   const arcs: ArcSpan[] = []
   let currentAngle = -Math.PI / 2
@@ -57,7 +73,7 @@ export function computeChords(
   arcs: ArcSpan[],
   grandTotal: number,
   n: number,
-  gap: number,
+  gap: number
 ): ChordSpan[] {
   const totalAngle = 2 * Math.PI - n * gap
   const chords: ChordSpan[] = []
@@ -91,7 +107,7 @@ export function chordPath(
   chord: ChordSpan,
   centerX: number,
   centerY: number,
-  innerR: number,
+  innerR: number
 ): string {
   const s0 = polarToCartesian(centerX, centerY, innerR, chord.sourceStart)
   const s1 = polarToCartesian(centerX, centerY, innerR, chord.sourceEnd)

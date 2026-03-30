@@ -28,6 +28,8 @@ describe('RadialBarChart', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<RadialBarChart data={data} />)
-    expect(container.querySelector('[data-component="radial-bar-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="radial-bar-chart"]')
+    ).not.toBeNull()
   })
 })

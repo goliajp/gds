@@ -10,7 +10,10 @@ export type NetworkStatusProps = {
   status: NetworkStatusValue
 }
 
-const statusConfig: Record<NetworkStatusValue, { color: string; label: string }> = {
+const statusConfig: Record<
+  NetworkStatusValue,
+  { color: string; label: string }
+> = {
   online: { color: 'bg-success', label: 'Online' },
   offline: { color: 'bg-danger', label: 'Offline' },
   slow: { color: 'bg-warning', label: 'Slow' },
@@ -23,13 +26,18 @@ export const NetworkStatus = forwardRef<HTMLDivElement, NetworkStatusProps>(
     return (
       <div
         ref={ref}
-        className={cx('flex items-center gds-gap-sm', className)}
+        className={cx('gds-gap-sm flex items-center', className)}
         data-component="network-status"
         data-state={status}
       >
-        <span className={cx('inline-block h-2 w-2 shrink-0 rounded-full', config.color)} />
+        <span
+          className={cx(
+            'inline-block h-2 w-2 shrink-0 rounded-full',
+            config.color
+          )}
+        />
         <span className="gds-text text-fg-muted">{config.label}</span>
       </div>
     )
-  },
+  }
 )

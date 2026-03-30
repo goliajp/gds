@@ -16,7 +16,7 @@ export type ToolbarProps = React.HTMLAttributes<HTMLDivElement> & {
 export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
   function Toolbar(
     { children, className, glass, position = 'top', ...props },
-    ref,
+    ref
   ) {
     const isFloating = position === 'floating'
     const resolvedGlass = glass ?? isFloating
@@ -25,15 +25,17 @@ export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
       <div
         ref={ref}
         className={cx(
-          'flex items-center gds-gap-sm gds-pad-x gds-pad-y-sm',
-          position === 'top' && 'border-b border-border',
-          position === 'bottom' && 'border-t border-border',
-          isFloating && 'rounded-full gds-shadow-lg',
+          'gds-gap-sm gds-pad-x gds-pad-y-sm flex items-center',
+          position === 'top' && 'border-border border-b',
+          position === 'bottom' && 'border-border border-t',
+          isFloating && 'gds-shadow-lg rounded-full',
           resolvedGlass === true
-            ? cx(glassClass(resolvedGlass), 'border-white/10 bg-bg/60')
+            ? cx(glassClass(resolvedGlass), 'bg-bg/60 border-white/10')
             : !isFloating && 'bg-surface',
-          isFloating && resolvedGlass !== true && 'border border-border bg-surface',
-          className,
+          isFloating &&
+            resolvedGlass !== true &&
+            'border-border bg-surface border',
+          className
         )}
         data-component="toolbar"
         data-position={position}
@@ -43,5 +45,5 @@ export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
         {children}
       </div>
     )
-  },
+  }
 )

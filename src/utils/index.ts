@@ -8,8 +8,13 @@ export type { DragHandler, DragState, SwipeHandler } from './gesture'
 export { applyInertia, useDrag, useLongPress, useSwipe } from './gesture'
 export { glassClass, glassSurface } from './glass'
 export {
-  useClickOutside, useEscapeKey, useFocusTrap,
-  useIsDesktop, useIsMobile, useMediaQuery, useScrollLock,
+  useClickOutside,
+  useEscapeKey,
+  useFocusTrap,
+  useIsDesktop,
+  useIsMobile,
+  useMediaQuery,
+  useScrollLock,
 } from './hooks'
 export { motionClass, motionClassWithSpeed } from './motion'
 export { renderPortal } from './portal'

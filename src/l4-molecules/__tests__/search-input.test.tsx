@@ -6,9 +6,7 @@ import { SearchInput } from '../search-input'
 
 describe('SearchInput', () => {
   it('renders with search icon', () => {
-    const { container } = render(
-      <SearchInput value="" onChange={() => {}} />,
-    )
+    const { container } = render(<SearchInput value="" onChange={() => {}} />)
     const svg = container.querySelector('svg')
     expect(svg).not.toBeNull()
   })
@@ -43,7 +41,7 @@ describe('SearchInput', () => {
 
   it('respects disabled state', () => {
     const { container } = render(
-      <SearchInput value="" onChange={() => {}} disabled />,
+      <SearchInput value="" onChange={() => {}} disabled />
     )
     const input = container.querySelector('input')
     expect(input).toHaveAttribute('disabled')

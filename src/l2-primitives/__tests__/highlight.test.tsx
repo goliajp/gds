@@ -30,7 +30,9 @@ describe('Highlight', () => {
   })
 
   it('highlights multiple matches', () => {
-    const { container } = render(<Highlight text="foo bar foo baz foo" query="foo" />)
+    const { container } = render(
+      <Highlight text="foo bar foo baz foo" query="foo" />
+    )
     const marks = container.querySelectorAll('mark')
     expect(marks).toHaveLength(3)
   })

@@ -73,9 +73,7 @@ describe('CommandMenu', () => {
   })
 
   it('renders items with shortcuts', () => {
-    const itemsWithShortcut = [
-      { id: 'a', label: 'Item A', shortcut: '⌘A' },
-    ]
+    const itemsWithShortcut = [{ id: 'a', label: 'Item A', shortcut: '⌘A' }]
     render(<CommandMenu items={itemsWithShortcut} onSelect={vi.fn()} />)
     expect(screen.getByText('⌘A')).toBeDefined()
   })
@@ -102,7 +100,9 @@ describe('CommandMenu', () => {
   })
 
   it('applies glass styling', () => {
-    const { container } = render(<CommandMenu items={items} onSelect={vi.fn()} glass />)
+    const { container } = render(
+      <CommandMenu items={items} onSelect={vi.fn()} glass />
+    )
     const el = container.querySelector('[data-component="command-menu"]')
     expect(el?.className).toContain('bg-bg/60')
   })

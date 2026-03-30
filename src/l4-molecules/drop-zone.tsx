@@ -16,7 +16,10 @@ export type DropZoneProps = {
 }
 
 export const DropZone = forwardRef<HTMLDivElement, DropZoneProps>(
-  function DropZone({ onDrop, accept, active, children, glass, className }, ref) {
+  function DropZone(
+    { onDrop, accept, active, children, glass, className },
+    ref
+  ) {
     const [dragOver, setDragOver] = useState(false)
 
     const isActive = active === true || dragOver
@@ -38,20 +41,20 @@ export const DropZone = forwardRef<HTMLDivElement, DropZoneProps>(
         const files = Array.from(e.dataTransfer.files)
         onDrop(files)
       },
-      [onDrop],
+      [onDrop]
     )
 
     return (
       <div
         ref={ref}
         className={cx(
-          'flex flex-col items-center justify-center gds-gap gds-radius border-2 border-dashed p-8 transition-colors',
+          'gds-gap gds-radius flex flex-col items-center justify-center border-2 border-dashed p-8 transition-colors',
           focusCls,
           isActive
             ? 'border-accent bg-accent/5'
             : 'border-border/40 bg-bg-secondary/20',
           glass === true && glassClass(glass),
-          className,
+          className
         )}
         data-component="drop-zone"
         data-state={isActive ? 'active' : 'idle'}
@@ -60,14 +63,14 @@ export const DropZone = forwardRef<HTMLDivElement, DropZoneProps>(
         onDrop={handleDrop}
       >
         {children ?? (
-          <span className="text-sm text-fg-muted select-none">
+          <span className="text-fg-muted text-sm select-none">
             Drop files here
           </span>
         )}
         {accept !== undefined && (
-          <span className="text-xs text-fg-muted/60">{accept}</span>
+          <span className="text-fg-muted/60 text-xs">{accept}</span>
         )}
       </div>
     )
-  },
+  }
 )

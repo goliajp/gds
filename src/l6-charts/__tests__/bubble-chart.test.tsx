@@ -28,6 +28,8 @@ describe('BubbleChart', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<BubbleChart data={data} />)
-    expect(container.querySelector('[data-component="bubble-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="bubble-chart"]')
+    ).not.toBeNull()
   })
 })

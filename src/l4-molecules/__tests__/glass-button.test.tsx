@@ -6,7 +6,9 @@ import { GlassButton } from '../glass-button'
 describe('GlassButton', () => {
   it('renders with data-component', () => {
     const { container } = render(<GlassButton>Click</GlassButton>)
-    expect(container.querySelector('[data-component="glass-button"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="glass-button"]')
+    ).not.toBeNull()
   })
 
   it('renders children', () => {
@@ -22,7 +24,9 @@ describe('GlassButton', () => {
   })
 
   it('applies accent variant', () => {
-    const { container } = render(<GlassButton variant="accent">Accent</GlassButton>)
+    const { container } = render(
+      <GlassButton variant="accent">Accent</GlassButton>
+    )
     const btn = container.querySelector('button')!
     expect(btn.className).toContain('bg-accent/20')
   })
@@ -40,7 +44,9 @@ describe('GlassButton', () => {
   })
 
   it('merges custom className', () => {
-    const { container } = render(<GlassButton className="custom-cls">C</GlassButton>)
+    const { container } = render(
+      <GlassButton className="custom-cls">C</GlassButton>
+    )
     const btn = container.querySelector('button')!
     expect(btn.className).toContain('custom-cls')
   })

@@ -19,7 +19,7 @@ export type SpotlightProps = {
 
 function useTargetRect(
   targetRef: React.RefObject<HTMLElement | null>,
-  active: boolean,
+  active: boolean
 ): Rect | null {
   const [rect, setRect] = useState<Rect | null>(null)
 
@@ -50,7 +50,7 @@ function useTargetRect(
 
 function computeCardStyle(
   rect: Rect,
-  placement: 'top' | 'bottom' | 'left' | 'right',
+  placement: 'top' | 'bottom' | 'left' | 'right'
 ): React.CSSProperties {
   const gap = 12
   const base: React.CSSProperties = { position: 'fixed' }
@@ -59,10 +59,18 @@ function computeCardStyle(
     return { ...base, top: rect.top + rect.height + gap, left: rect.left }
   }
   if (placement === 'top') {
-    return { ...base, bottom: window.innerHeight - rect.top + gap, left: rect.left }
+    return {
+      ...base,
+      bottom: window.innerHeight - rect.top + gap,
+      left: rect.left,
+    }
   }
   if (placement === 'left') {
-    return { ...base, top: rect.top, right: window.innerWidth - rect.left + gap }
+    return {
+      ...base,
+      top: rect.top,
+      right: window.innerWidth - rect.left + gap,
+    }
   }
   // right
   return { ...base, top: rect.top, left: rect.left + rect.width + gap }
@@ -119,19 +127,19 @@ export function Spotlight({
 
       {/* tooltip card */}
       <div
-        className="z-[9999] max-w-xs rounded-lg border border-white/10 bg-bg-secondary p-4 shadow-lg"
+        className="bg-bg-secondary z-[9999] max-w-xs rounded-lg border border-white/10 p-4 shadow-lg"
         style={computeCardStyle(rect, placement)}
         onClick={(e) => e.stopPropagation()}
       >
         {title !== undefined && (
-          <p className="text-sm font-semibold text-fg">{title}</p>
+          <p className="text-fg text-sm font-semibold">{title}</p>
         )}
         {description !== undefined && (
-          <p className="mt-1 text-xs text-fg-muted">{description}</p>
+          <p className="text-fg-muted mt-1 text-xs">{description}</p>
         )}
         {onClose !== undefined && (
           <button
-            className="mt-3 text-xs font-medium text-accent hover:text-accent/80"
+            className="text-accent hover:text-accent/80 mt-3 text-xs font-medium"
             onClick={onClose}
           >
             Got it

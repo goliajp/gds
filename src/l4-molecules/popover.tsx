@@ -37,8 +37,15 @@ type PopoverProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'content'> & {
 
 export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
   function Popover(
-    { align = 'start', className, content, placement = 'bottom', trigger, ...props },
-    ref,
+    {
+      align = 'start',
+      className,
+      content,
+      placement = 'bottom',
+      trigger,
+      ...props
+    },
+    ref
   ) {
     const [open, setOpen] = useState(false)
     const containerRef = useRef<HTMLDivElement>(null)
@@ -52,17 +59,25 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
         data-component="popover"
         data-state={open ? 'open' : 'closed'}
         ref={(node) => {
-          (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = node
+          ;(
+            containerRef as React.MutableRefObject<HTMLDivElement | null>
+          ).current = node
           if (typeof ref === 'function') ref(node)
           else if (ref !== null && ref !== undefined) {
-            (ref as React.MutableRefObject<HTMLDivElement | null>).current = node
+            ;(ref as React.MutableRefObject<HTMLDivElement | null>).current =
+              node
           }
         }}
         {...props}
       >
         <span
           onClick={() => setOpen((v) => !v)}
-          onKeyDown={(e) => { if (isActivationKey(e)) { e.preventDefault(); setOpen((v) => !v) } }}
+          onKeyDown={(e) => {
+            if (isActivationKey(e)) {
+              e.preventDefault()
+              setOpen((v) => !v)
+            }
+          }}
           role="button"
           tabIndex={0}
         >
@@ -71,8 +86,8 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
         {open && (
           <div
             className={cx(
-              'absolute z-50 animate-popup gds-radius-popover border border-border bg-surface gds-pad-x gds-pad-y gds-shadow-lg',
-              placementClasses[placement]?.[align],
+              'animate-popup gds-radius-popover border-border bg-surface gds-pad-x gds-pad-y gds-shadow-lg absolute z-50 border',
+              placementClasses[placement]?.[align]
             )}
           >
             {content}
@@ -80,7 +95,7 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
         )}
       </div>
     )
-  },
+  }
 )
 
 export type { PopoverProps }

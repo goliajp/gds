@@ -8,17 +8,23 @@ describe('Accordion', () => {
   it('renders without crash', () => {
     const { container } = render(
       <Accordion>
-        <AccordionItem id="a" title="Section A">Content A</AccordionItem>
-      </Accordion>,
+        <AccordionItem id="a" title="Section A">
+          Content A
+        </AccordionItem>
+      </Accordion>
     )
-    expect(container.querySelector('[data-component="accordion"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="accordion"]')
+    ).not.toBeNull()
   })
 
   it('renders items collapsed by default', () => {
     const { container } = render(
       <Accordion>
-        <AccordionItem id="a" title="Section A">Content A</AccordionItem>
-      </Accordion>,
+        <AccordionItem id="a" title="Section A">
+          Content A
+        </AccordionItem>
+      </Accordion>
     )
     expect(container.querySelector('[data-state="closed"]')).not.toBeNull()
     expect(screen.queryByText('Content A')).toBeNull()
@@ -28,8 +34,10 @@ describe('Accordion', () => {
     const user = userEvent.setup()
     render(
       <Accordion>
-        <AccordionItem id="a" title="Section A">Content A</AccordionItem>
-      </Accordion>,
+        <AccordionItem id="a" title="Section A">
+          Content A
+        </AccordionItem>
+      </Accordion>
     )
     await user.click(screen.getByText('Section A'))
     expect(screen.getByText('Content A')).toBeDefined()
@@ -39,8 +47,10 @@ describe('Accordion', () => {
     const user = userEvent.setup()
     render(
       <Accordion>
-        <AccordionItem id="a" title="Section A">Content A</AccordionItem>
-      </Accordion>,
+        <AccordionItem id="a" title="Section A">
+          Content A
+        </AccordionItem>
+      </Accordion>
     )
     await user.click(screen.getByText('Section A'))
     expect(screen.getByText('Content A')).toBeDefined()
@@ -52,9 +62,13 @@ describe('Accordion', () => {
     const user = userEvent.setup()
     render(
       <Accordion type="single">
-        <AccordionItem id="a" title="Section A">Content A</AccordionItem>
-        <AccordionItem id="b" title="Section B">Content B</AccordionItem>
-      </Accordion>,
+        <AccordionItem id="a" title="Section A">
+          Content A
+        </AccordionItem>
+        <AccordionItem id="b" title="Section B">
+          Content B
+        </AccordionItem>
+      </Accordion>
     )
     await user.click(screen.getByText('Section A'))
     expect(screen.getByText('Content A')).toBeDefined()
@@ -67,9 +81,13 @@ describe('Accordion', () => {
     const user = userEvent.setup()
     render(
       <Accordion type="multiple">
-        <AccordionItem id="a" title="Section A">Content A</AccordionItem>
-        <AccordionItem id="b" title="Section B">Content B</AccordionItem>
-      </Accordion>,
+        <AccordionItem id="a" title="Section A">
+          Content A
+        </AccordionItem>
+        <AccordionItem id="b" title="Section B">
+          Content B
+        </AccordionItem>
+      </Accordion>
     )
     await user.click(screen.getByText('Section A'))
     await user.click(screen.getByText('Section B'))

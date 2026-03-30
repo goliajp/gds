@@ -5,13 +5,19 @@ import { StatTrend } from '../stat-trend'
 
 describe('StatTrend', () => {
   it('renders without crash', () => {
-    const { container } = render(<StatTrend label="Revenue" value="$1,234" trend={5.2} />)
+    const { container } = render(
+      <StatTrend label="Revenue" value="$1,234" trend={5.2} />
+    )
     expect(container.firstChild).not.toBeNull()
   })
 
   it('has data-component attribute', () => {
-    const { container } = render(<StatTrend label="Revenue" value="$1,234" trend={5.2} />)
-    expect(container.querySelector('[data-component="stat-trend"]')).not.toBeNull()
+    const { container } = render(
+      <StatTrend label="Revenue" value="$1,234" trend={5.2} />
+    )
+    expect(
+      container.querySelector('[data-component="stat-trend"]')
+    ).not.toBeNull()
   })
 
   it('displays value and label', () => {
@@ -21,7 +27,11 @@ describe('StatTrend', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<StatTrend className="custom" label="X" value="0" trend={0} />)
-    expect(container.querySelector('[data-component="stat-trend"]')?.className).toContain('custom')
+    const { container } = render(
+      <StatTrend className="custom" label="X" value="0" trend={0} />
+    )
+    expect(
+      container.querySelector('[data-component="stat-trend"]')?.className
+    ).toContain('custom')
   })
 })

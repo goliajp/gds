@@ -11,7 +11,9 @@ describe('LiveMetric', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<LiveMetric label="CPU" value={85} />)
-    expect(container.querySelector('[data-component="live-metric"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="live-metric"]')
+    ).not.toBeNull()
   })
 
   it('displays value and label', () => {

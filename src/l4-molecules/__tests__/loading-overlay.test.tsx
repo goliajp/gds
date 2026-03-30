@@ -6,12 +6,16 @@ import { LoadingOverlay } from '../loading-overlay'
 describe('LoadingOverlay', () => {
   it('renders when visible', () => {
     const { container } = render(<LoadingOverlay visible />)
-    expect(container.querySelector('[data-component="loading-overlay"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="loading-overlay"]')
+    ).not.toBeNull()
   })
 
   it('does not render when not visible', () => {
     const { container } = render(<LoadingOverlay visible={false} />)
-    expect(container.querySelector('[data-component="loading-overlay"]')).toBeNull()
+    expect(
+      container.querySelector('[data-component="loading-overlay"]')
+    ).toBeNull()
   })
 
   it('shows message text', () => {

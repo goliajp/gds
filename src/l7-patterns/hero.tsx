@@ -15,34 +15,35 @@ export type HeroProps = {
   className?: string
 }
 
-export const Hero = forwardRef<HTMLDivElement, HeroProps>(
-  function Hero({ title, subtitle, actions, media, align = 'center', glass, className }, ref) {
-    const isCenter = align === 'center'
+export const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
+  { title, subtitle, actions, media, align = 'center', glass, className },
+  ref
+) {
+  const isCenter = align === 'center'
 
-    return (
-      <section
-        ref={ref}
-        className={cx(
-          'w-full py-16',
-          isCenter ? 'text-center' : 'flex items-center gap-12',
-          glass && glassClass(true),
-          className,
+  return (
+    <section
+      ref={ref}
+      className={cx(
+        'w-full py-16',
+        isCenter ? 'text-center' : 'flex items-center gap-12',
+        glass && glassClass(true),
+        className
+      )}
+      data-component="hero"
+      data-variant={align}
+    >
+      <div className={cx(isCenter ? 'mx-auto max-w-2xl' : 'flex-1')}>
+        <h1 className="text-fg text-4xl font-bold">{title}</h1>
+        {subtitle !== undefined && (
+          <p className="text-fg-muted mt-3 text-lg">{subtitle}</p>
         )}
-        data-component="hero"
-        data-variant={align}
-      >
-        <div className={cx(isCenter ? 'mx-auto max-w-2xl' : 'flex-1')}>
-          <h1 className="text-4xl font-bold text-fg">{title}</h1>
-          {subtitle !== undefined && (
-            <p className="mt-3 text-lg text-fg-muted">{subtitle}</p>
-          )}
-          {actions !== undefined && <div className="mt-6">{actions}</div>}
-          {isCenter && media !== undefined && <div className="mt-8">{media}</div>}
-        </div>
-        {!isCenter && media !== undefined && (
-          <div className="flex-1">{media}</div>
-        )}
-      </section>
-    )
-  },
-)
+        {actions !== undefined && <div className="mt-6">{actions}</div>}
+        {isCenter && media !== undefined && <div className="mt-8">{media}</div>}
+      </div>
+      {!isCenter && media !== undefined && (
+        <div className="flex-1">{media}</div>
+      )}
+    </section>
+  )
+})

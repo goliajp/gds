@@ -20,21 +20,33 @@ export type SidebarItemProps = {
 }
 
 // sidebar item — shows icon + label when expanded, icon + tooltip when collapsed
-export function SidebarItem({ icon, label, badge, active, onClick, href, className }: SidebarItemProps) {
+export function SidebarItem({
+  icon,
+  label,
+  badge,
+  active,
+  onClick,
+  href,
+  className,
+}: SidebarItemProps) {
   const { collapsed } = useContext(SidebarContext)
   const [showTooltip, setShowTooltip] = useState(false)
 
   const content = (
     <>
-      <span className="flex h-5 w-5 shrink-0 items-center justify-center">{icon}</span>
-      {!collapsed && <span className="flex-1 truncate gds-text-body">{label}</span>}
+      <span className="flex h-5 w-5 shrink-0 items-center justify-center">
+        {icon}
+      </span>
+      {!collapsed && (
+        <span className="gds-text-body flex-1 truncate">{label}</span>
+      )}
       {!collapsed && badge !== undefined && (
-        <span className="shrink-0 rounded-full bg-accent/15 px-1.5 py-px gds-text-caption font-medium text-accent">
+        <span className="bg-accent/15 gds-text-caption text-accent shrink-0 rounded-full px-1.5 py-px font-medium">
           {badge}
         </span>
       )}
       {collapsed && badge !== undefined && (
-        <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-danger" />
+        <span className="bg-danger absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full" />
       )}
     </>
   )
@@ -45,26 +57,35 @@ export function SidebarItem({ icon, label, badge, active, onClick, href, classNa
       ? 'bg-accent/15 text-accent font-medium'
       : 'text-fg-muted hover:bg-white/[0.04] hover:text-fg',
     collapsed && 'justify-center px-0',
-    className,
+    className
   )
 
-  const tooltipEl = collapsed && showTooltip
-    ? (
-      <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 z-50 whitespace-nowrap rounded-md bg-bg-secondary border border-border px-2.5 py-1 gds-text-label text-fg shadow-lg pointer-events-none">
+  const tooltipEl =
+    collapsed && showTooltip ? (
+      <div className="bg-bg-secondary border-border gds-text-label text-fg pointer-events-none absolute top-1/2 left-full z-50 ml-2 -translate-y-1/2 rounded-md border px-2.5 py-1 whitespace-nowrap shadow-lg">
         {label}
-        {badge !== undefined && <span className="ml-1.5 text-accent font-medium">{badge}</span>}
+        {badge !== undefined && (
+          <span className="text-accent ml-1.5 font-medium">{badge}</span>
+        )}
       </div>
-    )
-    : null
+    ) : null
 
   const hoverHandlers = collapsed
-    ? { onMouseEnter: () => setShowTooltip(true), onMouseLeave: () => setShowTooltip(false) }
+    ? {
+        onMouseEnter: () => setShowTooltip(true),
+        onMouseLeave: () => setShowTooltip(false),
+      }
     : {}
 
   if (href !== undefined) {
     return (
       <div className="relative" {...hoverHandlers}>
-        <a href={href} className={baseCls} data-component="sidebar-item" data-state={active === true ? 'active' : undefined}>
+        <a
+          href={href}
+          className={baseCls}
+          data-component="sidebar-item"
+          data-state={active === true ? 'active' : undefined}
+        >
           {content}
         </a>
         {tooltipEl}
@@ -74,7 +95,13 @@ export function SidebarItem({ icon, label, badge, active, onClick, href, classNa
 
   return (
     <div className="relative" {...hoverHandlers}>
-      <button type="button" onClick={onClick} className={cx(baseCls, 'w-full')} data-component="sidebar-item" data-state={active === true ? 'active' : undefined}>
+      <button
+        type="button"
+        onClick={onClick}
+        className={cx(baseCls, 'w-full')}
+        data-component="sidebar-item"
+        data-state={active === true ? 'active' : undefined}
+      >
         {content}
       </button>
       {tooltipEl}
@@ -110,7 +137,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
       className,
       items,
     },
-    ref,
+    ref
   ) {
     const currentWidth = collapsed ? collapsedWidth : width
 
@@ -122,18 +149,18 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
             'flex flex-col overflow-hidden transition-[width] duration-200',
             position === 'left' ? 'border-r' : 'border-l',
             glass === true
-              ? cx(glassClass(glass), 'border-white/10 bg-bg/60')
+              ? cx(glassClass(glass), 'bg-bg/60 border-white/10')
               : 'border-border bg-surface',
-            className,
+            className
           )}
           data-collapsed={collapsed}
           data-component="sidebar"
           style={{ width: currentWidth }}
         >
-          <div className="flex-1 overflow-y-auto overflow-x-hidden">
+          <div className="flex-1 overflow-x-hidden overflow-y-auto">
             {items !== undefined && (
               <nav className="flex flex-col gap-0.5 p-2">
-                {items.map(item => (
+                {items.map((item) => (
                   <SidebarItem key={item.label} {...item} />
                 ))}
               </nav>
@@ -142,13 +169,18 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
           </div>
           {onCollapse !== undefined && (
             <button
-              className="flex h-10 items-center justify-center border-t border-border/50 text-fg-muted hover:text-fg transition-colors"
+              className="border-border/50 text-fg-muted hover:text-fg flex h-10 items-center justify-center border-t transition-colors"
               type="button"
               onClick={() => onCollapse(!collapsed)}
               aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             >
               <svg
-                className={cx('transition-transform duration-200', collapsed && 'rotate-180', position === 'right' && 'rotate-180', collapsed && position === 'right' && 'rotate-0')}
+                className={cx(
+                  'transition-transform duration-200',
+                  collapsed && 'rotate-180',
+                  position === 'right' && 'rotate-180',
+                  collapsed && position === 'right' && 'rotate-0'
+                )}
                 fill="none"
                 height="14"
                 stroke="currentColor"
@@ -163,5 +195,5 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
         </div>
       </SidebarContext>
     )
-  },
+  }
 )

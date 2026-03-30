@@ -12,7 +12,9 @@ const steps = [
 describe('OnboardingCard', () => {
   it('renders with data-component', () => {
     const { container } = render(<OnboardingCard steps={steps} />)
-    expect(container.querySelector('[data-component="onboarding-card"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="onboarding-card"]')
+    ).not.toBeNull()
   })
 
   it('renders default title', () => {
@@ -32,7 +34,11 @@ describe('OnboardingCard', () => {
 
   it('renders step action for incomplete steps', () => {
     const stepsWithAction = [
-      { label: 'Verify email', completed: false, action: <button>Verify</button> },
+      {
+        label: 'Verify email',
+        completed: false,
+        action: <button>Verify</button>,
+      },
     ]
     render(<OnboardingCard steps={stepsWithAction} />)
     expect(screen.getByText('Verify')).toBeDefined()
@@ -40,7 +46,11 @@ describe('OnboardingCard', () => {
 
   it('does not render action for completed steps', () => {
     const stepsWithAction = [
-      { label: 'Create account', completed: true, action: <button>Redo</button> },
+      {
+        label: 'Create account',
+        completed: true,
+        action: <button>Redo</button>,
+      },
     ]
     const { container } = render(<OnboardingCard steps={stepsWithAction} />)
     expect(container.textContent).not.toContain('Redo')
@@ -52,7 +62,9 @@ describe('OnboardingCard', () => {
   })
 
   it('shows step number for incomplete steps', () => {
-    const { container } = render(<OnboardingCard steps={[{ label: 'Step one', completed: false }]} />)
+    const { container } = render(
+      <OnboardingCard steps={[{ label: 'Step one', completed: false }]} />
+    )
     expect(container.textContent).toContain('1')
   })
 

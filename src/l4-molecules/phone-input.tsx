@@ -42,7 +42,7 @@ export const PhoneInput = forwardRef<HTMLDivElement, PhoneInputProps>(
       placeholder = 'Phone number',
       className,
     },
-    ref,
+    ref
   ) {
     const countryList = countries ?? DEFAULT_COUNTRIES
     const [selectedCode, setSelectedCode] = useState(defaultCountry)
@@ -51,27 +51,31 @@ export const PhoneInput = forwardRef<HTMLDivElement, PhoneInputProps>(
 
     useClickOutside(dropdownRef, dropdownOpen, () => setDropdownOpen(false))
 
-    const selectedCountry = countryList.find((c) => c.code === selectedCode) ?? countryList[0]
+    const selectedCountry =
+      countryList.find((c) => c.code === selectedCode) ?? countryList[0]
 
     const handleCountrySelect = useCallback((code: string) => {
       setSelectedCode(code)
       setDropdownOpen(false)
     }, [])
 
-    const handleInputChange = useCallback((raw: string) => {
-      // strip non-digit chars except dashes
-      const cleaned = raw.replace(/[^\d-]/g, '')
-      onChange(cleaned)
-    }, [onChange])
+    const handleInputChange = useCallback(
+      (raw: string) => {
+        // strip non-digit chars except dashes
+        const cleaned = raw.replace(/[^\d-]/g, '')
+        onChange(cleaned)
+      },
+      [onChange]
+    )
 
     return (
       <div
         ref={ref}
         className={cx(
-          'relative inline-flex items-stretch gds-h gds-radius-input border',
+          'gds-h gds-radius-input relative inline-flex items-stretch border',
           error ? 'border-danger' : 'border-border',
           disabled && 'cursor-not-allowed opacity-40',
-          className,
+          className
         )}
         data-component="phone-input"
         data-disabled={disabled ? '' : undefined}
@@ -83,32 +87,34 @@ export const PhoneInput = forwardRef<HTMLDivElement, PhoneInputProps>(
             type="button"
             disabled={disabled}
             className={cx(
-              'flex h-full items-center gap-1 border-r border-border px-2 text-sm select-none',
-              'hover:bg-white/5 transition-colors gds-radius-input rounded-r-none',
-              focusCls,
+              'border-border flex h-full items-center gap-1 border-r px-2 text-sm select-none',
+              'gds-radius-input rounded-r-none transition-colors hover:bg-white/5',
+              focusCls
             )}
             onClick={() => setDropdownOpen((prev) => !prev)}
             aria-label="Select country code"
           >
             <span>{selectedCountry?.flag}</span>
-            <span className="text-fg-muted gds-text-body">{selectedCountry?.code}</span>
+            <span className="text-fg-muted gds-text-body">
+              {selectedCountry?.code}
+            </span>
           </button>
 
           {dropdownOpen && (
-            <div className="absolute left-0 top-full z-50 mt-1 min-w-[140px] animate-popup rounded-lg border border-border bg-surface shadow-lg">
+            <div className="animate-popup border-border bg-surface absolute top-full left-0 z-50 mt-1 min-w-[140px] rounded-lg border shadow-lg">
               {countryList.map((c) => (
                 <button
                   key={c.code}
                   type="button"
                   className={cx(
-                    'flex w-full items-center gap-2 px-3 py-1.5 text-left text-sm hover:bg-white/5 transition-colors',
-                    c.code === selectedCode && 'bg-accent/10 text-accent',
+                    'flex w-full items-center gap-2 px-3 py-1.5 text-left text-sm transition-colors hover:bg-white/5',
+                    c.code === selectedCode && 'bg-accent/10 text-accent'
                   )}
                   onClick={() => handleCountrySelect(c.code)}
                 >
                   <span>{c.flag}</span>
                   <span className="text-fg-muted">{c.label}</span>
-                  <span className="ml-auto text-fg-muted/60">{c.code}</span>
+                  <span className="text-fg-muted/60 ml-auto">{c.code}</span>
                 </button>
               ))}
             </div>
@@ -123,12 +129,12 @@ export const PhoneInput = forwardRef<HTMLDivElement, PhoneInputProps>(
           disabled={disabled}
           placeholder={placeholder}
           className={cx(
-            'flex-1 bg-transparent px-3 text-fg gds-text-body focus:outline-none',
-            focusCls,
+            'text-fg gds-text-body flex-1 bg-transparent px-3 focus:outline-none',
+            focusCls
           )}
           aria-label="Phone number"
         />
       </div>
     )
-  },
+  }
 )

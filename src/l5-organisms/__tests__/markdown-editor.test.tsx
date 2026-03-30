@@ -6,8 +6,12 @@ import { MarkdownEditor } from '../markdown-editor'
 
 describe('MarkdownEditor', () => {
   it('has data-component="markdown-editor"', () => {
-    const { container } = render(<MarkdownEditor value="" onChange={() => {}} />)
-    expect(container.querySelector('[data-component="markdown-editor"]')).not.toBeNull()
+    const { container } = render(
+      <MarkdownEditor value="" onChange={() => {}} />
+    )
+    expect(
+      container.querySelector('[data-component="markdown-editor"]')
+    ).not.toBeNull()
   })
 
   it('renders textarea with value', () => {

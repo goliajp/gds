@@ -54,7 +54,7 @@ describe('AvatarGroup', () => {
         <Avatar name="A" />
         <Avatar name="B" />
         <Avatar name="C" />
-      </AvatarGroup>,
+      </AvatarGroup>
     )
     expect(screen.getByText('A')).toBeDefined()
     expect(screen.getByText('B')).toBeDefined()
@@ -68,7 +68,7 @@ describe('AvatarGroup', () => {
         <Avatar name="B" />
         <Avatar name="C" />
         <Avatar name="D" />
-      </AvatarGroup>,
+      </AvatarGroup>
     )
     expect(screen.getByText('+2')).toBeDefined()
   })
@@ -77,8 +77,10 @@ describe('AvatarGroup', () => {
     const { container } = render(
       <AvatarGroup>
         <Avatar name="A" />
-      </AvatarGroup>,
+      </AvatarGroup>
     )
-    expect(container.querySelector('[data-component="avatar-group"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="avatar-group"]')
+    ).not.toBeNull()
   })
 })

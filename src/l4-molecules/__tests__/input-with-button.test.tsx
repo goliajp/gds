@@ -6,15 +6,27 @@ import { InputWithButton } from '../input-with-button'
 describe('InputWithButton', () => {
   it('has data-component="input-with-button"', () => {
     const { container } = render(
-      <InputWithButton buttonLabel="Go" onChange={() => {}} onSubmit={() => {}} value="" />,
+      <InputWithButton
+        buttonLabel="Go"
+        onChange={() => {}}
+        onSubmit={() => {}}
+        value=""
+      />
     )
-    expect(container.querySelector('[data-component="input-with-button"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="input-with-button"]')
+    ).not.toBeNull()
   })
 
   it('calls onSubmit when button clicked', () => {
     const onSubmit = vi.fn()
     const { container } = render(
-      <InputWithButton buttonLabel="Go" onChange={() => {}} onSubmit={onSubmit} value="test" />,
+      <InputWithButton
+        buttonLabel="Go"
+        onChange={() => {}}
+        onSubmit={onSubmit}
+        value="test"
+      />
     )
     const button = container.querySelector('button')
     fireEvent.click(button!)
@@ -24,7 +36,12 @@ describe('InputWithButton', () => {
   it('calls onChange when input value changes', () => {
     const onChange = vi.fn()
     const { container } = render(
-      <InputWithButton buttonLabel="Go" onChange={onChange} onSubmit={() => {}} value="" />,
+      <InputWithButton
+        buttonLabel="Go"
+        onChange={onChange}
+        onSubmit={() => {}}
+        value=""
+      />
     )
     const input = container.querySelector('input')
     fireEvent.change(input!, { target: { value: 'hello' } })
@@ -34,7 +51,12 @@ describe('InputWithButton', () => {
   it('calls onSubmit when Enter is pressed in input', () => {
     const onSubmit = vi.fn()
     const { container } = render(
-      <InputWithButton buttonLabel="Go" onChange={() => {}} onSubmit={onSubmit} value="test" />,
+      <InputWithButton
+        buttonLabel="Go"
+        onChange={() => {}}
+        onSubmit={onSubmit}
+        value="test"
+      />
     )
     const input = container.querySelector('input')
     fireEvent.keyDown(input!, { key: 'Enter' })
@@ -44,7 +66,12 @@ describe('InputWithButton', () => {
   it('does not call onSubmit for non-Enter key', () => {
     const onSubmit = vi.fn()
     const { container } = render(
-      <InputWithButton buttonLabel="Go" onChange={() => {}} onSubmit={onSubmit} value="test" />,
+      <InputWithButton
+        buttonLabel="Go"
+        onChange={() => {}}
+        onSubmit={onSubmit}
+        value="test"
+      />
     )
     const input = container.querySelector('input')
     fireEvent.keyDown(input!, { key: 'a' })
@@ -53,7 +80,13 @@ describe('InputWithButton', () => {
 
   it('disables input and button when disabled is true', () => {
     const { container } = render(
-      <InputWithButton buttonLabel="Go" onChange={() => {}} onSubmit={() => {}} value="" disabled />,
+      <InputWithButton
+        buttonLabel="Go"
+        onChange={() => {}}
+        onSubmit={() => {}}
+        value=""
+        disabled
+      />
     )
     const input = container.querySelector('input')
     const button = container.querySelector('button')
@@ -63,7 +96,13 @@ describe('InputWithButton', () => {
 
   it('renders placeholder text', () => {
     const { container } = render(
-      <InputWithButton buttonLabel="Go" onChange={() => {}} onSubmit={() => {}} value="" placeholder="Enter value" />,
+      <InputWithButton
+        buttonLabel="Go"
+        onChange={() => {}}
+        onSubmit={() => {}}
+        value=""
+        placeholder="Enter value"
+      />
     )
     const input = container.querySelector('input')
     expect(input?.getAttribute('placeholder')).toBe('Enter value')
@@ -71,7 +110,13 @@ describe('InputWithButton', () => {
 
   it('applies custom className', () => {
     const { container } = render(
-      <InputWithButton buttonLabel="Go" onChange={() => {}} onSubmit={() => {}} value="" className="my-class" />,
+      <InputWithButton
+        buttonLabel="Go"
+        onChange={() => {}}
+        onSubmit={() => {}}
+        value=""
+        className="my-class"
+      />
     )
     const el = container.querySelector('[data-component="input-with-button"]')
     expect(el?.className).toContain('my-class')
@@ -85,8 +130,10 @@ describe('InputWithButton', () => {
         onChange={() => {}}
         onSubmit={() => {}}
         value=""
-        ref={(node) => { refNode = node }}
-      />,
+        ref={(node) => {
+          refNode = node
+        }}
+      />
     )
     expect(refNode).not.toBeNull()
   })

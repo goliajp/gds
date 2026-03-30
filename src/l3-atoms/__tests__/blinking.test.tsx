@@ -5,7 +5,11 @@ import { Blinking } from '../blinking'
 
 describe('Blinking', () => {
   it('renders children', () => {
-    render(<Blinking><span>alert</span></Blinking>)
+    render(
+      <Blinking>
+        <span>alert</span>
+      </Blinking>
+    )
     expect(screen.getByText('alert')).toBeDefined()
   })
 

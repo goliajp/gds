@@ -6,17 +6,23 @@ import { ResizeHandle } from '../resize-handle'
 describe('ResizeHandle', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(<ResizeHandle onResize={vi.fn()} />)
-    expect(container.querySelector('[data-component="resize-handle"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="resize-handle"]')
+    ).not.toBeNull()
   })
 
   it('has cursor-col-resize class for vertical orientation', () => {
-    const { container } = render(<ResizeHandle onResize={vi.fn()} orientation="vertical" />)
+    const { container } = render(
+      <ResizeHandle onResize={vi.fn()} orientation="vertical" />
+    )
     const el = container.querySelector('[data-component="resize-handle"]')
     expect(el?.className).toContain('cursor-col-resize')
   })
 
   it('has cursor-row-resize class for horizontal orientation', () => {
-    const { container } = render(<ResizeHandle onResize={vi.fn()} orientation="horizontal" />)
+    const { container } = render(
+      <ResizeHandle onResize={vi.fn()} orientation="horizontal" />
+    )
     const el = container.querySelector('[data-component="resize-handle"]')
     expect(el?.className).toContain('cursor-row-resize')
   })
@@ -35,7 +41,9 @@ describe('ResizeHandle', () => {
   })
 
   it('sets aria-orientation attribute', () => {
-    const { container } = render(<ResizeHandle onResize={vi.fn()} orientation="horizontal" />)
+    const { container } = render(
+      <ResizeHandle onResize={vi.fn()} orientation="horizontal" />
+    )
     const el = container.querySelector('[data-component="resize-handle"]')
     expect(el?.getAttribute('aria-orientation')).toBe('horizontal')
   })
@@ -48,7 +56,9 @@ describe('ResizeHandle', () => {
 
   it('calls onResize during mouse drag (vertical)', () => {
     const onResize = vi.fn()
-    const { container } = render(<ResizeHandle onResize={onResize} orientation="vertical" />)
+    const { container } = render(
+      <ResizeHandle onResize={onResize} orientation="vertical" />
+    )
     const el = container.querySelector('[data-component="resize-handle"]')!
 
     fireEvent.mouseDown(el, { clientX: 100, clientY: 50 })
@@ -61,7 +71,9 @@ describe('ResizeHandle', () => {
 
   it('calls onResize during mouse drag (horizontal)', () => {
     const onResize = vi.fn()
-    const { container } = render(<ResizeHandle onResize={onResize} orientation="horizontal" />)
+    const { container } = render(
+      <ResizeHandle onResize={onResize} orientation="horizontal" />
+    )
     const el = container.querySelector('[data-component="resize-handle"]')!
 
     fireEvent.mouseDown(el, { clientX: 50, clientY: 100 })
@@ -71,7 +83,9 @@ describe('ResizeHandle', () => {
 
   it('calls onResizeEnd on mouseUp', () => {
     const onResizeEnd = vi.fn()
-    const { container } = render(<ResizeHandle onResize={vi.fn()} onResizeEnd={onResizeEnd} />)
+    const { container } = render(
+      <ResizeHandle onResize={vi.fn()} onResizeEnd={onResizeEnd} />
+    )
     const el = container.querySelector('[data-component="resize-handle"]')!
 
     fireEvent.mouseDown(el, { clientX: 100, clientY: 50 })
@@ -104,7 +118,9 @@ describe('ResizeHandle', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<ResizeHandle onResize={vi.fn()} className="my-handle" />)
+    const { container } = render(
+      <ResizeHandle onResize={vi.fn()} className="my-handle" />
+    )
     const el = container.querySelector('[data-component="resize-handle"]')
     expect(el?.className).toContain('my-handle')
   })
@@ -117,14 +133,20 @@ describe('ResizeHandle', () => {
   })
 
   it('spreads additional props to root element', () => {
-    const { container } = render(<ResizeHandle onResize={vi.fn()} data-custom="test" />)
+    const { container } = render(
+      <ResizeHandle onResize={vi.fn()} data-custom="test" />
+    )
     const el = container.querySelector('[data-component="resize-handle"]')
     expect(el?.getAttribute('data-custom')).toBe('test')
   })
 
   it('renders inner bar with correct orientation classes', () => {
-    const { container } = render(<ResizeHandle onResize={vi.fn()} orientation="horizontal" />)
-    const inner = container.querySelector('[data-component="resize-handle"] > div')
+    const { container } = render(
+      <ResizeHandle onResize={vi.fn()} orientation="horizontal" />
+    )
+    const inner = container.querySelector(
+      '[data-component="resize-handle"] > div'
+    )
     expect(inner?.className).toContain('h-0.5')
     expect(inner?.className).toContain('w-full')
   })

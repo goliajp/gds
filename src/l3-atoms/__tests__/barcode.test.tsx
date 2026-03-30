@@ -26,6 +26,8 @@ describe('Barcode', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<Barcode value="test" />)
-    expect(container.querySelector('[data-component="barcode"]')).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="barcode"]')
+    ).toBeInTheDocument()
   })
 })

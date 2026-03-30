@@ -24,7 +24,16 @@ export type TabGroupProps = {
   className?: string
 }
 
-export function TabGroup({ tabs, defaultTab, lazy = false, keepMounted = true, activeTab: controlledTab, onTabChange, glass, className }: TabGroupProps) {
+export function TabGroup({
+  tabs,
+  defaultTab,
+  lazy = false,
+  keepMounted = true,
+  activeTab: controlledTab,
+  onTabChange,
+  glass,
+  className,
+}: TabGroupProps) {
   const isControlled = controlledTab !== undefined && onTabChange !== undefined
   const initialTab = defaultTab ?? (tabs.length > 0 ? tabs[0].id : '')
   const [internalTab, setInternalTab] = useState(initialTab)
@@ -82,11 +91,11 @@ export function TabGroup({ tabs, defaultTab, lazy = false, keepMounted = true, a
   return (
     <div
       className={cx(
-        'gds-ctx gds-radius-card border border-border overflow-hidden',
+        'gds-ctx gds-radius-card border-border overflow-hidden border',
         glass !== undefined && glass !== false
-          ? cx('border-white/10 bg-bg/60', glassClass(glass))
+          ? cx('bg-bg/60 border-white/10', glassClass(glass))
           : '',
-        className,
+        className
       )}
       data-component="tab-group"
     >

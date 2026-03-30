@@ -5,12 +5,22 @@ import { ActionCard } from '../action-card'
 
 describe('ActionCard', () => {
   it('renders with data-component', () => {
-    const { container } = render(<ActionCard title="Create" onClick={() => {}} />)
-    expect(container.querySelector('[data-component="action-card"]')).not.toBeNull()
+    const { container } = render(
+      <ActionCard title="Create" onClick={() => {}} />
+    )
+    expect(
+      container.querySelector('[data-component="action-card"]')
+    ).not.toBeNull()
   })
 
   it('renders title and description', () => {
-    render(<ActionCard title="Deploy" description="Push to production" onClick={() => {}} />)
+    render(
+      <ActionCard
+        title="Deploy"
+        description="Push to production"
+        onClick={() => {}}
+      />
+    )
     expect(screen.getByText('Deploy')).toBeDefined()
     expect(screen.getByText('Push to production')).toBeDefined()
   })
@@ -23,13 +33,23 @@ describe('ActionCard', () => {
   })
 
   it('renders icon when provided', () => {
-    render(<ActionCard title="Create" onClick={() => {}} icon={<span data-testid="icon">+</span>} />)
+    render(
+      <ActionCard
+        title="Create"
+        onClick={() => {}}
+        icon={<span data-testid="icon">+</span>}
+      />
+    )
     expect(screen.getByTestId('icon')).toBeDefined()
   })
 
   it('does not render icon container when icon is undefined', () => {
-    const { container } = render(<ActionCard title="Create" onClick={() => {}} />)
-    const spans = container.querySelectorAll('[data-component="action-card"] > span')
+    const { container } = render(
+      <ActionCard title="Create" onClick={() => {}} />
+    )
+    const spans = container.querySelectorAll(
+      '[data-component="action-card"] > span'
+    )
     expect(spans.length).toBe(0)
   })
 
@@ -63,7 +83,9 @@ describe('ActionCard', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<ActionCard title="T" onClick={() => {}} className="my-cls" />)
+    const { container } = render(
+      <ActionCard title="T" onClick={() => {}} className="my-cls" />
+    )
     const el = container.querySelector('[data-component="action-card"]')
     expect(el?.className).toContain('my-cls')
   })

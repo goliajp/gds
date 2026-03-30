@@ -10,7 +10,7 @@ type DrawConfig = {
 function getCanvasPosition(
   canvas: HTMLCanvasElement,
   clientX: number,
-  clientY: number,
+  clientY: number
 ): Point {
   const rect = canvas.getBoundingClientRect()
   return {
@@ -22,7 +22,7 @@ function getCanvasPosition(
 function beginStroke(
   ctx: CanvasRenderingContext2D,
   point: Point,
-  config: DrawConfig,
+  config: DrawConfig
 ): void {
   ctx.strokeStyle = config.strokeColor
   ctx.lineWidth = config.strokeWidth
@@ -32,10 +32,7 @@ function beginStroke(
   ctx.moveTo(point.x, point.y)
 }
 
-function continueStroke(
-  ctx: CanvasRenderingContext2D,
-  point: Point,
-): void {
+function continueStroke(ctx: CanvasRenderingContext2D, point: Point): void {
   ctx.lineTo(point.x, point.y)
   ctx.stroke()
 }
@@ -50,5 +47,11 @@ function canvasToDataUrl(canvas: HTMLCanvasElement): string {
   return canvas.toDataURL('image/png')
 }
 
-export { beginStroke, canvasToDataUrl, clearCanvas, continueStroke, getCanvasPosition }
+export {
+  beginStroke,
+  canvasToDataUrl,
+  clearCanvas,
+  continueStroke,
+  getCanvasPosition,
+}
 export type { DrawConfig, Point }

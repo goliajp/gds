@@ -17,14 +17,17 @@ const intensityMap = {
 } as const
 
 export const GlitchText = forwardRef<HTMLSpanElement, GlitchTextProps>(
-  function GlitchText({ active = true, className, intensity = 'default', text }, ref) {
+  function GlitchText(
+    { active = true, className, intensity = 'default', text },
+    ref
+  ) {
     return (
       <span
         ref={ref}
         className={cx(
-          'relative inline-block font-bold text-fg select-none',
+          'text-fg relative inline-block font-bold select-none',
           active && intensityMap[intensity],
-          className,
+          className
         )}
         data-component="glitch-text"
         data-text={text}
@@ -33,5 +36,5 @@ export const GlitchText = forwardRef<HTMLSpanElement, GlitchTextProps>(
         {text}
       </span>
     )
-  },
+  }
 )

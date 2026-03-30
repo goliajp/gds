@@ -16,7 +16,11 @@ describe('Container', () => {
   })
 
   it('renders children', () => {
-    const { container } = render(<Container><span>hello</span></Container>)
+    const { container } = render(
+      <Container>
+        <span>hello</span>
+      </Container>
+    )
     const el = container.querySelector('[data-component="container"]')
     expect(el!.textContent).toBe('hello')
   })
@@ -61,20 +65,34 @@ describe('Container', () => {
   })
 
   it('merges className', () => {
-    const { container } = render(<Container className="extra">content</Container>)
+    const { container } = render(
+      <Container className="extra">content</Container>
+    )
     const el = container.querySelector('[data-component="container"]')
     expect(el!.getAttribute('class')).toContain('extra')
   })
 
   it('forwards ref', () => {
     let el: HTMLDivElement | null = null
-    render(<Container ref={(node) => { el = node }}>content</Container>)
+    render(
+      <Container
+        ref={(node) => {
+          el = node
+        }}
+      >
+        content
+      </Container>
+    )
     expect(el).toBeTruthy()
     expect(el!.tagName.toLowerCase()).toBe('div')
   })
 
   it('spreads additional HTML attributes', () => {
-    const { container } = render(<Container data-testid="ctr" aria-label="wrapper">content</Container>)
+    const { container } = render(
+      <Container data-testid="ctr" aria-label="wrapper">
+        content
+      </Container>
+    )
     const el = container.querySelector('[data-component="container"]')
     expect(el!.getAttribute('data-testid')).toBe('ctr')
     expect(el!.getAttribute('aria-label')).toBe('wrapper')

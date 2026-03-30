@@ -11,13 +11,23 @@ describe('SliderField', () => {
   })
 
   it('displays unit when provided', () => {
-    render(<SliderField label="Width" value={80} onChange={() => {}} unit="px" />)
+    render(
+      <SliderField label="Width" value={80} onChange={() => {}} unit="px" />
+    )
     expect(screen.getByText('80 px')).toBeDefined()
   })
 
   it('renders a range input', () => {
     const onChange = vi.fn()
-    render(<SliderField label="Opacity" value={75} onChange={onChange} min={0} max={100} />)
+    render(
+      <SliderField
+        label="Opacity"
+        value={75}
+        onChange={onChange}
+        min={0}
+        max={100}
+      />
+    )
     const input = screen.getByRole('slider')
     expect(input).toBeDefined()
     expect(input.getAttribute('min')).toBe('0')

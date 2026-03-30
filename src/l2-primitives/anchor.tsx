@@ -19,7 +19,7 @@ const anchorVariants = cva(
         muted: 'text-fg-muted hover:text-fg',
       },
     },
-  },
+  }
 )
 
 type AnchorProps = React.AnchorHTMLAttributes<HTMLAnchorElement> &
@@ -31,7 +31,7 @@ type AnchorProps = React.AnchorHTMLAttributes<HTMLAnchorElement> &
 export const Anchor = forwardRef<HTMLAnchorElement, AnchorProps>(
   function Anchor(
     { children, className, external = false, externalIcon, variant, ...props },
-    ref,
+    ref
   ) {
     return (
       <a
@@ -50,7 +50,7 @@ export const Anchor = forwardRef<HTMLAnchorElement, AnchorProps>(
         )}
       </a>
     )
-  },
+  }
 )
 
 export { anchorVariants }

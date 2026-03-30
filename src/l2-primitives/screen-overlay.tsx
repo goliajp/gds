@@ -20,20 +20,20 @@ const ScreenOverlayInner = forwardRef<HTMLDivElement, ScreenOverlayProps>(
         className={cx(
           'fixed inset-0 z-40',
           glass === true ? glassClass(true) : 'bg-black/50',
-          className,
+          className
         )}
         data-component="screen-overlay"
         onClick={onClick}
         ref={ref}
       />
     )
-  },
+  }
 )
 
 export const ScreenOverlay = forwardRef<HTMLDivElement, ScreenOverlayProps>(
   function ScreenOverlay(props, ref) {
     return renderPortal(<ScreenOverlayInner ref={ref} {...props} />)
-  },
+  }
 )
 
 export type { ScreenOverlayProps }

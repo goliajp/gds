@@ -30,14 +30,17 @@ const exitClassMap: Record<AnimatePresenceAnimation, string> = {
 export const AnimatePresence = forwardRef<HTMLDivElement, AnimatePresenceProps>(
   function AnimatePresence(
     { children, animation = 'fade', duration = 200, className },
-    ref,
+    ref
   ) {
-    const [rendered, setRendered] = useState(children !== null && children !== undefined && children !== false)
+    const [rendered, setRendered] = useState(
+      children !== null && children !== undefined && children !== false
+    )
     const [exiting, setExiting] = useState(false)
     const prevChildrenRef = useRef<ReactNode>(children)
     const timerRef = useRef<ReturnType<typeof setTimeout>>(null)
 
-    const hasChildren = children !== null && children !== undefined && children !== false
+    const hasChildren =
+      children !== null && children !== undefined && children !== false
 
     useEffect(() => {
       if (hasChildren) {
@@ -69,7 +72,9 @@ export const AnimatePresence = forwardRef<HTMLDivElement, AnimatePresenceProps>(
 
     if (!rendered) return null
 
-    const animClass = exiting ? exitClassMap[animation] : enterClassMap[animation]
+    const animClass = exiting
+      ? exitClassMap[animation]
+      : enterClassMap[animation]
     const displayChildren = exiting ? prevChildrenRef.current : children
 
     return (
@@ -83,5 +88,5 @@ export const AnimatePresence = forwardRef<HTMLDivElement, AnimatePresenceProps>(
         {displayChildren}
       </div>
     )
-  },
+  }
 )

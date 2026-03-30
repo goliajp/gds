@@ -12,7 +12,9 @@ const metrics = [
 describe('SystemHealth', () => {
   it('renders data-component attribute', () => {
     const { container } = render(<SystemHealth metrics={metrics} />)
-    expect(container.querySelector('[data-component="system-health"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="system-health"]')
+    ).not.toBeNull()
   })
 
   it('renders all metric labels', () => {

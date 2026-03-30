@@ -6,7 +6,9 @@ import { KeyValue } from '../key-value'
 describe('KeyValue', () => {
   it('renders with data-component', () => {
     const { container } = render(<KeyValue label="Name" value="Alice" />)
-    expect(container.querySelector('[data-component="key-value"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="key-value"]')
+    ).not.toBeNull()
   })
 
   it('displays label and value', () => {

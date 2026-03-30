@@ -7,7 +7,7 @@ import { createPortal } from 'react-dom'
 // returns null during SSR (no document available)
 export function renderPortal(
   children: ReactNode,
-  container?: Element | null,
+  container?: Element | null
 ): ReactPortal | null {
   if (typeof document === 'undefined') return null
   return createPortal(children, container ?? document.body)

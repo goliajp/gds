@@ -18,13 +18,24 @@ export type BreadcrumbProps = {
 }
 
 const defaultSeparator = (
-  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+  <svg
+    width="12"
+    height="12"
+    viewBox="0 0 12 12"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+  >
     <path d="M4.5 3l3 3-3 3" />
   </svg>
 )
 
 export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
-  function Breadcrumb({ items, separator = defaultSeparator, maxItems, className }, ref) {
+  function Breadcrumb(
+    { items, separator = defaultSeparator, maxItems, className },
+    ref
+  ) {
     let visibleItems = items
 
     if (maxItems !== undefined && items.length > maxItems && maxItems >= 2) {
@@ -35,23 +46,34 @@ export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
     }
 
     return (
-      <nav ref={ref} aria-label="Breadcrumb" className={cx(className)} data-component="breadcrumb">
-        <ol className="flex items-center gds-gap-sm gds-text-body text-fg-muted">
+      <nav
+        ref={ref}
+        aria-label="Breadcrumb"
+        className={cx(className)}
+        data-component="breadcrumb"
+      >
+        <ol className="gds-gap-sm gds-text-body text-fg-muted flex items-center">
           {visibleItems.map((item, i) => (
-            <li key={`${item.label}-${i}`} className="flex items-center gds-gap-sm">
+            <li
+              key={`${item.label}-${i}`}
+              className="gds-gap-sm flex items-center"
+            >
               {i > 0 && (
-                <span className="text-fg-muted/50" aria-hidden="true">{separator}</span>
+                <span className="text-fg-muted/50" aria-hidden="true">
+                  {separator}
+                </span>
               )}
-              {item.icon !== undefined && <span className="shrink-0">{item.icon}</span>}
+              {item.icon !== undefined && (
+                <span className="shrink-0">{item.icon}</span>
+              )}
               {item.href !== undefined ? (
-                <a
-                  href={item.href}
-                  className="transition-colors hover:text-fg"
-                >
+                <a href={item.href} className="hover:text-fg transition-colors">
                   {item.label}
                 </a>
               ) : (
-                <span className={cx(i === visibleItems.length - 1 && 'text-fg')}>
+                <span
+                  className={cx(i === visibleItems.length - 1 && 'text-fg')}
+                >
                   {item.label}
                 </span>
               )}
@@ -60,5 +82,5 @@ export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
         </ol>
       </nav>
     )
-  },
+  }
 )

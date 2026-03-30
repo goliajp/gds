@@ -14,41 +14,39 @@ export type EmbedProps = {
   className?: string
 }
 
-export const Embed = forwardRef<HTMLDivElement, EmbedProps>(
-  function Embed(
-    {
-      src,
-      title,
-      ratio = 16 / 9,
-      allowFullscreen = true,
-      sandbox,
-      loading = 'lazy',
-      glass = false,
-      className,
-    },
-    ref,
-  ) {
-    return (
-      <div
-        ref={ref}
-        className={cx(
-          'relative w-full overflow-hidden border border-white/[0.06] gds-radius-card',
-          glass && 'gds-glass',
-          className,
-        )}
-        data-component="embed"
-        style={{ aspectRatio: ratio }}
-      >
-        <iframe
-          src={src}
-          title={title}
-          className="absolute inset-0 h-full w-full border-none"
-          allowFullScreen={allowFullscreen}
-          sandbox={sandbox}
-          loading={loading}
-          data-testid="embed-iframe"
-        />
-      </div>
-    )
+export const Embed = forwardRef<HTMLDivElement, EmbedProps>(function Embed(
+  {
+    src,
+    title,
+    ratio = 16 / 9,
+    allowFullscreen = true,
+    sandbox,
+    loading = 'lazy',
+    glass = false,
+    className,
   },
-)
+  ref
+) {
+  return (
+    <div
+      ref={ref}
+      className={cx(
+        'gds-radius-card relative w-full overflow-hidden border border-white/[0.06]',
+        glass && 'gds-glass',
+        className
+      )}
+      data-component="embed"
+      style={{ aspectRatio: ratio }}
+    >
+      <iframe
+        src={src}
+        title={title}
+        className="absolute inset-0 h-full w-full border-none"
+        allowFullScreen={allowFullscreen}
+        sandbox={sandbox}
+        loading={loading}
+        data-testid="embed-iframe"
+      />
+    </div>
+  )
+})

@@ -36,30 +36,49 @@ const PALETTE = [
   'var(--gds-palette-9, #84cc16)',
 ]
 
-function computePositions(count: number, cx: number, cy: number, radius: number) {
+function computePositions(
+  count: number,
+  cx: number,
+  cy: number,
+  radius: number
+) {
   return Array.from({ length: count }, (_, i) => {
     const angle = (2 * Math.PI * i) / count - Math.PI / 2
-    return { x: cx + radius * Math.cos(angle), y: cy + radius * Math.sin(angle) }
+    return {
+      x: cx + radius * Math.cos(angle),
+      y: cy + radius * Math.sin(angle),
+    }
   })
 }
 
 export const NetworkGraph = forwardRef<HTMLDivElement, NetworkGraphProps>(
-  function NetworkGraph({ nodes, edges, width = 400, height = 300, glass, className }, ref) {
+  function NetworkGraph(
+    { nodes, edges, width = 400, height = 300, glass, className },
+    ref
+  ) {
     const centerX = width / 2
     const centerY = height / 2
     const layoutRadius = Math.min(centerX, centerY) * 0.65
-    const positions = computePositions(nodes.length, centerX, centerY, layoutRadius)
+    const positions = computePositions(
+      nodes.length,
+      centerX,
+      centerY,
+      layoutRadius
+    )
 
     const nodeMap = new Map(nodes.map((n, i) => [n.id, i]))
-    const nodeRadius = Math.max(8, Math.min(16, 120 / Math.max(nodes.length, 1)))
+    const nodeRadius = Math.max(
+      8,
+      Math.min(16, 120 / Math.max(nodes.length, 1))
+    )
 
     return (
       <div
         ref={ref}
         className={cx(
-          'gds-radius-popover border border-border',
-          glass && 'backdrop-blur-md bg-white/5',
-          className,
+          'gds-radius-popover border-border border',
+          glass && 'bg-white/5 backdrop-blur-md',
+          className
         )}
         data-component="network-graph"
       >
@@ -88,7 +107,13 @@ export const NetworkGraph = forwardRef<HTMLDivElement, NetworkGraphProps>(
             const color = PALETTE[(node.group ?? i) % PALETTE.length]
             return (
               <g key={node.id}>
-                <circle cx={pos.x} cy={pos.y} r={nodeRadius} fill={color} fillOpacity={0.8} />
+                <circle
+                  cx={pos.x}
+                  cy={pos.y}
+                  r={nodeRadius}
+                  fill={color}
+                  fillOpacity={0.8}
+                />
                 <text
                   x={pos.x}
                   y={pos.y + nodeRadius + 14}
@@ -104,7 +129,7 @@ export const NetworkGraph = forwardRef<HTMLDivElement, NetworkGraphProps>(
         </svg>
       </div>
     )
-  },
+  }
 )
 
 export type { NetworkEdge, NetworkNode }

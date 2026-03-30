@@ -4,20 +4,34 @@ import { describe, expect, it } from 'vitest'
 import { Timeline } from '../timeline'
 
 const items = [
-  { id: '1', title: 'Created', date: '2025-01-01', variant: 'success' as const },
-  { id: '2', title: 'Updated', description: 'Fixed a bug', variant: 'warning' as const },
+  {
+    id: '1',
+    title: 'Created',
+    date: '2025-01-01',
+    variant: 'success' as const,
+  },
+  {
+    id: '2',
+    title: 'Updated',
+    description: 'Fixed a bug',
+    variant: 'warning' as const,
+  },
   { id: '3', title: 'Deleted', variant: 'danger' as const },
 ]
 
 describe('Timeline', () => {
   it('renders without crash', () => {
     const { container } = render(<Timeline items={items} />)
-    expect(container.querySelector('[data-component="timeline"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="timeline"]')
+    ).not.toBeNull()
   })
 
   it('has data-component attribute', () => {
     const { container } = render(<Timeline items={items} />)
-    expect(container.querySelector('[data-component="timeline"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="timeline"]')
+    ).not.toBeNull()
   })
 
   it('renders item titles', () => {
@@ -35,7 +49,11 @@ describe('Timeline', () => {
 
   it('renders custom icon when provided', () => {
     const itemsWithIcon = [
-      { id: '1', title: 'Deployed', icon: <span data-testid="deploy-icon">D</span> },
+      {
+        id: '1',
+        title: 'Deployed',
+        icon: <span data-testid="deploy-icon">D</span>,
+      },
     ]
     render(<Timeline items={itemsWithIcon} />)
     expect(screen.getByTestId('deploy-icon')).toBeDefined()
@@ -60,7 +78,9 @@ describe('Timeline', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<Timeline items={items} className="my-timeline" />)
+    const { container } = render(
+      <Timeline items={items} className="my-timeline" />
+    )
     const root = container.querySelector('[data-component="timeline"]')
     expect(root?.className).toContain('my-timeline')
   })

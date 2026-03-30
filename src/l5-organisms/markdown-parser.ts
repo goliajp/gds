@@ -20,7 +20,10 @@ function escapeHtml(text: string): string {
 function parseInline(text: string): string {
   let result = escapeHtml(text)
   // code (backtick) — must come before bold/italic
-  result = result.replace(/`([^`]+)`/g, '<code class="rounded bg-bg-tertiary px-1 py-0.5 font-mono text-[0.85em]">$1</code>')
+  result = result.replace(
+    /`([^`]+)`/g,
+    '<code class="rounded bg-bg-tertiary px-1 py-0.5 font-mono text-[0.85em]">$1</code>'
+  )
   // bold
   result = result.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
   // italic
@@ -28,7 +31,7 @@ function parseInline(text: string): string {
   // links
   result = result.replace(
     /\[([^\]]+)\]\(([^)]+)\)/g,
-    '<a href="$2" class="text-accent hover:underline" target="_blank" rel="noopener noreferrer">$1</a>',
+    '<a href="$2" class="text-accent hover:underline" target="_blank" rel="noopener noreferrer">$1</a>'
   )
   return result
 }
@@ -47,7 +50,7 @@ export function parseMarkdown(content: string): string {
     if (line.trimStart().startsWith('```')) {
       if (inCodeBlock) {
         output.push(
-          `<pre class="overflow-auto rounded-lg bg-bg-tertiary p-3 font-mono text-xs"><code>${escapeHtml(codeLines.join('\n'))}</code></pre>`,
+          `<pre class="overflow-auto rounded-lg bg-bg-tertiary p-3 font-mono text-xs"><code>${escapeHtml(codeLines.join('\n'))}</code></pre>`
         )
         codeLines = []
         inCodeBlock = false
@@ -84,10 +87,24 @@ export function parseMarkdown(content: string): string {
         inList = false
       }
       const level = headingMatch[1].length
-      const sizes = ['text-xl', 'text-lg', 'text-base', 'text-sm', 'text-xs', 'text-xs']
-      const margins = ['mt-4 mb-2', 'mt-3 mb-2', 'mt-3 mb-1', 'mt-2 mb-1', 'mt-2 mb-1', 'mt-2 mb-1']
+      const sizes = [
+        'text-xl',
+        'text-lg',
+        'text-base',
+        'text-sm',
+        'text-xs',
+        'text-xs',
+      ]
+      const margins = [
+        'mt-4 mb-2',
+        'mt-3 mb-2',
+        'mt-3 mb-1',
+        'mt-2 mb-1',
+        'mt-2 mb-1',
+        'mt-2 mb-1',
+      ]
       output.push(
-        `<h${level} class="font-semibold ${sizes[level - 1]} ${margins[level - 1]}">${parseInline(headingMatch[2])}</h${level}>`,
+        `<h${level} class="font-semibold ${sizes[level - 1]} ${margins[level - 1]}">${parseInline(headingMatch[2])}</h${level}>`
       )
       continue
     }
@@ -100,7 +117,7 @@ export function parseMarkdown(content: string): string {
       }
       const text = line.replace(/^>\s*/, '')
       output.push(
-        `<blockquote class="border-l-2 border-accent/30 pl-3 text-fg-muted italic">${parseInline(text)}</blockquote>`,
+        `<blockquote class="border-l-2 border-accent/30 pl-3 text-fg-muted italic">${parseInline(text)}</blockquote>`
       )
       continue
     }
@@ -134,7 +151,7 @@ export function parseMarkdown(content: string): string {
   // close dangling blocks
   if (inCodeBlock) {
     output.push(
-      `<pre class="overflow-auto rounded-lg bg-bg-tertiary p-3 font-mono text-xs"><code>${escapeHtml(codeLines.join('\n'))}</code></pre>`,
+      `<pre class="overflow-auto rounded-lg bg-bg-tertiary p-3 font-mono text-xs"><code>${escapeHtml(codeLines.join('\n'))}</code></pre>`
     )
   }
   if (inList) {

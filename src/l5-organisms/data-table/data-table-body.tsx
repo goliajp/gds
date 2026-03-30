@@ -2,7 +2,12 @@ import type { ReactNode } from 'react'
 
 import { cx } from '../../utils/cx'
 import type { DataColumn, Density } from './data-table-types'
-import { computeAggregate, getCellValue, getDensity, resolveRowKey } from './data-table-utils'
+import {
+  computeAggregate,
+  getCellValue,
+  getDensity,
+  resolveRowKey,
+} from './data-table-utils'
 
 // skeleton loading rows
 function SkeletonRows<T>({
@@ -24,14 +29,18 @@ function SkeletonRows<T>({
 }) {
   const d = getDensity(density)
   const borderCls = bordered === true ? 'border border-border' : ''
-  const totalCols = columns.length + (hasSelection ? 1 : 0) + (rowNumbers ? 1 : 0) + (hasActions ? 1 : 0)
+  const totalCols =
+    columns.length +
+    (hasSelection ? 1 : 0) +
+    (rowNumbers ? 1 : 0) +
+    (hasActions ? 1 : 0)
   return (
     <>
       {Array.from({ length: count }, (_, i) => (
-        <tr key={i} className="border-b border-border">
+        <tr key={i} className="border-border border-b">
           {Array.from({ length: totalCols }, (_, j) => (
             <td key={j} className={cx(d.td, borderCls)}>
-              <div className="h-4 animate-pulse rounded bg-bg-tertiary" />
+              <div className="bg-bg-tertiary h-4 animate-pulse rounded" />
             </td>
           ))}
         </tr>
@@ -52,8 +61,12 @@ function EmptyState({
 }) {
   return (
     <tr>
-      <td colSpan={colSpan} className="py-12 text-center text-sm text-fg-muted">
-        {icon !== undefined && <div className="mb-2 flex justify-center text-fg-muted/30">{icon}</div>}
+      <td colSpan={colSpan} className="text-fg-muted py-12 text-center text-sm">
+        {icon !== undefined && (
+          <div className="text-fg-muted/30 mb-2 flex justify-center">
+            {icon}
+          </div>
+        )}
         {message}
       </td>
     </tr>
@@ -64,7 +77,7 @@ function EmptyState({
 function ErrorState({ colSpan, error }: { colSpan: number; error: ReactNode }) {
   return (
     <tr>
-      <td colSpan={colSpan} className="py-8 text-center text-sm text-danger">
+      <td colSpan={colSpan} className="text-danger py-8 text-center text-sm">
         {error}
       </td>
     </tr>
@@ -72,7 +85,12 @@ function ErrorState({ colSpan, error }: { colSpan: number; error: ReactNode }) {
 }
 
 // render cell content
-function renderCell<T>(col: DataColumn<T>, row: T, index: number, highlightQuery?: string): ReactNode {
+function renderCell<T>(
+  col: DataColumn<T>,
+  row: T,
+  index: number,
+  highlightQuery?: string
+): ReactNode {
   const value = getCellValue(row, col.key)
 
   // render has full control — support both (value, row, index) and legacy (row) signatures
@@ -80,7 +98,11 @@ function renderCell<T>(col: DataColumn<T>, row: T, index: number, highlightQuery
     if (col.render.length <= 1) {
       return (col.render as (row: T) => ReactNode)(row)
     }
-    return (col.render as (value: unknown, row: T, index: number) => ReactNode)(value, row, index)
+    return (col.render as (value: unknown, row: T, index: number) => ReactNode)(
+      value,
+      row,
+      index
+    )
   }
 
   // format returns ReactNode
@@ -97,7 +119,9 @@ function renderCell<T>(col: DataColumn<T>, row: T, index: number, highlightQuery
       return (
         <>
           {str.slice(0, idx)}
-          <mark className="bg-warning/30 text-fg">{str.slice(idx, idx + highlightQuery.length)}</mark>
+          <mark className="bg-warning/30 text-fg">
+            {str.slice(idx, idx + highlightQuery.length)}
+          </mark>
           {str.slice(idx + highlightQuery.length)}
         </>
       )
@@ -168,7 +192,12 @@ export function DataTableBody<T>({
   const d = getDensity(density)
   const borderCls = bordered === true ? 'border border-border' : ''
   const hasExpand = renderExpanded !== undefined && onToggleExpand !== undefined
-  const totalCols = columns.length + (hasExpand ? 1 : 0) + (hasSelection ? 1 : 0) + (rowNumbers ? 1 : 0) + (actions !== undefined ? 1 : 0)
+  const totalCols =
+    columns.length +
+    (hasExpand ? 1 : 0) +
+    (hasSelection ? 1 : 0) +
+    (rowNumbers ? 1 : 0) +
+    (actions !== undefined ? 1 : 0)
   const hasAggregate = columns.some((c) => c.aggregate !== undefined)
 
   return (
@@ -188,112 +217,148 @@ export function DataTableBody<T>({
         <ErrorState colSpan={totalCols} error={error} />
       )}
       {loading !== true && error === undefined && rows.length === 0 && (
-        <EmptyState colSpan={totalCols} message={emptyMessage} icon={emptyIcon} />
+        <EmptyState
+          colSpan={totalCols}
+          message={emptyMessage}
+          icon={emptyIcon}
+        />
       )}
-      {loading !== true && error === undefined && rows.map((row, i) => {
-        const key = resolveRowKey(row, rowKey, pageOffset + i)
-        const isSelected = selectedKeys !== undefined && selectedKeys.has(key)
-        const isExpanded = expandedKeys !== undefined && expandedKeys.has(key)
-        const customCls = getRowClassName !== undefined ? getRowClassName(row, pageOffset + i) : undefined
+      {loading !== true &&
+        error === undefined &&
+        rows.map((row, i) => {
+          const key = resolveRowKey(row, rowKey, pageOffset + i)
+          const isSelected = selectedKeys !== undefined && selectedKeys.has(key)
+          const isExpanded = expandedKeys !== undefined && expandedKeys.has(key)
+          const customCls =
+            getRowClassName !== undefined
+              ? getRowClassName(row, pageOffset + i)
+              : undefined
 
-        return (
-          <RowFragment key={key}>
-            <tr
-              className={cx(
-                'border-b border-border transition-colors',
-                striped === true && i % 2 === 1 && 'bg-bg-secondary/30',
-                highlightOnHover && 'hover:bg-bg-secondary/60',
-                isSelected && 'bg-accent/5',
-                onRowClick !== undefined && 'cursor-pointer',
-                customCls,
-              )}
-              onClick={onRowClick !== undefined ? () => onRowClick(row) : undefined}
-            >
-              {hasExpand && (
-                <td className={cx(d.td, borderCls, 'w-8 text-center')}>
-                  <button
-                    className="text-fg-muted/50 transition-transform hover:text-fg-muted"
-                    onClick={(e) => { e.stopPropagation(); onToggleExpand?.(key) }}
-                    style={{ transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)' }}
-                    type="button"
+          return (
+            <RowFragment key={key}>
+              <tr
+                className={cx(
+                  'border-border border-b transition-colors',
+                  striped === true && i % 2 === 1 && 'bg-bg-secondary/30',
+                  highlightOnHover && 'hover:bg-bg-secondary/60',
+                  isSelected && 'bg-accent/5',
+                  onRowClick !== undefined && 'cursor-pointer',
+                  customCls
+                )}
+                onClick={
+                  onRowClick !== undefined ? () => onRowClick(row) : undefined
+                }
+              >
+                {hasExpand && (
+                  <td className={cx(d.td, borderCls, 'w-8 text-center')}>
+                    <button
+                      className="text-fg-muted/50 hover:text-fg-muted transition-transform"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        onToggleExpand?.(key)
+                      }}
+                      style={{
+                        transform: isExpanded
+                          ? 'rotate(90deg)'
+                          : 'rotate(0deg)',
+                      }}
+                      type="button"
+                    >
+                      &#9654;
+                    </button>
+                  </td>
+                )}
+                {hasSelection && (
+                  <td className={cx(d.td, borderCls, 'w-8 text-center')}>
+                    <input
+                      type="checkbox"
+                      checked={isSelected}
+                      onChange={(e) => {
+                        e.stopPropagation()
+                        onToggleSelect?.(key, row)
+                      }}
+                      onClick={(e) => e.stopPropagation()}
+                      className="accent-accent"
+                    />
+                  </td>
+                )}
+                {rowNumbers === true && (
+                  <td
+                    className={cx(
+                      d.td,
+                      borderCls,
+                      'text-fg-muted/50 w-8 text-center tabular-nums'
+                    )}
                   >
-                    &#9654;
-                  </button>
-                </td>
-              )}
-              {hasSelection && (
-                <td className={cx(d.td, borderCls, 'w-8 text-center')}>
-                  <input
-                    type="checkbox"
-                    checked={isSelected}
-                    onChange={(e) => {
-                      e.stopPropagation()
-                      onToggleSelect?.(key, row)
-                    }}
+                    {pageOffset + i + 1}
+                  </td>
+                )}
+                {columns.map((col) => (
+                  <td
+                    key={col.key}
+                    className={cx(
+                      d.td,
+                      borderCls,
+                      'text-fg',
+                      col.align === 'right' && 'text-right tabular-nums',
+                      col.align === 'center' && 'text-center',
+                      col.muted === true && 'text-fg-muted'
+                    )}
+                  >
+                    {renderCell(col, row, pageOffset + i, highlightQuery)}
+                  </td>
+                ))}
+                {actions !== undefined && (
+                  <td
+                    className={cx(d.td, borderCls, 'w-12 text-center')}
                     onClick={(e) => e.stopPropagation()}
-                    className="accent-accent"
-                  />
-                </td>
-              )}
-              {rowNumbers === true && (
-                <td className={cx(d.td, borderCls, 'w-8 text-center text-fg-muted/50 tabular-nums')}>
-                  {pageOffset + i + 1}
-                </td>
-              )}
-              {columns.map((col) => (
-                <td
-                  key={col.key}
-                  className={cx(
-                    d.td,
-                    borderCls,
-                    'text-fg',
-                    col.align === 'right' && 'text-right tabular-nums',
-                    col.align === 'center' && 'text-center',
-                    col.muted === true && 'text-fg-muted',
-                  )}
-                >
-                  {renderCell(col, row, pageOffset + i, highlightQuery)}
-                </td>
-              ))}
-              {actions !== undefined && (
-                <td className={cx(d.td, borderCls, 'w-12 text-center')} onClick={(e) => e.stopPropagation()}>
-                  {actions(row)}
-                </td>
-              )}
-            </tr>
-            {isExpanded && renderExpanded !== undefined && (
-              <tr className="border-b border-border bg-bg-secondary/20">
-                <td colSpan={totalCols} className="px-4 py-3">
-                  {renderExpanded(row)}
-                </td>
+                  >
+                    {actions(row)}
+                  </td>
+                )}
               </tr>
-            )}
-          </RowFragment>
-        )
-      })}
-      {loading !== true && error === undefined && hasAggregate && rows.length > 0 && (
-        <tr className="border-t-2 border-border bg-bg-secondary/50 font-semibold">
-          {hasExpand && <td className={cx(d.td, borderCls)} />}
-          {hasSelection && <td className={cx(d.td, borderCls)} />}
-          {rowNumbers === true && <td className={cx(d.td, borderCls)} />}
-          {columns.map((col) => (
-            <td
-              key={col.key}
-              className={cx(
-                d.td,
-                borderCls,
-                'text-fg',
-                col.align === 'right' && 'text-right tabular-nums',
+              {isExpanded && renderExpanded !== undefined && (
+                <tr className="border-border bg-bg-secondary/20 border-b">
+                  <td colSpan={totalCols} className="px-4 py-3">
+                    {renderExpanded(row)}
+                  </td>
+                </tr>
               )}
-            >
-              {col.aggregate !== undefined
-                ? (computeAggregate(rows, col.key, col.aggregate)?.toLocaleString() ?? '')
-                : (col.key === columns[0]?.key ? `Total (${rows.length})` : '')}
-            </td>
-          ))}
-          {actions !== undefined && <td className={cx(d.td, borderCls)} />}
-        </tr>
-      )}
+            </RowFragment>
+          )
+        })}
+      {loading !== true &&
+        error === undefined &&
+        hasAggregate &&
+        rows.length > 0 && (
+          <tr className="border-border bg-bg-secondary/50 border-t-2 font-semibold">
+            {hasExpand && <td className={cx(d.td, borderCls)} />}
+            {hasSelection && <td className={cx(d.td, borderCls)} />}
+            {rowNumbers === true && <td className={cx(d.td, borderCls)} />}
+            {columns.map((col) => (
+              <td
+                key={col.key}
+                className={cx(
+                  d.td,
+                  borderCls,
+                  'text-fg',
+                  col.align === 'right' && 'text-right tabular-nums'
+                )}
+              >
+                {col.aggregate !== undefined
+                  ? (computeAggregate(
+                      rows,
+                      col.key,
+                      col.aggregate
+                    )?.toLocaleString() ?? '')
+                  : col.key === columns[0]?.key
+                    ? `Total (${rows.length})`
+                    : ''}
+              </td>
+            ))}
+            {actions !== undefined && <td className={cx(d.td, borderCls)} />}
+          </tr>
+        )}
     </tbody>
   )
 }

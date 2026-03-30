@@ -12,11 +12,15 @@ describe('RangeSlider', () => {
 
   it('has data-component="range-slider"', () => {
     const { container } = render(<RangeSlider value={50} onChange={() => {}} />)
-    expect(container.querySelector('[data-component="range-slider"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="range-slider"]')
+    ).not.toBeNull()
   })
 
   it('sets min, max, step, value on the input', () => {
-    render(<RangeSlider value={30} min={10} max={200} step={5} onChange={() => {}} />)
+    render(
+      <RangeSlider value={30} min={10} max={200} step={5} onChange={() => {}} />
+    )
     const slider = screen.getByRole('slider')
     expect(slider.getAttribute('min')).toBe('10')
     expect(slider.getAttribute('max')).toBe('200')
@@ -36,7 +40,9 @@ describe('RangeSlider', () => {
   })
 
   it('shows value label when showValue is true', () => {
-    const { container } = render(<RangeSlider value={42} onChange={() => {}} showValue />)
+    const { container } = render(
+      <RangeSlider value={42} onChange={() => {}} showValue />
+    )
     expect(container.textContent).toContain('42')
   })
 
@@ -46,7 +52,9 @@ describe('RangeSlider', () => {
   })
 
   it('applies disabled styling', () => {
-    const { container } = render(<RangeSlider value={50} onChange={() => {}} disabled />)
+    const { container } = render(
+      <RangeSlider value={50} onChange={() => {}} disabled />
+    )
     expect(container.querySelector('[data-state="disabled"]')).not.toBeNull()
     expect(screen.getByRole('slider').hasAttribute('disabled')).toBe(true)
   })

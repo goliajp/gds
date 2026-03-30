@@ -27,10 +27,15 @@ const variantDefaults: Record<SkeletonVariant, string> = {
 }
 
 export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
-  function Skeleton({ className, height, lines = 1, variant = 'text', width }, ref) {
+  function Skeleton(
+    { className, height, lines = 1, variant = 'text', width },
+    ref
+  ) {
     const sizeStyle: React.CSSProperties = {}
-    if (width !== undefined) sizeStyle.width = typeof width === 'number' ? `${width}px` : width
-    if (height !== undefined) sizeStyle.height = typeof height === 'number' ? `${height}px` : height
+    if (width !== undefined)
+      sizeStyle.width = typeof width === 'number' ? `${width}px` : width
+    if (height !== undefined)
+      sizeStyle.height = typeof height === 'number' ? `${height}px` : height
 
     const baseClass = cx('bg-bg-tertiary', variantDefaults[variant])
 
@@ -62,7 +67,7 @@ export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
         style={{ ...sizeStyle, ...shimmerStyle }}
       />
     )
-  },
+  }
 )
 
 export type { SkeletonProps, SkeletonVariant }

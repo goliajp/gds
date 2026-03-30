@@ -39,18 +39,24 @@ const defaultProps = {
 describe('EmailComposer', () => {
   it('renders with data-component="email-composer"', () => {
     const { container } = render(<EmailComposer {...defaultProps} />)
-    expect(container.querySelector('[data-component="email-composer"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="email-composer"]')
+    ).not.toBeNull()
   })
 
   it('sets data-variant from mode', () => {
-    const { container } = render(<EmailComposer {...defaultProps} mode="reply" />)
+    const { container } = render(
+      <EmailComposer {...defaultProps} mode="reply" />
+    )
     const el = container.querySelector('[data-component="email-composer"]')
     expect(el?.getAttribute('data-variant')).toBe('reply')
   })
 
   it('renders To field', () => {
     const { container } = render(<EmailComposer {...defaultProps} />)
-    expect(container.querySelector('[data-component="email-composer-field"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="email-composer-field"]')
+    ).not.toBeNull()
   })
 
   it('renders subject input', () => {
@@ -62,7 +68,9 @@ describe('EmailComposer', () => {
 
   it('calls onSubjectChange when subject is typed', () => {
     const onSubjectChange = vi.fn()
-    render(<EmailComposer {...defaultProps} onSubjectChange={onSubjectChange} />)
+    render(
+      <EmailComposer {...defaultProps} onSubjectChange={onSubjectChange} />
+    )
     const input = screen.getByPlaceholderText('Subject')
     fireEvent.change(input, { target: { value: 'New Subject' } })
     expect(onSubjectChange).toHaveBeenCalledWith('New Subject')
@@ -77,21 +85,25 @@ describe('EmailComposer', () => {
   it('shows Cc field when Cc button is clicked', () => {
     const onCcChange = vi.fn()
     const { container } = render(
-      <EmailComposer {...defaultProps} cc={[]} onCcChange={onCcChange} />,
+      <EmailComposer {...defaultProps} cc={[]} onCcChange={onCcChange} />
     )
     fireEvent.click(screen.getByText('Cc'))
     // after clicking Cc, a second email-composer-field should appear
-    const fields = container.querySelectorAll('[data-component="email-composer-field"]')
+    const fields = container.querySelectorAll(
+      '[data-component="email-composer-field"]'
+    )
     expect(fields.length).toBe(2)
   })
 
   it('shows Bcc field when Bcc button is clicked', () => {
     const onBccChange = vi.fn()
     const { container } = render(
-      <EmailComposer {...defaultProps} bcc={[]} onBccChange={onBccChange} />,
+      <EmailComposer {...defaultProps} bcc={[]} onBccChange={onBccChange} />
     )
     fireEvent.click(screen.getByText('Bcc'))
-    const fields = container.querySelectorAll('[data-component="email-composer-field"]')
+    const fields = container.querySelectorAll(
+      '[data-component="email-composer-field"]'
+    )
     expect(fields.length).toBe(2)
   })
 
@@ -116,7 +128,7 @@ describe('EmailComposer', () => {
 
   it('applies custom className', () => {
     const { container } = render(
-      <EmailComposer {...defaultProps} className="my-composer" />,
+      <EmailComposer {...defaultProps} className="my-composer" />
     )
     const el = container.querySelector('[data-component="email-composer"]')
     expect(el?.className).toContain('my-composer')

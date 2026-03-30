@@ -84,13 +84,17 @@ describe('PercentageCircle', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<PercentageCircle className="extra" value={50} />)
+    const { container } = render(
+      <PercentageCircle className="extra" value={50} />
+    )
     const el = container.querySelector('[data-component="percentage-circle"]')
     expect(el?.classList.contains('extra')).toBe(true)
   })
 
   it('passes extra props', () => {
-    const { container } = render(<PercentageCircle data-testid="pc" value={50} />)
+    const { container } = render(
+      <PercentageCircle data-testid="pc" value={50} />
+    )
     expect(container.querySelector('[data-testid="pc"]')).not.toBeNull()
   })
 

@@ -13,14 +13,14 @@ const steps: TourStep[] = [
 describe('Tour', () => {
   it('renders nothing when active is false', () => {
     const { container } = render(
-      <Tour active={false} onComplete={vi.fn()} steps={steps} />,
+      <Tour active={false} onComplete={vi.fn()} steps={steps} />
     )
     expect(container.querySelector('[data-component="tour"]')).toBeNull()
   })
 
   it('renders with data-component attribute when active', () => {
     const { container } = render(
-      <Tour active onComplete={vi.fn()} steps={steps} />,
+      <Tour active onComplete={vi.fn()} steps={steps} />
     )
     expect(container.querySelector('[data-component="tour"]')).not.toBeNull()
   })
@@ -104,9 +104,7 @@ describe('Tour', () => {
   })
 
   it('shows skip button when onSkip is provided', () => {
-    render(
-      <Tour active onComplete={vi.fn()} onSkip={vi.fn()} steps={steps} />,
-    )
+    render(<Tour active onComplete={vi.fn()} onSkip={vi.fn()} steps={steps} />)
     expect(screen.getByLabelText('Close tour')).toBeDefined()
   })
 
@@ -150,7 +148,7 @@ describe('Tour', () => {
 
   it('renders dot indicators for each step', () => {
     const { container } = render(
-      <Tour active onComplete={vi.fn()} steps={steps} />,
+      <Tour active onComplete={vi.fn()} steps={steps} />
     )
     const dots = container.querySelectorAll('.rounded-full.h-2')
     expect(dots.length).toBe(3)
@@ -158,7 +156,7 @@ describe('Tour', () => {
 
   it('navigates to step when dot is clicked', () => {
     const { container } = render(
-      <Tour active onComplete={vi.fn()} steps={steps} />,
+      <Tour active onComplete={vi.fn()} steps={steps} />
     )
     const dots = container.querySelectorAll('.rounded-full.h-2')
     fireEvent.click(dots[2])
@@ -168,7 +166,7 @@ describe('Tour', () => {
 
   it('centers card when no target is provided', () => {
     const { container } = render(
-      <Tour active onComplete={vi.fn()} steps={steps} />,
+      <Tour active onComplete={vi.fn()} steps={steps} />
     )
     const card = container.querySelector('[role="dialog"]')
     expect(card?.className).toContain('-translate-x-1/2')
@@ -177,7 +175,7 @@ describe('Tour', () => {
 
   it('applies custom className', () => {
     const { container } = render(
-      <Tour active className="my-tour" onComplete={vi.fn()} steps={steps} />,
+      <Tour active className="my-tour" onComplete={vi.fn()} steps={steps} />
     )
     const root = container.querySelector('[data-component="tour"]')
     expect(root?.className).toContain('my-tour')
@@ -189,9 +187,11 @@ describe('Tour', () => {
       <Tour
         active
         onComplete={vi.fn()}
-        ref={(el) => { divRef = el }}
+        ref={(el) => {
+          divRef = el
+        }}
         steps={steps}
-      />,
+      />
     )
     expect(divRef).not.toBeNull()
     expect((divRef as unknown as HTMLElement)?.tagName).toBe('DIV')
@@ -199,10 +199,15 @@ describe('Tour', () => {
 
   it('renders with target step that has placement', () => {
     const stepsWithTarget: TourStep[] = [
-      { title: 'Step', description: 'Desc', target: '#nonexistent', placement: 'right' },
+      {
+        title: 'Step',
+        description: 'Desc',
+        target: '#nonexistent',
+        placement: 'right',
+      },
     ]
     const { container } = render(
-      <Tour active onComplete={vi.fn()} steps={stepsWithTarget} />,
+      <Tour active onComplete={vi.fn()} steps={stepsWithTarget} />
     )
     // target not found, so card should be centered
     const card = container.querySelector('[role="dialog"]')
@@ -211,7 +216,7 @@ describe('Tour', () => {
 
   it('returns null when steps array leads to undefined current step', () => {
     const { container } = render(
-      <Tour active onComplete={vi.fn()} steps={[]} />,
+      <Tour active onComplete={vi.fn()} steps={[]} />
     )
     expect(container.querySelector('[data-component="tour"]')).toBeNull()
   })
@@ -220,15 +225,30 @@ describe('Tour', () => {
     const el = document.createElement('div')
     el.id = 'tour-target-top'
     el.getBoundingClientRect = () => ({
-      top: 200, left: 100, width: 80, height: 30, bottom: 230, right: 180, x: 100, y: 200, toJSON: () => '',
+      top: 200,
+      left: 100,
+      width: 80,
+      height: 30,
+      bottom: 230,
+      right: 180,
+      x: 100,
+      y: 200,
+      toJSON: () => '',
     })
     el.scrollIntoView = vi.fn()
     document.body.appendChild(el)
 
     const stepsWithTarget: TourStep[] = [
-      { title: 'Top', description: 'Desc', target: '#tour-target-top', placement: 'top' },
+      {
+        title: 'Top',
+        description: 'Desc',
+        target: '#tour-target-top',
+        placement: 'top',
+      },
     ]
-    const { container } = render(<Tour active onComplete={vi.fn()} steps={stepsWithTarget} />)
+    const { container } = render(
+      <Tour active onComplete={vi.fn()} steps={stepsWithTarget} />
+    )
     const card = container.querySelector('[role="dialog"]')
     expect(card).not.toBeNull()
     expect(card?.className).not.toContain('-translate-x-1/2')
@@ -239,15 +259,30 @@ describe('Tour', () => {
     const el = document.createElement('div')
     el.id = 'tour-target-left'
     el.getBoundingClientRect = () => ({
-      top: 200, left: 300, width: 80, height: 30, bottom: 230, right: 380, x: 300, y: 200, toJSON: () => '',
+      top: 200,
+      left: 300,
+      width: 80,
+      height: 30,
+      bottom: 230,
+      right: 380,
+      x: 300,
+      y: 200,
+      toJSON: () => '',
     })
     el.scrollIntoView = vi.fn()
     document.body.appendChild(el)
 
     const stepsWithTarget: TourStep[] = [
-      { title: 'Left', description: 'Desc', target: '#tour-target-left', placement: 'left' },
+      {
+        title: 'Left',
+        description: 'Desc',
+        target: '#tour-target-left',
+        placement: 'left',
+      },
     ]
-    const { container } = render(<Tour active onComplete={vi.fn()} steps={stepsWithTarget} />)
+    const { container } = render(
+      <Tour active onComplete={vi.fn()} steps={stepsWithTarget} />
+    )
     const card = container.querySelector('[role="dialog"]')
     expect(card).not.toBeNull()
     document.body.removeChild(el)
@@ -257,15 +292,30 @@ describe('Tour', () => {
     const el = document.createElement('div')
     el.id = 'tour-target-right'
     el.getBoundingClientRect = () => ({
-      top: 200, left: 100, width: 80, height: 30, bottom: 230, right: 180, x: 100, y: 200, toJSON: () => '',
+      top: 200,
+      left: 100,
+      width: 80,
+      height: 30,
+      bottom: 230,
+      right: 180,
+      x: 100,
+      y: 200,
+      toJSON: () => '',
     })
     el.scrollIntoView = vi.fn()
     document.body.appendChild(el)
 
     const stepsWithTarget: TourStep[] = [
-      { title: 'Right', description: 'Desc', target: '#tour-target-right', placement: 'right' },
+      {
+        title: 'Right',
+        description: 'Desc',
+        target: '#tour-target-right',
+        placement: 'right',
+      },
     ]
-    const { container } = render(<Tour active onComplete={vi.fn()} steps={stepsWithTarget} />)
+    const { container } = render(
+      <Tour active onComplete={vi.fn()} steps={stepsWithTarget} />
+    )
     const card = container.querySelector('[role="dialog"]')
     expect(card).not.toBeNull()
     document.body.removeChild(el)
@@ -275,7 +325,15 @@ describe('Tour', () => {
     const el = document.createElement('div')
     el.id = 'tour-target-bottom'
     el.getBoundingClientRect = () => ({
-      top: 100, left: 100, width: 80, height: 30, bottom: 130, right: 180, x: 100, y: 100, toJSON: () => '',
+      top: 100,
+      left: 100,
+      width: 80,
+      height: 30,
+      bottom: 130,
+      right: 180,
+      x: 100,
+      y: 100,
+      toJSON: () => '',
     })
     el.scrollIntoView = vi.fn()
     document.body.appendChild(el)
@@ -283,7 +341,9 @@ describe('Tour', () => {
     const stepsWithTarget: TourStep[] = [
       { title: 'Bottom', description: 'Desc', target: '#tour-target-bottom' },
     ]
-    const { container } = render(<Tour active onComplete={vi.fn()} steps={stepsWithTarget} />)
+    const { container } = render(
+      <Tour active onComplete={vi.fn()} steps={stepsWithTarget} />
+    )
     const card = container.querySelector('[role="dialog"]')
     expect(card).not.toBeNull()
     document.body.removeChild(el)
@@ -293,7 +353,15 @@ describe('Tour', () => {
     const el = document.createElement('div')
     el.id = 'tour-ring'
     el.getBoundingClientRect = () => ({
-      top: 100, left: 100, width: 80, height: 30, bottom: 130, right: 180, x: 100, y: 100, toJSON: () => '',
+      top: 100,
+      left: 100,
+      width: 80,
+      height: 30,
+      bottom: 130,
+      right: 180,
+      x: 100,
+      y: 100,
+      toJSON: () => '',
     })
     el.scrollIntoView = vi.fn()
     document.body.appendChild(el)
@@ -301,7 +369,9 @@ describe('Tour', () => {
     const stepsWithTarget: TourStep[] = [
       { title: 'Ring', description: 'Desc', target: '#tour-ring' },
     ]
-    const { container } = render(<Tour active onComplete={vi.fn()} steps={stepsWithTarget} />)
+    const { container } = render(
+      <Tour active onComplete={vi.fn()} steps={stepsWithTarget} />
+    )
     // spotlight ring has ring-2 ring-accent
     const ring = container.querySelector('.ring-2.ring-accent')
     expect(ring).not.toBeNull()
@@ -312,7 +382,9 @@ describe('Tour', () => {
     const stepsWithBadTarget: TourStep[] = [
       { title: 'Bad', description: 'Desc', target: '[[[invalid' },
     ]
-    const { container } = render(<Tour active onComplete={vi.fn()} steps={stepsWithBadTarget} />)
+    const { container } = render(
+      <Tour active onComplete={vi.fn()} steps={stepsWithBadTarget} />
+    )
     const card = container.querySelector('[role="dialog"]')
     expect(card?.className).toContain('-translate-x-1/2')
   })
@@ -321,7 +393,9 @@ describe('Tour', () => {
     const stepsNoTarget: TourStep[] = [
       { title: 'No target', description: 'Desc' },
     ]
-    const { container } = render(<Tour active onComplete={vi.fn()} steps={stepsNoTarget} />)
+    const { container } = render(
+      <Tour active onComplete={vi.fn()} steps={stepsNoTarget} />
+    )
     const card = container.querySelector('[role="dialog"]')
     expect(card?.className).toContain('-translate-x-1/2')
   })

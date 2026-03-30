@@ -20,22 +20,23 @@ export const Scoreboard = forwardRef<HTMLDivElement, ScoreboardProps>(
     return (
       <div
         ref={ref}
-        className={cx('flex flex-col gds-gap-sm', className)}
+        className={cx('gds-gap-sm flex flex-col', className)}
         data-component="scoreboard"
       >
         <div className="flex items-baseline justify-between">
           <span className="gds-text text-fg-muted">{label}</span>
-          <span className="text-lg font-bold tabular-nums text-fg">
-            {score}<span className="text-sm font-normal text-fg-muted">/{max}</span>
+          <span className="text-fg text-lg font-bold tabular-nums">
+            {score}
+            <span className="text-fg-muted text-sm font-normal">/{max}</span>
           </span>
         </div>
-        <div className="h-2 w-full overflow-hidden rounded-full bg-bg-tertiary">
+        <div className="bg-bg-tertiary h-2 w-full overflow-hidden rounded-full">
           <div
-            className="h-full rounded-full bg-accent transition-all duration-300"
+            className="bg-accent h-full rounded-full transition-all duration-300"
             style={{ width: `${pct}%` }}
           />
         </div>
       </div>
     )
-  },
+  }
 )

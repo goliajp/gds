@@ -21,7 +21,10 @@ type SortableTableProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const SortableTable = forwardRef<HTMLDivElement, SortableTableProps>(
-  function SortableTable({ columns, data, defaultSort, className, ...props }, ref) {
+  function SortableTable(
+    { columns, data, defaultSort, className, ...props },
+    ref
+  ) {
     const [sort, setSort] = useState<SortState | undefined>(defaultSort)
 
     const sorted = useMemo(() => {
@@ -43,23 +46,38 @@ export const SortableTable = forwardRef<HTMLDivElement, SortableTableProps>(
     }
 
     return (
-      <div ref={ref} className={cx('overflow-hidden rounded-lg border border-border', className)} data-component="sortable-table" {...props}>
-        <table className="w-full text-left gds-text">
+      <div
+        ref={ref}
+        className={cx(
+          'border-border overflow-hidden rounded-lg border',
+          className
+        )}
+        data-component="sortable-table"
+        {...props}
+      >
+        <table className="gds-text w-full text-left">
           <thead>
-            <tr className="border-b border-border bg-bg-tertiary/50">
+            <tr className="border-border bg-bg-tertiary/50 border-b">
               {columns.map((col) => (
                 <th
                   key={col.key}
                   className={cx(
-                    'px-3 py-1.5 font-medium text-fg-muted',
-                    col.sortable !== false && 'cursor-pointer select-none hover:text-fg',
+                    'text-fg-muted px-3 py-1.5 font-medium',
+                    col.sortable !== false &&
+                      'hover:text-fg cursor-pointer select-none'
                   )}
-                  onClick={col.sortable !== false ? () => toggleSort(col.key) : undefined}
+                  onClick={
+                    col.sortable !== false
+                      ? () => toggleSort(col.key)
+                      : undefined
+                  }
                 >
                   <span className="inline-flex items-center gap-1">
                     {col.header}
                     {sort?.key === col.key && (
-                      <span className="text-[10px]">{sort.dir === 'asc' ? '▲' : '▼'}</span>
+                      <span className="text-[10px]">
+                        {sort.dir === 'asc' ? '▲' : '▼'}
+                      </span>
                     )}
                   </span>
                 </th>
@@ -68,9 +86,12 @@ export const SortableTable = forwardRef<HTMLDivElement, SortableTableProps>(
           </thead>
           <tbody>
             {sorted.map((row, i) => (
-              <tr key={`${String(row[columns[0]?.key ?? ''] ?? '')}-${i}`} className="border-b border-border last:border-0 transition-colors hover:bg-bg-tertiary/30">
+              <tr
+                key={`${String(row[columns[0]?.key ?? ''] ?? '')}-${i}`}
+                className="border-border hover:bg-bg-tertiary/30 border-b transition-colors last:border-0"
+              >
                 {columns.map((col) => (
-                  <td key={col.key} className="px-3 py-1.5 text-fg">
+                  <td key={col.key} className="text-fg px-3 py-1.5">
                     {String(row[col.key] ?? '')}
                   </td>
                 ))}
@@ -80,7 +101,7 @@ export const SortableTable = forwardRef<HTMLDivElement, SortableTableProps>(
         </table>
       </div>
     )
-  },
+  }
 )
 
 export type { SortableColumn, SortableTableProps, SortState }

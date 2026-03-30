@@ -22,7 +22,10 @@ export type NumTableProps = {
   rows: Record<string, unknown>[]
 }
 
-function formatCell(value: unknown, format?: (v: null | number | undefined) => string): string {
+function formatCell(
+  value: unknown,
+  format?: (v: null | number | undefined) => string
+): string {
   if (value === null || value === undefined) {
     if (format !== undefined) return format(null)
     return '\u2014'
@@ -35,23 +38,39 @@ function formatCell(value: unknown, format?: (v: null | number | undefined) => s
 }
 
 export const NumTable = forwardRef<HTMLTableElement, NumTableProps>(
-  function NumTable({ className, columns, emptyMessage, getRowHighlight, labelHeader, labelKey, rowKey, rows }, ref) {
+  function NumTable(
+    {
+      className,
+      columns,
+      emptyMessage,
+      getRowHighlight,
+      labelHeader,
+      labelKey,
+      rowKey,
+      rows,
+    },
+    ref
+  ) {
     const hasFooter = columns.some((col) => col.footer !== undefined)
 
     return (
       <table
         ref={ref}
-        className={cx('w-full border-collapse gds-text', className)}
+        className={cx('gds-text w-full border-collapse', className)}
         data-component="num-table"
       >
         <thead>
-          <tr className="border-b border-border">
-            <th className="gds-pad-y px-2 text-left text-xs font-medium text-fg-muted">{labelHeader}</th>
+          <tr className="border-border border-b">
+            <th className="gds-pad-y text-fg-muted px-2 text-left text-xs font-medium">
+              {labelHeader}
+            </th>
             {columns.map((col) => (
               <th
                 key={col.key}
-                className="gds-pad-y px-2 text-right text-xs font-medium text-fg-muted"
-                style={col.width !== undefined ? { width: col.width } : undefined}
+                className="gds-pad-y text-fg-muted px-2 text-right text-xs font-medium"
+                style={
+                  col.width !== undefined ? { width: col.width } : undefined
+                }
               >
                 {col.label}
               </th>
@@ -61,7 +80,10 @@ export const NumTable = forwardRef<HTMLTableElement, NumTableProps>(
         <tbody>
           {rows.length === 0 && emptyMessage !== undefined && (
             <tr>
-              <td colSpan={columns.length + 1} className="gds-pad-y px-2 text-center text-fg-muted">
+              <td
+                colSpan={columns.length + 1}
+                className="gds-pad-y text-fg-muted px-2 text-center"
+              >
                 {emptyMessage}
               </td>
             </tr>
@@ -70,10 +92,18 @@ export const NumTable = forwardRef<HTMLTableElement, NumTableProps>(
             const key = rowKey !== undefined ? String(row[rowKey]) : String(i)
             const highlight = getRowHighlight?.(row)
             return (
-              <tr key={key} className={cx('border-b border-border/50', highlight)}>
-                <td className="gds-pad-y px-2 text-left text-fg">{String(row[labelKey] ?? '')}</td>
+              <tr
+                key={key}
+                className={cx('border-border/50 border-b', highlight)}
+              >
+                <td className="gds-pad-y text-fg px-2 text-left">
+                  {String(row[labelKey] ?? '')}
+                </td>
                 {columns.map((col) => (
-                  <td key={col.key} className="gds-pad-y px-2 text-right tabular-nums text-fg">
+                  <td
+                    key={col.key}
+                    className="gds-pad-y text-fg px-2 text-right tabular-nums"
+                  >
                     {formatCell(row[col.key], col.format)}
                   </td>
                 ))}
@@ -83,10 +113,13 @@ export const NumTable = forwardRef<HTMLTableElement, NumTableProps>(
         </tbody>
         {hasFooter && (
           <tfoot>
-            <tr className="border-t border-border font-medium">
+            <tr className="border-border border-t font-medium">
               <td className="gds-pad-y px-2" />
               {columns.map((col) => (
-                <td key={col.key} className="gds-pad-y px-2 text-right tabular-nums text-fg">
+                <td
+                  key={col.key}
+                  className="gds-pad-y text-fg px-2 text-right tabular-nums"
+                >
                   {col.footer ?? ''}
                 </td>
               ))}
@@ -95,5 +128,5 @@ export const NumTable = forwardRef<HTMLTableElement, NumTableProps>(
         )}
       </table>
     )
-  },
+  }
 )

@@ -11,8 +11,12 @@ const items = [
 
 describe('ActionMenu', () => {
   it('renders trigger button', () => {
-    const { container } = render(<ActionMenu items={items} onSelect={vi.fn()} />)
-    expect(container.querySelector('[data-component="action-menu"]')).not.toBeNull()
+    const { container } = render(
+      <ActionMenu items={items} onSelect={vi.fn()} />
+    )
+    expect(
+      container.querySelector('[data-component="action-menu"]')
+    ).not.toBeNull()
   })
 
   it('shows dropdown on click', async () => {

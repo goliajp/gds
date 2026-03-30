@@ -17,15 +17,18 @@ type CountBadgeProps = React.HTMLAttributes<HTMLSpanElement> & {
 }
 
 export const CountBadge = forwardRef<HTMLSpanElement, CountBadgeProps>(
-  function CountBadge({ className, count, max = 99, variant = 'danger', ...props }, ref) {
+  function CountBadge(
+    { className, count, max = 99, variant = 'danger', ...props },
+    ref
+  ) {
     const display = count > max ? `${max}+` : String(count)
 
     return (
       <span
         className={cx(
-          'inline-flex min-w-5 select-none items-center justify-center rounded-full px-1.5 py-0.5 text-[10px] font-bold leading-none',
+          'inline-flex min-w-5 items-center justify-center rounded-full px-1.5 py-0.5 text-[10px] leading-none font-bold select-none',
           variantMap[variant],
-          className,
+          className
         )}
         data-component="count-badge"
         data-variant={variant}
@@ -35,7 +38,7 @@ export const CountBadge = forwardRef<HTMLSpanElement, CountBadgeProps>(
         {display}
       </span>
     )
-  },
+  }
 )
 
 export type { CountBadgeProps, CountBadgeVariant }

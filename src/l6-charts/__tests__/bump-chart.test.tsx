@@ -11,23 +11,33 @@ const data = [
 
 describe('BumpChart', () => {
   it('renders without crash', () => {
-    const { container } = render(<BumpChart data={data} series={['alpha', 'beta']} />)
+    const { container } = render(
+      <BumpChart data={data} series={['alpha', 'beta']} />
+    )
     expect(container.firstChild).not.toBeNull()
   })
 
   it('has data-component attribute', () => {
-    const { container } = render(<BumpChart data={data} series={['alpha', 'beta']} />)
-    expect(container.querySelector('[data-component="bump-chart"]')).not.toBeNull()
+    const { container } = render(
+      <BumpChart data={data} series={['alpha', 'beta']} />
+    )
+    expect(
+      container.querySelector('[data-component="bump-chart"]')
+    ).not.toBeNull()
   })
 
   it('respects height prop', () => {
-    const { container } = render(<BumpChart data={data} height={500} series={['alpha']} />)
+    const { container } = render(
+      <BumpChart data={data} height={500} series={['alpha']} />
+    )
     const rc = container.querySelector('.recharts-responsive-container')
     expect(rc?.getAttribute('style')).toContain('500')
   })
 
   it('applies glass class', () => {
-    const { container } = render(<BumpChart data={data} glass series={['alpha']} />)
+    const { container } = render(
+      <BumpChart data={data} glass series={['alpha']} />
+    )
     const el = container.querySelector('[data-component="bump-chart"]')
     expect(el?.className).toContain('backdrop-blur-md')
   })

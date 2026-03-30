@@ -13,7 +13,10 @@ export type FormLayoutProps = {
 }
 
 export const FormLayout = forwardRef<HTMLDivElement, FormLayoutProps>(
-  function FormLayout({ title, description, children, actions, className }, ref) {
+  function FormLayout(
+    { title, description, children, actions, className },
+    ref
+  ) {
     const hasHeader = title !== undefined || description !== undefined
 
     return (
@@ -25,18 +28,20 @@ export const FormLayout = forwardRef<HTMLDivElement, FormLayoutProps>(
         {hasHeader && (
           <div className="mb-4">
             {title !== undefined && (
-              <h2 className="gds-text-body font-semibold text-fg">{title}</h2>
+              <h2 className="gds-text-body text-fg font-semibold">{title}</h2>
             )}
             {description !== undefined && (
-              <p className="mt-0.5 gds-text-body text-fg-muted">{description}</p>
+              <p className="gds-text-body text-fg-muted mt-0.5">
+                {description}
+              </p>
             )}
           </div>
         )}
-        <div className="flex flex-col gds-gap-lg">{children}</div>
+        <div className="gds-gap-lg flex flex-col">{children}</div>
         {actions !== undefined && (
-          <div className="mt-6 flex justify-end gds-gap-sm">{actions}</div>
+          <div className="gds-gap-sm mt-6 flex justify-end">{actions}</div>
         )}
       </div>
     )
-  },
+  }
 )

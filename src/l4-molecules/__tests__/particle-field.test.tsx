@@ -11,7 +11,9 @@ describe('ParticleField', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<ParticleField />)
-    expect(container.querySelector('[data-component="particle-field"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="particle-field"]')
+    ).not.toBeNull()
   })
 
   it('renders a canvas element', () => {
@@ -21,6 +23,8 @@ describe('ParticleField', () => {
 
   it('applies custom className', () => {
     const { container } = render(<ParticleField className="custom" />)
-    expect(container.querySelector('[data-component="particle-field"]')?.className).toContain('custom')
+    expect(
+      container.querySelector('[data-component="particle-field"]')?.className
+    ).toContain('custom')
   })
 })

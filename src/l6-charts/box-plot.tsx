@@ -37,7 +37,8 @@ export const BoxPlot = forwardRef<HTMLDivElement, BoxPlotProps>(
     const range = globalMax - globalMin
     const yMin = globalMin - range * 0.1
     const yMax = globalMax + range * 0.1
-    const yScale = (v: number) => padding.top + chartH * (1 - (v - yMin) / (yMax - yMin))
+    const yScale = (v: number) =>
+      padding.top + chartH * (1 - (v - yMin) / (yMax - yMin))
 
     const groupW = data.length > 0 ? chartW / data.length : chartW
     const boxW = Math.min(groupW * 0.6, 60)
@@ -46,9 +47,9 @@ export const BoxPlot = forwardRef<HTMLDivElement, BoxPlotProps>(
       <div
         ref={ref}
         className={cx(
-          'gds-radius-popover border border-border',
-          glass && 'backdrop-blur-md bg-white/5',
-          className,
+          'gds-radius-popover border-border border',
+          glass && 'bg-white/5 backdrop-blur-md',
+          className
         )}
         data-component="box-plot"
       >
@@ -90,8 +91,22 @@ export const BoxPlot = forwardRef<HTMLDivElement, BoxPlotProps>(
                   strokeWidth={1.5}
                 />
                 {/* whisker caps */}
-                <line x1={cx - boxW * 0.3} y1={yScale(stats.whiskerMin)} x2={cx + boxW * 0.3} y2={yScale(stats.whiskerMin)} stroke={color} strokeWidth={1.5} />
-                <line x1={cx - boxW * 0.3} y1={yScale(stats.whiskerMax)} x2={cx + boxW * 0.3} y2={yScale(stats.whiskerMax)} stroke={color} strokeWidth={1.5} />
+                <line
+                  x1={cx - boxW * 0.3}
+                  y1={yScale(stats.whiskerMin)}
+                  x2={cx + boxW * 0.3}
+                  y2={yScale(stats.whiskerMin)}
+                  stroke={color}
+                  strokeWidth={1.5}
+                />
+                <line
+                  x1={cx - boxW * 0.3}
+                  y1={yScale(stats.whiskerMax)}
+                  x2={cx + boxW * 0.3}
+                  y2={yScale(stats.whiskerMax)}
+                  stroke={color}
+                  strokeWidth={1.5}
+                />
                 {/* box */}
                 <rect
                   x={cx - boxW / 2}
@@ -128,7 +143,7 @@ export const BoxPlot = forwardRef<HTMLDivElement, BoxPlotProps>(
         </svg>
       </div>
     )
-  },
+  }
 )
 
 export { computeStats } from './box-plot-stats'

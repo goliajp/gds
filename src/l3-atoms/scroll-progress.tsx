@@ -36,7 +36,7 @@ export const ScrollProgress = forwardRef<HTMLDivElement, ScrollProgressProps>(
         {...props}
       >
         <div
-          className="h-full bg-accent transition-[width] duration-100 ease-out"
+          className="bg-accent h-full transition-[width] duration-100 ease-out"
           style={{
             width: `${progress}%`,
             ...(color !== undefined ? { backgroundColor: color } : {}),
@@ -44,7 +44,7 @@ export const ScrollProgress = forwardRef<HTMLDivElement, ScrollProgressProps>(
         />
       </div>
     )
-  },
+  }
 )
 
 export type { ScrollProgressProps }

@@ -6,7 +6,9 @@ import { MailComposer } from '../mail-composer'
 describe('MailComposer', () => {
   it('renders data-component attribute', () => {
     const { container } = render(<MailComposer onSend={() => {}} />)
-    expect(container.querySelector('[data-component="mail-composer"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="mail-composer"]')
+    ).not.toBeNull()
   })
 
   it('renders input fields and send button', () => {
@@ -20,8 +22,12 @@ describe('MailComposer', () => {
   it('calls onSend with form data on submit', () => {
     const onSend = vi.fn()
     render(<MailComposer onSend={onSend} defaultTo="test@golia.jp" />)
-    fireEvent.change(screen.getByPlaceholderText('Subject'), { target: { value: 'Hello' } })
-    fireEvent.change(screen.getByPlaceholderText('Body'), { target: { value: 'World' } })
+    fireEvent.change(screen.getByPlaceholderText('Subject'), {
+      target: { value: 'Hello' },
+    })
+    fireEvent.change(screen.getByPlaceholderText('Body'), {
+      target: { value: 'World' },
+    })
     fireEvent.click(screen.getByText('Send'))
     expect(onSend).toHaveBeenCalledWith({
       to: 'test@golia.jp',
@@ -42,7 +48,9 @@ describe('MailComposer', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<MailComposer onSend={() => {}} className="my-form" />)
+    const { container } = render(
+      <MailComposer onSend={() => {}} className="my-form" />
+    )
     const el = container.querySelector('[data-component="mail-composer"]')
     expect(el?.className).toContain('my-form')
   })

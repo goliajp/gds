@@ -10,8 +10,12 @@ const items = [
 
 describe('UserMenu', () => {
   it('renders with data-component', () => {
-    const { container } = render(<UserMenu name="Alice" items={items} onSelect={vi.fn()} />)
-    expect(container.querySelector('[data-component="user-menu"]')).not.toBeNull()
+    const { container } = render(
+      <UserMenu name="Alice" items={items} onSelect={vi.fn()} />
+    )
+    expect(
+      container.querySelector('[data-component="user-menu"]')
+    ).not.toBeNull()
   })
 
   it('renders user name', () => {
@@ -35,7 +39,14 @@ describe('UserMenu', () => {
   })
 
   it('renders avatar image when avatar URL is provided', () => {
-    render(<UserMenu name="Alice" items={items} onSelect={vi.fn()} avatar="https://example.com/pic.jpg" />)
+    render(
+      <UserMenu
+        name="Alice"
+        items={items}
+        onSelect={vi.fn()}
+        avatar="https://example.com/pic.jpg"
+      />
+    )
     const img = document.querySelector('img')
     expect(img?.getAttribute('src')).toBe('https://example.com/pic.jpg')
   })
@@ -46,14 +57,20 @@ describe('UserMenu', () => {
   })
 
   it('renders role text in dropdown', () => {
-    render(<UserMenu name="Alice" items={items} onSelect={vi.fn()} role="Admin" />)
+    render(
+      <UserMenu name="Alice" items={items} onSelect={vi.fn()} role="Admin" />
+    )
     fireEvent.click(screen.getByTestId('user-menu-trigger'))
     expect(screen.getByText('Admin')).toBeDefined()
   })
 
   it('renders item icon when provided', () => {
     const itemsWithIcon = [
-      { id: 'profile', label: 'Profile', icon: <span data-testid="item-icon">👤</span> },
+      {
+        id: 'profile',
+        label: 'Profile',
+        icon: <span data-testid="item-icon">👤</span>,
+      },
     ]
     render(<UserMenu name="Alice" items={itemsWithIcon} onSelect={vi.fn()} />)
     fireEvent.click(screen.getByTestId('user-menu-trigger'))

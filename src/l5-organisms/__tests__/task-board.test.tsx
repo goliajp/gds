@@ -4,14 +4,23 @@ import { describe, expect, it, vi } from 'vitest'
 import { TaskBoard } from '../task-board'
 
 const sections = [
-  { id: 'todo', title: 'To Do', items: [{ id: '1', title: 'Task A' }, { id: '2', title: 'Task B', completed: true }] },
+  {
+    id: 'todo',
+    title: 'To Do',
+    items: [
+      { id: '1', title: 'Task A' },
+      { id: '2', title: 'Task B', completed: true },
+    ],
+  },
   { id: 'done', title: 'Done', items: [] },
 ]
 
 describe('TaskBoard', () => {
   it('renders with data-component', () => {
     const { container } = render(<TaskBoard sections={sections} />)
-    expect(container.querySelector('[data-component="task-board"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="task-board"]')
+    ).not.toBeNull()
   })
 
   it('renders section titles', () => {

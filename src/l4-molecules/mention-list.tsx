@@ -14,10 +14,15 @@ type MentionListProps = {
   trigger: string
 }
 
-export function MentionList({ filtered, highlightedIndex, onSelect, trigger }: MentionListProps) {
+export function MentionList({
+  filtered,
+  highlightedIndex,
+  onSelect,
+  trigger,
+}: MentionListProps) {
   return (
     <div
-      className="absolute left-0 right-0 top-full z-50 mt-1 gds-radius-popover border border-border bg-surface shadow-lg"
+      className="gds-radius-popover border-border bg-surface absolute top-full right-0 left-0 z-50 mt-1 border shadow-lg"
       role="listbox"
       data-testid="mention-suggestions"
     >
@@ -28,16 +33,16 @@ export function MentionList({ filtered, highlightedIndex, onSelect, trigger }: M
           role="option"
           aria-selected={index === highlightedIndex}
           className={cx(
-            'flex w-full items-center px-3 py-1.5 text-left text-sm text-fg transition-colors',
+            'text-fg flex w-full items-center px-3 py-1.5 text-left text-sm transition-colors',
             index === highlightedIndex && 'bg-accent/10 text-accent',
-            index !== highlightedIndex && 'hover:bg-bg-secondary',
+            index !== highlightedIndex && 'hover:bg-bg-secondary'
           )}
           onMouseDown={(e) => {
             e.preventDefault()
             onSelect(suggestion)
           }}
         >
-          <span className="mr-1.5 text-fg-muted">{trigger}</span>
+          <span className="text-fg-muted mr-1.5">{trigger}</span>
           {suggestion.label}
         </button>
       ))}

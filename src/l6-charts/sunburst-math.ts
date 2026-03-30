@@ -24,7 +24,7 @@ export function arcPath(
   innerR: number,
   outerR: number,
   startAngle: number,
-  endAngle: number,
+  endAngle: number
 ): string {
   // clamp to avoid full-circle issues
   const sweep = Math.min(endAngle - startAngle, 2 * Math.PI - 0.001)
@@ -54,7 +54,7 @@ export function collectArcs(
   depth: number,
   startAngle: number,
   endAngle: number,
-  parentIndex: number,
+  parentIndex: number
 ): ArcSegment[] {
   if (node.children === undefined || node.children.length === 0) return []
 
@@ -69,8 +69,15 @@ export function collectArcs(
     const sweep = (childTotal / total) * (endAngle - startAngle)
     const childEnd = angle + sweep
 
-    arcs.push({ depth, index: parentIndex * 10 + i, startAngle: angle, endAngle: childEnd })
-    arcs.push(...collectArcs(child, depth + 1, angle, childEnd, parentIndex * 10 + i))
+    arcs.push({
+      depth,
+      index: parentIndex * 10 + i,
+      startAngle: angle,
+      endAngle: childEnd,
+    })
+    arcs.push(
+      ...collectArcs(child, depth + 1, angle, childEnd, parentIndex * 10 + i)
+    )
     angle = childEnd
   }
 

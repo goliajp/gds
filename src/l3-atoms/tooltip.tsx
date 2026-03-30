@@ -12,9 +12,11 @@ const positionClasses: Record<string, string> = {
 }
 
 const arrowClasses: Record<string, string> = {
-  bottom: 'bottom-full left-1/2 -translate-x-1/2 border-b-bg-tertiary border-x-transparent border-t-transparent border-4',
+  bottom:
+    'bottom-full left-1/2 -translate-x-1/2 border-b-bg-tertiary border-x-transparent border-t-transparent border-4',
   left: 'left-full top-1/2 -translate-y-1/2 border-l-bg-tertiary border-y-transparent border-r-transparent border-4',
-  right: 'right-full top-1/2 -translate-y-1/2 border-r-bg-tertiary border-y-transparent border-l-transparent border-4',
+  right:
+    'right-full top-1/2 -translate-y-1/2 border-r-bg-tertiary border-y-transparent border-l-transparent border-4',
   top: 'top-full left-1/2 -translate-x-1/2 border-t-bg-tertiary border-x-transparent border-b-transparent border-4',
 }
 
@@ -40,7 +42,7 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
       placement = 'top',
       ...props
     },
-    ref,
+    ref
   ) {
     const [open, setOpen] = useState(false)
     const enterTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
@@ -74,22 +76,28 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
         {open && (
           <div
             className={cx(
-              'pointer-events-none absolute z-50 animate-popup whitespace-nowrap gds-radius-tooltip gds-pad-x-sm gds-pad-y-sm gds-text-label text-fg',
+              'animate-popup gds-radius-tooltip gds-pad-x-sm gds-pad-y-sm gds-text-label text-fg pointer-events-none absolute z-50 whitespace-nowrap',
               interactive && 'pointer-events-auto',
               glass === true ? glassClass(glass) : 'bg-bg-tertiary',
-              glass === true && 'border border-white/10',
+              glass === true && 'border border-white/10'
             )}
             onMouseEnter={interactive ? handleEnter : undefined}
             onMouseLeave={interactive ? handleLeave : undefined}
-            style={maxWidth !== undefined ? { maxWidth, whiteSpace: 'normal' } : undefined}
+            style={
+              maxWidth !== undefined
+                ? { maxWidth, whiteSpace: 'normal' }
+                : undefined
+            }
           >
             <span className={cx('absolute', arrowClasses[placement])} />
-            <span className={positionClasses[placement] ? '' : ''}>{content}</span>
+            <span className={positionClasses[placement] ? '' : ''}>
+              {content}
+            </span>
           </div>
         )}
       </div>
     )
-  },
+  }
 )
 
 export type { TooltipProps }

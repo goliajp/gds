@@ -12,7 +12,9 @@ describe('InfoRow', () => {
 
   it('renders data-component attribute', () => {
     const { container } = render(<InfoRow label="CPU" value="12%" />)
-    expect(container.querySelector('[data-component="info-row"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="info-row"]')
+    ).not.toBeNull()
   })
 
   it('renders icon when provided', () => {

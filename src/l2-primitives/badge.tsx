@@ -30,7 +30,7 @@ const badgeVariants = cva(
         warning: 'bg-warning/10 text-warning',
       },
     },
-  },
+  }
 )
 
 const dotColors: Partial<Record<string, string>> = {
@@ -51,71 +51,60 @@ type BadgeProps = React.HTMLAttributes<HTMLSpanElement> &
     glass?: boolean
   }
 
-export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
-  function Badge(
-    {
-      children,
-      className,
-      count,
-      countMax = 99,
-      dot,
-      glass,
-      variant,
-      ...props
-    },
-    ref,
-  ) {
-    // count badge mode
-    if (count !== undefined) {
-      if (count <= 0) return null
-      const display = count > countMax ? `${countMax}+` : String(count)
-      return (
-        <span
-          className={cx(
-            'inline-flex items-center justify-center gds-radius-badge gds-text-caption font-bold text-accent-fg select-none',
-            'h-[18px] min-w-[18px] px-1',
-            variant === 'danger' ? 'animate-pulse bg-danger' : 'bg-accent',
-            glassClass(glass),
-            glass === true && 'border border-white/10 bg-white/5',
-            className,
-          )}
-          data-component="badge"
-          data-variant="count"
-          ref={ref}
-          {...props}
-        >
-          {display}
-        </span>
-      )
-    }
-
-    // standard badge
+export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge(
+  { children, className, count, countMax = 99, dot, glass, variant, ...props },
+  ref
+) {
+  // count badge mode
+  if (count !== undefined) {
+    if (count <= 0) return null
+    const display = count > countMax ? `${countMax}+` : String(count)
     return (
       <span
         className={cx(
-          badgeVariants({ variant }),
+          'gds-radius-badge gds-text-caption text-accent-fg inline-flex items-center justify-center font-bold select-none',
+          'h-[18px] min-w-[18px] px-1',
+          variant === 'danger' ? 'bg-danger animate-pulse' : 'bg-accent',
           glassClass(glass),
           glass === true && 'border border-white/10 bg-white/5',
-          className,
+          className
         )}
         data-component="badge"
-        data-variant={variant ?? 'default'}
+        data-variant="count"
         ref={ref}
         {...props}
       >
-        {dot === true && (
-          <span
-            className={cx(
-              'h-1.5 w-1.5 gds-radius-badge',
-              dotColors[variant ?? 'default'] ?? 'bg-fg-muted',
-            )}
-          />
-        )}
-        {children}
+        {display}
       </span>
     )
-  },
-)
+  }
+
+  // standard badge
+  return (
+    <span
+      className={cx(
+        badgeVariants({ variant }),
+        glassClass(glass),
+        glass === true && 'border border-white/10 bg-white/5',
+        className
+      )}
+      data-component="badge"
+      data-variant={variant ?? 'default'}
+      ref={ref}
+      {...props}
+    >
+      {dot === true && (
+        <span
+          className={cx(
+            'gds-radius-badge h-1.5 w-1.5',
+            dotColors[variant ?? 'default'] ?? 'bg-fg-muted'
+          )}
+        />
+      )}
+      {children}
+    </span>
+  )
+})
 
 // map a numeric index to a palette variant
 export function paletteVariant(index: number): BadgeVariant {

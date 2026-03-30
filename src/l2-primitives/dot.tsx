@@ -31,31 +31,36 @@ type DotProps = React.HTMLAttributes<HTMLSpanElement> &
     pulse?: boolean
   }
 
-export const Dot = forwardRef<HTMLSpanElement, DotProps>(
-  function Dot({ className, color, label, pulse = false, size, ...props }, ref) {
-    return (
-      <span
-        className={cx('relative inline-flex items-center', label !== undefined && 'gds-gap-sm', className)}
-        data-component="dot"
-        ref={ref}
-        {...props}
-      >
-        <span className={dotVariants({ color, size })} />
-        {pulse && (
-          <span
-            className={cx(
-              'absolute inset-0 animate-ping gds-radius-badge opacity-40',
-              dotVariants({ color, size }),
-            )}
-          />
-        )}
-        {label !== undefined && (
-          <span className="gds-text-label text-fg-muted">{label}</span>
-        )}
-      </span>
-    )
-  },
-)
+export const Dot = forwardRef<HTMLSpanElement, DotProps>(function Dot(
+  { className, color, label, pulse = false, size, ...props },
+  ref
+) {
+  return (
+    <span
+      className={cx(
+        'relative inline-flex items-center',
+        label !== undefined && 'gds-gap-sm',
+        className
+      )}
+      data-component="dot"
+      ref={ref}
+      {...props}
+    >
+      <span className={dotVariants({ color, size })} />
+      {pulse && (
+        <span
+          className={cx(
+            'gds-radius-badge absolute inset-0 animate-ping opacity-40',
+            dotVariants({ color, size })
+          )}
+        />
+      )}
+      {label !== undefined && (
+        <span className="gds-text-label text-fg-muted">{label}</span>
+      )}
+    </span>
+  )
+})
 
 export { dotVariants }
 export type { DotProps }

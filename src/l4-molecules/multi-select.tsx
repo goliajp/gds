@@ -28,7 +28,10 @@ type MultiSelectProps = {
 function ChevronIcon({ open }: { open: boolean }) {
   return (
     <svg
-      className={cx('h-3 w-3 shrink-0 text-fg-muted transition-transform', open && 'rotate-180')}
+      className={cx(
+        'text-fg-muted h-3 w-3 shrink-0 transition-transform',
+        open && 'rotate-180'
+      )}
       fill="none"
       stroke="currentColor"
       strokeLinecap="round"
@@ -54,7 +57,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
       placeholder = 'Select...',
       value,
     },
-    ref,
+    ref
   ) {
     const [open, setOpen] = useState(false)
     const [searchQuery, setSearchQuery] = useState('')
@@ -71,7 +74,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
 
     const selectedLabels = useMemo(
       () => options.filter((opt) => value.includes(opt.value)),
-      [options, value],
+      [options, value]
     )
 
     const handleOpen = useCallback(() => {
@@ -96,7 +99,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
           onChange([...value, optionValue])
         }
       },
-      [onChange, value],
+      [onChange, value]
     )
 
     useClickOutside(mergedRef, open, handleClose)
@@ -114,14 +117,14 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
       >
         <button
           className={cx(
-            'flex w-full items-center justify-between gap-1 gds-h gds-radius-popover gds-pad-x border bg-transparent text-left text-sm text-fg transition-colors',
+            'gds-h gds-radius-popover gds-pad-x text-fg flex w-full items-center justify-between gap-1 border bg-transparent text-left text-sm transition-colors',
             focusCls,
             !error && 'border-border hover:border-fg-muted',
             error && 'border-danger',
             error && 'focus-visible:ring-danger',
             disabled && 'cursor-not-allowed opacity-50',
             glassClass(glass),
-            glass === true && 'border-white/10 bg-bg/60',
+            glass === true && 'bg-bg/60 border-white/10'
           )}
           disabled={disabled}
           onClick={handleOpen}
@@ -134,13 +137,13 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
             {visibleChips.map((opt) => (
               <span
                 key={opt.value}
-                className="inline-flex max-w-[120px] items-center truncate rounded bg-accent/10 px-1.5 py-0.5 text-xs text-accent"
+                className="bg-accent/10 text-accent inline-flex max-w-[120px] items-center truncate rounded px-1.5 py-0.5 text-xs"
               >
                 {opt.label}
               </span>
             ))}
             {overflow > 0 && (
-              <span className="text-xs text-fg-muted">+{overflow} more</span>
+              <span className="text-fg-muted text-xs">+{overflow} more</span>
             )}
           </span>
           <ChevronIcon open={open} />
@@ -159,7 +162,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
         )}
       </div>
     )
-  },
+  }
 )
 
 export type { MultiSelectOption, MultiSelectProps }

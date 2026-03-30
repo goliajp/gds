@@ -10,7 +10,9 @@ type ServerInfo = {
   status: 'offline' | 'online'
 }
 
-type ServerOverviewProps = React.HTMLAttributes<HTMLDivElement> & { servers: ServerInfo[] }
+type ServerOverviewProps = React.HTMLAttributes<HTMLDivElement> & {
+  servers: ServerInfo[]
+}
 
 function bv(v: number): 'danger' | 'success' | 'warning' {
   if (v >= 90) return 'danger'
@@ -35,17 +37,32 @@ function MetricRow({ label, value }: { label: string; value: number }) {
 export const ServerOverview = forwardRef<HTMLDivElement, ServerOverviewProps>(
   function ServerOverview({ className, servers, ...props }, ref) {
     return (
-      <div className={cx('grid gap-3 sm:grid-cols-2 lg:grid-cols-3', className)} data-component="server-overview" ref={ref} {...props}>
+      <div
+        className={cx('grid gap-3 sm:grid-cols-2 lg:grid-cols-3', className)}
+        data-component="server-overview"
+        ref={ref}
+        {...props}
+      >
         {servers.map((s) => (
-          <div key={s.name} className="rounded-lg border border-border bg-surface p-3 gds-ctx">
-            <div className="flex items-center justify-between mb-2">
-              <span className="gds-text-label font-medium text-fg">{s.name}</span>
+          <div
+            key={s.name}
+            className="border-border bg-surface gds-ctx rounded-lg border p-3"
+          >
+            <div className="mb-2 flex items-center justify-between">
+              <span className="gds-text-label text-fg font-medium">
+                {s.name}
+              </span>
               <span className="inline-flex items-center gap-1.5">
-                <span className={cx('h-2 w-2 rounded-full', s.status === 'online' ? 'bg-success' : 'bg-danger')} />
-                <span className="text-xs text-fg-muted">{s.status}</span>
+                <span
+                  className={cx(
+                    'h-2 w-2 rounded-full',
+                    s.status === 'online' ? 'bg-success' : 'bg-danger'
+                  )}
+                />
+                <span className="text-fg-muted text-xs">{s.status}</span>
               </span>
             </div>
-            <div className="text-xs text-fg-muted mb-2">{s.location}</div>
+            <div className="text-fg-muted mb-2 text-xs">{s.location}</div>
             {s.metrics !== undefined && (
               <div className="flex flex-col gap-1.5">
                 <MetricRow label="CPU" value={s.metrics.cpu} />
@@ -57,7 +74,7 @@ export const ServerOverview = forwardRef<HTMLDivElement, ServerOverviewProps>(
         ))}
       </div>
     )
-  },
+  }
 )
 
 export type { ServerInfo, ServerOverviewProps }

@@ -18,18 +18,24 @@ describe('AnimatedNumber', () => {
 
   it('uses custom format function', () => {
     const fmt = (n: number) => `$${n.toFixed(2)}`
-    const { container } = render(<AnimatedNumber value={99} duration={0} format={fmt} />)
+    const { container } = render(
+      <AnimatedNumber value={99} duration={0} format={fmt} />
+    )
     const el = container.querySelector('[data-component="animated-number"]')!
     expect(el.textContent).toBe('$99.00')
   })
 
   it('has data-component attribute', () => {
     const { container } = render(<AnimatedNumber value={0} duration={0} />)
-    expect(container.querySelector('[data-component="animated-number"]')).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="animated-number"]')
+    ).toBeInTheDocument()
   })
 
   it('applies custom className', () => {
-    const { container } = render(<AnimatedNumber value={0} duration={0} className="extra" />)
+    const { container } = render(
+      <AnimatedNumber value={0} duration={0} className="extra" />
+    )
     const el = container.querySelector('[data-component="animated-number"]')
     expect(el?.className).toContain('extra')
   })

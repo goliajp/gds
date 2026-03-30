@@ -4,9 +4,19 @@ import { describe, expect, it, vi } from 'vitest'
 import { NotificationCenter } from '../notification-center'
 
 const sampleNotifications = [
-  { id: '1', title: 'Build succeeded', message: 'Deploy v1.2.3 complete', variant: 'success' as const },
+  {
+    id: '1',
+    title: 'Build succeeded',
+    message: 'Deploy v1.2.3 complete',
+    variant: 'success' as const,
+  },
   { id: '2', title: 'Disk warning', variant: 'warning' as const },
-  { id: '3', title: 'New comment', message: 'Alice replied to your PR', variant: 'info' as const },
+  {
+    id: '3',
+    title: 'New comment',
+    message: 'Alice replied to your PR',
+    variant: 'info' as const,
+  },
 ]
 
 describe('NotificationCenter', () => {
@@ -20,7 +30,10 @@ describe('NotificationCenter', () => {
   it('shows dismiss buttons when onClose provided', () => {
     const onClose = vi.fn()
     const { container } = render(
-      <NotificationCenter notifications={sampleNotifications} onClose={onClose} />,
+      <NotificationCenter
+        notifications={sampleNotifications}
+        onClose={onClose}
+      />
     )
     const dismissButtons = container.querySelectorAll('[aria-label="Dismiss"]')
     expect(dismissButtons.length).toBe(3)
@@ -28,7 +41,12 @@ describe('NotificationCenter', () => {
 
   it('shows clear all button when onClear provided', () => {
     const onClear = vi.fn()
-    render(<NotificationCenter notifications={sampleNotifications} onClear={onClear} />)
+    render(
+      <NotificationCenter
+        notifications={sampleNotifications}
+        onClear={onClear}
+      />
+    )
     expect(screen.getByText('Clear all')).toBeDefined()
   })
 
@@ -39,13 +57,18 @@ describe('NotificationCenter', () => {
 
   it('sets data-component attribute', () => {
     const { container } = render(<NotificationCenter notifications={[]} />)
-    expect(container.querySelector('[data-component="notification-center"]')).toBeDefined()
+    expect(
+      container.querySelector('[data-component="notification-center"]')
+    ).toBeDefined()
   })
 
   it('calls onClose with notification id when dismiss is clicked', () => {
     const onClose = vi.fn()
     const { container } = render(
-      <NotificationCenter notifications={sampleNotifications} onClose={onClose} />,
+      <NotificationCenter
+        notifications={sampleNotifications}
+        onClose={onClose}
+      />
     )
     const dismissButtons = container.querySelectorAll('[aria-label="Dismiss"]')
     fireEvent.click(dismissButtons[0])
@@ -54,7 +77,12 @@ describe('NotificationCenter', () => {
 
   it('calls onClear when clear all is clicked', () => {
     const onClear = vi.fn()
-    render(<NotificationCenter notifications={sampleNotifications} onClear={onClear} />)
+    render(
+      <NotificationCenter
+        notifications={sampleNotifications}
+        onClear={onClear}
+      />
+    )
     fireEvent.click(screen.getByText('Clear all'))
     expect(onClear).toHaveBeenCalledOnce()
   })
@@ -67,14 +95,18 @@ describe('NotificationCenter', () => {
 
   it('applies glass styling', () => {
     const { container } = render(
-      <NotificationCenter notifications={sampleNotifications} glass />,
+      <NotificationCenter notifications={sampleNotifications} glass />
     )
-    const root = container.querySelector('[data-component="notification-center"]')
+    const root = container.querySelector(
+      '[data-component="notification-center"]'
+    )
     expect(root?.className).toContain('border-white/10')
   })
 
   it('shows custom empty message', () => {
-    render(<NotificationCenter notifications={[]} emptyMessage="Nothing here" />)
+    render(
+      <NotificationCenter notifications={[]} emptyMessage="Nothing here" />
+    )
     expect(screen.getByText('Nothing here')).toBeDefined()
   })
 
@@ -85,9 +117,11 @@ describe('NotificationCenter', () => {
 
   it('applies custom className', () => {
     const { container } = render(
-      <NotificationCenter notifications={[]} className="my-notif" />,
+      <NotificationCenter notifications={[]} className="my-notif" />
     )
-    const root = container.querySelector('[data-component="notification-center"]')
+    const root = container.querySelector(
+      '[data-component="notification-center"]'
+    )
     expect(root?.className).toContain('my-notif')
   })
 

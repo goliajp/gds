@@ -13,8 +13,13 @@ export type OtpInputProps = {
 }
 
 export const OtpInput = forwardRef<HTMLDivElement, OtpInputProps>(
-  function OtpInput({ className, disabled, error, length = 6, onComplete }, ref) {
-    const [values, setValues] = useState<string[]>(() => new Array(length).fill(''))
+  function OtpInput(
+    { className, disabled, error, length = 6, onComplete },
+    ref
+  ) {
+    const [values, setValues] = useState<string[]>(() =>
+      new Array(length).fill('')
+    )
     const inputsRef = useRef<(HTMLInputElement | null)[]>([])
 
     const focusAt = useCallback((index: number) => {
@@ -37,7 +42,7 @@ export const OtpInput = forwardRef<HTMLDivElement, OtpInputProps>(
           onComplete(code)
         }
       },
-      [values, length, onComplete, focusAt],
+      [values, length, onComplete, focusAt]
     )
 
     const handleKeyDown = useCallback(
@@ -46,13 +51,16 @@ export const OtpInput = forwardRef<HTMLDivElement, OtpInputProps>(
           focusAt(index - 1)
         }
       },
-      [values, focusAt],
+      [values, focusAt]
     )
 
     const handlePaste = useCallback(
       (e: React.ClipboardEvent) => {
         e.preventDefault()
-        const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, length)
+        const pasted = e.clipboardData
+          .getData('text')
+          .replace(/\D/g, '')
+          .slice(0, length)
         const next = new Array(length).fill('') as string[]
         for (let i = 0; i < pasted.length; i++) {
           next[i] = pasted[i]
@@ -64,25 +72,31 @@ export const OtpInput = forwardRef<HTMLDivElement, OtpInputProps>(
           onComplete(pasted)
         }
       },
-      [length, onComplete, focusAt],
+      [length, onComplete, focusAt]
     )
 
     return (
-      <div ref={ref} className={cx('flex items-center gds-gap-sm', className)} data-component="otp-input">
+      <div
+        ref={ref}
+        className={cx('gds-gap-sm flex items-center', className)}
+        data-component="otp-input"
+      >
         {values.map((v, i) => (
           <input
             key={i}
-            ref={(el) => { inputsRef.current[i] = el }}
+            ref={(el) => {
+              inputsRef.current[i] = el
+            }}
             type="text"
             inputMode="numeric"
             maxLength={1}
             value={v}
             disabled={disabled}
             className={cx(
-              'h-12 w-10 rounded border text-center text-lg font-semibold tabular-nums text-fg bg-bg',
+              'text-fg bg-bg h-12 w-10 rounded border text-center text-lg font-semibold tabular-nums',
               error === true ? 'border-danger' : 'border-border',
-              disabled === true && 'opacity-50 cursor-not-allowed',
-              focusCls,
+              disabled === true && 'cursor-not-allowed opacity-50',
+              focusCls
             )}
             onChange={(e) => handleChange(i, e.target.value)}
             onKeyDown={(e) => handleKeyDown(i, e)}
@@ -91,5 +105,5 @@ export const OtpInput = forwardRef<HTMLDivElement, OtpInputProps>(
         ))}
       </div>
     )
-  },
+  }
 )

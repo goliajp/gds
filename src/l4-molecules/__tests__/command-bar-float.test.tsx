@@ -15,7 +15,9 @@ describe('CommandBarFloat', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<CommandBarFloat actions={actions} />)
-    expect(container.querySelector('[data-component="command-bar-float"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="command-bar-float"]')
+    ).not.toBeNull()
   })
 
   it('renders toggle button', () => {
@@ -25,7 +27,11 @@ describe('CommandBarFloat', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<CommandBarFloat className="custom" actions={actions} />)
-    expect(container.querySelector('[data-component="command-bar-float"]')?.className).toContain('custom')
+    const { container } = render(
+      <CommandBarFloat className="custom" actions={actions} />
+    )
+    expect(
+      container.querySelector('[data-component="command-bar-float"]')?.className
+    ).toContain('custom')
   })
 })

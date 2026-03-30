@@ -11,7 +11,9 @@ describe('NumberFlow', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<NumberFlow value={0} />)
-    expect(container.querySelector('[data-component="number-flow"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="number-flow"]')
+    ).not.toBeNull()
   })
 
   it('displays the formatted value', () => {

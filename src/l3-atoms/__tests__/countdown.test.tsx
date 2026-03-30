@@ -15,7 +15,9 @@ describe('Countdown', () => {
   it('renders countdown segments', () => {
     const target = Date.now() + 90061000 // 1d 1h 1m 1s
     const { container } = render(<Countdown targetDate={target} />)
-    expect(container.querySelector('[data-component="countdown"]')).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="countdown"]')
+    ).toBeInTheDocument()
     expect(screen.getByTestId('segment-D')).toBeInTheDocument()
     expect(screen.getByTestId('segment-H')).toBeInTheDocument()
     expect(screen.getByTestId('segment-M')).toBeInTheDocument()

@@ -48,7 +48,9 @@ describe('Stepper', () => {
   })
 
   it('renders vertical orientation', () => {
-    const { container } = render(<Stepper steps={steps} current={1} orientation="vertical" />)
+    const { container } = render(
+      <Stepper steps={steps} current={1} orientation="vertical" />
+    )
     const root = container.querySelector('[data-component="stepper"]')
     expect(root?.className).toContain('flex-col')
   })
@@ -68,7 +70,9 @@ describe('Stepper', () => {
   })
 
   it('renders vertical connecting lines', () => {
-    const { container } = render(<Stepper steps={steps} current={1} orientation="vertical" />)
+    const { container } = render(
+      <Stepper steps={steps} current={1} orientation="vertical" />
+    )
     const lines = container.querySelectorAll('.w-px')
     expect(lines.length).toBe(2)
   })

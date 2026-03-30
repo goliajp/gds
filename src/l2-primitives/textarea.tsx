@@ -27,7 +27,7 @@ const textareaVariants = cva(
         true: 'border-danger',
       },
     },
-  },
+  }
 )
 
 const resizeClasses: Record<TextareaResize, string> = {
@@ -53,7 +53,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       resize = 'vertical',
       ...props
     },
-    ref,
+    ref
   ) {
     return (
       <textarea
@@ -62,15 +62,15 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           resizeClasses[resize],
           autoGrow && '[field-sizing:content] overflow-hidden',
           glassClass(glass),
-          glass === true && 'border-white/10 bg-bg/60',
-          className,
+          glass === true && 'bg-bg/60 border-white/10',
+          className
         )}
         data-component="textarea"
         ref={ref}
         {...props}
       />
     )
-  },
+  }
 )
 
 export { textareaVariants }

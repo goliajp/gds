@@ -30,10 +30,10 @@ export const PinInput = forwardRef<HTMLDivElement, PinInputProps>(
       value,
       ...props
     },
-    ref,
+    ref
   ) {
     const [internalValues, setInternalValues] = useState<string[]>(() =>
-      Array.from({ length }, () => ''),
+      Array.from({ length }, () => '')
     )
     const isControlled = value !== undefined
     const inputRefs = useRef<(HTMLInputElement | null)[]>([])
@@ -42,7 +42,7 @@ export const PinInput = forwardRef<HTMLDivElement, PinInputProps>(
       (index: number) => (el: HTMLInputElement | null) => {
         inputRefs.current[index] = el
       },
-      [],
+      []
     )
 
     const focusInput = useCallback((index: number) => {
@@ -75,7 +75,7 @@ export const PinInput = forwardRef<HTMLDivElement, PinInputProps>(
           }
         }
       },
-      [isControlled, length, onComplete],
+      [isControlled, length, onComplete]
     )
 
     const handleInput = useCallback(
@@ -105,7 +105,16 @@ export const PinInput = forwardRef<HTMLDivElement, PinInputProps>(
           focusInput(index + 1)
         }
       },
-      [value, length, numeric, isControlled, internalValues, onChange, checkComplete, focusInput],
+      [
+        value,
+        length,
+        numeric,
+        isControlled,
+        internalValues,
+        onChange,
+        checkComplete,
+        focusInput,
+      ]
     )
 
     const handleKeyDown = useCallback(
@@ -139,7 +148,7 @@ export const PinInput = forwardRef<HTMLDivElement, PinInputProps>(
           }
         }
       },
-      [value, isControlled, internalValues, onChange, focusInput],
+      [value, isControlled, internalValues, onChange, focusInput]
     )
 
     const handlePaste = useCallback(
@@ -165,7 +174,7 @@ export const PinInput = forwardRef<HTMLDivElement, PinInputProps>(
         const nextIndex = Math.min(pasted.length, length - 1)
         focusInput(nextIndex)
       },
-      [length, numeric, isControlled, onChange, checkComplete, focusInput],
+      [length, numeric, isControlled, onChange, checkComplete, focusInput]
     )
 
     const displayValues = getDisplayValues()
@@ -182,13 +191,13 @@ export const PinInput = forwardRef<HTMLDivElement, PinInputProps>(
             aria-label={`${numeric ? 'Digit' : 'Pin digit'} ${i + 1}`}
             autoComplete={numeric ? 'one-time-code' : undefined}
             className={cx(
-              'h-10 w-10 rounded-md border bg-bg text-center text-sm text-fg transition-colors outline-none',
+              'bg-bg text-fg h-10 w-10 rounded-md border text-center text-sm transition-colors outline-none',
               numeric && 'h-12 font-mono text-lg tabular-nums',
               error
                 ? 'border-danger'
                 : 'border-border hover:border-border-strong',
               focusCls,
-              disabled && 'cursor-not-allowed opacity-50',
+              disabled && 'cursor-not-allowed opacity-50'
             )}
             disabled={disabled}
             inputMode={numeric ? 'numeric' : undefined}
@@ -216,7 +225,7 @@ export const PinInput = forwardRef<HTMLDivElement, PinInputProps>(
         ))}
       </div>
     )
-  },
+  }
 )
 
 export type { PinInputProps }

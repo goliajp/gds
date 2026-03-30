@@ -11,17 +11,32 @@ describe('Anchor', () => {
 
   it('forwards ref to anchor element', () => {
     let el: HTMLAnchorElement | null = null
-    render(<Anchor href="#" ref={(node) => { el = node }}>link</Anchor>)
+    render(
+      <Anchor
+        href="#"
+        ref={(node) => {
+          el = node
+        }}
+      >
+        link
+      </Anchor>
+    )
     expect(el).toBeInstanceOf(HTMLAnchorElement)
   })
 
   it('has data-component="anchor"', () => {
     render(<Anchor href="#">link</Anchor>)
-    expect(screen.getByText('link').getAttribute('data-component')).toBe('anchor')
+    expect(screen.getByText('link').getAttribute('data-component')).toBe(
+      'anchor'
+    )
   })
 
   it('merges className', () => {
-    render(<Anchor href="#" className="custom-cls">link</Anchor>)
+    render(
+      <Anchor href="#" className="custom-cls">
+        link
+      </Anchor>
+    )
     expect(screen.getByText('link').className).toContain('custom-cls')
   })
 
@@ -31,7 +46,11 @@ describe('Anchor', () => {
   })
 
   it('applies muted variant', () => {
-    render(<Anchor href="#" variant="muted">link</Anchor>)
+    render(
+      <Anchor href="#" variant="muted">
+        link
+      </Anchor>
+    )
     expect(screen.getByText('link').className).toContain('text-fg-muted')
   })
 
@@ -43,7 +62,11 @@ describe('Anchor', () => {
   })
 
   it('adds rel and target when external', () => {
-    render(<Anchor href="https://example.com" external>link</Anchor>)
+    render(
+      <Anchor href="https://example.com" external>
+        link
+      </Anchor>
+    )
     const el = screen.getByText('link').closest('a')!
     expect(el.getAttribute('target')).toBe('_blank')
     expect(el.getAttribute('rel')).toBe('noopener noreferrer')
@@ -51,9 +74,13 @@ describe('Anchor', () => {
 
   it('shows externalIcon when external', () => {
     render(
-      <Anchor href="#" external externalIcon={<span data-testid="ext-ico">E</span>}>
+      <Anchor
+        href="#"
+        external
+        externalIcon={<span data-testid="ext-ico">E</span>}
+      >
         link
-      </Anchor>,
+      </Anchor>
     )
     expect(screen.getByTestId('ext-ico')).toBeTruthy()
   })
@@ -62,13 +89,17 @@ describe('Anchor', () => {
     render(
       <Anchor href="#" externalIcon={<span data-testid="ext-ico">E</span>}>
         link
-      </Anchor>,
+      </Anchor>
     )
     expect(screen.queryByTestId('ext-ico')).toBeNull()
   })
 
   it('passes through native anchor props', () => {
-    render(<Anchor href="https://example.com" id="my-link">link</Anchor>)
+    render(
+      <Anchor href="https://example.com" id="my-link">
+        link
+      </Anchor>
+    )
     expect(screen.getByText('link').getAttribute('id')).toBe('my-link')
   })
 })

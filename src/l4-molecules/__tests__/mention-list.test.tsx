@@ -10,7 +10,9 @@ const suggestions: MentionSuggestion[] = [
   { id: '3', label: 'Charlie' },
 ]
 
-function renderList(overrides: Partial<React.ComponentProps<typeof MentionList>> = {}) {
+function renderList(
+  overrides: Partial<React.ComponentProps<typeof MentionList>> = {}
+) {
   const defaultProps = {
     filtered: suggestions,
     highlightedIndex: 0,

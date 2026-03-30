@@ -11,30 +11,40 @@ describe('CountUp', () => {
   })
 
   it('shows prefix and suffix', () => {
-    const { container } = render(<CountUp value={100} duration={0} prefix="$" suffix="%" />)
+    const { container } = render(
+      <CountUp value={100} duration={0} prefix="$" suffix="%" />
+    )
     const el = container.querySelector('[data-component="count-up"]')!
     expect(el.textContent).toBe('$100%')
   })
 
   it('applies thousands separator', () => {
-    const { container } = render(<CountUp value={1000000} duration={0} separator="," />)
+    const { container } = render(
+      <CountUp value={1000000} duration={0} separator="," />
+    )
     const el = container.querySelector('[data-component="count-up"]')!
     expect(el.textContent).toBe('1,000,000')
   })
 
   it('has data-component attribute', () => {
     const { container } = render(<CountUp value={42} duration={0} />)
-    expect(container.querySelector('[data-component="count-up"]')).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="count-up"]')
+    ).toBeInTheDocument()
   })
 
   it('renders with decimals', () => {
-    const { container } = render(<CountUp value={3.14} duration={0} decimals={2} />)
+    const { container } = render(
+      <CountUp value={3.14} duration={0} decimals={2} />
+    )
     const el = container.querySelector('[data-component="count-up"]')!
     expect(el.textContent).toBe('3.14')
   })
 
   it('handles empty separator', () => {
-    const { container } = render(<CountUp value={1000} duration={0} separator="" />)
+    const { container } = render(
+      <CountUp value={1000} duration={0} separator="" />
+    )
     const el = container.querySelector('[data-component="count-up"]')!
     expect(el.textContent).toBe('1000')
   })
@@ -46,7 +56,9 @@ describe('CountUp', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<CountUp value={0} duration={0} className="my-cls" />)
+    const { container } = render(
+      <CountUp value={0} duration={0} className="my-cls" />
+    )
     const el = container.querySelector('[data-component="count-up"]')
     expect(el?.className).toContain('my-cls')
   })

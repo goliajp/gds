@@ -6,7 +6,9 @@ import { DropZone } from '../drop-zone'
 describe('DropZone', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(<DropZone onDrop={vi.fn()} />)
-    expect(container.querySelector('[data-component="drop-zone"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="drop-zone"]')
+    ).not.toBeNull()
   })
 
   it('renders default text when no children provided', () => {
@@ -15,7 +17,11 @@ describe('DropZone', () => {
   })
 
   it('renders custom children instead of default text', () => {
-    render(<DropZone onDrop={vi.fn()}><span>Custom content</span></DropZone>)
+    render(
+      <DropZone onDrop={vi.fn()}>
+        <span>Custom content</span>
+      </DropZone>
+    )
     expect(screen.getByText('Custom content')).toBeDefined()
     expect(screen.queryByText('Drop files here')).toBeNull()
   })
@@ -45,7 +51,9 @@ describe('DropZone', () => {
 
   it('becomes active on dragOver and idle on dragLeave', () => {
     const { container } = render(<DropZone onDrop={vi.fn()} />)
-    const el = container.querySelector('[data-component="drop-zone"]') as HTMLElement
+    const el = container.querySelector(
+      '[data-component="drop-zone"]'
+    ) as HTMLElement
 
     fireEvent.dragOver(el)
     expect(el.getAttribute('data-state')).toBe('active')
@@ -57,7 +65,9 @@ describe('DropZone', () => {
   it('calls onDrop with files on drop event', () => {
     const onDrop = vi.fn()
     const { container } = render(<DropZone onDrop={onDrop} />)
-    const el = container.querySelector('[data-component="drop-zone"]') as HTMLElement
+    const el = container.querySelector(
+      '[data-component="drop-zone"]'
+    ) as HTMLElement
 
     const file = new File(['content'], 'test.txt', { type: 'text/plain' })
     fireEvent.drop(el, { dataTransfer: { files: [file] } })
@@ -69,7 +79,9 @@ describe('DropZone', () => {
 
   it('resets to idle after drop', () => {
     const { container } = render(<DropZone onDrop={vi.fn()} />)
-    const el = container.querySelector('[data-component="drop-zone"]') as HTMLElement
+    const el = container.querySelector(
+      '[data-component="drop-zone"]'
+    ) as HTMLElement
 
     fireEvent.dragOver(el)
     expect(el.getAttribute('data-state')).toBe('active')
@@ -86,7 +98,9 @@ describe('DropZone', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<DropZone onDrop={vi.fn()} className="my-cls" />)
+    const { container } = render(
+      <DropZone onDrop={vi.fn()} className="my-cls" />
+    )
     const el = container.querySelector('[data-component="drop-zone"]')
     expect(el?.className).toContain('my-cls')
   })

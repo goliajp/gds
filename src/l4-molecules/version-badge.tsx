@@ -16,7 +16,7 @@ const VersionBadge = forwardRef<HTMLSpanElement, VersionBadgeProps>(
         className={cx(
           'inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium tabular-nums',
           hasUpdate ? 'bg-warning/15 text-warning' : 'bg-surface text-fg-muted',
-          className,
+          className
         )}
         data-component="version-badge"
         data-has-update={hasUpdate}
@@ -25,13 +25,26 @@ const VersionBadge = forwardRef<HTMLSpanElement, VersionBadgeProps>(
       >
         v{version}
         {hasUpdate && (
-          <svg className="shrink-0" fill="currentColor" height={12} viewBox="0 0 24 24" width={12}>
-            <path d="M12 2L12 16M12 16L7 11M12 16L17 11M5 20H19" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+          <svg
+            className="shrink-0"
+            fill="currentColor"
+            height={12}
+            viewBox="0 0 24 24"
+            width={12}
+          >
+            <path
+              d="M12 2L12 16M12 16L7 11M12 16L17 11M5 20H19"
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+            />
           </svg>
         )}
       </span>
     )
-  },
+  }
 )
 
 export { VersionBadge }

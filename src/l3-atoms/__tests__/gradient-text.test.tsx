@@ -17,30 +17,54 @@ describe('GradientText', () => {
 
   it('applies default gradient colors', () => {
     const { container } = render(<GradientText>Test</GradientText>)
-    const el = container.querySelector('[data-component="gradient-text"]') as HTMLElement
-    expect(el?.style.backgroundImage).toBe('linear-gradient(to right, #6366f1, #ec4899)')
+    const el = container.querySelector(
+      '[data-component="gradient-text"]'
+    ) as HTMLElement
+    expect(el?.style.backgroundImage).toBe(
+      'linear-gradient(to right, #6366f1, #ec4899)'
+    )
   })
 
   it('applies custom from color', () => {
-    const { container } = render(<GradientText from="#ff0000">Test</GradientText>)
-    const el = container.querySelector('[data-component="gradient-text"]') as HTMLElement
-    expect(el?.style.backgroundImage).toBe('linear-gradient(to right, #ff0000, #ec4899)')
+    const { container } = render(
+      <GradientText from="#ff0000">Test</GradientText>
+    )
+    const el = container.querySelector(
+      '[data-component="gradient-text"]'
+    ) as HTMLElement
+    expect(el?.style.backgroundImage).toBe(
+      'linear-gradient(to right, #ff0000, #ec4899)'
+    )
   })
 
   it('applies custom to color', () => {
     const { container } = render(<GradientText to="#00ff00">Test</GradientText>)
-    const el = container.querySelector('[data-component="gradient-text"]') as HTMLElement
-    expect(el?.style.backgroundImage).toBe('linear-gradient(to right, #6366f1, #00ff00)')
+    const el = container.querySelector(
+      '[data-component="gradient-text"]'
+    ) as HTMLElement
+    expect(el?.style.backgroundImage).toBe(
+      'linear-gradient(to right, #6366f1, #00ff00)'
+    )
   })
 
   it('applies both custom from and to colors', () => {
-    const { container } = render(<GradientText from="#aaa" to="#bbb">Test</GradientText>)
-    const el = container.querySelector('[data-component="gradient-text"]') as HTMLElement
-    expect(el?.style.backgroundImage).toBe('linear-gradient(to right, #aaa, #bbb)')
+    const { container } = render(
+      <GradientText from="#aaa" to="#bbb">
+        Test
+      </GradientText>
+    )
+    const el = container.querySelector(
+      '[data-component="gradient-text"]'
+    ) as HTMLElement
+    expect(el?.style.backgroundImage).toBe(
+      'linear-gradient(to right, #aaa, #bbb)'
+    )
   })
 
   it('applies custom className', () => {
-    const { container } = render(<GradientText className="my-class">Test</GradientText>)
+    const { container } = render(
+      <GradientText className="my-class">Test</GradientText>
+    )
     const el = container.querySelector('[data-component="gradient-text"]')
     expect(el?.classList.contains('my-class')).toBe(true)
   })
@@ -53,7 +77,9 @@ describe('GradientText', () => {
   })
 
   it('passes extra props', () => {
-    const { container } = render(<GradientText data-testid="grad">Test</GradientText>)
+    const { container } = render(
+      <GradientText data-testid="grad">Test</GradientText>
+    )
     expect(container.querySelector('[data-testid="grad"]')).not.toBeNull()
   })
 })

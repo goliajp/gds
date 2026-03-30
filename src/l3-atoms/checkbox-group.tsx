@@ -9,7 +9,10 @@ type CheckboxGroupOption = {
   value: string
 }
 
-type CheckboxGroupProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
+type CheckboxGroupProps = Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  'onChange'
+> & {
   disabled?: boolean
   onChange: (value: string[]) => void
   options: CheckboxGroupOption[]
@@ -18,8 +21,20 @@ type CheckboxGroupProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>
 }
 
 export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
-  function CheckboxGroup({ className, disabled = false, onChange, options, selectAll = false, value, ...props }, ref) {
-    const allSelected = options.length > 0 && options.every((o) => value.includes(o.value))
+  function CheckboxGroup(
+    {
+      className,
+      disabled = false,
+      onChange,
+      options,
+      selectAll = false,
+      value,
+      ...props
+    },
+    ref
+  ) {
+    const allSelected =
+      options.length > 0 && options.every((o) => value.includes(o.value))
 
     const handleToggle = (optValue: string, checked: boolean) => {
       if (checked) {
@@ -38,9 +53,20 @@ export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
     }
 
     return (
-      <div ref={ref} className={cx('flex flex-col gds-gap', className)} data-component="checkbox-group" role="group" {...props}>
+      <div
+        ref={ref}
+        className={cx('gds-gap flex flex-col', className)}
+        data-component="checkbox-group"
+        role="group"
+        {...props}
+      >
         {selectAll && (
-          <Checkbox checked={allSelected} disabled={disabled} label="Select all" onChange={handleSelectAll} />
+          <Checkbox
+            checked={allSelected}
+            disabled={disabled}
+            label="Select all"
+            onChange={handleSelectAll}
+          />
         )}
         {options.map((opt) => (
           <Checkbox
@@ -53,7 +79,7 @@ export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
         ))}
       </div>
     )
-  },
+  }
 )
 
 export type { CheckboxGroupOption, CheckboxGroupProps }

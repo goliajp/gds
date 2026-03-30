@@ -14,7 +14,11 @@ type CommandPaletteListProps = {
   fuzzy?: boolean
 }
 
-function highlightLabel(label: string, query: string, fuzzy: boolean): ReactNode {
+function highlightLabel(
+  label: string,
+  query: string,
+  fuzzy: boolean
+): ReactNode {
   if (query === '') return label
   if (fuzzy) {
     const indices = new Set(fuzzyMatchIndices(label, query))
@@ -23,7 +27,11 @@ function highlightLabel(label: string, query: string, fuzzy: boolean): ReactNode
       <>
         {label.split('').map((char, i) => {
           if (indices.has(i)) {
-            return <span key={i} className="font-semibold text-accent">{char}</span>
+            return (
+              <span key={i} className="text-accent font-semibold">
+                {char}
+              </span>
+            )
           }
           return char
         })}
@@ -37,7 +45,9 @@ function highlightLabel(label: string, query: string, fuzzy: boolean): ReactNode
   return (
     <>
       {label.slice(0, idx)}
-      <span className="font-semibold text-accent">{label.slice(idx, idx + query.length)}</span>
+      <span className="text-accent font-semibold">
+        {label.slice(idx, idx + query.length)}
+      </span>
       {label.slice(idx + query.length)}
     </>
   )
@@ -55,7 +65,9 @@ function CommandPaletteList({
 
   if (filteredCount === 0) {
     return (
-      <div className="py-8 text-center text-sm text-fg-muted/40">No results found</div>
+      <div className="text-fg-muted/40 py-8 text-center text-sm">
+        No results found
+      </div>
     )
   }
 
@@ -64,7 +76,7 @@ function CommandPaletteList({
       {Array.from(groups.entries()).map(([group, groupItems]) => (
         <div key={group}>
           {group !== '' && (
-            <div className="px-3 pb-1 pt-3 text-[10px] font-semibold uppercase tracking-[0.1em] text-fg-muted/30">
+            <div className="text-fg-muted/30 px-3 pt-3 pb-1 text-[10px] font-semibold tracking-[0.1em] uppercase">
               {group}
             </div>
           )}
@@ -76,20 +88,28 @@ function CommandPaletteList({
                 key={item.id}
                 className={cx(
                   'flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-[13px] transition-colors select-none',
-                  isActive ? 'bg-accent/15 text-accent' : 'text-fg hover:bg-white/[0.04]',
+                  isActive
+                    ? 'bg-accent/15 text-accent'
+                    : 'text-fg hover:bg-white/[0.04]'
                 )}
                 onClick={() => onSelect(item.id)}
                 data-active={isActive}
               >
                 {item.icon !== undefined && (
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center text-fg-muted/50">{item.icon}</span>
+                  <span className="text-fg-muted/50 flex h-5 w-5 shrink-0 items-center justify-center">
+                    {item.icon}
+                  </span>
                 )}
-                <span className="flex-1 truncate">{highlightLabel(item.label, query, fuzzy)}</span>
+                <span className="flex-1 truncate">
+                  {highlightLabel(item.label, query, fuzzy)}
+                </span>
                 {item.group !== undefined && (
-                  <span className="shrink-0 text-[11px] text-fg-muted/25">{item.group}</span>
+                  <span className="text-fg-muted/25 shrink-0 text-[11px]">
+                    {item.group}
+                  </span>
                 )}
                 {item.shortcut !== undefined && (
-                  <kbd className="shrink-0 rounded border border-white/[0.06] bg-white/[0.03] px-1.5 py-px text-[10px] text-fg-muted/30">
+                  <kbd className="text-fg-muted/30 shrink-0 rounded border border-white/[0.06] bg-white/[0.03] px-1.5 py-px text-[10px]">
                     {item.shortcut}
                   </kbd>
                 )}

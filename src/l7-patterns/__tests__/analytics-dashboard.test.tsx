@@ -6,7 +6,9 @@ import { AnalyticsDashboard } from '../analytics-dashboard'
 describe('AnalyticsDashboard', () => {
   it('renders with data-component', () => {
     const { container } = render(<AnalyticsDashboard />)
-    expect(container.querySelector('[data-component="analytics-dashboard"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="analytics-dashboard"]')
+    ).not.toBeNull()
   })
 
   it('renders metrics, charts, and data slots', () => {
@@ -15,7 +17,7 @@ describe('AnalyticsDashboard', () => {
         metrics={<div>Metrics Row</div>}
         charts={<div>Charts Area</div>}
         data={<div>Data Table</div>}
-      />,
+      />
     )
     expect(screen.getByText('Metrics Row')).toBeDefined()
     expect(screen.getByText('Charts Area')).toBeDefined()
@@ -26,7 +28,9 @@ describe('AnalyticsDashboard', () => {
   })
 
   it('omits empty slots', () => {
-    const { container } = render(<AnalyticsDashboard metrics={<div>Only Metrics</div>} />)
+    const { container } = render(
+      <AnalyticsDashboard metrics={<div>Only Metrics</div>} />
+    )
     expect(container.querySelector('[data-slot="metrics"]')).not.toBeNull()
     expect(container.querySelector('[data-slot="charts"]')).toBeNull()
     expect(container.querySelector('[data-slot="data"]')).toBeNull()

@@ -15,38 +15,55 @@ type OnboardingCardProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const OnboardingCard = forwardRef<HTMLDivElement, OnboardingCardProps>(
-  function OnboardingCard({ className, steps, title = 'Getting Started', ...props }, ref) {
+  function OnboardingCard(
+    { className, steps, title = 'Getting Started', ...props },
+    ref
+  ) {
     const done = steps.filter((s) => s.completed).length
     const pct = steps.length > 0 ? Math.round((done / steps.length) * 100) : 0
 
     return (
       <div
-        className={cx('gds-ctx rounded-lg border border-border bg-surface gds-pad', className)}
+        className={cx(
+          'gds-ctx border-border bg-surface gds-pad rounded-lg border',
+          className
+        )}
         data-component="onboarding-card"
         ref={ref}
         {...props}
       >
         <div className="mb-3 flex items-center justify-between">
-          <h3 className="gds-heading font-semibold text-fg">{title}</h3>
-          <span className="gds-text-label text-fg-muted">{done}/{steps.length}</span>
+          <h3 className="gds-heading text-fg font-semibold">{title}</h3>
+          <span className="gds-text-label text-fg-muted">
+            {done}/{steps.length}
+          </span>
         </div>
-        <div className="mb-4 h-1.5 w-full overflow-hidden rounded-full bg-border">
+        <div className="bg-border mb-4 h-1.5 w-full overflow-hidden rounded-full">
           <div
-            className="h-full rounded-full bg-accent transition-all"
+            className="bg-accent h-full rounded-full transition-all"
             style={{ width: `${pct}%` }}
           />
         </div>
-        <ul className="flex flex-col gds-gap">
+        <ul className="gds-gap flex flex-col">
           {steps.map((step, i) => (
-            <li className="flex items-center justify-between gds-gap" key={i}>
-              <div className="flex items-center gds-gap-sm">
-                <span className={cx(
-                  'flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs',
-                  step.completed ? 'bg-success text-white' : 'border border-border text-fg-muted',
-                )}>
+            <li className="gds-gap flex items-center justify-between" key={i}>
+              <div className="gds-gap-sm flex items-center">
+                <span
+                  className={cx(
+                    'flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs',
+                    step.completed
+                      ? 'bg-success text-white'
+                      : 'border-border text-fg-muted border'
+                  )}
+                >
                   {step.completed ? '\u2713' : i + 1}
                 </span>
-                <span className={cx('text-sm', step.completed ? 'text-fg-muted line-through' : 'text-fg')}>
+                <span
+                  className={cx(
+                    'text-sm',
+                    step.completed ? 'text-fg-muted line-through' : 'text-fg'
+                  )}
+                >
                   {step.label}
                 </span>
               </div>
@@ -56,7 +73,7 @@ export const OnboardingCard = forwardRef<HTMLDivElement, OnboardingCardProps>(
         </ul>
       </div>
     )
-  },
+  }
 )
 
 export type { OnboardingCardProps, OnboardingStep }

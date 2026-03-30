@@ -5,7 +5,9 @@ import { WeatherWidget } from '../weather-widget'
 
 describe('WeatherWidget', () => {
   it('renders temperature with unit', () => {
-    const { container } = render(<WeatherWidget temp={25} condition="Sunny" location="Tokyo" />)
+    const { container } = render(
+      <WeatherWidget temp={25} condition="Sunny" location="Tokyo" />
+    )
     expect(container.textContent).toContain('25')
     expect(container.textContent).toContain('C')
   })
@@ -17,7 +19,9 @@ describe('WeatherWidget', () => {
   })
 
   it('supports Fahrenheit unit', () => {
-    const { container } = render(<WeatherWidget temp={72} condition="Clear" location="NYC" unit="F" />)
+    const { container } = render(
+      <WeatherWidget temp={72} condition="Clear" location="NYC" unit="F" />
+    )
     expect(container.textContent).toContain('F')
   })
 })

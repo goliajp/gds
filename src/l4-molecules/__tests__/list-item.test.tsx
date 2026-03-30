@@ -10,12 +10,19 @@ describe('ListItem', () => {
   })
 
   it('shows icon when provided', () => {
-    render(<ListItem title="Profile" icon={<span data-testid="icon">★</span>} />)
+    render(
+      <ListItem title="Profile" icon={<span data-testid="icon">★</span>} />
+    )
     expect(screen.getByTestId('icon')).toBeDefined()
   })
 
   it('renders trailing element', () => {
-    render(<ListItem title="Notifications" trailing={<span data-testid="trail">ON</span>} />)
+    render(
+      <ListItem
+        title="Notifications"
+        trailing={<span data-testid="trail">ON</span>}
+      />
+    )
     expect(screen.getByTestId('trail')).toBeDefined()
   })
 
@@ -31,7 +38,9 @@ describe('ListItem', () => {
   })
 
   it('has role="button" and tabIndex=0 when onClick is provided', () => {
-    const { container } = render(<ListItem title="Clickable" onClick={() => {}} />)
+    const { container } = render(
+      <ListItem title="Clickable" onClick={() => {}} />
+    )
     const el = container.querySelector('[data-component="list-item"]')
     expect(el?.getAttribute('role')).toBe('button')
     expect(el?.getAttribute('tabindex')).toBe('0')
@@ -69,7 +78,9 @@ describe('ListItem', () => {
 
   it('does not respond to click when disabled', () => {
     const fn = vi.fn()
-    const { container } = render(<ListItem title="Disabled" onClick={fn} disabled />)
+    const { container } = render(
+      <ListItem title="Disabled" onClick={fn} disabled />
+    )
     const el = container.querySelector('[data-component="list-item"]')
     expect(el?.className).toContain('pointer-events-none')
     expect(el?.getAttribute('role')).toBeNull()

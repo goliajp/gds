@@ -38,22 +38,34 @@ describe('VideoControls', () => {
 
   it('shows Play label when not playing', () => {
     render(<VideoControls {...defaultProps} playing={false} />)
-    expect(screen.getByTestId('play-button')).toHaveAttribute('aria-label', 'Play')
+    expect(screen.getByTestId('play-button')).toHaveAttribute(
+      'aria-label',
+      'Play'
+    )
   })
 
   it('shows Pause label when playing', () => {
     render(<VideoControls {...defaultProps} playing={true} />)
-    expect(screen.getByTestId('play-button')).toHaveAttribute('aria-label', 'Pause')
+    expect(screen.getByTestId('play-button')).toHaveAttribute(
+      'aria-label',
+      'Pause'
+    )
   })
 
   it('shows Mute label when not muted', () => {
     render(<VideoControls {...defaultProps} isMuted={false} />)
-    expect(screen.getByTestId('mute-button')).toHaveAttribute('aria-label', 'Mute')
+    expect(screen.getByTestId('mute-button')).toHaveAttribute(
+      'aria-label',
+      'Mute'
+    )
   })
 
   it('shows Unmute label when muted', () => {
     render(<VideoControls {...defaultProps} isMuted={true} />)
-    expect(screen.getByTestId('mute-button')).toHaveAttribute('aria-label', 'Unmute')
+    expect(screen.getByTestId('mute-button')).toHaveAttribute(
+      'aria-label',
+      'Unmute'
+    )
   })
 
   it('calls onTogglePlay when play button is clicked', async () => {
@@ -127,6 +139,9 @@ describe('VideoControls', () => {
 
   it('has Fullscreen aria-label on fullscreen button', () => {
     render(<VideoControls {...defaultProps} />)
-    expect(screen.getByTestId('fullscreen-button')).toHaveAttribute('aria-label', 'Fullscreen')
+    expect(screen.getByTestId('fullscreen-button')).toHaveAttribute(
+      'aria-label',
+      'Fullscreen'
+    )
   })
 })

@@ -10,26 +10,35 @@ type HRDashboardProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const HRDashboard = forwardRef<HTMLDivElement, HRDashboardProps>(
-  function HRDashboard({ className, departments, onboarding, stats, ...props }, ref) {
+  function HRDashboard(
+    { className, departments, onboarding, stats, ...props },
+    ref
+  ) {
     return (
       <div
-        className={cx('gds-ctx flex flex-col gds-gap', className)}
+        className={cx('gds-ctx gds-gap flex flex-col', className)}
         data-component="hr-dashboard"
         ref={ref}
         {...props}
       >
-        {stats !== undefined && <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">{stats}</div>}
+        {stats !== undefined && (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">{stats}</div>
+        )}
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           {onboarding !== undefined && (
-            <div className="gds-radius-card border border-border bg-surface gds-pad">{onboarding}</div>
+            <div className="gds-radius-card border-border bg-surface gds-pad border">
+              {onboarding}
+            </div>
           )}
           {departments !== undefined && (
-            <div className="gds-radius-card border border-border bg-surface gds-pad">{departments}</div>
+            <div className="gds-radius-card border-border bg-surface gds-pad border">
+              {departments}
+            </div>
           )}
         </div>
       </div>
     )
-  },
+  }
 )
 
 export type { HRDashboardProps }

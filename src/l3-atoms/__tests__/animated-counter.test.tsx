@@ -28,7 +28,9 @@ describe('AnimatedCounter', () => {
 
   it('does not render prefix when not provided', () => {
     const { container } = render(<AnimatedCounter value={10} />)
-    const spans = container.querySelectorAll('[data-component="animated-counter"] > span')
+    const spans = container.querySelectorAll(
+      '[data-component="animated-counter"] > span'
+    )
     expect(spans.length).toBe(0)
   })
 
@@ -45,13 +47,17 @@ describe('AnimatedCounter', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<AnimatedCounter className="custom-class" value={0} />)
+    const { container } = render(
+      <AnimatedCounter className="custom-class" value={0} />
+    )
     const el = container.querySelector('[data-component="animated-counter"]')
     expect(el?.classList.contains('custom-class')).toBe(true)
   })
 
   it('passes extra props to the span element', () => {
-    const { container } = render(<AnimatedCounter data-testid="counter" value={0} />)
+    const { container } = render(
+      <AnimatedCounter data-testid="counter" value={0} />
+    )
     expect(container.querySelector('[data-testid="counter"]')).not.toBeNull()
   })
 
@@ -69,13 +75,17 @@ describe('AnimatedCounter', () => {
 
   it('does not render prefix span when prefix is undefined', () => {
     const { container } = render(<AnimatedCounter value={5} />)
-    const spans = container.querySelectorAll('[data-component="animated-counter"] > span')
+    const spans = container.querySelectorAll(
+      '[data-component="animated-counter"] > span'
+    )
     expect(spans.length).toBe(0)
   })
 
   it('does not render suffix span when suffix is undefined', () => {
     const { container } = render(<AnimatedCounter value={5} />)
-    const spans = container.querySelectorAll('[data-component="animated-counter"] > span')
+    const spans = container.querySelectorAll(
+      '[data-component="animated-counter"] > span'
+    )
     expect(spans.length).toBe(0)
   })
 })

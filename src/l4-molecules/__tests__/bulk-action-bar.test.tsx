@@ -6,8 +6,12 @@ import { BulkActionBar } from '../bulk-action-bar'
 
 describe('BulkActionBar', () => {
   it('renders nothing when count is 0', () => {
-    const { container } = render(<BulkActionBar count={0} actions={<button>Delete</button>} />)
-    expect(container.querySelector('[data-component="bulk-action-bar"]')).toBeNull()
+    const { container } = render(
+      <BulkActionBar count={0} actions={<button>Delete</button>} />
+    )
+    expect(
+      container.querySelector('[data-component="bulk-action-bar"]')
+    ).toBeNull()
   })
 
   it('renders count and actions when count > 0', () => {
@@ -19,7 +23,13 @@ describe('BulkActionBar', () => {
   it('calls onClear when clear button clicked', async () => {
     const user = userEvent.setup()
     const onClear = vi.fn()
-    render(<BulkActionBar count={3} actions={<button>Act</button>} onClear={onClear} />)
+    render(
+      <BulkActionBar
+        count={3}
+        actions={<button>Act</button>}
+        onClear={onClear}
+      />
+    )
     await user.click(screen.getByLabelText('Clear selection'))
     expect(onClear).toHaveBeenCalledOnce()
   })

@@ -5,8 +5,12 @@ import { DownloadButton } from '../download-button'
 
 describe('DownloadButton', () => {
   it('renders with data-component attribute', () => {
-    const { container } = render(<DownloadButton label="Download" onClick={vi.fn()} />)
-    expect(container.querySelector('[data-component="download-button"]')).not.toBeNull()
+    const { container } = render(
+      <DownloadButton label="Download" onClick={vi.fn()} />
+    )
+    expect(
+      container.querySelector('[data-component="download-button"]')
+    ).not.toBeNull()
   })
 
   it('renders label in idle state', () => {
@@ -50,7 +54,9 @@ describe('DownloadButton', () => {
   })
 
   it('shows complete state even when progress is provided', () => {
-    render(<DownloadButton label="DL" onClick={vi.fn()} progress={100} complete />)
+    render(
+      <DownloadButton label="DL" onClick={vi.fn()} progress={100} complete />
+    )
     expect(screen.getByText('Downloaded')).toBeDefined()
     expect(screen.queryByText('100%')).toBeNull()
   })
@@ -62,19 +68,25 @@ describe('DownloadButton', () => {
   })
 
   it('applies opacity class when disabled', () => {
-    const { container } = render(<DownloadButton label="DL" onClick={vi.fn()} disabled />)
+    const { container } = render(
+      <DownloadButton label="DL" onClick={vi.fn()} disabled />
+    )
     const btn = container.querySelector('[data-component="download-button"]')
     expect(btn?.className).toContain('opacity-50')
   })
 
   it('applies custom className', () => {
-    const { container } = render(<DownloadButton label="DL" onClick={vi.fn()} className="my-cls" />)
+    const { container } = render(
+      <DownloadButton label="DL" onClick={vi.fn()} className="my-cls" />
+    )
     const el = container.querySelector('[data-component="download-button"]')
     expect(el?.className).toContain('my-cls')
   })
 
   it('applies success border when complete', () => {
-    const { container } = render(<DownloadButton label="DL" onClick={vi.fn()} complete />)
+    const { container } = render(
+      <DownloadButton label="DL" onClick={vi.fn()} complete />
+    )
     const el = container.querySelector('[data-component="download-button"]')
     expect(el?.className).toContain('border-success')
   })

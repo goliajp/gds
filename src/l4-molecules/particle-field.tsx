@@ -14,7 +14,10 @@ export type ParticleFieldProps = {
 type Particle = { vx: number; vy: number; x: number; y: number }
 
 export const ParticleField = forwardRef<HTMLCanvasElement, ParticleFieldProps>(
-  function ParticleField({ className, color = '#888888', connected, count = 60, speed = 0.5 }, ref) {
+  function ParticleField(
+    { className, color = '#888888', connected, count = 60, speed = 0.5 },
+    ref
+  ) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null)
     const animRef = useRef<number>(0)
 
@@ -91,12 +94,13 @@ export const ParticleField = forwardRef<HTMLCanvasElement, ParticleFieldProps>(
           canvasRef.current = node
           if (typeof ref === 'function') ref(node)
           else if (ref !== null && ref !== undefined) {
-            (ref as React.MutableRefObject<HTMLCanvasElement | null>).current = node
+            ;(ref as React.MutableRefObject<HTMLCanvasElement | null>).current =
+              node
           }
         }}
         className={cx('block h-full w-full', className)}
         data-component="particle-field"
       />
     )
-  },
+  }
 )

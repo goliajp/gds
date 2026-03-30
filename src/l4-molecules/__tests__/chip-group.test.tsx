@@ -13,17 +13,21 @@ const options = [
 describe('ChipGroup', () => {
   it('renders all options', () => {
     const { container } = render(
-      <ChipGroup options={options} value={[]} onChange={() => {}} />,
+      <ChipGroup options={options} value={[]} onChange={() => {}} />
     )
-    expect(container.querySelector('[data-component="chip-group"]')).not.toBeNull()
-    expect(container.querySelectorAll('[data-component="chip"]')).toHaveLength(3)
+    expect(
+      container.querySelector('[data-component="chip-group"]')
+    ).not.toBeNull()
+    expect(container.querySelectorAll('[data-component="chip"]')).toHaveLength(
+      3
+    )
   })
 
   it('toggles selection on click', async () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
     const { getByText } = render(
-      <ChipGroup options={options} value={['a']} onChange={onChange} />,
+      <ChipGroup options={options} value={['a']} onChange={onChange} />
     )
     // click unselected chip
     await user.click(getByText('Beta'))
@@ -38,7 +42,12 @@ describe('ChipGroup', () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
     const { getByText } = render(
-      <ChipGroup options={options} value={['a']} onChange={onChange} exclusive />,
+      <ChipGroup
+        options={options}
+        value={['a']}
+        onChange={onChange}
+        exclusive
+      />
     )
     await user.click(getByText('Beta'))
     expect(onChange).toHaveBeenCalledWith(['b'])
@@ -46,8 +55,10 @@ describe('ChipGroup', () => {
 
   it('sets data-component attribute', () => {
     const { container } = render(
-      <ChipGroup options={options} value={[]} onChange={() => {}} />,
+      <ChipGroup options={options} value={[]} onChange={() => {}} />
     )
-    expect(container.querySelector('[data-component="chip-group"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="chip-group"]')
+    ).not.toBeNull()
   })
 })

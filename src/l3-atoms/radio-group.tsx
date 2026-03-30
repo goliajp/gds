@@ -9,7 +9,10 @@ type RadioOption = {
   value: string
 }
 
-type RadioGroupProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
+type RadioGroupProps = Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  'onChange'
+> & {
   direction?: 'horizontal' | 'vertical'
   disabled?: boolean
   onChange?: (value: string) => void
@@ -28,14 +31,14 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
       value,
       ...props
     },
-    ref,
+    ref
   ) {
     return (
       <div
         className={cx(
-          'flex gds-gap',
+          'gds-gap flex',
           direction === 'vertical' ? 'flex-col' : 'flex-row flex-wrap',
-          className,
+          className
         )}
         data-component="radio-group"
         ref={ref}
@@ -50,9 +53,9 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
             <button
               aria-checked={selected}
               className={cx(
-                'inline-flex select-none items-center gds-gap-sm gds-text-body',
+                'gds-gap-sm gds-text-body inline-flex items-center select-none',
                 focusCls,
-                isDisabled && 'cursor-not-allowed opacity-50',
+                isDisabled && 'cursor-not-allowed opacity-50'
               )}
               disabled={isDisabled}
               key={opt.value}
@@ -62,11 +65,15 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
             >
               <span
                 className={cx(
-                  'inline-flex gds-icon shrink-0 items-center justify-center gds-radius-badge border transition-colors',
-                  selected ? 'border-accent' : 'border-border hover:border-accent/50',
+                  'gds-icon gds-radius-badge inline-flex shrink-0 items-center justify-center border transition-colors',
+                  selected
+                    ? 'border-accent'
+                    : 'border-border hover:border-accent/50'
                 )}
               >
-                {selected && <span className="h-2 w-2 gds-radius-badge bg-accent" />}
+                {selected && (
+                  <span className="gds-radius-badge bg-accent h-2 w-2" />
+                )}
               </span>
               <span className="text-fg">{opt.label}</span>
             </button>
@@ -74,7 +81,7 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
         })}
       </div>
     )
-  },
+  }
 )
 
 export type { RadioGroupProps, RadioOption }

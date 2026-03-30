@@ -24,7 +24,7 @@ export const SystemHealth = forwardRef<HTMLDivElement, SystemHealthProps>(
   function SystemHealth({ className, metrics, ...props }, ref) {
     return (
       <div
-        className={cx('flex flex-col gds-gap', className)}
+        className={cx('gds-gap flex flex-col', className)}
         data-component="system-health"
         ref={ref}
         {...props}
@@ -34,10 +34,12 @@ export const SystemHealth = forwardRef<HTMLDivElement, SystemHealthProps>(
           const pct = max > 0 ? Math.round((m.value / max) * 100) : 0
           return (
             <div key={m.label} className="flex flex-col gap-1">
-              <div className="flex items-center justify-between gds-text-label">
+              <div className="gds-text-label flex items-center justify-between">
                 <span className="text-fg">{m.label}</span>
                 <span className="text-fg-muted font-mono tabular-nums">
-                  {m.value}{m.unit ?? ''} / {max}{m.unit ?? ''} ({pct}%)
+                  {m.value}
+                  {m.unit ?? ''} / {max}
+                  {m.unit ?? ''} ({pct}%)
                 </span>
               </div>
               <Progress value={pct} variant={barVariant(pct)} size="sm" />
@@ -46,7 +48,7 @@ export const SystemHealth = forwardRef<HTMLDivElement, SystemHealthProps>(
         })}
       </div>
     )
-  },
+  }
 )
 
 export type { HealthMetric, SystemHealthProps }

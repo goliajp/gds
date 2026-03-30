@@ -13,7 +13,7 @@ describe('Tabs', () => {
 
   it('renders without crash', () => {
     const { container } = render(
-      <Tabs tabs={tabs} active="general" onChange={vi.fn()} />,
+      <Tabs tabs={tabs} active="general" onChange={vi.fn()} />
     )
     expect(container.querySelector('[data-component="tabs"]')).not.toBeNull()
   })
@@ -52,7 +52,7 @@ describe('Tabs', () => {
 
   it('applies glass styling when glass is true', () => {
     const { container } = render(
-      <Tabs tabs={tabs} active="general" onChange={vi.fn()} glass />,
+      <Tabs tabs={tabs} active="general" onChange={vi.fn()} glass />
     )
     const el = container.querySelector('[data-component="tabs"]')
     expect(el?.className).toContain('bg-bg/60')
@@ -61,7 +61,7 @@ describe('Tabs', () => {
 
   it('does not apply glass styling when glass is not set', () => {
     const { container } = render(
-      <Tabs tabs={tabs} active="general" onChange={vi.fn()} />,
+      <Tabs tabs={tabs} active="general" onChange={vi.fn()} />
     )
     const el = container.querySelector('[data-component="tabs"]')
     expect(el?.className).not.toContain('bg-bg/60')
@@ -69,7 +69,7 @@ describe('Tabs', () => {
 
   it('uses sm size variant', () => {
     const { container } = render(
-      <Tabs tabs={tabs} active="general" onChange={vi.fn()} size="sm" />,
+      <Tabs tabs={tabs} active="general" onChange={vi.fn()} size="sm" />
     )
     const tabButtons = container.querySelectorAll('[role="tab"]')
     expect(tabButtons[0]?.className).toContain('gds-pad-x-sm')
@@ -79,7 +79,7 @@ describe('Tabs', () => {
 
   it('renders pills variant with correct active styling', () => {
     const { container } = render(
-      <Tabs tabs={tabs} active="general" onChange={vi.fn()} variant="pills" />,
+      <Tabs tabs={tabs} active="general" onChange={vi.fn()} variant="pills" />
     )
     const activeTab = container.querySelector('[aria-selected="true"]')
     expect(activeTab?.className).toContain('bg-accent')
@@ -91,7 +91,12 @@ describe('Tabs', () => {
 
   it('renders underline variant with correct active styling', () => {
     const { container } = render(
-      <Tabs tabs={tabs} active="general" onChange={vi.fn()} variant="underline" />,
+      <Tabs
+        tabs={tabs}
+        active="general"
+        onChange={vi.fn()}
+        variant="underline"
+      />
     )
     const activeTab = container.querySelector('[aria-selected="true"]')
     expect(activeTab?.className).toContain('border-accent')
@@ -99,7 +104,7 @@ describe('Tabs', () => {
 
   it('applies scrollable class by default', () => {
     const { container } = render(
-      <Tabs tabs={tabs} active="general" onChange={vi.fn()} />,
+      <Tabs tabs={tabs} active="general" onChange={vi.fn()} />
     )
     const el = container.querySelector('[data-component="tabs"]')
     expect(el?.className).toContain('overflow-x-auto')
@@ -107,7 +112,12 @@ describe('Tabs', () => {
 
   it('does not apply scrollable class when scrollable is false', () => {
     const { container } = render(
-      <Tabs tabs={tabs} active="general" onChange={vi.fn()} scrollable={false} />,
+      <Tabs
+        tabs={tabs}
+        active="general"
+        onChange={vi.fn()}
+        scrollable={false}
+      />
     )
     const el = container.querySelector('[data-component="tabs"]')
     expect(el?.className).not.toContain('overflow-x-auto')
@@ -118,7 +128,9 @@ describe('Tabs', () => {
     const onChange = vi.fn()
     render(<Tabs tabs={tabs} active="general" onChange={onChange} />)
     screen.getByRole('tablist') // verify tablist exists
-    const activeTab = screen.getAllByRole('tab').find(t => t.getAttribute('aria-selected') === 'true')!
+    const activeTab = screen
+      .getAllByRole('tab')
+      .find((t) => t.getAttribute('aria-selected') === 'true')!
     activeTab.focus()
     await user.keyboard('{ArrowRight}')
     expect(onChange).toHaveBeenCalledWith('security')
@@ -128,7 +140,9 @@ describe('Tabs', () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
     render(<Tabs tabs={tabs} active="general" onChange={onChange} />)
-    const activeTab = screen.getAllByRole('tab').find(t => t.getAttribute('aria-selected') === 'true')!
+    const activeTab = screen
+      .getAllByRole('tab')
+      .find((t) => t.getAttribute('aria-selected') === 'true')!
     activeTab.focus()
     await user.keyboard('{ArrowLeft}')
     expect(onChange).toHaveBeenCalledWith('billing')
@@ -138,7 +152,9 @@ describe('Tabs', () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
     render(<Tabs tabs={tabs} active="billing" onChange={onChange} />)
-    const activeTab = screen.getAllByRole('tab').find(t => t.getAttribute('aria-selected') === 'true')!
+    const activeTab = screen
+      .getAllByRole('tab')
+      .find((t) => t.getAttribute('aria-selected') === 'true')!
     activeTab.focus()
     await user.keyboard('{Home}')
     expect(onChange).toHaveBeenCalledWith('general')
@@ -148,7 +164,9 @@ describe('Tabs', () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
     render(<Tabs tabs={tabs} active="general" onChange={onChange} />)
-    const activeTab = screen.getAllByRole('tab').find(t => t.getAttribute('aria-selected') === 'true')!
+    const activeTab = screen
+      .getAllByRole('tab')
+      .find((t) => t.getAttribute('aria-selected') === 'true')!
     activeTab.focus()
     await user.keyboard('{End}')
     expect(onChange).toHaveBeenCalledWith('billing')
@@ -156,7 +174,7 @@ describe('Tabs', () => {
 
   it('handles empty tabs array without crashing', () => {
     const { container } = render(
-      <Tabs tabs={[]} active="" onChange={vi.fn()} />,
+      <Tabs tabs={[]} active="" onChange={vi.fn()} />
     )
     expect(container.querySelector('[data-component="tabs"]')).not.toBeNull()
   })

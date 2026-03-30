@@ -7,7 +7,9 @@ import { CookieBanner } from '../cookie-banner'
 describe('CookieBanner', () => {
   it('renders default message via portal', () => {
     render(<CookieBanner onAccept={() => {}} />)
-    expect(document.querySelector('[data-component="cookie-banner"]')).not.toBeNull()
+    expect(
+      document.querySelector('[data-component="cookie-banner"]')
+    ).not.toBeNull()
   })
 
   it('calls onAccept when accept button clicked', async () => {

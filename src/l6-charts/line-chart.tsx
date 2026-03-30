@@ -25,26 +25,55 @@ export type LineChartProps = {
 
 export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(
   function LineChart(
-    { data, dataKey, xKey = 'name', className, height = 300, color = 'var(--gds-accent)', glass, ...props },
-    ref,
+    {
+      data,
+      dataKey,
+      xKey = 'name',
+      className,
+      height = 300,
+      color = 'var(--gds-accent)',
+      glass,
+      ...props
+    },
+    ref
   ) {
     return (
       <div
-        className={cx('w-full', glass && 'gds-radius-popover backdrop-blur-md bg-white/5', className)}
+        className={cx(
+          'w-full',
+          glass && 'gds-radius-popover bg-white/5 backdrop-blur-md',
+          className
+        )}
         data-component="line-chart"
         ref={ref}
         {...props}
       >
         <ResponsiveContainer height={height} width="100%">
           <RLineChart data={data}>
-            <CartesianGrid stroke="var(--gds-border, #e5e7eb)" strokeDasharray="3 3" />
-            <XAxis dataKey={xKey} stroke="var(--gds-fg-muted, #6b7280)" tick={{ fontSize: 11 }} />
-            <YAxis stroke="var(--gds-fg-muted, #6b7280)" tick={{ fontSize: 11 }} />
+            <CartesianGrid
+              stroke="var(--gds-border, #e5e7eb)"
+              strokeDasharray="3 3"
+            />
+            <XAxis
+              dataKey={xKey}
+              stroke="var(--gds-fg-muted, #6b7280)"
+              tick={{ fontSize: 11 }}
+            />
+            <YAxis
+              stroke="var(--gds-fg-muted, #6b7280)"
+              tick={{ fontSize: 11 }}
+            />
             <Tooltip />
-            <Line dataKey={dataKey} dot={false} stroke={color} strokeWidth={2} type="monotone" />
+            <Line
+              dataKey={dataKey}
+              dot={false}
+              stroke={color}
+              strokeWidth={2}
+              type="monotone"
+            />
           </RLineChart>
         </ResponsiveContainer>
       </div>
     )
-  },
+  }
 )

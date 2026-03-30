@@ -13,7 +13,9 @@ const users = [
 describe('AvatarList', () => {
   it('renders all users', () => {
     const { container, getByText } = render(<AvatarList users={users} />)
-    expect(container.querySelector('[data-component="avatar-list"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="avatar-list"]')
+    ).not.toBeNull()
     expect(getByText('Alice')).toBeDefined()
     expect(getByText('Bob')).toBeDefined()
     expect(getByText('Charlie')).toBeDefined()
@@ -34,7 +36,9 @@ describe('AvatarList', () => {
   it('calls onSelect when user is clicked', async () => {
     const user = userEvent.setup()
     const onSelect = vi.fn()
-    const { getByText } = render(<AvatarList users={users} onSelect={onSelect} />)
+    const { getByText } = render(
+      <AvatarList users={users} onSelect={onSelect} />
+    )
     await user.click(getByText('Alice'))
     expect(onSelect).toHaveBeenCalledWith('Alice')
   })

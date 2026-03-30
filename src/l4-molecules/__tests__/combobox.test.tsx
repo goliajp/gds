@@ -14,23 +14,28 @@ const options = [
 describe('Combobox', () => {
   it('renders with placeholder', () => {
     const { container } = render(
-      <Combobox options={options} value={null} onChange={() => {}} placeholder="Pick one" />,
+      <Combobox
+        options={options}
+        value={null}
+        onChange={() => {}}
+        placeholder="Pick one"
+      />
     )
-    expect(container.querySelector('[data-component="combobox"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="combobox"]')
+    ).not.toBeNull()
     expect(screen.getByText('Pick one')).toBeDefined()
   })
 
   it('shows selected option label when value is set', () => {
-    render(
-      <Combobox options={options} value="vue" onChange={() => {}} />,
-    )
+    render(<Combobox options={options} value="vue" onChange={() => {}} />)
     expect(screen.getByText('Vue')).toBeDefined()
   })
 
   it('opens on click', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <Combobox options={options} value={null} onChange={() => {}} />,
+      <Combobox options={options} value={null} onChange={() => {}} />
     )
     const trigger = container.querySelector('button')!
     await user.click(trigger)
@@ -42,7 +47,7 @@ describe('Combobox', () => {
   it('does not open when disabled', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <Combobox options={options} value={null} onChange={() => {}} disabled />,
+      <Combobox options={options} value={null} onChange={() => {}} disabled />
     )
     const trigger = container.querySelector('button')!
     await user.click(trigger)
@@ -52,7 +57,7 @@ describe('Combobox', () => {
   it('filters options by search', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <Combobox options={options} value={null} onChange={() => {}} />,
+      <Combobox options={options} value={null} onChange={() => {}} />
     )
     await user.click(container.querySelector('button')!)
     const searchInput = container.querySelector('input[type="text"]')!
@@ -65,7 +70,7 @@ describe('Combobox', () => {
   it('shows no results message when search has no matches', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <Combobox options={options} value={null} onChange={() => {}} />,
+      <Combobox options={options} value={null} onChange={() => {}} />
     )
     await user.click(container.querySelector('button')!)
     const searchInput = container.querySelector('input[type="text"]')!
@@ -77,7 +82,7 @@ describe('Combobox', () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
     const { container } = render(
-      <Combobox options={options} value={null} onChange={onChange} />,
+      <Combobox options={options} value={null} onChange={onChange} />
     )
     await user.click(container.querySelector('button')!)
     await user.click(screen.getByText('Vue'))
@@ -88,7 +93,7 @@ describe('Combobox', () => {
   it('closes on escape', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <Combobox options={options} value={null} onChange={() => {}} />,
+      <Combobox options={options} value={null} onChange={() => {}} />
     )
     await user.click(container.querySelector('button')!)
     expect(container.querySelector('[data-state="open"]')).not.toBeNull()
@@ -98,7 +103,7 @@ describe('Combobox', () => {
 
   it('applies error state', () => {
     const { container } = render(
-      <Combobox options={options} value={null} onChange={() => {}} error />,
+      <Combobox options={options} value={null} onChange={() => {}} error />
     )
     const trigger = container.querySelector('button')!
     expect(trigger.className).toContain('border-danger')
@@ -108,7 +113,7 @@ describe('Combobox', () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
     const { container } = render(
-      <Combobox options={options} value={null} onChange={onChange} />,
+      <Combobox options={options} value={null} onChange={onChange} />
     )
     await user.click(container.querySelector('button')!)
     const searchInput = container.querySelector('input[type="text"]')!
@@ -121,7 +126,7 @@ describe('Combobox', () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
     const { container } = render(
-      <Combobox options={options} value={null} onChange={onChange} />,
+      <Combobox options={options} value={null} onChange={onChange} />
     )
     await user.click(container.querySelector('button')!)
     const searchInput = container.querySelector('input[type="text"]')!
@@ -134,7 +139,7 @@ describe('Combobox', () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
     const { container } = render(
-      <Combobox options={options} value={null} onChange={onChange} />,
+      <Combobox options={options} value={null} onChange={onChange} />
     )
     await user.click(container.querySelector('button')!)
     const searchInput = container.querySelector('input[type="text"]')!
@@ -147,7 +152,7 @@ describe('Combobox', () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
     const { container } = render(
-      <Combobox options={options} value={null} onChange={onChange} />,
+      <Combobox options={options} value={null} onChange={onChange} />
     )
     await user.click(container.querySelector('button')!)
     const searchInput = container.querySelector('input[type="text"]')!
@@ -158,7 +163,7 @@ describe('Combobox', () => {
   it('highlights option on mouse enter', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <Combobox options={options} value={null} onChange={() => {}} />,
+      <Combobox options={options} value={null} onChange={() => {}} />
     )
     await user.click(container.querySelector('button')!)
     const optionButtons = container.querySelectorAll('.max-h-60 button')
@@ -168,7 +173,7 @@ describe('Combobox', () => {
 
   it('applies glass classes when glass is true', () => {
     const { container } = render(
-      <Combobox options={options} value={null} onChange={() => {}} glass />,
+      <Combobox options={options} value={null} onChange={() => {}} glass />
     )
     const trigger = container.querySelector('button')!
     expect(trigger.className).toContain('gds-glass')
@@ -176,9 +181,7 @@ describe('Combobox', () => {
 
   it('shows active style for selected value in dropdown', async () => {
     const user = userEvent.setup()
-    render(
-      <Combobox options={options} value="vue" onChange={() => {}} />,
-    )
+    render(<Combobox options={options} value="vue" onChange={() => {}} />)
     const trigger = screen.getByText('Vue').closest('button')!
     await user.click(trigger)
     // in dropdown, Vue option should have active styling
@@ -190,7 +193,7 @@ describe('Combobox', () => {
 
   it('applies disabled styling', () => {
     const { container } = render(
-      <Combobox options={options} value={null} onChange={() => {}} disabled />,
+      <Combobox options={options} value={null} onChange={() => {}} disabled />
     )
     const trigger = container.querySelector('button')!
     expect(trigger.className).toContain('opacity-50')
@@ -201,7 +204,7 @@ describe('Combobox', () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
     const { container } = render(
-      <Combobox options={options} value={null} onChange={onChange} />,
+      <Combobox options={options} value={null} onChange={onChange} />
     )
     await user.click(container.querySelector('button')!)
     const searchInput = container.querySelector('input[type="text"]')!
@@ -220,16 +223,18 @@ describe('Combobox', () => {
         value={null}
         onChange={() => {}}
         searchPlaceholder="Type to search..."
-      />,
+      />
     )
     await user.click(container.querySelector('button')!)
-    expect(container.querySelector('input[placeholder="Type to search..."]')).not.toBeNull()
+    expect(
+      container.querySelector('input[placeholder="Type to search..."]')
+    ).not.toBeNull()
   })
 
   it('applies glass styling to dropdown panel', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <Combobox options={options} value={null} onChange={() => {}} glass />,
+      <Combobox options={options} value={null} onChange={() => {}} glass />
     )
     await user.click(container.querySelector('button')!)
     const dropdown = container.querySelector('.animate-popup')
@@ -240,7 +245,7 @@ describe('Combobox', () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
     const { container } = render(
-      <Combobox options={options} value={null} onChange={onChange} />,
+      <Combobox options={options} value={null} onChange={onChange} />
     )
     await user.click(container.querySelector('button')!)
     const searchInput = container.querySelector('input[type="text"]')!
@@ -254,7 +259,9 @@ describe('Combobox', () => {
   it('shows create option when creatable and no matches', async () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
-    const onCreateOption = vi.fn().mockReturnValue({ value: 'new-one', label: 'New One' })
+    const onCreateOption = vi
+      .fn()
+      .mockReturnValue({ value: 'new-one', label: 'New One' })
     const { container } = render(
       <Combobox
         options={options}
@@ -262,7 +269,7 @@ describe('Combobox', () => {
         onChange={onChange}
         creatable
         onCreateOption={onCreateOption}
-      />,
+      />
     )
     await user.click(container.querySelector('button')!)
     const searchInput = container.querySelector('input[type="text"]')!
@@ -274,7 +281,9 @@ describe('Combobox', () => {
   it('calls onCreateOption and selects when create row is clicked', async () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
-    const onCreateOption = vi.fn().mockReturnValue({ value: 'new-item', label: 'New Item' })
+    const onCreateOption = vi
+      .fn()
+      .mockReturnValue({ value: 'new-item', label: 'New Item' })
     const { container } = render(
       <Combobox
         options={options}
@@ -282,7 +291,7 @@ describe('Combobox', () => {
         onChange={onChange}
         creatable
         onCreateOption={onCreateOption}
-      />,
+      />
     )
     await user.click(container.querySelector('button')!)
     const searchInput = container.querySelector('input[type="text"]')!
@@ -296,7 +305,12 @@ describe('Combobox', () => {
     const user = userEvent.setup()
     const onSearch = vi.fn().mockResolvedValue([])
     const { container } = render(
-      <Combobox options={options} value={null} onChange={() => {}} onSearch={onSearch} />,
+      <Combobox
+        options={options}
+        value={null}
+        onChange={() => {}}
+        onSearch={onSearch}
+      />
     )
     await user.click(container.querySelector('button')!)
     // with empty query, onSearch should not be called and options should be shown
@@ -306,17 +320,24 @@ describe('Combobox', () => {
 
   it('shows loading state when externalLoading is true', () => {
     const { container } = render(
-      <Combobox options={options} value={null} onChange={() => {}} loading />,
+      <Combobox options={options} value={null} onChange={() => {}} loading />
     )
     // trigger should be rendered (loading doesn't prevent render)
-    expect(container.querySelector('[data-component="combobox"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="combobox"]')
+    ).not.toBeNull()
   })
 
   it('does not call onSearch with empty query', async () => {
     const user = userEvent.setup()
     const onSearch = vi.fn().mockResolvedValue([])
     const { container } = render(
-      <Combobox options={options} value={null} onChange={() => {}} onSearch={onSearch} />,
+      <Combobox
+        options={options}
+        value={null}
+        onChange={() => {}}
+        onSearch={onSearch}
+      />
     )
     await user.click(container.querySelector('button')!)
     // with empty query, onSearch should never be called
@@ -328,7 +349,7 @@ describe('Combobox', () => {
   it('shows default options when reopened after close', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <Combobox options={options} value={null} onChange={() => {}} />,
+      <Combobox options={options} value={null} onChange={() => {}} />
     )
     await user.click(container.querySelector('button')!)
     expect(container.querySelector('[data-state="open"]')).not.toBeNull()

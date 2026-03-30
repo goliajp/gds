@@ -11,7 +11,9 @@ describe('FeatureFlag', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<FeatureFlag name="Dark Mode" enabled />)
-    expect(container.querySelector('[data-component="feature-flag"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="feature-flag"]')
+    ).not.toBeNull()
   })
 
   it('shows ON when enabled', () => {

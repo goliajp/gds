@@ -19,17 +19,19 @@ export const StatusDot = forwardRef<HTMLSpanElement, StatusDotProps>(
   function StatusDot({ className, label, status, ...props }, ref) {
     return (
       <span
-        className={cx('inline-flex items-center gds-gap-sm', className)}
+        className={cx('gds-gap-sm inline-flex items-center', className)}
         data-component="status-dot"
         data-state={status}
         ref={ref}
         {...props}
       >
         <span className={cx('h-2 w-2 shrink-0 rounded-full', dotCls[status])} />
-        {label !== undefined && <span className="gds-text-label text-fg-muted">{label}</span>}
+        {label !== undefined && (
+          <span className="gds-text-label text-fg-muted">{label}</span>
+        )}
       </span>
     )
-  },
+  }
 )
 
 const statusDotVariants = {

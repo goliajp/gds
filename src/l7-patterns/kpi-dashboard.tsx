@@ -22,15 +22,18 @@ type KPIDashboardProps = {
 }
 
 const KPIDashboard = forwardRef<HTMLDivElement, KPIDashboardProps>(
-  function KPIDashboard({ title, metrics, chart, table, glass, className }, ref) {
+  function KPIDashboard(
+    { title, metrics, chart, table, glass, className },
+    ref
+  ) {
     return (
       <div
         ref={ref}
-        className={cx('gds-ctx flex flex-col gds-gap', className)}
+        className={cx('gds-ctx gds-gap flex flex-col', className)}
         data-component="kpi-dashboard"
       >
         {title !== undefined && (
-          <h2 className="gds-heading font-semibold text-fg">{title}</h2>
+          <h2 className="gds-heading text-fg font-semibold">{title}</h2>
         )}
         {metrics !== undefined && metrics.length > 0 && (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -48,10 +51,10 @@ const KPIDashboard = forwardRef<HTMLDivElement, KPIDashboardProps>(
         {chart !== undefined && (
           <div
             className={cx(
-              'gds-radius-card border gds-pad',
+              'gds-radius-card gds-pad border',
               glass === true
-                ? cx(glassClass(glass), 'border-white/10 bg-bg/60')
-                : 'border-border bg-surface',
+                ? cx(glassClass(glass), 'bg-bg/60 border-white/10')
+                : 'border-border bg-surface'
             )}
           >
             {chart}
@@ -60,10 +63,10 @@ const KPIDashboard = forwardRef<HTMLDivElement, KPIDashboardProps>(
         {table !== undefined && (
           <div
             className={cx(
-              'gds-radius-card border gds-pad',
+              'gds-radius-card gds-pad border',
               glass === true
-                ? cx(glassClass(glass), 'border-white/10 bg-bg/60')
-                : 'border-border bg-surface',
+                ? cx(glassClass(glass), 'bg-bg/60 border-white/10')
+                : 'border-border bg-surface'
             )}
           >
             {table}
@@ -71,7 +74,7 @@ const KPIDashboard = forwardRef<HTMLDivElement, KPIDashboardProps>(
         )}
       </div>
     )
-  },
+  }
 )
 
 export { KPIDashboard }

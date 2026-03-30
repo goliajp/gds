@@ -29,11 +29,11 @@ export function DataList({
   return (
     <div
       className={cx(
-        'gds-radius-popover border border-border overflow-hidden',
+        'gds-radius-popover border-border overflow-hidden border',
         glass !== undefined && glass !== false
-          ? cx('border-white/10 bg-bg/60', glassClass(glass))
+          ? cx('bg-bg/60 border-white/10', glassClass(glass))
           : '',
-        className,
+        className
       )}
       data-component="data-list"
       data-variant={layout}
@@ -43,13 +43,17 @@ export function DataList({
           key={item.label}
           className={cx(
             'gds-pad-x gds-pad-y-sm',
-            i < items.length - 1 ? 'border-b border-border' : '',
+            i < items.length - 1 ? 'border-border border-b' : '',
             isHorizontal ? 'flex items-center justify-between gap-4' : '',
-            striped && i % 2 === 1 ? 'bg-bg-tertiary/20' : '',
+            striped && i % 2 === 1 ? 'bg-bg-tertiary/20' : ''
           )}
         >
-          <div className="gds-text-body font-medium text-fg-muted">{item.label}</div>
-          <div className={cx('text-fg gds-text-body', isHorizontal ? '' : 'mt-1')}>
+          <div className="gds-text-body text-fg-muted font-medium">
+            {item.label}
+          </div>
+          <div
+            className={cx('text-fg gds-text-body', isHorizontal ? '' : 'mt-1')}
+          >
             {item.value}
           </div>
         </div>

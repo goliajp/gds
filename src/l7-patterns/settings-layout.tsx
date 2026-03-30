@@ -31,8 +31,11 @@ export function SettingsLayout({
   sections,
   stickyNav = true,
 }: SettingsLayoutProps) {
-  const isControlled = controlledActiveId !== undefined && onSectionChange !== undefined
-  const [internalId, setInternalId] = useState(defaultSection ?? sections[0]?.id ?? '')
+  const isControlled =
+    controlledActiveId !== undefined && onSectionChange !== undefined
+  const [internalId, setInternalId] = useState(
+    defaultSection ?? sections[0]?.id ?? ''
+  )
   const activeId = isControlled ? controlledActiveId : internalId
   const currentSection = sections.find((s) => s.id === activeId)
   const navItemsRef = useRef<Map<string, HTMLButtonElement>>(new Map())
@@ -50,7 +53,7 @@ export function SettingsLayout({
       }
       animationKey.current += 1
     },
-    [isControlled, onSectionChange],
+    [isControlled, onSectionChange]
   )
 
   const handleNavKeyDown = useCallback(
@@ -80,16 +83,19 @@ export function SettingsLayout({
         btn.focus()
       }
     },
-    [activeId, handleSelect, sections],
+    [activeId, handleSelect, sections]
   )
 
-  const setNavItemRef = useCallback((id: string, el: HTMLButtonElement | null) => {
-    if (el !== null) {
-      navItemsRef.current.set(id, el)
-    } else {
-      navItemsRef.current.delete(id)
-    }
-  }, [])
+  const setNavItemRef = useCallback(
+    (id: string, el: HTMLButtonElement | null) => {
+      if (el !== null) {
+        navItemsRef.current.set(id, el)
+      } else {
+        navItemsRef.current.delete(id)
+      }
+    },
+    []
+  )
 
   return (
     <div
@@ -100,7 +106,9 @@ export function SettingsLayout({
         className="shrink-0"
         style={{
           width: navWidth,
-          ...(stickyNav ? { position: 'sticky' as const, top: 0, alignSelf: 'flex-start' } : {}),
+          ...(stickyNav
+            ? { position: 'sticky' as const, top: 0, alignSelf: 'flex-start' }
+            : {}),
         }}
       >
         <ul
@@ -114,10 +122,10 @@ export function SettingsLayout({
                 ref={(el) => setNavItemRef(section.id, el)}
                 type="button"
                 className={cx(
-                  'w-full rounded-md px-3 py-2 text-left gds-text-body transition-colors',
+                  'gds-text-body w-full rounded-md px-3 py-2 text-left transition-colors',
                   section.id === activeId
-                    ? 'bg-accent/10 font-medium text-accent'
-                    : 'text-fg-muted hover:bg-bg-tertiary hover:text-fg',
+                    ? 'bg-accent/10 text-accent font-medium'
+                    : 'text-fg-muted hover:bg-bg-tertiary hover:text-fg'
                 )}
                 onClick={() => handleSelect(section.id)}
               >

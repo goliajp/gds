@@ -19,17 +19,23 @@ describe('MetricRow', () => {
 
   it('renders data-component attribute', () => {
     const { container } = render(<MetricRow metrics={metrics} />)
-    expect(container.querySelector('[data-component="metric-row"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="metric-row"]')
+    ).not.toBeNull()
   })
 
   it('applies variant color classes', () => {
-    const { container } = render(<MetricRow metrics={[{ label: 'ERR', value: 5, variant: 'danger' }]} />)
+    const { container } = render(
+      <MetricRow metrics={[{ label: 'ERR', value: 5, variant: 'danger' }]} />
+    )
     const valueEl = container.querySelector('.text-danger')
     expect(valueEl).not.toBeNull()
   })
 
   it('renders unit when provided', () => {
-    render(<MetricRow metrics={[{ label: 'Speed', value: 120, unit: 'km/h' }]} />)
+    render(
+      <MetricRow metrics={[{ label: 'Speed', value: 120, unit: 'km/h' }]} />
+    )
     expect(screen.getByText('km/h')).toBeDefined()
   })
 
@@ -39,18 +45,24 @@ describe('MetricRow', () => {
   })
 
   it('uses default variant color when variant is not specified', () => {
-    const { container } = render(<MetricRow metrics={[{ label: 'Test', value: 1 }]} />)
+    const { container } = render(
+      <MetricRow metrics={[{ label: 'Test', value: 1 }]} />
+    )
     const valueEl = container.querySelector('.text-fg')
     expect(valueEl).not.toBeNull()
   })
 
   it('applies success variant', () => {
-    const { container } = render(<MetricRow metrics={[{ label: 'OK', value: 99, variant: 'success' }]} />)
+    const { container } = render(
+      <MetricRow metrics={[{ label: 'OK', value: 99, variant: 'success' }]} />
+    )
     expect(container.querySelector('.text-success')).not.toBeNull()
   })
 
   it('applies warning variant', () => {
-    const { container } = render(<MetricRow metrics={[{ label: 'WARN', value: 80, variant: 'warning' }]} />)
+    const { container } = render(
+      <MetricRow metrics={[{ label: 'WARN', value: 80, variant: 'warning' }]} />
+    )
     expect(container.querySelector('.text-warning')).not.toBeNull()
   })
 })

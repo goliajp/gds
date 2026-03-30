@@ -76,14 +76,26 @@ type EmailThreadProps = React.HTMLAttributes<HTMLDivElement> & {
   onPrint?: (message: EmailMessage) => void
   onDownloadRaw?: (message: EmailMessage) => void
 
-  onAttachmentClick?: (message: EmailMessage, attachment: EmailAttachment) => void
-  onAttachmentDownload?: (message: EmailMessage, attachment: EmailAttachment) => void
-  onAttachmentExtractText?: (message: EmailMessage, attachment: EmailAttachment) => void
+  onAttachmentClick?: (
+    message: EmailMessage,
+    attachment: EmailAttachment
+  ) => void
+  onAttachmentDownload?: (
+    message: EmailMessage,
+    attachment: EmailAttachment
+  ) => void
+  onAttachmentExtractText?: (
+    message: EmailMessage,
+    attachment: EmailAttachment
+  ) => void
 
   showAiAnalysis?: boolean
 
   renderMessageActions?: (message: EmailMessage) => ReactNode
-  renderAttachment?: (attachment: EmailAttachment, message: EmailMessage) => ReactNode
+  renderAttachment?: (
+    attachment: EmailAttachment,
+    message: EmailMessage
+  ) => ReactNode
 
   glass?: boolean
   className?: string
@@ -96,7 +108,8 @@ type EmailThreadProps = React.HTMLAttributes<HTMLDivElement> & {
 function formatFileSize(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
-  if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+  if (bytes < 1024 * 1024 * 1024)
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
   return `${(bytes / (1024 * 1024 * 1024)).toFixed(1)} GB`
 }
 
@@ -112,7 +125,11 @@ function formatDate(iso: string): string {
   if (diffHr < 24) return `${diffHr}h ago`
   const diffDay = Math.floor(diffHr / 24)
   if (diffDay < 7) return `${diffDay}d ago`
-  return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
+  return d.toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  })
 }
 
 function isImageMime(mime: string): boolean {
@@ -137,10 +154,22 @@ function EmailAttachmentPreview({
 }: {
   attachment: EmailAttachment
   message: EmailMessage
-  onAttachmentClick?: (message: EmailMessage, attachment: EmailAttachment) => void
-  onAttachmentDownload?: (message: EmailMessage, attachment: EmailAttachment) => void
-  onAttachmentExtractText?: (message: EmailMessage, attachment: EmailAttachment) => void
-  renderAttachment?: (attachment: EmailAttachment, message: EmailMessage) => ReactNode
+  onAttachmentClick?: (
+    message: EmailMessage,
+    attachment: EmailAttachment
+  ) => void
+  onAttachmentDownload?: (
+    message: EmailMessage,
+    attachment: EmailAttachment
+  ) => void
+  onAttachmentExtractText?: (
+    message: EmailMessage,
+    attachment: EmailAttachment
+  ) => void
+  renderAttachment?: (
+    attachment: EmailAttachment,
+    message: EmailMessage
+  ) => ReactNode
 }) {
   if (renderAttachment !== undefined) {
     return <>{renderAttachment(attachment, message)}</>
@@ -152,18 +181,26 @@ function EmailAttachmentPreview({
   return (
     <div
       className={cx(
-        'flex items-center gap-2 rounded-md border border-border bg-bg-secondary p-2',
-        onAttachmentClick !== undefined && 'cursor-pointer hover:bg-bg-tertiary',
+        'border-border bg-bg-secondary flex items-center gap-2 rounded-md border p-2',
+        onAttachmentClick !== undefined && 'hover:bg-bg-tertiary cursor-pointer'
       )}
       role={onAttachmentClick !== undefined ? 'button' : undefined}
       tabIndex={onAttachmentClick !== undefined ? 0 : undefined}
-      onClick={onAttachmentClick !== undefined ? () => onAttachmentClick(message, attachment) : undefined}
-      onKeyDown={onAttachmentClick !== undefined ? (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault()
-          onAttachmentClick(message, attachment)
-        }
-      } : undefined}
+      onClick={
+        onAttachmentClick !== undefined
+          ? () => onAttachmentClick(message, attachment)
+          : undefined
+      }
+      onKeyDown={
+        onAttachmentClick !== undefined
+          ? (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                onAttachmentClick(message, attachment)
+              }
+            }
+          : undefined
+      }
       data-component="email-attachment-preview"
     >
       {isImage && attachment.thumbnailUrl !== undefined ? (
@@ -173,16 +210,20 @@ function EmailAttachmentPreview({
           className="h-10 w-10 rounded object-cover"
         />
       ) : (
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded bg-bg-tertiary text-fg-muted">
+        <span className="bg-bg-tertiary text-fg-muted flex h-10 w-10 shrink-0 items-center justify-center rounded">
           {isImage && <ImageIcon size={18} />}
-            {!isImage && isPdf && <FileText size={18} />}
-            {!isImage && !isPdf && <Paperclip size={18} />}
+          {!isImage && isPdf && <FileText size={18} />}
+          {!isImage && !isPdf && <Paperclip size={18} />}
         </span>
       )}
 
       <div className="min-w-0 flex-1">
-        <div className="truncate text-sm font-medium text-fg">{attachment.filename}</div>
-        <div className="text-xs text-fg-muted">{formatFileSize(attachment.size)}</div>
+        <div className="text-fg truncate text-sm font-medium">
+          {attachment.filename}
+        </div>
+        <div className="text-fg-muted text-xs">
+          {formatFileSize(attachment.size)}
+        </div>
       </div>
 
       <div className="flex shrink-0 items-center gap-1">
@@ -224,7 +265,8 @@ function EmailAttachmentPreview({
 function EmailAiPanel({ analysis }: { analysis: EmailAiAnalysis }) {
   const [expanded, setExpanded] = useState(false)
 
-  const hasSummary = analysis.summary !== undefined && analysis.summary.length > 0
+  const hasSummary =
+    analysis.summary !== undefined && analysis.summary.length > 0
   const hasDetails =
     (analysis.people !== undefined && analysis.people.length > 0) ||
     (analysis.dates !== undefined && analysis.dates.length > 0) ||
@@ -237,36 +279,41 @@ function EmailAiPanel({ analysis }: { analysis: EmailAiAnalysis }) {
 
   return (
     <div
-      className="mt-2 rounded-md border border-accent/20 bg-accent/5 p-3"
+      className="border-accent/20 bg-accent/5 mt-2 rounded-md border p-3"
       data-component="email-ai-panel"
     >
       <button
         type="button"
-        className="flex w-full items-center gap-2 text-left text-xs font-medium text-accent"
+        className="text-accent flex w-full items-center gap-2 text-left text-xs font-medium"
         onClick={() => setExpanded((p) => !p)}
         aria-expanded={expanded}
         aria-label="AI Analysis"
       >
         <Sparkles size={14} />
         <span className="flex-1">AI Analysis</span>
-        {hasDetails && (expanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />)}
+        {hasDetails &&
+          (expanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />)}
       </button>
 
       {hasSummary && (
-        <p className="mt-1 text-xs text-fg-muted">{analysis.summary}</p>
+        <p className="text-fg-muted mt-1 text-xs">{analysis.summary}</p>
       )}
 
       {expanded && hasDetails && (
         <div className="mt-2 flex flex-col gap-2 text-xs">
           {analysis.people !== undefined && analysis.people.length > 0 && (
             <div>
-              <span className="font-medium text-fg">People:</span>
-              <ul className="mt-0.5 list-inside list-disc text-fg-muted">
+              <span className="text-fg font-medium">People:</span>
+              <ul className="text-fg-muted mt-0.5 list-inside list-disc">
                 {analysis.people.map((p, i) => (
                   <li key={i}>
                     {p.name}
-                    {p.role !== undefined && <span className="text-fg-muted/60"> — {p.role}</span>}
-                    {p.email !== undefined && <span className="text-fg-muted/60"> ({p.email})</span>}
+                    {p.role !== undefined && (
+                      <span className="text-fg-muted/60"> — {p.role}</span>
+                    )}
+                    {p.email !== undefined && (
+                      <span className="text-fg-muted/60"> ({p.email})</span>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -275,12 +322,14 @@ function EmailAiPanel({ analysis }: { analysis: EmailAiAnalysis }) {
 
           {analysis.dates !== undefined && analysis.dates.length > 0 && (
             <div>
-              <span className="font-medium text-fg">Dates:</span>
-              <ul className="mt-0.5 list-inside list-disc text-fg-muted">
+              <span className="text-fg font-medium">Dates:</span>
+              <ul className="text-fg-muted mt-0.5 list-inside list-disc">
                 {analysis.dates.map((d, i) => (
                   <li key={i}>
                     {d.text}
-                    {d.context !== undefined && <span className="text-fg-muted/60"> — {d.context}</span>}
+                    {d.context !== undefined && (
+                      <span className="text-fg-muted/60"> — {d.context}</span>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -289,40 +338,45 @@ function EmailAiPanel({ analysis }: { analysis: EmailAiAnalysis }) {
 
           {analysis.amounts !== undefined && analysis.amounts.length > 0 && (
             <div>
-              <span className="font-medium text-fg">Amounts:</span>
-              <ul className="mt-0.5 list-inside list-disc text-fg-muted">
+              <span className="text-fg font-medium">Amounts:</span>
+              <ul className="text-fg-muted mt-0.5 list-inside list-disc">
                 {analysis.amounts.map((a, i) => (
                   <li key={i}>
                     {a.value}
                     {a.currency !== undefined && <span> {a.currency}</span>}
-                    {a.context !== undefined && <span className="text-fg-muted/60"> — {a.context}</span>}
+                    {a.context !== undefined && (
+                      <span className="text-fg-muted/60"> — {a.context}</span>
+                    )}
                   </li>
                 ))}
               </ul>
             </div>
           )}
 
-          {analysis.actionItems !== undefined && analysis.actionItems.length > 0 && (
-            <div>
-              <span className="font-medium text-fg">Action Items:</span>
-              <ul className="mt-0.5 list-inside list-disc text-fg-muted">
-                {analysis.actionItems.map((item, i) => (
-                  <li key={i}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          )}
+          {analysis.actionItems !== undefined &&
+            analysis.actionItems.length > 0 && (
+              <div>
+                <span className="text-fg font-medium">Action Items:</span>
+                <ul className="text-fg-muted mt-0.5 list-inside list-disc">
+                  {analysis.actionItems.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
           {analysis.deadline !== undefined && (
             <div>
-              <span className="font-medium text-danger">Deadline:</span>{' '}
+              <span className="text-danger font-medium">Deadline:</span>{' '}
               <span className="text-danger">{analysis.deadline}</span>
             </div>
           )}
 
           {analysis.riskScore !== undefined && (
             <div>
-              <span className="font-medium text-warning">Risk: {analysis.riskScore}/10</span>
+              <span className="text-warning font-medium">
+                Risk: {analysis.riskScore}/10
+              </span>
               {analysis.riskReason !== undefined && (
                 <span className="text-fg-muted"> — {analysis.riskReason}</span>
               )}
@@ -360,16 +414,32 @@ function EmailMessageBubble({
   onReplyAll?: (message: EmailMessage) => void
   onForward?: (message: EmailMessage) => void
   onDelete?: (message: EmailMessage) => void
-  onAttachmentClick?: (message: EmailMessage, attachment: EmailAttachment) => void
-  onAttachmentDownload?: (message: EmailMessage, attachment: EmailAttachment) => void
-  onAttachmentExtractText?: (message: EmailMessage, attachment: EmailAttachment) => void
+  onAttachmentClick?: (
+    message: EmailMessage,
+    attachment: EmailAttachment
+  ) => void
+  onAttachmentDownload?: (
+    message: EmailMessage,
+    attachment: EmailAttachment
+  ) => void
+  onAttachmentExtractText?: (
+    message: EmailMessage,
+    attachment: EmailAttachment
+  ) => void
   showAiAnalysis?: boolean
   renderMessageActions?: (message: EmailMessage) => ReactNode
-  renderAttachment?: (attachment: EmailAttachment, message: EmailMessage) => ReactNode
+  renderAttachment?: (
+    attachment: EmailAttachment,
+    message: EmailMessage
+  ) => ReactNode
 }) {
   const displayName = message.fromName ?? message.from
-  const hasAttachments = message.attachments !== undefined && message.attachments.length > 0
-  const hasAiAnalysis = showAiAnalysis === true && message.aiAnalysis !== undefined && message.aiAnalysis !== null
+  const hasAttachments =
+    message.attachments !== undefined && message.attachments.length > 0
+  const hasAiAnalysis =
+    showAiAnalysis === true &&
+    message.aiAnalysis !== undefined &&
+    message.aiAnalysis !== null
 
   // Build sanitized HTML content
   const sanitizedHtml = useMemo(() => {
@@ -382,44 +452,44 @@ function EmailMessageBubble({
     if (sanitizedHtml !== null) {
       return (
         <div
-          className="prose prose-sm max-w-none dark:prose-invert break-words [&_img]:max-w-full [&_img]:h-auto [&_table]:text-xs"
+          className="prose prose-sm dark:prose-invert max-w-none break-words [&_img]:h-auto [&_img]:max-w-full [&_table]:text-xs"
           dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
         />
       )
     }
     if (message.textBody !== null) {
       return (
-        <pre className="whitespace-pre-wrap break-words text-sm text-fg font-sans leading-relaxed">
+        <pre className="text-fg font-sans text-sm leading-relaxed break-words whitespace-pre-wrap">
           {message.textBody}
         </pre>
       )
     }
-    return <p className="text-sm italic text-fg-muted">No content</p>
+    return <p className="text-fg-muted text-sm italic">No content</p>
   }, [sanitizedHtml, message.textBody])
 
   // Collapsed preview: first line of text
   const collapsedPreview = useMemo(() => {
     if (message.textBody !== null) {
-      const lines = message.textBody.split('\n').filter((l) => l.trim().length > 0)
+      const lines = message.textBody
+        .split('\n')
+        .filter((l) => l.trim().length > 0)
       const preview = lines.slice(0, 3).join(' ')
       if (preview.length > 200) return `${preview.slice(0, 200)}…`
       return preview
     }
     if (message.htmlBody !== null) {
       // Strip tags for preview
-      const text = message.htmlBody.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
+      const text = message.htmlBody
+        .replace(/<[^>]*>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
       if (text.length > 200) return `${text.slice(0, 200)}…`
       return text
     }
     return ''
   }, [message.textBody, message.htmlBody])
 
-  const avatarEl = (
-    <Avatar
-      name={displayName}
-      size="default"
-    />
-  )
+  const avatarEl = <Avatar name={displayName} size="default" />
 
   const headerEl = (
     <div className="flex min-w-0 flex-1 items-center gap-2">
@@ -428,51 +498,89 @@ function EmailMessageBubble({
         className="flex min-w-0 flex-1 items-center gap-2 text-left"
         onClick={onToggleExpand}
         aria-expanded={isExpanded}
-        aria-label={isExpanded ? `Collapse message from ${displayName}` : `Expand message from ${displayName}`}
+        aria-label={
+          isExpanded
+            ? `Collapse message from ${displayName}`
+            : `Expand message from ${displayName}`
+        }
       >
-        {isExpanded ? <ChevronDown size={14} className="shrink-0 text-fg-muted" /> : <ChevronRight size={14} className="shrink-0 text-fg-muted" />}
-        <span className="truncate text-sm font-medium text-fg">{displayName}</span>
-        <span className="truncate text-xs text-fg-muted">&lt;{message.from}&gt;</span>
+        {isExpanded ? (
+          <ChevronDown size={14} className="text-fg-muted shrink-0" />
+        ) : (
+          <ChevronRight size={14} className="text-fg-muted shrink-0" />
+        )}
+        <span className="text-fg truncate text-sm font-medium">
+          {displayName}
+        </span>
+        <span className="text-fg-muted truncate text-xs">
+          &lt;{message.from}&gt;
+        </span>
       </button>
-      <span className="shrink-0 text-xs text-fg-muted">{formatDate(message.date)}</span>
+      <span className="text-fg-muted shrink-0 text-xs">
+        {formatDate(message.date)}
+      </span>
     </div>
   )
 
-  const actionBar = renderMessageActions !== undefined ? (
-    renderMessageActions(message)
-  ) : (
-    <div className="flex items-center gap-0.5">
-      {onReply !== undefined && (
-        <Tooltip content="Reply">
-          <IconButton size="sm" icon={<Reply size={14} />} tooltip="Reply" onClick={() => onReply(message)} />
-        </Tooltip>
-      )}
-      {onReplyAll !== undefined && (
-        <Tooltip content="Reply All">
-          <IconButton size="sm" icon={<ReplyAll size={14} />} tooltip="Reply all" onClick={() => onReplyAll(message)} />
-        </Tooltip>
-      )}
-      {onForward !== undefined && (
-        <Tooltip content="Forward">
-          <IconButton size="sm" icon={<Forward size={14} />} tooltip="Forward" onClick={() => onForward(message)} />
-        </Tooltip>
-      )}
-      {onDelete !== undefined && (
-        <Tooltip content="Delete">
-          <IconButton size="sm" variant="danger" icon={<Trash2 size={14} />} tooltip="Delete" onClick={() => onDelete(message)} />
-        </Tooltip>
-      )}
-    </div>
-  )
+  const actionBar =
+    renderMessageActions !== undefined ? (
+      renderMessageActions(message)
+    ) : (
+      <div className="flex items-center gap-0.5">
+        {onReply !== undefined && (
+          <Tooltip content="Reply">
+            <IconButton
+              size="sm"
+              icon={<Reply size={14} />}
+              tooltip="Reply"
+              onClick={() => onReply(message)}
+            />
+          </Tooltip>
+        )}
+        {onReplyAll !== undefined && (
+          <Tooltip content="Reply All">
+            <IconButton
+              size="sm"
+              icon={<ReplyAll size={14} />}
+              tooltip="Reply all"
+              onClick={() => onReplyAll(message)}
+            />
+          </Tooltip>
+        )}
+        {onForward !== undefined && (
+          <Tooltip content="Forward">
+            <IconButton
+              size="sm"
+              icon={<Forward size={14} />}
+              tooltip="Forward"
+              onClick={() => onForward(message)}
+            />
+          </Tooltip>
+        )}
+        {onDelete !== undefined && (
+          <Tooltip content="Delete">
+            <IconButton
+              size="sm"
+              variant="danger"
+              icon={<Trash2 size={14} />}
+              tooltip="Delete"
+              onClick={() => onDelete(message)}
+            />
+          </Tooltip>
+        )}
+      </div>
+    )
 
-  const hasAnyAction = onReply !== undefined || onReplyAll !== undefined || onForward !== undefined || onDelete !== undefined || renderMessageActions !== undefined
+  const hasAnyAction =
+    onReply !== undefined ||
+    onReplyAll !== undefined ||
+    onForward !== undefined ||
+    onDelete !== undefined ||
+    renderMessageActions !== undefined
 
   return (
     <div
-      className={cx(
-        'flex gap-3',
-        message.isOwn && 'flex-row-reverse',
-      )}
+      className={cx('flex gap-3', message.isOwn && 'flex-row-reverse')}
       data-component="email-message-bubble"
       data-state={isExpanded ? 'expanded' : 'collapsed'}
       data-own={message.isOwn ? 'true' : 'false'}
@@ -483,10 +591,10 @@ function EmailMessageBubble({
       {/* Content */}
       <div
         className={cx(
-          'min-w-0 flex-1 rounded-lg border gds-pad',
+          'gds-pad min-w-0 flex-1 rounded-lg border',
           message.isOwn
             ? 'border-accent/20 bg-accent/5'
-            : 'border-border bg-bg-secondary',
+            : 'border-border bg-bg-secondary'
         )}
       >
         {/* Header */}
@@ -499,7 +607,7 @@ function EmailMessageBubble({
 
         {/* Recipients (expanded only) */}
         {isExpanded && (
-          <div className="mt-1 text-xs text-fg-muted">
+          <div className="text-fg-muted mt-1 text-xs">
             <span>To: {message.to.join(', ')}</span>
             {message.cc !== undefined && message.cc.length > 0 && (
               <span className="ml-2">Cc: {message.cc.join(', ')}</span>
@@ -509,16 +617,18 @@ function EmailMessageBubble({
 
         {/* Body */}
         <div className="mt-2">
-          {isExpanded ? bodyContent : (
+          {isExpanded ? (
+            bodyContent
+          ) : (
             <button
               type="button"
-              className="w-full text-left text-sm text-fg-muted"
+              className="text-fg-muted w-full text-left text-sm"
               onClick={onToggleExpand}
               aria-expanded={false}
               aria-label={`Expand message from ${displayName}`}
             >
               <span className="line-clamp-2">{collapsedPreview}</span>
-              <span className="text-xs text-accent"> Show more</span>
+              <span className="text-accent text-xs"> Show more</span>
             </button>
           )}
         </div>
@@ -526,9 +636,12 @@ function EmailMessageBubble({
         {/* Attachments (expanded only) */}
         {isExpanded && hasAttachments && (
           <div className="mt-3">
-            <div className="mb-1.5 flex items-center gap-1 text-xs font-medium text-fg-muted">
+            <div className="text-fg-muted mb-1.5 flex items-center gap-1 text-xs font-medium">
               <Paperclip size={12} />
-              <span>{message.attachments?.length ?? 0} attachment{(message.attachments?.length ?? 0) > 1 ? 's' : ''}</span>
+              <span>
+                {message.attachments?.length ?? 0} attachment
+                {(message.attachments?.length ?? 0) > 1 ? 's' : ''}
+              </span>
             </div>
             <div className="grid gap-2 sm:grid-cols-2">
               {(message.attachments ?? []).map((att) => (
@@ -547,9 +660,12 @@ function EmailMessageBubble({
         )}
 
         {/* AI Analysis (expanded only) */}
-        {isExpanded && hasAiAnalysis && message.aiAnalysis !== undefined && message.aiAnalysis !== null && (
-          <EmailAiPanel analysis={message.aiAnalysis} />
-        )}
+        {isExpanded &&
+          hasAiAnalysis &&
+          message.aiAnalysis !== undefined &&
+          message.aiAnalysis !== null && (
+            <EmailAiPanel analysis={message.aiAnalysis} />
+          )}
       </div>
     </div>
   )
@@ -581,24 +697,24 @@ const EmailThread = forwardRef<HTMLDivElement, EmailThreadProps>(
       className,
       ...props
     },
-    ref,
+    ref
   ) {
     // Build initial expanded set: default last message expanded
     const initialExpanded = useMemo(() => {
       if (expandAll === true) return new Set(messages.map((m) => m.id))
       if (defaultExpandedIds !== undefined) return new Set(defaultExpandedIds)
       // Default: expand last message
-      if (messages.length > 0) return new Set([messages[messages.length - 1].id])
+      if (messages.length > 0)
+        return new Set([messages[messages.length - 1].id])
       return new Set<string>()
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentionally stable, only computed once on mount
+      // eslint-disable-next-line react-hooks/exhaustive-deps -- intentionally stable, only computed once on mount
     }, [])
 
     const [expandedIds, setExpandedIds] = useState<Set<string>>(initialExpanded)
 
     // When expandAll changes, override local state
-    const effectiveExpanded = expandAll === true
-      ? new Set(messages.map((m) => m.id))
-      : expandedIds
+    const effectiveExpanded =
+      expandAll === true ? new Set(messages.map((m) => m.id)) : expandedIds
 
     const toggleExpand = useCallback((id: string) => {
       setExpandedIds((prev) => {
@@ -617,9 +733,9 @@ const EmailThread = forwardRef<HTMLDivElement, EmailThreadProps>(
         <div
           ref={ref}
           className={cx(
-            'flex flex-col items-center justify-center py-12 text-fg-muted gds-text-body',
+            'text-fg-muted gds-text-body flex flex-col items-center justify-center py-12',
             glass === true && glassClass(glass),
-            className,
+            className
           )}
           data-component="email-thread"
           data-state="empty"
@@ -634,9 +750,9 @@ const EmailThread = forwardRef<HTMLDivElement, EmailThreadProps>(
       <div
         ref={ref}
         className={cx(
-          'flex flex-col gds-gap',
+          'gds-gap flex flex-col',
           glass === true && glassClass(glass),
-          className,
+          className
         )}
         data-component="email-thread"
         role="list"
@@ -664,7 +780,7 @@ const EmailThread = forwardRef<HTMLDivElement, EmailThreadProps>(
         ))}
       </div>
     )
-  },
+  }
 )
 
 export { EmailThread }

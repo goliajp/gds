@@ -21,8 +21,11 @@ describe('ServiceCard', () => {
       <ServiceCard
         name="web"
         status="healthy"
-        metrics={[{ label: 'CPU', value: '5%' }, { label: 'MEM', value: '128MB' }]}
-      />,
+        metrics={[
+          { label: 'CPU', value: '5%' },
+          { label: 'MEM', value: '128MB' },
+        ]}
+      />
     )
     expect(screen.getByText('CPU')).toBeDefined()
     expect(screen.getByText('5%')).toBeDefined()
@@ -35,7 +38,7 @@ describe('ServiceCard', () => {
         status="warning"
         tags={['edge', 'global']}
         url="https://cdn.example.com"
-      />,
+      />
     )
     expect(screen.getByText('edge')).toBeDefined()
     expect(screen.getByText('global')).toBeDefined()

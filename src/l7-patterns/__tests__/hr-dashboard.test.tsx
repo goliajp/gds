@@ -6,7 +6,9 @@ import { HRDashboard } from '../hr-dashboard'
 describe('HRDashboard', () => {
   it('renders with data-component', () => {
     const { container } = render(<HRDashboard />)
-    expect(container.querySelector('[data-component="hr-dashboard"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="hr-dashboard"]')
+    ).not.toBeNull()
   })
 
   it('renders stats slot', () => {
@@ -19,7 +21,7 @@ describe('HRDashboard', () => {
       <HRDashboard
         onboarding={<div>New Hires</div>}
         departments={<div>Engineering: 15</div>}
-      />,
+      />
     )
     expect(screen.getByText('New Hires')).toBeDefined()
     expect(screen.getByText('Engineering: 15')).toBeDefined()

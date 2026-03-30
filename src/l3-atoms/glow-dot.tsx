@@ -27,17 +27,26 @@ const sizeMap: Record<GlowDotSize, string> = {
 }
 
 export const GlowDot = forwardRef<HTMLSpanElement, GlowDotProps>(
-  function GlowDot({ color = 'accent', pulse, size = 'default', className, ...props }, ref) {
+  function GlowDot(
+    { color = 'accent', pulse, size = 'default', className, ...props },
+    ref
+  ) {
     return (
       <span
         ref={ref}
-        className={cx('inline-block rounded-full', colorMap[color], sizeMap[size], pulse === true && 'animate-pulse', className)}
+        className={cx(
+          'inline-block rounded-full',
+          colorMap[color],
+          sizeMap[size],
+          pulse === true && 'animate-pulse',
+          className
+        )}
         data-component="glow-dot"
         data-variant={color}
         {...props}
       />
     )
-  },
+  }
 )
 
 export type { GlowDotColor, GlowDotProps, GlowDotSize }

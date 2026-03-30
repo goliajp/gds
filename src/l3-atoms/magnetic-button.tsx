@@ -12,7 +12,10 @@ export type MagneticButtonProps = {
 }
 
 export const MagneticButton = forwardRef<HTMLDivElement, MagneticButtonProps>(
-  function MagneticButton({ children, strength = 0.3, radius = 100, className }, ref) {
+  function MagneticButton(
+    { children, strength = 0.3, radius = 100, className },
+    ref
+  ) {
     const innerRef = useRef<HTMLDivElement>(null)
     const [transform, setTransform] = useState({ x: 0, y: 0 })
 
@@ -32,7 +35,7 @@ export const MagneticButton = forwardRef<HTMLDivElement, MagneticButtonProps>(
         }
         setTransform({ x: dx * strength, y: dy * strength })
       },
-      [strength, radius],
+      [strength, radius]
     )
 
     const handleMouseLeave = useCallback(() => {
@@ -54,5 +57,5 @@ export const MagneticButton = forwardRef<HTMLDivElement, MagneticButtonProps>(
         {children}
       </div>
     )
-  },
+  }
 )

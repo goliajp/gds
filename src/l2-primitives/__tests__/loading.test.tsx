@@ -1,7 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
-import { LoadingBars, LoadingDots, LoadingPulse, LoadingRing, LoadingWave } from '../loading'
+import {
+  LoadingBars,
+  LoadingDots,
+  LoadingPulse,
+  LoadingRing,
+  LoadingWave,
+} from '../loading'
 
 describe('LoadingDots', () => {
   it('renders without crash', () => {
@@ -11,7 +17,9 @@ describe('LoadingDots', () => {
 
   it('has data-component attribute', () => {
     render(<LoadingDots />)
-    expect(screen.getByRole('status').getAttribute('data-component')).toBe('loading-dots')
+    expect(screen.getByRole('status').getAttribute('data-component')).toBe(
+      'loading-dots'
+    )
   })
 
   it('renders 3 dots', () => {
@@ -27,7 +35,9 @@ describe('LoadingDots', () => {
 
   it('applies default size', () => {
     render(<LoadingDots />)
-    expect(screen.getByRole('status').getAttribute('class')).toContain('gap-1.5')
+    expect(screen.getByRole('status').getAttribute('class')).toContain(
+      'gap-1.5'
+    )
   })
 
   it('applies sm size', () => {
@@ -42,7 +52,13 @@ describe('LoadingDots', () => {
 
   it('forwards ref', () => {
     let el: HTMLDivElement | null = null
-    render(<LoadingDots ref={(node) => { el = node }} />)
+    render(
+      <LoadingDots
+        ref={(node) => {
+          el = node
+        }}
+      />
+    )
     expect(el).toBeTruthy()
     expect(el!.tagName.toLowerCase()).toBe('div')
   })
@@ -56,7 +72,9 @@ describe('LoadingBars', () => {
 
   it('has data-component attribute', () => {
     render(<LoadingBars />)
-    expect(screen.getByRole('status').getAttribute('data-component')).toBe('loading-bars')
+    expect(screen.getByRole('status').getAttribute('data-component')).toBe(
+      'loading-bars'
+    )
   })
 
   it('renders 5 bars', () => {
@@ -90,7 +108,13 @@ describe('LoadingBars', () => {
 
   it('forwards ref', () => {
     let el: HTMLDivElement | null = null
-    render(<LoadingBars ref={(node) => { el = node }} />)
+    render(
+      <LoadingBars
+        ref={(node) => {
+          el = node
+        }}
+      />
+    )
     expect(el).toBeTruthy()
   })
 })
@@ -103,12 +127,16 @@ describe('LoadingPulse', () => {
 
   it('has data-component attribute', () => {
     render(<LoadingPulse />)
-    expect(screen.getByRole('status').getAttribute('data-component')).toBe('loading-pulse')
+    expect(screen.getByRole('status').getAttribute('data-component')).toBe(
+      'loading-pulse'
+    )
   })
 
   it('merges className', () => {
     render(<LoadingPulse className="pulse-extra" />)
-    expect(screen.getByRole('status').getAttribute('class')).toContain('pulse-extra')
+    expect(screen.getByRole('status').getAttribute('class')).toContain(
+      'pulse-extra'
+    )
   })
 
   it('applies default size to inner span', () => {
@@ -134,7 +162,13 @@ describe('LoadingPulse', () => {
 
   it('forwards ref', () => {
     let el: HTMLDivElement | null = null
-    render(<LoadingPulse ref={(node) => { el = node }} />)
+    render(
+      <LoadingPulse
+        ref={(node) => {
+          el = node
+        }}
+      />
+    )
     expect(el).toBeTruthy()
   })
 })
@@ -147,12 +181,16 @@ describe('LoadingRing', () => {
 
   it('has data-component attribute', () => {
     render(<LoadingRing />)
-    expect(screen.getByRole('status').getAttribute('data-component')).toBe('loading-ring')
+    expect(screen.getByRole('status').getAttribute('data-component')).toBe(
+      'loading-ring'
+    )
   })
 
   it('merges className', () => {
     render(<LoadingRing className="ring-extra" />)
-    expect(screen.getByRole('status').getAttribute('class')).toContain('ring-extra')
+    expect(screen.getByRole('status').getAttribute('class')).toContain(
+      'ring-extra'
+    )
   })
 
   it('applies default size with border-2', () => {
@@ -182,7 +220,13 @@ describe('LoadingRing', () => {
 
   it('forwards ref', () => {
     let el: HTMLDivElement | null = null
-    render(<LoadingRing ref={(node) => { el = node }} />)
+    render(
+      <LoadingRing
+        ref={(node) => {
+          el = node
+        }}
+      />
+    )
     expect(el).toBeTruthy()
   })
 })
@@ -195,7 +239,9 @@ describe('LoadingWave', () => {
 
   it('has data-component attribute', () => {
     render(<LoadingWave />)
-    expect(screen.getByRole('status').getAttribute('data-component')).toBe('loading-wave')
+    expect(screen.getByRole('status').getAttribute('data-component')).toBe(
+      'loading-wave'
+    )
   })
 
   it('renders 5 dots', () => {
@@ -206,12 +252,16 @@ describe('LoadingWave', () => {
 
   it('merges className', () => {
     render(<LoadingWave className="wave-extra" />)
-    expect(screen.getByRole('status').getAttribute('class')).toContain('wave-extra')
+    expect(screen.getByRole('status').getAttribute('class')).toContain(
+      'wave-extra'
+    )
   })
 
   it('applies default size', () => {
     render(<LoadingWave />)
-    expect(screen.getByRole('status').getAttribute('class')).toContain('gap-1.5')
+    expect(screen.getByRole('status').getAttribute('class')).toContain(
+      'gap-1.5'
+    )
   })
 
   it('applies sm size', () => {
@@ -226,12 +276,20 @@ describe('LoadingWave', () => {
 
   it('uses items-end alignment', () => {
     render(<LoadingWave />)
-    expect(screen.getByRole('status').getAttribute('class')).toContain('items-end')
+    expect(screen.getByRole('status').getAttribute('class')).toContain(
+      'items-end'
+    )
   })
 
   it('forwards ref', () => {
     let el: HTMLDivElement | null = null
-    render(<LoadingWave ref={(node) => { el = node }} />)
+    render(
+      <LoadingWave
+        ref={(node) => {
+          el = node
+        }}
+      />
+    )
     expect(el).toBeTruthy()
   })
 })

@@ -8,24 +8,25 @@ type HotkeyProps = React.HTMLAttributes<HTMLSpanElement> & {
   keys: string[]
 }
 
-export const Hotkey = forwardRef<HTMLSpanElement, HotkeyProps>(
-  function Hotkey({ className, keys, ...props }, ref) {
-    return (
-      <span
-        className={cx('inline-flex items-center gap-1', className)}
-        data-component="hotkey"
-        ref={ref}
-        {...props}
-      >
-        {keys.map((key, i) => (
-          <span className="contents" key={i}>
-            {i > 0 && <span className="text-[10px] text-fg-muted">+</span>}
-            <Kbd>{key}</Kbd>
-          </span>
-        ))}
-      </span>
-    )
-  },
-)
+export const Hotkey = forwardRef<HTMLSpanElement, HotkeyProps>(function Hotkey(
+  { className, keys, ...props },
+  ref
+) {
+  return (
+    <span
+      className={cx('inline-flex items-center gap-1', className)}
+      data-component="hotkey"
+      ref={ref}
+      {...props}
+    >
+      {keys.map((key, i) => (
+        <span className="contents" key={i}>
+          {i > 0 && <span className="text-fg-muted text-[10px]">+</span>}
+          <Kbd>{key}</Kbd>
+        </span>
+      ))}
+    </span>
+  )
+})
 
 export type { HotkeyProps }

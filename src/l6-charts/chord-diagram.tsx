@@ -2,7 +2,14 @@
 import { forwardRef } from 'react'
 
 import { cx } from '../utils/cx'
-import { arcPath, CHORD_PALETTE, chordPath, computeArcs, computeChords, polarToCartesian } from './chord-math'
+import {
+  arcPath,
+  CHORD_PALETTE,
+  chordPath,
+  computeArcs,
+  computeChords,
+  polarToCartesian,
+} from './chord-math'
 
 export type ChordDiagramProps = {
   matrix: number[][]
@@ -14,7 +21,10 @@ export type ChordDiagramProps = {
 }
 
 export const ChordDiagram = forwardRef<HTMLDivElement, ChordDiagramProps>(
-  function ChordDiagram({ matrix, labels, width = 300, height = 300, glass, className }, ref) {
+  function ChordDiagram(
+    { matrix, labels, width = 300, height = 300, glass, className },
+    ref
+  ) {
     const n = labels.length
     const centerX = width / 2
     const centerY = height / 2
@@ -31,13 +41,17 @@ export const ChordDiagram = forwardRef<HTMLDivElement, ChordDiagramProps>(
         <div
           ref={ref}
           className={cx(
-            'gds-radius-popover border border-border',
-            glass && 'backdrop-blur-md bg-white/5',
-            className,
+            'gds-radius-popover border-border border',
+            glass && 'bg-white/5 backdrop-blur-md',
+            className
           )}
           data-component="chord-diagram"
         >
-          <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} />
+          <svg
+            width={width}
+            height={height}
+            viewBox={`0 0 ${width} ${height}`}
+          />
         </div>
       )
     }
@@ -49,9 +63,9 @@ export const ChordDiagram = forwardRef<HTMLDivElement, ChordDiagramProps>(
       <div
         ref={ref}
         className={cx(
-          'gds-radius-popover border border-border',
-          glass && 'backdrop-blur-md bg-white/5',
-          className,
+          'gds-radius-popover border-border border',
+          glass && 'bg-white/5 backdrop-blur-md',
+          className
         )}
         data-component="chord-diagram"
       >
@@ -84,7 +98,10 @@ export const ChordDiagram = forwardRef<HTMLDivElement, ChordDiagramProps>(
             const midAngle = (arc.start + arc.end) / 2
             const labelR = outerR + 16
             const pos = polarToCartesian(centerX, centerY, labelR, midAngle)
-            const anchor = midAngle > Math.PI / 2 && midAngle < (3 * Math.PI) / 2 ? 'end' : 'start'
+            const anchor =
+              midAngle > Math.PI / 2 && midAngle < (3 * Math.PI) / 2
+                ? 'end'
+                : 'start'
 
             return (
               <text
@@ -103,5 +120,5 @@ export const ChordDiagram = forwardRef<HTMLDivElement, ChordDiagramProps>(
         </svg>
       </div>
     )
-  },
+  }
 )

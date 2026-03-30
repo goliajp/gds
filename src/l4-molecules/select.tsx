@@ -11,7 +11,7 @@ export const selectVariants = cva(
   cx(
     'w-full appearance-none gds-radius-popover border bg-transparent pr-8 text-fg transition-colors',
     'placeholder:text-fg-muted',
-    focusCls,
+    focusCls
   ),
   {
     compoundVariants: [
@@ -34,32 +34,51 @@ export const selectVariants = cva(
       error: false,
       inputSize: 'default',
     },
-  },
+  }
 )
 
-export type SelectProps = Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'size'> &
+export type SelectProps = Omit<
+  React.SelectHTMLAttributes<HTMLSelectElement>,
+  'size'
+> &
   VariantProps<typeof selectVariants> & {
     glass?: boolean
     className?: string
   }
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  function Select({ error, inputSize, glass, className, children, ...props }, ref) {
+  function Select(
+    { error, inputSize, glass, className, children, ...props },
+    ref
+  ) {
     return (
       <div className="relative" data-component="select">
         <select
           ref={ref}
-          className={cx(selectVariants({ error, inputSize }), glassClass(glass), className)}
+          className={cx(
+            selectVariants({ error, inputSize }),
+            glassClass(glass),
+            className
+          )}
           {...props}
         >
           {children}
         </select>
-        <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-fg-muted">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <span className="text-fg-muted pointer-events-none absolute top-1/2 right-2 -translate-y-1/2">
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <path d="M3 4.5l3 3 3-3" />
           </svg>
         </span>
       </div>
     )
-  },
+  }
 )

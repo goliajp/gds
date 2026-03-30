@@ -25,8 +25,8 @@ export type PaneProps = React.HTMLAttributes<HTMLDivElement> & {
   className?: string
 }
 
-export const Pane = forwardRef<HTMLDivElement, PaneProps>(
-  function Pane({
+export const Pane = forwardRef<HTMLDivElement, PaneProps>(function Pane(
+  {
     children,
     width,
     minWidth,
@@ -35,36 +35,37 @@ export const Pane = forwardRef<HTMLDivElement, PaneProps>(
     scrollable = true,
     className,
     ...props
-  }, ref) {
-    const isMobile = useIsMobile()
-
-    const style: React.CSSProperties = {}
-    if (width !== undefined && !isMobile) {
-      style.width = width
-      style.flexShrink = 0
-    }
-    if (minWidth !== undefined && !isMobile) style.minWidth = minWidth
-    if (maxWidth !== undefined && !isMobile) style.maxWidth = maxWidth
-
-    return (
-      <div
-        {...props}
-        ref={ref}
-        className={cx(
-          width === undefined && 'flex-1',
-          isMobile && 'w-full',
-          scrollable && 'min-h-0 overflow-y-auto',
-          center === true && 'flex justify-center',
-          className,
-        )}
-        data-component="panel"
-        style={Object.keys(style).length > 0 ? style : undefined}
-      >
-        {children}
-      </div>
-    )
   },
-)
+  ref
+) {
+  const isMobile = useIsMobile()
+
+  const style: React.CSSProperties = {}
+  if (width !== undefined && !isMobile) {
+    style.width = width
+    style.flexShrink = 0
+  }
+  if (minWidth !== undefined && !isMobile) style.minWidth = minWidth
+  if (maxWidth !== undefined && !isMobile) style.maxWidth = maxWidth
+
+  return (
+    <div
+      {...props}
+      ref={ref}
+      className={cx(
+        width === undefined && 'flex-1',
+        isMobile && 'w-full',
+        scrollable && 'min-h-0 overflow-y-auto',
+        center === true && 'flex justify-center',
+        className
+      )}
+      data-component="panel"
+      style={Object.keys(style).length > 0 ? style : undefined}
+    >
+      {children}
+    </div>
+  )
+})
 
 // ---- PaneGroup ----
 
@@ -76,7 +77,10 @@ export type PaneGroupProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const PaneGroup = forwardRef<HTMLDivElement, PaneGroupProps>(
-  function PaneGroup({ children, direction = 'horizontal', className, ...props }, ref) {
+  function PaneGroup(
+    { children, direction = 'horizontal', className, ...props },
+    ref
+  ) {
     const isMobile = useIsMobile()
 
     // on mobile, horizontal groups stack vertically
@@ -89,12 +93,12 @@ export const PaneGroup = forwardRef<HTMLDivElement, PaneGroupProps>(
         className={cx(
           'flex min-h-0 flex-1',
           isVertical ? 'flex-col' : 'flex-row',
-          className,
+          className
         )}
         data-component="panel-group"
       >
         {children}
       </div>
     )
-  },
+  }
 )

@@ -4,10 +4,10 @@
 // breakpoint scale — mobile-first, min-width values
 // each step is roughly 1.5-2× the mobile base (320px)
 export const breakpoints = {
-  sm: 640,     // large phone / small tablet
-  md: 768,     // tablet portrait
-  lg: 1024,    // tablet landscape / small laptop
-  xl: 1280,    // laptop
+  sm: 640, // large phone / small tablet
+  md: 768, // tablet portrait
+  lg: 1024, // tablet landscape / small laptop
+  xl: 1280, // laptop
   '2xl': 1536, // desktop
 } as const
 
@@ -37,10 +37,10 @@ export function between(min: BreakpointKey, max: BreakpointKey): string {
 
 // overlap detection — validate that custom breakpoints don't conflict
 export function detectOverlap(
-  custom: Record<string, number>,
-): { a: string, b: string, overlap: number }[] {
+  custom: Record<string, number>
+): { a: string; b: string; overlap: number }[] {
   const sorted = Object.entries(custom).sort(([, a], [, b]) => a - b)
-  const overlaps: { a: string, b: string, overlap: number }[] = []
+  const overlaps: { a: string; b: string; overlap: number }[] = []
   for (let i = 0; i < sorted.length - 1; i++) {
     const [nameA, valA] = sorted[i]
     const [nameB, valB] = sorted[i + 1]

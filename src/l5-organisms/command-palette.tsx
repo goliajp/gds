@@ -105,7 +105,9 @@ export function CommandPalette({
     // show recent items when query is empty
     if (query === '') {
       if (recentItems !== undefined && recentItems.length > 0) {
-        const recents = recentItems.slice(0, maxRecent).map(r => ({ ...r, group: 'Recent' }))
+        const recents = recentItems
+          .slice(0, maxRecent)
+          .map((r) => ({ ...r, group: 'Recent' }))
         return [...recents, ...items]
       }
       return items
@@ -114,7 +116,7 @@ export function CommandPalette({
     if (fuzzy) {
       // fuzzy scoring — rank by match quality
       const scored = items
-        .map(item => ({ item, score: fuzzyScore(item.label, query) }))
+        .map((item) => ({ item, score: fuzzyScore(item.label, query) }))
         .filter(({ score }) => score > 0)
         .sort((a, b) => b.score - a.score)
       return scored.slice(0, maxResults).map(({ item }) => item)
@@ -122,7 +124,9 @@ export function CommandPalette({
 
     // fallback: substring match
     const lower = query.toLowerCase()
-    return items.filter((item) => item.label.toLowerCase().includes(lower)).slice(0, maxResults)
+    return items
+      .filter((item) => item.label.toLowerCase().includes(lower))
+      .slice(0, maxResults)
   }, [items, query, fuzzy, maxResults, recentItems, maxRecent])
 
   // group items
@@ -148,30 +152,38 @@ export function CommandPalette({
     }
   }, [activeIndex])
 
-  const handleSelect = useCallback((id: string) => {
-    // fire action if item has one
-    const item = filtered.find(i => i.id === id)
-    if (item?.disabled) return
-    if (item?.action !== undefined) {
-      item.action()
-    }
-    onSelect(id)
-    if (onExecute !== undefined) onExecute(id)
-    onClose()
-  }, [onSelect, onClose, onExecute, filtered])
+  const handleSelect = useCallback(
+    (id: string) => {
+      // fire action if item has one
+      const item = filtered.find((i) => i.id === id)
+      if (item?.disabled) return
+      if (item?.action !== undefined) {
+        item.action()
+      }
+      onSelect(id)
+      if (onExecute !== undefined) onExecute(id)
+      onClose()
+    },
+    [onSelect, onClose, onExecute, filtered]
+  )
 
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowDown') {
-      e.preventDefault()
-      setActiveIndex((prev) => (prev + 1) % Math.max(filtered.length, 1))
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault()
-      setActiveIndex((prev) => (prev - 1 + filtered.length) % Math.max(filtered.length, 1))
-    } else if (e.key === 'Enter' && filtered[activeIndex] !== undefined) {
-      e.preventDefault()
-      handleSelect(filtered[activeIndex].id)
-    }
-  }, [filtered, activeIndex, handleSelect])
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault()
+        setActiveIndex((prev) => (prev + 1) % Math.max(filtered.length, 1))
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault()
+        setActiveIndex(
+          (prev) => (prev - 1 + filtered.length) % Math.max(filtered.length, 1)
+        )
+      } else if (e.key === 'Enter' && filtered[activeIndex] !== undefined) {
+        e.preventDefault()
+        handleSelect(filtered[activeIndex].id)
+      }
+    },
+    [filtered, activeIndex, handleSelect]
+  )
 
   if (!open) return null
 
@@ -180,18 +192,26 @@ export function CommandPalette({
       className="fixed inset-0 z-50 flex items-start justify-center bg-black/60 pt-[15vh]"
       data-component="command-palette"
       data-state="open"
-      onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose()
+      }}
       onKeyDown={handleKeyDown}
     >
       <div
         className={cx(
-          'w-full max-w-xl animate-scale-in rounded-xl border border-white/[0.06] bg-bg-secondary shadow-2xl',
-          className,
+          'animate-scale-in bg-bg-secondary w-full max-w-xl rounded-xl border border-white/[0.06] shadow-2xl',
+          className
         )}
       >
         {/* search bar */}
         <div className="flex items-center gap-3 border-b border-white/[0.06] px-4">
-          <svg className="h-4 w-4 shrink-0 text-fg-muted/40" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <svg
+            className="text-fg-muted/40 h-4 w-4 shrink-0"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            viewBox="0 0 24 24"
+          >
             <circle cx="11" cy="11" r="8" />
             <path d="m21 21-4.35-4.35" strokeLinecap="round" />
           </svg>
@@ -199,11 +219,14 @@ export function CommandPalette({
             ref={inputRef}
             type="text"
             value={query}
-            onChange={(e) => { setQuery(e.target.value); setActiveIndex(0) }}
+            onChange={(e) => {
+              setQuery(e.target.value)
+              setActiveIndex(0)
+            }}
             placeholder={placeholder}
-            className="flex-1 bg-transparent py-3.5 text-sm text-fg placeholder:text-fg-muted/30 outline-none"
+            className="text-fg placeholder:text-fg-muted/30 flex-1 bg-transparent py-3.5 text-sm outline-none"
           />
-          <kbd className="shrink-0 rounded border border-white/[0.08] bg-white/[0.04] px-1.5 py-0.5 text-[10px] font-medium text-fg-muted/40">
+          <kbd className="text-fg-muted/40 shrink-0 rounded border border-white/[0.08] bg-white/[0.04] px-1.5 py-0.5 text-[10px] font-medium">
             ESC
           </kbd>
         </div>
@@ -221,7 +244,7 @@ export function CommandPalette({
         </div>
 
         {/* footer hints */}
-        <div className="flex items-center justify-between border-t border-white/[0.06] px-4 py-2 text-[10px] text-fg-muted/25">
+        <div className="text-fg-muted/25 flex items-center justify-between border-t border-white/[0.06] px-4 py-2 text-[10px]">
           <div className="flex items-center gap-3">
             <span>↑↓ navigate</span>
             <span>↵ select</span>
@@ -230,6 +253,6 @@ export function CommandPalette({
           <span>{items.length} commands</span>
         </div>
       </div>
-    </div>,
+    </div>
   )
 }

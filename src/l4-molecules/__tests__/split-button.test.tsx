@@ -11,21 +11,33 @@ const items = [
 
 describe('SplitButton', () => {
   it('renders the main button label', () => {
-    render(<SplitButton items={items} onSelect={() => {}}>Save</SplitButton>)
+    render(
+      <SplitButton items={items} onSelect={() => {}}>
+        Save
+      </SplitButton>
+    )
     expect(screen.getByText('Save')).toBeDefined()
   })
 
   it('calls onClick when main button is clicked', async () => {
     const user = userEvent.setup()
     const onClick = vi.fn()
-    render(<SplitButton items={items} onSelect={() => {}} onClick={onClick}>Save</SplitButton>)
+    render(
+      <SplitButton items={items} onSelect={() => {}} onClick={onClick}>
+        Save
+      </SplitButton>
+    )
     await user.click(screen.getByText('Save'))
     expect(onClick).toHaveBeenCalledOnce()
   })
 
   it('opens dropdown on arrow click', async () => {
     const user = userEvent.setup()
-    render(<SplitButton items={items} onSelect={() => {}}>Save</SplitButton>)
+    render(
+      <SplitButton items={items} onSelect={() => {}}>
+        Save
+      </SplitButton>
+    )
     await user.click(screen.getByLabelText('More actions'))
     expect(screen.getByText('Save as Draft')).toBeDefined()
     expect(screen.getByText('Delete')).toBeDefined()
@@ -34,7 +46,11 @@ describe('SplitButton', () => {
   it('calls onSelect when a dropdown item is clicked', async () => {
     const user = userEvent.setup()
     const onSelect = vi.fn()
-    render(<SplitButton items={items} onSelect={onSelect}>Save</SplitButton>)
+    render(
+      <SplitButton items={items} onSelect={onSelect}>
+        Save
+      </SplitButton>
+    )
     await user.click(screen.getByLabelText('More actions'))
     await user.click(screen.getByText('Save as Draft'))
     expect(onSelect).toHaveBeenCalledWith('save-draft')
@@ -42,7 +58,11 @@ describe('SplitButton', () => {
 
   it('closes dropdown on escape', async () => {
     const user = userEvent.setup()
-    render(<SplitButton items={items} onSelect={() => {}}>Save</SplitButton>)
+    render(
+      <SplitButton items={items} onSelect={() => {}}>
+        Save
+      </SplitButton>
+    )
     await user.click(screen.getByLabelText('More actions'))
     expect(screen.getByText('Save as Draft')).toBeDefined()
     await user.keyboard('{Escape}')
@@ -51,7 +71,9 @@ describe('SplitButton', () => {
 
   it('renders with secondary variant', () => {
     const { container } = render(
-      <SplitButton items={items} onSelect={() => {}} variant="secondary">Save</SplitButton>,
+      <SplitButton items={items} onSelect={() => {}} variant="secondary">
+        Save
+      </SplitButton>
     )
     const el = container.querySelector('[data-component="split-button"]')
     expect(el?.getAttribute('data-variant')).toBe('secondary')
@@ -59,7 +81,9 @@ describe('SplitButton', () => {
 
   it('renders with danger variant', () => {
     const { container } = render(
-      <SplitButton items={items} onSelect={() => {}} variant="danger">Delete</SplitButton>,
+      <SplitButton items={items} onSelect={() => {}} variant="danger">
+        Delete
+      </SplitButton>
     )
     const el = container.querySelector('[data-component="split-button"]')
     expect(el?.getAttribute('data-variant')).toBe('danger')
@@ -67,7 +91,9 @@ describe('SplitButton', () => {
 
   it('renders with sm size', () => {
     const { container } = render(
-      <SplitButton items={items} onSelect={() => {}} size="sm">Save</SplitButton>,
+      <SplitButton items={items} onSelect={() => {}} size="sm">
+        Save
+      </SplitButton>
     )
     const mainBtn = container.querySelector('button')
     expect(mainBtn?.className).toContain('text-xs')
@@ -75,7 +101,9 @@ describe('SplitButton', () => {
 
   it('renders with lg size', () => {
     const { container } = render(
-      <SplitButton items={items} onSelect={() => {}} size="lg">Save</SplitButton>,
+      <SplitButton items={items} onSelect={() => {}} size="lg">
+        Save
+      </SplitButton>
     )
     const mainBtn = container.querySelector('button')
     expect(mainBtn?.className).toContain('px-4')
@@ -83,7 +111,9 @@ describe('SplitButton', () => {
 
   it('disables both buttons when disabled', () => {
     const { container } = render(
-      <SplitButton items={items} onSelect={() => {}} disabled>Save</SplitButton>,
+      <SplitButton items={items} onSelect={() => {}} disabled>
+        Save
+      </SplitButton>
     )
     const buttons = container.querySelectorAll('button')
     expect(buttons[0]?.disabled).toBe(true)
@@ -93,7 +123,9 @@ describe('SplitButton', () => {
   it('renders danger item with danger styling in dropdown', async () => {
     const user = userEvent.setup()
     render(
-      <SplitButton items={items} onSelect={() => {}}>Save</SplitButton>,
+      <SplitButton items={items} onSelect={() => {}}>
+        Save
+      </SplitButton>
     )
     await user.click(screen.getByLabelText('More actions'))
     const deleteBtn = screen.getByText('Delete')

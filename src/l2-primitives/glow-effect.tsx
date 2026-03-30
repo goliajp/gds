@@ -36,8 +36,16 @@ export type GlowEffectProps = {
 
 export const GlowEffect = forwardRef<HTMLDivElement, GlowEffectProps>(
   function GlowEffect(
-    { children, className, color = 'var(--gds-accent)', intensity = 'default', radius, style: styleProp, ...props },
-    ref,
+    {
+      children,
+      className,
+      color = 'var(--gds-accent)',
+      intensity = 'default',
+      radius,
+      style: styleProp,
+      ...props
+    },
+    ref
   ) {
     const config = intensityMap[intensity]
     return (
@@ -55,5 +63,5 @@ export const GlowEffect = forwardRef<HTMLDivElement, GlowEffectProps>(
         {children}
       </div>
     )
-  },
+  }
 )

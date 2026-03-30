@@ -39,7 +39,10 @@ const layouts: Record<SkeletonGroupVariant, () => React.ReactNode> = {
 }
 
 export const SkeletonGroup = forwardRef<HTMLDivElement, SkeletonGroupProps>(
-  function SkeletonGroup({ className, count = 1, variant = 'avatar-text' }, ref) {
+  function SkeletonGroup(
+    { className, count = 1, variant = 'avatar-text' },
+    ref
+  ) {
     const render = layouts[variant]
 
     return (
@@ -54,7 +57,7 @@ export const SkeletonGroup = forwardRef<HTMLDivElement, SkeletonGroupProps>(
         ))}
       </div>
     )
-  },
+  }
 )
 
 export type { SkeletonGroupProps, SkeletonGroupVariant }

@@ -33,13 +33,23 @@ function starStyle(i: number, count: number): React.CSSProperties {
 
 export const Sparkle = forwardRef<HTMLSpanElement, SparkleProps>(
   function Sparkle(
-    { children, active = true, count = 3, color = 'var(--gds-accent)', className },
-    ref,
+    {
+      children,
+      active = true,
+      count = 3,
+      color = 'var(--gds-accent)',
+      className,
+    },
+    ref
   ) {
     const particles = Array.from({ length: count }, (_, i) => i)
 
     return (
-      <span ref={ref} className={cx('relative inline-block', className)} data-component="sparkle">
+      <span
+        ref={ref}
+        className={cx('relative inline-block', className)}
+        data-component="sparkle"
+      >
         {children}
         {active &&
           particles.map((i) => (
@@ -63,5 +73,5 @@ export const Sparkle = forwardRef<HTMLSpanElement, SparkleProps>(
         )}
       </span>
     )
-  },
+  }
 )

@@ -29,7 +29,10 @@ export const Watermark = forwardRef<HTMLDivElement, WatermarkProps>(
             style={{ transform: 'rotate(-30deg)' }}
           >
             {Array.from({ length: 64 }, (_, i) => (
-              <span key={i} className="text-lg font-bold whitespace-nowrap text-fg">
+              <span
+                key={i}
+                className="text-fg text-lg font-bold whitespace-nowrap"
+              >
                 {text}
               </span>
             ))}
@@ -37,5 +40,5 @@ export const Watermark = forwardRef<HTMLDivElement, WatermarkProps>(
         </div>
       </div>
     )
-  },
+  }
 )

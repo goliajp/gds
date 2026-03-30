@@ -18,8 +18,12 @@ const data = [
 
 describe('SortableTable', () => {
   it('has data-component="sortable-table"', () => {
-    const { container } = render(<SortableTable columns={columns} data={data} />)
-    expect(container.querySelector('[data-component="sortable-table"]')).not.toBeNull()
+    const { container } = render(
+      <SortableTable columns={columns} data={data} />
+    )
+    expect(
+      container.querySelector('[data-component="sortable-table"]')
+    ).not.toBeNull()
   })
 
   it('renders column headers', () => {
@@ -38,7 +42,9 @@ describe('SortableTable', () => {
 
   it('sorts data when clicking a sortable header', async () => {
     const user = userEvent.setup()
-    const { container } = render(<SortableTable columns={columns} data={data} />)
+    const { container } = render(
+      <SortableTable columns={columns} data={data} />
+    )
     await user.click(screen.getByText('Name'))
     const cells = container.querySelectorAll('tbody td:first-child')
     expect(cells[0]?.textContent).toBe('Alice')
@@ -55,7 +61,9 @@ describe('SortableTable', () => {
 
   it('toggles to descending on second click', async () => {
     const user = userEvent.setup()
-    const { container } = render(<SortableTable columns={columns} data={data} />)
+    const { container } = render(
+      <SortableTable columns={columns} data={data} />
+    )
     await user.click(screen.getByText('Name'))
     expect(screen.getByText('▲')).toBeDefined()
     await user.click(screen.getByText('Name'))
@@ -86,7 +94,11 @@ describe('SortableTable', () => {
 
   it('accepts defaultSort prop', () => {
     const { container } = render(
-      <SortableTable columns={columns} data={data} defaultSort={{ key: 'name', dir: 'asc' }} />,
+      <SortableTable
+        columns={columns}
+        data={data}
+        defaultSort={{ key: 'name', dir: 'asc' }}
+      />
     )
     expect(screen.getByText('▲')).toBeDefined()
     const cells = container.querySelectorAll('tbody td:first-child')
@@ -95,7 +107,11 @@ describe('SortableTable', () => {
 
   it('accepts defaultSort with desc direction', () => {
     const { container } = render(
-      <SortableTable columns={columns} data={data} defaultSort={{ key: 'name', dir: 'desc' }} />,
+      <SortableTable
+        columns={columns}
+        data={data}
+        defaultSort={{ key: 'name', dir: 'desc' }}
+      />
     )
     expect(screen.getByText('▼')).toBeDefined()
     const cells = container.querySelectorAll('tbody td:first-child')
@@ -104,7 +120,9 @@ describe('SortableTable', () => {
 
   it('sorts numerically with numeric option', async () => {
     const user = userEvent.setup()
-    const { container } = render(<SortableTable columns={columns} data={data} />)
+    const { container } = render(
+      <SortableTable columns={columns} data={data} />
+    )
     await user.click(screen.getByText('Age'))
     const cells = container.querySelectorAll('tbody td:nth-child(2)')
     expect(cells[0]?.textContent).toBe('25')
@@ -114,7 +132,7 @@ describe('SortableTable', () => {
 
   it('applies custom className', () => {
     const { container } = render(
-      <SortableTable columns={columns} data={data} className="my-table" />,
+      <SortableTable columns={columns} data={data} className="my-table" />
     )
     const root = container.querySelector('[data-component="sortable-table"]')
     expect(root?.className).toContain('my-table')
@@ -131,7 +149,12 @@ describe('SortableTable', () => {
       { name: null, age: null, role: 'Dev' },
       { name: 'Bob', age: 35, role: 'Design' },
     ]
-    render(<SortableTable columns={columns} data={dataWithNull as unknown as Record<string, unknown>[]} />)
+    render(
+      <SortableTable
+        columns={columns}
+        data={dataWithNull as unknown as Record<string, unknown>[]}
+      />
+    )
     // should not crash
     expect(screen.getByText('Bob')).toBeDefined()
   })

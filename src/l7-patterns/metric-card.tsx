@@ -16,31 +16,34 @@ export type MetricCardProps = {
 }
 
 export const MetricCard = forwardRef<HTMLDivElement, MetricCardProps>(
-  function MetricCard({ title, value, change, changeLabel, icon, glass, className }, ref) {
+  function MetricCard(
+    { title, value, change, changeLabel, icon, glass, className },
+    ref
+  ) {
     const isPositive = change !== undefined && change >= 0
 
     return (
       <div
         ref={ref}
         className={cx(
-          'relative gds-radius-card border gds-pad-x-lg gds-pad-y-lg',
+          'gds-radius-card gds-pad-x-lg gds-pad-y-lg relative border',
           glass === true
-            ? cx(glassClass(glass), 'border-white/10 bg-bg/60')
+            ? cx(glassClass(glass), 'bg-bg/60 border-white/10')
             : 'border-border bg-surface',
-          className,
+          className
         )}
         data-component="metric-card"
       >
         {icon !== undefined && (
-          <div className="absolute right-4 top-4 text-fg-muted/40">{icon}</div>
+          <div className="text-fg-muted/40 absolute top-4 right-4">{icon}</div>
         )}
         <p className="gds-text-body text-fg-muted">{title}</p>
-        <p className="mt-1 text-2xl font-bold text-fg">{value}</p>
+        <p className="text-fg mt-1 text-2xl font-bold">{value}</p>
         {change !== undefined && (
           <p
             className={cx(
-              'mt-1 gds-text-body',
-              isPositive ? 'text-success' : 'text-danger',
+              'gds-text-body mt-1',
+              isPositive ? 'text-success' : 'text-danger'
             )}
           >
             {isPositive ? '+' : ''}
@@ -49,5 +52,5 @@ export const MetricCard = forwardRef<HTMLDivElement, MetricCardProps>(
         )}
       </div>
     )
-  },
+  }
 )

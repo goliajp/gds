@@ -25,14 +25,26 @@ export type DataCardProps = {
 }
 
 export const DataCard = forwardRef<HTMLDivElement, DataCardProps>(
-  function DataCard({ title, value, change, changeType = 'neutral', icon, footer, glass, className }, ref) {
+  function DataCard(
+    {
+      title,
+      value,
+      change,
+      changeType = 'neutral',
+      icon,
+      footer,
+      glass,
+      className,
+    },
+    ref
+  ) {
     return (
       <div
         ref={ref}
         className={cx(
-          'gds-ctx gds-radius border border-border/40 bg-surface gds-pad select-none',
+          'gds-ctx gds-radius border-border/40 bg-surface gds-pad border select-none',
           glass === true && glassClass(glass),
-          className,
+          className
         )}
         data-component="data-card"
       >
@@ -43,18 +55,43 @@ export const DataCard = forwardRef<HTMLDivElement, DataCardProps>(
           )}
         </div>
 
-        <div className="mt-2 text-xl font-bold text-fg">{value}</div>
+        <div className="text-fg mt-2 text-xl font-bold">{value}</div>
 
         {change !== undefined && (
-          <div className={cx('mt-1 flex items-center gap-1 text-[11px]', changeColors[changeType])}>
+          <div
+            className={cx(
+              'mt-1 flex items-center gap-1 text-[11px]',
+              changeColors[changeType]
+            )}
+          >
             {changeType === 'up' && (
-              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M2 12l5-5 3 3 5-6" /><path d="M11 4h4v4" />
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M2 12l5-5 3 3 5-6" />
+                <path d="M11 4h4v4" />
               </svg>
             )}
             {changeType === 'down' && (
-              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M2 4l5 5 3-3 5 6" /><path d="M11 12h4V8" />
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M2 4l5 5 3-3 5 6" />
+                <path d="M11 12h4V8" />
               </svg>
             )}
             <span>{change}</span>
@@ -62,13 +99,13 @@ export const DataCard = forwardRef<HTMLDivElement, DataCardProps>(
         )}
 
         {footer !== undefined && (
-          <div className="mt-3 border-t border-border/20 pt-2 text-[10px] text-fg-muted/50">
+          <div className="border-border/20 text-fg-muted/50 mt-3 border-t pt-2 text-[10px]">
             {footer}
           </div>
         )}
       </div>
     )
-  },
+  }
 )
 
 export type { DataCardChangeType }

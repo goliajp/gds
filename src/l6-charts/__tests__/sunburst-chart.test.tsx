@@ -39,6 +39,8 @@ describe('SunburstChart', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<SunburstChart data={data} />)
-    expect(container.querySelector('[data-component="sunburst-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="sunburst-chart"]')
+    ).not.toBeNull()
   })
 })

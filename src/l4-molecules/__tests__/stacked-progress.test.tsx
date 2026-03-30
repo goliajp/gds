@@ -12,7 +12,9 @@ const segments = [
 describe('StackedProgress', () => {
   it('renders with data-component', () => {
     const { container } = render(<StackedProgress segments={segments} />)
-    expect(container.querySelector('[data-component="stacked-progress"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="stacked-progress"]')
+    ).not.toBeNull()
   })
 
   it('renders segment bars', () => {
@@ -36,20 +38,26 @@ describe('StackedProgress', () => {
   })
 
   it('hides labels when showLabels is false', () => {
-    const { queryByText } = render(<StackedProgress segments={segments} showLabels={false} />)
+    const { queryByText } = render(
+      <StackedProgress segments={segments} showLabels={false} />
+    )
     expect(queryByText('A')).toBeNull()
   })
 
   it('uses custom color when provided', () => {
     const custom = [{ label: 'X', value: 100, color: '#ff0000' }]
     const { container } = render(<StackedProgress segments={custom} />)
-    const bar = container.querySelector('.flex.h-3')!.firstElementChild as HTMLElement
+    const bar = container.querySelector('.flex.h-3')!
+      .firstElementChild as HTMLElement
     expect(bar.style.backgroundColor).toBe('#ff0000')
   })
 
   it('uses default colors when no custom color', () => {
-    const { container } = render(<StackedProgress segments={[{ label: 'X', value: 100 }]} />)
-    const bar = container.querySelector('.flex.h-3')!.firstElementChild as HTMLElement
+    const { container } = render(
+      <StackedProgress segments={[{ label: 'X', value: 100 }]} />
+    )
+    const bar = container.querySelector('.flex.h-3')!
+      .firstElementChild as HTMLElement
     expect(bar.style.backgroundColor).toBe('var(--color-accent)')
   })
 
@@ -74,13 +82,18 @@ describe('StackedProgress', () => {
   })
 
   it('merges custom className', () => {
-    const { container } = render(<StackedProgress segments={segments} className="extra" />)
+    const { container } = render(
+      <StackedProgress segments={segments} className="extra" />
+    )
     const el = container.querySelector('[data-component="stacked-progress"]')!
     expect(el.className).toContain('extra')
   })
 
   it('cycles default colors for many segments', () => {
-    const many = Array.from({ length: 6 }, (_, i) => ({ label: `S${i}`, value: 10 }))
+    const many = Array.from({ length: 6 }, (_, i) => ({
+      label: `S${i}`,
+      value: 10,
+    }))
     const { container } = render(<StackedProgress segments={many} />)
     const bars = container.querySelector('.flex.h-3')!.children
     expect(bars.length).toBe(6)

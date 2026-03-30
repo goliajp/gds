@@ -13,7 +13,16 @@ export type ParallaxProps = {
 }
 
 export const Parallax = forwardRef<HTMLDivElement, ParallaxProps>(
-  function Parallax({ children, speed = 0.5, direction = 'vertical', disabled = false, className }, ref) {
+  function Parallax(
+    {
+      children,
+      speed = 0.5,
+      direction = 'vertical',
+      disabled = false,
+      className,
+    },
+    ref
+  ) {
     const innerRef = useRef<HTMLDivElement | null>(null)
     const [offset, setOffset] = useState(0)
     const rafRef = useRef<number>(0)
@@ -24,9 +33,8 @@ export const Parallax = forwardRef<HTMLDivElement, ParallaxProps>(
         const el = innerRef.current
         if (el !== null) {
           const rect = el.getBoundingClientRect()
-          const scrollOffset = direction === 'vertical'
-            ? -rect.top * speed
-            : -rect.left * speed
+          const scrollOffset =
+            direction === 'vertical' ? -rect.top * speed : -rect.left * speed
           setOffset(scrollOffset)
         }
         rafRef.current = 0
@@ -67,7 +75,8 @@ export const Parallax = forwardRef<HTMLDivElement, ParallaxProps>(
           if (typeof ref === 'function') {
             ref(node)
           } else if (ref !== null && ref !== undefined) {
-            (ref as React.MutableRefObject<HTMLDivElement | null>).current = node
+            ;(ref as React.MutableRefObject<HTMLDivElement | null>).current =
+              node
           }
         }}
         className={cx('will-change-transform', className)}
@@ -77,5 +86,5 @@ export const Parallax = forwardRef<HTMLDivElement, ParallaxProps>(
         {children}
       </div>
     )
-  },
+  }
 )

@@ -8,7 +8,7 @@ describe('AnimatePresence', () => {
     const { getByText } = render(
       <AnimatePresence>
         <span>hello</span>
-      </AnimatePresence>,
+      </AnimatePresence>
     )
     expect(getByText('hello')).toBeInTheDocument()
   })
@@ -17,9 +17,11 @@ describe('AnimatePresence', () => {
     const { container } = render(
       <AnimatePresence animation="scale">
         <span>content</span>
-      </AnimatePresence>,
+      </AnimatePresence>
     )
-    const wrapper = container.querySelector('[data-component="animate-presence"]')
+    const wrapper = container.querySelector(
+      '[data-component="animate-presence"]'
+    )
     expect(wrapper?.className).toContain('animate-scale-in')
   })
 
@@ -28,15 +30,21 @@ describe('AnimatePresence', () => {
     const { container, rerender } = render(
       <AnimatePresence duration={100}>
         <span>bye</span>
-      </AnimatePresence>,
+      </AnimatePresence>
     )
     // trigger exit by removing children
     rerender(<AnimatePresence duration={100}>{false}</AnimatePresence>)
     // still rendered during exit animation
-    expect(container.querySelector('[data-component="animate-presence"]')).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="animate-presence"]')
+    ).toBeInTheDocument()
     // after duration, should be removed
-    act(() => { vi.advanceTimersByTime(150) })
-    expect(container.querySelector('[data-component="animate-presence"]')).not.toBeInTheDocument()
+    act(() => {
+      vi.advanceTimersByTime(150)
+    })
+    expect(
+      container.querySelector('[data-component="animate-presence"]')
+    ).not.toBeInTheDocument()
     vi.useRealTimers()
   })
 
@@ -44,8 +52,10 @@ describe('AnimatePresence', () => {
     const { container } = render(
       <AnimatePresence>
         <span>test</span>
-      </AnimatePresence>,
+      </AnimatePresence>
     )
-    expect(container.querySelector('[data-component="animate-presence"]')).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="animate-presence"]')
+    ).toBeInTheDocument()
   })
 })

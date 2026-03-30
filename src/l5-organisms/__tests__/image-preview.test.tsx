@@ -57,13 +57,17 @@ describe('ImagePreview', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<ImagePreview src="/test.png" className="my-preview" />)
+    const { container } = render(
+      <ImagePreview src="/test.png" className="my-preview" />
+    )
     const root = container.querySelector('[data-component="image-preview"]')
     expect(root?.className).toContain('my-preview')
   })
 
   it('applies thumbnailClassName', () => {
-    render(<ImagePreview src="/test.png" alt="Test" thumbnailClassName="my-thumb" />)
+    render(
+      <ImagePreview src="/test.png" alt="Test" thumbnailClassName="my-thumb" />
+    )
     const img = screen.getByTestId('thumbnail')
     expect(img.className).toContain('my-thumb')
   })

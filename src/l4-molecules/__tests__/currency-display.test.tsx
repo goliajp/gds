@@ -6,7 +6,9 @@ import { CurrencyDisplay } from '../currency-display'
 describe('CurrencyDisplay', () => {
   it('renders with data-component', () => {
     const { container } = render(<CurrencyDisplay amount={100000} />)
-    expect(container.querySelector('[data-component="currency-display"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="currency-display"]')
+    ).not.toBeNull()
   })
 
   it('renders formatted amount with default currency', () => {
@@ -15,7 +17,9 @@ describe('CurrencyDisplay', () => {
   })
 
   it('renders change indicator and period', () => {
-    render(<CurrencyDisplay amount={500000} change={12.5} period="vs last month" />)
+    render(
+      <CurrencyDisplay amount={500000} change={12.5} period="vs last month" />
+    )
     expect(screen.getByText('\u219112.5%')).toBeDefined()
     expect(screen.getByText('vs last month')).toBeDefined()
   })
@@ -26,13 +30,17 @@ describe('CurrencyDisplay', () => {
   })
 
   it('renders positive change with up arrow and success color', () => {
-    const { container } = render(<CurrencyDisplay amount={100000} change={10} />)
+    const { container } = render(
+      <CurrencyDisplay amount={100000} change={10} />
+    )
     const changeEl = container.querySelector('.text-success')
     expect(changeEl).not.toBeNull()
   })
 
   it('renders negative change with danger color', () => {
-    const { container } = render(<CurrencyDisplay amount={100000} change={-3} />)
+    const { container } = render(
+      <CurrencyDisplay amount={100000} change={-3} />
+    )
     const changeEl = container.querySelector('.text-danger')
     expect(changeEl).not.toBeNull()
   })

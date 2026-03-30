@@ -6,11 +6,15 @@ import { ToolbarGeneric, ToolbarSeparator } from '../toolbar-generic'
 describe('ToolbarGeneric', () => {
   it('renders with data-component', () => {
     const { container } = render(<ToolbarGeneric>Items</ToolbarGeneric>)
-    expect(container.querySelector('[data-component="toolbar-generic"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="toolbar-generic"]')
+    ).not.toBeNull()
   })
 
   it('renders children', () => {
-    const { getByText } = render(<ToolbarGeneric>Toolbar Content</ToolbarGeneric>)
+    const { getByText } = render(
+      <ToolbarGeneric>Toolbar Content</ToolbarGeneric>
+    )
     expect(getByText('Toolbar Content')).toBeDefined()
   })
 
@@ -29,7 +33,9 @@ describe('ToolbarGeneric', () => {
   })
 
   it('applies floating variant', () => {
-    const { container } = render(<ToolbarGeneric variant="floating">Items</ToolbarGeneric>)
+    const { container } = render(
+      <ToolbarGeneric variant="floating">Items</ToolbarGeneric>
+    )
     const el = container.querySelector('[data-component="toolbar-generic"]')!
     expect(el.getAttribute('data-variant')).toBe('floating')
     expect(el.className).toContain('shadow-md')
@@ -43,13 +49,17 @@ describe('ToolbarGeneric', () => {
   })
 
   it('does not apply glass class when glass is false', () => {
-    const { container } = render(<ToolbarGeneric glass={false}>Items</ToolbarGeneric>)
+    const { container } = render(
+      <ToolbarGeneric glass={false}>Items</ToolbarGeneric>
+    )
     const el = container.querySelector('[data-component="toolbar-generic"]')!
     expect(el.className).not.toContain('gds-glass')
   })
 
   it('merges custom className', () => {
-    const { container } = render(<ToolbarGeneric className="custom">Items</ToolbarGeneric>)
+    const { container } = render(
+      <ToolbarGeneric className="custom">Items</ToolbarGeneric>
+    )
     const el = container.querySelector('[data-component="toolbar-generic"]')!
     expect(el.className).toContain('custom')
   })
@@ -58,7 +68,9 @@ describe('ToolbarGeneric', () => {
 describe('ToolbarSeparator', () => {
   it('renders with data-component', () => {
     const { container } = render(<ToolbarSeparator />)
-    expect(container.querySelector('[data-component="toolbar-separator"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="toolbar-separator"]')
+    ).not.toBeNull()
   })
 
   it('has separator styling', () => {

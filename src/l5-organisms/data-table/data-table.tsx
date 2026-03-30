@@ -13,7 +13,7 @@ import { downloadCsv, resolveRowKey } from './data-table-utils'
 
 function DataTableInner<T>(
   props: DataTableProps<T>,
-  ref: React.ForwardedRef<HTMLDivElement>,
+  ref: React.ForwardedRef<HTMLDivElement>
 ) {
   const {
     columns: allColumns,
@@ -110,8 +110,9 @@ function DataTableInner<T>(
 
   // visible columns
   const visibleColumns = useMemo(
-    () => allColumns.filter((c) => c.hidden !== true && !hiddenColumns.has(c.key)),
-    [allColumns, hiddenColumns],
+    () =>
+      allColumns.filter((c) => c.hidden !== true && !hiddenColumns.has(c.key)),
+    [allColumns, hiddenColumns]
   )
 
   // filter hidden rows
@@ -135,16 +136,24 @@ function DataTableInner<T>(
     return filteredRows.slice(start, start + pageSize)
   }, [filteredRows, hasPagination, currentPage, pageSize, totalRowsProp])
 
-  const pageOffset = hasPagination && totalRowsProp === undefined ? (currentPage - 1) * pageSize : 0
+  const pageOffset =
+    hasPagination && totalRowsProp === undefined
+      ? (currentPage - 1) * pageSize
+      : 0
 
   // selection
   const hasSelection = selectable === true && onToggleSelect !== undefined
   const allRowKeys = useMemo(
     () => displayRows.map((r, i) => resolveRowKey(r, rowKey, pageOffset + i)),
-    [displayRows, rowKey, pageOffset],
+    [displayRows, rowKey, pageOffset]
   )
-  const allSelected = hasSelection && selectedKeys !== undefined && selectedKeys.size > 0 && allRowKeys.every((k) => selectedKeys.has(k))
-  const someSelected = hasSelection && selectedKeys !== undefined && selectedKeys.size > 0
+  const allSelected =
+    hasSelection &&
+    selectedKeys !== undefined &&
+    selectedKeys.size > 0 &&
+    allRowKeys.every((k) => selectedKeys.has(k))
+  const someSelected =
+    hasSelection && selectedKeys !== undefined && selectedKeys.size > 0
 
   function handleToggleSelectAll() {
     if (onToggleSelectAll !== undefined) {
@@ -153,7 +162,10 @@ function DataTableInner<T>(
   }
 
   // highlight
-  const highlightQuery = highlightMatches !== false && globalFilter === true ? globalFilterValue : undefined
+  const highlightQuery =
+    highlightMatches !== false && globalFilter === true
+      ? globalFilterValue
+      : undefined
 
   // export
   function handleExport() {
@@ -164,11 +176,11 @@ function DataTableInner<T>(
     <div
       ref={ref}
       className={cx(
-        'overflow-hidden gds-radius-popover border',
+        'gds-radius-popover overflow-hidden border',
         glass === true
           ? cx(glassSurface(glass), 'bg-bg/60')
           : 'border-border bg-surface',
-        className,
+        className
       )}
       data-component="data-table"
       data-state={loading === true ? 'loading' : undefined}
@@ -207,7 +219,9 @@ function DataTableInner<T>(
             someSelected={someSelected}
             onToggleSelectAll={handleToggleSelectAll}
             hasActions={actions !== undefined}
-            hasExpand={renderExpanded !== undefined && onToggleExpand !== undefined}
+            hasExpand={
+              renderExpanded !== undefined && onToggleExpand !== undefined
+            }
             bordered={bordered}
             columnFilters={columnFilters}
             onColumnFilterChange={onColumnFilterChange}
@@ -242,7 +256,9 @@ function DataTableInner<T>(
       </div>
 
       {footer !== undefined && (
-        <div className="border-t border-border px-3 py-2 text-xs text-fg-muted">{footer}</div>
+        <div className="border-border text-fg-muted border-t px-3 py-2 text-xs">
+          {footer}
+        </div>
       )}
 
       {hasPagination && (
@@ -261,6 +277,8 @@ function DataTableInner<T>(
   )
 }
 
-export const DataTable = forwardRef(DataTableInner) as <T = Record<string, unknown>>(
-  props: DataTableProps<T> & { ref?: React.Ref<HTMLDivElement> },
+export const DataTable = forwardRef(DataTableInner) as <
+  T = Record<string, unknown>,
+>(
+  props: DataTableProps<T> & { ref?: React.Ref<HTMLDivElement> }
 ) => ReactNode

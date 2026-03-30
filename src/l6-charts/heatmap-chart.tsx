@@ -15,7 +15,11 @@ export type HeatmapChartProps = {
 function interpolateColor(min: string, max: string, t: number): string {
   const parse = (hex: string) => {
     const h = hex.replace('#', '')
-    return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)]
+    return [
+      parseInt(h.slice(0, 2), 16),
+      parseInt(h.slice(2, 4), 16),
+      parseInt(h.slice(4, 6), 16),
+    ]
   }
   const [r1, g1, b1] = parse(min)
   const [r2, g2, b2] = parse(max)
@@ -37,7 +41,7 @@ export const HeatmapChart = forwardRef<HTMLDivElement, HeatmapChartProps>(
       glass,
       ...props
     },
-    ref,
+    ref
   ) {
     const { dataMin, dataMax } = useMemo(() => {
       const flat = data.flat()
@@ -51,17 +55,24 @@ export const HeatmapChart = forwardRef<HTMLDivElement, HeatmapChartProps>(
 
     return (
       <div
-        className={cx('inline-block', glass && 'gds-radius-popover backdrop-blur-md bg-white/5', className)}
+        className={cx(
+          'inline-block',
+          glass && 'gds-radius-popover bg-white/5 backdrop-blur-md',
+          className
+        )}
         data-component="heatmap-chart"
         ref={ref}
         {...props}
       >
         <div className="flex flex-col gap-px">
           {xLabels !== undefined && (
-            <div className="flex gap-px" style={{ paddingLeft: yLabels !== undefined ? cellSize + 4 : 0 }}>
+            <div
+              className="flex gap-px"
+              style={{ paddingLeft: yLabels !== undefined ? cellSize + 4 : 0 }}
+            >
               {xLabels.map((l) => (
                 <div
-                  className="flex items-center justify-center gds-text-caption text-[var(--gds-fg-muted,#6b7280)]"
+                  className="gds-text-caption flex items-center justify-center text-[var(--gds-fg-muted,#6b7280)]"
                   key={l}
                   style={{ width: cellSize, height: 16 }}
                 >
@@ -74,7 +85,7 @@ export const HeatmapChart = forwardRef<HTMLDivElement, HeatmapChartProps>(
             <div className="flex items-center gap-px" key={ri}>
               {yLabels !== undefined && yLabels[ri] !== undefined && (
                 <div
-                  className="flex-shrink-0 text-right gds-text-caption text-[var(--gds-fg-muted,#6b7280)] pr-1"
+                  className="gds-text-caption flex-shrink-0 pr-1 text-right text-[var(--gds-fg-muted,#6b7280)]"
                   style={{ width: cellSize }}
                 >
                   {yLabels[ri]}
@@ -87,7 +98,11 @@ export const HeatmapChart = forwardRef<HTMLDivElement, HeatmapChartProps>(
                   style={{
                     width: cellSize,
                     height: cellSize,
-                    backgroundColor: interpolateColor(colorScale.min, colorScale.max, normalize(val)),
+                    backgroundColor: interpolateColor(
+                      colorScale.min,
+                      colorScale.max,
+                      normalize(val)
+                    ),
                   }}
                   title={String(val)}
                 />
@@ -97,5 +112,5 @@ export const HeatmapChart = forwardRef<HTMLDivElement, HeatmapChartProps>(
         </div>
       </div>
     )
-  },
+  }
 )

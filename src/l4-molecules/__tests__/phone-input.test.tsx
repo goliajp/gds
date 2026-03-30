@@ -38,7 +38,9 @@ describe('PhoneInput', () => {
   })
 
   it('applies error state', () => {
-    const { container } = render(<PhoneInput value="" onChange={() => {}} error />)
+    const { container } = render(
+      <PhoneInput value="" onChange={() => {}} error />
+    )
     expect(container.querySelector('[data-error]')).not.toBeNull()
   })
 

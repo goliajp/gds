@@ -7,11 +7,21 @@ import { ConfirmDialog } from '../confirm-dialog'
 describe('ConfirmDialog', () => {
   it('renders nothing when closed', () => {
     render(<ConfirmDialog open={false} onClose={vi.fn()} onConfirm={vi.fn()} />)
-    expect(document.querySelector('[data-component="confirm-dialog"]')).toBeNull()
+    expect(
+      document.querySelector('[data-component="confirm-dialog"]')
+    ).toBeNull()
   })
 
   it('renders title and message when open', () => {
-    render(<ConfirmDialog open={true} onClose={vi.fn()} onConfirm={vi.fn()} title="Delete?" message="This cannot be undone." />)
+    render(
+      <ConfirmDialog
+        open={true}
+        onClose={vi.fn()}
+        onConfirm={vi.fn()}
+        title="Delete?"
+        message="This cannot be undone."
+      />
+    )
     expect(screen.getByText('Delete?')).toBeDefined()
     expect(screen.getByText('This cannot be undone.')).toBeDefined()
   })
@@ -19,7 +29,14 @@ describe('ConfirmDialog', () => {
   it('calls onConfirm when confirm button clicked', async () => {
     const user = userEvent.setup()
     const onConfirm = vi.fn()
-    render(<ConfirmDialog open={true} onClose={vi.fn()} onConfirm={onConfirm} confirmLabel="Yes" />)
+    render(
+      <ConfirmDialog
+        open={true}
+        onClose={vi.fn()}
+        onConfirm={onConfirm}
+        confirmLabel="Yes"
+      />
+    )
     await user.click(screen.getByText('Yes'))
     expect(onConfirm).toHaveBeenCalledOnce()
   })
@@ -27,7 +44,14 @@ describe('ConfirmDialog', () => {
   it('calls onClose when cancel button clicked', async () => {
     const user = userEvent.setup()
     const onClose = vi.fn()
-    render(<ConfirmDialog open={true} onClose={onClose} onConfirm={vi.fn()} cancelLabel="No" />)
+    render(
+      <ConfirmDialog
+        open={true}
+        onClose={onClose}
+        onConfirm={vi.fn()}
+        cancelLabel="No"
+      />
+    )
     await user.click(screen.getByText('No'))
     expect(onClose).toHaveBeenCalledOnce()
   })

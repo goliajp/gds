@@ -24,12 +24,14 @@ const buttonVariants = cva(
       },
       variant: {
         danger: 'bg-danger text-accent-fg hover:bg-danger/90',
-        ghost: 'bg-transparent text-fg-muted hover:bg-bg-tertiary hover:text-fg',
+        ghost:
+          'bg-transparent text-fg-muted hover:bg-bg-tertiary hover:text-fg',
         primary: 'bg-accent text-accent-fg hover:bg-accent-hover',
-        secondary: 'border border-border bg-transparent text-fg hover:bg-bg-tertiary',
+        secondary:
+          'border border-border bg-transparent text-fg hover:bg-bg-tertiary',
       },
     },
-  },
+  }
 )
 
 type ButtonSize = 'default' | 'lg' | 'sm'
@@ -90,18 +92,19 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       variant,
       ...props
     },
-    ref,
+    ref
   ) {
     return (
       <button
         className={cx(
           buttonVariants({ size, variant }),
-          (disabled === true || loading === true) && 'cursor-not-allowed opacity-50',
+          (disabled === true || loading === true) &&
+            'cursor-not-allowed opacity-50',
           fullWidth === true && 'w-full',
           glassClass(glass),
-          glass === true && 'border border-white/10 bg-bg/60',
+          glass === true && 'bg-bg/60 border border-white/10',
           motionClass(m),
-          className,
+          className
         )}
         data-component="button"
         data-variant={variant ?? 'primary'}
@@ -120,7 +123,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         )}
       </button>
     )
-  },
+  }
 )
 
 export { buttonVariants }

@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest'
 
-import { GDS_DEPS, GDS_INFRA, GDS_INTERNAL_UTILS, LAYER_DEP_CONSTRAINTS } from '../deps'
+import {
+  GDS_DEPS,
+  GDS_INFRA,
+  GDS_INTERNAL_UTILS,
+  LAYER_DEP_CONSTRAINTS,
+} from '../deps'
 
 describe('GDS_DEPS', () => {
   it('every dep has complete fields', () => {

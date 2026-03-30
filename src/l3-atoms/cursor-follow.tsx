@@ -9,7 +9,10 @@ type CursorFollowProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const CursorFollow = forwardRef<HTMLDivElement, CursorFollowProps>(
-  function CursorFollow({ children, className, offset, smooth = true, ...props }, ref) {
+  function CursorFollow(
+    { children, className, offset, smooth = true, ...props },
+    ref
+  ) {
     const containerRef = useRef<HTMLDivElement>(null)
     const [pos, setPos] = useState({ x: 0, y: 0 })
 
@@ -22,7 +25,7 @@ export const CursorFollow = forwardRef<HTMLDivElement, CursorFollowProps>(
         if (rect === undefined) return
         setPos({ x: e.clientX - rect.left + ox, y: e.clientY - rect.top + oy })
       },
-      [ox, oy],
+      [ox, oy]
     )
 
     return (
@@ -44,7 +47,7 @@ export const CursorFollow = forwardRef<HTMLDivElement, CursorFollowProps>(
         </div>
       </div>
     )
-  },
+  }
 )
 
 export type { CursorFollowProps }

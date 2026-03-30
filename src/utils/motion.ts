@@ -23,7 +23,7 @@ export function motionClass(motion?: string): string {
 // convert motion prop with speed variant
 export function motionClassWithSpeed(
   motion?: string,
-  speed?: 'fast' | 'slow',
+  speed?: 'fast' | 'slow'
 ): string {
   const base = motionClass(motion)
   if (base === '') return ''

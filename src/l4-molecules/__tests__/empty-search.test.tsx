@@ -6,12 +6,16 @@ import { EmptySearch } from '../empty-search'
 describe('EmptySearch', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(<EmptySearch query="test" />)
-    expect(container.querySelector('[data-component="empty-search"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="empty-search"]')
+    ).not.toBeNull()
   })
 
   it('displays the query in the message', () => {
     render(<EmptySearch query="foobar" />)
-    expect(screen.getByText((content) => content.includes('foobar'))).toBeDefined()
+    expect(
+      screen.getByText((content) => content.includes('foobar'))
+    ).toBeDefined()
   })
 
   it('does not render suggestions when suggestions is undefined', () => {
@@ -33,7 +37,9 @@ describe('EmptySearch', () => {
   })
 
   it('renders correct number of suggestion chips', () => {
-    const { container } = render(<EmptySearch query="q" suggestions={['a', 'b', 'c']} />)
+    const { container } = render(
+      <EmptySearch query="q" suggestions={['a', 'b', 'c']} />
+    )
     const wrapper = container.querySelector('.flex-wrap')
     expect(wrapper?.children.length).toBe(3)
   })

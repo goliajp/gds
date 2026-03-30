@@ -6,7 +6,11 @@ import { TimelineSteps } from '../timeline-steps'
 const steps = [
   { label: 'Order placed', status: 'completed' as const },
   { label: 'Processing', status: 'current' as const },
-  { label: 'Shipped', description: 'Estimated 3 days', status: 'upcoming' as const },
+  {
+    label: 'Shipped',
+    description: 'Estimated 3 days',
+    status: 'upcoming' as const,
+  },
 ]
 
 describe('TimelineSteps', () => {
@@ -33,6 +37,8 @@ describe('TimelineSteps', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<TimelineSteps steps={steps} />)
-    expect(container.querySelector('[data-component="timeline-steps"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="timeline-steps"]')
+    ).not.toBeNull()
   })
 })

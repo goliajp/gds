@@ -11,7 +11,9 @@ describe('OtpInput', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<OtpInput onComplete={vi.fn()} />)
-    expect(container.querySelector('[data-component="otp-input"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="otp-input"]')
+    ).not.toBeNull()
   })
 
   it('renders 6 input fields by default', () => {

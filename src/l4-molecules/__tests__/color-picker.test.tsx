@@ -8,9 +8,11 @@ describe('ColorPicker', () => {
   it('renders preset swatches', () => {
     const presets = ['#ff0000', '#00ff00', '#0000ff']
     const { container } = render(
-      <ColorPicker value="#ff0000" onChange={() => {}} presets={presets} />,
+      <ColorPicker value="#ff0000" onChange={() => {}} presets={presets} />
     )
-    const buttons = container.querySelectorAll('button[aria-label^="Select color"]')
+    const buttons = container.querySelectorAll(
+      'button[aria-label^="Select color"]'
+    )
     expect(buttons.length).toBe(3)
   })
 
@@ -18,7 +20,11 @@ describe('ColorPicker', () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
     render(
-      <ColorPicker value="#ff0000" onChange={onChange} presets={['#ff0000', '#00ff00']} />,
+      <ColorPicker
+        value="#ff0000"
+        onChange={onChange}
+        presets={['#ff0000', '#00ff00']}
+      />
     )
     const green = screen.getByLabelText('Select color #00ff00')
     await user.click(green)
@@ -44,7 +50,12 @@ describe('ColorPicker', () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
     render(
-      <ColorPicker value="#ff0000" onChange={onChange} presets={['#00ff00']} disabled />,
+      <ColorPicker
+        value="#ff0000"
+        onChange={onChange}
+        presets={['#00ff00']}
+        disabled
+      />
     )
     const btn = screen.getByLabelText('Select color #00ff00')
     await user.click(btn)

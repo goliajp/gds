@@ -39,11 +39,15 @@ describe('FlowChart', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<FlowChart nodes={nodes} edges={edges} />)
-    expect(container.querySelector('[data-component="flow-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="flow-chart"]')
+    ).not.toBeNull()
   })
 
   it('applies glass mode', () => {
-    const { container } = render(<FlowChart nodes={nodes} edges={edges} glass />)
+    const { container } = render(
+      <FlowChart nodes={nodes} edges={edges} glass />
+    )
     const el = container.querySelector('[data-component="flow-chart"]')
     expect(el?.className).toContain('backdrop-blur-md')
   })
@@ -55,13 +59,17 @@ describe('FlowChart', () => {
   })
 
   it('merges custom className', () => {
-    const { container } = render(<FlowChart nodes={nodes} edges={edges} className="my-flow" />)
+    const { container } = render(
+      <FlowChart nodes={nodes} edges={edges} className="my-flow" />
+    )
     const el = container.querySelector('[data-component="flow-chart"]')
     expect(el?.className).toContain('my-flow')
   })
 
   it('applies custom width and height', () => {
-    const { container } = render(<FlowChart nodes={nodes} edges={edges} width={800} height={400} />)
+    const { container } = render(
+      <FlowChart nodes={nodes} edges={edges} width={800} height={400} />
+    )
     const svg = container.querySelector('svg')
     expect(svg?.getAttribute('width')).toBe('800')
     expect(svg?.getAttribute('height')).toBe('400')
@@ -69,7 +77,9 @@ describe('FlowChart', () => {
 
   it('handles empty nodes and edges', () => {
     const { container } = render(<FlowChart nodes={[]} edges={[]} />)
-    expect(container.querySelector('[data-component="flow-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="flow-chart"]')
+    ).not.toBeNull()
   })
 
   it('handles single node', () => {
@@ -89,7 +99,9 @@ describe('FlowChart', () => {
 
   it('renders edges without labels', () => {
     const noLabelEdges = [{ from: 'start', to: 'process' }]
-    const { container } = render(<FlowChart nodes={nodes} edges={noLabelEdges} />)
+    const { container } = render(
+      <FlowChart nodes={nodes} edges={noLabelEdges} />
+    )
     const lines = container.querySelectorAll('line')
     expect(lines.length).toBe(1)
   })

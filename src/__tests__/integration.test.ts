@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest'
 
-import { deriveDarkPalette, deriveLightPalette, paletteToVars } from '../l0-tokens/color-derive'
+import {
+  deriveDarkPalette,
+  deriveLightPalette,
+  paletteToVars,
+} from '../l0-tokens/color-derive'
 import { contrastRatio, hexToRgb } from '../l0-tokens/color-math'
 import { generateDefaultCssVars } from '../l0-tokens/generate-defaults'
 import { DEFAULT_THEME, resolveThemeCssVars } from '../l1-systems/theme'
@@ -16,8 +20,12 @@ describe('L0→L1 integration', () => {
   it('resolveThemeCssVars produces all required color vars', () => {
     const vars = resolveThemeCssVars(DEFAULT_THEME, 'dark')
     const required = [
-      '--gds-accent', '--gds-accent-hover', '--gds-accent-fg',
-      '--gds-danger', '--gds-warning', '--gds-success',
+      '--gds-accent',
+      '--gds-accent-hover',
+      '--gds-accent-fg',
+      '--gds-danger',
+      '--gds-warning',
+      '--gds-success',
     ]
     for (const key of required) {
       expect(vars[key]).toBeDefined()
@@ -55,15 +63,23 @@ describe('color derivation round-trip', () => {
     for (const color of testColors) {
       const dark = deriveDarkPalette(color)
       const light = deriveLightPalette(color)
-      const darkContrast = contrastRatio(hexToRgb(dark.accentFg), hexToRgb(dark.accent))
-      const lightContrast = contrastRatio(hexToRgb(light.accentFg), hexToRgb(light.accent))
+      const darkContrast = contrastRatio(
+        hexToRgb(dark.accentFg),
+        hexToRgb(dark.accent)
+      )
+      const lightContrast = contrastRatio(
+        hexToRgb(light.accentFg),
+        hexToRgb(light.accent)
+      )
       expect(darkContrast).toBeGreaterThanOrEqual(3)
       expect(lightContrast).toBeGreaterThanOrEqual(3)
     }
   })
 
   it('fixed colors stay constant across all primaryColors', () => {
-    const results = testColors.map((c) => paletteToVars(deriveDarkPalette(c), 'dark'))
+    const results = testColors.map((c) =>
+      paletteToVars(deriveDarkPalette(c), 'dark')
+    )
     const danger = results[0]['--gds-danger']
     for (const r of results) {
       expect(r['--gds-danger']).toBe(danger)

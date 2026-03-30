@@ -17,7 +17,9 @@ describe('ColorSwatch', () => {
 
   it('renders swatch with the correct background color', () => {
     const { container } = render(<ColorSwatch color="rgb(0, 128, 255)" />)
-    const swatch = container.querySelector('[data-component="color-swatch"] span[style]') as HTMLElement
+    const swatch = container.querySelector(
+      '[data-component="color-swatch"] span[style]'
+    ) as HTMLElement
     expect(swatch?.style.backgroundColor).toBe('rgb(0, 128, 255)')
   })
 
@@ -41,7 +43,9 @@ describe('ColorSwatch', () => {
 
   it('does not render label when not provided', () => {
     const { container } = render(<ColorSwatch color="#000" />)
-    const spans = container.querySelectorAll('[data-component="color-swatch"] > span')
+    const spans = container.querySelectorAll(
+      '[data-component="color-swatch"] > span'
+    )
     // should have swatch span and color text span, but no label span
     expect(spans.length).toBe(2)
   })

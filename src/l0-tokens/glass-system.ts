@@ -20,18 +20,30 @@ type GlassParams = {
 
 const GLASS_LEVELS: Record<GlassLevel, GlassParams> = {
   off: {
-    blurSm: 0, blurMd: 0, blurLg: 0,
-    saturateSm: 100, saturateMd: 100, saturateLg: 100,
+    blurSm: 0,
+    blurMd: 0,
+    blurLg: 0,
+    saturateSm: 100,
+    saturateMd: 100,
+    saturateLg: 100,
     bgOpacity: 0.95, // almost solid — glass is disabled
   },
   subtle: {
-    blurSm: 4, blurMd: 12, blurLg: 24,
-    saturateSm: 130, saturateMd: 150, saturateLg: 160,
+    blurSm: 4,
+    blurMd: 12,
+    blurLg: 24,
+    saturateSm: 130,
+    saturateMd: 150,
+    saturateLg: 160,
     bgOpacity: 0.25,
   },
   full: {
-    blurSm: 8, blurMd: 20, blurLg: 40,
-    saturateSm: 150, saturateMd: 180, saturateLg: 200,
+    blurSm: 8,
+    blurMd: 20,
+    blurLg: 40,
+    saturateSm: 150,
+    saturateMd: 180,
+    saturateLg: 200,
     bgOpacity: 0.15,
   },
 }
@@ -52,7 +64,10 @@ export function glassParams(level: GlassLevel, mode: string): GlassParams {
   }
 }
 
-export function glassToCssVars(level: GlassLevel, mode: string): Record<string, string> {
+export function glassToCssVars(
+  level: GlassLevel,
+  mode: string
+): Record<string, string> {
   const p = glassParams(level, mode)
   return {
     '--gds-glass-blur-sm': `${p.blurSm}px`,
@@ -68,6 +83,8 @@ export function glassToCssVars(level: GlassLevel, mode: string): Record<string, 
 // capability detection — check if backdrop-filter is supported
 export function supportsBackdropFilter(): boolean {
   if (typeof CSS === 'undefined') return false
-  return CSS.supports('backdrop-filter', 'blur(1px)')
-    || CSS.supports('-webkit-backdrop-filter', 'blur(1px)')
+  return (
+    CSS.supports('backdrop-filter', 'blur(1px)') ||
+    CSS.supports('-webkit-backdrop-filter', 'blur(1px)')
+  )
 }

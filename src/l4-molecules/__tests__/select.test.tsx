@@ -10,7 +10,7 @@ describe('Select', () => {
       <Select>
         <option value="a">A</option>
         <option value="b">B</option>
-      </Select>,
+      </Select>
     )
     expect(container.querySelector('[data-component="select"]')).not.toBeNull()
   })
@@ -19,7 +19,7 @@ describe('Select', () => {
     const { container } = render(
       <Select>
         <option value="a">A</option>
-      </Select>,
+      </Select>
     )
     expect(container.querySelector('select')).not.toBeNull()
   })
@@ -28,7 +28,7 @@ describe('Select', () => {
     const { container } = render(
       <Select error={true}>
         <option value="a">A</option>
-      </Select>,
+      </Select>
     )
     const select = container.querySelector('select')
     expect(select?.className).toContain('border-danger')
@@ -38,7 +38,7 @@ describe('Select', () => {
     const { container } = render(
       <Select inputSize="sm">
         <option value="a">A</option>
-      </Select>,
+      </Select>
     )
     const select = container.querySelector('select')
     expect(select?.className).toContain('gds-h-sm')
@@ -51,7 +51,7 @@ describe('Select', () => {
       <Select onChange={onChange}>
         <option value="a">A</option>
         <option value="b">B</option>
-      </Select>,
+      </Select>
     )
     const select = container.querySelector('select')!
     await user.selectOptions(select, 'b')

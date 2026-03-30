@@ -29,12 +29,19 @@ import {
 // ---- types ----
 
 export type ToolbarItem =
-  | 'bold' | 'italic' | 'underline' | 'strikethrough'
-  | 'code' | 'codeBlock'
+  | 'bold'
+  | 'italic'
+  | 'underline'
+  | 'strikethrough'
+  | 'code'
+  | 'codeBlock'
   | 'heading'
   | 'blockquote'
-  | 'bulletList' | 'orderedList' | 'taskList'
-  | 'link' | 'image'
+  | 'bulletList'
+  | 'orderedList'
+  | 'taskList'
+  | 'link'
+  | 'image'
   | 'table'
   | 'divider'
   | '|'
@@ -49,7 +56,10 @@ export type RichTextEditorHandle = {
   isEmpty: () => boolean
 }
 
-export type RichTextEditorProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
+export type RichTextEditorProps = Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  'onChange'
+> & {
   /** HTML string, controlled */
   value?: string
   /** HTML string, uncontrolled */
@@ -91,73 +101,88 @@ type ToolbarButton = {
 function makeToolbarButtons(): ToolbarButton[] {
   return [
     {
-      key: 'bold', label: 'Bold', shortcut: 'Ctrl+B',
+      key: 'bold',
+      label: 'Bold',
+      shortcut: 'Ctrl+B',
       icon: <span className="font-bold">B</span>,
       action: (e) => e.chain().focus().toggleBold().run(),
       isActive: (e) => e.isActive('bold'),
     },
     {
-      key: 'italic', label: 'Italic', shortcut: 'Ctrl+I',
+      key: 'italic',
+      label: 'Italic',
+      shortcut: 'Ctrl+I',
       icon: <span className="italic">I</span>,
       action: (e) => e.chain().focus().toggleItalic().run(),
       isActive: (e) => e.isActive('italic'),
     },
     {
-      key: 'underline', label: 'Underline', shortcut: 'Ctrl+U',
+      key: 'underline',
+      label: 'Underline',
+      shortcut: 'Ctrl+U',
       icon: <span className="underline">U</span>,
       action: (e) => e.chain().focus().toggleUnderline().run(),
       isActive: (e) => e.isActive('underline'),
     },
     {
-      key: 'strikethrough', label: 'Strikethrough',
+      key: 'strikethrough',
+      label: 'Strikethrough',
       icon: <span className="line-through">S</span>,
       action: (e) => e.chain().focus().toggleStrike().run(),
       isActive: (e) => e.isActive('strike'),
     },
     {
-      key: 'code', label: 'Inline Code',
+      key: 'code',
+      label: 'Inline Code',
       icon: <span className="font-mono text-[11px]">&lt;/&gt;</span>,
       action: (e) => e.chain().focus().toggleCode().run(),
       isActive: (e) => e.isActive('code'),
     },
     {
-      key: 'codeBlock', label: 'Code Block',
+      key: 'codeBlock',
+      label: 'Code Block',
       icon: <span className="font-mono text-[10px]">{'{ }'}</span>,
       action: (e) => e.chain().focus().toggleCodeBlock().run(),
       isActive: (e) => e.isActive('codeBlock'),
     },
     {
-      key: 'heading', label: 'Heading',
-      icon: <span className="font-bold text-[11px]">H</span>,
+      key: 'heading',
+      label: 'Heading',
+      icon: <span className="text-[11px] font-bold">H</span>,
       action: (e) => e.chain().focus().toggleHeading({ level: 2 }).run(),
       isActive: (e) => e.isActive('heading'),
     },
     {
-      key: 'blockquote', label: 'Blockquote',
+      key: 'blockquote',
+      label: 'Blockquote',
       icon: <span className="text-[13px]">"</span>,
       action: (e) => e.chain().focus().toggleBlockquote().run(),
       isActive: (e) => e.isActive('blockquote'),
     },
     {
-      key: 'bulletList', label: 'Bullet List',
+      key: 'bulletList',
+      label: 'Bullet List',
       icon: <span className="text-[11px]">•</span>,
       action: (e) => e.chain().focus().toggleBulletList().run(),
       isActive: (e) => e.isActive('bulletList'),
     },
     {
-      key: 'orderedList', label: 'Ordered List',
+      key: 'orderedList',
+      label: 'Ordered List',
       icon: <span className="text-[11px]">1.</span>,
       action: (e) => e.chain().focus().toggleOrderedList().run(),
       isActive: (e) => e.isActive('orderedList'),
     },
     {
-      key: 'taskList', label: 'Task List',
+      key: 'taskList',
+      label: 'Task List',
       icon: <span className="text-[11px]">☑</span>,
       action: (e) => e.chain().focus().toggleTaskList().run(),
       isActive: (e) => e.isActive('taskList'),
     },
     {
-      key: 'link', label: 'Link',
+      key: 'link',
+      label: 'Link',
       icon: <span className="text-[11px]">🔗</span>,
       action: (e) => {
         if (typeof window === 'undefined') return
@@ -169,7 +194,8 @@ function makeToolbarButtons(): ToolbarButton[] {
       isActive: (e) => e.isActive('link'),
     },
     {
-      key: 'image', label: 'Image',
+      key: 'image',
+      label: 'Image',
       icon: <span className="text-[11px]">🖼</span>,
       action: (e) => {
         if (typeof window === 'undefined') return
@@ -181,13 +207,15 @@ function makeToolbarButtons(): ToolbarButton[] {
       isActive: () => false,
     },
     {
-      key: 'table', label: 'Table',
+      key: 'table',
+      label: 'Table',
       icon: <span className="text-[10px]">⊞</span>,
       action: (e) => e.chain().focus().insertTable({ rows: 3, cols: 3 }).run(),
       isActive: () => false,
     },
     {
-      key: 'divider', label: 'Divider',
+      key: 'divider',
+      label: 'Divider',
       icon: <span className="text-[11px]">—</span>,
       action: (e) => e.chain().focus().setHorizontalRule().run(),
       isActive: () => false,
@@ -196,22 +224,42 @@ function makeToolbarButtons(): ToolbarButton[] {
 }
 
 const DEFAULT_FULL_ITEMS: ToolbarItem[] = [
-  'bold', 'italic', 'underline', 'strikethrough',
-  '|', 'code', 'codeBlock',
-  '|', 'heading', 'blockquote',
-  '|', 'bulletList', 'orderedList', 'taskList',
-  '|', 'link', 'image', 'table', 'divider',
+  'bold',
+  'italic',
+  'underline',
+  'strikethrough',
+  '|',
+  'code',
+  'codeBlock',
+  '|',
+  'heading',
+  'blockquote',
+  '|',
+  'bulletList',
+  'orderedList',
+  'taskList',
+  '|',
+  'link',
+  'image',
+  'table',
+  'divider',
 ]
 
 const DEFAULT_MINIMAL_ITEMS: ToolbarItem[] = [
-  'bold', 'italic', 'underline',
-  '|', 'link',
+  'bold',
+  'italic',
+  'underline',
+  '|',
+  'link',
 ]
 
 // ---- component ----
 
-export const RichTextEditor = forwardRef<RichTextEditorHandle, RichTextEditorProps>(
-  function RichTextEditor({
+export const RichTextEditor = forwardRef<
+  RichTextEditorHandle,
+  RichTextEditorProps
+>(function RichTextEditor(
+  {
     value,
     defaultValue,
     onChange,
@@ -224,119 +272,127 @@ export const RichTextEditor = forwardRef<RichTextEditorHandle, RichTextEditorPro
     glass,
     className,
     ...props
-  }, ref) {
-    const isControlled = value !== undefined
-    const initialContent = value ?? defaultValue ?? ''
+  },
+  ref
+) {
+  const isControlled = value !== undefined
+  const initialContent = value ?? defaultValue ?? ''
 
-    // build extensions based on mode
-    const extensions = useMemo(() => {
-      if (mode === 'minimal') {
-        return [
-          StarterKit.configure({
-            code: false,
-            codeBlock: false,
-            heading: false,
-            blockquote: false,
-          }),
-          ExtLink.configure({ autolink: true, openOnClick: false }),
-          ExtUnderline,
-          ExtPlaceholder.configure({ placeholder: placeholder ?? '' }),
-        ]
-      }
-      // full mode
+  // build extensions based on mode
+  const extensions = useMemo(() => {
+    if (mode === 'minimal') {
       return [
-        StarterKit.configure({ codeBlock: false }),
-        ExtCodeBlockLowlight.configure({}),
-        ExtImage.configure({ inline: true }),
-        ExtLink.configure({
-          autolink: true,
-          openOnClick: false,
-          HTMLAttributes: { target: '_blank', rel: 'noopener noreferrer' },
+        StarterKit.configure({
+          code: false,
+          codeBlock: false,
+          heading: false,
+          blockquote: false,
         }),
-        ExtTable.configure({ resizable: true }),
-        ExtTableRow,
-        ExtTableCell,
-        ExtTableHeader,
-        ExtTaskList,
-        ExtTaskItem.configure({ nested: true }),
+        ExtLink.configure({ autolink: true, openOnClick: false }),
         ExtUnderline,
         ExtPlaceholder.configure({ placeholder: placeholder ?? '' }),
       ]
-    }, [mode, placeholder])
+    }
+    // full mode
+    return [
+      StarterKit.configure({ codeBlock: false }),
+      ExtCodeBlockLowlight.configure({}),
+      ExtImage.configure({ inline: true }),
+      ExtLink.configure({
+        autolink: true,
+        openOnClick: false,
+        HTMLAttributes: { target: '_blank', rel: 'noopener noreferrer' },
+      }),
+      ExtTable.configure({ resizable: true }),
+      ExtTableRow,
+      ExtTableCell,
+      ExtTableHeader,
+      ExtTaskList,
+      ExtTaskItem.configure({ nested: true }),
+      ExtUnderline,
+      ExtPlaceholder.configure({ placeholder: placeholder ?? '' }),
+    ]
+  }, [mode, placeholder])
 
-    const editor = useEditor({
-      extensions,
-      content: initialContent,
-      onUpdate: ({ editor: e }) => {
-        if (onChange !== undefined) {
-          onChange(e.getHTML(), e.getText())
-        }
-      },
-    })
-
-    // sync controlled value
-    useEffect(() => {
-      if (isControlled && editor !== null && value !== editor.getHTML()) {
-        editor.commands.setContent(value, { emitUpdate: false })
+  const editor = useEditor({
+    extensions,
+    content: initialContent,
+    onUpdate: ({ editor: e }) => {
+      if (onChange !== undefined) {
+        onChange(e.getHTML(), e.getText())
       }
-    }, [isControlled, value, editor])
+    },
+  })
 
-    // Ctrl/Cmd+Enter submit
-    useEffect(() => {
-      if (editor === null || onSubmit === undefined) return
-      const handleKeyDown = (event: KeyboardEvent) => {
-        if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') {
+  // sync controlled value
+  useEffect(() => {
+    if (isControlled && editor !== null && value !== editor.getHTML()) {
+      editor.commands.setContent(value, { emitUpdate: false })
+    }
+  }, [isControlled, value, editor])
+
+  // Ctrl/Cmd+Enter submit
+  useEffect(() => {
+    if (editor === null || onSubmit === undefined) return
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') {
+        event.preventDefault()
+        onSubmit()
+      }
+    }
+    const el = editor.view.dom
+    el.addEventListener('keydown', handleKeyDown)
+    return () => el.removeEventListener('keydown', handleKeyDown)
+  }, [editor, onSubmit])
+
+  // image drop/paste handling
+  useEffect(() => {
+    if (editor === null || onImageUpload === undefined) return
+    const handleDrop = async (event: DragEvent) => {
+      const files = event.dataTransfer?.files
+      if (files === undefined || files.length === 0) return
+      for (const file of Array.from(files)) {
+        if (file.type.startsWith('image/')) {
           event.preventDefault()
-          onSubmit()
-        }
-      }
-      const el = editor.view.dom
-      el.addEventListener('keydown', handleKeyDown)
-      return () => el.removeEventListener('keydown', handleKeyDown)
-    }, [editor, onSubmit])
-
-    // image drop/paste handling
-    useEffect(() => {
-      if (editor === null || onImageUpload === undefined) return
-      const handleDrop = async (event: DragEvent) => {
-        const files = event.dataTransfer?.files
-        if (files === undefined || files.length === 0) return
-        for (const file of Array.from(files)) {
-          if (file.type.startsWith('image/')) {
-            event.preventDefault()
-            const url = await onImageUpload(file)
-            if (url !== null) {
-              editor.chain().focus().setImage({ src: url }).run()
-            }
+          const url = await onImageUpload(file)
+          if (url !== null) {
+            editor.chain().focus().setImage({ src: url }).run()
           }
         }
       }
-      const handlePaste = async (event: ClipboardEvent) => {
-        const files = event.clipboardData?.files
-        if (files === undefined || files.length === 0) return
-        for (const file of Array.from(files)) {
-          if (file.type.startsWith('image/')) {
-            event.preventDefault()
-            const url = await onImageUpload(file)
-            if (url !== null) {
-              editor.chain().focus().setImage({ src: url }).run()
-            }
+    }
+    const handlePaste = async (event: ClipboardEvent) => {
+      const files = event.clipboardData?.files
+      if (files === undefined || files.length === 0) return
+      for (const file of Array.from(files)) {
+        if (file.type.startsWith('image/')) {
+          event.preventDefault()
+          const url = await onImageUpload(file)
+          if (url !== null) {
+            editor.chain().focus().setImage({ src: url }).run()
           }
         }
       }
-      const el = editor.view.dom
-      const dropHandler = (event: DragEvent) => { void handleDrop(event) }
-      const pasteHandler = (event: ClipboardEvent) => { void handlePaste(event) }
-      el.addEventListener('drop', dropHandler)
-      el.addEventListener('paste', pasteHandler)
-      return () => {
-        el.removeEventListener('drop', dropHandler)
-        el.removeEventListener('paste', pasteHandler)
-      }
-    }, [editor, onImageUpload])
+    }
+    const el = editor.view.dom
+    const dropHandler = (event: DragEvent) => {
+      void handleDrop(event)
+    }
+    const pasteHandler = (event: ClipboardEvent) => {
+      void handlePaste(event)
+    }
+    el.addEventListener('drop', dropHandler)
+    el.addEventListener('paste', pasteHandler)
+    return () => {
+      el.removeEventListener('drop', dropHandler)
+      el.removeEventListener('paste', pasteHandler)
+    }
+  }, [editor, onImageUpload])
 
-    // imperative handle
-    useImperativeHandle(ref, () => ({
+  // imperative handle
+  useImperativeHandle(
+    ref,
+    () => ({
       focus: () => editor?.commands.focus(),
       getHTML: () => editor?.getHTML() ?? '',
       getText: () => editor?.getText() ?? '',
@@ -344,73 +400,90 @@ export const RichTextEditor = forwardRef<RichTextEditorHandle, RichTextEditorPro
       setContent: (html: string) => editor?.commands.setContent(html),
       clearContent: () => editor?.commands.clearContent(),
       isEmpty: () => editor?.isEmpty ?? true,
-    }), [editor])
+    }),
+    [editor]
+  )
 
-    // toolbar items
-    const allButtons = useMemo(() => makeToolbarButtons(), [])
-    const items = toolbarItems ?? (mode === 'full' ? DEFAULT_FULL_ITEMS : DEFAULT_MINIMAL_ITEMS)
+  // toolbar items
+  const allButtons = useMemo(() => makeToolbarButtons(), [])
+  const items =
+    toolbarItems ??
+    (mode === 'full' ? DEFAULT_FULL_ITEMS : DEFAULT_MINIMAL_ITEMS)
 
-    return (
-      <div
-        {...props}
-        className={cx(
-          'flex flex-col border border-border gds-radius-input bg-surface overflow-hidden',
-          glass === true && glassClass(glass),
-          glass === true && 'border-white/10 bg-bg/60',
-          className,
-        )}
-        data-component="rich-text-editor"
-        data-variant={mode}
-      >
-        {/* toolbar */}
-        {showToolbar && editor !== null && (
-          <div className="flex items-center flex-wrap gap-0.5 border-b border-border bg-bg-secondary px-2 py-1.5" role="toolbar" aria-label="Formatting options">
-            {items.map((item, i) => {
-              if (item === '|') {
-                return <div key={`sep-${i}`} className="mx-1 h-4 w-px bg-border" role="separator" />
-              }
-              const btn = allButtons.find(b => b.key === item)
-              if (btn === undefined) return null
-              const active = btn.isActive(editor)
+  return (
+    <div
+      {...props}
+      className={cx(
+        'border-border gds-radius-input bg-surface flex flex-col overflow-hidden border',
+        glass === true && glassClass(glass),
+        glass === true && 'bg-bg/60 border-white/10',
+        className
+      )}
+      data-component="rich-text-editor"
+      data-variant={mode}
+    >
+      {/* toolbar */}
+      {showToolbar && editor !== null && (
+        <div
+          className="border-border bg-bg-secondary flex flex-wrap items-center gap-0.5 border-b px-2 py-1.5"
+          role="toolbar"
+          aria-label="Formatting options"
+        >
+          {items.map((item, i) => {
+            if (item === '|') {
               return (
-                <button
-                  key={btn.key}
-                  type="button"
-                  className={cx(
-                    'flex items-center justify-center rounded px-1.5 py-1 text-xs transition-colors select-none',
-                    active
-                      ? 'bg-accent/15 text-accent'
-                      : 'text-fg-muted hover:bg-white/[0.04] hover:text-fg',
-                  )}
-                  onClick={() => btn.action(editor)}
-                  title={btn.shortcut !== undefined ? `${btn.label} (${btn.shortcut})` : btn.label}
-                  aria-pressed={active}
-                  aria-label={btn.label}
-                >
-                  {btn.icon}
-                </button>
+                <div
+                  key={`sep-${i}`}
+                  className="bg-border mx-1 h-4 w-px"
+                  role="separator"
+                />
               )
-            })}
-          </div>
-        )}
-
-        {/* editor content */}
-        <div className="flex-1 min-h-[120px] overflow-y-auto" data-selectable>
-          <EditorContent
-            editor={editor}
-            className={cx(
-              'prose prose-sm max-w-none px-3 py-2 text-fg',
-              'prose-headings:text-fg prose-p:text-fg prose-a:text-accent',
-              'prose-strong:text-fg prose-em:text-fg',
-              'prose-code:bg-bg-tertiary prose-code:rounded prose-code:px-1 prose-code:text-[0.85em]',
-              'prose-pre:bg-bg-tertiary prose-pre:rounded-lg',
-              'prose-blockquote:border-accent/30',
-              '[&_.tiptap]:outline-none [&_.tiptap]:min-h-[100px]',
-              '[&_.tiptap_p.is-editor-empty:first-child::before]:content-[attr(data-placeholder)] [&_.tiptap_p.is-editor-empty:first-child::before]:text-fg-muted/30 [&_.tiptap_p.is-editor-empty:first-child::before]:float-left [&_.tiptap_p.is-editor-empty:first-child::before]:pointer-events-none [&_.tiptap_p.is-editor-empty:first-child::before]:h-0',
-            )}
-          />
+            }
+            const btn = allButtons.find((b) => b.key === item)
+            if (btn === undefined) return null
+            const active = btn.isActive(editor)
+            return (
+              <button
+                key={btn.key}
+                type="button"
+                className={cx(
+                  'flex items-center justify-center rounded px-1.5 py-1 text-xs transition-colors select-none',
+                  active
+                    ? 'bg-accent/15 text-accent'
+                    : 'text-fg-muted hover:text-fg hover:bg-white/[0.04]'
+                )}
+                onClick={() => btn.action(editor)}
+                title={
+                  btn.shortcut !== undefined
+                    ? `${btn.label} (${btn.shortcut})`
+                    : btn.label
+                }
+                aria-pressed={active}
+                aria-label={btn.label}
+              >
+                {btn.icon}
+              </button>
+            )
+          })}
         </div>
+      )}
+
+      {/* editor content */}
+      <div className="min-h-[120px] flex-1 overflow-y-auto" data-selectable>
+        <EditorContent
+          editor={editor}
+          className={cx(
+            'prose prose-sm text-fg max-w-none px-3 py-2',
+            'prose-headings:text-fg prose-p:text-fg prose-a:text-accent',
+            'prose-strong:text-fg prose-em:text-fg',
+            'prose-code:bg-bg-tertiary prose-code:rounded prose-code:px-1 prose-code:text-[0.85em]',
+            'prose-pre:bg-bg-tertiary prose-pre:rounded-lg',
+            'prose-blockquote:border-accent/30',
+            '[&_.tiptap]:min-h-[100px] [&_.tiptap]:outline-none',
+            '[&_.tiptap_p.is-editor-empty:first-child::before]:text-fg-muted/30 [&_.tiptap_p.is-editor-empty:first-child::before]:pointer-events-none [&_.tiptap_p.is-editor-empty:first-child::before]:float-left [&_.tiptap_p.is-editor-empty:first-child::before]:h-0 [&_.tiptap_p.is-editor-empty:first-child::before]:content-[attr(data-placeholder)]'
+          )}
+        />
       </div>
-    )
-  },
-)
+    </div>
+  )
+})

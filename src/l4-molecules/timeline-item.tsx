@@ -20,7 +20,10 @@ const dotColor: Record<TimelineEntryVariant, string> = {
 }
 
 export const TimelineEntry = forwardRef<HTMLDivElement, TimelineEntryProps>(
-  function TimelineEntry({ children, className, icon, last = false, variant = 'default', ...props }, ref) {
+  function TimelineEntry(
+    { children, className, icon, last = false, variant = 'default', ...props },
+    ref
+  ) {
     return (
       <div
         className={cx('relative flex gap-3', className)}
@@ -30,16 +33,23 @@ export const TimelineEntry = forwardRef<HTMLDivElement, TimelineEntryProps>(
       >
         <div className="flex flex-col items-center">
           {icon !== undefined ? (
-            <span className="flex h-5 w-5 shrink-0 items-center justify-center">{icon}</span>
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center">
+              {icon}
+            </span>
           ) : (
-            <span className={cx('mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full', dotColor[variant])} />
+            <span
+              className={cx(
+                'mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full',
+                dotColor[variant]
+              )}
+            />
           )}
-          {!last && <span className="mt-1 w-px flex-1 bg-border" />}
+          {!last && <span className="bg-border mt-1 w-px flex-1" />}
         </div>
         <div className="flex-1 pb-4">{children}</div>
       </div>
     )
-  },
+  }
 )
 
 export type { TimelineEntryProps, TimelineEntryVariant }

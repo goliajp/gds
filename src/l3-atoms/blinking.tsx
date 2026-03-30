@@ -16,7 +16,10 @@ type BlinkingProps = React.HTMLAttributes<HTMLSpanElement> & {
 }
 
 export const Blinking = forwardRef<HTMLSpanElement, BlinkingProps>(
-  function Blinking({ active = true, children, className, speed = 'default', ...props }, ref) {
+  function Blinking(
+    { active = true, children, className, speed = 'default', ...props },
+    ref
+  ) {
     return (
       <span
         className={cx(active && speedMap[speed], className)}
@@ -27,7 +30,7 @@ export const Blinking = forwardRef<HTMLSpanElement, BlinkingProps>(
         {children}
       </span>
     )
-  },
+  }
 )
 
 export type { BlinkingProps, BlinkingSpeed }

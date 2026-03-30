@@ -11,11 +11,18 @@ type AvatarBadgeProps = AvatarProps & {
 }
 
 export const AvatarBadge = forwardRef<HTMLSpanElement, AvatarBadgeProps>(
-  function AvatarBadge({ count, maxCount = 99, className, ...avatarProps }, ref) {
+  function AvatarBadge(
+    { count, maxCount = 99, className, ...avatarProps },
+    ref
+  ) {
     const showBadge = count !== undefined && count > 0
 
     return (
-      <span className={cx('relative inline-flex', className)} data-component="avatar-badge" ref={ref}>
+      <span
+        className={cx('relative inline-flex', className)}
+        data-component="avatar-badge"
+        ref={ref}
+      >
         <Avatar {...avatarProps} />
         {showBadge && (
           <Badge
@@ -26,7 +33,7 @@ export const AvatarBadge = forwardRef<HTMLSpanElement, AvatarBadgeProps>(
         )}
       </span>
     )
-  },
+  }
 )
 
 export type { AvatarBadgeProps }

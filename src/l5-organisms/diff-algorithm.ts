@@ -13,7 +13,9 @@ function computeLcs(oldLines: string[], newLines: string[]): DiffLine[] {
   const n = newLines.length
 
   // build LCS table
-  const dp: number[][] = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0))
+  const dp: number[][] = Array.from({ length: m + 1 }, () =>
+    Array(n + 1).fill(0)
+  )
   for (let i = 1; i <= m; i++) {
     for (let j = 1; j <= n; j++) {
       if (oldLines[i - 1] === newLines[j - 1]) {
@@ -30,23 +32,48 @@ function computeLcs(oldLines: string[], newLines: string[]): DiffLine[] {
   let j = n
   while (i > 0 && j > 0) {
     if (oldLines[i - 1] === newLines[j - 1]) {
-      result.unshift({ type: 'unchanged', content: oldLines[i - 1], oldLineNum: i, newLineNum: j })
+      result.unshift({
+        type: 'unchanged',
+        content: oldLines[i - 1],
+        oldLineNum: i,
+        newLineNum: j,
+      })
       i--
       j--
     } else if (dp[i - 1][j] >= dp[i][j - 1]) {
-      result.unshift({ type: 'removed', content: oldLines[i - 1], oldLineNum: i, newLineNum: null })
+      result.unshift({
+        type: 'removed',
+        content: oldLines[i - 1],
+        oldLineNum: i,
+        newLineNum: null,
+      })
       i--
     } else {
-      result.unshift({ type: 'added', content: newLines[j - 1], oldLineNum: null, newLineNum: j })
+      result.unshift({
+        type: 'added',
+        content: newLines[j - 1],
+        oldLineNum: null,
+        newLineNum: j,
+      })
       j--
     }
   }
   while (i > 0) {
-    result.unshift({ type: 'removed', content: oldLines[i - 1], oldLineNum: i, newLineNum: null })
+    result.unshift({
+      type: 'removed',
+      content: oldLines[i - 1],
+      oldLineNum: i,
+      newLineNum: null,
+    })
     i--
   }
   while (j > 0) {
-    result.unshift({ type: 'added', content: newLines[j - 1], oldLineNum: null, newLineNum: j })
+    result.unshift({
+      type: 'added',
+      content: newLines[j - 1],
+      oldLineNum: null,
+      newLineNum: j,
+    })
     j--
   }
 

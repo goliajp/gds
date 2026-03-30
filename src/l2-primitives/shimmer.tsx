@@ -10,23 +10,26 @@ type ShimmerProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const Shimmer = forwardRef<HTMLDivElement, ShimmerProps>(
-  function Shimmer({ className, height = '20px', rounded = false, width = '100%', ...props }, ref) {
+  function Shimmer(
+    { className, height = '20px', rounded = false, width = '100%', ...props },
+    ref
+  ) {
     return (
       <div
         className={cx(
-          'relative overflow-hidden bg-fg-muted/10',
+          'bg-fg-muted/10 relative overflow-hidden',
           rounded ? 'rounded-full' : 'rounded-md',
-          className,
+          className
         )}
         data-component="shimmer"
         ref={ref}
         style={{ width, height }}
         {...props}
       >
-        <div className="absolute inset-0 animate-[shimmer_1.5s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-fg-muted/5 to-transparent" />
+        <div className="via-fg-muted/5 absolute inset-0 animate-[shimmer_1.5s_ease-in-out_infinite] bg-gradient-to-r from-transparent to-transparent" />
       </div>
     )
-  },
+  }
 )
 
 export type { ShimmerProps }

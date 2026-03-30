@@ -11,13 +11,21 @@ describe('Textarea', () => {
 
   it('forwards ref to textarea element', () => {
     let el: HTMLTextAreaElement | null = null
-    render(<Textarea ref={(node) => { el = node }} />)
+    render(
+      <Textarea
+        ref={(node) => {
+          el = node
+        }}
+      />
+    )
     expect(el).toBeInstanceOf(HTMLTextAreaElement)
   })
 
   it('has data-component="textarea"', () => {
     render(<Textarea data-testid="ta" />)
-    expect(screen.getByTestId('ta').getAttribute('data-component')).toBe('textarea')
+    expect(screen.getByTestId('ta').getAttribute('data-component')).toBe(
+      'textarea'
+    )
   })
 
   it('merges className', () => {
@@ -47,7 +55,9 @@ describe('Textarea', () => {
 
   it('applies autoGrow with field-sizing', () => {
     render(<Textarea autoGrow data-testid="ta" />)
-    expect(screen.getByTestId('ta').className).toContain('[field-sizing:content]')
+    expect(screen.getByTestId('ta').className).toContain(
+      '[field-sizing:content]'
+    )
   })
 
   it('applies glass styles', () => {

@@ -6,7 +6,9 @@ import { LiveDot } from '../live-dot'
 describe('LiveDot', () => {
   it('renders with data-component', () => {
     const { container } = render(<LiveDot />)
-    expect(container.querySelector('[data-component="live-dot"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="live-dot"]')
+    ).not.toBeNull()
   })
 
   it('shows default label "LIVE"', () => {

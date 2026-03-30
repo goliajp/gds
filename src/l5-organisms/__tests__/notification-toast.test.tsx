@@ -5,7 +5,9 @@ import { NotificationToast } from '../notification-toast'
 
 describe('NotificationToast', () => {
   it('renders nothing when toasts array is empty', () => {
-    const { container } = render(<NotificationToast toasts={[]} onClose={() => {}} />)
+    const { container } = render(
+      <NotificationToast toasts={[]} onClose={() => {}} />
+    )
     expect(container.innerHTML).toBe('')
   })
 
@@ -33,7 +35,9 @@ describe('NotificationToast', () => {
   it('renders in portal on document.body', () => {
     const toasts = [{ id: '1', title: 'Portal test' }]
     render(<NotificationToast toasts={toasts} onClose={() => {}} />)
-    const el = document.body.querySelector('[data-component="notification-toast"]')
+    const el = document.body.querySelector(
+      '[data-component="notification-toast"]'
+    )
     expect(el).not.toBeNull()
   })
 })

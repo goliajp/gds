@@ -7,7 +7,9 @@ import { LoginForm } from '../login-form'
 describe('LoginForm', () => {
   it('has data-component="login-form"', () => {
     const { container } = render(<LoginForm onSubmit={vi.fn()} />)
-    expect(container.querySelector('[data-component="login-form"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="login-form"]')
+    ).not.toBeNull()
   })
 
   it('renders title', () => {
@@ -27,7 +29,9 @@ describe('LoginForm', () => {
     const inputs = screen.getAllByRole('textbox')
     await user.type(inputs[0], 'test@example.com')
     // password input
-    const passwordInput = document.querySelector('input[type="password"]') as HTMLInputElement
+    const passwordInput = document.querySelector(
+      'input[type="password"]'
+    ) as HTMLInputElement
     await user.type(passwordInput, 'secret')
     await user.click(screen.getByRole('button', { name: /sign in/i }))
     expect(onSubmit).toHaveBeenCalledWith({

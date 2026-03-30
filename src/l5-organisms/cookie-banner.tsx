@@ -12,7 +12,8 @@ type CookieBannerProps = {
   className?: string
 }
 
-const defaultMessage = 'We use cookies to improve your experience. By continuing to use this site, you agree to our use of cookies.'
+const defaultMessage =
+  'We use cookies to improve your experience. By continuing to use this site, you agree to our use of cookies.'
 
 const CookieBannerInner = forwardRef<HTMLDivElement, CookieBannerProps>(
   function CookieBannerInner({ onAccept, onReject, message, className }, ref) {
@@ -20,28 +21,34 @@ const CookieBannerInner = forwardRef<HTMLDivElement, CookieBannerProps>(
       <div
         ref={ref}
         className={cx(
-          'fixed inset-x-0 bottom-0 z-50 flex items-center justify-between gap-4 border-t border-border bg-surface/80 px-6 py-4 backdrop-blur-lg',
-          className,
+          'border-border bg-surface/80 fixed inset-x-0 bottom-0 z-50 flex items-center justify-between gap-4 border-t px-6 py-4 backdrop-blur-lg',
+          className
         )}
         data-component="cookie-banner"
         role="banner"
       >
-        <p className="text-sm text-fg-muted flex-1">{message ?? defaultMessage}</p>
+        <p className="text-fg-muted flex-1 text-sm">
+          {message ?? defaultMessage}
+        </p>
         <div className="flex shrink-0 gap-2">
           {onReject !== undefined && (
-            <Button variant="ghost" size="sm" onClick={onReject}>Reject</Button>
+            <Button variant="ghost" size="sm" onClick={onReject}>
+              Reject
+            </Button>
           )}
-          <Button variant="primary" size="sm" onClick={onAccept}>Accept</Button>
+          <Button variant="primary" size="sm" onClick={onAccept}>
+            Accept
+          </Button>
         </div>
       </div>
     )
-  },
+  }
 )
 
 const CookieBanner = forwardRef<HTMLDivElement, CookieBannerProps>(
   function CookieBanner(props, ref) {
     return renderPortal(<CookieBannerInner {...props} ref={ref} />)
-  },
+  }
 )
 
 export { CookieBanner }

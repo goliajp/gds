@@ -11,7 +11,11 @@ describe('Collapsible', () => {
   })
 
   it('shows content when defaultOpen is true', () => {
-    render(<Collapsible defaultOpen trigger="Toggle">Visible content</Collapsible>)
+    render(
+      <Collapsible defaultOpen trigger="Toggle">
+        Visible content
+      </Collapsible>
+    )
     expect(screen.getByText('Visible content')).toBeDefined()
   })
 
@@ -36,7 +40,7 @@ describe('Collapsible', () => {
     const { rerender } = render(
       <Collapsible open={false} onOpenChange={onChange} trigger="Toggle">
         Controlled
-      </Collapsible>,
+      </Collapsible>
     )
     expect(screen.queryByText('Controlled')).toBeNull()
     await user.click(screen.getByText('Toggle'))
@@ -44,7 +48,7 @@ describe('Collapsible', () => {
     rerender(
       <Collapsible open={true} onOpenChange={onChange} trigger="Toggle">
         Controlled
-      </Collapsible>,
+      </Collapsible>
     )
     expect(screen.getByText('Controlled')).toBeDefined()
   })

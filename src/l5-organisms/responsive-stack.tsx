@@ -32,7 +32,16 @@ const alignMap = {
 } as const
 
 export const ResponsiveStack = forwardRef<HTMLDivElement, ResponsiveStackProps>(
-  function ResponsiveStack({ children, breakpoint = 'md', gap = 'default', align = 'stretch', className }, ref) {
+  function ResponsiveStack(
+    {
+      children,
+      breakpoint = 'md',
+      gap = 'default',
+      align = 'stretch',
+      className,
+    },
+    ref
+  ) {
     return (
       <div
         ref={ref}
@@ -41,12 +50,12 @@ export const ResponsiveStack = forwardRef<HTMLDivElement, ResponsiveStackProps>(
           breakpointMap[breakpoint],
           gapMap[gap],
           alignMap[align],
-          className,
+          className
         )}
         data-component="responsive-stack"
       >
         {children}
       </div>
     )
-  },
+  }
 )

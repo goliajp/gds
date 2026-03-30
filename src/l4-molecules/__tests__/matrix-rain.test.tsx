@@ -11,7 +11,9 @@ describe('MatrixRain', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<MatrixRain />)
-    expect(container.querySelector('[data-component="matrix-rain"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="matrix-rain"]')
+    ).not.toBeNull()
   })
 
   it('renders a canvas element', () => {
@@ -21,6 +23,8 @@ describe('MatrixRain', () => {
 
   it('applies custom className', () => {
     const { container } = render(<MatrixRain className="custom" />)
-    expect(container.querySelector('[data-component="matrix-rain"]')?.className).toContain('custom')
+    expect(
+      container.querySelector('[data-component="matrix-rain"]')?.className
+    ).toContain('custom')
   })
 })

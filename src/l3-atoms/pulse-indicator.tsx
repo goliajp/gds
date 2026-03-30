@@ -22,24 +22,38 @@ type PulseIndicatorProps = React.HTMLAttributes<HTMLSpanElement> & {
 }
 
 export const PulseIndicator = forwardRef<HTMLSpanElement, PulseIndicatorProps>(
-  function PulseIndicator({ className, color = 'success', label, size = 'default', ...props }, ref) {
+  function PulseIndicator(
+    { className, color = 'success', label, size = 'default', ...props },
+    ref
+  ) {
     return (
       <span
-        className={cx('inline-flex items-center', label !== undefined && 'gds-gap-sm', className)}
+        className={cx(
+          'inline-flex items-center',
+          label !== undefined && 'gds-gap-sm',
+          className
+        )}
         data-component="pulse-indicator"
         ref={ref}
         {...props}
       >
         <span className="relative inline-flex">
-          <span className={cx('rounded-full', colorMap[color], sizeMap[size])} />
-          <span className={cx('absolute inset-0 animate-ping rounded-full opacity-50', colorMap[color])} />
+          <span
+            className={cx('rounded-full', colorMap[color], sizeMap[size])}
+          />
+          <span
+            className={cx(
+              'absolute inset-0 animate-ping rounded-full opacity-50',
+              colorMap[color]
+            )}
+          />
         </span>
         {label !== undefined && (
           <span className="gds-text-label text-fg-muted">{label}</span>
         )}
       </span>
     )
-  },
+  }
 )
 
 export type { PulseIndicatorProps }

@@ -28,8 +28,12 @@ export const StackedProgress = forwardRef<HTMLDivElement, StackedProgressProps>(
     const total = segments.reduce((sum, s) => sum + s.value, 0)
 
     return (
-      <div ref={ref} className={cx('select-none', className)} data-component="stacked-progress">
-        <div className="flex h-3 overflow-hidden rounded-full bg-fg-muted/10">
+      <div
+        ref={ref}
+        className={cx('select-none', className)}
+        data-component="stacked-progress"
+      >
+        <div className="bg-fg-muted/10 flex h-3 overflow-hidden rounded-full">
           {segments.map((seg, i) => {
             const pct = total > 0 ? (seg.value / total) * 100 : 0
             if (pct <= 0) return null
@@ -51,13 +55,16 @@ export const StackedProgress = forwardRef<HTMLDivElement, StackedProgressProps>(
               const color = seg.color ?? defaultColors[i % defaultColors.length]
 
               return (
-                <div key={`${seg.label}-${i}`} className="flex items-center gap-1.5 gds-text-body text-fg-muted">
+                <div
+                  key={`${seg.label}-${i}`}
+                  className="gds-text-body text-fg-muted flex items-center gap-1.5"
+                >
                   <div
                     className="h-2 w-2 rounded-full"
                     style={{ backgroundColor: color }}
                   />
                   <span>{seg.label}</span>
-                  <span className="font-medium text-fg">{pct.toFixed(1)}%</span>
+                  <span className="text-fg font-medium">{pct.toFixed(1)}%</span>
                 </div>
               )
             })}
@@ -65,5 +72,5 @@ export const StackedProgress = forwardRef<HTMLDivElement, StackedProgressProps>(
         )}
       </div>
     )
-  },
+  }
 )

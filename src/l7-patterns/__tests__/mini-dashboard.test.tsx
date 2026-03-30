@@ -6,7 +6,9 @@ import { MiniDashboard } from '../mini-dashboard'
 describe('MiniDashboard', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(<MiniDashboard>Content</MiniDashboard>)
-    expect(container.querySelector('[data-component="mini-dashboard"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="mini-dashboard"]')
+    ).not.toBeNull()
   })
 
   it('renders title when provided', () => {

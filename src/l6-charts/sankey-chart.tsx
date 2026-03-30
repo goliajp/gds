@@ -27,14 +27,27 @@ export type SankeyChartProps = {
 
 export const SankeyChart = forwardRef<HTMLDivElement, SankeyChartProps>(
   function SankeyChart(
-    { nodes, links, className, height = 300, nodePadding = 50, nodeWidth = 10, glass, ...props },
-    ref,
+    {
+      nodes,
+      links,
+      className,
+      height = 300,
+      nodePadding = 50,
+      nodeWidth = 10,
+      glass,
+      ...props
+    },
+    ref
   ) {
     const data = { nodes, links }
 
     return (
       <div
-        className={cx('w-full', glass && 'gds-radius-popover backdrop-blur-md bg-white/5', className)}
+        className={cx(
+          'w-full',
+          glass && 'gds-radius-popover bg-white/5 backdrop-blur-md',
+          className
+        )}
         data-component="sankey-chart"
         ref={ref}
         {...props}
@@ -46,5 +59,5 @@ export const SankeyChart = forwardRef<HTMLDivElement, SankeyChartProps>(
         </ResponsiveContainer>
       </div>
     )
-  },
+  }
 )

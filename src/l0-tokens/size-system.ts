@@ -25,11 +25,11 @@ export type SpaceScale = keyof typeof spacing
 // component height scale — used by Button, Input, Select, etc.
 // formula: base * multiplier
 export const componentHeight = {
-  xs: BASE * 6,    // 24px — icon buttons, compact tags
-  sm: BASE * 7,    // 28px — compact inputs, small buttons
+  xs: BASE * 6, // 24px — icon buttons, compact tags
+  sm: BASE * 7, // 28px — compact inputs, small buttons
   default: BASE * 8, // 32px — standard inputs, buttons
-  lg: BASE * 10,   // 40px — comfortable inputs, large buttons
-  xl: BASE * 12,   // 48px — hero actions, mobile-friendly
+  lg: BASE * 10, // 40px — comfortable inputs, large buttons
+  xl: BASE * 12, // 48px — hero actions, mobile-friendly
 } as const
 
 // icon size scale — matched to component heights
@@ -59,32 +59,35 @@ export const contentWidth = {
 // density axis adjusts which height/spacing tier components use
 export type SizeTier = 'xs' | 'sm' | 'default' | 'lg' | 'xl'
 
-export const densitySizeMap: Record<string, {
-  component: SizeTier
-  icon: SizeTier
-  gap: number
-  pad: number
-  text: number
-}> = {
+export const densitySizeMap: Record<
+  string,
+  {
+    component: SizeTier
+    icon: SizeTier
+    gap: number
+    pad: number
+    text: number
+  }
+> = {
   compact: {
     component: 'sm',
     icon: 'sm',
     gap: BASE * 1.5, // 6px
-    pad: BASE * 2,   // 8px
+    pad: BASE * 2, // 8px
     text: 11,
   },
   default: {
     component: 'default',
     icon: 'default',
-    gap: BASE * 3,   // 12px
-    pad: BASE * 4,   // 16px
+    gap: BASE * 3, // 12px
+    pad: BASE * 4, // 16px
     text: 13,
   },
   comfortable: {
     component: 'lg',
     icon: 'lg',
-    gap: BASE * 4,   // 16px
-    pad: BASE * 6,   // 24px
+    gap: BASE * 4, // 16px
+    pad: BASE * 6, // 24px
     text: 14,
   },
 }
@@ -92,37 +95,48 @@ export const densitySizeMap: Record<string, {
 // density-relative height scale
 // all tiers shift together when density changes
 const densityHeightScale: Record<string, Record<string, number>> = {
-  compact:     { xs: 20, sm: 24, default: 28, lg: 32, xl: 36 },
-  default:     { xs: 24, sm: 28, default: 32, lg: 36, xl: 40 },
+  compact: { xs: 20, sm: 24, default: 28, lg: 32, xl: 36 },
+  default: { xs: 24, sm: 28, default: 32, lg: 36, xl: 40 },
   comfortable: { xs: 28, sm: 32, default: 36, lg: 40, xl: 48 },
 }
 
 // density-relative icon scale
 const densityIconScale: Record<string, Record<string, number>> = {
-  compact:     { xs: 10, sm: 12, default: 14, lg: 16 },
-  default:     { xs: 12, sm: 14, default: 16, lg: 20 },
+  compact: { xs: 10, sm: 12, default: 14, lg: 16 },
+  default: { xs: 12, sm: 14, default: 16, lg: 20 },
   comfortable: { xs: 14, sm: 16, default: 20, lg: 24 },
 }
 
 // density-relative text scale
 const densityTextScale: Record<string, Record<string, number>> = {
-  compact:     { caption: 9,  label: 10, body: 11 },
-  default:     { caption: 10, label: 11, body: 13 },
+  compact: { caption: 9, label: 10, body: 11 },
+  default: { caption: 10, label: 11, body: 13 },
   comfortable: { caption: 11, label: 12, body: 14 },
 }
 
 // density-relative gap scale
 const densityGapScale: Record<string, Record<string, number>> = {
-  compact:     { xs: 2, sm: 4, default: 6,  lg: 8 },
-  default:     { xs: 4, sm: 6, default: 8,  lg: 12 },
+  compact: { xs: 2, sm: 4, default: 6, lg: 8 },
+  default: { xs: 4, sm: 6, default: 8, lg: 12 },
   comfortable: { xs: 6, sm: 8, default: 12, lg: 16 },
 }
 
 // density-relative padding scale
-const densityPadScale: Record<string, Record<string, { x: number, y: number }>> = {
-  compact:     { sm: { x: 4,  y: 2 }, default: { x: 8,  y: 4 }, lg: { x: 12, y: 6 } },
-  default:     { sm: { x: 8,  y: 4 }, default: { x: 12, y: 6 }, lg: { x: 16, y: 8 } },
-  comfortable: { sm: { x: 10, y: 6 }, default: { x: 16, y: 8 }, lg: { x: 20, y: 12 } },
+const densityPadScale: Record<
+  string,
+  Record<string, { x: number; y: number }>
+> = {
+  compact: { sm: { x: 4, y: 2 }, default: { x: 8, y: 4 }, lg: { x: 12, y: 6 } },
+  default: {
+    sm: { x: 8, y: 4 },
+    default: { x: 12, y: 6 },
+    lg: { x: 16, y: 8 },
+  },
+  comfortable: {
+    sm: { x: 10, y: 6 },
+    default: { x: 16, y: 8 },
+    lg: { x: 20, y: 12 },
+  },
 }
 
 // generate CSS vars for a density tier

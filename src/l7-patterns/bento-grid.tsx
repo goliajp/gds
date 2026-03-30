@@ -32,15 +32,23 @@ const colClass = (n: number): string => {
 }
 
 export const BentoGrid = forwardRef<HTMLDivElement, BentoGridProps>(
-  function BentoGrid({ children, columns = 4, gap = 'default', className }, ref) {
+  function BentoGrid(
+    { children, columns = 4, gap = 'default', className },
+    ref
+  ) {
     return (
       <div
         ref={ref}
-        className={cx('grid auto-rows-[minmax(120px,auto)]', colClass(columns), gapMap[gap], className)}
+        className={cx(
+          'grid auto-rows-[minmax(120px,auto)]',
+          colClass(columns),
+          gapMap[gap],
+          className
+        )}
         data-component="bento-grid"
       >
         {children}
       </div>
     )
-  },
+  }
 )

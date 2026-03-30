@@ -6,7 +6,9 @@ import { NavItem } from '../nav-item'
 describe('NavItem', () => {
   it('renders with data-component', () => {
     const { container } = render(<NavItem label="Dashboard" />)
-    expect(container.querySelector('[data-component="nav-item"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="nav-item"]')
+    ).not.toBeNull()
   })
 
   it('renders label text', () => {

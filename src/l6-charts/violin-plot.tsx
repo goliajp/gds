@@ -19,7 +19,12 @@ export type ViolinPlotProps = {
   className?: string
 }
 
-function computeDensity(values: number[], bins: number, min: number, max: number): number[] {
+function computeDensity(
+  values: number[],
+  bins: number,
+  min: number,
+  max: number
+): number[] {
   const range = max - min
   if (range === 0) return Array(bins).fill(1 / bins) as number[]
 
@@ -44,7 +49,10 @@ function median(values: number[]): number {
 }
 
 export const ViolinPlot = forwardRef<HTMLDivElement, ViolinPlotProps>(
-  function ViolinPlot({ data, width = 400, height = 300, glass, className }, ref) {
+  function ViolinPlot(
+    { data, width = 400, height = 300, glass, className },
+    ref
+  ) {
     const padding = { top: 20, right: 20, bottom: 40, left: 50 }
     const chartW = width - padding.left - padding.right
     const chartH = height - padding.top - padding.bottom
@@ -56,7 +64,8 @@ export const ViolinPlot = forwardRef<HTMLDivElement, ViolinPlotProps>(
     const range = globalMax - globalMin
     const yMin = globalMin - range * 0.1
     const yMax = globalMax + range * 0.1
-    const yScale = (v: number) => padding.top + chartH * (1 - (v - yMin) / (yMax - yMin))
+    const yScale = (v: number) =>
+      padding.top + chartH * (1 - (v - yMin) / (yMax - yMin))
 
     const groupW = data.length > 0 ? chartW / data.length : chartW
     const violinMaxW = Math.min(groupW * 0.7, 80) / 2
@@ -65,9 +74,9 @@ export const ViolinPlot = forwardRef<HTMLDivElement, ViolinPlotProps>(
       <div
         ref={ref}
         className={cx(
-          'gds-radius-popover border border-border',
-          glass && 'backdrop-blur-md bg-white/5',
-          className,
+          'gds-radius-popover border-border border',
+          glass && 'bg-white/5 backdrop-blur-md',
+          className
         )}
         data-component="violin-plot"
       >
@@ -95,7 +104,12 @@ export const ViolinPlot = forwardRef<HTMLDivElement, ViolinPlotProps>(
             if (group.values.length === 0) return null
             const centerX = padding.left + groupW * (i + 0.5)
             const color = PALETTE[i % PALETTE.length]
-            const density = computeDensity(group.values, bins, globalMin, globalMax)
+            const density = computeDensity(
+              group.values,
+              bins,
+              globalMin,
+              globalMax
+            )
             const binHeight = (yMax - yMin) / bins
             const med = median(group.values)
 
@@ -123,12 +137,7 @@ export const ViolinPlot = forwardRef<HTMLDivElement, ViolinPlotProps>(
                   strokeWidth={1.5}
                 />
                 {/* median dot */}
-                <circle
-                  cx={centerX}
-                  cy={yScale(med)}
-                  r={3}
-                  fill={color}
-                />
+                <circle cx={centerX} cy={yScale(med)} r={3} fill={color} />
                 {/* label */}
                 <text
                   x={centerX}
@@ -145,5 +154,5 @@ export const ViolinPlot = forwardRef<HTMLDivElement, ViolinPlotProps>(
         </svg>
       </div>
     )
-  },
+  }
 )

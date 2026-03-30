@@ -30,7 +30,9 @@ describe('ViolinPlot', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<ViolinPlot data={data} />)
-    expect(container.querySelector('[data-component="violin-plot"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="violin-plot"]')
+    ).not.toBeNull()
   })
 
   it('applies glass mode', () => {
@@ -46,13 +48,17 @@ describe('ViolinPlot', () => {
   })
 
   it('merges custom className', () => {
-    const { container } = render(<ViolinPlot data={data} className="my-violin" />)
+    const { container } = render(
+      <ViolinPlot data={data} className="my-violin" />
+    )
     const el = container.querySelector('[data-component="violin-plot"]')
     expect(el?.className).toContain('my-violin')
   })
 
   it('applies custom width and height', () => {
-    const { container } = render(<ViolinPlot data={data} width={600} height={400} />)
+    const { container } = render(
+      <ViolinPlot data={data} width={600} height={400} />
+    )
     const svg = container.querySelector('svg')
     expect(svg?.getAttribute('width')).toBe('600')
     expect(svg?.getAttribute('height')).toBe('400')

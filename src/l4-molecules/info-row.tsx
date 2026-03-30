@@ -16,13 +16,16 @@ export const InfoRow = forwardRef<HTMLDivElement, InfoRowProps>(
     return (
       <div
         ref={ref}
-        className={cx('flex items-center gap-2 gds-text-body select-none', className)}
+        className={cx(
+          'gds-text-body flex items-center gap-2 select-none',
+          className
+        )}
         data-component="info-row"
       >
         {icon !== undefined && <span className="text-fg-muted/60">{icon}</span>}
         <span className="text-fg-muted">{label}</span>
-        <span className="ml-auto font-medium text-fg">{value}</span>
+        <span className="text-fg ml-auto font-medium">{value}</span>
       </div>
     )
-  },
+  }
 )

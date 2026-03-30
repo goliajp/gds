@@ -40,14 +40,14 @@ export const ComboChart = forwardRef<HTMLDivElement, ComboChartProps>(
       className,
       ...props
     },
-    ref,
+    ref
   ) {
     return (
       <div
         className={cx(
-          'w-full gds-radius-popover border border-white/[0.06]',
+          'gds-radius-popover w-full border border-white/[0.06]',
           glassClass(glass),
-          className,
+          className
         )}
         data-component="combo-chart"
         ref={ref}
@@ -55,16 +55,32 @@ export const ComboChart = forwardRef<HTMLDivElement, ComboChartProps>(
       >
         <ResponsiveContainer height={height} width="100%">
           <ComposedChart data={data}>
-            <CartesianGrid stroke="var(--gds-border, #e5e7eb)" strokeDasharray="3 3" />
-            <XAxis dataKey={xKey} stroke="var(--gds-fg-muted, #6b7280)" tick={{ fontSize: 11 }} />
-            <YAxis stroke="var(--gds-fg-muted, #6b7280)" tick={{ fontSize: 11 }} />
+            <CartesianGrid
+              stroke="var(--gds-border, #e5e7eb)"
+              strokeDasharray="3 3"
+            />
+            <XAxis
+              dataKey={xKey}
+              stroke="var(--gds-fg-muted, #6b7280)"
+              tick={{ fontSize: 11 }}
+            />
+            <YAxis
+              stroke="var(--gds-fg-muted, #6b7280)"
+              tick={{ fontSize: 11 }}
+            />
             <Tooltip />
             <Legend />
             <Bar dataKey={barKey} fill={barColor} radius={[4, 4, 0, 0]} />
-            <Line dataKey={lineKey} dot={false} stroke={lineColor} strokeWidth={2} type="monotone" />
+            <Line
+              dataKey={lineKey}
+              dot={false}
+              stroke={lineColor}
+              strokeWidth={2}
+              type="monotone"
+            />
           </ComposedChart>
         </ResponsiveContainer>
       </div>
     )
-  },
+  }
 )

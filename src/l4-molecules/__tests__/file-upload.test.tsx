@@ -12,11 +12,17 @@ describe('FileUpload', () => {
 
   it('has data-component="file-upload"', () => {
     const { container } = render(<FileUpload onFiles={() => {}} />)
-    expect(container.querySelector('[data-component="file-upload"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="file-upload"]')
+    ).not.toBeNull()
   })
 
   it('renders custom children instead of default UI', () => {
-    render(<FileUpload onFiles={() => {}}><span>Custom content</span></FileUpload>)
+    render(
+      <FileUpload onFiles={() => {}}>
+        <span>Custom content</span>
+      </FileUpload>
+    )
     expect(screen.getByText('Custom content')).toBeDefined()
     expect(screen.queryByText('Drop files here or click to browse')).toBeNull()
   })
@@ -24,7 +30,9 @@ describe('FileUpload', () => {
   it('opens file picker on click', async () => {
     const user = userEvent.setup()
     const { container } = render(<FileUpload onFiles={() => {}} />)
-    const input = container.querySelector('input[type="file"]') as HTMLInputElement
+    const input = container.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement
     const clickSpy = vi.spyOn(input, 'click')
     const zone = container.querySelector('[data-component="file-upload"]')!
     await user.click(zone)
@@ -34,7 +42,9 @@ describe('FileUpload', () => {
   it('does not open file picker when disabled', async () => {
     const user = userEvent.setup()
     const { container } = render(<FileUpload onFiles={() => {}} disabled />)
-    const input = container.querySelector('input[type="file"]') as HTMLInputElement
+    const input = container.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement
     const clickSpy = vi.spyOn(input, 'click')
     const zone = container.querySelector('[data-component="file-upload"]')!
     await user.click(zone)
@@ -70,14 +80,20 @@ describe('FileUpload', () => {
   })
 
   it('sets accept attribute on input', () => {
-    const { container } = render(<FileUpload onFiles={() => {}} accept="image/*,.pdf" />)
-    const input = container.querySelector('input[type="file"]') as HTMLInputElement
+    const { container } = render(
+      <FileUpload onFiles={() => {}} accept="image/*,.pdf" />
+    )
+    const input = container.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement
     expect(input.getAttribute('accept')).toBe('image/*,.pdf')
   })
 
   it('sets multiple attribute on input', () => {
     const { container } = render(<FileUpload onFiles={() => {}} multiple />)
-    const input = container.querySelector('input[type="file"]') as HTMLInputElement
+    const input = container.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement
     expect(input.hasAttribute('multiple')).toBe(true)
   })
 
@@ -110,7 +126,9 @@ describe('FileUpload', () => {
     const zone = container.querySelector('[data-component="file-upload"]')!
 
     const smallFile = new File(['hi'], 'small.txt', { type: 'text/plain' })
-    const bigFile = new File(['x'.repeat(200)], 'big.txt', { type: 'text/plain' })
+    const bigFile = new File(['x'.repeat(200)], 'big.txt', {
+      type: 'text/plain',
+    })
 
     fireEvent.drop(zone, { dataTransfer: { files: [smallFile, bigFile] } })
 
@@ -120,7 +138,9 @@ describe('FileUpload', () => {
   it('handles input change event', () => {
     const onFiles = vi.fn()
     const { container } = render(<FileUpload onFiles={onFiles} />)
-    const input = container.querySelector('input[type="file"]') as HTMLInputElement
+    const input = container.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement
 
     const file = new File(['content'], 'doc.pdf', { type: 'application/pdf' })
     fireEvent.change(input, { target: { files: [file] } })
@@ -156,7 +176,9 @@ describe('FileUpload', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<FileUpload onFiles={() => {}} className="my-upload" />)
+    const { container } = render(
+      <FileUpload onFiles={() => {}} className="my-upload" />
+    )
     const zone = container.querySelector('[data-component="file-upload"]')!
     expect(zone.className).toContain('my-upload')
   })
@@ -166,7 +188,9 @@ describe('FileUpload', () => {
     const { container } = render(<FileUpload onFiles={onFiles} />)
     const zone = container.querySelector('[data-component="file-upload"]')!
 
-    const bigFile = new File(['x'.repeat(10000)], 'big.txt', { type: 'text/plain' })
+    const bigFile = new File(['x'.repeat(10000)], 'big.txt', {
+      type: 'text/plain',
+    })
     fireEvent.drop(zone, { dataTransfer: { files: [bigFile] } })
 
     expect(onFiles).toHaveBeenCalledWith([bigFile])

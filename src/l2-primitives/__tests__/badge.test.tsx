@@ -11,7 +11,15 @@ describe('Badge', () => {
 
   it('forwards ref to span element', () => {
     let el: HTMLSpanElement | null = null
-    render(<Badge ref={(node) => { el = node }}>tag</Badge>)
+    render(
+      <Badge
+        ref={(node) => {
+          el = node
+        }}
+      >
+        tag
+      </Badge>
+    )
     expect(el).toBeInstanceOf(HTMLSpanElement)
   })
 
@@ -85,6 +93,8 @@ describe('Badge', () => {
 
   it('applies palette variant', () => {
     render(<Badge variant="palette-3">p3</Badge>)
-    expect(screen.getByText('p3').getAttribute('data-variant')).toBe('palette-3')
+    expect(screen.getByText('p3').getAttribute('data-variant')).toBe(
+      'palette-3'
+    )
   })
 })

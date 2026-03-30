@@ -22,17 +22,23 @@ const quickActionVariants = cva(
         sm: 'h-9 w-9',
       },
     },
-  },
+  }
 )
 
-type QuickActionProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children'> &
+type QuickActionProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  'children'
+> &
   VariantProps<typeof quickActionVariants> & {
     icon: ReactNode
     label?: string
   }
 
 export const QuickAction = forwardRef<HTMLButtonElement, QuickActionProps>(
-  function QuickAction({ className, disabled, icon, label, onClick, size, variant, ...props }, ref) {
+  function QuickAction(
+    { className, disabled, icon, label, onClick, size, variant, ...props },
+    ref
+  ) {
     return (
       <div className="inline-flex flex-col items-center gap-1">
         <button
@@ -40,7 +46,7 @@ export const QuickAction = forwardRef<HTMLButtonElement, QuickActionProps>(
             quickActionVariants({ size, variant }),
             focusCls,
             disabled === true && 'pointer-events-none opacity-40',
-            className,
+            className
           )}
           data-component="quick-action"
           data-variant={variant ?? 'primary'}
@@ -53,11 +59,11 @@ export const QuickAction = forwardRef<HTMLButtonElement, QuickActionProps>(
           <span className="gds-icon-child">{icon}</span>
         </button>
         {label !== undefined && (
-          <span className="select-none text-[10px] text-fg-muted">{label}</span>
+          <span className="text-fg-muted text-[10px] select-none">{label}</span>
         )}
       </div>
     )
-  },
+  }
 )
 
 export { quickActionVariants }

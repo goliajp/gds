@@ -27,19 +27,31 @@ export const MetricRow = forwardRef<HTMLDivElement, MetricRowProps>(
     return (
       <div
         ref={ref}
-        className={cx('flex items-center gds-gap gds-text-body select-none', className)}
+        className={cx(
+          'gds-gap gds-text-body flex items-center select-none',
+          className
+        )}
         data-component="metric-row"
       >
         {metrics.map((m) => (
           <div key={m.label} className="flex items-baseline gap-1.5">
             <span className="text-fg-muted">{m.label}</span>
-            <span className={cx('font-semibold', variantColor[m.variant ?? 'default'])}>
+            <span
+              className={cx(
+                'font-semibold',
+                variantColor[m.variant ?? 'default']
+              )}
+            >
               {m.value}
-              {m.unit !== undefined && <span className="ml-0.5 font-normal text-fg-muted">{m.unit}</span>}
+              {m.unit !== undefined && (
+                <span className="text-fg-muted ml-0.5 font-normal">
+                  {m.unit}
+                </span>
+              )}
             </span>
           </div>
         ))}
       </div>
     )
-  },
+  }
 )

@@ -16,7 +16,9 @@ describe('Testimonial', () => {
   })
 
   it('renders star rating', () => {
-    const { container } = render(<Testimonial quote="Good" author="Alice" rating={4} />)
+    const { container } = render(
+      <Testimonial quote="Good" author="Alice" rating={4} />
+    )
     const stars = container.querySelectorAll('svg.h-4')
     expect(stars.length).toBe(5)
     const filled = container.querySelectorAll('svg.h-4.text-warning')

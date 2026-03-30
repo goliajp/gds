@@ -32,7 +32,9 @@ describe('DataList', () => {
 
   it('applies striped styling', () => {
     const { container } = render(<DataList items={items} striped />)
-    const rows = container.querySelectorAll('[data-component="data-list"] > div')
+    const rows = container.querySelectorAll(
+      '[data-component="data-list"] > div'
+    )
     // second row (index 1) should have striped class
     expect(rows[1]?.className).toContain('bg-bg-tertiary/20')
     // first row (index 0) should not

@@ -12,9 +12,9 @@ export const ToolbarGroup = forwardRef<HTMLDivElement, ToolbarGroupProps>(
     return (
       <div
         className={cx(
-          'inline-flex items-center overflow-hidden rounded-md border border-border',
-          '[&>*]:rounded-none [&>*]:border-0 [&>*]:border-r [&>*]:border-border [&>*:last-child]:border-r-0',
-          className,
+          'border-border inline-flex items-center overflow-hidden rounded-md border',
+          '[&>*]:border-border [&>*]:rounded-none [&>*]:border-0 [&>*]:border-r [&>*:last-child]:border-r-0',
+          className
         )}
         data-component="toolbar-group"
         ref={ref}
@@ -24,7 +24,7 @@ export const ToolbarGroup = forwardRef<HTMLDivElement, ToolbarGroupProps>(
         {children}
       </div>
     )
-  },
+  }
 )
 
 export type { ToolbarGroupProps }

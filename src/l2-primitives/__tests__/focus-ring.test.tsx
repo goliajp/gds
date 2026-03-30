@@ -8,7 +8,7 @@ describe('FocusRing', () => {
     render(
       <FocusRing>
         <button>Click me</button>
-      </FocusRing>,
+      </FocusRing>
     )
     expect(screen.getByText('Click me')).toBeTruthy()
   })
@@ -17,7 +17,7 @@ describe('FocusRing', () => {
     const { container } = render(
       <FocusRing>
         <button>Click me</button>
-      </FocusRing>,
+      </FocusRing>
     )
     const wrapper = container.querySelector('[data-component="focus-ring"]')
     expect(wrapper).not.toBeNull()
@@ -28,8 +28,10 @@ describe('FocusRing', () => {
     const { container } = render(
       <FocusRing>
         <span>content</span>
-      </FocusRing>,
+      </FocusRing>
     )
-    expect(container.querySelector('[data-component="focus-ring"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="focus-ring"]')
+    ).not.toBeNull()
   })
 })

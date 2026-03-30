@@ -35,7 +35,9 @@ describe('InlineEdit', () => {
     const user = userEvent.setup()
     const onSave = vi.fn()
     const onCancel = vi.fn()
-    const { container } = render(<InlineEdit value="Hello" onSave={onSave} onCancel={onCancel} />)
+    const { container } = render(
+      <InlineEdit value="Hello" onSave={onSave} onCancel={onCancel} />
+    )
     await user.click(container.querySelector('[data-state="display"]')!)
     const input = container.querySelector('input')!
     await user.type(input, 'Changed{Escape}')
@@ -46,7 +48,9 @@ describe('InlineEdit', () => {
   it('shows validation error', async () => {
     const user = userEvent.setup()
     const validate = (v: string) => (v === '' ? 'Required' : null)
-    const { container } = render(<InlineEdit value="Hello" onSave={() => {}} validate={validate} />)
+    const { container } = render(
+      <InlineEdit value="Hello" onSave={() => {}} validate={validate} />
+    )
     await user.click(container.querySelector('[data-state="display"]')!)
     const input = container.querySelector('input')!
     await user.clear(input)
@@ -56,7 +60,9 @@ describe('InlineEdit', () => {
 
   it('does not enter edit mode when disabled', async () => {
     const user = userEvent.setup()
-    const { container } = render(<InlineEdit value="Hello" onSave={() => {}} disabled />)
+    const { container } = render(
+      <InlineEdit value="Hello" onSave={() => {}} disabled />
+    )
     await user.click(container.querySelector('[data-state="display"]')!)
     expect(container.querySelector('[data-state="editing"]')).toBeNull()
   })
@@ -69,7 +75,9 @@ describe('InlineEdit', () => {
   it('clears error on input change', async () => {
     const user = userEvent.setup()
     const validate = (v: string) => (v === '' ? 'Required' : null)
-    const { container } = render(<InlineEdit value="Hello" onSave={() => {}} validate={validate} />)
+    const { container } = render(
+      <InlineEdit value="Hello" onSave={() => {}} validate={validate} />
+    )
     await user.click(container.querySelector('[data-state="display"]')!)
     const input = container.querySelector('input')!
     await user.clear(input)
@@ -84,7 +92,9 @@ describe('InlineEdit', () => {
     const user = userEvent.setup()
     const onSave = vi.fn()
     const onCancel = vi.fn()
-    const { container } = render(<InlineEdit value="Hello" onSave={onSave} onCancel={onCancel} />)
+    const { container } = render(
+      <InlineEdit value="Hello" onSave={onSave} onCancel={onCancel} />
+    )
     await user.click(container.querySelector('[data-state="display"]')!)
     await user.click(screen.getByLabelText('Cancel'))
     expect(onSave).not.toHaveBeenCalled()
@@ -92,7 +102,9 @@ describe('InlineEdit', () => {
   })
 
   it('has tabIndex=-1 when disabled', () => {
-    const { container } = render(<InlineEdit value="X" onSave={() => {}} disabled />)
+    const { container } = render(
+      <InlineEdit value="X" onSave={() => {}} disabled />
+    )
     const el = container.querySelector('[data-component="inline-edit"]')
     expect(el?.getAttribute('tabindex')).toBe('-1')
   })
@@ -110,7 +122,9 @@ describe('InlineEdit', () => {
     const user = userEvent.setup()
     const onSave = vi.fn()
     const validate = (v: string) => (v === '' ? 'Required' : null)
-    const { container } = render(<InlineEdit value="Hello" onSave={onSave} validate={validate} />)
+    const { container } = render(
+      <InlineEdit value="Hello" onSave={onSave} validate={validate} />
+    )
     await user.click(container.querySelector('[data-state="display"]')!)
     const input = container.querySelector('input')!
     await user.clear(input)

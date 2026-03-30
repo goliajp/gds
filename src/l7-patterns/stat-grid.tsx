@@ -21,11 +21,11 @@ export const StatGrid = forwardRef<HTMLDivElement, StatGridProps>(
     return (
       <div
         ref={ref}
-        className={cx('grid gds-gap-lg', colsMap[columns], className)}
+        className={cx('gds-gap-lg grid', colsMap[columns], className)}
         data-component="stat-grid"
       >
         {children}
       </div>
     )
-  },
+  }
 )

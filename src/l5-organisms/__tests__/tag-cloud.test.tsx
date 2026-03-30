@@ -12,7 +12,9 @@ const tags = [
 describe('TagCloud', () => {
   it('renders data-component attribute', () => {
     const { container } = render(<TagCloud tags={tags} />)
-    expect(container.querySelector('[data-component="tag-cloud"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="tag-cloud"]')
+    ).not.toBeNull()
   })
 
   it('renders tag labels and counts', () => {

@@ -32,10 +32,10 @@ export const TagCloud = forwardRef<HTMLDivElement, TagCloudProps>(
               type="button"
               onClick={() => onToggle?.(tag.label)}
               className={cx(
-                'rounded-full px-3 py-1 gds-text-body font-medium transition-colors select-none',
+                'gds-text-body rounded-full px-3 py-1 font-medium transition-colors select-none',
                 isSelected
                   ? 'bg-accent/15 text-accent'
-                  : 'bg-bg-tertiary text-fg-muted hover:bg-bg-tertiary/80',
+                  : 'bg-bg-tertiary text-fg-muted hover:bg-bg-tertiary/80'
               )}
             >
               {tag.label}
@@ -45,5 +45,5 @@ export const TagCloud = forwardRef<HTMLDivElement, TagCloudProps>(
         })}
       </div>
     )
-  },
+  }
 )

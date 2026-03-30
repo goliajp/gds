@@ -6,7 +6,9 @@ import { PayrollDashboard } from '../payroll-dashboard'
 describe('PayrollDashboard', () => {
   it('renders with data-component', () => {
     const { container } = render(<PayrollDashboard />)
-    expect(container.querySelector('[data-component="payroll-dashboard"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="payroll-dashboard"]')
+    ).not.toBeNull()
   })
 
   it('renders metrics slot', () => {
@@ -19,7 +21,7 @@ describe('PayrollDashboard', () => {
       <PayrollDashboard
         chart={<div>Payroll Chart</div>}
         transactions={<div>Recent Transactions</div>}
-      />,
+      />
     )
     expect(screen.getByText('Payroll Chart')).toBeDefined()
     expect(screen.getByText('Recent Transactions')).toBeDefined()

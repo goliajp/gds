@@ -13,15 +13,25 @@ type DashboardLayoutProps = {
 }
 
 const DashboardLayout = forwardRef<HTMLDivElement, DashboardLayoutProps>(
-  function DashboardLayout({ sidebar, header, children, sidebarWidth = 240, className }, ref) {
+  function DashboardLayout(
+    { sidebar, header, children, sidebarWidth = 240, className },
+    ref
+  ) {
     return (
-      <div ref={ref} className={cx('flex h-full min-h-0 bg-bg', className)} data-component="dashboard-layout">
-        <aside className="shrink-0 overflow-y-auto border-r border-border bg-surface" style={{ width: sidebarWidth }}>
+      <div
+        ref={ref}
+        className={cx('bg-bg flex h-full min-h-0', className)}
+        data-component="dashboard-layout"
+      >
+        <aside
+          className="border-border bg-surface shrink-0 overflow-y-auto border-r"
+          style={{ width: sidebarWidth }}
+        >
           {sidebar}
         </aside>
-        <div className="flex flex-1 flex-col min-w-0">
+        <div className="flex min-w-0 flex-1 flex-col">
           {header !== undefined && (
-            <header className="sticky top-0 z-10 shrink-0 border-b border-border bg-surface/80 backdrop-blur-sm">
+            <header className="border-border bg-surface/80 sticky top-0 z-10 shrink-0 border-b backdrop-blur-sm">
               {header}
             </header>
           )}
@@ -29,7 +39,7 @@ const DashboardLayout = forwardRef<HTMLDivElement, DashboardLayoutProps>(
         </div>
       </div>
     )
-  },
+  }
 )
 
 export { DashboardLayout }

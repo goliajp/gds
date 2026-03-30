@@ -11,16 +11,20 @@ const tabs = [
 describe('DevOpsLayout', () => {
   it('renders data-component attribute', () => {
     const { container } = render(
-      <DevOpsLayout tabs={tabs} activeTab="overview" onTabChange={() => {}}>content</DevOpsLayout>,
+      <DevOpsLayout tabs={tabs} activeTab="overview" onTabChange={() => {}}>
+        content
+      </DevOpsLayout>
     )
-    expect(container.querySelector('[data-component="devops-layout"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="devops-layout"]')
+    ).not.toBeNull()
   })
 
   it('renders tab labels and children', () => {
     render(
       <DevOpsLayout tabs={tabs} activeTab="overview" onTabChange={() => {}}>
         <div>Main Content</div>
-      </DevOpsLayout>,
+      </DevOpsLayout>
     )
     expect(screen.getByText('Overview')).toBeDefined()
     expect(screen.getByText('Containers')).toBeDefined()
@@ -30,7 +34,9 @@ describe('DevOpsLayout', () => {
   it('calls onTabChange when tab is clicked', () => {
     const handler = vi.fn()
     render(
-      <DevOpsLayout tabs={tabs} activeTab="overview" onTabChange={handler}>content</DevOpsLayout>,
+      <DevOpsLayout tabs={tabs} activeTab="overview" onTabChange={handler}>
+        content
+      </DevOpsLayout>
     )
     screen.getByText('Containers').click()
     expect(handler).toHaveBeenCalledWith('containers')

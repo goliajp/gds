@@ -29,14 +29,17 @@ function TimePickerGrid({
   return (
     <div
       className={cx(
-        'absolute left-0 right-0 z-50 mt-1 flex animate-popup gds-radius-popover border gds-shadow-lg',
+        'animate-popup gds-radius-popover gds-shadow-lg absolute right-0 left-0 z-50 mt-1 flex border',
         glass
-          ? cx(glassClass(glass), 'border-white/10 bg-bg/60')
-          : 'border-border bg-surface',
+          ? cx(glassClass(glass), 'bg-bg/60 border-white/10')
+          : 'border-border bg-surface'
       )}
     >
-      <div className="flex-1 overflow-y-auto border-r border-border" style={{ maxHeight: 200 }}>
-        <div className="px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-fg-muted/50">
+      <div
+        className="border-border flex-1 overflow-y-auto border-r"
+        style={{ maxHeight: 200 }}
+      >
+        <div className="text-fg-muted/50 px-2 py-1 text-[10px] font-medium tracking-wider uppercase">
           Hour
         </div>
         {hours.map((h) => (
@@ -44,8 +47,8 @@ function TimePickerGrid({
             className={cx(
               'flex w-full items-center justify-center py-1.5 text-sm transition-colors',
               h === selectedHour
-                ? 'bg-accent/10 font-medium text-accent'
-                : 'text-fg hover:bg-bg-tertiary',
+                ? 'bg-accent/10 text-accent font-medium'
+                : 'text-fg hover:bg-bg-tertiary'
             )}
             key={h}
             onClick={() => onHourClick(h)}
@@ -56,7 +59,7 @@ function TimePickerGrid({
         ))}
       </div>
       <div className="flex-1 overflow-y-auto" style={{ maxHeight: 200 }}>
-        <div className="px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-fg-muted/50">
+        <div className="text-fg-muted/50 px-2 py-1 text-[10px] font-medium tracking-wider uppercase">
           Min
         </div>
         {minutes.map((m) => (
@@ -64,8 +67,8 @@ function TimePickerGrid({
             className={cx(
               'flex w-full items-center justify-center py-1.5 text-sm transition-colors',
               m === selectedMinute
-                ? 'bg-accent/10 font-medium text-accent'
-                : 'text-fg hover:bg-bg-tertiary',
+                ? 'bg-accent/10 text-accent font-medium'
+                : 'text-fg hover:bg-bg-tertiary'
             )}
             key={m}
             onClick={() => onMinuteClick(m)}

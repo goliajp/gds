@@ -27,7 +27,7 @@ export function resolveAxesToCssVars(
   elevation: ThemeElevation,
   glass: ThemeGlass,
   motion: ThemeMotion,
-  mode: 'dark' | 'light',
+  mode: 'dark' | 'light'
 ): Record<string, string> {
   return {
     ...radiusToCssVars(shape),

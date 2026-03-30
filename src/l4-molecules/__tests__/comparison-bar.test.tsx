@@ -16,7 +16,9 @@ describe('ComparisonBar', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<ComparisonBar segments={segments} />)
-    expect(container.querySelector('[data-component="comparison-bar"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="comparison-bar"]')
+    ).not.toBeNull()
   })
 
   it('renders SVG with rect segments', () => {
@@ -26,7 +28,11 @@ describe('ComparisonBar', () => {
   })
 
   it('returns null when total is zero', () => {
-    const { container } = render(<ComparisonBar segments={[{ label: 'X', value: 0, color: 'red' }]} />)
-    expect(container.querySelector('[data-component="comparison-bar"]')).toBeNull()
+    const { container } = render(
+      <ComparisonBar segments={[{ label: 'X', value: 0, color: 'red' }]} />
+    )
+    expect(
+      container.querySelector('[data-component="comparison-bar"]')
+    ).toBeNull()
   })
 })

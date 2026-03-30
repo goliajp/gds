@@ -6,7 +6,9 @@ import { GlowDot } from '../glow-dot'
 describe('GlowDot', () => {
   it('renders with data-component', () => {
     const { container } = render(<GlowDot />)
-    expect(container.querySelector('[data-component="glow-dot"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="glow-dot"]')
+    ).not.toBeNull()
   })
 
   it('applies color variant as data-variant', () => {

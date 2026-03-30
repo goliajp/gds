@@ -8,7 +8,12 @@ describe('TabGroup', () => {
   const tabs = [
     { id: 'general', label: 'General', content: <div>General content</div> },
     { id: 'security', label: 'Security', content: <div>Security content</div> },
-    { id: 'billing', label: 'Billing', content: <div>Billing content</div>, disabled: true },
+    {
+      id: 'billing',
+      label: 'Billing',
+      content: <div>Billing content</div>,
+      disabled: true,
+    },
   ]
 
   it('renders tab labels', () => {
@@ -43,7 +48,9 @@ describe('TabGroup', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<TabGroup tabs={tabs} />)
-    expect(container.querySelector('[data-component="tab-group"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="tab-group"]')
+    ).not.toBeNull()
   })
 
   it('uses defaultTab when specified', () => {
@@ -66,7 +73,9 @@ describe('TabGroup', () => {
 
   it('handles empty tabs array', () => {
     const { container } = render(<TabGroup tabs={[]} />)
-    expect(container.querySelector('[data-component="tab-group"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="tab-group"]')
+    ).not.toBeNull()
   })
 
   it('applies custom className', () => {
@@ -81,7 +90,7 @@ describe('TabGroup', () => {
     const user = userEvent.setup()
     const onTabChange = vi.fn()
     const { rerender } = render(
-      <TabGroup tabs={tabs} activeTab="general" onTabChange={onTabChange} />,
+      <TabGroup tabs={tabs} activeTab="general" onTabChange={onTabChange} />
     )
     expect(screen.getByText('General content')).toBeDefined()
     await user.click(screen.getByText('Security'))
@@ -89,7 +98,9 @@ describe('TabGroup', () => {
     // content should not switch until parent updates activeTab
     expect(screen.getByText('General content')).toBeDefined()
     // simulate parent updating
-    rerender(<TabGroup tabs={tabs} activeTab="security" onTabChange={onTabChange} />)
+    rerender(
+      <TabGroup tabs={tabs} activeTab="security" onTabChange={onTabChange} />
+    )
     expect(screen.getByText('Security content')).toBeDefined()
   })
 
@@ -106,20 +117,27 @@ describe('TabGroup', () => {
     expect(screen.getByText('General content')).toBeDefined()
     await user.click(screen.getByText('Security'))
     // both should be in DOM (general hidden, security visible)
-    const panels = container.querySelectorAll<HTMLDivElement>('[role="tabpanel"]')
+    const panels =
+      container.querySelectorAll<HTMLDivElement>('[role="tabpanel"]')
     expect(panels.length).toBe(2)
     // general panel should be hidden
-    const generalPanel = Array.from(panels).find(p => p.textContent === 'General content')
+    const generalPanel = Array.from(panels).find(
+      (p) => p.textContent === 'General content'
+    )
     expect(generalPanel?.hidden).toBe(true)
     // security panel should be visible
-    const securityPanel = Array.from(panels).find(p => p.textContent === 'Security content')
+    const securityPanel = Array.from(panels).find(
+      (p) => p.textContent === 'Security content'
+    )
     expect(securityPanel?.hidden).toBe(false)
   })
 
   it('does not switch to disabled tab in controlled mode', async () => {
     const user = userEvent.setup()
     const onTabChange = vi.fn()
-    render(<TabGroup tabs={tabs} activeTab="general" onTabChange={onTabChange} />)
+    render(
+      <TabGroup tabs={tabs} activeTab="general" onTabChange={onTabChange} />
+    )
     await user.click(screen.getByText('Billing'))
     expect(onTabChange).not.toHaveBeenCalled()
   })

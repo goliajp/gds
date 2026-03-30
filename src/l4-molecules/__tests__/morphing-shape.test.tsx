@@ -11,7 +11,9 @@ describe('MorphingShape', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<MorphingShape variant="circle" />)
-    expect(container.querySelector('[data-component="morphing-shape"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="morphing-shape"]')
+    ).not.toBeNull()
   })
 
   it('renders an SVG path element', () => {

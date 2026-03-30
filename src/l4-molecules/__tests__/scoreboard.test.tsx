@@ -11,7 +11,9 @@ describe('Scoreboard', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<Scoreboard label="Score" score={75} />)
-    expect(container.querySelector('[data-component="scoreboard"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="scoreboard"]')
+    ).not.toBeNull()
   })
 
   it('displays label and score', () => {
@@ -21,7 +23,9 @@ describe('Scoreboard', () => {
   })
 
   it('renders progress bar', () => {
-    const { container } = render(<Scoreboard label="Score" score={50} max={100} />)
+    const { container } = render(
+      <Scoreboard label="Score" score={50} max={100} />
+    )
     const bar = container.querySelector('.bg-accent')
     expect(bar).not.toBeNull()
     expect((bar as HTMLElement).style.width).toBe('50%')

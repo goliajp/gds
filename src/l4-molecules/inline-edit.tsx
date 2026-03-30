@@ -15,25 +15,62 @@ export type InlineEditProps = {
 }
 
 const checkIcon = (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 14 14"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path d="M2.5 7.5l3 3 6-6.5" />
   </svg>
 )
 
 const cancelIcon = (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 14 14"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+  >
     <path d="M3 3l8 8M11 3l-8 8" />
   </svg>
 )
 
 const editIcon = (
-  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    width="12"
+    height="12"
+    viewBox="0 0 12 12"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path d="M7 2l3 3-7 7H0V9z" />
   </svg>
 )
 
 export const InlineEdit = forwardRef<HTMLDivElement, InlineEditProps>(
-  function InlineEdit({ value, onSave, onCancel, validate, placeholder = 'Click to edit', disabled, className }, ref) {
+  function InlineEdit(
+    {
+      value,
+      onSave,
+      onCancel,
+      validate,
+      placeholder = 'Click to edit',
+      disabled,
+      className,
+    },
+    ref
+  ) {
     const [editing, setEditing] = useState(false)
     const [editValue, setEditValue] = useState(value)
     const [error, setError] = useState<string | null>(null)
@@ -76,33 +113,59 @@ export const InlineEdit = forwardRef<HTMLDivElement, InlineEditProps>(
           cancel()
         }
       },
-      [save, cancel],
+      [save, cancel]
     )
 
     if (editing) {
       return (
-        <div ref={ref} className={cx('inline-flex flex-col', className)} data-component="inline-edit" data-state="editing">
+        <div
+          ref={ref}
+          className={cx('inline-flex flex-col', className)}
+          data-component="inline-edit"
+          data-state="editing"
+        >
           <div className="flex items-center gap-1">
             <input
               autoFocus
               className={cx(
-                'bg-transparent gds-text-body text-fg outline-none border-b border-accent/50 px-0.5',
+                'gds-text-body text-fg border-accent/50 border-b bg-transparent px-0.5 outline-none',
                 error !== null && 'border-danger/50',
-                focusCls,
+                focusCls
               )}
-              onChange={(e) => { setEditValue(e.target.value); setError(null) }}
+              onChange={(e) => {
+                setEditValue(e.target.value)
+                setError(null)
+              }}
               onKeyDown={handleKeyDown}
               type="text"
               value={editValue}
             />
-            <button type="button" onClick={save} className={cx('shrink-0 p-0.5 text-success hover:text-success/80', focusCls)} aria-label="Save">
+            <button
+              type="button"
+              onClick={save}
+              className={cx(
+                'text-success hover:text-success/80 shrink-0 p-0.5',
+                focusCls
+              )}
+              aria-label="Save"
+            >
               {checkIcon}
             </button>
-            <button type="button" onClick={cancel} className={cx('shrink-0 p-0.5 text-fg-muted hover:text-fg', focusCls)} aria-label="Cancel">
+            <button
+              type="button"
+              onClick={cancel}
+              className={cx(
+                'text-fg-muted hover:text-fg shrink-0 p-0.5',
+                focusCls
+              )}
+              aria-label="Cancel"
+            >
               {cancelIcon}
             </button>
           </div>
-          {error !== null && <span className="mt-0.5 text-[10px] text-danger">{error}</span>}
+          {error !== null && (
+            <span className="text-danger mt-0.5 text-[10px]">{error}</span>
+          )}
         </div>
       )
     }
@@ -112,19 +175,33 @@ export const InlineEdit = forwardRef<HTMLDivElement, InlineEditProps>(
     return (
       <div
         ref={ref}
-        className={cx('group inline-flex cursor-pointer items-center gap-1', disabled === true && 'pointer-events-none opacity-50', className)}
+        className={cx(
+          'group inline-flex cursor-pointer items-center gap-1',
+          disabled === true && 'pointer-events-none opacity-50',
+          className
+        )}
         data-component="inline-edit"
         data-state="display"
         onClick={startEditing}
-        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') startEditing() }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') startEditing()
+        }}
         role="button"
         tabIndex={disabled === true ? -1 : 0}
       >
-        <span className={cx('gds-text-body', isEmpty ? 'text-fg-muted' : 'text-fg', focusCls)}>
+        <span
+          className={cx(
+            'gds-text-body',
+            isEmpty ? 'text-fg-muted' : 'text-fg',
+            focusCls
+          )}
+        >
           {isEmpty ? placeholder : value}
         </span>
-        <span className="text-fg-muted/0 transition-colors group-hover:text-fg-muted/60">{editIcon}</span>
+        <span className="text-fg-muted/0 group-hover:text-fg-muted/60 transition-colors">
+          {editIcon}
+        </span>
       </div>
     )
-  },
+  }
 )

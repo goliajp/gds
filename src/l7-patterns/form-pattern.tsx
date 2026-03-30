@@ -21,28 +21,37 @@ export type FormPatternProps = {
 }
 
 export const FormPattern = forwardRef<HTMLDivElement, FormPatternProps>(
-  function FormPattern({ title, description, sections, actions, glass, className }, ref) {
+  function FormPattern(
+    { title, description, sections, actions, glass, className },
+    ref
+  ) {
     return (
       <div
         ref={ref}
-        className={cx('gds-ctx flex flex-col gds-pad gds-radius-card', glassClass(glass), className)}
+        className={cx(
+          'gds-ctx gds-pad gds-radius-card flex flex-col',
+          glassClass(glass),
+          className
+        )}
         data-component="form-pattern"
       >
         {(title !== undefined || description !== undefined) && (
           <div className="mb-4">
             {title !== undefined && (
-              <h2 className="gds-heading font-semibold text-fg">{title}</h2>
+              <h2 className="gds-heading text-fg font-semibold">{title}</h2>
             )}
             {description !== undefined && (
-              <p className="mt-1 gds-text-body text-fg-muted">{description}</p>
+              <p className="gds-text-body text-fg-muted mt-1">{description}</p>
             )}
           </div>
         )}
         {sections.map((section, i) => (
           <div key={section.title}>
             {i > 0 && <Separator className="my-4" />}
-            <div className="flex flex-col gds-gap">
-              <h3 className="gds-text-body font-medium text-fg">{section.title}</h3>
+            <div className="gds-gap flex flex-col">
+              <h3 className="gds-text-body text-fg font-medium">
+                {section.title}
+              </h3>
               {section.fields}
             </div>
           </div>
@@ -50,12 +59,12 @@ export const FormPattern = forwardRef<HTMLDivElement, FormPatternProps>(
         {actions !== undefined && (
           <>
             <Separator className="my-4" />
-            <div className="flex justify-end gds-gap-sm">{actions}</div>
+            <div className="gds-gap-sm flex justify-end">{actions}</div>
           </>
         )}
       </div>
     )
-  },
+  }
 )
 
 export type { FormSection }

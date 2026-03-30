@@ -16,7 +16,10 @@ const sizeClasses = {
 } as const
 
 export const BounceDot = forwardRef<HTMLDivElement, BounceDotProps>(
-  function BounceDot({ className, color, count = 3, size = 'default', ...props }, ref) {
+  function BounceDot(
+    { className, color, count = 3, size = 'default', ...props },
+    ref
+  ) {
     const dots = Array.from({ length: count }, (_, i) => i)
 
     return (
@@ -30,8 +33,8 @@ export const BounceDot = forwardRef<HTMLDivElement, BounceDotProps>(
         {dots.map((i) => (
           <span
             className={cx(
-              'animate-[bounce-dot_1.4s_ease-in-out_infinite] rounded-full bg-fg-muted',
-              sizeClasses[size],
+              'bg-fg-muted animate-[bounce-dot_1.4s_ease-in-out_infinite] rounded-full',
+              sizeClasses[size]
             )}
             key={i}
             style={{
@@ -42,7 +45,7 @@ export const BounceDot = forwardRef<HTMLDivElement, BounceDotProps>(
         ))}
       </div>
     )
-  },
+  }
 )
 
 export type { BounceDotProps }

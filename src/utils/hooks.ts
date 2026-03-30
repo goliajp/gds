@@ -31,7 +31,7 @@ export function useEscapeKey(active: boolean, onClose: () => void): void {
 export function useClickOutside(
   ref: React.RefObject<HTMLElement | null>,
   active: boolean,
-  onClickOutside: () => void,
+  onClickOutside: () => void
 ): void {
   useEffect(() => {
     if (!active) return
@@ -49,13 +49,21 @@ export function useClickOutside(
 export function useMediaQuery(query: string): boolean {
   const [matches, setMatches] = useState(() => {
     if (typeof window === 'undefined') return false
-    try { return window.matchMedia(query).matches } catch { return false }
+    try {
+      return window.matchMedia(query).matches
+    } catch {
+      return false
+    }
   })
 
   useEffect(() => {
     if (typeof window === 'undefined') return
     let mql: MediaQueryList
-    try { mql = window.matchMedia(query) } catch { return }
+    try {
+      mql = window.matchMedia(query)
+    } catch {
+      return
+    }
     setMatches(mql.matches)
     const handler = (e: MediaQueryListEvent) => setMatches(e.matches)
     mql.addEventListener('change', handler)
@@ -75,9 +83,12 @@ export function useIsDesktop(): boolean {
 }
 
 // trap tab focus within a container (for modals/dialogs)
-const FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])'
+const FOCUSABLE =
+  'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])'
 
-export function useFocusTrap(active: boolean): React.RefObject<HTMLDivElement | null> {
+export function useFocusTrap(
+  active: boolean
+): React.RefObject<HTMLDivElement | null> {
   const ref = useRef<HTMLDivElement>(null)
   const prevFocusRef = useRef<HTMLElement | null>(null)
 
@@ -93,7 +104,9 @@ export function useFocusTrap(active: boolean): React.RefObject<HTMLDivElement | 
 
     const handler = (e: KeyboardEvent) => {
       if (e.key !== 'Tab') return
-      const focusable = Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE))
+      const focusable = Array.from(
+        container.querySelectorAll<HTMLElement>(FOCUSABLE)
+      )
       if (focusable.length === 0) return
       const first = focusable[0]
       const last = focusable[focusable.length - 1]

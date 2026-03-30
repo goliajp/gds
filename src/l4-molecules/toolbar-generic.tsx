@@ -13,7 +13,10 @@ export type ToolbarGenericProps = {
 }
 
 export const ToolbarGeneric = forwardRef<HTMLDivElement, ToolbarGenericProps>(
-  function ToolbarGeneric({ children, variant = 'default', glass, className }, ref) {
+  function ToolbarGeneric(
+    { children, variant = 'default', glass, className },
+    ref
+  ) {
     const variantCls =
       variant === 'floating'
         ? 'gds-radius border border-border bg-surface shadow-md'
@@ -23,10 +26,10 @@ export const ToolbarGeneric = forwardRef<HTMLDivElement, ToolbarGenericProps>(
       <div
         ref={ref}
         className={cx(
-          'flex items-center gds-gap px-3 py-2 select-none',
+          'gds-gap flex items-center px-3 py-2 select-none',
           variantCls,
           glass === true && glassClass(glass),
-          className,
+          className
         )}
         data-component="toolbar-generic"
         data-variant={variant}
@@ -35,11 +38,17 @@ export const ToolbarGeneric = forwardRef<HTMLDivElement, ToolbarGenericProps>(
         {children}
       </div>
     )
-  },
+  }
 )
 
 export const ToolbarSeparator = forwardRef<HTMLDivElement>(
   function ToolbarSeparator(_props, ref) {
-    return <div ref={ref} className="h-4 w-px bg-border/50" data-component="toolbar-separator" />
-  },
+    return (
+      <div
+        ref={ref}
+        className="bg-border/50 h-4 w-px"
+        data-component="toolbar-separator"
+      />
+    )
+  }
 )

@@ -17,15 +17,15 @@ export const JsonViewer = forwardRef<HTMLDivElement, JsonViewerProps>(
       <div
         ref={ref}
         className={cx(
-          'overflow-auto gds-radius-popover border border-border gds-pad-x gds-pad-y font-mono text-xs leading-5',
+          'gds-radius-popover border-border gds-pad-x gds-pad-y overflow-auto border font-mono text-xs leading-5',
           glass === true && 'bg-white/5 backdrop-blur-md',
           glass !== true && 'bg-bg-secondary',
-          className,
+          className
         )}
         data-component="json-viewer"
       >
         <JsonNode value={data} depth={0} defaultExpanded={defaultExpanded} />
       </div>
     )
-  },
+  }
 )

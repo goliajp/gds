@@ -3,7 +3,13 @@ import { forwardRef, useState } from 'react'
 
 import { focusCls } from '../utils/a11y'
 import { cx } from '../utils/cx'
-import { getCalendarGrid, isDisabled, isSameDay, MONTHS, WEEKDAYS } from './calendar-utils'
+import {
+  getCalendarGrid,
+  isDisabled,
+  isSameDay,
+  MONTHS,
+  WEEKDAYS,
+} from './calendar-utils'
 
 export type CalendarProps = {
   value?: Date
@@ -43,42 +49,65 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
     return (
       <div
         ref={ref}
-        className={cx('w-64 gds-radius-popover border border-border bg-surface gds-pad-x gds-pad-y select-none', className)}
+        className={cx(
+          'gds-radius-popover border-border bg-surface gds-pad-x gds-pad-y w-64 border select-none',
+          className
+        )}
         data-component="calendar"
       >
         <div className="mb-2 flex items-center justify-between">
           <button
             type="button"
-            className={cx('rounded p-1 text-fg-muted hover:bg-bg-secondary hover:text-fg', focusCls)}
+            className={cx(
+              'text-fg-muted hover:bg-bg-secondary hover:text-fg rounded p-1',
+              focusCls
+            )}
             onClick={prevMonth}
             aria-label="Previous month"
           >
-            <svg className="h-4 w-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              className="h-4 w-4"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <path d="M10 4L6 8L10 12" />
             </svg>
           </button>
-          <span className="text-sm font-medium text-fg">
+          <span className="text-fg text-sm font-medium">
             {MONTHS[viewMonth]} {viewYear}
           </span>
           <button
             type="button"
-            className={cx('rounded p-1 text-fg-muted hover:bg-bg-secondary hover:text-fg', focusCls)}
+            className={cx(
+              'text-fg-muted hover:bg-bg-secondary hover:text-fg rounded p-1',
+              focusCls
+            )}
             onClick={nextMonth}
             aria-label="Next month"
           >
-            <svg className="h-4 w-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              className="h-4 w-4"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <path d="M6 4L10 8L6 12" />
             </svg>
           </button>
         </div>
 
-        <div className="grid grid-cols-7 gds-gap-xs text-center gds-text-body text-fg-muted">
+        <div className="gds-gap-xs gds-text-body text-fg-muted grid grid-cols-7 text-center">
           {WEEKDAYS.map((d) => (
-            <div key={d} className="gds-pad-y-sm font-medium">{d}</div>
+            <div key={d} className="gds-pad-y-sm font-medium">
+              {d}
+            </div>
           ))}
         </div>
 
-        <div className="grid grid-cols-7 gds-gap-xs text-center gds-text-body">
+        <div className="gds-gap-xs gds-text-body grid grid-cols-7 text-center">
           {grid.map((day, i) => {
             if (day === null) {
               return <div key={`e-${i}`} className="gds-pad-y-sm" />
@@ -97,8 +126,8 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
                   disabled && 'cursor-not-allowed opacity-30',
                   !disabled && !selected && 'hover:bg-bg-secondary',
                   selected && 'bg-accent text-accent-fg',
-                  !selected && isToday && 'ring-1 ring-accent',
-                  !disabled && 'text-fg',
+                  !selected && isToday && 'ring-accent ring-1',
+                  !disabled && 'text-fg'
                 )}
                 onClick={() => {
                   if (!disabled && onChange !== undefined) onChange(day)
@@ -111,5 +140,5 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
         </div>
       </div>
     )
-  },
+  }
 )

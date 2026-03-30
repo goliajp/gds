@@ -14,27 +14,44 @@ type RecentActivityProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 const RecentActivity = forwardRef<HTMLDivElement, RecentActivityProps>(
-  function RecentActivity({ className, items, title = 'Recent Activity', ...props }, ref) {
+  function RecentActivity(
+    { className, items, title = 'Recent Activity', ...props },
+    ref
+  ) {
     return (
-      <div className={cx('flex flex-col', className)} data-component="recent-activity" ref={ref} {...props}>
-        <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-fg-muted">{title}</h3>
+      <div
+        className={cx('flex flex-col', className)}
+        data-component="recent-activity"
+        ref={ref}
+        {...props}
+      >
+        <h3 className="text-fg-muted mb-2 text-xs font-semibold tracking-wider uppercase">
+          {title}
+        </h3>
         <div className="flex flex-col gap-1">
           {items.map((item, i) => (
-            <div className="flex items-baseline justify-between gap-2 py-1 text-sm" key={i}>
+            <div
+              className="flex items-baseline justify-between gap-2 py-1 text-sm"
+              key={i}
+            >
               <div className="min-w-0 truncate">
-                <span className="font-medium text-fg">{item.user}</span>
+                <span className="text-fg font-medium">{item.user}</span>
                 <span className="text-fg-muted"> {item.action}</span>
               </div>
-              <span className="shrink-0 text-xs text-fg-muted">{item.timestamp}</span>
+              <span className="text-fg-muted shrink-0 text-xs">
+                {item.timestamp}
+              </span>
             </div>
           ))}
           {items.length === 0 && (
-            <p className="py-2 text-center text-xs text-fg-muted">No activity</p>
+            <p className="text-fg-muted py-2 text-center text-xs">
+              No activity
+            </p>
           )}
         </div>
       </div>
     )
-  },
+  }
 )
 
 export { RecentActivity }

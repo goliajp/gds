@@ -38,7 +38,11 @@ function emit(): void {
   for (const fn of listeners) fn()
 }
 
-function addToast(title: string, variant: ToastVariant, options?: ToastOptions): string {
+function addToast(
+  title: string,
+  variant: ToastVariant,
+  options?: ToastOptions
+): string {
   const id = `gds-toast-${++nextId}`
   const item: ToastItem = {
     id,
@@ -57,7 +61,7 @@ function addToast(title: string, variant: ToastVariant, options?: ToastOptions):
 
 function dismiss(id: string): void {
   const prev = items
-  items = items.filter(t => t.id !== id)
+  items = items.filter((t) => t.id !== id)
   if (items !== prev) emit()
 }
 
@@ -79,11 +83,16 @@ function subscribe(listener: () => void): () => void {
 // ---- public API ----
 
 export const toast = {
-  show: (title: string, options?: ToastOptions): string => addToast(title, 'default', options),
-  success: (title: string, options?: ToastOptions): string => addToast(title, 'success', options),
-  error: (title: string, options?: ToastOptions): string => addToast(title, 'danger', options),
-  warning: (title: string, options?: ToastOptions): string => addToast(title, 'warning', options),
-  info: (title: string, options?: ToastOptions): string => addToast(title, 'default', options),
+  show: (title: string, options?: ToastOptions): string =>
+    addToast(title, 'default', options),
+  success: (title: string, options?: ToastOptions): string =>
+    addToast(title, 'success', options),
+  error: (title: string, options?: ToastOptions): string =>
+    addToast(title, 'danger', options),
+  warning: (title: string, options?: ToastOptions): string =>
+    addToast(title, 'warning', options),
+  info: (title: string, options?: ToastOptions): string =>
+    addToast(title, 'default', options),
   dismiss,
   dismissAll,
 }

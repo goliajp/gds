@@ -23,8 +23,14 @@ type SeparatorProps = React.HTMLAttributes<HTMLDivElement> &
 
 export const Separator = forwardRef<HTMLDivElement, SeparatorProps>(
   function Separator(
-    { className, label, orientation = 'horizontal', variant = 'solid', ...props },
-    ref,
+    {
+      className,
+      label,
+      orientation = 'horizontal',
+      variant = 'solid',
+      ...props
+    },
+    ref
   ) {
     if (orientation === 'vertical') {
       return (
@@ -33,7 +39,7 @@ export const Separator = forwardRef<HTMLDivElement, SeparatorProps>(
           className={cx(
             'inline-block h-full border-l',
             separatorVariants({ variant }),
-            className,
+            className
           )}
           data-component="separator"
           ref={ref}
@@ -46,17 +52,21 @@ export const Separator = forwardRef<HTMLDivElement, SeparatorProps>(
     if (label !== undefined) {
       return (
         <div
-          className={cx('flex items-center gds-gap select-none', className)}
+          className={cx('gds-gap flex items-center select-none', className)}
           data-component="separator"
           ref={ref}
           role="separator"
           {...props}
         >
-          <div className={cx('flex-1 border-t', separatorVariants({ variant }))} />
-          <span className="shrink-0 gds-text-caption font-semibold tracking-widest text-fg-muted/40 uppercase">
+          <div
+            className={cx('flex-1 border-t', separatorVariants({ variant }))}
+          />
+          <span className="gds-text-caption text-fg-muted/40 shrink-0 font-semibold tracking-widest uppercase">
             {label}
           </span>
-          <div className={cx('flex-1 border-t', separatorVariants({ variant }))} />
+          <div
+            className={cx('flex-1 border-t', separatorVariants({ variant }))}
+          />
         </div>
       )
     }
@@ -64,7 +74,7 @@ export const Separator = forwardRef<HTMLDivElement, SeparatorProps>(
     if (variant === 'solid') {
       return (
         <div
-          className={cx('h-px w-full shrink-0 bg-border', className)}
+          className={cx('bg-border h-px w-full shrink-0', className)}
           data-component="separator"
           ref={ref}
           role="separator"
@@ -83,7 +93,7 @@ export const Separator = forwardRef<HTMLDivElement, SeparatorProps>(
         {...props}
       />
     )
-  },
+  }
 )
 
 export { separatorVariants }

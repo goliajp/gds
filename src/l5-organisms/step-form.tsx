@@ -45,25 +45,46 @@ export const StepForm = forwardRef<HTMLDivElement, StepFormProps>(
         <div className="flex items-center gap-2">
           {steps.map((step, i) => (
             <div key={`${step.label}-${i}`} className="flex items-center gap-2">
-              {i > 0 && <div className={cx('h-px w-8', i <= current ? 'bg-accent' : 'bg-border')} />}
+              {i > 0 && (
+                <div
+                  className={cx(
+                    'h-px w-8',
+                    i <= current ? 'bg-accent' : 'bg-border'
+                  )}
+                />
+              )}
               <div className="flex items-center gap-2">
                 <div
                   className={cx(
                     'flex h-6 w-6 items-center justify-center rounded-full text-xs font-medium',
                     i < current && 'bg-accent text-accent-fg',
-                    i === current && 'border-2 border-accent text-accent',
-                    i > current && 'border border-border text-fg-muted',
+                    i === current && 'border-accent text-accent border-2',
+                    i > current && 'border-border text-fg-muted border'
                   )}
                 >
                   {i < current ? (
-                    <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
                       <path d="M3 7l3 3 5-6" />
                     </svg>
                   ) : (
                     i + 1
                   )}
                 </div>
-                <span className={cx('text-xs', i === current ? 'font-medium text-fg' : 'text-fg-muted')}>
+                <span
+                  className={cx(
+                    'text-xs',
+                    i === current ? 'text-fg font-medium' : 'text-fg-muted'
+                  )}
+                >
                   {step.label}
                 </span>
               </div>
@@ -80,8 +101,8 @@ export const StepForm = forwardRef<HTMLDivElement, StepFormProps>(
             <button
               type="button"
               className={cx(
-                'h-8 gds-radius-button px-3 text-xs font-medium text-fg-muted transition-colors hover:bg-bg-tertiary hover:text-fg',
-                focusCls,
+                'gds-radius-button text-fg-muted hover:bg-bg-tertiary hover:text-fg h-8 px-3 text-xs font-medium transition-colors',
+                focusCls
               )}
               onClick={handleBack}
             >
@@ -91,8 +112,8 @@ export const StepForm = forwardRef<HTMLDivElement, StepFormProps>(
           <button
             type="button"
             className={cx(
-              'h-8 gds-radius-button bg-accent px-3 text-xs font-medium text-accent-fg transition-colors hover:bg-accent/90',
-              focusCls,
+              'gds-radius-button bg-accent text-accent-fg hover:bg-accent/90 h-8 px-3 text-xs font-medium transition-colors',
+              focusCls
             )}
             onClick={handleNext}
           >
@@ -101,5 +122,5 @@ export const StepForm = forwardRef<HTMLDivElement, StepFormProps>(
         </div>
       </div>
     )
-  },
+  }
 )

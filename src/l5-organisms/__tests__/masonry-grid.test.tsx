@@ -9,18 +9,22 @@ describe('MasonryGrid', () => {
       <MasonryGrid>
         <div>A</div>
         <div>B</div>
-      </MasonryGrid>,
+      </MasonryGrid>
     )
-    expect(container.querySelector('[data-component="masonry-grid"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="masonry-grid"]')
+    ).not.toBeNull()
   })
 
   it('uses default columns (3) and gap (16)', () => {
     const { container } = render(
       <MasonryGrid>
         <div>A</div>
-      </MasonryGrid>,
+      </MasonryGrid>
     )
-    const grid = container.querySelector('[data-component="masonry-grid"]') as HTMLElement
+    const grid = container.querySelector(
+      '[data-component="masonry-grid"]'
+    ) as HTMLElement
     expect(grid.style.columnCount).toBe('3')
     expect(grid.style.columnGap).toBe('16px')
   })
@@ -29,9 +33,11 @@ describe('MasonryGrid', () => {
     const { container } = render(
       <MasonryGrid columns={4} gap={24}>
         <div>A</div>
-      </MasonryGrid>,
+      </MasonryGrid>
     )
-    const grid = container.querySelector('[data-component="masonry-grid"]') as HTMLElement
+    const grid = container.querySelector(
+      '[data-component="masonry-grid"]'
+    ) as HTMLElement
     expect(grid.style.columnCount).toBe('4')
     expect(grid.style.columnGap).toBe('24px')
   })
@@ -42,9 +48,11 @@ describe('MasonryGrid', () => {
         <div>A</div>
         <div>B</div>
         <div>C</div>
-      </MasonryGrid>,
+      </MasonryGrid>
     )
-    const grid = container.querySelector('[data-component="masonry-grid"]') as HTMLElement
+    const grid = container.querySelector(
+      '[data-component="masonry-grid"]'
+    ) as HTMLElement
     const wrappers = grid.children
     expect(wrappers.length).toBe(3)
     const first = wrappers[0] as HTMLElement
@@ -56,7 +64,7 @@ describe('MasonryGrid', () => {
     const { container } = render(
       <MasonryGrid className="my-class">
         <div>A</div>
-      </MasonryGrid>,
+      </MasonryGrid>
     )
     const grid = container.querySelector('[data-component="masonry-grid"]')
     expect(grid?.className).toContain('my-class')
@@ -65,9 +73,13 @@ describe('MasonryGrid', () => {
   it('forwards ref', () => {
     let divRef: HTMLDivElement | null = null
     render(
-      <MasonryGrid ref={(el) => { divRef = el }}>
+      <MasonryGrid
+        ref={(el) => {
+          divRef = el
+        }}
+      >
         <div>A</div>
-      </MasonryGrid>,
+      </MasonryGrid>
     )
     expect(divRef).not.toBeNull()
     expect((divRef as unknown as HTMLElement)?.tagName).toBe('DIV')
@@ -75,6 +87,8 @@ describe('MasonryGrid', () => {
 
   it('renders with no children', () => {
     const { container } = render(<MasonryGrid>{null}</MasonryGrid>)
-    expect(container.querySelector('[data-component="masonry-grid"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="masonry-grid"]')
+    ).not.toBeNull()
   })
 })

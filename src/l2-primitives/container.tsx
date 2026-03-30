@@ -36,7 +36,7 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
         {children}
       </div>
     )
-  },
+  }
 )
 
 export { containerVariants }

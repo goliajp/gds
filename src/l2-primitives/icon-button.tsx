@@ -27,7 +27,7 @@ const iconButtonVariants = cva(
         ghost: 'text-fg-muted hover:text-fg',
       },
     },
-  },
+  }
 )
 
 type IconButtonProps = Omit<
@@ -43,7 +43,7 @@ type IconButtonProps = Omit<
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   function IconButton(
     { className, disabled, glass, icon, size, tooltip, variant, ...props },
-    ref,
+    ref
   ) {
     return (
       <button
@@ -52,8 +52,8 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
           iconButtonVariants({ size, variant }),
           disabled === true && 'cursor-not-allowed opacity-50',
           glassClass(glass),
-          glass === true && 'border border-white/10 bg-bg/60',
-          className,
+          glass === true && 'bg-bg/60 border border-white/10',
+          className
         )}
         data-component="icon-button"
         data-variant={variant ?? 'default'}
@@ -66,7 +66,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         {icon}
       </button>
     )
-  },
+  }
 )
 
 export { iconButtonVariants }

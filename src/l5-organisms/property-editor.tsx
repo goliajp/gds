@@ -21,18 +21,23 @@ export const PropertyEditor = forwardRef<HTMLDivElement, PropertyEditorProps>(
     return (
       <div
         ref={ref}
-        className={cx('gds-radius-popover border border-border overflow-hidden', className)}
+        className={cx(
+          'gds-radius-popover border-border overflow-hidden border',
+          className
+        )}
         data-component="property-editor"
       >
         {properties.map((prop, i) => (
           <div
             key={prop.key}
             className={cx(
-              'flex items-center justify-between gds-pad-x gds-pad-y-sm',
-              i < properties.length - 1 && 'border-b border-border',
+              'gds-pad-x gds-pad-y-sm flex items-center justify-between',
+              i < properties.length - 1 && 'border-border border-b'
             )}
           >
-            <span className="gds-text-body font-medium text-fg-muted">{prop.key}</span>
+            <span className="gds-text-body text-fg-muted font-medium">
+              {prop.key}
+            </span>
             <div className="text-right">
               {prop.editable === true && onChange !== undefined ? (
                 <InlineEdit
@@ -47,7 +52,7 @@ export const PropertyEditor = forwardRef<HTMLDivElement, PropertyEditorProps>(
         ))}
       </div>
     )
-  },
+  }
 )
 
 export type { PropertyEditorProps, PropertyItem }

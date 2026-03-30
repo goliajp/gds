@@ -29,7 +29,11 @@ export const CircularMenu = forwardRef<HTMLDivElement, CircularMenuProps>(
     useEscapeKey(open, close)
 
     return (
-      <div ref={ref} className={cx('relative inline-block', className)} data-component="circular-menu">
+      <div
+        ref={ref}
+        className={cx('relative inline-block', className)}
+        data-component="circular-menu"
+      >
         <div
           role="button"
           tabIndex={0}
@@ -45,7 +49,7 @@ export const CircularMenu = forwardRef<HTMLDivElement, CircularMenuProps>(
           {trigger}
         </div>
         {open && (
-          <div className="absolute left-1/2 top-1/2">
+          <div className="absolute top-1/2 left-1/2">
             {items.map((item, i) => {
               const angle = (2 * Math.PI * i) / items.length - Math.PI / 2
               const x = Math.cos(angle) * radius
@@ -56,9 +60,9 @@ export const CircularMenu = forwardRef<HTMLDivElement, CircularMenuProps>(
                   type="button"
                   title={item.label}
                   className={cx(
-                    'absolute flex items-center justify-center rounded-full bg-surface border border-border',
-                    'h-10 w-10 -translate-x-1/2 -translate-y-1/2 text-fg transition-all duration-200',
-                    focusCls,
+                    'bg-surface border-border absolute flex items-center justify-center rounded-full border',
+                    'text-fg h-10 w-10 -translate-x-1/2 -translate-y-1/2 transition-all duration-200',
+                    focusCls
                   )}
                   style={{ transform: `translate(${x}px, ${y}px)` }}
                 >
@@ -70,5 +74,5 @@ export const CircularMenu = forwardRef<HTMLDivElement, CircularMenuProps>(
         )}
       </div>
     )
-  },
+  }
 )

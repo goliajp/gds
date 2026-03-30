@@ -27,56 +27,77 @@ export type DrawerProps = {
   className?: string
 }
 
-export const Drawer = forwardRef<HTMLDivElement, DrawerProps>(
-  function Drawer({ open, onClose, title, children, height = 'default', glass, className }, ref) {
-    const trapRef = useFocusTrap(open)
-    useScrollLock(open)
-    useEscapeKey(open, onClose)
+export const Drawer = forwardRef<HTMLDivElement, DrawerProps>(function Drawer(
+  { open, onClose, title, children, height = 'default', glass, className },
+  ref
+) {
+  const trapRef = useFocusTrap(open)
+  useScrollLock(open)
+  useEscapeKey(open, onClose)
 
-    if (!open) return null
+  if (!open) return null
 
-    return (
+  return (
+    <div
+      className="fixed inset-0 z-50 bg-black/50"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose()
+      }}
+      data-component="drawer"
+      data-state="open"
+    >
       <div
-        className="fixed inset-0 z-50 bg-black/50"
-        onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
-        data-component="drawer"
-        data-state="open"
+        ref={mergeRefs(ref, trapRef)}
+        className={cx(
+          'gds-ctx fixed inset-x-0 bottom-0 flex flex-col rounded-t-xl border-t transition-transform duration-200',
+          heightMap[height],
+          glass
+            ? cx(glassClass(glass), 'bg-bg/60 border-white/10')
+            : 'border-border bg-surface',
+          className
+        )}
       >
-        <div
-          ref={mergeRefs(ref, trapRef)}
-          className={cx(
-            'gds-ctx fixed inset-x-0 bottom-0 flex flex-col rounded-t-xl border-t transition-transform duration-200',
-            heightMap[height],
-            glass ? cx(glassClass(glass), 'border-white/10 bg-bg/60') : 'border-border bg-surface',
-            className,
-          )}
-        >
-          {/* drag handle */}
-          <div className="flex justify-center py-2">
-            <div className="h-1 w-8 rounded-full bg-fg-muted/30" data-testid="drag-handle" />
-          </div>
+        {/* drag handle */}
+        <div className="flex justify-center py-2">
+          <div
+            className="bg-fg-muted/30 h-1 w-8 rounded-full"
+            data-testid="drag-handle"
+          />
+        </div>
 
-          {/* header */}
-          {title !== undefined && (
-            <div className="flex items-center justify-between gds-pad-x-lg pb-2">
-              <h2 className="text-sm font-semibold text-fg">{title}</h2>
-              <button
-                type="button"
-                onClick={onClose}
-                className={cx('shrink-0 gds-radius-button p-1 text-fg-muted hover:text-fg', focusCls)}
-                aria-label="Close"
+        {/* header */}
+        {title !== undefined && (
+          <div className="gds-pad-x-lg flex items-center justify-between pb-2">
+            <h2 className="text-fg text-sm font-semibold">{title}</h2>
+            <button
+              type="button"
+              onClick={onClose}
+              className={cx(
+                'gds-radius-button text-fg-muted hover:text-fg shrink-0 p-1',
+                focusCls
+              )}
+              aria-label="Close"
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
               >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                  <path d="M3 3l8 8M11 3l-8 8" />
-                </svg>
-              </button>
-            </div>
-          )}
+                <path d="M3 3l8 8M11 3l-8 8" />
+              </svg>
+            </button>
+          </div>
+        )}
 
-          {/* content */}
-          <div className="flex-1 overflow-y-auto gds-pad-x-lg gds-pad-y-lg">{children}</div>
+        {/* content */}
+        <div className="gds-pad-x-lg gds-pad-y-lg flex-1 overflow-y-auto">
+          {children}
         </div>
       </div>
-    )
-  },
-)
+    </div>
+  )
+})

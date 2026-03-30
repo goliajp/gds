@@ -15,7 +15,10 @@ export type RippleEffectProps = {
 let nextId = 0
 
 export const RippleEffect = forwardRef<HTMLDivElement, RippleEffectProps>(
-  function RippleEffect({ children, color = 'currentColor', disabled = false, className }, ref) {
+  function RippleEffect(
+    { children, color = 'currentColor', disabled = false, className },
+    ref
+  ) {
     const [ripples, setRipples] = useState<Ripple[]>([])
 
     const handlePointerDown = useCallback(
@@ -27,7 +30,7 @@ export const RippleEffect = forwardRef<HTMLDivElement, RippleEffectProps>(
         const size = Math.max(rect.width, rect.height) * 2
         setRipples((prev) => [...prev, { id: nextId++, x, y, size }])
       },
-      [disabled],
+      [disabled]
     )
 
     const removeRipple = useCallback((id: number) => {
@@ -45,7 +48,7 @@ export const RippleEffect = forwardRef<HTMLDivElement, RippleEffectProps>(
         {ripples.map((r) => (
           <span
             key={r.id}
-            className="pointer-events-none absolute animate-ripple rounded-full"
+            className="animate-ripple pointer-events-none absolute rounded-full"
             style={{
               left: r.x - r.size / 2,
               top: r.y - r.size / 2,
@@ -58,5 +61,5 @@ export const RippleEffect = forwardRef<HTMLDivElement, RippleEffectProps>(
         ))}
       </div>
     )
-  },
+  }
 )

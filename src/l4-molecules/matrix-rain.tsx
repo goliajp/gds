@@ -12,7 +12,10 @@ export type MatrixRainProps = {
 }
 
 export const MatrixRain = forwardRef<HTMLCanvasElement, MatrixRainProps>(
-  function MatrixRain({ active = true, className, color = '#00ff41', density = 20, speed = 50 }, ref) {
+  function MatrixRain(
+    { active = true, className, color = '#00ff41', density = 20, speed = 50 },
+    ref
+  ) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null)
     const animRef = useRef<number>(0)
 
@@ -33,7 +36,8 @@ export const MatrixRain = forwardRef<HTMLCanvasElement, MatrixRainProps>(
       const fontSize = 14
       const columns = Math.floor(canvas.width / density)
       const drops = new Array(columns).fill(1) as number[]
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*'
+      const chars =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*'
 
       let last = 0
       const draw = (time: number) => {
@@ -74,12 +78,13 @@ export const MatrixRain = forwardRef<HTMLCanvasElement, MatrixRainProps>(
           canvasRef.current = node
           if (typeof ref === 'function') ref(node)
           else if (ref !== null && ref !== undefined) {
-            (ref as React.MutableRefObject<HTMLCanvasElement | null>).current = node
+            ;(ref as React.MutableRefObject<HTMLCanvasElement | null>).current =
+              node
           }
         }}
         className={cx('block h-full w-full bg-black', className)}
         data-component="matrix-rain"
       />
     )
-  },
+  }
 )

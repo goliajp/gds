@@ -12,28 +12,33 @@ type WeatherWidgetProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const WeatherWidget = forwardRef<HTMLDivElement, WeatherWidgetProps>(
-  function WeatherWidget({ className, condition, icon, location, temp, unit = 'C', ...props }, ref) {
+  function WeatherWidget(
+    { className, condition, icon, location, temp, unit = 'C', ...props },
+    ref
+  ) {
     return (
       <div
         className={cx(
-          'inline-flex items-center gap-4 rounded-xl border border-border bg-surface p-4 select-none',
-          className,
+          'border-border bg-surface inline-flex items-center gap-4 rounded-xl border p-4 select-none',
+          className
         )}
         data-component="weather-widget"
         ref={ref}
         {...props}
       >
-        {icon !== undefined && <div className="text-2xl text-fg-muted">{icon}</div>}
+        {icon !== undefined && (
+          <div className="text-fg-muted text-2xl">{icon}</div>
+        )}
         <div className="flex flex-col">
-          <span className="text-2xl font-bold text-fg leading-tight">
+          <span className="text-fg text-2xl leading-tight font-bold">
             {temp}&deg;{unit}
           </span>
-          <span className="text-sm text-fg-muted">{condition}</span>
-          <span className="text-xs text-fg-muted/70">{location}</span>
+          <span className="text-fg-muted text-sm">{condition}</span>
+          <span className="text-fg-muted/70 text-xs">{location}</span>
         </div>
       </div>
     )
-  },
+  }
 )
 
 export type { WeatherWidgetProps }

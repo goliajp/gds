@@ -7,9 +7,11 @@ import { Pagination } from '../pagination'
 describe('Pagination', () => {
   it('renders without crash', () => {
     const { container } = render(
-      <Pagination page={1} totalPages={5} onPageChange={vi.fn()} />,
+      <Pagination page={1} totalPages={5} onPageChange={vi.fn()} />
     )
-    expect(container.querySelector('[data-component="pagination"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="pagination"]')
+    ).not.toBeNull()
   })
 
   it('has aria-label="Pagination"', () => {
@@ -63,12 +65,16 @@ describe('Pagination', () => {
   it('marks current page with aria-current', () => {
     render(<Pagination page={2} totalPages={5} onPageChange={vi.fn()} />)
     const buttons = screen.getAllByRole('button')
-    const current = buttons.find((b) => b.getAttribute('aria-current') === 'page')
+    const current = buttons.find(
+      (b) => b.getAttribute('aria-current') === 'page'
+    )
     expect(current?.textContent).toBe('2')
   })
 
   it('renders ellipsis for large page counts', () => {
-    const { container } = render(<Pagination page={5} totalPages={20} onPageChange={vi.fn()} />)
+    const { container } = render(
+      <Pagination page={5} totalPages={20} onPageChange={vi.fn()} />
+    )
     const ellipsis = container.querySelectorAll('span')
     // should have at least one ellipsis
     const hasEllipsis = Array.from(ellipsis).some((s) => s.textContent === '…')
@@ -76,14 +82,18 @@ describe('Pagination', () => {
   })
 
   it('shows left dots when page is far from start', () => {
-    const { container } = render(<Pagination page={10} totalPages={20} onPageChange={vi.fn()} />)
+    const { container } = render(
+      <Pagination page={10} totalPages={20} onPageChange={vi.fn()} />
+    )
     const spans = container.querySelectorAll('span')
     const dots = Array.from(spans).filter((s) => s.textContent === '…')
     expect(dots.length).toBe(2) // both left and right dots
   })
 
   it('shows only right dots when near start', () => {
-    const { container } = render(<Pagination page={2} totalPages={20} onPageChange={vi.fn()} />)
+    const { container } = render(
+      <Pagination page={2} totalPages={20} onPageChange={vi.fn()} />
+    )
     const spans = container.querySelectorAll('span')
     const dots = Array.from(spans).filter((s) => s.textContent === '…')
     expect(dots.length).toBe(1) // only right dots

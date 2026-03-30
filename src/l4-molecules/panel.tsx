@@ -18,7 +18,10 @@ type PanelProps = React.HTMLAttributes<HTMLDivElement> & {
 function ChevronIcon({ open }: { open: boolean }) {
   return (
     <svg
-      className={cx('h-3.5 w-3.5 shrink-0 text-fg-muted transition-transform duration-200', open && 'rotate-90')}
+      className={cx(
+        'text-fg-muted h-3.5 w-3.5 shrink-0 transition-transform duration-200',
+        open && 'rotate-90'
+      )}
       fill="none"
       stroke="currentColor"
       strokeLinecap="round"
@@ -30,50 +33,58 @@ function ChevronIcon({ open }: { open: boolean }) {
   )
 }
 
-export const Panel = forwardRef<HTMLDivElement, PanelProps>(
-  function Panel(
-    { children, className, collapsible = true, defaultOpen = true, glass, headerAction, title, ...props },
-    ref,
-  ) {
-    const [isOpen, setIsOpen] = useState(defaultOpen)
-    const expanded = collapsible ? isOpen : true
+export const Panel = forwardRef<HTMLDivElement, PanelProps>(function Panel(
+  {
+    children,
+    className,
+    collapsible = true,
+    defaultOpen = true,
+    glass,
+    headerAction,
+    title,
+    ...props
+  },
+  ref
+) {
+  const [isOpen, setIsOpen] = useState(defaultOpen)
+  const expanded = collapsible ? isOpen : true
 
-    return (
-      <div
-        className={cx(
-          'gds-ctx gds-radius-popover border border-border bg-surface',
-          glassClass(glass),
-          glass === true && 'border-white/10 bg-white/5',
-          className,
+  return (
+    <div
+      className={cx(
+        'gds-ctx gds-radius-popover border-border bg-surface border',
+        glassClass(glass),
+        glass === true && 'border-white/10 bg-white/5',
+        className
+      )}
+      data-component="panel"
+      data-state={expanded ? 'open' : 'closed'}
+      ref={ref}
+      {...props}
+    >
+      <div className="border-border gds-pad-x gds-pad-y-sm flex items-center border-b">
+        {collapsible ? (
+          <button
+            className={cx(
+              'text-fg flex flex-1 items-center gap-2 text-left text-sm font-medium',
+              focusCls
+            )}
+            onClick={() => setIsOpen((prev) => !prev)}
+            type="button"
+          >
+            <ChevronIcon open={expanded} />
+            <span>{title}</span>
+          </button>
+        ) : (
+          <span className="text-fg flex-1 text-sm font-medium">{title}</span>
         )}
-        data-component="panel"
-        data-state={expanded ? 'open' : 'closed'}
-        ref={ref}
-        {...props}
-      >
-        <div className="flex items-center border-b border-border gds-pad-x gds-pad-y-sm">
-          {collapsible ? (
-            <button
-              className={cx('flex flex-1 items-center gap-2 text-left text-sm font-medium text-fg', focusCls)}
-              onClick={() => setIsOpen((prev) => !prev)}
-              type="button"
-            >
-              <ChevronIcon open={expanded} />
-              <span>{title}</span>
-            </button>
-          ) : (
-            <span className="flex-1 text-sm font-medium text-fg">{title}</span>
-          )}
-          {headerAction !== undefined && (
-            <div className="ml-2 shrink-0">{headerAction}</div>
-          )}
-        </div>
-        {expanded && (
-          <div className="gds-pad-x gds-pad-y">{children}</div>
+        {headerAction !== undefined && (
+          <div className="ml-2 shrink-0">{headerAction}</div>
         )}
       </div>
-    )
-  },
-)
+      {expanded && <div className="gds-pad-x gds-pad-y">{children}</div>}
+    </div>
+  )
+})
 
 export type { PanelProps }

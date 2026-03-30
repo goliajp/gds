@@ -10,7 +10,12 @@ const suggestions = [
   { id: '3', label: 'Charlie' },
 ]
 
-function Wrapper({ initialValue = '', ...props }: { initialValue?: string } & Partial<React.ComponentProps<typeof MentionInput>>) {
+function Wrapper({
+  initialValue = '',
+  ...props
+}: { initialValue?: string } & Partial<
+  React.ComponentProps<typeof MentionInput>
+>) {
   const [val, setVal] = React.useState(initialValue)
   return (
     <MentionInput
@@ -30,7 +35,9 @@ describe('MentionInput', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<Wrapper />)
-    expect(container.querySelector('[data-component="mention-input"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="mention-input"]')
+    ).not.toBeNull()
   })
 
   it('shows suggestions on trigger character', () => {
@@ -155,7 +162,9 @@ describe('MentionInput', () => {
     const { container } = render(<Wrapper disabled />)
     const input = screen.getByRole('textbox')
     expect(input.className).toContain('opacity-50')
-    expect(container.querySelector('[data-component="mention-input"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="mention-input"]')
+    ).not.toBeNull()
   })
 
   it('applies custom className', () => {
@@ -169,7 +178,7 @@ describe('MentionInput', () => {
       <div>
         <Wrapper />
         <button data-testid="outside">Outside</button>
-      </div>,
+      </div>
     )
     const input = screen.getByRole('textbox')
     fireEvent.change(input, { target: { value: '@' } })
@@ -187,7 +196,7 @@ describe('MentionInput', () => {
         value="hello"
         onChange={onChange}
         suggestions={suggestions}
-      />,
+      />
     )
     const input = screen.getByRole('textbox')
     // ArrowDown with no suggestions open should not prevent default

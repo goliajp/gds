@@ -12,7 +12,10 @@ type ToggleGroupItem = {
 
 type ToggleGroupSize = 'default' | 'lg' | 'sm'
 
-type ToggleGroupProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
+type ToggleGroupProps = Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  'onChange'
+> & {
   items: ToggleGroupItem[]
   value: string[]
   onChange: (value: string[]) => void
@@ -33,8 +36,17 @@ const toggleItemVariants = toggleGroupVariants
 
 const ToggleGroup = forwardRef<HTMLDivElement, ToggleGroupProps>(
   function ToggleGroup(
-    { items, value, onChange, exclusive, size = 'default', disabled, className, ...props },
-    ref,
+    {
+      items,
+      value,
+      onChange,
+      exclusive,
+      size = 'default',
+      disabled,
+      className,
+      ...props
+    },
+    ref
   ) {
     function handleClick(itemValue: string) {
       if (exclusive === true) {
@@ -56,9 +68,9 @@ const ToggleGroup = forwardRef<HTMLDivElement, ToggleGroupProps>(
       <div
         ref={ref}
         className={cx(
-          'inline-flex select-none overflow-hidden gds-radius-button border border-border bg-bg',
+          'gds-radius-button border-border bg-bg inline-flex overflow-hidden border select-none',
           disabled === true && 'pointer-events-none opacity-50',
-          className,
+          className
         )}
         data-component="toggle-group"
         data-state={disabled === true ? 'disabled' : 'enabled'}
@@ -75,9 +87,11 @@ const ToggleGroup = forwardRef<HTMLDivElement, ToggleGroupProps>(
               className={cx(
                 'transition-colors',
                 toggleGroupVariants.size[size ?? 'default'],
-                !isLast && 'border-r border-border',
+                !isLast && 'border-border border-r',
                 focusCls,
-                isActive ? 'bg-accent/10 text-accent' : 'text-fg-muted hover:bg-bg-tertiary',
+                isActive
+                  ? 'bg-accent/10 text-accent'
+                  : 'text-fg-muted hover:bg-bg-tertiary'
               )}
               disabled={disabled}
               onClick={() => handleClick(item.value)}
@@ -89,7 +103,7 @@ const ToggleGroup = forwardRef<HTMLDivElement, ToggleGroupProps>(
         })}
       </div>
     )
-  },
+  }
 )
 
 export { ToggleGroup, toggleGroupVariants, toggleItemVariants }

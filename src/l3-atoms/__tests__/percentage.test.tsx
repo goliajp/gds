@@ -6,7 +6,9 @@ import { Percentage } from '../percentage'
 describe('Percentage', () => {
   it('renders with data-component', () => {
     const { container } = render(<Percentage value={5} />)
-    expect(container.querySelector('[data-component="percentage"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="percentage"]')
+    ).not.toBeNull()
   })
 
   it('formats positive value with precision', () => {

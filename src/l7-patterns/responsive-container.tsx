@@ -11,16 +11,21 @@ export type ResponsiveContainerProps = {
   className?: string
 }
 
-export const ResponsiveContainer = forwardRef<HTMLDivElement, ResponsiveContainerProps>(
-  function ResponsiveContainer({ mobile, tablet, desktop, className }, ref) {
-    const tabletContent = tablet ?? mobile
+export const ResponsiveContainer = forwardRef<
+  HTMLDivElement,
+  ResponsiveContainerProps
+>(function ResponsiveContainer({ mobile, tablet, desktop, className }, ref) {
+  const tabletContent = tablet ?? mobile
 
-    return (
-      <div ref={ref} className={cx(className)} data-component="responsive-container">
-        <div className="block sm:hidden">{mobile}</div>
-        <div className="hidden sm:block lg:hidden">{tabletContent}</div>
-        <div className="hidden lg:block">{desktop}</div>
-      </div>
-    )
-  },
-)
+  return (
+    <div
+      ref={ref}
+      className={cx(className)}
+      data-component="responsive-container"
+    >
+      <div className="block sm:hidden">{mobile}</div>
+      <div className="hidden sm:block lg:hidden">{tabletContent}</div>
+      <div className="hidden lg:block">{desktop}</div>
+    </div>
+  )
+})

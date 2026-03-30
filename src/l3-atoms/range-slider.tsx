@@ -4,7 +4,10 @@ import { forwardRef, useMemo } from 'react'
 import { focusCls } from '../utils/a11y'
 import { cx } from '../utils/cx'
 
-type RangeSliderProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'type' | 'value'> & {
+type RangeSliderProps = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  'onChange' | 'type' | 'value'
+> & {
   disabled?: boolean
   max?: number
   min?: number
@@ -27,7 +30,7 @@ export const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
       value,
       ...props
     },
-    ref,
+    ref
   ) {
     const percent = useMemo(() => {
       const range = max - min
@@ -40,14 +43,14 @@ export const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
         className={cx(
           'relative flex items-center select-none',
           disabled && 'cursor-not-allowed opacity-50',
-          className,
+          className
         )}
         data-component="range-slider"
         data-state={disabled ? 'disabled' : 'enabled'}
       >
         {showValue && (
           <span
-            className="absolute -top-5 text-[10px] font-medium text-fg-muted transition-[left]"
+            className="text-fg-muted absolute -top-5 text-[10px] font-medium transition-[left]"
             style={{ left: `${percent}%`, transform: 'translateX(-50%)' }}
           >
             {value}
@@ -55,9 +58,9 @@ export const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
         )}
         <input
           className={cx(
-            'gds-range-slider h-1.5 w-full cursor-pointer appearance-none rounded-full bg-bg-tertiary',
+            'gds-range-slider bg-bg-tertiary h-1.5 w-full cursor-pointer appearance-none rounded-full',
             focusCls,
-            disabled && 'pointer-events-none',
+            disabled && 'pointer-events-none'
           )}
           disabled={disabled}
           max={max}
@@ -74,7 +77,7 @@ export const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
         />
       </div>
     )
-  },
+  }
 )
 
 export type { RangeSliderProps }

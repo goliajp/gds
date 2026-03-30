@@ -11,7 +11,9 @@ describe('TrendIndicator', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<TrendIndicator value={0} />)
-    expect(container.querySelector('[data-component="trend-indicator"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="trend-indicator"]')
+    ).not.toBeNull()
   })
 
   it('displays positive value with plus sign', () => {
@@ -21,6 +23,8 @@ describe('TrendIndicator', () => {
 
   it('displays zero value', () => {
     const { container } = render(<TrendIndicator value={0} />)
-    expect(container.querySelector('[data-component="trend-indicator"]')?.className).toContain('text-fg-muted')
+    expect(
+      container.querySelector('[data-component="trend-indicator"]')?.className
+    ).toContain('text-fg-muted')
   })
 })

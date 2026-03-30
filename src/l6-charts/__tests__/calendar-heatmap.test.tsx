@@ -13,7 +13,11 @@ const data = [
 describe('CalendarHeatmap', () => {
   it('renders an SVG element', () => {
     const { container } = render(
-      <CalendarHeatmap data={data} startDate="2025-01-01" endDate="2025-12-31" />,
+      <CalendarHeatmap
+        data={data}
+        startDate="2025-01-01"
+        endDate="2025-12-31"
+      />
     )
     const svg = container.querySelector('svg')
     expect(svg).not.toBeNull()
@@ -21,7 +25,11 @@ describe('CalendarHeatmap', () => {
 
   it('renders cells as rect elements', () => {
     const { container } = render(
-      <CalendarHeatmap data={data} startDate="2025-06-01" endDate="2025-06-07" />,
+      <CalendarHeatmap
+        data={data}
+        startDate="2025-06-01"
+        endDate="2025-06-07"
+      />
     )
     const rects = container.querySelectorAll('rect')
     expect(rects.length).toBeGreaterThan(0)
@@ -29,7 +37,11 @@ describe('CalendarHeatmap', () => {
 
   it('renders month labels', () => {
     const { container } = render(
-      <CalendarHeatmap data={data} startDate="2025-01-01" endDate="2025-12-31" />,
+      <CalendarHeatmap
+        data={data}
+        startDate="2025-01-01"
+        endDate="2025-12-31"
+      />
     )
     const texts = container.querySelectorAll('text')
     const labels = Array.from(texts).map((t) => t.textContent)
@@ -38,14 +50,25 @@ describe('CalendarHeatmap', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(
-      <CalendarHeatmap data={data} startDate="2025-01-01" endDate="2025-03-01" />,
+      <CalendarHeatmap
+        data={data}
+        startDate="2025-01-01"
+        endDate="2025-03-01"
+      />
     )
-    expect(container.querySelector('[data-component="calendar-heatmap"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="calendar-heatmap"]')
+    ).not.toBeNull()
   })
 
   it('applies glass mode', () => {
     const { container } = render(
-      <CalendarHeatmap data={data} startDate="2025-01-01" endDate="2025-03-01" glass />,
+      <CalendarHeatmap
+        data={data}
+        startDate="2025-01-01"
+        endDate="2025-03-01"
+        glass
+      />
     )
     const el = container.querySelector('[data-component="calendar-heatmap"]')
     expect(el?.className).toContain('rounded-lg')
@@ -53,7 +76,11 @@ describe('CalendarHeatmap', () => {
 
   it('does not apply glass mode when glass is falsy', () => {
     const { container } = render(
-      <CalendarHeatmap data={data} startDate="2025-01-01" endDate="2025-03-01" />,
+      <CalendarHeatmap
+        data={data}
+        startDate="2025-01-01"
+        endDate="2025-03-01"
+      />
     )
     const el = container.querySelector('[data-component="calendar-heatmap"]')
     expect(el?.className).not.toContain('rounded-lg')
@@ -61,7 +88,12 @@ describe('CalendarHeatmap', () => {
 
   it('merges custom className', () => {
     const { container } = render(
-      <CalendarHeatmap data={data} startDate="2025-01-01" endDate="2025-03-01" className="my-heatmap" />,
+      <CalendarHeatmap
+        data={data}
+        startDate="2025-01-01"
+        endDate="2025-03-01"
+        className="my-heatmap"
+      />
     )
     const el = container.querySelector('[data-component="calendar-heatmap"]')
     expect(el?.className).toContain('my-heatmap')
@@ -69,7 +101,12 @@ describe('CalendarHeatmap', () => {
 
   it('applies custom cellSize', () => {
     const { container } = render(
-      <CalendarHeatmap data={data} startDate="2025-06-01" endDate="2025-06-07" cellSize={20} />,
+      <CalendarHeatmap
+        data={data}
+        startDate="2025-06-01"
+        endDate="2025-06-07"
+        cellSize={20}
+      />
     )
     const rects = container.querySelectorAll('rect')
     expect(rects.length).toBeGreaterThan(0)
@@ -77,14 +114,21 @@ describe('CalendarHeatmap', () => {
 
   it('handles empty data array', () => {
     const { container } = render(
-      <CalendarHeatmap data={[]} startDate="2025-01-01" endDate="2025-01-07" />,
+      <CalendarHeatmap data={[]} startDate="2025-01-01" endDate="2025-01-07" />
     )
-    expect(container.querySelector('[data-component="calendar-heatmap"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="calendar-heatmap"]')
+    ).not.toBeNull()
   })
 
   it('renders custom colorScale', () => {
     const { container } = render(
-      <CalendarHeatmap data={data} startDate="2025-06-01" endDate="2025-06-07" colorScale={['#000', '#111', '#222', '#333', '#fff']} />,
+      <CalendarHeatmap
+        data={data}
+        startDate="2025-06-01"
+        endDate="2025-06-07"
+        colorScale={['#000', '#111', '#222', '#333', '#fff']}
+      />
     )
     const rects = container.querySelectorAll('rect')
     expect(rects.length).toBeGreaterThan(0)
@@ -92,12 +136,18 @@ describe('CalendarHeatmap', () => {
 
   it('renders without startDate and endDate (uses defaults)', () => {
     const { container } = render(<CalendarHeatmap data={data} />)
-    expect(container.querySelector('[data-component="calendar-heatmap"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="calendar-heatmap"]')
+    ).not.toBeNull()
   })
 
   it('renders day labels', () => {
     const { container } = render(
-      <CalendarHeatmap data={data} startDate="2025-01-01" endDate="2025-12-31" />,
+      <CalendarHeatmap
+        data={data}
+        startDate="2025-01-01"
+        endDate="2025-12-31"
+      />
     )
     const texts = container.querySelectorAll('text')
     const labels = Array.from(texts).map((t) => t.textContent)
@@ -107,7 +157,11 @@ describe('CalendarHeatmap', () => {
 
   it('shows tooltip on mouse enter and hides on mouse leave', () => {
     const { container } = render(
-      <CalendarHeatmap data={data} startDate="2025-06-01" endDate="2025-06-30" />,
+      <CalendarHeatmap
+        data={data}
+        startDate="2025-06-01"
+        endDate="2025-06-30"
+      />
     )
     const rects = container.querySelectorAll('rect')
     expect(rects.length).toBeGreaterThan(0)
@@ -128,7 +182,12 @@ describe('CalendarHeatmap', () => {
   it('forwards ref to SVG element', () => {
     const ref = { current: null as SVGSVGElement | null }
     render(
-      <CalendarHeatmap data={data} startDate="2025-01-01" endDate="2025-03-01" ref={ref} />,
+      <CalendarHeatmap
+        data={data}
+        startDate="2025-01-01"
+        endDate="2025-03-01"
+        ref={ref}
+      />
     )
     expect(ref.current).not.toBeNull()
     expect(ref.current?.tagName).toBe('svg')

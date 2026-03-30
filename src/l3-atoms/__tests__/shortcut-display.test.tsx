@@ -6,7 +6,9 @@ import { ShortcutDisplay } from '../shortcut-display'
 describe('ShortcutDisplay', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(<ShortcutDisplay keys={['⌘', 'K']} />)
-    expect(container.querySelector('[data-component="shortcut-display"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="shortcut-display"]')
+    ).not.toBeNull()
   })
 
   it('renders kbd elements for each key', () => {
@@ -35,18 +37,24 @@ describe('ShortcutDisplay', () => {
 
   it('does not show description when undefined', () => {
     const { container } = render(<ShortcutDisplay keys={['⌘', 'K']} />)
-    const spans = container.querySelectorAll('[data-component="shortcut-display"] > span')
+    const spans = container.querySelectorAll(
+      '[data-component="shortcut-display"] > span'
+    )
     expect(spans.length).toBe(1)
   })
 
   it('applies custom className', () => {
-    const { container } = render(<ShortcutDisplay keys={['A']} className="my-shortcut" />)
+    const { container } = render(
+      <ShortcutDisplay keys={['A']} className="my-shortcut" />
+    )
     const el = container.querySelector('[data-component="shortcut-display"]')
     expect(el?.className).toContain('my-shortcut')
   })
 
   it('forwards additional props', () => {
-    const { container } = render(<ShortcutDisplay keys={['A']} data-testid="sc" />)
+    const { container } = render(
+      <ShortcutDisplay keys={['A']} data-testid="sc" />
+    )
     expect(container.querySelector('[data-testid="sc"]')).not.toBeNull()
   })
 })

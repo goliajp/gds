@@ -10,7 +10,13 @@ export type CountdownTimerProps = {
   target: Date
 }
 
-function computeRemaining(target: Date): { dd: string; hh: string; mm: string; ss: string; done: boolean } {
+function computeRemaining(target: Date): {
+  dd: string
+  hh: string
+  mm: string
+  ss: string
+  done: boolean
+} {
   const diff = Math.max(0, target.getTime() - Date.now())
   const done = diff <= 0
   const totalSec = Math.floor(diff / 1000)
@@ -38,12 +44,19 @@ export const CountdownTimer = forwardRef<HTMLDivElement, CountdownTimerProps>(
     }, [target, onComplete])
 
     return (
-      <div ref={ref} className={cx('flex flex-col items-center gds-gap-sm', className)} data-component="countdown-timer">
-        {label !== undefined && <span className="gds-text text-fg-muted">{label}</span>}
-        <div className="flex items-center gap-1 font-mono text-2xl font-bold text-fg tabular-nums">
-          <span>{remaining.dd}</span>:<span>{remaining.hh}</span>:<span>{remaining.mm}</span>:<span>{remaining.ss}</span>
+      <div
+        ref={ref}
+        className={cx('gds-gap-sm flex flex-col items-center', className)}
+        data-component="countdown-timer"
+      >
+        {label !== undefined && (
+          <span className="gds-text text-fg-muted">{label}</span>
+        )}
+        <div className="text-fg flex items-center gap-1 font-mono text-2xl font-bold tabular-nums">
+          <span>{remaining.dd}</span>:<span>{remaining.hh}</span>:
+          <span>{remaining.mm}</span>:<span>{remaining.ss}</span>
         </div>
       </div>
     )
-  },
+  }
 )

@@ -32,20 +32,24 @@ describe('PasswordInput', () => {
 
   it('computes correct strength levels', () => {
     const { rerender } = render(
-      <PasswordInput value="ab" onChange={() => {}} showStrength />,
+      <PasswordInput value="ab" onChange={() => {}} showStrength />
     )
     expect(screen.getByText('Weak')).toBeDefined()
 
-    rerender(<PasswordInput value="abcdef12" onChange={() => {}} showStrength />)
+    rerender(
+      <PasswordInput value="abcdef12" onChange={() => {}} showStrength />
+    )
     expect(screen.getByText('Fair')).toBeDefined()
 
-    rerender(<PasswordInput value="Abcdef12!@" onChange={() => {}} showStrength />)
+    rerender(
+      <PasswordInput value="Abcdef12!@" onChange={() => {}} showStrength />
+    )
     expect(screen.getByText('Strong')).toBeDefined()
   })
 
   it('passes error state to input', () => {
     const { container } = render(
-      <PasswordInput value="" onChange={() => {}} error />,
+      <PasswordInput value="" onChange={() => {}} error />
     )
     const input = container.querySelector('input')
     expect(input?.className).toContain('border-danger')

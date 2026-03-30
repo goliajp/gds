@@ -19,7 +19,9 @@ describe('WordCloud', () => {
   })
 
   it('applies font sizes based on weight', () => {
-    const { container } = render(<WordCloud maxFontSize={48} minFontSize={12} words={words} />)
+    const { container } = render(
+      <WordCloud maxFontSize={48} minFontSize={12} words={words} />
+    )
     const spans = container.querySelectorAll('span')
     // highest weight = max font size
     expect(spans[0].style.fontSize).toBe('48px')
@@ -36,7 +38,9 @@ describe('WordCloud', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<WordCloud words={words} />)
-    expect(container.querySelector('[data-component="word-cloud"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="word-cloud"]')
+    ).not.toBeNull()
   })
 
   it('applies glass mode', () => {
@@ -52,7 +56,9 @@ describe('WordCloud', () => {
   })
 
   it('merges custom className', () => {
-    const { container } = render(<WordCloud words={words} className="my-cloud" />)
+    const { container } = render(
+      <WordCloud words={words} className="my-cloud" />
+    )
     const el = container.querySelector('[data-component="word-cloud"]')
     expect(el?.className).toContain('my-cloud')
   })

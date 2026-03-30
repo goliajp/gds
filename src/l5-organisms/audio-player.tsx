@@ -61,7 +61,7 @@ export const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
         const ratio = (e.clientX - rect.left) / rect.width
         audio.currentTime = ratio * duration
       },
-      [duration],
+      [duration]
     )
 
     const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0
@@ -70,11 +70,11 @@ export const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
       <div
         ref={ref}
         className={cx(
-          'flex items-center gap-2 gds-radius-card gds-pad-x gds-pad-y',
-          'border border-border bg-bg-secondary',
+          'gds-radius-card gds-pad-x gds-pad-y flex items-center gap-2',
+          'border-border bg-bg-secondary border',
           glassClass(glass),
-          glass === true && 'border-white/10 bg-bg/60',
-          className,
+          glass === true && 'bg-bg/60 border-white/10',
+          className
         )}
         data-component="audio-player"
       >
@@ -91,7 +91,7 @@ export const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
         <button
           type="button"
           onClick={togglePlay}
-          className={cx('shrink-0 text-fg', focusCls)}
+          className={cx('text-fg shrink-0', focusCls)}
           aria-label={playing ? 'Pause' : 'Play'}
           data-testid="play-button"
         >
@@ -109,14 +109,20 @@ export const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
 
         {/* title */}
         {title !== undefined && (
-          <span className="shrink-0 select-none text-xs text-fg-muted" data-testid="title">
+          <span
+            className="text-fg-muted shrink-0 text-xs select-none"
+            data-testid="title"
+          >
             {title}
           </span>
         )}
 
         {/* progress bar */}
         <div
-          className={cx('relative h-1 flex-1 cursor-pointer rounded-full bg-bg-tertiary', focusCls)}
+          className={cx(
+            'bg-bg-tertiary relative h-1 flex-1 cursor-pointer rounded-full',
+            focusCls
+          )}
           onClick={handleSeek}
           role="slider"
           aria-label="Seek"
@@ -127,16 +133,19 @@ export const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
           data-testid="progress-bar"
         >
           <div
-            className="absolute inset-y-0 left-0 rounded-full bg-accent"
+            className="bg-accent absolute inset-y-0 left-0 rounded-full"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
 
         {/* time */}
-        <span className="shrink-0 select-none text-xs tabular-nums text-fg-muted" data-testid="time-display">
+        <span
+          className="text-fg-muted shrink-0 text-xs tabular-nums select-none"
+          data-testid="time-display"
+        >
           {formatTime(currentTime)} / {formatTime(duration)}
         </span>
       </div>
     )
-  },
+  }
 )

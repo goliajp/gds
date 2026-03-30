@@ -23,17 +23,24 @@ export const KeyValueList = forwardRef<HTMLDivElement, KeyValueListProps>(
         className={cx(
           'grid gap-x-8 gap-y-2',
           columns === 2 ? 'grid-cols-2' : 'grid-cols-1',
-          className,
+          className
         )}
         data-component="key-value-list"
       >
         {items.map((item) => (
-          <div className="flex items-baseline justify-between gap-4" key={item.key}>
-            <span className="shrink-0 gds-text-body text-fg-muted">{item.key}</span>
-            <span className="text-right gds-text-body text-fg">{item.value}</span>
+          <div
+            className="flex items-baseline justify-between gap-4"
+            key={item.key}
+          >
+            <span className="gds-text-body text-fg-muted shrink-0">
+              {item.key}
+            </span>
+            <span className="gds-text-body text-fg text-right">
+              {item.value}
+            </span>
           </div>
         ))}
       </div>
     )
-  },
+  }
 )

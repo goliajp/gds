@@ -5,16 +5,24 @@ import { AspectRatio } from '../aspect-ratio'
 
 describe('AspectRatio', () => {
   it('renders without crash', () => {
-    render(<AspectRatio><div>content</div></AspectRatio>)
+    render(
+      <AspectRatio>
+        <div>content</div>
+      </AspectRatio>
+    )
     expect(screen.getByText('content')).toBeTruthy()
   })
 
   it('forwards ref', () => {
     let el: HTMLDivElement | null = null
     render(
-      <AspectRatio ref={(node) => { el = node }}>
+      <AspectRatio
+        ref={(node) => {
+          el = node
+        }}
+      >
         <div>content</div>
-      </AspectRatio>,
+      </AspectRatio>
     )
     expect(el).toBeTruthy()
     expect(el!.tagName).toBe('DIV')
@@ -24,16 +32,18 @@ describe('AspectRatio', () => {
     render(
       <AspectRatio data-testid="ar">
         <div>content</div>
-      </AspectRatio>,
+      </AspectRatio>
     )
-    expect(screen.getByTestId('ar').getAttribute('data-component')).toBe('aspect-ratio')
+    expect(screen.getByTestId('ar').getAttribute('data-component')).toBe(
+      'aspect-ratio'
+    )
   })
 
   it('merges className', () => {
     render(
       <AspectRatio className="custom-class" data-testid="ar">
         <div>content</div>
-      </AspectRatio>,
+      </AspectRatio>
     )
     expect(screen.getByTestId('ar').className).toContain('custom-class')
   })
@@ -42,7 +52,7 @@ describe('AspectRatio', () => {
     render(
       <AspectRatio data-testid="ar">
         <div>content</div>
-      </AspectRatio>,
+      </AspectRatio>
     )
     const style = screen.getByTestId('ar').style
     expect(style.aspectRatio).toContain(`${16 / 9}`)
@@ -52,7 +62,7 @@ describe('AspectRatio', () => {
     render(
       <AspectRatio data-testid="ar" ratio={4 / 3}>
         <div>content</div>
-      </AspectRatio>,
+      </AspectRatio>
     )
     const style = screen.getByTestId('ar').style
     expect(style.aspectRatio).toContain(`${4 / 3}`)
@@ -62,7 +72,7 @@ describe('AspectRatio', () => {
     render(
       <AspectRatio>
         <img alt="test" src="test.png" />
-      </AspectRatio>,
+      </AspectRatio>
     )
     expect(screen.getByAltText('test')).toBeTruthy()
   })

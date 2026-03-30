@@ -11,7 +11,9 @@ const options = [
   { value: 'cherry', label: 'Cherry' },
 ]
 
-function renderList(overrides: Partial<React.ComponentProps<typeof MultiSelectList>> = {}) {
+function renderList(
+  overrides: Partial<React.ComponentProps<typeof MultiSelectList>> = {}
+) {
   const searchRef = React.createRef<HTMLInputElement>()
   const defaultProps = {
     filtered: options,
@@ -48,7 +50,9 @@ describe('MultiSelectList', () => {
 
   it('displays search query in input', () => {
     const { container } = renderList({ searchQuery: 'app' })
-    const input = container.querySelector('input[type="text"]') as HTMLInputElement
+    const input = container.querySelector(
+      'input[type="text"]'
+    ) as HTMLInputElement
     expect(input.value).toBe('app')
   })
 

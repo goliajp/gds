@@ -20,7 +20,9 @@ describe('Hero', () => {
   })
 
   it('applies left align layout', () => {
-    const { container } = render(<Hero title="Welcome" align="left" media={<div>img</div>} />)
+    const { container } = render(
+      <Hero title="Welcome" align="left" media={<div>img</div>} />
+    )
     const el = container.querySelector('[data-component="hero"]')
     expect(el?.getAttribute('data-variant')).toBe('left')
     expect(el?.className).toContain('flex')

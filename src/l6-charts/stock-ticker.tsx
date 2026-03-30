@@ -12,10 +12,22 @@ function TickerEntry({ item }: { item: TickerItem }) {
 
   return (
     <span className="inline-flex shrink-0 items-center gap-1.5 px-3 text-sm select-none">
-      <span className="font-bold text-fg">{item.symbol}</span>
-      <span className="text-fg-muted tabular-nums">{'\u00A5'}{item.price.toLocaleString()}</span>
-      <span className={cx('text-xs font-medium tabular-nums', isPositive && 'text-success', isNegative && 'text-danger', !isPositive && !isNegative && 'text-fg-muted')}>
-        {arrow}{sign}{item.change}%
+      <span className="text-fg font-bold">{item.symbol}</span>
+      <span className="text-fg-muted tabular-nums">
+        {'\u00A5'}
+        {item.price.toLocaleString()}
+      </span>
+      <span
+        className={cx(
+          'text-xs font-medium tabular-nums',
+          isPositive && 'text-success',
+          isNegative && 'text-danger',
+          !isPositive && !isNegative && 'text-fg-muted'
+        )}
+      >
+        {arrow}
+        {sign}
+        {item.change}%
       </span>
     </span>
   )
@@ -23,12 +35,25 @@ function TickerEntry({ item }: { item: TickerItem }) {
 
 export function StockTicker({ className, items }: StockTickerProps) {
   return (
-    <div className={cx('flex overflow-hidden border-y border-border bg-bg-secondary select-none', className)} data-component="stock-ticker">
-      <div className="flex shrink-0 animate-marquee items-center gap-2 py-1.5">
-        {items.map((item) => <TickerEntry item={item} key={item.symbol} />)}
+    <div
+      className={cx(
+        'border-border bg-bg-secondary flex overflow-hidden border-y select-none',
+        className
+      )}
+      data-component="stock-ticker"
+    >
+      <div className="animate-marquee flex shrink-0 items-center gap-2 py-1.5">
+        {items.map((item) => (
+          <TickerEntry item={item} key={item.symbol} />
+        ))}
       </div>
-      <div aria-hidden className="flex shrink-0 animate-marquee items-center gap-2 py-1.5">
-        {items.map((item) => <TickerEntry item={item} key={item.symbol} />)}
+      <div
+        aria-hidden
+        className="animate-marquee flex shrink-0 items-center gap-2 py-1.5"
+      >
+        {items.map((item) => (
+          <TickerEntry item={item} key={item.symbol} />
+        ))}
       </div>
     </div>
   )

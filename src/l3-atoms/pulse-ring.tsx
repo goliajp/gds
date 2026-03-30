@@ -11,7 +11,10 @@ type PulseRingProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const PulseRing = forwardRef<HTMLDivElement, PulseRingProps>(
-  function PulseRing({ active = true, className, color, count = 3, size = 80, ...props }, ref) {
+  function PulseRing(
+    { active = true, className, color, count = 3, size = 80, ...props },
+    ref
+  ) {
     if (!active) {
       return (
         <div
@@ -29,7 +32,7 @@ export const PulseRing = forwardRef<HTMLDivElement, PulseRingProps>(
       <div
         className={cx(
           'relative inline-flex items-center justify-center',
-          className,
+          className
         )}
         data-component="pulse-ring"
         ref={ref}
@@ -54,7 +57,7 @@ export const PulseRing = forwardRef<HTMLDivElement, PulseRingProps>(
         `}</style>
       </div>
     )
-  },
+  }
 )
 
 export type { PulseRingProps }

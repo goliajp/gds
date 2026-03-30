@@ -16,23 +16,30 @@ export const LiveMetric = forwardRef<HTMLDivElement, LiveMetricProps>(
     return (
       <div
         ref={ref}
-        className={cx('flex flex-col gds-gap-sm gds-pad gds-radius border border-border bg-surface', className)}
+        className={cx(
+          'gds-gap-sm gds-pad gds-radius border-border bg-surface flex flex-col border',
+          className
+        )}
         data-component="live-metric"
       >
-        <div className="flex items-center gds-gap-sm">
+        <div className="gds-gap-sm flex items-center">
           {pulse === true && (
             <span className="relative flex h-2.5 w-2.5 shrink-0">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-success" />
+              <span className="bg-success absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
+              <span className="bg-success relative inline-flex h-2.5 w-2.5 rounded-full" />
             </span>
           )}
-          <span className="text-xs text-fg-muted">{label}</span>
+          <span className="text-fg-muted text-xs">{label}</span>
         </div>
         <div className="flex items-baseline gap-1">
-          <span className="text-2xl font-bold tabular-nums text-fg">{value}</span>
-          {unit !== undefined && <span className="text-sm text-fg-muted">{unit}</span>}
+          <span className="text-fg text-2xl font-bold tabular-nums">
+            {value}
+          </span>
+          {unit !== undefined && (
+            <span className="text-fg-muted text-sm">{unit}</span>
+          )}
         </div>
       </div>
     )
-  },
+  }
 )

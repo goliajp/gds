@@ -6,7 +6,9 @@ import { EmptyState } from '../empty-state'
 describe('EmptyState', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(<EmptyState title="No data" />)
-    expect(container.querySelector('[data-component="empty-state"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="empty-state"]')
+    ).not.toBeNull()
   })
 
   it('renders title', () => {

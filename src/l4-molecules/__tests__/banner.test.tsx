@@ -70,7 +70,9 @@ describe('Banner', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<Banner message="Custom" className="my-custom" />)
+    const { container } = render(
+      <Banner message="Custom" className="my-custom" />
+    )
     const el = container.querySelector('[data-component="banner"]')
     expect(el?.className).toContain('my-custom')
   })

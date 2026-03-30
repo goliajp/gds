@@ -7,7 +7,7 @@ import { DateRangeInput } from '../date-range-input'
 describe('DateRangeInput', () => {
   it('renders both date inputs', () => {
     render(
-      <DateRangeInput startDate={null} endDate={null} onChange={() => {}} />,
+      <DateRangeInput startDate={null} endDate={null} onChange={() => {}} />
     )
     const inputs = screen.getAllByDisplayValue('')
     expect(inputs.length).toBe(2)
@@ -17,7 +17,11 @@ describe('DateRangeInput', () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
     render(
-      <DateRangeInput startDate={null} endDate="2026-12-31" onChange={onChange} />,
+      <DateRangeInput
+        startDate={null}
+        endDate="2026-12-31"
+        onChange={onChange}
+      />
     )
 
     const startInput = screen.getByLabelText('Start date')
@@ -31,7 +35,11 @@ describe('DateRangeInput', () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
     render(
-      <DateRangeInput startDate="2026-01-01" endDate={null} onChange={onChange} />,
+      <DateRangeInput
+        startDate="2026-01-01"
+        endDate={null}
+        onChange={onChange}
+      />
     )
 
     const endInput = screen.getByLabelText('End date')
@@ -43,14 +51,24 @@ describe('DateRangeInput', () => {
 
   it('applies error state', () => {
     const { container } = render(
-      <DateRangeInput startDate={null} endDate={null} onChange={() => {}} error />,
+      <DateRangeInput
+        startDate={null}
+        endDate={null}
+        onChange={() => {}}
+        error
+      />
     )
     expect(container.querySelector('[data-error]')).not.toBeNull()
   })
 
   it('applies disabled state', () => {
     render(
-      <DateRangeInput startDate={null} endDate={null} onChange={() => {}} disabled />,
+      <DateRangeInput
+        startDate={null}
+        endDate={null}
+        onChange={() => {}}
+        disabled
+      />
     )
     const inputs = screen.getAllByDisplayValue('')
     for (const input of inputs) {

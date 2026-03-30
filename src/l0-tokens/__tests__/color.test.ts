@@ -1,8 +1,31 @@
 import { describe, expect, it } from 'vitest'
 
-import { deriveDarkPalette, deriveLightPalette, FIXED_COLORS, paletteToVars } from '../color-derive'
+import {
+  deriveDarkPalette,
+  deriveLightPalette,
+  FIXED_COLORS,
+  paletteToVars,
+} from '../color-derive'
 import { autoFixColor, bestTextColor, scoreColor } from '../color-health'
-import { analogous, complement, contrastRatio, darken, hexToHsl, hexToRgb, hslToHex, hslToRgb, hueShift, lerpColor, lighten, luminance, rgbToHex, rgbToHsl, saturate, triadic, withAlpha } from '../color-math'
+import {
+  analogous,
+  complement,
+  contrastRatio,
+  darken,
+  hexToHsl,
+  hexToRgb,
+  hslToHex,
+  hslToRgb,
+  hueShift,
+  lerpColor,
+  lighten,
+  luminance,
+  rgbToHex,
+  rgbToHsl,
+  saturate,
+  triadic,
+  withAlpha,
+} from '../color-math'
 
 describe('color-math', () => {
   it('converts hex to rgb', () => {
@@ -176,12 +199,14 @@ describe('color-health', () => {
   it('rejects very dark colors', () => {
     const report = scoreColor('#0a0a0a')
     expect(report.level).toBe('rejected')
-    expect(report.diagnostics.some(d => d.id === 'lightness-too-dark')).toBe(true)
+    expect(report.diagnostics.some((d) => d.id === 'lightness-too-dark')).toBe(
+      true
+    )
   })
 
   it('warns on low saturation', () => {
     const report = scoreColor('#888888')
-    expect(report.diagnostics.some(d => d.id === 'saturation-low')).toBe(true)
+    expect(report.diagnostics.some((d) => d.id === 'saturation-low')).toBe(true)
   })
 
   it('warns on semantic conflict with red', () => {
@@ -229,13 +254,17 @@ describe('color-health', () => {
   it('warns on contrast-light-fail for very light colors', () => {
     // a color with very low contrast on light background
     const report = scoreColor('#f5f5a0')
-    expect(report.diagnostics.some(d => d.id === 'contrast-light-fail')).toBe(true)
+    expect(report.diagnostics.some((d) => d.id === 'contrast-light-fail')).toBe(
+      true
+    )
   })
 
   it('warns on very high saturation', () => {
     // pure saturated color (s=1.0, l=0.5)
     const report = scoreColor('#ff0000')
-    expect(report.diagnostics.some(d => d.id === 'saturation-high')).toBe(true)
+    expect(report.diagnostics.some((d) => d.id === 'saturation-high')).toBe(
+      true
+    )
   })
 
   it('detects warning-level text-on-color contrast', () => {
@@ -244,11 +273,13 @@ describe('color-health', () => {
     // gray at 50% lightness has ~4:1 contrast with both white and black
     const bestContrast = Math.max(
       report.details.contrastWhiteOnColor,
-      report.details.contrastBlackOnColor,
+      report.details.contrastBlackOnColor
     )
     // check that we got either text-on-color-low or text-on-color-fail
     if (bestContrast < 4.5 && bestContrast >= 3) {
-      expect(report.diagnostics.some(d => d.id === 'text-on-color-low')).toBe(true)
+      expect(report.diagnostics.some((d) => d.id === 'text-on-color-low')).toBe(
+        true
+      )
     }
   })
 
@@ -284,7 +315,9 @@ describe('color-health', () => {
 
   it('warns on lightness-too-light', () => {
     const report = scoreColor('#f0f0f0')
-    expect(report.diagnostics.some(d => d.id === 'lightness-too-light')).toBe(true)
+    expect(report.diagnostics.some((d) => d.id === 'lightness-too-light')).toBe(
+      true
+    )
   })
 
   it('bestTextColor handles mid-gray where neither passes 3:1', () => {
@@ -312,9 +345,14 @@ describe('color-health', () => {
     // hsl(210, 50%, 48%) — best contrast ~3.5:1, between 3 and 4.5
     const hex = hslToHex({ h: 210, s: 0.5, l: 0.48 })
     const report = scoreColor(hex)
-    const best = Math.max(report.details.contrastWhiteOnColor, report.details.contrastBlackOnColor)
+    const best = Math.max(
+      report.details.contrastWhiteOnColor,
+      report.details.contrastBlackOnColor
+    )
     if (best >= 3 && best < 4.5) {
-      expect(report.diagnostics.some(d => d.id === 'text-on-color-low')).toBe(true)
+      expect(report.diagnostics.some((d) => d.id === 'text-on-color-low')).toBe(
+        true
+      )
     }
   })
 
@@ -349,11 +387,13 @@ describe('color-health', () => {
   it('contrast-dark-low marginal contrast diagnostic', () => {
     // need a color with contrast ratio between 2.5 and 3.5 on dark bg (rgb 15,23,42)
     // hsl(210, 0.6, 0.2) => dark blue, low contrast on dark bg
-    const hex = hslToHex({ h: 210, s: 0.6, l: 0.20 })
+    const hex = hslToHex({ h: 210, s: 0.6, l: 0.2 })
     const report = scoreColor(hex)
     const contrastOnDark = report.details.contrastOnDark
     if (contrastOnDark >= 2.5 && contrastOnDark < 3.5) {
-      expect(report.diagnostics.some(d => d.id === 'contrast-dark-low')).toBe(true)
+      expect(report.diagnostics.some((d) => d.id === 'contrast-dark-low')).toBe(
+        true
+      )
     }
   })
 })

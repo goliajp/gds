@@ -69,13 +69,19 @@ describe('resolveThemeCssVars', () => {
 
   it('different primaryColor produces different accent', () => {
     const blue = resolveThemeCssVars(DEFAULT_THEME, 'dark')
-    const purple = resolveThemeCssVars({ ...DEFAULT_THEME, primaryColor: '#8b5cf6' }, 'dark')
+    const purple = resolveThemeCssVars(
+      { ...DEFAULT_THEME, primaryColor: '#8b5cf6' },
+      'dark'
+    )
     expect(blue['--gds-accent']).not.toBe(purple['--gds-accent'])
   })
 
   it('fixed colors stay same regardless of primaryColor', () => {
     const blue = resolveThemeCssVars(DEFAULT_THEME, 'dark')
-    const purple = resolveThemeCssVars({ ...DEFAULT_THEME, primaryColor: '#8b5cf6' }, 'dark')
+    const purple = resolveThemeCssVars(
+      { ...DEFAULT_THEME, primaryColor: '#8b5cf6' },
+      'dark'
+    )
     expect(blue['--gds-danger']).toBe(purple['--gds-danger'])
   })
 
@@ -117,12 +123,16 @@ describe('applyThemeToDocument', () => {
     const vars = { '--gds-accent': '#ff0000', '--gds-bg': '#000000' }
     const keys = applyThemeToDocument(vars, 'dark')
     expect(keys).toEqual(['--gds-accent', '--gds-bg'])
-    expect(document.documentElement.style.getPropertyValue('--gds-accent')).toBe('#ff0000')
+    expect(
+      document.documentElement.style.getPropertyValue('--gds-accent')
+    ).toBe('#ff0000')
   })
 
   it('sets data-theme-mode attribute', () => {
     applyThemeToDocument({}, 'dark')
-    expect(document.documentElement.getAttribute('data-theme-mode')).toBe('dark')
+    expect(document.documentElement.getAttribute('data-theme-mode')).toBe(
+      'dark'
+    )
   })
 
   it('clears previous keys when provided', () => {
@@ -135,7 +145,9 @@ describe('applyThemeToDocument', () => {
   it('does not re-set data-theme-mode if already correct', () => {
     document.documentElement.setAttribute('data-theme-mode', 'light')
     applyThemeToDocument({}, 'light')
-    expect(document.documentElement.getAttribute('data-theme-mode')).toBe('light')
+    expect(document.documentElement.getAttribute('data-theme-mode')).toBe(
+      'light'
+    )
   })
 })
 
@@ -149,11 +161,18 @@ describe('persistTheme / loadPersistedTheme', () => {
 
   beforeEach(() => {
     storage.clear()
-    Object.defineProperty(globalThis, 'localStorage', { value: mockStorage, writable: true })
+    Object.defineProperty(globalThis, 'localStorage', {
+      value: mockStorage,
+      writable: true,
+    })
   })
 
   it('round-trips theme state through localStorage', () => {
-    const state: ThemeState = { ...DEFAULT_THEME, shape: 'rounded', density: 'compact' }
+    const state: ThemeState = {
+      ...DEFAULT_THEME,
+      shape: 'rounded',
+      density: 'compact',
+    }
     persistTheme(state)
     const loaded = loadPersistedTheme()
     expect(loaded).not.toBeNull()
@@ -162,7 +181,10 @@ describe('persistTheme / loadPersistedTheme', () => {
   })
 
   it('falls back to defaults for invalid values', () => {
-    storage.set('gds-theme', JSON.stringify({ shape: 'invalid', mode: 'banana' }))
+    storage.set(
+      'gds-theme',
+      JSON.stringify({ shape: 'invalid', mode: 'banana' })
+    )
     const loaded = loadPersistedTheme()
     expect(loaded?.shape).toBe('default')
     expect(loaded?.mode).toBe('system')
@@ -186,11 +208,14 @@ describe('persistTheme / loadPersistedTheme', () => {
   })
 
   it('falls back to defaults for invalid elevation/glass/motion', () => {
-    storage.set('gds-theme', JSON.stringify({
-      elevation: 'sky-high',
-      glass: 'maximum',
-      motion: 'hyper',
-    }))
+    storage.set(
+      'gds-theme',
+      JSON.stringify({
+        elevation: 'sky-high',
+        glass: 'maximum',
+        motion: 'hyper',
+      })
+    )
     const loaded = loadPersistedTheme()
     expect(loaded?.elevation).toBe(DEFAULT_THEME.elevation)
     expect(loaded?.glass).toBe(DEFAULT_THEME.glass)
@@ -205,20 +230,30 @@ describe('persistTheme / loadPersistedTheme', () => {
   it('does not throw when localStorage.setItem throws', () => {
     const throwingStorage = {
       getItem: () => null,
-      setItem: () => { throw new Error('QuotaExceededError') },
+      setItem: () => {
+        throw new Error('QuotaExceededError')
+      },
       removeItem: () => {},
     }
-    Object.defineProperty(globalThis, 'localStorage', { value: throwingStorage, writable: true })
+    Object.defineProperty(globalThis, 'localStorage', {
+      value: throwingStorage,
+      writable: true,
+    })
     expect(() => persistTheme(DEFAULT_THEME)).not.toThrow()
   })
 
   it('returns null when localStorage.getItem throws', () => {
     const throwingStorage = {
-      getItem: () => { throw new Error('SecurityError') },
+      getItem: () => {
+        throw new Error('SecurityError')
+      },
       setItem: () => {},
       removeItem: () => {},
     }
-    Object.defineProperty(globalThis, 'localStorage', { value: throwingStorage, writable: true })
+    Object.defineProperty(globalThis, 'localStorage', {
+      value: throwingStorage,
+      writable: true,
+    })
     expect(loadPersistedTheme()).toBeNull()
   })
 })
@@ -264,33 +299,69 @@ describe('resolveThemeCssVars — light mode variations', () => {
 
 describe('resolveThemeCssVars — axis combinations', () => {
   it('rounded shape produces larger radii than sharp', () => {
-    const sharp = resolveThemeCssVars({ ...DEFAULT_THEME, shape: 'sharp' }, 'dark')
-    const rounded = resolveThemeCssVars({ ...DEFAULT_THEME, shape: 'rounded' }, 'dark')
-    expect(parseInt(sharp['--gds-radius-sm'])).toBeLessThan(parseInt(rounded['--gds-radius-sm']))
+    const sharp = resolveThemeCssVars(
+      { ...DEFAULT_THEME, shape: 'sharp' },
+      'dark'
+    )
+    const rounded = resolveThemeCssVars(
+      { ...DEFAULT_THEME, shape: 'rounded' },
+      'dark'
+    )
+    expect(parseInt(sharp['--gds-radius-sm'])).toBeLessThan(
+      parseInt(rounded['--gds-radius-sm'])
+    )
   })
 
   it('compact density produces smaller padding than comfortable', () => {
-    const compact = resolveThemeCssVars({ ...DEFAULT_THEME, density: 'compact' }, 'dark')
-    const comfortable = resolveThemeCssVars({ ...DEFAULT_THEME, density: 'comfortable' }, 'dark')
-    expect(parseInt(compact['--gds-density-pad'])).toBeLessThan(parseInt(comfortable['--gds-density-pad']))
+    const compact = resolveThemeCssVars(
+      { ...DEFAULT_THEME, density: 'compact' },
+      'dark'
+    )
+    const comfortable = resolveThemeCssVars(
+      { ...DEFAULT_THEME, density: 'comfortable' },
+      'dark'
+    )
+    expect(parseInt(compact['--gds-density-pad'])).toBeLessThan(
+      parseInt(comfortable['--gds-density-pad'])
+    )
   })
 
   it('subtle elevation produces smaller shadows than raised', () => {
-    const subtle = resolveThemeCssVars({ ...DEFAULT_THEME, elevation: 'subtle' }, 'dark')
-    const raised = resolveThemeCssVars({ ...DEFAULT_THEME, elevation: 'raised' }, 'dark')
+    const subtle = resolveThemeCssVars(
+      { ...DEFAULT_THEME, elevation: 'subtle' },
+      'dark'
+    )
+    const raised = resolveThemeCssVars(
+      { ...DEFAULT_THEME, elevation: 'raised' },
+      'dark'
+    )
     // subtle should have less shadow than raised
     expect(subtle['--gds-shadow-sm']).not.toBe(raised['--gds-shadow-sm'])
   })
 
   it('subtle glass produces less blur than full', () => {
-    const subtleGlass = resolveThemeCssVars({ ...DEFAULT_THEME, glass: 'subtle' }, 'dark')
-    const fullGlass = resolveThemeCssVars({ ...DEFAULT_THEME, glass: 'full' }, 'dark')
-    expect(parseInt(subtleGlass['--gds-glass-blur-md'])).toBeLessThan(parseInt(fullGlass['--gds-glass-blur-md']))
+    const subtleGlass = resolveThemeCssVars(
+      { ...DEFAULT_THEME, glass: 'subtle' },
+      'dark'
+    )
+    const fullGlass = resolveThemeCssVars(
+      { ...DEFAULT_THEME, glass: 'full' },
+      'dark'
+    )
+    expect(parseInt(subtleGlass['--gds-glass-blur-md'])).toBeLessThan(
+      parseInt(fullGlass['--gds-glass-blur-md'])
+    )
   })
 
   it('reduced motion produces longer durations than full', () => {
-    const reduced = resolveThemeCssVars({ ...DEFAULT_THEME, motion: 'reduced' }, 'dark')
-    const full = resolveThemeCssVars({ ...DEFAULT_THEME, motion: 'full' }, 'dark')
+    const reduced = resolveThemeCssVars(
+      { ...DEFAULT_THEME, motion: 'reduced' },
+      'dark'
+    )
+    const full = resolveThemeCssVars(
+      { ...DEFAULT_THEME, motion: 'full' },
+      'dark'
+    )
     // reduced may differ — just verify it produces valid values
     expect(reduced['--gds-duration-fast']).toBeDefined()
     expect(full['--gds-duration-fast']).toBeDefined()
@@ -340,12 +411,16 @@ describe('applyThemeToDocument — mode attribute', () => {
   it('switches mode from dark to light', () => {
     document.documentElement.setAttribute('data-theme-mode', 'dark')
     applyThemeToDocument({}, 'light')
-    expect(document.documentElement.getAttribute('data-theme-mode')).toBe('light')
+    expect(document.documentElement.getAttribute('data-theme-mode')).toBe(
+      'light'
+    )
   })
 
   it('switches mode from light to dark', () => {
     document.documentElement.setAttribute('data-theme-mode', 'light')
     applyThemeToDocument({}, 'dark')
-    expect(document.documentElement.getAttribute('data-theme-mode')).toBe('dark')
+    expect(document.documentElement.getAttribute('data-theme-mode')).toBe(
+      'dark'
+    )
   })
 })

@@ -6,7 +6,9 @@ import { GlassCard } from '../glass-card'
 describe('GlassCard', () => {
   it('renders with data-component', () => {
     const { container } = render(<GlassCard>Content</GlassCard>)
-    expect(container.querySelector('[data-component="glass-card"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="glass-card"]')
+    ).not.toBeNull()
   })
 
   it('renders children', () => {

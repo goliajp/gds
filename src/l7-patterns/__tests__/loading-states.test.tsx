@@ -24,7 +24,9 @@ describe('LoadingStates', () => {
   })
 
   it('shows message text', () => {
-    const { container } = render(<LoadingStates variant="page" message="Please wait..." />)
+    const { container } = render(
+      <LoadingStates variant="page" message="Please wait..." />
+    )
     expect(container.textContent).toContain('Please wait...')
   })
 
@@ -55,17 +57,23 @@ describe('LoadingStates', () => {
   })
 
   it('shows custom message for button variant', () => {
-    const { container } = render(<LoadingStates variant="button" message="Saving..." />)
+    const { container } = render(
+      <LoadingStates variant="button" message="Saving..." />
+    )
     expect(container.textContent).toContain('Saving...')
   })
 
   it('shows inline message', () => {
-    const { container } = render(<LoadingStates variant="inline" message="Loading items..." />)
+    const { container } = render(
+      <LoadingStates variant="inline" message="Loading items..." />
+    )
     expect(container.textContent).toContain('Loading items...')
   })
 
   it('renders overlay message', () => {
-    const { container } = render(<LoadingStates variant="overlay" message="Processing..." />)
+    const { container } = render(
+      <LoadingStates variant="overlay" message="Processing..." />
+    )
     expect(container.textContent).toContain('Processing...')
   })
 })

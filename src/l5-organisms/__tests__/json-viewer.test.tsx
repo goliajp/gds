@@ -20,7 +20,9 @@ describe('JsonViewer', () => {
   })
 
   it('renders object with keys', () => {
-    const { container } = render(<JsonViewer data={{ name: 'test', count: 5 }} defaultExpanded />)
+    const { container } = render(
+      <JsonViewer data={{ name: 'test', count: 5 }} defaultExpanded />
+    )
     expect(container.textContent).toContain('name')
     expect(container.textContent).toContain('"test"')
     expect(container.textContent).toContain('count')
@@ -28,7 +30,9 @@ describe('JsonViewer', () => {
   })
 
   it('renders array with items', () => {
-    const { container } = render(<JsonViewer data={[1, 2, 3]} defaultExpanded />)
+    const { container } = render(
+      <JsonViewer data={[1, 2, 3]} defaultExpanded />
+    )
     expect(container.textContent).toContain('1')
     expect(container.textContent).toContain('2')
     expect(container.textContent).toContain('3')
@@ -37,7 +41,7 @@ describe('JsonViewer', () => {
   it('collapses on click', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <JsonViewer data={{ a: 1, b: 2 }} defaultExpanded />,
+      <JsonViewer data={{ a: 1, b: 2 }} defaultExpanded />
     )
     // initially expanded — keys visible
     expect(container.textContent).toContain('a')

@@ -16,7 +16,10 @@ type BadgeDotProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const BadgeDot = forwardRef<HTMLDivElement, BadgeDotProps>(
-  function BadgeDot({ children, className, color = 'danger', show = true, ...props }, ref) {
+  function BadgeDot(
+    { children, className, color = 'danger', show = true, ...props },
+    ref
+  ) {
     return (
       <div
         className={cx('relative inline-flex', className)}
@@ -27,12 +30,15 @@ export const BadgeDot = forwardRef<HTMLDivElement, BadgeDotProps>(
         {children}
         {show && (
           <span
-            className={cx('absolute -right-0.5 -top-0.5 h-1.5 w-1.5 rounded-full', colorMap[color])}
+            className={cx(
+              'absolute -top-0.5 -right-0.5 h-1.5 w-1.5 rounded-full',
+              colorMap[color]
+            )}
           />
         )}
       </div>
     )
-  },
+  }
 )
 
 export type { BadgeDotProps }

@@ -11,13 +11,16 @@ type ActionCardProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onClick'> & {
 }
 
 export const ActionCard = forwardRef<HTMLDivElement, ActionCardProps>(
-  function ActionCard({ className, description, icon, onClick, title, ...props }, ref) {
+  function ActionCard(
+    { className, description, icon, onClick, title, ...props },
+    ref
+  ) {
     return (
       <div
         className={cx(
-          'flex cursor-pointer items-center gds-gap gds-pad gds-radius',
-          'border border-border bg-surface transition-colors hover:bg-surface-hover',
-          className,
+          'gds-gap gds-pad gds-radius flex cursor-pointer items-center',
+          'border-border bg-surface hover:bg-surface-hover border transition-colors',
+          className
         )}
         data-component="action-card"
         onClick={onClick}
@@ -32,14 +35,18 @@ export const ActionCard = forwardRef<HTMLDivElement, ActionCardProps>(
         tabIndex={0}
         {...props}
       >
-        {icon !== undefined && <span className="shrink-0 text-accent">{icon}</span>}
+        {icon !== undefined && (
+          <span className="text-accent shrink-0">{icon}</span>
+        )}
         <div className="flex flex-col gap-0.5">
-          <span className="text-sm font-medium text-fg">{title}</span>
-          {description !== undefined && <span className="text-xs text-fg-muted">{description}</span>}
+          <span className="text-fg text-sm font-medium">{title}</span>
+          {description !== undefined && (
+            <span className="text-fg-muted text-xs">{description}</span>
+          )}
         </div>
       </div>
     )
-  },
+  }
 )
 
 export type { ActionCardProps }

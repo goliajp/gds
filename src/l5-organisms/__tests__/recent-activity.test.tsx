@@ -11,7 +11,9 @@ const items = [
 describe('RecentActivity', () => {
   it('renders with data-component', () => {
     const { container } = render(<RecentActivity items={items} />)
-    expect(container.querySelector('[data-component="recent-activity"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="recent-activity"]')
+    ).not.toBeNull()
   })
 
   it('renders title and items', () => {

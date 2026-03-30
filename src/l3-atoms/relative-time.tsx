@@ -53,7 +53,7 @@ export const RelativeTime = forwardRef<HTMLTimeElement, RelativeTimeProps>(
 
     return (
       <time
-        className={cx('font-mono text-fg-muted', className)}
+        className={cx('text-fg-muted font-mono', className)}
         data-component="relative-time"
         dateTime={d.toISOString()}
         ref={ref}
@@ -63,7 +63,7 @@ export const RelativeTime = forwardRef<HTMLTimeElement, RelativeTimeProps>(
         {prefix !== undefined ? `${prefix} ${text}` : text}
       </time>
     )
-  },
+  }
 )
 
 export type { RelativeTimeProps }

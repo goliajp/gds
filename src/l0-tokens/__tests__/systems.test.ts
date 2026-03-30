@@ -1,12 +1,35 @@
 import { describe, expect, it } from 'vitest'
 
-import { between, breakpoints, breakpointToCssVars, detectOverlap, deviceCategory, maxWidth, minWidth } from '../breakpoint-system'
-import { glassParams, glassToCssVars, supportsBackdropFilter } from '../glass-system'
-import { duration, easing, keyframePresets, motionToCssVars, springPresets } from '../motion-system'
+import {
+  between,
+  breakpoints,
+  breakpointToCssVars,
+  detectOverlap,
+  deviceCategory,
+  maxWidth,
+  minWidth,
+} from '../breakpoint-system'
+import {
+  glassParams,
+  glassToCssVars,
+  supportsBackdropFilter,
+} from '../glass-system'
+import {
+  duration,
+  easing,
+  keyframePresets,
+  motionToCssVars,
+  springPresets,
+} from '../motion-system'
 import { radiusScale, radiusToCssVars } from '../radius-system'
 import { resolveAxesToCssVars } from '../scales'
 import { shadowToCssVars, shadowValue } from '../shadow-system'
-import { componentHeight, densitySizeMap, iconSize, sizeToCssVars } from '../size-system'
+import {
+  componentHeight,
+  densitySizeMap,
+  iconSize,
+  sizeToCssVars,
+} from '../size-system'
 
 describe('size-system', () => {
   it('component heights are multiples of 4', () => {
@@ -29,9 +52,15 @@ describe('size-system', () => {
   })
 
   it('compact has smaller values than comfortable', () => {
-    expect(densitySizeMap.compact.gap).toBeLessThan(densitySizeMap.comfortable.gap)
-    expect(densitySizeMap.compact.pad).toBeLessThan(densitySizeMap.comfortable.pad)
-    expect(densitySizeMap.compact.text).toBeLessThan(densitySizeMap.comfortable.text)
+    expect(densitySizeMap.compact.gap).toBeLessThan(
+      densitySizeMap.comfortable.gap
+    )
+    expect(densitySizeMap.compact.pad).toBeLessThan(
+      densitySizeMap.comfortable.pad
+    )
+    expect(densitySizeMap.compact.text).toBeLessThan(
+      densitySizeMap.comfortable.text
+    )
   })
 
   it('sizeToCssVars returns expected keys', () => {
@@ -43,7 +72,9 @@ describe('size-system', () => {
   it('sizeToCssVars falls back to default for unknown density', () => {
     const unknown = sizeToCssVars('nonexistent')
     const defaultVars = sizeToCssVars('default')
-    expect(unknown['--gds-component-height']).toBe(defaultVars['--gds-component-height'])
+    expect(unknown['--gds-component-height']).toBe(
+      defaultVars['--gds-component-height']
+    )
     expect(unknown['--gds-h']).toBe(defaultVars['--gds-h'])
   })
 
@@ -330,7 +361,9 @@ describe('breakpoint-system', () => {
   })
 
   it('between generates range query', () => {
-    expect(between('sm', 'lg')).toBe('(min-width: 640px) and (max-width: 1023px)')
+    expect(between('sm', 'lg')).toBe(
+      '(min-width: 640px) and (max-width: 1023px)'
+    )
   })
 
   it('detectOverlap finds duplicates', () => {
@@ -377,7 +410,14 @@ describe('breakpoint-system', () => {
 
 describe('resolveAxesToCssVars (unified)', () => {
   it('produces radius + size + shadow + glass + motion vars in one call', () => {
-    const vars = resolveAxesToCssVars('default', 'default', 'raised', 'full', 'full', 'dark')
+    const vars = resolveAxesToCssVars(
+      'default',
+      'default',
+      'raised',
+      'full',
+      'full',
+      'dark'
+    )
     // radius
     expect(vars['--gds-radius-sm']).toBe('4px')
     // size
@@ -392,7 +432,14 @@ describe('resolveAxesToCssVars (unified)', () => {
   })
 
   it('sharp+compact+flat+off+off produces minimal values', () => {
-    const vars = resolveAxesToCssVars('sharp', 'compact', 'flat', 'off', 'off', 'light')
+    const vars = resolveAxesToCssVars(
+      'sharp',
+      'compact',
+      'flat',
+      'off',
+      'off',
+      'light'
+    )
     expect(vars['--gds-radius-sm']).toBe('2px')
     expect(vars['--gds-shadow-md']).toBe('none')
     expect(vars['--gds-glass-blur-md']).toBe('0px')

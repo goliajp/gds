@@ -13,13 +13,20 @@ export type CopyToClipboardProps = {
   className?: string
 }
 
-export const CopyToClipboard = forwardRef<HTMLSpanElement, CopyToClipboardProps>(
-  function CopyToClipboard({ children, value, feedback = 'Copied!', className }, ref) {
-    const [showFeedback, setShowFeedback] = useState(false)
-    const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+export const CopyToClipboard = forwardRef<
+  HTMLSpanElement,
+  CopyToClipboardProps
+>(function CopyToClipboard(
+  { children, value, feedback = 'Copied!', className },
+  ref
+) {
+  const [showFeedback, setShowFeedback] = useState(false)
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-    const handleClick = useCallback(() => {
-      navigator.clipboard.writeText(value).then(() => {
+  const handleClick = useCallback(() => {
+    navigator.clipboard
+      .writeText(value)
+      .then(() => {
         setShowFeedback(true)
         if (timerRef.current !== null) {
           clearTimeout(timerRef.current)
@@ -28,28 +35,37 @@ export const CopyToClipboard = forwardRef<HTMLSpanElement, CopyToClipboardProps>
           setShowFeedback(false)
           timerRef.current = null
         }, 2000)
-      }).catch(() => {
+      })
+      .catch(() => {
         // clipboard api not available
       })
-    }, [value])
+  }, [value])
 
-    return (
-      <span
-        ref={ref}
-        className={cx('relative inline-flex cursor-pointer select-none', focusCls, className)}
-        data-component="copy-to-clipboard"
-        onClick={handleClick}
-        onKeyDown={(e) => { if (isActivationKey(e)) { e.preventDefault(); handleClick() } }}
-        role="button"
-        tabIndex={0}
-      >
-        {children}
-        {showFeedback && (
-          <span className="absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-fg px-2 py-0.5 text-[11px] whitespace-nowrap text-bg shadow-md">
-            {feedback}
-          </span>
-        )}
-      </span>
-    )
-  },
-)
+  return (
+    <span
+      ref={ref}
+      className={cx(
+        'relative inline-flex cursor-pointer select-none',
+        focusCls,
+        className
+      )}
+      data-component="copy-to-clipboard"
+      onClick={handleClick}
+      onKeyDown={(e) => {
+        if (isActivationKey(e)) {
+          e.preventDefault()
+          handleClick()
+        }
+      }}
+      role="button"
+      tabIndex={0}
+    >
+      {children}
+      {showFeedback && (
+        <span className="bg-fg text-bg absolute -top-8 left-1/2 -translate-x-1/2 rounded px-2 py-0.5 text-[11px] whitespace-nowrap shadow-md">
+          {feedback}
+        </span>
+      )}
+    </span>
+  )
+})

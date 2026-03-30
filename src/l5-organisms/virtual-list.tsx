@@ -22,7 +22,7 @@ function VirtualListInner<T>(
     className,
     height = 400,
   }: VirtualListProps<T>,
-  ref: React.ForwardedRef<HTMLDivElement>,
+  ref: React.ForwardedRef<HTMLDivElement>
 ) {
   const [scrollTop, setScrollTop] = useState(0)
   const innerRef = useRef<HTMLDivElement>(null)
@@ -58,10 +58,7 @@ function VirtualListInner<T>(
       onScroll={handleScroll}
       data-component="virtual-list"
     >
-      <div
-        ref={innerRef}
-        style={{ height: totalHeight, position: 'relative' }}
-      >
+      <div ref={innerRef} style={{ height: totalHeight, position: 'relative' }}>
         {visibleItems.map(({ item, index }) => (
           <div
             key={index}
@@ -82,5 +79,5 @@ function VirtualListInner<T>(
 }
 
 export const VirtualList = forwardRef(VirtualListInner) as <T>(
-  props: VirtualListProps<T> & { ref?: React.Ref<HTMLDivElement> },
+  props: VirtualListProps<T> & { ref?: React.Ref<HTMLDivElement> }
 ) => ReactNode

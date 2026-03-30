@@ -17,22 +17,41 @@ export type SparklineProps = {
 
 export const Sparkline = forwardRef<HTMLDivElement, SparklineProps>(
   function Sparkline(
-    { data, dataKey, className, height = 32, width = 120, color = 'var(--gds-accent)', glass, ...props },
-    ref,
+    {
+      data,
+      dataKey,
+      className,
+      height = 32,
+      width = 120,
+      color = 'var(--gds-accent)',
+      glass,
+      ...props
+    },
+    ref
   ) {
     return (
       <div
-        className={cx('inline-block', glass && 'rounded backdrop-blur-md bg-white/5', className)}
+        className={cx(
+          'inline-block',
+          glass && 'rounded bg-white/5 backdrop-blur-md',
+          className
+        )}
         data-component="sparkline"
         ref={ref}
         {...props}
       >
         <ResponsiveContainer height={height} width={width}>
           <LineChart data={data}>
-            <Line dataKey={dataKey} dot={false} stroke={color} strokeWidth={1.5} type="monotone" />
+            <Line
+              dataKey={dataKey}
+              dot={false}
+              stroke={color}
+              strokeWidth={1.5}
+              type="monotone"
+            />
           </LineChart>
         </ResponsiveContainer>
       </div>
     )
-  },
+  }
 )

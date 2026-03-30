@@ -16,7 +16,9 @@ describe('HeatmapChart', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<HeatmapChart data={data} />)
-    expect(container.querySelector('[data-component="heatmap-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="heatmap-chart"]')
+    ).not.toBeNull()
   })
 
   it('renders correct number of cells', () => {
@@ -26,7 +28,9 @@ describe('HeatmapChart', () => {
   })
 
   it('merges className', () => {
-    const { container } = render(<HeatmapChart className="custom-class" data={data} />)
+    const { container } = render(
+      <HeatmapChart className="custom-class" data={data} />
+    )
     const el = container.querySelector('[data-component="heatmap-chart"]')
     expect(el?.className).toContain('custom-class')
   })
@@ -45,7 +49,7 @@ describe('HeatmapChart', () => {
 
   it('renders with xLabels', () => {
     const { container } = render(
-      <HeatmapChart data={data} xLabels={['A', 'B', 'C']} />,
+      <HeatmapChart data={data} xLabels={['A', 'B', 'C']} />
     )
     const el = container.querySelector('[data-component="heatmap-chart"]')
     expect(el?.textContent).toContain('A')
@@ -55,7 +59,7 @@ describe('HeatmapChart', () => {
 
   it('renders with yLabels', () => {
     const { container } = render(
-      <HeatmapChart data={data} yLabels={['Row1', 'Row2']} />,
+      <HeatmapChart data={data} yLabels={['Row1', 'Row2']} />
     )
     const el = container.querySelector('[data-component="heatmap-chart"]')
     expect(el?.textContent).toContain('Row1')
@@ -64,7 +68,11 @@ describe('HeatmapChart', () => {
 
   it('renders with both xLabels and yLabels', () => {
     const { container } = render(
-      <HeatmapChart data={data} xLabels={['A', 'B', 'C']} yLabels={['R1', 'R2']} />,
+      <HeatmapChart
+        data={data}
+        xLabels={['A', 'B', 'C']}
+        yLabels={['R1', 'R2']}
+      />
     )
     const el = container.querySelector('[data-component="heatmap-chart"]')
     expect(el?.textContent).toContain('A')
@@ -72,7 +80,10 @@ describe('HeatmapChart', () => {
   })
 
   it('handles uniform data (all same values)', () => {
-    const uniformData = [[5, 5, 5], [5, 5, 5]]
+    const uniformData = [
+      [5, 5, 5],
+      [5, 5, 5],
+    ]
     const { container } = render(<HeatmapChart data={uniformData} />)
     // dataMax === dataMin => normalize returns 0.5
     const cells = container.querySelectorAll('.rounded-sm')
@@ -87,7 +98,10 @@ describe('HeatmapChart', () => {
 
   it('applies custom colorScale', () => {
     const { container } = render(
-      <HeatmapChart data={data} colorScale={{ min: '#000000', max: '#ffffff' }} />,
+      <HeatmapChart
+        data={data}
+        colorScale={{ min: '#000000', max: '#ffffff' }}
+      />
     )
     const cells = container.querySelectorAll('.rounded-sm')
     expect(cells.length).toBe(6)
@@ -95,7 +109,9 @@ describe('HeatmapChart', () => {
 
   it('renders empty data', () => {
     const { container } = render(<HeatmapChart data={[]} />)
-    expect(container.querySelector('[data-component="heatmap-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="heatmap-chart"]')
+    ).not.toBeNull()
   })
 
   it('forwards ref', () => {
@@ -107,7 +123,7 @@ describe('HeatmapChart', () => {
 
   it('renders without xLabels but with yLabels (padding-left is 0)', () => {
     const { container } = render(
-      <HeatmapChart data={data} yLabels={['R1', 'R2']} />,
+      <HeatmapChart data={data} yLabels={['R1', 'R2']} />
     )
     const el = container.querySelector('[data-component="heatmap-chart"]')
     expect(el).not.toBeNull()

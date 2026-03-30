@@ -25,7 +25,7 @@ describe('Spotlight', () => {
   it('renders nothing when inactive', () => {
     const ref = makeTargetRef()
     const { container } = render(
-      <Spotlight active={false} targetRef={ref} title="Hello" />,
+      <Spotlight active={false} targetRef={ref} title="Hello" />
     )
     expect(container.querySelector('[data-component="spotlight"]')).toBeNull()
   })
@@ -33,7 +33,9 @@ describe('Spotlight', () => {
   it('renders overlay when active', () => {
     const ref = makeTargetRef()
     render(<Spotlight active={true} targetRef={ref} title="Welcome" />)
-    expect(document.querySelector('[data-component="spotlight"]')).not.toBeNull()
+    expect(
+      document.querySelector('[data-component="spotlight"]')
+    ).not.toBeNull()
   })
 
   it('shows title text', () => {
@@ -45,13 +47,20 @@ describe('Spotlight', () => {
   it('applies data-component attribute', () => {
     const ref = makeTargetRef()
     render(<Spotlight active={true} targetRef={ref} />)
-    expect(document.querySelector('[data-component="spotlight"]')).not.toBeNull()
+    expect(
+      document.querySelector('[data-component="spotlight"]')
+    ).not.toBeNull()
   })
 
   it('shows description when provided', () => {
     const ref = makeTargetRef()
     render(
-      <Spotlight active={true} targetRef={ref} title="T" description="Click here to continue" />,
+      <Spotlight
+        active={true}
+        targetRef={ref}
+        title="T"
+        description="Click here to continue"
+      />
     )
     expect(screen.getByText('Click here to continue')).toBeDefined()
   })
@@ -60,7 +69,9 @@ describe('Spotlight', () => {
     const ref = makeTargetRef()
     const onClose = vi.fn()
     render(<Spotlight active={true} targetRef={ref} onClose={onClose} />)
-    const overlay = document.querySelector('[data-component="spotlight"]') as HTMLElement
+    const overlay = document.querySelector(
+      '[data-component="spotlight"]'
+    ) as HTMLElement
     overlay.click()
     expect(onClose).toHaveBeenCalledOnce()
   })
@@ -91,19 +102,30 @@ describe('Spotlight', () => {
 
   it('renders with placement=top', () => {
     const ref = makeTargetRef()
-    render(<Spotlight active={true} targetRef={ref} placement="top" title="Top" />)
+    render(
+      <Spotlight active={true} targetRef={ref} placement="top" title="Top" />
+    )
     expect(screen.getByText('Top')).toBeDefined()
   })
 
   it('renders with placement=left', () => {
     const ref = makeTargetRef()
-    render(<Spotlight active={true} targetRef={ref} placement="left" title="Left" />)
+    render(
+      <Spotlight active={true} targetRef={ref} placement="left" title="Left" />
+    )
     expect(screen.getByText('Left')).toBeDefined()
   })
 
   it('renders with placement=right', () => {
     const ref = makeTargetRef()
-    render(<Spotlight active={true} targetRef={ref} placement="right" title="Right" />)
+    render(
+      <Spotlight
+        active={true}
+        targetRef={ref}
+        placement="right"
+        title="Right"
+      />
+    )
     expect(screen.getByText('Right')).toBeDefined()
   })
 

@@ -19,11 +19,16 @@ export const Highlight = forwardRef<HTMLSpanElement, HighlightProps>(
       className,
       ...props
     },
-    ref,
+    ref
   ) {
     if (query === undefined || query === null || query === '') {
       return (
-        <span className={className} data-component="highlight" ref={ref} {...props}>
+        <span
+          className={className}
+          data-component="highlight"
+          ref={ref}
+          {...props}
+        >
           {text}
         </span>
       )
@@ -36,7 +41,12 @@ export const Highlight = forwardRef<HTMLSpanElement, HighlightProps>(
     const parts = safeText.split(new RegExp(`(${escaped})`, flags))
 
     return (
-      <span className={cx(className)} data-component="highlight" ref={ref} {...props}>
+      <span
+        className={cx(className)}
+        data-component="highlight"
+        ref={ref}
+        {...props}
+      >
         {parts.map((part, i) => {
           const isMatch = caseSensitive
             ? part === query
@@ -52,5 +62,5 @@ export const Highlight = forwardRef<HTMLSpanElement, HighlightProps>(
         })}
       </span>
     )
-  },
+  }
 )

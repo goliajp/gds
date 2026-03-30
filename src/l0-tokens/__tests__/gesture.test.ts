@@ -19,7 +19,9 @@ describe('gesture-system', () => {
   })
 
   it('pullToRefresh trigger < max', () => {
-    expect(pullToRefresh.triggerDistance).toBeLessThan(pullToRefresh.maxDistance)
+    expect(pullToRefresh.triggerDistance).toBeLessThan(
+      pullToRefresh.maxDistance
+    )
     expect(pullToRefresh.resistanceFactor).toBeGreaterThan(0)
     expect(pullToRefresh.resistanceFactor).toBeLessThan(1)
   })

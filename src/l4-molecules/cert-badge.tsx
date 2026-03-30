@@ -26,7 +26,11 @@ export const CertBadge = forwardRef<HTMLDivElement, CertBadgeProps>(
   function CertBadge({ className, domain, expiresAt, status, ...props }, ref) {
     return (
       <div
-        className={cx('inline-flex items-center gap-2 rounded-md border px-2.5 py-1.5', statusCls[status], className)}
+        className={cx(
+          'inline-flex items-center gap-2 rounded-md border px-2.5 py-1.5',
+          statusCls[status],
+          className
+        )}
         data-component="cert-badge"
         ref={ref}
         {...props}
@@ -36,7 +40,7 @@ export const CertBadge = forwardRef<HTMLDivElement, CertBadgeProps>(
         <span className="gds-text-label opacity-70">{expiresAt}</span>
       </div>
     )
-  },
+  }
 )
 
 export type { CertBadgeProps, CertBadgeStatus }

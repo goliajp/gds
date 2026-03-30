@@ -27,7 +27,19 @@ export type RichSelectProps = {
 }
 
 export const RichSelect = forwardRef<HTMLDivElement, RichSelectProps>(
-  function RichSelect({ options, value, onChange, placeholder, disabled, error, glass, className }, ref) {
+  function RichSelect(
+    {
+      options,
+      value,
+      onChange,
+      placeholder,
+      disabled,
+      error,
+      glass,
+      className,
+    },
+    ref
+  ) {
     const [open, setOpen] = useState(false)
     const [focusedIndex, setFocusedIndex] = useState(-1)
     const containerRef = useRef<HTMLDivElement>(null)
@@ -38,7 +50,10 @@ export const RichSelect = forwardRef<HTMLDivElement, RichSelectProps>(
     useEffect(() => {
       if (!open) return
       function handleClick(e: MouseEvent) {
-        if (containerRef.current !== null && !containerRef.current.contains(e.target as Node)) {
+        if (
+          containerRef.current !== null &&
+          !containerRef.current.contains(e.target as Node)
+        ) {
           setOpen(false)
         }
       }
@@ -78,13 +93,16 @@ export const RichSelect = forwardRef<HTMLDivElement, RichSelectProps>(
           }
         }
       },
-      [disabled, open, options, focusedIndex, onChange],
+      [disabled, open, options, focusedIndex, onChange]
     )
 
-    const handleSelect = useCallback((val: string) => {
-      onChange(val)
-      setOpen(false)
-    }, [onChange])
+    const handleSelect = useCallback(
+      (val: string) => {
+        onChange(val)
+        setOpen(false)
+      },
+      [onChange]
+    )
 
     return (
       <div
@@ -98,11 +116,11 @@ export const RichSelect = forwardRef<HTMLDivElement, RichSelectProps>(
           type="button"
           disabled={disabled}
           className={cx(
-            'flex w-full items-center gap-2 gds-radius-input border gds-pad-x gds-h-lg text-sm text-left transition-colors',
+            'gds-radius-input gds-pad-x gds-h-lg flex w-full items-center gap-2 border text-left text-sm transition-colors',
             error ? 'border-danger' : 'border-border hover:border-fg-muted',
-            disabled && 'opacity-50 cursor-not-allowed',
+            disabled && 'cursor-not-allowed opacity-50',
             glassClass(glass),
-            focusCls,
+            focusCls
           )}
           onClick={() => setOpen((p) => !p)}
           aria-expanded={open}
@@ -110,13 +128,25 @@ export const RichSelect = forwardRef<HTMLDivElement, RichSelectProps>(
         >
           {selected !== undefined ? (
             <>
-              {selected.icon !== undefined && <span className="shrink-0">{selected.icon}</span>}
-              <span className="flex-1 truncate text-fg">{selected.label}</span>
+              {selected.icon !== undefined && (
+                <span className="shrink-0">{selected.icon}</span>
+              )}
+              <span className="text-fg flex-1 truncate">{selected.label}</span>
             </>
           ) : (
-            <span className="flex-1 truncate text-fg-muted">{placeholder ?? 'Select...'}</span>
+            <span className="text-fg-muted flex-1 truncate">
+              {placeholder ?? 'Select...'}
+            </span>
           )}
-          <svg className="ml-auto h-3 w-3 shrink-0 text-fg-muted" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            className="text-fg-muted ml-auto h-3 w-3 shrink-0"
+            viewBox="0 0 12 12"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <path d="M3 4.5l3 3 3-3" />
           </svg>
         </button>
@@ -133,5 +163,5 @@ export const RichSelect = forwardRef<HTMLDivElement, RichSelectProps>(
         )}
       </div>
     )
-  },
+  }
 )

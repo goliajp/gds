@@ -9,7 +9,10 @@ type AspectRatioProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const AspectRatio = forwardRef<HTMLDivElement, AspectRatioProps>(
-  function AspectRatio({ children, className, ratio = 16 / 9, style, ...props }, ref) {
+  function AspectRatio(
+    { children, className, ratio = 16 / 9, style, ...props },
+    ref
+  ) {
     return (
       <div
         className={cx('relative w-full overflow-hidden', className)}
@@ -21,7 +24,7 @@ export const AspectRatio = forwardRef<HTMLDivElement, AspectRatioProps>(
         {children}
       </div>
     )
-  },
+  }
 )
 
 export type { AspectRatioProps }

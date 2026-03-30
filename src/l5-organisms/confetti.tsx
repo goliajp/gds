@@ -4,7 +4,11 @@ import { useEffect, useRef } from 'react'
 import { cx } from '../utils/cx'
 import { renderPortal } from '../utils/portal'
 import type { Particle } from './confetti-physics'
-import { createParticle, drawParticle, updateParticle } from './confetti-physics'
+import {
+  createParticle,
+  drawParticle,
+  updateParticle,
+} from './confetti-physics'
 
 type ConfettiProps = {
   active: boolean
@@ -15,8 +19,14 @@ type ConfettiProps = {
 }
 
 const DEFAULT_COLORS = [
-  '#6366f1', '#ec4899', '#14b8a6', '#f59e0b',
-  '#8b5cf6', '#ef4444', '#22c55e', '#3b82f6',
+  '#6366f1',
+  '#ec4899',
+  '#14b8a6',
+  '#f59e0b',
+  '#8b5cf6',
+  '#ef4444',
+  '#22c55e',
+  '#3b82f6',
 ]
 
 export function Confetti({
@@ -61,7 +71,7 @@ export function Confetti({
       if (elapsed < duration) {
         const targetSpawned = Math.min(
           particleCount,
-          Math.floor((elapsed / duration) * particleCount),
+          Math.floor((elapsed / duration) * particleCount)
         )
         while (spawnedCount < targetSpawned) {
           particlesRef.current = [
@@ -99,9 +109,9 @@ export function Confetti({
   return renderPortal(
     <canvas
       ref={canvasRef}
-      className={cx('fixed inset-0 pointer-events-none z-[9999]', className)}
+      className={cx('pointer-events-none fixed inset-0 z-[9999]', className)}
       data-component="confetti"
-    />,
+    />
   )
 }
 

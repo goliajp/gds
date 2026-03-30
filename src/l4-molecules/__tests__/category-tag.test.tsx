@@ -6,7 +6,9 @@ import { CategoryTag } from '../category-tag'
 describe('CategoryTag', () => {
   it('renders with data-component', () => {
     const { container } = render(<CategoryTag label="Spam" color="#ef4444" />)
-    expect(container.querySelector('[data-component="category-tag"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="category-tag"]')
+    ).not.toBeNull()
   })
 
   it('renders label and count', () => {
@@ -24,14 +26,18 @@ describe('CategoryTag', () => {
   it('does not render count when not provided', () => {
     render(<CategoryTag label="Solo" color="#000" />)
     const { container } = render(<CategoryTag label="Solo" color="#000" />)
-    const spans = container.querySelectorAll('[data-component="category-tag"] span')
+    const spans = container.querySelectorAll(
+      '[data-component="category-tag"] span'
+    )
     // 2 spans: color bar + label, no count
     expect(spans.length).toBe(2)
   })
 
   it('has role="button" when onClick is provided', () => {
     const fn = vi.fn()
-    const { container } = render(<CategoryTag label="Click" color="#000" onClick={fn} />)
+    const { container } = render(
+      <CategoryTag label="Click" color="#000" onClick={fn} />
+    )
     const el = container.querySelector('[data-component="category-tag"]')
     expect(el?.getAttribute('role')).toBe('button')
   })
@@ -44,7 +50,9 @@ describe('CategoryTag', () => {
 
   it('calls onClick when clicked', () => {
     const fn = vi.fn()
-    const { container } = render(<CategoryTag label="Click" color="#000" onClick={fn} />)
+    const { container } = render(
+      <CategoryTag label="Click" color="#000" onClick={fn} />
+    )
     const el = container.querySelector('[data-component="category-tag"]')!
     fireEvent.click(el)
     expect(fn).toHaveBeenCalledOnce()

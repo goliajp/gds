@@ -27,11 +27,18 @@ export type TimelineChartProps = {
 }
 
 export const TimelineChart = forwardRef<HTMLDivElement, TimelineChartProps>(
-  function TimelineChart({ events, width = 600, height = 120, glass, className, ...props }, ref) {
+  function TimelineChart(
+    { events, width = 600, height = 120, glass, className, ...props },
+    ref
+  ) {
     if (events.length === 0) {
       return (
         <div
-          className={cx('inline-flex gds-radius-popover border border-white/[0.06]', glassClass(glass), className)}
+          className={cx(
+            'gds-radius-popover inline-flex border border-white/[0.06]',
+            glassClass(glass),
+            className
+          )}
           data-component="timeline-chart"
           ref={ref}
           {...props}
@@ -55,7 +62,11 @@ export const TimelineChart = forwardRef<HTMLDivElement, TimelineChartProps>(
 
     return (
       <div
-        className={cx('inline-flex gds-radius-popover border border-white/[0.06]', glassClass(glass), className)}
+        className={cx(
+          'gds-radius-popover inline-flex border border-white/[0.06]',
+          glassClass(glass),
+          className
+        )}
         data-component="timeline-chart"
         ref={ref}
         {...props}
@@ -115,5 +126,5 @@ export const TimelineChart = forwardRef<HTMLDivElement, TimelineChartProps>(
         </svg>
       </div>
     )
-  },
+  }
 )

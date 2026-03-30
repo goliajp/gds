@@ -23,27 +23,30 @@ export type FormBuilderProps = {
 const inputCls = cx(
   'w-full gds-radius-button border border-border bg-bg gds-pad-x gds-pad-y-sm text-sm text-fg',
   'placeholder:text-fg-muted/50',
-  focusCls,
+  focusCls
 )
 
 function renderField(
   field: FormField,
   value: unknown,
-  onChange: (id: string, value: unknown) => void,
+  onChange: (id: string, value: unknown) => void
 ) {
   const id = `form-field-${field.id}`
 
   if (field.type === 'checkbox') {
     return (
-      <label htmlFor={id} className="flex cursor-pointer items-center gds-gap-sm select-none">
+      <label
+        htmlFor={id}
+        className="gds-gap-sm flex cursor-pointer items-center select-none"
+      >
         <input
           id={id}
           type="checkbox"
           checked={Boolean(value)}
           onChange={(e) => onChange(field.id, e.target.checked)}
-          className={cx('h-4 w-4 rounded border-border', focusCls)}
+          className={cx('border-border h-4 w-4 rounded', focusCls)}
         />
-        <span className="text-sm text-fg">{field.label}</span>
+        <span className="text-fg text-sm">{field.label}</span>
         {field.required === true && <span className="text-danger">*</span>}
       </label>
     )
@@ -51,10 +54,15 @@ function renderField(
 
   if (field.type === 'textarea') {
     return (
-      <div className="flex flex-col gds-gap-xs">
-        <label htmlFor={id} className="gds-text-body font-medium text-fg-muted select-none">
+      <div className="gds-gap-xs flex flex-col">
+        <label
+          htmlFor={id}
+          className="gds-text-body text-fg-muted font-medium select-none"
+        >
           {field.label}
-          {field.required === true && <span className="ml-0.5 text-danger">*</span>}
+          {field.required === true && (
+            <span className="text-danger ml-0.5">*</span>
+          )}
         </label>
         <textarea
           id={id}
@@ -70,10 +78,15 @@ function renderField(
 
   if (field.type === 'select') {
     return (
-      <div className="flex flex-col gds-gap-xs">
-        <label htmlFor={id} className="gds-text-body font-medium text-fg-muted select-none">
+      <div className="gds-gap-xs flex flex-col">
+        <label
+          htmlFor={id}
+          className="gds-text-body text-fg-muted font-medium select-none"
+        >
           {field.label}
-          {field.required === true && <span className="ml-0.5 text-danger">*</span>}
+          {field.required === true && (
+            <span className="text-danger ml-0.5">*</span>
+          )}
         </label>
         <select
           id={id}
@@ -83,7 +96,9 @@ function renderField(
         >
           <option value="">{field.placeholder ?? 'Select...'}</option>
           {field.options?.map((opt) => (
-            <option key={opt} value={opt}>{opt}</option>
+            <option key={opt} value={opt}>
+              {opt}
+            </option>
           ))}
         </select>
       </div>
@@ -92,10 +107,15 @@ function renderField(
 
   // text or number
   return (
-    <div className="flex flex-col gds-gap-xs">
-      <label htmlFor={id} className="gds-text-body font-medium text-fg-muted select-none">
+    <div className="gds-gap-xs flex flex-col">
+      <label
+        htmlFor={id}
+        className="gds-text-body text-fg-muted font-medium select-none"
+      >
         {field.label}
-        {field.required === true && <span className="ml-0.5 text-danger">*</span>}
+        {field.required === true && (
+          <span className="text-danger ml-0.5">*</span>
+        )}
       </label>
       <input
         id={id}
@@ -104,7 +124,10 @@ function renderField(
         placeholder={field.placeholder}
         onChange={(e) => {
           if (field.type === 'number') {
-            onChange(field.id, e.target.value === '' ? '' : Number(e.target.value))
+            onChange(
+              field.id,
+              e.target.value === '' ? '' : Number(e.target.value)
+            )
           } else {
             onChange(field.id, e.target.value)
           }
@@ -130,5 +153,5 @@ export const FormBuilder = forwardRef<HTMLDivElement, FormBuilderProps>(
         ))}
       </div>
     )
-  },
+  }
 )

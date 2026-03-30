@@ -23,7 +23,9 @@ describe('MarkdownPreview', () => {
   })
 
   it('renders bold and italic', () => {
-    const { container } = render(<MarkdownPreview content="**bold** and *italic*" />)
+    const { container } = render(
+      <MarkdownPreview content="**bold** and *italic*" />
+    )
     const strong = container.querySelector('strong')
     const em = container.querySelector('em')
     expect(strong?.textContent).toBe('bold')
@@ -31,7 +33,9 @@ describe('MarkdownPreview', () => {
   })
 
   it('renders inline code', () => {
-    const { container } = render(<MarkdownPreview content="Use `const` keyword" />)
+    const { container } = render(
+      <MarkdownPreview content="Use `const` keyword" />
+    )
     const code = container.querySelector('code')
     expect(code).not.toBeNull()
     expect(code?.textContent).toBe('const')
@@ -61,7 +65,9 @@ describe('MarkdownPreview', () => {
   })
 
   it('renders link', () => {
-    const { container } = render(<MarkdownPreview content="[Google](https://google.com)" />)
+    const { container } = render(
+      <MarkdownPreview content="[Google](https://google.com)" />
+    )
     const link = container.querySelector('a')
     expect(link).not.toBeNull()
     expect(link?.textContent).toBe('Google')
@@ -79,7 +85,9 @@ describe('MarkdownPreview', () => {
   })
 
   it('renders blockquote', () => {
-    const { container } = render(<MarkdownPreview content="> This is a quote" />)
+    const { container } = render(
+      <MarkdownPreview content="> This is a quote" />
+    )
     const blockquote = container.querySelector('blockquote')
     expect(blockquote).not.toBeNull()
     expect(blockquote?.textContent).toBe('This is a quote')
@@ -190,7 +198,9 @@ describe('MarkdownPreview', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<MarkdownPreview content="Hello" className="my-md" />)
+    const { container } = render(
+      <MarkdownPreview content="Hello" className="my-md" />
+    )
     const el = container.querySelector('[data-component="markdown-preview"]')
     expect(el?.className).toContain('my-md')
   })
@@ -204,7 +214,9 @@ describe('MarkdownPreview', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<MarkdownPreview content="Hello" />)
-    expect(container.querySelector('[data-component="markdown-preview"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="markdown-preview"]')
+    ).not.toBeNull()
   })
 
   // --- v2 sanitization feature tests ---
@@ -219,7 +231,9 @@ describe('MarkdownPreview', () => {
 
   it('sanitize=false preserves raw HTML from parser', () => {
     // With sanitize=false the raw HTML output from parseMarkdown is used directly
-    const { container } = render(<MarkdownPreview content="**bold text**" sanitize={false} />)
+    const { container } = render(
+      <MarkdownPreview content="**bold text**" sanitize={false} />
+    )
     const root = container.querySelector('[data-component="markdown-preview"]')!
     const strong = root.querySelector('strong')
     expect(strong).not.toBeNull()
@@ -228,7 +242,9 @@ describe('MarkdownPreview', () => {
 
   it('sanitize=false does not strip inline HTML', () => {
     // parseMarkdown escapes HTML in text, but sanitize=false skips DOMPurify
-    const { container } = render(<MarkdownPreview content="# Title" sanitize={false} />)
+    const { container } = render(
+      <MarkdownPreview content="# Title" sanitize={false} />
+    )
     const root = container.querySelector('[data-component="markdown-preview"]')!
     expect(root.querySelector('h1')).not.toBeNull()
     expect(root.querySelector('h1')?.textContent).toBe('Title')

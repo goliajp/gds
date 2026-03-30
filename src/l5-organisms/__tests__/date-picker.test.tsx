@@ -7,12 +7,16 @@ import { DatePicker } from '../date-picker'
 describe('DatePicker', () => {
   it('renders without crash', () => {
     const { container } = render(<DatePicker />)
-    expect(container.querySelector('[data-component="date-picker"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="date-picker"]')
+    ).not.toBeNull()
   })
 
   it('has data-component attribute', () => {
     const { container } = render(<DatePicker />)
-    expect(container.querySelector('[data-component="date-picker"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="date-picker"]')
+    ).not.toBeNull()
   })
 
   it('displays placeholder when no value', () => {
@@ -30,7 +34,11 @@ describe('DatePicker', () => {
     const { container } = render(<DatePicker />)
     const button = container.querySelector('button')!
     await user.click(button)
-    expect(container.querySelector('[data-component="date-picker"]')?.getAttribute('data-state')).toBe('open')
+    expect(
+      container
+        .querySelector('[data-component="date-picker"]')
+        ?.getAttribute('data-state')
+    ).toBe('open')
   })
 
   it('closes calendar on second click', async () => {
@@ -38,9 +46,17 @@ describe('DatePicker', () => {
     const { container } = render(<DatePicker />)
     const button = container.querySelector('button')!
     await user.click(button)
-    expect(container.querySelector('[data-component="date-picker"]')?.getAttribute('data-state')).toBe('open')
+    expect(
+      container
+        .querySelector('[data-component="date-picker"]')
+        ?.getAttribute('data-state')
+    ).toBe('open')
     await user.click(button)
-    expect(container.querySelector('[data-component="date-picker"]')?.getAttribute('data-state')).toBe('closed')
+    expect(
+      container
+        .querySelector('[data-component="date-picker"]')
+        ?.getAttribute('data-state')
+    ).toBe('closed')
   })
 
   it('shows default placeholder text', () => {
@@ -69,7 +85,9 @@ describe('DatePicker', () => {
   it('calls onChange when date is selected', async () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
-    const { container } = render(<DatePicker value={new Date(2025, 0, 15)} onChange={onChange} />)
+    const { container } = render(
+      <DatePicker value={new Date(2025, 0, 15)} onChange={onChange} />
+    )
     await user.click(container.querySelector('button')!)
     const day10 = screen.getByText('10')
     await user.click(day10)

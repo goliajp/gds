@@ -7,36 +7,48 @@ import { ScrollProgress } from '../scroll-progress'
 describe('ScrollProgress', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(<ScrollProgress />)
-    expect(container.querySelector('[data-component="scroll-progress"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="scroll-progress"]')
+    ).not.toBeNull()
   })
 
   it('uses default height of 3px', () => {
     const { container } = render(<ScrollProgress />)
-    const el = container.querySelector('[data-component="scroll-progress"]') as HTMLElement
+    const el = container.querySelector(
+      '[data-component="scroll-progress"]'
+    ) as HTMLElement
     expect(el.style.height).toBe('3px')
   })
 
   it('applies custom height', () => {
     const { container } = render(<ScrollProgress height={6} />)
-    const el = container.querySelector('[data-component="scroll-progress"]') as HTMLElement
+    const el = container.querySelector(
+      '[data-component="scroll-progress"]'
+    ) as HTMLElement
     expect(el.style.height).toBe('6px')
   })
 
   it('renders inner progress bar at 0% initially', () => {
     const { container } = render(<ScrollProgress />)
-    const inner = container.querySelector('[data-component="scroll-progress"] > div') as HTMLElement
+    const inner = container.querySelector(
+      '[data-component="scroll-progress"] > div'
+    ) as HTMLElement
     expect(inner.style.width).toBe('0%')
   })
 
   it('does not apply custom backgroundColor when color is undefined', () => {
     const { container } = render(<ScrollProgress />)
-    const inner = container.querySelector('[data-component="scroll-progress"] > div') as HTMLElement
+    const inner = container.querySelector(
+      '[data-component="scroll-progress"] > div'
+    ) as HTMLElement
     expect(inner.style.backgroundColor).toBe('')
   })
 
   it('applies custom color as backgroundColor', () => {
     const { container } = render(<ScrollProgress color="red" />)
-    const inner = container.querySelector('[data-component="scroll-progress"] > div') as HTMLElement
+    const inner = container.querySelector(
+      '[data-component="scroll-progress"] > div'
+    ) as HTMLElement
     expect(inner.style.backgroundColor).toBe('red')
   })
 
@@ -52,9 +64,18 @@ describe('ScrollProgress', () => {
   })
 
   it('updates progress on scroll event', () => {
-    Object.defineProperty(document.documentElement, 'scrollTop', { value: 500, configurable: true })
-    Object.defineProperty(document.documentElement, 'scrollHeight', { value: 2000, configurable: true })
-    Object.defineProperty(document.documentElement, 'clientHeight', { value: 1000, configurable: true })
+    Object.defineProperty(document.documentElement, 'scrollTop', {
+      value: 500,
+      configurable: true,
+    })
+    Object.defineProperty(document.documentElement, 'scrollHeight', {
+      value: 2000,
+      configurable: true,
+    })
+    Object.defineProperty(document.documentElement, 'clientHeight', {
+      value: 1000,
+      configurable: true,
+    })
 
     const { container } = render(<ScrollProgress />)
 
@@ -62,7 +83,9 @@ describe('ScrollProgress', () => {
       window.dispatchEvent(new Event('scroll'))
     })
 
-    const inner = container.querySelector('[data-component="scroll-progress"] > div') as HTMLElement
+    const inner = container.querySelector(
+      '[data-component="scroll-progress"] > div'
+    ) as HTMLElement
     expect(inner.style.width).toBe('50%')
   })
 })

@@ -39,7 +39,9 @@ describe('StepperForm', () => {
 
   it('applies data-component attribute', () => {
     const { container } = render(<StepperForm steps={steps} />)
-    expect(container.querySelector('[data-component="stepper-form"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="stepper-form"]')
+    ).not.toBeNull()
   })
 
   it('disables previous button on first step', () => {

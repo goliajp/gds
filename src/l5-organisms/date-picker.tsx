@@ -25,7 +25,18 @@ function formatDate(d: Date): string {
 }
 
 export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
-  function DatePicker({ value, onChange, placeholder = 'Select date', min, max, glass, className }, ref) {
+  function DatePicker(
+    {
+      value,
+      onChange,
+      placeholder = 'Select date',
+      min,
+      max,
+      glass,
+      className,
+    },
+    ref
+  ) {
     const [open, setOpen] = useState(false)
     const containerRef = useRef<HTMLDivElement>(null)
 
@@ -49,16 +60,22 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
           <button
             type="button"
             className={cx(
-              'flex gds-h-lg items-center gds-gap-sm gds-radius-button border gds-pad-x text-sm transition-colors',
+              'gds-h-lg gds-gap-sm gds-radius-button gds-pad-x flex items-center border text-sm transition-colors',
               focusCls,
               glass === true
-                ? cx(glassClass(glass), 'border-white/10 bg-bg/60')
+                ? cx(glassClass(glass), 'bg-bg/60 border-white/10')
                 : 'border-border bg-surface',
-              value !== undefined ? 'text-fg' : 'text-fg-muted',
+              value !== undefined ? 'text-fg' : 'text-fg-muted'
             )}
             onClick={() => setOpen((prev) => !prev)}
           >
-            <svg className="h-4 w-4 text-fg-muted" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <svg
+              className="text-fg-muted h-4 w-4"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            >
               <rect x="2" y="3" width="12" height="11" rx="1.5" />
               <path d="M2 6.5H14M5 1.5V4M11 1.5V4" />
             </svg>
@@ -66,7 +83,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
           </button>
 
           {open && (
-            <div className="absolute left-0 top-full z-50 mt-1 animate-popup">
+            <div className="animate-popup absolute top-full left-0 z-50 mt-1">
               <Calendar
                 value={value}
                 onChange={handleSelect}
@@ -78,5 +95,5 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
         </div>
       </div>
     )
-  },
+  }
 )

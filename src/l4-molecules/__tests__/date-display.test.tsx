@@ -6,11 +6,15 @@ import { DateDisplay } from '../date-display'
 describe('DateDisplay', () => {
   it('has data-component="date-display"', () => {
     const { container } = render(<DateDisplay date={new Date()} />)
-    expect(container.querySelector('[data-component="date-display"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="date-display"]')
+    ).not.toBeNull()
   })
 
   it('shows "just now" for recent dates in relative mode', () => {
-    const { container } = render(<DateDisplay date={new Date()} format="relative" />)
+    const { container } = render(
+      <DateDisplay date={new Date()} format="relative" />
+    )
     expect(container.textContent).toBe('just now')
   })
 
@@ -28,7 +32,9 @@ describe('DateDisplay', () => {
   })
 
   it('accepts string date', () => {
-    const { container } = render(<DateDisplay date="2025-01-15" format="absolute" />)
+    const { container } = render(
+      <DateDisplay date="2025-01-15" format="absolute" />
+    )
     expect(container.textContent).toBe('2025-01-15')
   })
 
@@ -70,7 +76,9 @@ describe('DateDisplay', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<DateDisplay date={new Date()} className="my-cls" />)
+    const { container } = render(
+      <DateDisplay date={new Date()} className="my-cls" />
+    )
     const el = container.querySelector('[data-component="date-display"]')
     expect(el?.className).toContain('my-cls')
   })

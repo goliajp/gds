@@ -15,16 +15,16 @@ const entries = [
   {
     version: 'v1.1.0',
     date: '2026-02-15',
-    changes: [
-      { type: 'changed' as const, text: 'Updated color tokens' },
-    ],
+    changes: [{ type: 'changed' as const, text: 'Updated color tokens' }],
   },
 ]
 
 describe('Changelog', () => {
   it('has data-component="changelog"', () => {
     const { container } = render(<Changelog entries={entries} />)
-    expect(container.querySelector('[data-component="changelog"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="changelog"]')
+    ).not.toBeNull()
   })
 
   it('renders version numbers', () => {

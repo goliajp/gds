@@ -23,6 +23,8 @@ describe('Sparkle', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<Sparkle>Hi</Sparkle>)
-    expect(container.querySelector('[data-component="sparkle"]')).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="sparkle"]')
+    ).toBeInTheDocument()
   })
 })

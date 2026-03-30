@@ -19,7 +19,9 @@ const comments = [
 describe('CommentThread', () => {
   it('renders with data-component', () => {
     const { container } = render(<CommentThread comments={comments} />)
-    expect(container.querySelector('[data-component="comment-thread"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="comment-thread"]')
+    ).not.toBeNull()
   })
 
   it('has role="list"', () => {

@@ -13,7 +13,9 @@ const sections = [
 describe('SettingsLayout', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(<SettingsLayout sections={sections} />)
-    expect(container.querySelector('[data-component="settings-layout"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="settings-layout"]')
+    ).not.toBeNull()
   })
 
   it('renders all section labels in nav', () => {
@@ -41,14 +43,18 @@ describe('SettingsLayout', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<SettingsLayout sections={sections} className="my-settings" />)
+    const { container } = render(
+      <SettingsLayout sections={sections} className="my-settings" />
+    )
     const el = container.querySelector('[data-component="settings-layout"]')
     expect(el?.className).toContain('my-settings')
   })
 
   it('renders nothing when active section not found', () => {
     const { container } = render(<SettingsLayout sections={[]} />)
-    const content = container.querySelector('[data-component="settings-layout"] > div:last-child')
+    const content = container.querySelector(
+      '[data-component="settings-layout"] > div:last-child'
+    )
     expect(content?.children.length).toBe(0)
   })
 
@@ -58,7 +64,11 @@ describe('SettingsLayout', () => {
     const user = userEvent.setup()
     const onSectionChange = vi.fn()
     const { rerender } = render(
-      <SettingsLayout sections={sections} activeSection="general" onSectionChange={onSectionChange} />,
+      <SettingsLayout
+        sections={sections}
+        activeSection="general"
+        onSectionChange={onSectionChange}
+      />
     )
     expect(screen.getByText('General settings')).toBeDefined()
     await user.click(screen.getByText('Security'))
@@ -66,19 +76,31 @@ describe('SettingsLayout', () => {
     // should not change content until parent updates
     expect(screen.getByText('General settings')).toBeDefined()
     // simulate parent update
-    rerender(<SettingsLayout sections={sections} activeSection="security" onSectionChange={onSectionChange} />)
+    rerender(
+      <SettingsLayout
+        sections={sections}
+        activeSection="security"
+        onSectionChange={onSectionChange}
+      />
+    )
     expect(screen.getByText('Security settings')).toBeDefined()
   })
 
   it('applies animation class when animated is true (default)', () => {
     const { container } = render(<SettingsLayout sections={sections} />)
-    const content = container.querySelector('[data-component="settings-layout"] > div:last-child')
+    const content = container.querySelector(
+      '[data-component="settings-layout"] > div:last-child'
+    )
     expect(content?.className).toContain('animate-fade-in')
   })
 
   it('does not apply animation class when animated is false', () => {
-    const { container } = render(<SettingsLayout sections={sections} animated={false} />)
-    const content = container.querySelector('[data-component="settings-layout"] > div:last-child')
+    const { container } = render(
+      <SettingsLayout sections={sections} animated={false} />
+    )
+    const content = container.querySelector(
+      '[data-component="settings-layout"] > div:last-child'
+    )
     expect(content?.className).not.toContain('animate-fade-in')
   })
 
@@ -101,7 +123,9 @@ describe('SettingsLayout', () => {
   })
 
   it('applies custom navWidth', () => {
-    const { container } = render(<SettingsLayout sections={sections} navWidth={256} />)
+    const { container } = render(
+      <SettingsLayout sections={sections} navWidth={256} />
+    )
     const nav = container.querySelector('nav')
     expect(nav?.style.width).toBe('256px')
   })
@@ -113,7 +137,9 @@ describe('SettingsLayout', () => {
   })
 
   it('does not make nav sticky when stickyNav is false', () => {
-    const { container } = render(<SettingsLayout sections={sections} stickyNav={false} />)
+    const { container } = render(
+      <SettingsLayout sections={sections} stickyNav={false} />
+    )
     const nav = container.querySelector('nav')
     expect(nav?.style.position).not.toBe('sticky')
   })
@@ -121,7 +147,9 @@ describe('SettingsLayout', () => {
   it('calls onSectionChange in uncontrolled mode too', async () => {
     const user = userEvent.setup()
     const onSectionChange = vi.fn()
-    render(<SettingsLayout sections={sections} onSectionChange={onSectionChange} />)
+    render(
+      <SettingsLayout sections={sections} onSectionChange={onSectionChange} />
+    )
     await user.click(screen.getByText('Security'))
     expect(onSectionChange).toHaveBeenCalledWith('security')
     // should also switch content in uncontrolled mode

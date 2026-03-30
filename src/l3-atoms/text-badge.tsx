@@ -22,14 +22,17 @@ type TextBadgeProps = React.HTMLAttributes<HTMLSpanElement> & {
 }
 
 export const TextBadge = forwardRef<HTMLSpanElement, TextBadgeProps>(
-  function TextBadge({ className, label, size = 'default', variant = 'accent', ...props }, ref) {
+  function TextBadge(
+    { className, label, size = 'default', variant = 'accent', ...props },
+    ref
+  ) {
     return (
       <span
         className={cx(
-          'inline-flex select-none items-center rounded-full font-bold uppercase leading-none tracking-wider',
+          'inline-flex items-center rounded-full leading-none font-bold tracking-wider uppercase select-none',
           variantMap[variant],
           sizeMap[size],
-          className,
+          className
         )}
         data-component="text-badge"
         data-variant={variant}
@@ -39,7 +42,7 @@ export const TextBadge = forwardRef<HTMLSpanElement, TextBadgeProps>(
         {label}
       </span>
     )
-  },
+  }
 )
 
 export type { TextBadgeProps }

@@ -16,7 +16,19 @@ export type ListItemProps = {
 }
 
 export const ListItem = forwardRef<HTMLDivElement, ListItemProps>(
-  function ListItem({ icon, title, description, trailing, onClick, active, disabled, className }, ref) {
+  function ListItem(
+    {
+      icon,
+      title,
+      description,
+      trailing,
+      onClick,
+      active,
+      disabled,
+      className,
+    },
+    ref
+  ) {
     const isClickable = onClick !== undefined && disabled !== true
 
     return (
@@ -25,31 +37,39 @@ export const ListItem = forwardRef<HTMLDivElement, ListItemProps>(
         role={isClickable ? 'button' : undefined}
         tabIndex={isClickable ? 0 : undefined}
         onClick={isClickable ? onClick : undefined}
-        onKeyDown={isClickable ? (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault()
-            onClick()
-          }
-        } : undefined}
+        onKeyDown={
+          isClickable
+            ? (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  onClick()
+                }
+              }
+            : undefined
+        }
         className={cx(
-          'flex items-center gap-3 gds-pad-x gds-pad-y-sm gds-text-body select-none',
-          isClickable && 'cursor-pointer hover:bg-bg-tertiary',
-          active === true && 'border-l-2 border-l-accent bg-accent/5',
+          'gds-pad-x gds-pad-y-sm gds-text-body flex items-center gap-3 select-none',
+          isClickable && 'hover:bg-bg-tertiary cursor-pointer',
+          active === true && 'border-l-accent bg-accent/5 border-l-2',
           disabled === true && 'pointer-events-none opacity-50',
-          className,
+          className
         )}
         data-component="list-item"
         data-state={active === true ? 'active' : undefined}
       >
-        {icon !== undefined && <span className="shrink-0 text-fg-muted">{icon}</span>}
+        {icon !== undefined && (
+          <span className="text-fg-muted shrink-0">{icon}</span>
+        )}
         <div className="min-w-0 flex-1">
-          <div className="font-medium text-fg">{title}</div>
+          <div className="text-fg font-medium">{title}</div>
           {description !== undefined && (
-            <div className="mt-0.5 text-fg-muted gds-text-caption">{description}</div>
+            <div className="text-fg-muted gds-text-caption mt-0.5">
+              {description}
+            </div>
           )}
         </div>
         {trailing !== undefined && <span className="shrink-0">{trailing}</span>}
       </div>
     )
-  },
+  }
 )

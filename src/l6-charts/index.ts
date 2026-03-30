@@ -38,7 +38,11 @@ export type { HistogramProps } from './histogram'
 export { Histogram } from './histogram'
 export type { LineChartProps } from './line-chart'
 export { LineChart } from './line-chart'
-export type { NetworkEdge, NetworkGraphProps, NetworkNode } from './network-graph'
+export type {
+  NetworkEdge,
+  NetworkGraphProps,
+  NetworkNode,
+} from './network-graph'
 export { NetworkGraph } from './network-graph'
 export type { OrderBookChartProps } from './order-book-chart'
 export { OrderBookChart } from './order-book-chart'

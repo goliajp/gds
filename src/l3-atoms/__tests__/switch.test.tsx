@@ -12,7 +12,9 @@ describe('Switch', () => {
 
   it('has aria-checked=false by default', () => {
     render(<Switch />)
-    expect(screen.getByRole('switch').getAttribute('aria-checked')).toBe('false')
+    expect(screen.getByRole('switch').getAttribute('aria-checked')).toBe(
+      'false'
+    )
   })
 
   it('has aria-checked=true when checked', () => {

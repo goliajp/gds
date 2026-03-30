@@ -54,7 +54,11 @@ export const WaffleChart = forwardRef<HTMLDivElement, WaffleChartProps>(
 
     return (
       <div
-        className={cx('inline-flex flex-col gds-radius-popover border border-white/[0.06]', glassClass(glass), className)}
+        className={cx(
+          'gds-radius-popover inline-flex flex-col border border-white/[0.06]',
+          glassClass(glass),
+          className
+        )}
         data-component="waffle-chart"
         ref={ref}
         {...props}
@@ -77,12 +81,17 @@ export const WaffleChart = forwardRef<HTMLDivElement, WaffleChartProps>(
             )
           })}
         </svg>
-        <div className="flex flex-wrap gap-3 px-2 pb-2 pt-1">
+        <div className="flex flex-wrap gap-3 px-2 pt-1 pb-2">
           {data.map((segment, i) => (
-            <div key={segment.label} className="flex items-center gap-1.5 text-[10px] text-fg-muted">
+            <div
+              key={segment.label}
+              className="text-fg-muted flex items-center gap-1.5 text-[10px]"
+            >
               <span
                 className="inline-block h-2 w-2 rounded-full"
-                style={{ backgroundColor: segment.color ?? PALETTE[i % PALETTE.length] }}
+                style={{
+                  backgroundColor: segment.color ?? PALETTE[i % PALETTE.length],
+                }}
               />
               <span>{segment.label}</span>
               <span className="text-fg-muted/50">{segment.value}%</span>
@@ -91,5 +100,5 @@ export const WaffleChart = forwardRef<HTMLDivElement, WaffleChartProps>(
         </div>
       </div>
     )
-  },
+  }
 )

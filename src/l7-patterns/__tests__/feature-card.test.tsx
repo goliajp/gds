@@ -15,7 +15,9 @@ describe('FeatureCard', () => {
   })
 
   it('renders icon when provided', () => {
-    render(<FeatureCard title="Title" icon={<span data-testid="icon">IC</span>} />)
+    render(
+      <FeatureCard title="Title" icon={<span data-testid="icon">IC</span>} />
+    )
     expect(screen.getByTestId('icon')).toBeDefined()
   })
 

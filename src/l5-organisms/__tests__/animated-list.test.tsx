@@ -10,7 +10,7 @@ describe('AnimatedList', () => {
         <div>Item A</div>
         <div>Item B</div>
         <div>Item C</div>
-      </AnimatedList>,
+      </AnimatedList>
     )
     expect(screen.getByText('Item A')).toBeDefined()
     expect(screen.getByText('Item B')).toBeDefined()
@@ -22,7 +22,7 @@ describe('AnimatedList', () => {
       <AnimatedList animation="fade">
         <div>One</div>
         <div>Two</div>
-      </AnimatedList>,
+      </AnimatedList>
     )
     const wrappers = container.querySelectorAll('.animate-fade-in')
     expect(wrappers.length).toBe(2)
@@ -34,7 +34,7 @@ describe('AnimatedList', () => {
         <div>A</div>
         <div>B</div>
         <div>C</div>
-      </AnimatedList>,
+      </AnimatedList>
     )
     const list = container.querySelector('[data-component="animated-list"]')
     const wrappers = list?.children
@@ -47,8 +47,10 @@ describe('AnimatedList', () => {
     const { container } = render(
       <AnimatedList>
         <div>X</div>
-      </AnimatedList>,
+      </AnimatedList>
     )
-    expect(container.querySelector('[data-component="animated-list"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="animated-list"]')
+    ).not.toBeNull()
   })
 })
