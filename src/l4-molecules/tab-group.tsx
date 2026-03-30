@@ -1,6 +1,6 @@
 // tab-group — tabs with content panels in one composed component
 import type { ReactNode } from 'react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { cx } from '../utils/cx'
 import { glassClass } from '../utils/glass'
@@ -16,13 +16,24 @@ export type TabGroupTab = {
 export type TabGroupProps = {
   tabs: TabGroupTab[]
   defaultTab?: string
+  lazy?: boolean
+  keepMounted?: boolean
+  activeTab?: string
+  onTabChange?: (tabId: string) => void
   glass?: boolean
   className?: string
 }
 
-export function TabGroup({ tabs, defaultTab, glass, className }: TabGroupProps) {
+export function TabGroup({ tabs, defaultTab, lazy = false, keepMounted = true, activeTab: controlledTab, onTabChange, glass, className }: TabGroupProps) {
+  const isControlled = controlledTab !== undefined && onTabChange !== undefined
   const initialTab = defaultTab ?? (tabs.length > 0 ? tabs[0].id : '')
-  const [activeTab, setActiveTab] = useState(initialTab)
+  const [internalTab, setInternalTab] = useState(initialTab)
+  const currentTab = isControlled ? controlledTab : internalTab
+  const renderedTabsRef = useRef<Set<string>>(new Set([currentTab]))
+
+  if (lazy && keepMounted) {
+    renderedTabsRef.current.add(currentTab)
+  }
 
   const tabItems = tabs.map((t) => ({
     id: t.id,
@@ -32,11 +43,41 @@ export function TabGroup({ tabs, defaultTab, glass, className }: TabGroupProps) 
   const handleChange = (id: string) => {
     const tab = tabs.find((t) => t.id === id)
     if (tab !== undefined && tab.disabled !== true) {
-      setActiveTab(id)
+      if (isControlled) {
+        onTabChange(id)
+      } else {
+        setInternalTab(id)
+      }
     }
   }
 
-  const activeContent = tabs.find((t) => t.id === activeTab)
+  const renderContent = () => {
+    if (lazy && keepMounted) {
+      const rendered = renderedTabsRef.current
+      return tabs
+        .filter((t) => rendered.has(t.id))
+        .map((t) => (
+          <div
+            key={t.id}
+            role="tabpanel"
+            hidden={t.id !== currentTab}
+            className="gds-pad"
+          >
+            {t.content}
+          </div>
+        ))
+    }
+
+    const activeContent = tabs.find((t) => t.id === currentTab)
+    if (activeContent === undefined) {
+      return null
+    }
+    return (
+      <div role="tabpanel" className="gds-pad">
+        {activeContent.content}
+      </div>
+    )
+  }
 
   return (
     <div
@@ -51,13 +92,11 @@ export function TabGroup({ tabs, defaultTab, glass, className }: TabGroupProps) 
     >
       <Tabs
         tabs={tabItems}
-        active={activeTab}
+        active={currentTab}
         onChange={handleChange}
         size="sm"
       />
-      <div className="gds-pad">
-        {activeContent !== undefined ? activeContent.content : null}
-      </div>
+      {renderContent()}
     </div>
   )
 }

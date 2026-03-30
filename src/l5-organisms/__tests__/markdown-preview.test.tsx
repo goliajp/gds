@@ -206,4 +206,31 @@ describe('MarkdownPreview', () => {
     const { container } = render(<MarkdownPreview content="Hello" />)
     expect(container.querySelector('[data-component="markdown-preview"]')).not.toBeNull()
   })
+
+  // --- v2 sanitization feature tests ---
+
+  it('sanitize=true (default) removes script tags', () => {
+    const content = '<script>alert("xss")</script><p>Safe</p>'
+    const { container } = render(<MarkdownPreview content={content} />)
+    const root = container.querySelector('[data-component="markdown-preview"]')!
+    expect(root.querySelector('script')).toBeNull()
+    expect(root.textContent).toContain('Safe')
+  })
+
+  it('sanitize=false preserves raw HTML from parser', () => {
+    // With sanitize=false the raw HTML output from parseMarkdown is used directly
+    const { container } = render(<MarkdownPreview content="**bold text**" sanitize={false} />)
+    const root = container.querySelector('[data-component="markdown-preview"]')!
+    const strong = root.querySelector('strong')
+    expect(strong).not.toBeNull()
+    expect(strong?.textContent).toBe('bold text')
+  })
+
+  it('sanitize=false does not strip inline HTML', () => {
+    // parseMarkdown escapes HTML in text, but sanitize=false skips DOMPurify
+    const { container } = render(<MarkdownPreview content="# Title" sanitize={false} />)
+    const root = container.querySelector('[data-component="markdown-preview"]')!
+    expect(root.querySelector('h1')).not.toBeNull()
+    expect(root.querySelector('h1')?.textContent).toBe('Title')
+  })
 })
