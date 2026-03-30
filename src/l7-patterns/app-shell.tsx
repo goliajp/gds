@@ -10,7 +10,7 @@ import { cx } from '../utils/cx'
 import { glassClass } from '../utils/glass'
 import { useIsMobile } from '../utils/hooks'
 
-export type AppShellProps = {
+export type AppShellProps = React.HTMLAttributes<HTMLDivElement> & {
   /** sidebar slot (left or right) */
   sidebar?: ReactNode
   /** main content area */
@@ -47,11 +47,13 @@ export const AppShell = forwardRef<HTMLDivElement, AppShellProps>(
     gap = 0,
     glass,
     className,
+    ...props
   }, ref) {
     const isMobile = useIsMobile()
 
     return (
       <div
+        {...props}
         ref={ref}
         className={cx(
           'fixed inset-0 flex flex-col bg-bg',

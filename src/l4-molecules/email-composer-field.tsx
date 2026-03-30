@@ -15,7 +15,7 @@ export type EmailContact = {
   avatar?: string
 }
 
-export type EmailComposerFieldProps = {
+export type EmailComposerFieldProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
   /** current recipient list */
   value: EmailContact[]
   /** update recipient list */
@@ -47,14 +47,14 @@ function emailColor(email: string): string {
     hash = email.charCodeAt(i) + ((hash << 5) - hash)
   }
   const colors = [
-    'bg-red-500/20 text-red-400',
-    'bg-blue-500/20 text-blue-400',
-    'bg-green-500/20 text-green-400',
-    'bg-yellow-500/20 text-yellow-400',
-    'bg-purple-500/20 text-purple-400',
-    'bg-pink-500/20 text-pink-400',
-    'bg-cyan-500/20 text-cyan-400',
-    'bg-orange-500/20 text-orange-400',
+    'bg-palette-0/20 text-palette-0',
+    'bg-palette-1/20 text-palette-1',
+    'bg-palette-2/20 text-palette-2',
+    'bg-palette-3/20 text-palette-3',
+    'bg-palette-4/20 text-palette-4',
+    'bg-palette-5/20 text-palette-5',
+    'bg-palette-6/20 text-palette-6',
+    'bg-palette-7/20 text-palette-7',
   ]
   return colors[Math.abs(hash) % colors.length]
 }
@@ -107,7 +107,7 @@ function SuggestionDropdown({
   if (results.length === 0) return null
 
   return (
-    <div className="absolute left-0 right-0 top-full mt-1 z-50 rounded-lg border border-border bg-bg-secondary shadow-lg overflow-hidden max-h-48 overflow-y-auto">
+    <div className="absolute left-0 right-0 top-full mt-1 z-50 rounded-lg border border-border bg-bg-secondary shadow-lg overflow-hidden max-h-48 overflow-y-auto" role="listbox" id="email-composer-suggestions">
       {results.map((contact, i) => (
         <button
           key={contact.email}
@@ -118,6 +118,8 @@ function SuggestionDropdown({
           )}
           onClick={() => onSelect(contact)}
           data-active={i === activeIndex}
+          role="option"
+          aria-selected={i === activeIndex}
         >
           <span className={cx('flex h-6 w-6 shrink-0 items-center justify-center rounded-full gds-text-caption font-medium', emailColor(contact.email))}>
             {(contact.name ?? contact.email).charAt(0).toUpperCase()}
@@ -146,6 +148,7 @@ export const EmailComposerField = forwardRef<HTMLDivElement, EmailComposerFieldP
     placeholder,
     glass,
     className,
+    ...props
   }, ref) {
     const [query, setQuery] = useState('')
     const [results, setResults] = useState<EmailContact[]>([])
@@ -153,6 +156,17 @@ export const EmailComposerField = forwardRef<HTMLDivElement, EmailComposerFieldP
     const [showDropdown, setShowDropdown] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null)
     const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined)
+    const searchSeqRef = useRef(0)
+    const blurTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
+
+    // cleanup blur timer on unmount
+    useEffect(() => {
+      return () => {
+        if (blurTimerRef.current !== undefined) {
+          clearTimeout(blurTimerRef.current)
+        }
+      }
+    }, [])
 
     // async search with debounce
     useEffect(() => {
@@ -165,8 +179,12 @@ export const EmailComposerField = forwardRef<HTMLDivElement, EmailComposerFieldP
         clearTimeout(debounceRef.current)
       }
 
+      const seq = ++searchSeqRef.current
+
       debounceRef.current = setTimeout(async () => {
         const searchResults = await onSearch(query)
+        // discard stale responses from out-of-order async completions
+        if (seq !== searchSeqRef.current) return
         // filter out already-selected contacts
         const filtered = searchResults.filter(
           r => !value.some(v => v.email === r.email),
@@ -244,6 +262,7 @@ export const EmailComposerField = forwardRef<HTMLDivElement, EmailComposerFieldP
 
     return (
       <div
+        {...props}
         ref={ref}
         className={cx('relative', className)}
         data-component="email-composer-field"
@@ -278,9 +297,18 @@ export const EmailComposerField = forwardRef<HTMLDivElement, EmailComposerFieldP
             onKeyDown={handleKeyDown}
             onPaste={handlePaste}
             onFocus={() => setShowDropdown(true)}
+            role="combobox"
+            aria-expanded={showDropdown && results.length > 0}
+            aria-autocomplete="list"
+            aria-controls="email-composer-suggestions"
+            aria-label={`${label} recipients`}
             onBlur={() => {
               // delay to allow dropdown click to fire
-              setTimeout(() => {
+              if (blurTimerRef.current !== undefined) {
+                clearTimeout(blurTimerRef.current)
+              }
+              blurTimerRef.current = setTimeout(() => {
+                blurTimerRef.current = undefined
                 setShowDropdown(false)
                 if (query.trim() !== '') addEmailFromText(query)
               }, 200)

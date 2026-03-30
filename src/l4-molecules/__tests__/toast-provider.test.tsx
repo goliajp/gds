@@ -195,5 +195,49 @@ describe('ToastProvider', () => {
       })
       expect(screen.queryByText('Default timer')).toBeNull()
     })
+
+    it('dismissAll clears pending auto-dismiss timers', () => {
+      render(<ToastProvider />)
+      act(() => {
+        toast.success('Timer1', { duration: 3000 })
+        toast.success('Timer2', { duration: 3000 })
+      })
+      expect(screen.getByText('Timer1')).toBeDefined()
+      expect(screen.getByText('Timer2')).toBeDefined()
+      act(() => {
+        toast.dismissAll()
+      })
+      expect(screen.queryByText('Timer1')).toBeNull()
+      expect(screen.queryByText('Timer2')).toBeNull()
+      // advancing timers after dismissAll should not cause errors
+      act(() => {
+        vi.advanceTimersByTime(5000)
+      })
+    })
+  })
+
+  it('handles multiple rapid toasts without losing any', () => {
+    render(<ToastProvider />)
+    act(() => {
+      toast.success('Rapid1')
+      toast.error('Rapid2')
+      toast.warning('Rapid3')
+      toast.info('Rapid4')
+      toast.show('Rapid5')
+    })
+    expect(screen.getByText('Rapid1')).toBeDefined()
+    expect(screen.getByText('Rapid2')).toBeDefined()
+    expect(screen.getByText('Rapid3')).toBeDefined()
+    expect(screen.getByText('Rapid4')).toBeDefined()
+    expect(screen.getByText('Rapid5')).toBeDefined()
+  })
+
+  it('toast.info() maps to default variant', () => {
+    render(<ToastProvider />)
+    act(() => {
+      toast.info('Info message')
+    })
+    // toast.info maps to 'default' variant — verify it renders (same as toast.show)
+    expect(screen.getByText('Info message')).toBeDefined()
   })
 })

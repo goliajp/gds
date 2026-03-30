@@ -174,7 +174,9 @@ function EmailAttachmentPreview({
         />
       ) : (
         <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded bg-bg-tertiary text-fg-muted">
-          {isImage ? <ImageIcon size={18} /> : isPdf ? <FileText size={18} /> : <Paperclip size={18} />}
+          {isImage && <ImageIcon size={18} />}
+            {!isImage && isPdf && <FileText size={18} />}
+            {!isImage && !isPdf && <Paperclip size={18} />}
         </span>
       )}
 
@@ -242,6 +244,8 @@ function EmailAiPanel({ analysis }: { analysis: EmailAiAnalysis }) {
         type="button"
         className="flex w-full items-center gap-2 text-left text-xs font-medium text-accent"
         onClick={() => setExpanded((p) => !p)}
+        aria-expanded={expanded}
+        aria-label="AI Analysis"
       >
         <Sparkles size={14} />
         <span className="flex-1">AI Analysis</span>
@@ -423,6 +427,8 @@ function EmailMessageBubble({
         type="button"
         className="flex min-w-0 flex-1 items-center gap-2 text-left"
         onClick={onToggleExpand}
+        aria-expanded={isExpanded}
+        aria-label={isExpanded ? `Collapse message from ${displayName}` : `Expand message from ${displayName}`}
       >
         {isExpanded ? <ChevronDown size={14} className="shrink-0 text-fg-muted" /> : <ChevronRight size={14} className="shrink-0 text-fg-muted" />}
         <span className="truncate text-sm font-medium text-fg">{displayName}</span>
@@ -508,6 +514,8 @@ function EmailMessageBubble({
               type="button"
               className="w-full text-left text-sm text-fg-muted"
               onClick={onToggleExpand}
+              aria-expanded={false}
+              aria-label={`Expand message from ${displayName}`}
             >
               <span className="line-clamp-2">{collapsedPreview}</span>
               <span className="text-xs text-accent"> Show more</span>
@@ -520,10 +528,10 @@ function EmailMessageBubble({
           <div className="mt-3">
             <div className="mb-1.5 flex items-center gap-1 text-xs font-medium text-fg-muted">
               <Paperclip size={12} />
-              <span>{message.attachments!.length} attachment{message.attachments!.length > 1 ? 's' : ''}</span>
+              <span>{message.attachments?.length ?? 0} attachment{(message.attachments?.length ?? 0) > 1 ? 's' : ''}</span>
             </div>
             <div className="grid gap-2 sm:grid-cols-2">
-              {message.attachments!.map((att) => (
+              {(message.attachments ?? []).map((att) => (
                 <EmailAttachmentPreview
                   key={att.index}
                   attachment={att}
@@ -539,8 +547,8 @@ function EmailMessageBubble({
         )}
 
         {/* AI Analysis (expanded only) */}
-        {isExpanded && hasAiAnalysis && (
-          <EmailAiPanel analysis={message.aiAnalysis!} />
+        {isExpanded && hasAiAnalysis && message.aiAnalysis !== undefined && message.aiAnalysis !== null && (
+          <EmailAiPanel analysis={message.aiAnalysis} />
         )}
       </div>
     </div>
@@ -603,6 +611,24 @@ const EmailThread = forwardRef<HTMLDivElement, EmailThreadProps>(
         return next
       })
     }, [])
+
+    if (messages.length === 0) {
+      return (
+        <div
+          ref={ref}
+          className={cx(
+            'flex flex-col items-center justify-center py-12 text-fg-muted gds-text-body',
+            glass === true && glassClass(glass),
+            className,
+          )}
+          data-component="email-thread"
+          data-state="empty"
+          {...props}
+        >
+          <p>No messages</p>
+        </div>
+      )
+    }
 
     return (
       <div

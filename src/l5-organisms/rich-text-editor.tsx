@@ -49,7 +49,7 @@ export type RichTextEditorHandle = {
   isEmpty: () => boolean
 }
 
-export type RichTextEditorProps = {
+export type RichTextEditorProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
   /** HTML string, controlled */
   value?: string
   /** HTML string, uncontrolled */
@@ -160,6 +160,7 @@ function makeToolbarButtons(): ToolbarButton[] {
       key: 'link', label: 'Link',
       icon: <span className="text-[11px]">🔗</span>,
       action: (e) => {
+        if (typeof window === 'undefined') return
         const url = window.prompt('Enter URL')
         if (url !== null && url !== '') {
           e.chain().focus().setLink({ href: url }).run()
@@ -171,6 +172,7 @@ function makeToolbarButtons(): ToolbarButton[] {
       key: 'image', label: 'Image',
       icon: <span className="text-[11px]">🖼</span>,
       action: (e) => {
+        if (typeof window === 'undefined') return
         const url = window.prompt('Enter image URL')
         if (url !== null && url !== '') {
           e.chain().focus().setImage({ src: url }).run()
@@ -221,6 +223,7 @@ export const RichTextEditor = forwardRef<RichTextEditorHandle, RichTextEditorPro
     onSubmit,
     glass,
     className,
+    ...props
   }, ref) {
     const isControlled = value !== undefined
     const initialContent = value ?? defaultValue ?? ''
@@ -322,11 +325,13 @@ export const RichTextEditor = forwardRef<RichTextEditorHandle, RichTextEditorPro
         }
       }
       const el = editor.view.dom
-      el.addEventListener('drop', handleDrop as unknown as EventListener)
-      el.addEventListener('paste', handlePaste as unknown as EventListener)
+      const dropHandler = (event: DragEvent) => { void handleDrop(event) }
+      const pasteHandler = (event: ClipboardEvent) => { void handlePaste(event) }
+      el.addEventListener('drop', dropHandler)
+      el.addEventListener('paste', pasteHandler)
       return () => {
-        el.removeEventListener('drop', handleDrop as unknown as EventListener)
-        el.removeEventListener('paste', handlePaste as unknown as EventListener)
+        el.removeEventListener('drop', dropHandler)
+        el.removeEventListener('paste', pasteHandler)
       }
     }, [editor, onImageUpload])
 
@@ -347,6 +352,7 @@ export const RichTextEditor = forwardRef<RichTextEditorHandle, RichTextEditorPro
 
     return (
       <div
+        {...props}
         className={cx(
           'flex flex-col border border-border gds-radius-input bg-surface overflow-hidden',
           glass === true && glassClass(glass),
@@ -358,10 +364,10 @@ export const RichTextEditor = forwardRef<RichTextEditorHandle, RichTextEditorPro
       >
         {/* toolbar */}
         {showToolbar && editor !== null && (
-          <div className="flex items-center flex-wrap gap-0.5 border-b border-border bg-bg-secondary px-2 py-1.5">
+          <div className="flex items-center flex-wrap gap-0.5 border-b border-border bg-bg-secondary px-2 py-1.5" role="toolbar" aria-label="Formatting options">
             {items.map((item, i) => {
               if (item === '|') {
-                return <div key={`sep-${i}`} className="mx-1 h-4 w-px bg-border" />
+                return <div key={`sep-${i}`} className="mx-1 h-4 w-px bg-border" role="separator" />
               }
               const btn = allButtons.find(b => b.key === item)
               if (btn === undefined) return null
@@ -378,6 +384,8 @@ export const RichTextEditor = forwardRef<RichTextEditorHandle, RichTextEditorPro
                   )}
                   onClick={() => btn.action(editor)}
                   title={btn.shortcut !== undefined ? `${btn.label} (${btn.shortcut})` : btn.label}
+                  aria-pressed={active}
+                  aria-label={btn.label}
                 >
                   {btn.icon}
                 </button>

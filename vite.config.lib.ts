@@ -37,6 +37,10 @@ export default defineConfig({
         'jotai',
         'recharts',
         'shiki',
+        // v2: optional peer deps — must not be bundled
+        /^@tiptap\//,
+        'lowlight',
+        'dompurify',
       ],
       output: {
         globals: {
