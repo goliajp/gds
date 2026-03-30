@@ -73,6 +73,30 @@ Direct imports of external packages are **forbidden** in component code. Use wra
 - `useEditor`, `EditorContent`, `StarterKit`, `Ext*` from `@gds/utils/tiptap` — replaces direct @tiptap/* (v2)
 - `sanitizeEmailHtml()`, `sanitizeHtml()` from `@gds/utils/sanitize` — replaces direct dompurify (v2)
 
+### CSS Integration (Tailwind v4)
+
+**CRITICAL:** GDS CSS files must be imported via CSS `@import` inside the consumer's Tailwind entry file, NOT via JS `import` in main.tsx. `theme.css` contains Tailwind's `@theme` directive which is only processed within the Tailwind compilation pipeline.
+
+```css
+/* app/src/index.css — correct */
+@import 'tailwindcss';
+@import '@goliapkg/gds/tokens.css';
+@import '@goliapkg/gds/theme.css';
+@import '@goliapkg/gds/fonts.css';
+```
+
+```typescript
+// main.tsx — only import the app CSS entry point
+import '@/index.css'
+```
+
+Do NOT import GDS CSS files directly in JS:
+```typescript
+// WRONG — @theme in theme.css won't be processed by Tailwind
+import '@goliapkg/gds/tokens.css'
+import '@goliapkg/gds/theme.css'
+```
+
 ### Subpath Exports
 
 Consumers can import by layer for optimal tree-shaking:
