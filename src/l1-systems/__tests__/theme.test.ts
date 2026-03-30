@@ -10,6 +10,7 @@ import {
   resolvedModeAtom,
   resolveThemeCssVars,
   themeAtom,
+  themePresets,
 } from '../theme'
 
 describe('resolveThemeCssVars', () => {
@@ -404,6 +405,216 @@ describe('resolveThemeCssVars — colorOverrides edge cases', () => {
     expect(vars['--gds-accent']).toBe('#111111')
     expect(vars['--gds-danger']).toBe('#222222')
     expect(vars['--gds-success']).toBe('#333333')
+  })
+})
+
+describe('resolveThemeCssVars — mode-aware overrides (zinc-neutral)', () => {
+  it('applies colorOverridesDark in dark mode', () => {
+    const state: ThemeState = {
+      ...DEFAULT_THEME,
+      colorOverrides: null,
+      colorOverridesLight: null,
+      colorOverridesDark: {
+        '--gds-bg': '#09090b',
+        '--gds-fg': '#fafafa',
+        '--gds-border': '#27272a',
+      },
+    }
+    const vars = resolveThemeCssVars(state, 'dark')
+    expect(vars['--gds-bg']).toBe('#09090b')
+    expect(vars['--gds-fg']).toBe('#fafafa')
+    expect(vars['--gds-border']).toBe('#27272a')
+  })
+
+  it('applies colorOverridesLight in light mode', () => {
+    const state: ThemeState = {
+      ...DEFAULT_THEME,
+      colorOverrides: null,
+      colorOverridesLight: {
+        '--gds-bg': '#fafafa',
+        '--gds-fg': '#09090b',
+        '--gds-border': '#e4e4e7',
+      },
+      colorOverridesDark: null,
+    }
+    const vars = resolveThemeCssVars(state, 'light')
+    expect(vars['--gds-bg']).toBe('#fafafa')
+    expect(vars['--gds-fg']).toBe('#09090b')
+    expect(vars['--gds-border']).toBe('#e4e4e7')
+  })
+
+  it('does NOT apply colorOverridesDark in light mode', () => {
+    const state: ThemeState = {
+      ...DEFAULT_THEME,
+      colorOverrides: null,
+      colorOverridesLight: null,
+      colorOverridesDark: { '--gds-bg': '#09090b' },
+    }
+    const vars = resolveThemeCssVars(state, 'light')
+    expect(vars['--gds-bg']).not.toBe('#09090b')
+  })
+
+  it('does NOT apply colorOverridesLight in dark mode', () => {
+    const state: ThemeState = {
+      ...DEFAULT_THEME,
+      colorOverrides: null,
+      colorOverridesLight: { '--gds-bg': '#fafafa' },
+      colorOverridesDark: null,
+    }
+    const vars = resolveThemeCssVars(state, 'dark')
+    expect(vars['--gds-bg']).not.toBe('#fafafa')
+  })
+
+  it('mode-specific overrides take priority over colorOverrides', () => {
+    const state: ThemeState = {
+      ...DEFAULT_THEME,
+      colorOverrides: { '--gds-bg': '#111111' },
+      colorOverridesLight: null,
+      colorOverridesDark: { '--gds-bg': '#09090b' },
+    }
+    const vars = resolveThemeCssVars(state, 'dark')
+    expect(vars['--gds-bg']).toBe('#09090b')
+  })
+
+  it('colorOverrides applies when mode-specific is null', () => {
+    const state: ThemeState = {
+      ...DEFAULT_THEME,
+      colorOverrides: { '--gds-bg': '#111111' },
+      colorOverridesLight: null,
+      colorOverridesDark: null,
+    }
+    const vars = resolveThemeCssVars(state, 'dark')
+    expect(vars['--gds-bg']).toBe('#111111')
+  })
+
+  it('zinc-neutral preset produces correct dark mode values via themePresets', () => {
+    const preset = themePresets['zinc-neutral']
+    const state: ThemeState = {
+      ...DEFAULT_THEME,
+      ...preset,
+      colorOverrides: null,
+      colorOverridesLight: preset.colorOverridesLight ?? null,
+      colorOverridesDark: preset.colorOverridesDark ?? null,
+      presetId: 'zinc-neutral',
+    }
+    const vars = resolveThemeCssVars(state, 'dark')
+    expect(vars['--gds-bg']).toBe('#09090b')
+    expect(vars['--gds-fg']).toBe('#fafafa')
+    expect(vars['--gds-border']).toBe('#27272a')
+    expect(vars['--gds-accent']).toBe('#3b82f6')
+  })
+
+  it('zinc-neutral preset produces correct light mode values via themePresets', () => {
+    const preset = themePresets['zinc-neutral']
+    const state: ThemeState = {
+      ...DEFAULT_THEME,
+      ...preset,
+      colorOverrides: null,
+      colorOverridesLight: preset.colorOverridesLight ?? null,
+      colorOverridesDark: preset.colorOverridesDark ?? null,
+      presetId: 'zinc-neutral',
+    }
+    const vars = resolveThemeCssVars(state, 'light')
+    expect(vars['--gds-bg']).toBe('#fafafa')
+    expect(vars['--gds-fg']).toBe('#09090b')
+    expect(vars['--gds-border']).toBe('#e4e4e7')
+    expect(vars['--gds-accent']).toBe('#3b7ddd')
+  })
+
+  it('zinc-neutral overrides persist through localStorage round-trip', () => {
+    // set up localStorage mock for this test
+    const storage = new Map<string, string>()
+    Object.defineProperty(globalThis, 'localStorage', {
+      value: {
+        getItem: (k: string) => storage.get(k) ?? null,
+        setItem: (k: string, v: string) => storage.set(k, v),
+        removeItem: (k: string) => storage.delete(k),
+      },
+      writable: true,
+    })
+
+    const preset = themePresets['zinc-neutral']
+    const state: ThemeState = {
+      ...DEFAULT_THEME,
+      ...preset,
+      colorOverrides: null,
+      colorOverridesLight: preset.colorOverridesLight ?? null,
+      colorOverridesDark: preset.colorOverridesDark ?? null,
+      presetId: 'zinc-neutral',
+    }
+    persistTheme(state)
+    const loaded = loadPersistedTheme()
+    expect(loaded).not.toBeNull()
+    const vars = resolveThemeCssVars(loaded!, 'dark')
+    expect(vars['--gds-bg']).toBe('#09090b')
+    expect(vars['--gds-fg']).toBe('#fafafa')
+  })
+})
+
+describe('useSetThemePreset — zinc-neutral via atom', () => {
+  it('setPreset zinc-neutral populates mode-aware overrides in atom', () => {
+    const store = createStore()
+    store.set(themeAtom, DEFAULT_THEME)
+
+    // simulate what useSetThemePreset does
+    const presetId = 'zinc-neutral'
+    const builtIn = themePresets[presetId as keyof typeof themePresets]
+    store.set(themeAtom, (prev) => ({
+      ...prev,
+      presetId,
+      colorOverrides: null,
+      colorOverridesLight: null,
+      colorOverridesDark: null,
+      ...builtIn,
+    }))
+
+    const state = store.get(themeAtom)
+    expect(state.colorOverridesDark).not.toBeNull()
+    expect(state.colorOverridesLight).not.toBeNull()
+    expect(state.colorOverridesDark?.['--gds-bg']).toBe('#09090b')
+    expect(state.colorOverridesLight?.['--gds-bg']).toBe('#fafafa')
+
+    // now verify resolveThemeCssVars uses them
+    const darkVars = resolveThemeCssVars(state, 'dark')
+    expect(darkVars['--gds-bg']).toBe('#09090b')
+    const lightVars = resolveThemeCssVars(state, 'light')
+    expect(lightVars['--gds-bg']).toBe('#fafafa')
+  })
+
+  it('switching from zinc-neutral to default clears overrides', () => {
+    const store = createStore()
+
+    // set zinc-neutral first (zn spread overwrites the null resets for override fields)
+    const zn = themePresets['zinc-neutral']
+    store.set(themeAtom, (prev) => {
+      const base = {
+        ...prev,
+        presetId: 'zinc-neutral' as const,
+        colorOverrides: null as ThemeState['colorOverrides'],
+        colorOverridesLight: null as ThemeState['colorOverridesLight'],
+        colorOverridesDark: null as ThemeState['colorOverridesDark'],
+      }
+      return { ...base, ...zn }
+    })
+
+    // now switch to default
+    const def = themePresets['default']
+    store.set(themeAtom, (prev) => ({
+      ...prev,
+      presetId: 'default',
+      colorOverrides: null,
+      colorOverridesLight: null,
+      colorOverridesDark: null,
+      ...def,
+    }))
+
+    const state = store.get(themeAtom)
+    expect(state.colorOverridesLight).toBeNull()
+    expect(state.colorOverridesDark).toBeNull()
+
+    // verify derived values are back (not zinc)
+    const vars = resolveThemeCssVars(state, 'dark')
+    expect(vars['--gds-bg']).not.toBe('#09090b')
   })
 })
 
