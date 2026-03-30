@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.1.1] - 2026-03-30
+
+### Fixed
+
+- Chart dark mode: all 12 recharts-based components (BarChart, LineChart, AreaChart, etc.) now set `fill` color on XAxis/YAxis tick labels. Previously tick text used SVG default `#666` which was invisible on dark backgrounds. Now uses `var(--gds-fg-muted)`.
+
+### Added
+
+- 11 new unit tests for zinc-neutral preset and mode-aware color overrides, covering dark/light mode application, priority layering, preset switching, and localStorage persistence round-trip. Total: 56 theme tests.
+
 ## [2.1.0] - 2026-03-30
 
 ### Added
