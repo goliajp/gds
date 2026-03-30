@@ -41,8 +41,11 @@ describe('CommandPalette', () => {
     )
     const input = screen.getByPlaceholderText('Search components, patterns, tokens...')
     await user.type(input, 'Theme')
-    expect(screen.getByText('Toggle Theme')).toBeDefined()
-    expect(screen.queryByText('Save File')).toBeNull()
+    // fuzzy highlight splits text across spans, so use textContent check
+    const buttons = document.querySelectorAll('button')
+    const matchTexts = Array.from(buttons).map(b => b.textContent)
+    expect(matchTexts.some(t => t !== null && t.includes('Toggle Theme'))).toBe(true)
+    expect(matchTexts.some(t => t !== null && t.includes('Save File'))).toBe(false)
   })
 
   it('calls onSelect when item is clicked', async () => {

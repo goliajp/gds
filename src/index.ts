@@ -8,8 +8,8 @@ export { GDS_DEPS, GDS_INFRA, GDS_INTERNAL_UTILS, LAYER_DEP_CONSTRAINTS } from '
 export * from './l0-tokens'
 
 // L1 — systems
-export type { ThemeColorOverrides, ThemeMode, ThemeState } from './l1-systems/theme'
-export { DEFAULT_THEME, resolvedModeAtom, resolveThemeCssVars, themeAtom } from './l1-systems/theme'
+export type { ThemeColorOverrides, ThemeMode, ThemePreset, ThemePresetId, ThemeState } from './l1-systems/theme'
+export { DEFAULT_THEME, resolvedModeAtom, resolveThemeCssVars, themeAtom, themePresets } from './l1-systems/theme'
 export {
   configureTheme,
   useResetTheme,

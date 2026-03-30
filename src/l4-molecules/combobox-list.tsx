@@ -1,6 +1,7 @@
 // combobox-list — dropdown option list for combobox (internal)
 import { useCallback } from 'react'
 
+import { Spinner } from '../l2-primitives/spinner'
 import { cx } from '../utils/cx'
 import { glassClass } from '../utils/glass'
 
@@ -10,9 +11,12 @@ type ComboboxOption = {
 }
 
 type ComboboxListProps = {
+  creatable?: boolean
   filtered: ComboboxOption[]
   glass?: boolean
   highlightedIndex: number
+  loading?: boolean
+  onCreateOption?: (value: string) => void
   onSearchChange: (value: string) => void
   onSelect: (value: string) => void
   query: string
@@ -23,9 +27,12 @@ type ComboboxListProps = {
 }
 
 function ComboboxList({
+  creatable = false,
   filtered,
   glass,
   highlightedIndex,
+  loading = false,
+  onCreateOption,
   onSearchChange,
   onSelect,
   query,
@@ -34,29 +41,41 @@ function ComboboxList({
   setHighlightedIndex,
   value,
 }: ComboboxListProps) {
+  // determine if the "Create" row should appear
+  const showCreate = creatable && query.trim() !== '' && filtered.length === 0 && !loading
+  // total navigable items includes the create row
+  const totalItems = filtered.length + (showCreate ? 1 : 0)
+
   const handleSearchKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'ArrowDown') {
         e.preventDefault()
         setHighlightedIndex(
-          highlightedIndex >= filtered.length - 1 ? 0 : highlightedIndex + 1,
+          highlightedIndex >= totalItems - 1 ? 0 : highlightedIndex + 1,
         )
       }
       if (e.key === 'ArrowUp') {
         e.preventDefault()
         setHighlightedIndex(
-          highlightedIndex <= 0 ? filtered.length - 1 : highlightedIndex - 1,
+          highlightedIndex <= 0 ? totalItems - 1 : highlightedIndex - 1,
         )
       }
       if (e.key === 'Enter') {
         e.preventDefault()
+        // if create row is highlighted
+        if (showCreate && highlightedIndex === filtered.length) {
+          if (onCreateOption !== undefined) {
+            onCreateOption(query.trim())
+          }
+          return
+        }
         const target = filtered[highlightedIndex]
         if (target !== undefined) {
           onSelect(target.value)
         }
       }
     },
-    [filtered, highlightedIndex, onSelect, setHighlightedIndex],
+    [filtered, highlightedIndex, onSelect, setHighlightedIndex, totalItems, showCreate, onCreateOption, query],
   )
 
   return (
@@ -80,12 +99,17 @@ function ComboboxList({
         />
       </div>
       <div className="max-h-60 overflow-y-auto py-1">
-        {filtered.length === 0 && (
+        {loading && (
+          <div className="flex items-center justify-center gds-pad-y-sm">
+            <Spinner className="h-4 w-4 text-fg-muted" />
+          </div>
+        )}
+        {!loading && filtered.length === 0 && !showCreate && (
           <div className="gds-pad-x gds-pad-y-sm text-sm text-fg-muted">
             No results
           </div>
         )}
-        {filtered.map((opt, index) => {
+        {!loading && filtered.map((opt, index) => {
           const isActive = opt.value === value
           const isHighlighted = index === highlightedIndex
           return (
@@ -106,6 +130,24 @@ function ComboboxList({
             </button>
           )
         })}
+        {showCreate && (
+          <button
+            className={cx(
+              'flex w-full items-center gds-pad-x gds-pad-y-sm text-left text-sm transition-colors text-accent',
+              highlightedIndex === filtered.length && 'bg-bg-tertiary',
+              highlightedIndex !== filtered.length && 'hover:bg-bg-tertiary',
+            )}
+            onClick={() => {
+              if (onCreateOption !== undefined) {
+                onCreateOption(query.trim())
+              }
+            }}
+            onMouseEnter={() => setHighlightedIndex(filtered.length)}
+            type="button"
+          >
+            Create: {query.trim()}
+          </button>
+        )}
       </div>
     </div>
   )
