@@ -5,6 +5,105 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.1.0] - 2026-03-30
+
+### Added
+
+- `zinc-neutral` built-in theme preset — pure neutral surfaces using Tailwind zinc scale, optimized for productivity apps (email clients, editors, document tools). Mode-aware with separate light/dark color palettes, production-proven in mailrs.
+- Mode-aware color overrides: `colorOverridesLight` and `colorOverridesDark` fields on `ThemeState`. Apply per-mode overrides on top of `colorOverrides`. Priority: derived palette → `colorOverrides` (both modes) → `colorOverrides{Light|Dark}` (mode-specific).
+- Expanded `ThemeColorOverrides` from 6 to 18 keys — now supports all `--gds-*` surface, foreground, border, overlay, and semantic color tokens (`--gds-bg`, `--gds-fg`, `--gds-border`, `--gds-surface`, `--gds-overlay`, `--gds-info`, etc.).
+- `useFonts` hook exported from main entry point (`@goliapkg/gds`) — no longer requires `@goliapkg/gds/systems` subpath.
+- `ThemeToggleMode` type exported from main entry point and `@goliapkg/gds/atoms`.
+- `useSetThemePreset()` now resolves built-in presets directly — `setPreset('zinc-neutral')` works without manual atom manipulation.
+
+### Fixed
+
+- **jotai duplicate instance** — moved `jotai` from `dependencies` to `peerDependencies`. Consumers no longer get a separate jotai copy inside `node_modules/@goliapkg/gds/node_modules/jotai`, which caused dual atom stores and broken cross-library state. **If you have `postinstall` scripts deleting GDS's bundled jotai, or `resolutions`/`overrides` forcing a single jotai version, you can safely remove them.**
+- `useSetThemePreset()` now resets all color override fields before applying a preset — prevents stale overrides from a previous preset leaking through.
+- `useSetThemeColors()` now clears `colorOverridesLight` and `colorOverridesDark` — prevents mode-specific overrides from a preset silently taking priority over the user's explicit overrides.
+- `useSetThemePrimaryColor()` now clears all color override fields — ensures a clean derived palette.
+
+### Changed
+
+- `ThemePreset` type: color override fields are optional. Simple presets only need axis fields + `primaryColor`.
+- `ThemePresetId` type now includes `'zinc-neutral'`.
+
+### Upgrade Guide
+
+**jotai peer dependency (action required)**
+
+GDS 2.1.0 declares `jotai` as a peer dependency instead of a runtime dependency. If you don't already have jotai in your project:
+
+```bash
+# npm
+npm install jotai
+
+# bun
+bun add jotai
+```
+
+**Clean up workarounds**
+
+If you previously worked around the duplicate jotai issue, you can now remove:
+
+```jsonc
+// package.json — remove postinstall hack
+"scripts": {
+  "postinstall": "rm -rf node_modules/@goliapkg/gds/node_modules/jotai"  // ← delete this
+}
+
+// package.json — remove resolutions/overrides
+"resolutions": {
+  "jotai": "^2.19.0"  // ← delete this
+}
+"overrides": {
+  "jotai": "^2.19.0"  // ← delete this
+}
+```
+
+Then reinstall:
+
+```bash
+rm -rf node_modules && bun install  # or npm install
+```
+
+**Using zinc-neutral preset**
+
+```typescript
+import { useSetThemePreset } from '@goliapkg/gds'
+
+const setPreset = useSetThemePreset()
+setPreset('zinc-neutral')  // pure zinc surfaces, mode-aware
+```
+
+Or with configureTheme at app init:
+
+```typescript
+import { themePresets, themeAtom } from '@goliapkg/gds'
+import { useSetAtom } from 'jotai'
+
+const setTheme = useSetAtom(themeAtom)
+setTheme(prev => ({
+  ...prev,
+  ...themePresets['zinc-neutral'],
+  mode: 'system',
+  presetId: 'zinc-neutral',
+}))
+```
+
+**Using expanded colorOverrides**
+
+```typescript
+import { useSetThemeColors } from '@goliapkg/gds'
+
+const setColors = useSetThemeColors()
+setColors({
+  '--gds-bg': '#09090b',
+  '--gds-fg': '#fafafa',
+  '--gds-border': '#27272a',
+})
+```
+
 ## [2.0.1] - 2026-03-30
 
 ### Fixed
