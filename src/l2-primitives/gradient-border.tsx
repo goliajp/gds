@@ -9,7 +9,7 @@ export type GradientBorderProps = {
   width?: number
   radius?: number
   className?: string
-}
+} & Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'className'>
 
 export const GradientBorder = forwardRef<HTMLDivElement, GradientBorderProps>(
   function GradientBorder(
@@ -19,6 +19,8 @@ export const GradientBorder = forwardRef<HTMLDivElement, GradientBorderProps>(
       width = 1,
       radius = 12,
       className,
+      style: styleProp,
+      ...props
     },
     ref,
   ) {
@@ -26,10 +28,11 @@ export const GradientBorder = forwardRef<HTMLDivElement, GradientBorderProps>(
 
     return (
       <div
+        {...props}
         ref={ref}
         data-component="gradient-border"
         className={cx(className)}
-        style={{ background: gradient, padding: width, borderRadius: radius }}
+        style={{ ...styleProp, background: gradient, padding: width, borderRadius: radius }}
       >
         <div
           className="bg-bg"

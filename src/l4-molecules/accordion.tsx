@@ -1,5 +1,5 @@
 // accordion — expandable sections with single/multiple mode
-import type { ReactNode } from 'react'
+import type { KeyboardEvent, ReactNode } from 'react'
 import { createContext, useContext, useState } from 'react'
 
 import { focusCls } from '../utils/a11y'
@@ -36,8 +36,32 @@ export function Accordion({ children, type = 'single', defaultExpanded = [], cla
     })
   }
 
+  function handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+    if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown' && e.key !== 'Home' && e.key !== 'End') {
+      return
+    }
+    const triggers = Array.from(
+      e.currentTarget.querySelectorAll<HTMLButtonElement>('button[aria-expanded]'),
+    )
+    const current = triggers.indexOf(e.target as HTMLButtonElement)
+    if (current < 0) return
+
+    e.preventDefault()
+    let nextIndex = current
+    if (e.key === 'ArrowDown') {
+      nextIndex = (current + 1) % triggers.length
+    } else if (e.key === 'ArrowUp') {
+      nextIndex = (current - 1 + triggers.length) % triggers.length
+    } else if (e.key === 'Home') {
+      nextIndex = 0
+    } else if (e.key === 'End') {
+      nextIndex = triggers.length - 1
+    }
+    triggers[nextIndex]?.focus()
+  }
+
   return (
-    <div className={cx('divide-y divide-border', className)} data-component="accordion">
+    <div className={cx('divide-y divide-border', className)} data-component="accordion" onKeyDown={handleKeyDown}>
       <AccordionContext.Provider value={{ expanded, toggle }}>
         {children}
       </AccordionContext.Provider>

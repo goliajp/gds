@@ -36,7 +36,7 @@ export function Dropdown({ items, onSelect, trigger, align = 'start', glass, cla
 
   return (
     <div ref={ref} className={cx('relative inline-block', className)} data-component="dropdown" data-state={open ? 'open' : 'closed'}>
-      <button type="button" onClick={() => setOpen((prev) => !prev)} className={focusCls}>
+      <button type="button" aria-expanded={open} onClick={() => setOpen((prev) => !prev)} className={focusCls}>
         {trigger}
       </button>
 

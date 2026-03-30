@@ -10,11 +10,11 @@ export type TruncateProps = {
   expanded?: boolean
   onToggle?: () => void
   className?: string
-}
+} & Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'className' | 'onClick' | 'role' | 'tabIndex'>
 
 export const Truncate = forwardRef<HTMLDivElement, TruncateProps>(
   function Truncate(
-    { children, lines = 1, expanded = false, onToggle, className },
+    { children, lines = 1, expanded = false, onToggle, className, style: styleProp, ...props },
     ref,
   ) {
     const shouldClamp = !expanded
@@ -32,13 +32,14 @@ export const Truncate = forwardRef<HTMLDivElement, TruncateProps>(
 
     return (
       <div
+        {...props}
         ref={ref}
         className={cx(
           isSingleLine && shouldClamp && 'truncate',
           isInteractive && 'cursor-pointer',
           className,
         )}
-        style={clampStyle}
+        style={{ ...styleProp, ...clampStyle }}
         onClick={isInteractive ? onToggle : undefined}
         data-component="truncate"
         data-expanded={expanded ? 'true' : undefined}

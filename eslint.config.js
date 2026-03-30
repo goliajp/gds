@@ -167,7 +167,10 @@ export default tseslint.config(
 
   // anti-corruption wrapper files — allowed to import raw deps
   {
-    files: ['src/utils/cx.ts', 'src/utils/types.ts', 'src/utils/portal.tsx'],
+    files: [
+      'src/utils/cx.ts', 'src/utils/types.ts', 'src/utils/portal.tsx',
+      'src/utils/tiptap.ts', 'src/utils/sanitize.ts',
+    ],
     rules: {
       'no-restricted-imports': 'off',
     },

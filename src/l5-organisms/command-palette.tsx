@@ -13,6 +13,9 @@ export type CommandItem = {
   icon?: ReactNode
   shortcut?: string
   group?: string
+  description?: string
+  disabled?: boolean
+  action?: () => void
 }
 
 export type CommandPaletteProps = {
@@ -22,6 +25,50 @@ export type CommandPaletteProps = {
   onSelect: (id: string) => void
   placeholder?: string
   className?: string
+  // v2: fuzzy search
+  fuzzy?: boolean
+  maxResults?: number
+  // v2: recent history
+  recentItems?: CommandItem[]
+  maxRecent?: number
+  onExecute?: (id: string) => void
+}
+
+// fuzzy match scoring: consecutive chars score higher than scattered
+function fuzzyScore(label: string, query: string): number {
+  const lower = label.toLowerCase()
+  const q = query.toLowerCase()
+  let score = 0
+  let queryIdx = 0
+  let consecutive = 0
+  let firstMatchBonus = 0
+
+  for (let i = 0; i < lower.length && queryIdx < q.length; i++) {
+    if (lower[i] === q[queryIdx]) {
+      if (queryIdx === 0 && i === 0) firstMatchBonus = 10
+      consecutive++
+      score += consecutive * 2 // reward consecutive matches
+      queryIdx++
+    } else {
+      consecutive = 0
+    }
+  }
+  if (queryIdx < q.length) return -1 // not all query chars matched
+  return score + firstMatchBonus
+}
+
+export function fuzzyMatchIndices(label: string, query: string): number[] {
+  const lower = label.toLowerCase()
+  const q = query.toLowerCase()
+  const indices: number[] = []
+  let queryIdx = 0
+  for (let i = 0; i < lower.length && queryIdx < q.length; i++) {
+    if (lower[i] === q[queryIdx]) {
+      indices.push(i)
+      queryIdx++
+    }
+  }
+  return indices
 }
 
 export function CommandPalette({
@@ -31,6 +78,11 @@ export function CommandPalette({
   onSelect,
   placeholder = 'Search components, patterns, tokens...',
   className,
+  fuzzy = true,
+  maxResults = 50,
+  recentItems,
+  maxRecent = 5,
+  onExecute,
 }: CommandPaletteProps) {
   const [query, setQuery] = useState('')
   const [activeIndex, setActiveIndex] = useState(0)
@@ -50,10 +102,28 @@ export function CommandPalette({
   }, [open])
 
   const filtered = useMemo(() => {
-    if (query === '') return items
+    // show recent items when query is empty
+    if (query === '') {
+      if (recentItems !== undefined && recentItems.length > 0) {
+        const recents = recentItems.slice(0, maxRecent).map(r => ({ ...r, group: 'Recent' }))
+        return [...recents, ...items]
+      }
+      return items
+    }
+
+    if (fuzzy) {
+      // fuzzy scoring — rank by match quality
+      const scored = items
+        .map(item => ({ item, score: fuzzyScore(item.label, query) }))
+        .filter(({ score }) => score > 0)
+        .sort((a, b) => b.score - a.score)
+      return scored.slice(0, maxResults).map(({ item }) => item)
+    }
+
+    // fallback: substring match
     const lower = query.toLowerCase()
-    return items.filter((item) => item.label.toLowerCase().includes(lower))
-  }, [items, query])
+    return items.filter((item) => item.label.toLowerCase().includes(lower)).slice(0, maxResults)
+  }, [items, query, fuzzy, maxResults, recentItems, maxRecent])
 
   // group items
   const groups = useMemo(() => {
@@ -79,9 +149,16 @@ export function CommandPalette({
   }, [activeIndex])
 
   const handleSelect = useCallback((id: string) => {
+    // fire action if item has one
+    const item = filtered.find(i => i.id === id)
+    if (item?.disabled) return
+    if (item?.action !== undefined) {
+      item.action()
+    }
     onSelect(id)
+    if (onExecute !== undefined) onExecute(id)
     onClose()
-  }, [onSelect, onClose])
+  }, [onSelect, onClose, onExecute, filtered])
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'ArrowDown') {
@@ -138,6 +215,8 @@ export function CommandPalette({
             activeIndex={activeIndex}
             filteredCount={filtered.length}
             onSelect={handleSelect}
+            query={query}
+            fuzzy={fuzzy}
           />
         </div>
 

@@ -1,12 +1,46 @@
 // command-palette-list — grouped results list (internal)
+import type { ReactNode } from 'react'
+
 import { cx } from '../utils/cx'
 import type { CommandItem } from './command-palette'
+import { fuzzyMatchIndices } from './command-palette'
 
 type CommandPaletteListProps = {
   groups: Map<string, CommandItem[]>
   activeIndex: number
   filteredCount: number
   onSelect: (id: string) => void
+  query?: string
+  fuzzy?: boolean
+}
+
+function highlightLabel(label: string, query: string, fuzzy: boolean): ReactNode {
+  if (query === '') return label
+  if (fuzzy) {
+    const indices = new Set(fuzzyMatchIndices(label, query))
+    if (indices.size === 0) return label
+    return (
+      <>
+        {label.split('').map((char, i) => {
+          if (indices.has(i)) {
+            return <span key={i} className="font-semibold text-accent">{char}</span>
+          }
+          return char
+        })}
+      </>
+    )
+  }
+  // substring highlight
+  const lower = label.toLowerCase()
+  const idx = lower.indexOf(query.toLowerCase())
+  if (idx < 0) return label
+  return (
+    <>
+      {label.slice(0, idx)}
+      <span className="font-semibold text-accent">{label.slice(idx, idx + query.length)}</span>
+      {label.slice(idx + query.length)}
+    </>
+  )
 }
 
 function CommandPaletteList({
@@ -14,6 +48,8 @@ function CommandPaletteList({
   activeIndex,
   filteredCount,
   onSelect,
+  query = '',
+  fuzzy = true,
 }: CommandPaletteListProps) {
   let flatIndex = -1
 
@@ -48,7 +84,7 @@ function CommandPaletteList({
                 {item.icon !== undefined && (
                   <span className="flex h-5 w-5 shrink-0 items-center justify-center text-fg-muted/50">{item.icon}</span>
                 )}
-                <span className="flex-1 truncate">{item.label}</span>
+                <span className="flex-1 truncate">{highlightLabel(item.label, query, fuzzy)}</span>
                 {item.group !== undefined && (
                   <span className="shrink-0 text-[11px] text-fg-muted/25">{item.group}</span>
                 )}
