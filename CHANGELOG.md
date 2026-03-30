@@ -5,6 +5,48 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.0.0] - 2026-03-30
+
+### Added
+
+- RichTextEditor (L5): Tiptap 3.x WYSIWYG, full/minimal modes, 15 toolbar items, image upload
+- EmailThread (L5): message bubbles, HTML sanitization, attachments, AI analysis panel
+- EmailComposer (L5): block-based composition, To/Cc/Bcc, rich text, attachments, Ctrl+Enter send
+- EmailComposerField (L4): recipient chips with async autocomplete, email validation
+- AppShell (L7): root layout with sidebar/content/statusBar/mobileNav slots
+- Pane + PaneGroup (L7): flex layout primitives, responsive stacking
+- Toast imperative API: toast.success/error/warning + ToastProvider (Sonner-compatible)
+- SidebarItem: structured nav item with collapsed tooltip + badge support
+- CommandPalette: fuzzy search with scoring, character highlighting, recent history, onExecute
+- Combobox: async onSearch + debounce + creatable options
+- Tabs: pills/underline variants, scrollable overflow
+- TabGroup: lazy rendering, keepMounted, controlled activeTab/onTabChange
+- Input: prefix/suffix static text, copyable clipboard button, action slot
+- AdminLayout: mobile Sheet drawer, hamburger button, logo slot
+- SettingsLayout: controlled activeSection URL routing, animated transitions, keyboard nav
+- Theme presets: email (comfortable/subtle) and dashboard (compact/off)
+- CSS utilities: gds-ctx-reset (depth escape hatch), animate-medium (150ms)
+- Anti-corruption layer: utils/tiptap.ts, utils/sanitize.ts
+- Optional peer deps: @tiptap/*, lowlight, dompurify
+- Upgrade guide at /guide/upgrade-v2.md
+
+### Fixed
+
+- MarkdownPreview: DOMPurify sanitization (XSS prevention, default sanitize=true)
+- EmailComposer: sanitize quoted HTML content
+- Accordion/Dropdown: aria-expanded attributes
+- Tabs/Accordion: keyboard navigation (ArrowLeft/Right/Up/Down)
+- L2 primitives: props spread on focus-ring, glow-effect, gradient-border, loading, truncate
+- gds-lib.md: fix stale path references
+
+### Changed
+
+- **BREAKING** InboxLayout: complete rewrite from 2-pane to 3-pane with resize, mobile, sidebar
+- **BREAKING** MarkdownPreview: sanitize=true by default
+- **BREAKING** Dark mode shadow multiplier: 3.0x → 4.0x
+- Motion system: new medium duration (150ms) for hover/color transitions
+- Tiptap/DOMPurify externalized in rollup (L5 chunk 768KB → 207KB)
+
 ## [1.7.0] - 2026-03-30
 
 ### Added
