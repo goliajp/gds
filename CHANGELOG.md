@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.1.2] - 2026-03-30
+
+### Fixed
+
+- style recharts Tooltip for dark mode across all chart components
+
+### Changed
+
+- add CSS integration guide for Tailwind v4 consumers: `theme.css` must be imported via CSS `@import` (not JS import) to be processed by Tailwind's compilation pipeline
+
 ## [2.1.1] - 2026-03-30
 
 ### Fixed
