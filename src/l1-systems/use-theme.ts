@@ -5,12 +5,17 @@
 import { useAtom, useAtomValue } from 'jotai'
 import { useCallback, useEffect, useRef } from 'react'
 
-import type { ThemeDensity, ThemeElevation, ThemeGlass, ThemeMotion, ThemeShape } from '../l0-tokens/scales'
+import type {
+  ThemeDensity,
+  ThemeElevation,
+  ThemeGlass,
+  ThemeMotion,
+  ThemeShape,
+} from '../l0-tokens/scales'
 import type { ThemeColorOverrides, ThemeMode, ThemeState } from './theme'
 import {
   applyThemeToDocument,
   DEFAULT_THEME,
-  loadPersistedTheme,
   persistTheme,
   resolvedModeAtom,
   resolveThemeCssVars,
@@ -42,67 +47,101 @@ export function useResolvedMode(): 'dark' | 'light' {
 // theme mutation hooks — each returns a setter for one axis
 export function useSetThemeMode(): (mode: ThemeMode) => void {
   const [, setTheme] = useAtom(themeAtom)
-  return useCallback((mode: ThemeMode) => {
-    setTheme((prev) => ({ ...prev, mode }))
-  }, [setTheme])
+  return useCallback(
+    (mode: ThemeMode) => {
+      setTheme((prev) => ({ ...prev, mode }))
+    },
+    [setTheme]
+  )
 }
 
 export function useSetThemePreset(): (presetId: string) => void {
   const [, setTheme] = useAtom(themeAtom)
-  return useCallback((presetId: string) => {
-    const preset = themeConfig.colorPresets[presetId]
-    const primaryColor = preset?.primaryColor ?? DEFAULT_THEME.primaryColor
-    setTheme((prev) => ({ ...prev, presetId, primaryColor, colorOverrides: null }))
-  }, [setTheme])
+  return useCallback(
+    (presetId: string) => {
+      const preset = themeConfig.colorPresets[presetId]
+      const primaryColor = preset?.primaryColor ?? DEFAULT_THEME.primaryColor
+      setTheme((prev) => ({
+        ...prev,
+        presetId,
+        primaryColor,
+        colorOverrides: null,
+      }))
+    },
+    [setTheme]
+  )
 }
 
 export function useSetThemePrimaryColor(): (color: string) => void {
   const [, setTheme] = useAtom(themeAtom)
-  return useCallback((primaryColor: string) => {
-    setTheme((prev) => ({ ...prev, primaryColor, colorOverrides: null }))
-  }, [setTheme])
+  return useCallback(
+    (primaryColor: string) => {
+      setTheme((prev) => ({ ...prev, primaryColor, colorOverrides: null }))
+    },
+    [setTheme]
+  )
 }
 
 export function useSetThemeShape(): (shape: ThemeShape) => void {
   const [, setTheme] = useAtom(themeAtom)
-  return useCallback((shape: ThemeShape) => {
-    setTheme((prev) => ({ ...prev, shape }))
-  }, [setTheme])
+  return useCallback(
+    (shape: ThemeShape) => {
+      setTheme((prev) => ({ ...prev, shape }))
+    },
+    [setTheme]
+  )
 }
 
 export function useSetThemeDensity(): (density: ThemeDensity) => void {
   const [, setTheme] = useAtom(themeAtom)
-  return useCallback((density: ThemeDensity) => {
-    setTheme((prev) => ({ ...prev, density }))
-  }, [setTheme])
+  return useCallback(
+    (density: ThemeDensity) => {
+      setTheme((prev) => ({ ...prev, density }))
+    },
+    [setTheme]
+  )
 }
 
 export function useSetThemeElevation(): (elevation: ThemeElevation) => void {
   const [, setTheme] = useAtom(themeAtom)
-  return useCallback((elevation: ThemeElevation) => {
-    setTheme((prev) => ({ ...prev, elevation }))
-  }, [setTheme])
+  return useCallback(
+    (elevation: ThemeElevation) => {
+      setTheme((prev) => ({ ...prev, elevation }))
+    },
+    [setTheme]
+  )
 }
 
 export function useSetThemeGlass(): (glass: ThemeGlass) => void {
   const [, setTheme] = useAtom(themeAtom)
-  return useCallback((glass: ThemeGlass) => {
-    setTheme((prev) => ({ ...prev, glass }))
-  }, [setTheme])
+  return useCallback(
+    (glass: ThemeGlass) => {
+      setTheme((prev) => ({ ...prev, glass }))
+    },
+    [setTheme]
+  )
 }
 
 export function useSetThemeMotion(): (motion: ThemeMotion) => void {
   const [, setTheme] = useAtom(themeAtom)
-  return useCallback((motion: ThemeMotion) => {
-    setTheme((prev) => ({ ...prev, motion }))
-  }, [setTheme])
+  return useCallback(
+    (motion: ThemeMotion) => {
+      setTheme((prev) => ({ ...prev, motion }))
+    },
+    [setTheme]
+  )
 }
 
-export function useSetThemeColors(): (overrides: Partial<ThemeColorOverrides> | null) => void {
+export function useSetThemeColors(): (
+  overrides: Partial<ThemeColorOverrides> | null
+) => void {
   const [, setTheme] = useAtom(themeAtom)
-  return useCallback((colorOverrides: Partial<ThemeColorOverrides> | null) => {
-    setTheme((prev) => ({ ...prev, colorOverrides }))
-  }, [setTheme])
+  return useCallback(
+    (colorOverrides: Partial<ThemeColorOverrides> | null) => {
+      setTheme((prev) => ({ ...prev, colorOverrides }))
+    },
+    [setTheme]
+  )
 }
 
 export function useResetTheme(): () => void {
@@ -122,7 +161,11 @@ export function useThemeEffect(): void {
   // apply to DOM whenever theme changes
   useEffect(() => {
     const vars = resolveThemeCssVars(theme, resolvedMode)
-    prevKeysRef.current = applyThemeToDocument(vars, resolvedMode, prevKeysRef.current)
+    prevKeysRef.current = applyThemeToDocument(
+      vars,
+      resolvedMode,
+      prevKeysRef.current
+    )
     persistTheme(theme)
   }, [theme, resolvedMode])
 
@@ -136,16 +179,5 @@ export function useThemeEffect(): void {
     }
     mq.addEventListener('change', handler)
     return () => mq.removeEventListener('change', handler)
-  }, [])
-
-  // restore from localStorage on mount
-  useEffect(() => {
-    const persisted = loadPersistedTheme()
-    if (persisted !== null) {
-      // apply directly without going through atom to avoid flash
-      const vars = resolveThemeCssVars(persisted, resolvedMode)
-      prevKeysRef.current = applyThemeToDocument(vars, resolvedMode)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 }

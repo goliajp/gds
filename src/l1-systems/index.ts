@@ -2,8 +2,21 @@
 // cross-cutting mechanisms that all layers above depend on
 
 // theme
-export type { ThemeColorOverrides, ThemeMode, ThemePreset, ThemePresetId, ThemeState } from './theme'
-export { DEFAULT_THEME, resolvedModeAtom, resolveThemeCssVars, themeAtom, themePresets } from './theme'
+export type {
+  ThemeColorOverrides,
+  ThemeMode,
+  ThemePreset,
+  ThemePresetId,
+  ThemeState,
+} from './theme'
+export {
+  DEFAULT_THEME,
+  loadPersistedTheme,
+  resolvedModeAtom,
+  resolveThemeCssVars,
+  themeAtom,
+  themePresets,
+} from './theme'
 export {
   configureTheme,
   useResetTheme,
