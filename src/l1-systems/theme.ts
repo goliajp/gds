@@ -5,7 +5,11 @@
 
 import { atom } from 'jotai'
 
-import { deriveDarkPalette, deriveLightPalette, paletteToVars } from '../l0-tokens/color-derive'
+import {
+  deriveDarkPalette,
+  deriveLightPalette,
+  paletteToVars,
+} from '../l0-tokens/color-derive'
 import { fontToCssVars } from '../l0-tokens/font-system'
 import { DEFAULT_PRIMARY } from '../l0-tokens/generate-defaults'
 import type {
@@ -32,8 +36,8 @@ export type ThemeMode = 'dark' | 'light' | 'system'
 // full theme state — what the user has configured
 export type ThemeState = {
   mode: ThemeMode
-  primaryColor: string  // single source — everything derived from this
-  presetId: string      // for UI display only ("default", "teal", "amber"...)
+  primaryColor: string // single source — everything derived from this
+  presetId: string // for UI display only ("default", "teal", "amber"...)
   // dimensional axes — each constrained to L0 scale options
   shape: ThemeShape
   density: ThemeDensity
@@ -57,8 +61,84 @@ export const DEFAULT_THEME: ThemeState = {
   colorOverrides: null,
 }
 
+// persistence — must be defined before themeAtom so atom init can load from localStorage
+const STORAGE_KEY = 'gds-theme'
+
+export function persistTheme(state: ThemeState): void {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+  } catch {
+    // storage full or unavailable
+  }
+}
+
+export function loadPersistedTheme(): ThemeState | null {
+  try {
+    if (typeof window === 'undefined') return null
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (raw === null) return null
+    const parsed = JSON.parse(raw) as Partial<ThemeState>
+    // validate and merge with defaults to handle schema evolution
+    return {
+      ...DEFAULT_THEME,
+      ...parsed,
+      // validate primaryColor is a hex string
+      primaryColor:
+        typeof parsed.primaryColor === 'string' &&
+        /^#[0-9a-fA-F]{6}$/.test(parsed.primaryColor)
+          ? parsed.primaryColor
+          : DEFAULT_THEME.primaryColor,
+      // ensure constrained values are valid
+      shape: validateOption(
+        parsed.shape,
+        ['sharp', 'default', 'rounded'],
+        DEFAULT_THEME.shape
+      ),
+      density: validateOption(
+        parsed.density,
+        ['compact', 'default', 'comfortable'],
+        DEFAULT_THEME.density
+      ),
+      elevation: validateOption(
+        parsed.elevation,
+        ['flat', 'subtle', 'raised'],
+        DEFAULT_THEME.elevation
+      ),
+      glass: validateOption(
+        parsed.glass,
+        ['off', 'subtle', 'full'],
+        DEFAULT_THEME.glass
+      ),
+      motion: validateOption(
+        parsed.motion,
+        ['off', 'reduced', 'full'],
+        DEFAULT_THEME.motion
+      ),
+      mode: validateOption(
+        parsed.mode,
+        ['light', 'dark', 'system'],
+        DEFAULT_THEME.mode
+      ),
+    }
+  } catch {
+    return null
+  }
+}
+
+function validateOption<T extends string>(
+  value: unknown,
+  options: T[],
+  fallback: T
+): T {
+  if (typeof value === 'string' && options.includes(value as T)) {
+    return value as T
+  }
+  return fallback
+}
+
 // jotai atoms — reactive theme state
-export const themeAtom = atom<ThemeState>(DEFAULT_THEME)
+// initialize from localStorage to avoid race condition with useThemeEffect
+export const themeAtom = atom<ThemeState>(loadPersistedTheme() ?? DEFAULT_THEME)
 
 export const resolvedModeAtom = atom<'dark' | 'light'>((get) => {
   const { mode } = get(themeAtom)
@@ -73,22 +153,32 @@ export const resolvedModeAtom = atom<'dark' | 'light'>((get) => {
 // all colors derived from primaryColor via L0 functions — no manual color presets
 export function resolveThemeCssVars(
   state: ThemeState,
-  resolvedMode: 'dark' | 'light',
+  resolvedMode: 'dark' | 'light'
 ): Record<string, string> {
   // 1. derive colors from primaryColor
-  const palette = resolvedMode === 'dark'
-    ? deriveDarkPalette(state.primaryColor)
-    : deriveLightPalette(state.primaryColor)
-  const vars: Record<string, string> = { ...paletteToVars(palette, resolvedMode) }
+  const palette =
+    resolvedMode === 'dark'
+      ? deriveDarkPalette(state.primaryColor)
+      : deriveLightPalette(state.primaryColor)
+  const vars: Record<string, string> = {
+    ...paletteToVars(palette, resolvedMode),
+  }
 
   // 2. font stacks + weights
   Object.assign(vars, fontToCssVars())
 
   // 3. dimensional axes — computed by L0 system functions
-  Object.assign(vars, resolveAxesToCssVars(
-    state.shape, state.density, state.elevation,
-    state.glass, state.motion, resolvedMode,
-  ))
+  Object.assign(
+    vars,
+    resolveAxesToCssVars(
+      state.shape,
+      state.density,
+      state.elevation,
+      state.glass,
+      state.motion,
+      resolvedMode
+    )
+  )
 
   // 4. per-token color overrides (highest priority — advanced users)
   if (state.colorOverrides !== null) {
@@ -106,7 +196,7 @@ export function resolveThemeCssVars(
 export function applyThemeToDocument(
   vars: Record<string, string>,
   resolvedMode: 'dark' | 'light',
-  previousKeys?: string[],
+  previousKeys?: string[]
 ): string[] {
   const root = document.documentElement
 
@@ -133,7 +223,10 @@ export function applyThemeToDocument(
 }
 
 // named theme presets — optimized axis combinations for specific application types
-export type ThemePreset = Omit<ThemeState, 'mode' | 'presetId' | 'colorOverrides'>
+export type ThemePreset = Omit<
+  ThemeState,
+  'mode' | 'presetId' | 'colorOverrides'
+>
 
 export const themePresets = {
   // default: balanced for general-purpose dashboards
@@ -148,7 +241,7 @@ export const themePresets = {
   // email: optimized for email/productivity apps (mailrs-proven)
   // comfortable density for readable 14px base, subtle elevation for clean modern look
   email: {
-    primaryColor: '#3b7ddd',  // slightly desaturated blue, validated in production
+    primaryColor: '#3b7ddd', // slightly desaturated blue, validated in production
     shape: 'default' as const,
     density: 'comfortable' as const,
     elevation: 'subtle' as const,
@@ -167,50 +260,3 @@ export const themePresets = {
 } as const satisfies Record<string, ThemePreset>
 
 export type ThemePresetId = keyof typeof themePresets
-
-// persistence keys
-const STORAGE_KEY = 'gds-theme'
-
-export function persistTheme(state: ThemeState): void {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
-  } catch {
-    // storage full or unavailable
-  }
-}
-
-export function loadPersistedTheme(): ThemeState | null {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    if (raw === null) return null
-    const parsed = JSON.parse(raw) as Partial<ThemeState>
-    // validate and merge with defaults to handle schema evolution
-    return {
-      ...DEFAULT_THEME,
-      ...parsed,
-      // validate primaryColor is a hex string
-      primaryColor: typeof parsed.primaryColor === 'string' && /^#[0-9a-fA-F]{6}$/.test(parsed.primaryColor)
-        ? parsed.primaryColor : DEFAULT_THEME.primaryColor,
-      // ensure constrained values are valid
-      shape: validateOption(parsed.shape, ['sharp', 'default', 'rounded'], DEFAULT_THEME.shape),
-      density: validateOption(parsed.density, ['compact', 'default', 'comfortable'], DEFAULT_THEME.density),
-      elevation: validateOption(parsed.elevation, ['flat', 'subtle', 'raised'], DEFAULT_THEME.elevation),
-      glass: validateOption(parsed.glass, ['off', 'subtle', 'full'], DEFAULT_THEME.glass),
-      motion: validateOption(parsed.motion, ['off', 'reduced', 'full'], DEFAULT_THEME.motion),
-      mode: validateOption(parsed.mode, ['light', 'dark', 'system'], DEFAULT_THEME.mode),
-    }
-  } catch {
-    return null
-  }
-}
-
-function validateOption<T extends string>(
-  value: unknown,
-  options: T[],
-  fallback: T,
-): T {
-  if (typeof value === 'string' && options.includes(value as T)) {
-    return value as T
-  }
-  return fallback
-}
