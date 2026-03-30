@@ -1,19 +1,30 @@
 // L0 — pure color math
 // hex ↔ rgb ↔ hsl conversion, manipulation, contrast
 
-export type Rgb = { r: number, g: number, b: number }
-export type Hsl = { h: number, s: number, l: number }
+export type Rgb = { r: number; g: number; b: number }
+export type Hsl = { h: number; s: number; l: number }
 
 // hex → rgb
 export function hexToRgb(hex: string): Rgb {
   const h = hex.replace('#', '')
-  const n = parseInt(h.length === 3 ? h.split('').map(c => c + c).join('') : h, 16)
+  const n = parseInt(
+    h.length === 3
+      ? h
+          .split('')
+          .map((c) => c + c)
+          .join('')
+      : h,
+    16
+  )
   return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 }
 }
 
 // rgb → hex
 export function rgbToHex(rgb: Rgb): string {
-  const c = (v: number) => Math.round(Math.min(255, Math.max(0, v))).toString(16).padStart(2, '0')
+  const c = (v: number) =>
+    Math.round(Math.min(255, Math.max(0, v)))
+      .toString(16)
+      .padStart(2, '0')
   return `#${c(rgb.r)}${c(rgb.g)}${c(rgb.b)}`
 }
 
@@ -28,11 +39,12 @@ export function rgbToHsl(rgb: Rgb): Hsl {
   if (max === min) return { h: 0, s: 0, l }
   const d = max - min
   const s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
-  const h = max === r
-    ? ((g - b) / d + (g < b ? 6 : 0)) / 6
-    : max === g
-      ? ((b - r) / d + 2) / 6
-      : ((r - g) / d + 4) / 6
+  const h =
+    max === r
+      ? ((g - b) / d + (g < b ? 6 : 0)) / 6
+      : max === g
+        ? ((b - r) / d + 2) / 6
+        : ((r - g) / d + 4) / 6
   return { h: h * 360, s, l }
 }
 

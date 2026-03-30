@@ -37,13 +37,15 @@ export function StackedList({
     <div
       data-component="stacked-list"
       className={cx(
-        'overflow-hidden gds-radius-card border border-border',
+        'gds-radius-card border-border overflow-hidden border',
         glass === true && 'bg-white/5 backdrop-blur-md',
-        className,
+        className
       )}
     >
       {header !== undefined && (
-        <div className="border-b border-border bg-bg-tertiary/30 px-4 py-2.5">{header}</div>
+        <div className="border-border bg-bg-tertiary/30 border-b px-4 py-2.5">
+          {header}
+        </div>
       )}
       <div>
         {items.map((item, i) => (
@@ -54,15 +56,19 @@ export function StackedList({
             description={item.description}
             trailing={item.trailing}
             active={selectedId === item.id}
-            onClick={onSelect !== undefined ? () => onSelect(item.id) : undefined}
+            onClick={
+              onSelect !== undefined ? () => onSelect(item.id) : undefined
+            }
             className={cx(
-              dividers === true && i < items.length - 1 && 'border-b border-border/50',
+              dividers === true &&
+                i < items.length - 1 &&
+                'border-border/50 border-b'
             )}
           />
         ))}
       </div>
       {footer !== undefined && (
-        <div className="border-t border-border px-4 py-2.5">{footer}</div>
+        <div className="border-border border-t px-4 py-2.5">{footer}</div>
       )}
     </div>
   )

@@ -6,7 +6,13 @@ import type { RichSelectOption } from '../rich-select'
 import { RichSelectList } from '../rich-select-list'
 
 const options: RichSelectOption[] = [
-  { value: 'apple', label: 'Apple', description: 'A fruit', badge: 'popular', icon: <span>🍎</span> },
+  {
+    value: 'apple',
+    label: 'Apple',
+    description: 'A fruit',
+    badge: 'popular',
+    icon: <span>🍎</span>,
+  },
   { value: 'banana', label: 'Banana', description: 'Yellow fruit' },
   { value: 'cherry', label: 'Cherry' },
 ]
@@ -20,7 +26,7 @@ describe('RichSelectList', () => {
         focusedIndex={-1}
         onSelect={vi.fn()}
         onFocus={vi.fn()}
-      />,
+      />
     )
     expect(screen.getByRole('listbox')).toBeDefined()
   })
@@ -33,7 +39,7 @@ describe('RichSelectList', () => {
         focusedIndex={-1}
         onSelect={vi.fn()}
         onFocus={vi.fn()}
-      />,
+      />
     )
     expect(screen.getByText('Apple')).toBeDefined()
     expect(screen.getByText('Banana')).toBeDefined()
@@ -48,7 +54,7 @@ describe('RichSelectList', () => {
         focusedIndex={-1}
         onSelect={vi.fn()}
         onFocus={vi.fn()}
-      />,
+      />
     )
     expect(screen.getByText('A fruit')).toBeDefined()
     expect(screen.getByText('Yellow fruit')).toBeDefined()
@@ -62,7 +68,7 @@ describe('RichSelectList', () => {
         focusedIndex={-1}
         onSelect={vi.fn()}
         onFocus={vi.fn()}
-      />,
+      />
     )
     expect(screen.getByText('popular')).toBeDefined()
   })
@@ -75,7 +81,7 @@ describe('RichSelectList', () => {
         focusedIndex={-1}
         onSelect={vi.fn()}
         onFocus={vi.fn()}
-      />,
+      />
     )
     expect(screen.getByText('🍎')).toBeDefined()
   })
@@ -88,7 +94,7 @@ describe('RichSelectList', () => {
         focusedIndex={-1}
         onSelect={vi.fn()}
         onFocus={vi.fn()}
-      />,
+      />
     )
     const allOptions = screen.getAllByRole('option')
     expect(allOptions[0].getAttribute('aria-selected')).toBe('false')
@@ -104,7 +110,7 @@ describe('RichSelectList', () => {
         focusedIndex={2}
         onSelect={vi.fn()}
         onFocus={vi.fn()}
-      />,
+      />
     )
     const allOptions = screen.getAllByRole('option')
     expect(allOptions[0].getAttribute('data-focused')).toBeNull()
@@ -122,7 +128,7 @@ describe('RichSelectList', () => {
         focusedIndex={-1}
         onSelect={onSelect}
         onFocus={vi.fn()}
-      />,
+      />
     )
     await user.click(screen.getByText('Cherry'))
     expect(onSelect).toHaveBeenCalledWith('cherry')
@@ -138,7 +144,7 @@ describe('RichSelectList', () => {
         focusedIndex={-1}
         onSelect={vi.fn()}
         onFocus={onFocus}
-      />,
+      />
     )
     const allOptions = screen.getAllByRole('option')
     await user.hover(allOptions[1])
@@ -154,7 +160,7 @@ describe('RichSelectList', () => {
         glass={true}
         onSelect={vi.fn()}
         onFocus={vi.fn()}
-      />,
+      />
     )
     const listbox = screen.getByRole('listbox')
     expect(listbox.className).toContain('gds-glass')

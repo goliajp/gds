@@ -31,8 +31,16 @@ function easeOut(t: number): number {
 
 export const CountUp = forwardRef<HTMLSpanElement, CountUpProps>(
   function CountUp(
-    { value, duration = 1500, decimals = 0, prefix, suffix, separator = ',', className },
-    ref,
+    {
+      value,
+      duration = 1500,
+      decimals = 0,
+      prefix,
+      suffix,
+      separator = ',',
+      className,
+    },
+    ref
   ) {
     const [current, setCurrent] = useState(0)
 
@@ -58,9 +66,15 @@ export const CountUp = forwardRef<HTMLSpanElement, CountUpProps>(
     }, [value, duration])
 
     return (
-      <span ref={ref} className={cx('tabular-nums', className)} data-component="count-up">
-        {prefix ?? ''}{formatNumber(current, decimals, separator)}{suffix ?? ''}
+      <span
+        ref={ref}
+        className={cx('tabular-nums', className)}
+        data-component="count-up"
+      >
+        {prefix ?? ''}
+        {formatNumber(current, decimals, separator)}
+        {suffix ?? ''}
       </span>
     )
-  },
+  }
 )

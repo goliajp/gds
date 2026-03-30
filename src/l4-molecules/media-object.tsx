@@ -13,16 +13,19 @@ type MediaObjectProps = {
 }
 
 export const MediaObject = forwardRef<HTMLDivElement, MediaObjectProps>(
-  function MediaObject({ align = 'top', children, className, media, reverse = false }, ref) {
+  function MediaObject(
+    { align = 'top', children, className, media, reverse = false },
+    ref
+  ) {
     return (
       <div
         ref={ref}
         className={cx(
-          'flex gds-gap',
+          'gds-gap flex',
           align === 'center' && 'items-center',
           align === 'top' && 'items-start',
           reverse === true && 'flex-row-reverse',
-          className,
+          className
         )}
         data-component="media-object"
       >
@@ -30,7 +33,7 @@ export const MediaObject = forwardRef<HTMLDivElement, MediaObjectProps>(
         <div className="min-w-0 flex-1">{children}</div>
       </div>
     )
-  },
+  }
 )
 
 export type { MediaObjectProps }

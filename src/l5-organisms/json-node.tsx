@@ -8,7 +8,10 @@ type NodeProps = {
   defaultExpanded: boolean | number
 }
 
-function isExpandedAtDepth(defaultExpanded: boolean | number, depth: number): boolean {
+function isExpandedAtDepth(
+  defaultExpanded: boolean | number,
+  depth: number
+): boolean {
   if (defaultExpanded === true) return true
   if (defaultExpanded === false) return false
   return depth < defaultExpanded
@@ -32,30 +35,56 @@ function JsonNull() {
 
 export type { NodeProps as JsonNodeProps }
 
-export function JsonNode({ value, keyName, depth, defaultExpanded }: NodeProps) {
-  const [expanded, setExpanded] = useState(() => isExpandedAtDepth(defaultExpanded, depth))
+export function JsonNode({
+  value,
+  keyName,
+  depth,
+  defaultExpanded,
+}: NodeProps) {
+  const [expanded, setExpanded] = useState(() =>
+    isExpandedAtDepth(defaultExpanded, depth)
+  )
 
   const handleToggle = useCallback(() => {
     setExpanded((prev) => !prev)
   }, [])
 
   // render key prefix
-  const keyPrefix = keyName !== undefined ? (
-    <span className="text-fg">{keyName}: </span>
-  ) : null
+  const keyPrefix =
+    keyName !== undefined ? <span className="text-fg">{keyName}: </span> : null
 
   // primitives
   if (value === null || value === undefined) {
-    return <div style={{ paddingLeft: `${depth * 16}px` }}>{keyPrefix}<JsonNull /></div>
+    return (
+      <div style={{ paddingLeft: `${depth * 16}px` }}>
+        {keyPrefix}
+        <JsonNull />
+      </div>
+    )
   }
   if (typeof value === 'string') {
-    return <div style={{ paddingLeft: `${depth * 16}px` }}>{keyPrefix}<JsonString value={value} /></div>
+    return (
+      <div style={{ paddingLeft: `${depth * 16}px` }}>
+        {keyPrefix}
+        <JsonString value={value} />
+      </div>
+    )
   }
   if (typeof value === 'number') {
-    return <div style={{ paddingLeft: `${depth * 16}px` }}>{keyPrefix}<JsonNumber value={value} /></div>
+    return (
+      <div style={{ paddingLeft: `${depth * 16}px` }}>
+        {keyPrefix}
+        <JsonNumber value={value} />
+      </div>
+    )
   }
   if (typeof value === 'boolean') {
-    return <div style={{ paddingLeft: `${depth * 16}px` }}>{keyPrefix}<JsonBoolean value={value} /></div>
+    return (
+      <div style={{ paddingLeft: `${depth * 16}px` }}>
+        {keyPrefix}
+        <JsonBoolean value={value} />
+      </div>
+    )
   }
 
   // arrays
@@ -69,7 +98,7 @@ export function JsonNode({ value, keyName, depth, defaultExpanded }: NodeProps) 
         <div style={{ paddingLeft: `${depth * 16}px` }}>
           {keyPrefix}
           <button
-            className="cursor-pointer text-fg-muted hover:text-fg"
+            className="text-fg-muted hover:text-fg cursor-pointer"
             onClick={handleToggle}
             data-testid="toggle"
           >
@@ -84,7 +113,7 @@ export function JsonNode({ value, keyName, depth, defaultExpanded }: NodeProps) 
         <div style={{ paddingLeft: `${depth * 16}px` }}>
           {keyPrefix}
           <button
-            className="cursor-pointer text-fg-muted hover:text-fg"
+            className="text-fg-muted hover:text-fg cursor-pointer"
             onClick={handleToggle}
             data-testid="toggle"
           >
@@ -92,7 +121,12 @@ export function JsonNode({ value, keyName, depth, defaultExpanded }: NodeProps) 
           </button>
         </div>
         {value.map((item, idx) => (
-          <JsonNode key={idx} value={item} depth={depth + 1} defaultExpanded={defaultExpanded} />
+          <JsonNode
+            key={idx}
+            value={item}
+            depth={depth + 1}
+            defaultExpanded={defaultExpanded}
+          />
         ))}
         <div style={{ paddingLeft: `${depth * 16}px` }}>]</div>
       </div>
@@ -103,7 +137,12 @@ export function JsonNode({ value, keyName, depth, defaultExpanded }: NodeProps) 
   if (typeof value === 'object') {
     const entries = Object.entries(value)
     if (entries.length === 0) {
-      return <div style={{ paddingLeft: `${depth * 16}px` }}>{keyPrefix}{'{}'}</div>
+      return (
+        <div style={{ paddingLeft: `${depth * 16}px` }}>
+          {keyPrefix}
+          {'{}'}
+        </div>
+      )
     }
 
     if (!expanded) {
@@ -111,7 +150,7 @@ export function JsonNode({ value, keyName, depth, defaultExpanded }: NodeProps) 
         <div style={{ paddingLeft: `${depth * 16}px` }}>
           {keyPrefix}
           <button
-            className="cursor-pointer text-fg-muted hover:text-fg"
+            className="text-fg-muted hover:text-fg cursor-pointer"
             onClick={handleToggle}
             data-testid="toggle"
           >
@@ -126,7 +165,7 @@ export function JsonNode({ value, keyName, depth, defaultExpanded }: NodeProps) 
         <div style={{ paddingLeft: `${depth * 16}px` }}>
           {keyPrefix}
           <button
-            className="cursor-pointer text-fg-muted hover:text-fg"
+            className="text-fg-muted hover:text-fg cursor-pointer"
             onClick={handleToggle}
             data-testid="toggle"
           >
@@ -134,7 +173,13 @@ export function JsonNode({ value, keyName, depth, defaultExpanded }: NodeProps) 
           </button>
         </div>
         {entries.map(([k, v]) => (
-          <JsonNode key={k} value={v} keyName={k} depth={depth + 1} defaultExpanded={defaultExpanded} />
+          <JsonNode
+            key={k}
+            value={v}
+            keyName={k}
+            depth={depth + 1}
+            defaultExpanded={defaultExpanded}
+          />
         ))}
         <div style={{ paddingLeft: `${depth * 16}px` }}>{'}'}</div>
       </div>
@@ -142,5 +187,10 @@ export function JsonNode({ value, keyName, depth, defaultExpanded }: NodeProps) 
   }
 
   // fallback
-  return <div style={{ paddingLeft: `${depth * 16}px` }}>{keyPrefix}{String(value)}</div>
+  return (
+    <div style={{ paddingLeft: `${depth * 16}px` }}>
+      {keyPrefix}
+      {String(value)}
+    </div>
+  )
 }

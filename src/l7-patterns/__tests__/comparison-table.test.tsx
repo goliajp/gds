@@ -24,7 +24,9 @@ describe('ComparisonTable', () => {
   })
 
   it('renders check and dash icons for boolean values', () => {
-    const { container } = render(<ComparisonTable features={features} plans={plans} />)
+    const { container } = render(
+      <ComparisonTable features={features} plans={plans} />
+    )
     const checks = container.querySelectorAll('[data-icon="check"]')
     const dashes = container.querySelectorAll('[data-icon="dash"]')
     // Free: true + false = 1 check, 1 dash; Pro: true + true = 2 checks
@@ -34,7 +36,7 @@ describe('ComparisonTable', () => {
 
   it('applies highlight to specified column', () => {
     const { container } = render(
-      <ComparisonTable features={features} plans={plans} highlightColumn={1} />,
+      <ComparisonTable features={features} plans={plans} highlightColumn={1} />
     )
     const highlightedCells = container.querySelectorAll('.bg-accent\\/5')
     // header + 3 feature rows = 4 cells highlighted

@@ -11,30 +11,39 @@ type TextareaCounterProps = Omit<TextareaProps, 'onChange'> & {
   value: string
 }
 
-export const TextareaCounter = forwardRef<HTMLTextAreaElement, TextareaCounterProps>(
-  function TextareaCounter({ className, error, maxLength, onChange, value, ...props }, ref) {
-    const count = value.length
-    const nearLimit = maxLength !== undefined && count >= maxLength * 0.9
+export const TextareaCounter = forwardRef<
+  HTMLTextAreaElement,
+  TextareaCounterProps
+>(function TextareaCounter(
+  { className, error, maxLength, onChange, value, ...props },
+  ref
+) {
+  const count = value.length
+  const nearLimit = maxLength !== undefined && count >= maxLength * 0.9
 
-    return (
-      <div className={cx('flex flex-col', className)} data-component="textarea-counter">
-        <Textarea
-          error={error ?? nearLimit}
-          maxLength={maxLength}
-          onChange={(e) => onChange(e.target.value)}
-          ref={ref}
-          value={value}
-          {...props}
-        />
-        <div className={cx(
+  return (
+    <div
+      className={cx('flex flex-col', className)}
+      data-component="textarea-counter"
+    >
+      <Textarea
+        error={error ?? nearLimit}
+        maxLength={maxLength}
+        onChange={(e) => onChange(e.target.value)}
+        ref={ref}
+        value={value}
+        {...props}
+      />
+      <div
+        className={cx(
           'mt-1 text-right text-[11px]',
-          nearLimit ? 'text-danger' : 'text-fg-muted',
-        )}>
-          {maxLength !== undefined ? `${count} / ${maxLength}` : count}
-        </div>
+          nearLimit ? 'text-danger' : 'text-fg-muted'
+        )}
+      >
+        {maxLength !== undefined ? `${count} / ${maxLength}` : count}
       </div>
-    )
-  },
-)
+    </div>
+  )
+})
 
 export type { TextareaCounterProps }

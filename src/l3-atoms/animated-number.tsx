@@ -21,7 +21,7 @@ function easeOut(t: number): number {
 export const AnimatedNumber = forwardRef<HTMLSpanElement, AnimatedNumberProps>(
   function AnimatedNumber(
     { value, duration = 500, format = defaultFormat, className },
-    ref,
+    ref
   ) {
     const [display, setDisplay] = useState(value)
     const prevRef = useRef(value)
@@ -52,9 +52,13 @@ export const AnimatedNumber = forwardRef<HTMLSpanElement, AnimatedNumberProps>(
     }, [value, duration])
 
     return (
-      <span ref={ref} className={cx('tabular-nums', className)} data-component="animated-number">
+      <span
+        ref={ref}
+        className={cx('tabular-nums', className)}
+        data-component="animated-number"
+      >
         {format(display)}
       </span>
     )
-  },
+  }
 )

@@ -18,7 +18,7 @@ export const FilterBar = forwardRef<HTMLDivElement, FilterBarProps>(
 
     return (
       <div
-        className={cx('flex flex-wrap items-center gds-gap', className)}
+        className={cx('gds-gap flex flex-wrap items-center', className)}
         data-component="filter-bar"
         ref={ref}
         {...props}
@@ -38,7 +38,10 @@ export const FilterBar = forwardRef<HTMLDivElement, FilterBarProps>(
         ))}
         {hasActive && onClear !== undefined && (
           <button
-            className={cx('gds-text-caption text-fg-muted hover:text-fg', focusCls)}
+            className={cx(
+              'gds-text-caption text-fg-muted hover:text-fg',
+              focusCls
+            )}
             onClick={onClear}
             type="button"
           >
@@ -47,7 +50,7 @@ export const FilterBar = forwardRef<HTMLDivElement, FilterBarProps>(
         )}
       </div>
     )
-  },
+  }
 )
 
 export type { FilterBarProps, FilterItem }

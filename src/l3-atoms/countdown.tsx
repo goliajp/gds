@@ -34,17 +34,13 @@ function pad(n: number): string {
 
 export const Countdown = forwardRef<HTMLDivElement, CountdownProps>(
   function Countdown(
-    {
-      targetDate,
-      onComplete,
-      showDays = true,
-      showSeconds = true,
-      className,
-    },
-    ref,
+    { targetDate, onComplete, showDays = true, showSeconds = true, className },
+    ref
   ) {
     const target = new Date(targetDate).getTime()
-    const [remaining, setRemaining] = useState<TimeRemaining>(() => calcRemaining(target))
+    const [remaining, setRemaining] = useState<TimeRemaining>(() =>
+      calcRemaining(target)
+    )
 
     useEffect(() => {
       if (remaining.total <= 0) return
@@ -81,10 +77,15 @@ export const Countdown = forwardRef<HTMLDivElement, CountdownProps>(
         {segments.map((seg, i) => (
           <div key={seg.label} className="flex items-center gap-1">
             {i > 0 && (
-              <span className="text-fg-muted gds-text-body" data-testid="separator">:</span>
+              <span
+                className="text-fg-muted gds-text-body"
+                data-testid="separator"
+              >
+                :
+              </span>
             )}
             <span
-              className="inline-flex items-center justify-center rounded bg-bg-tertiary px-1.5 py-0.5 tabular-nums gds-radius-button gds-text-body text-fg"
+              className="bg-bg-tertiary gds-radius-button gds-text-body text-fg inline-flex items-center justify-center rounded px-1.5 py-0.5 tabular-nums"
               data-testid={`segment-${seg.label}`}
             >
               {seg.value}
@@ -93,5 +94,5 @@ export const Countdown = forwardRef<HTMLDivElement, CountdownProps>(
         ))}
       </div>
     )
-  },
+  }
 )

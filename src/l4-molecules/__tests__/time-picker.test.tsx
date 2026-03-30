@@ -11,7 +11,9 @@ describe('TimePicker', () => {
   })
 
   it('renders with custom placeholder', () => {
-    render(<TimePicker value={null} onChange={() => {}} placeholder="Pick a time" />)
+    render(
+      <TimePicker value={null} onChange={() => {}} placeholder="Pick a time" />
+    )
     expect(screen.getByText('Pick a time')).toBeDefined()
   })
 
@@ -21,13 +23,19 @@ describe('TimePicker', () => {
   })
 
   it('has data-component="time-picker"', () => {
-    const { container } = render(<TimePicker value={null} onChange={() => {}} />)
-    expect(container.querySelector('[data-component="time-picker"]')).not.toBeNull()
+    const { container } = render(
+      <TimePicker value={null} onChange={() => {}} />
+    )
+    expect(
+      container.querySelector('[data-component="time-picker"]')
+    ).not.toBeNull()
   })
 
   it('opens dropdown on click', async () => {
     const user = userEvent.setup()
-    const { container } = render(<TimePicker value={null} onChange={() => {}} />)
+    const { container } = render(
+      <TimePicker value={null} onChange={() => {}} />
+    )
     await user.click(screen.getByRole('button'))
     expect(container.querySelector('[data-state="open"]')).not.toBeNull()
   })
@@ -61,7 +69,9 @@ describe('TimePicker', () => {
 
   it('closes on Escape key', async () => {
     const user = userEvent.setup()
-    const { container } = render(<TimePicker value={null} onChange={() => {}} />)
+    const { container } = render(
+      <TimePicker value={null} onChange={() => {}} />
+    )
     await user.click(screen.getByRole('button'))
     expect(container.querySelector('[data-state="open"]')).not.toBeNull()
     fireEvent.keyDown(window, { key: 'Escape' })

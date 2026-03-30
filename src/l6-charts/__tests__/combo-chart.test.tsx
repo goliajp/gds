@@ -11,25 +11,33 @@ const data = [
 
 describe('ComboChart', () => {
   it('renders without crash', () => {
-    const { container } = render(<ComboChart barKey="revenue" data={data} lineKey="growth" />)
+    const { container } = render(
+      <ComboChart barKey="revenue" data={data} lineKey="growth" />
+    )
     expect(container.firstChild).not.toBeNull()
   })
 
   it('has data-component attribute', () => {
-    const { container } = render(<ComboChart barKey="revenue" data={data} lineKey="growth" />)
-    expect(container.querySelector('[data-component="combo-chart"]')).not.toBeNull()
+    const { container } = render(
+      <ComboChart barKey="revenue" data={data} lineKey="growth" />
+    )
+    expect(
+      container.querySelector('[data-component="combo-chart"]')
+    ).not.toBeNull()
   })
 
   it('applies custom height via style', () => {
     const { container } = render(
-      <ComboChart barKey="revenue" data={data} height={400} lineKey="growth" />,
+      <ComboChart barKey="revenue" data={data} height={400} lineKey="growth" />
     )
     const rc = container.querySelector('.recharts-responsive-container')
     expect(rc).not.toBeNull()
   })
 
   it('applies glass class when glass is true', () => {
-    const { container } = render(<ComboChart barKey="revenue" data={data} glass lineKey="growth" />)
+    const { container } = render(
+      <ComboChart barKey="revenue" data={data} glass lineKey="growth" />
+    )
     const el = container.querySelector('[data-component="combo-chart"]')
     expect(el?.className).toContain('gds-glass')
   })

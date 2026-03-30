@@ -11,17 +11,25 @@ const data = [
 
 describe('StreamChart', () => {
   it('renders chart container', () => {
-    const { container } = render(<StreamChart data={data} keys={['a', 'b', 'c']} />)
-    expect(container.querySelector('[data-component="stream-chart"]')).not.toBeNull()
+    const { container } = render(
+      <StreamChart data={data} keys={['a', 'b', 'c']} />
+    )
+    expect(
+      container.querySelector('[data-component="stream-chart"]')
+    ).not.toBeNull()
   })
 
   it('has data-component attribute', () => {
     const { container } = render(<StreamChart data={data} keys={['a', 'b']} />)
-    expect(container.querySelector('[data-component="stream-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="stream-chart"]')
+    ).not.toBeNull()
   })
 
   it('respects height prop', () => {
-    const { container } = render(<StreamChart data={data} height={400} keys={['a']} />)
+    const { container } = render(
+      <StreamChart data={data} height={400} keys={['a']} />
+    )
     const rc = container.querySelector('.recharts-responsive-container')
     expect(rc?.getAttribute('style')).toContain('400')
   })

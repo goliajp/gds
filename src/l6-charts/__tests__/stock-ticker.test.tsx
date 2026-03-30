@@ -16,7 +16,9 @@ describe('StockTicker', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<StockTicker items={items} />)
-    expect(container.querySelector('[data-component="stock-ticker"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="stock-ticker"]')
+    ).not.toBeNull()
   })
 
   it('renders ticker symbols', () => {
@@ -26,7 +28,11 @@ describe('StockTicker', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<StockTicker className="custom" items={items} />)
-    expect(container.querySelector('[data-component="stock-ticker"]')?.className).toContain('custom')
+    const { container } = render(
+      <StockTicker className="custom" items={items} />
+    )
+    expect(
+      container.querySelector('[data-component="stock-ticker"]')?.className
+    ).toContain('custom')
   })
 })

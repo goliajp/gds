@@ -52,7 +52,8 @@ describe('Dock', () => {
 
   it('scales neighbor items to 1.1', () => {
     render(<Dock items={items} onSelect={vi.fn()} />)
-    const searchContainer = screen.getByTestId('dock-item-search').parentElement!
+    const searchContainer =
+      screen.getByTestId('dock-item-search').parentElement!
 
     fireEvent.mouseEnter(searchContainer)
 
@@ -67,20 +68,28 @@ describe('Dock', () => {
 
   it('resets scale on mouse leave', () => {
     render(<Dock items={items} onSelect={vi.fn()} />)
-    const searchContainer = screen.getByTestId('dock-item-search').parentElement!
+    const searchContainer =
+      screen.getByTestId('dock-item-search').parentElement!
 
     fireEvent.mouseEnter(searchContainer)
-    expect(screen.getByTestId('dock-item-search').style.transform).toBe('scale(1.3)')
+    expect(screen.getByTestId('dock-item-search').style.transform).toBe(
+      'scale(1.3)'
+    )
 
     fireEvent.mouseLeave(searchContainer)
     // all items should be scale(1)
-    expect(screen.getByTestId('dock-item-search').style.transform).toBe('scale(1)')
-    expect(screen.getByTestId('dock-item-home').style.transform).toBe('scale(1)')
+    expect(screen.getByTestId('dock-item-search').style.transform).toBe(
+      'scale(1)'
+    )
+    expect(screen.getByTestId('dock-item-home').style.transform).toBe(
+      'scale(1)'
+    )
   })
 
   it('shows tooltip with opacity-100 when hovered', () => {
     render(<Dock items={items} onSelect={vi.fn()} />)
-    const searchContainer = screen.getByTestId('dock-item-search').parentElement!
+    const searchContainer =
+      screen.getByTestId('dock-item-search').parentElement!
 
     fireEvent.mouseEnter(searchContainer)
     const tooltip = screen.getByTestId('dock-tooltip-search')
@@ -94,13 +103,17 @@ describe('Dock', () => {
   })
 
   it('does not apply glass when glass is false', () => {
-    const { container } = render(<Dock items={items} onSelect={vi.fn()} glass={false} />)
+    const { container } = render(
+      <Dock items={items} onSelect={vi.fn()} glass={false} />
+    )
     const el = container.querySelector('[data-component="dock"]')
     expect(el?.className).not.toContain('gds-glass')
   })
 
   it('applies custom className', () => {
-    const { container } = render(<Dock items={items} onSelect={vi.fn()} className="my-dock" />)
+    const { container } = render(
+      <Dock items={items} onSelect={vi.fn()} className="my-dock" />
+    )
     const el = container.querySelector('[data-component="dock"]')
     expect(el?.className).toContain('my-dock')
   })
@@ -129,7 +142,9 @@ describe('Dock', () => {
   })
 
   it('spreads additional props', () => {
-    const { container } = render(<Dock items={items} onSelect={vi.fn()} data-custom="test" />)
+    const { container } = render(
+      <Dock items={items} onSelect={vi.fn()} data-custom="test" />
+    )
     const el = container.querySelector('[data-component="dock"]')
     expect(el?.getAttribute('data-custom')).toBe('test')
   })

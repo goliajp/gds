@@ -29,7 +29,9 @@ import { RichTextEditor } from '../rich-text-editor'
 describe('RichTextEditor', () => {
   it('renders with data-component="rich-text-editor"', () => {
     const { container } = render(<RichTextEditor />)
-    expect(container.querySelector('[data-component="rich-text-editor"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="rich-text-editor"]')
+    ).not.toBeNull()
   })
 
   it('sets data-variant to full by default', () => {
@@ -46,7 +48,9 @@ describe('RichTextEditor', () => {
 
   it('renders editor content area', () => {
     const { container } = render(<RichTextEditor />)
-    expect(container.querySelector('[data-testid="editor-content"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-testid="editor-content"]')
+    ).not.toBeNull()
   })
 
   it('does not render toolbar when toolbar={false}', () => {

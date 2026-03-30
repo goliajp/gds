@@ -25,7 +25,7 @@ describe('StatusPage', () => {
         title="Not Found"
         action={<button>Go Home</button>}
         secondaryAction={<button>Go Back</button>}
-      />,
+      />
     )
     expect(screen.getByText('Go Home')).toBeDefined()
     expect(screen.getByText('Go Back')).toBeDefined()

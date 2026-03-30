@@ -10,7 +10,10 @@ type ProgressRingProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const ProgressRing = forwardRef<HTMLDivElement, ProgressRingProps>(
-  function ProgressRing({ className, size = 48, strokeWidth = 4, value, ...props }, ref) {
+  function ProgressRing(
+    { className, size = 48, strokeWidth = 4, value, ...props },
+    ref
+  ) {
     const clamped = Math.max(0, Math.min(100, value))
     const radius = (size - strokeWidth) / 2
     const circumference = 2 * Math.PI * radius
@@ -24,7 +27,7 @@ export const ProgressRing = forwardRef<HTMLDivElement, ProgressRingProps>(
         aria-valuenow={clamped}
         className={cx(
           'inline-flex items-center justify-center select-none',
-          className,
+          className
         )}
         data-component="progress-ring"
         ref={ref}
@@ -58,14 +61,14 @@ export const ProgressRing = forwardRef<HTMLDivElement, ProgressRingProps>(
           />
         </svg>
         <span
-          className="absolute font-mono text-xs font-bold text-fg"
+          className="text-fg absolute font-mono text-xs font-bold"
           style={{ fontSize: size * 0.22 }}
         >
           {clamped}%
         </span>
       </div>
     )
-  },
+  }
 )
 
 export type { ProgressRingProps }

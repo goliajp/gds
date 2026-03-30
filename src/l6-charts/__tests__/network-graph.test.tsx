@@ -28,13 +28,17 @@ describe('NetworkGraph', () => {
   })
 
   it('applies glass class', () => {
-    const { container } = render(<NetworkGraph nodes={nodes} edges={edges} glass />)
+    const { container } = render(
+      <NetworkGraph nodes={nodes} edges={edges} glass />
+    )
     const el = container.querySelector('[data-component="network-graph"]')
     expect(el?.className).toContain('backdrop-blur-md')
   })
 
   it('has data-component attribute', () => {
     const { container } = render(<NetworkGraph nodes={nodes} edges={edges} />)
-    expect(container.querySelector('[data-component="network-graph"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="network-graph"]')
+    ).not.toBeNull()
   })
 })

@@ -6,9 +6,11 @@ import { DashboardLayout } from '../dashboard-layout'
 describe('DashboardLayout', () => {
   it('has data-component="dashboard-layout"', () => {
     const { container } = render(
-      <DashboardLayout sidebar={<nav>Menu</nav>}>Content</DashboardLayout>,
+      <DashboardLayout sidebar={<nav>Menu</nav>}>Content</DashboardLayout>
     )
-    expect(container.querySelector('[data-component="dashboard-layout"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="dashboard-layout"]')
+    ).not.toBeNull()
   })
 
   it('renders sidebar and content', () => {
@@ -21,7 +23,7 @@ describe('DashboardLayout', () => {
     render(
       <DashboardLayout sidebar={<nav>Side</nav>} header={<div>Top Bar</div>}>
         Main
-      </DashboardLayout>,
+      </DashboardLayout>
     )
     expect(screen.getByText('Top Bar')).toBeDefined()
   })

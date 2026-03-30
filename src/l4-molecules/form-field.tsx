@@ -13,12 +13,15 @@ type FieldWrapperProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const FieldWrapper = forwardRef<HTMLDivElement, FieldWrapperProps>(
-  function FieldWrapper({ children, className, error, helperText, label, required, ...props }, ref) {
+  function FieldWrapper(
+    { children, className, error, helperText, label, required, ...props },
+    ref
+  ) {
     const hasError = error !== undefined && error !== ''
 
     return (
       <div
-        className={cx('flex flex-col gds-gap-sm', className)}
+        className={cx('gds-gap-sm flex flex-col', className)}
         data-component="field-wrapper"
         data-state={hasError ? 'error' : 'idle'}
         ref={ref}
@@ -34,7 +37,7 @@ export const FieldWrapper = forwardRef<HTMLDivElement, FieldWrapperProps>(
         )}
       </div>
     )
-  },
+  }
 )
 
 export type { FieldWrapperProps }

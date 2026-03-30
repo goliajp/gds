@@ -51,7 +51,11 @@ describe('KvTable', () => {
 
   it('copies value on copy button click', async () => {
     const writeText = vi.fn().mockResolvedValue(undefined)
-    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, writable: true, configurable: true })
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText },
+      writable: true,
+      configurable: true,
+    })
 
     const copyItems = [{ key: 'Token', value: 'abc123', copyable: true }]
     render(<KvTable items={copyItems} />)
@@ -61,9 +65,15 @@ describe('KvTable', () => {
 
   it('copies non-string value as string', async () => {
     const writeText = vi.fn().mockResolvedValue(undefined)
-    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, writable: true, configurable: true })
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText },
+      writable: true,
+      configurable: true,
+    })
 
-    const copyItems = [{ key: 'Count', value: 42 as unknown as string, copyable: true }]
+    const copyItems = [
+      { key: 'Count', value: 42 as unknown as string, copyable: true },
+    ]
     render(<KvTable items={copyItems} />)
     await userEvent.click(screen.getByLabelText('Copy Count'))
     expect(writeText).toHaveBeenCalledWith('42')

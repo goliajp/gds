@@ -107,7 +107,11 @@ export type { ScrollProgressProps } from './scroll-progress'
 export { ScrollProgress } from './scroll-progress'
 export type { ScrollToTopProps } from './scroll-to-top'
 export { ScrollToTop } from './scroll-to-top'
-export type { SegmentedControlOption, SegmentedControlProps, SegmentedControlSize } from './segmented-control'
+export type {
+  SegmentedControlOption,
+  SegmentedControlProps,
+  SegmentedControlSize,
+} from './segmented-control'
 export { SegmentedControl } from './segmented-control'
 export type { ShortcutDisplayProps } from './shortcut-display'
 export { ShortcutDisplay } from './shortcut-display'
@@ -135,11 +139,23 @@ export type { TextareaCounterProps } from './textarea-counter'
 export { TextareaCounter } from './textarea-counter'
 export type { ThemeToggleProps } from './theme-toggle'
 export { ThemeToggle } from './theme-toggle'
-export type { ToggleGroupItem, ToggleGroupProps, ToggleGroupSize } from './toggle-group'
-export { ToggleGroup, toggleGroupVariants, toggleItemVariants } from './toggle-group'
+export type {
+  ToggleGroupItem,
+  ToggleGroupProps,
+  ToggleGroupSize,
+} from './toggle-group'
+export {
+  ToggleGroup,
+  toggleGroupVariants,
+  toggleItemVariants,
+} from './toggle-group'
 export type { TooltipProps } from './tooltip'
 export { Tooltip } from './tooltip'
-export type { TrendArrowDirection, TrendArrowProps, TrendArrowSize } from './trend-arrow'
+export type {
+  TrendArrowDirection,
+  TrendArrowProps,
+  TrendArrowSize,
+} from './trend-arrow'
 export { TrendArrow } from './trend-arrow'
 export type { TrendIndicatorProps } from './trend-indicator'
 export { TrendIndicator } from './trend-indicator'

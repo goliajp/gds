@@ -8,12 +8,16 @@ describe('Table', () => {
     const { container } = render(
       <Table>
         <thead>
-          <tr><th>Name</th></tr>
+          <tr>
+            <th>Name</th>
+          </tr>
         </thead>
         <tbody>
-          <tr><td>Alice</td></tr>
+          <tr>
+            <td>Alice</td>
+          </tr>
         </tbody>
-      </Table>,
+      </Table>
     )
     expect(container.querySelector('table')).not.toBeNull()
     expect(container.querySelector('th')?.textContent).toBe('Name')
@@ -24,10 +28,14 @@ describe('Table', () => {
     const { container } = render(
       <Table striped>
         <tbody>
-          <tr><td>A</td></tr>
-          <tr><td>B</td></tr>
+          <tr>
+            <td>A</td>
+          </tr>
+          <tr>
+            <td>B</td>
+          </tr>
         </tbody>
-      </Table>,
+      </Table>
     )
     const wrapper = container.querySelector('[data-component="table"]')
     expect(wrapper?.getAttribute('data-striped')).toBe('true')
@@ -38,9 +46,11 @@ describe('Table', () => {
     const { container } = render(
       <Table compact>
         <tbody>
-          <tr><td>A</td></tr>
+          <tr>
+            <td>A</td>
+          </tr>
         </tbody>
-      </Table>,
+      </Table>
     )
     const wrapper = container.querySelector('[data-component="table"]')
     expect(wrapper?.getAttribute('data-compact')).toBe('true')
@@ -51,9 +61,11 @@ describe('Table', () => {
     const { container } = render(
       <Table>
         <tbody>
-          <tr><td>A</td></tr>
+          <tr>
+            <td>A</td>
+          </tr>
         </tbody>
-      </Table>,
+      </Table>
     )
     const wrapper = container.querySelector('[data-component="table"]')
     expect(wrapper?.className).toContain('hover')
@@ -63,9 +75,11 @@ describe('Table', () => {
     const { container } = render(
       <Table>
         <tbody>
-          <tr><td>A</td></tr>
+          <tr>
+            <td>A</td>
+          </tr>
         </tbody>
-      </Table>,
+      </Table>
     )
     expect(container.querySelector('[data-component="table"]')).not.toBeNull()
   })

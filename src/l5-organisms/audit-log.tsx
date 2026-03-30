@@ -26,7 +26,13 @@ export const AuditLog = forwardRef<HTMLDivElement, AuditLogProps>(
         {...props}
       >
         {entries.map((entry, i) => (
-          <div key={entry.id} className={cx('gds-pad-x gds-pad-y', i % 2 === 1 && 'bg-surface/50')}>
+          <div
+            key={entry.id}
+            className={cx(
+              'gds-pad-x gds-pad-y',
+              i % 2 === 1 && 'bg-surface/50'
+            )}
+          >
             <AuditEntry
               action={entry.action}
               target={entry.target}
@@ -38,7 +44,7 @@ export const AuditLog = forwardRef<HTMLDivElement, AuditLogProps>(
         ))}
       </div>
     )
-  },
+  }
 )
 
 export type { AuditLogEntry, AuditLogProps }

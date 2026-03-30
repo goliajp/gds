@@ -5,13 +5,17 @@ import { LinkPreview } from '../link-preview'
 
 describe('LinkPreview', () => {
   it('renders with data-component', () => {
-    const { container } = render(<LinkPreview title="Test" url="https://example.com" />)
-    expect(container.querySelector('[data-component="link-preview"]')).not.toBeNull()
+    const { container } = render(
+      <LinkPreview title="Test" url="https://example.com" />
+    )
+    expect(
+      container.querySelector('[data-component="link-preview"]')
+    ).not.toBeNull()
   })
 
   it('renders title and links to url', () => {
     const { getByText, container } = render(
-      <LinkPreview title="Example" url="https://example.com" />,
+      <LinkPreview title="Example" url="https://example.com" />
     )
     expect(getByText('Example')).toBeDefined()
     const anchor = container.querySelector('a')!
@@ -22,7 +26,7 @@ describe('LinkPreview', () => {
 
   it('renders description when provided', () => {
     const { getByText } = render(
-      <LinkPreview title="T" url="https://x.com" description="A description" />,
+      <LinkPreview title="T" url="https://x.com" description="A description" />
     )
     expect(getByText('A description')).toBeDefined()
   })
@@ -35,7 +39,7 @@ describe('LinkPreview', () => {
 
   it('renders domain when provided', () => {
     const { getByText } = render(
-      <LinkPreview title="T" url="https://x.com" domain="example.com" />,
+      <LinkPreview title="T" url="https://x.com" domain="example.com" />
     )
     expect(getByText('example.com')).toBeDefined()
   })
@@ -48,7 +52,11 @@ describe('LinkPreview', () => {
 
   it('renders image when provided', () => {
     const { container } = render(
-      <LinkPreview title="T" url="https://x.com" image="https://img.com/pic.jpg" />,
+      <LinkPreview
+        title="T"
+        url="https://x.com"
+        image="https://img.com/pic.jpg"
+      />
     )
     const img = container.querySelector('img')!
     expect(img).not.toBeNull()
@@ -62,20 +70,24 @@ describe('LinkPreview', () => {
   })
 
   it('applies glass class when glass is true', () => {
-    const { container } = render(<LinkPreview title="T" url="https://x.com" glass />)
+    const { container } = render(
+      <LinkPreview title="T" url="https://x.com" glass />
+    )
     const anchor = container.querySelector('a')!
     expect(anchor.className).toContain('gds-glass')
   })
 
   it('does not apply glass class when glass is false', () => {
-    const { container } = render(<LinkPreview title="T" url="https://x.com" glass={false} />)
+    const { container } = render(
+      <LinkPreview title="T" url="https://x.com" glass={false} />
+    )
     const anchor = container.querySelector('a')!
     expect(anchor.className).not.toContain('gds-glass')
   })
 
   it('merges custom className', () => {
     const { container } = render(
-      <LinkPreview title="T" url="https://x.com" className="my-cls" />,
+      <LinkPreview title="T" url="https://x.com" className="my-cls" />
     )
     const anchor = container.querySelector('a')!
     expect(anchor.className).toContain('my-cls')

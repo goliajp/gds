@@ -23,20 +23,30 @@ export const CalendarHeatmap = forwardRef<SVGSVGElement, CalendarHeatmapProps>(
       data,
       startDate,
       endDate,
-      colorScale = ['var(--gds-bg-tertiary)', 'var(--gds-accent-dim, rgba(99,179,163,0.3))', 'var(--gds-accent-muted, rgba(99,179,163,0.55))', 'var(--gds-accent-soft, rgba(99,179,163,0.75))', 'var(--gds-accent)'],
+      colorScale = [
+        'var(--gds-bg-tertiary)',
+        'var(--gds-accent-dim, rgba(99,179,163,0.3))',
+        'var(--gds-accent-muted, rgba(99,179,163,0.55))',
+        'var(--gds-accent-soft, rgba(99,179,163,0.75))',
+        'var(--gds-accent)',
+      ],
       cellSize = 12,
       glass,
       className,
     },
-    ref,
+    ref
   ) {
-    const [tooltip, setTooltip] = useState<{ x: number; y: number; text: string } | null>(null)
+    const [tooltip, setTooltip] = useState<{
+      x: number
+      y: number
+      text: string
+    } | null>(null)
     const gap = 2
     const step = cellSize + gap
 
     const { cells, monthLabels, weeks } = useMemo(
       () => computeHeatmapGrid(data, startDate, endDate, step),
-      [data, startDate, endDate, step],
+      [data, startDate, endDate, step]
     )
 
     const labelWidth = 28
@@ -48,8 +58,9 @@ export const CalendarHeatmap = forwardRef<SVGSVGElement, CalendarHeatmapProps>(
       <div
         className={cx(
           'relative inline-block',
-          glass === true && cx(glassClass(glass), 'rounded-lg border border-white/10 p-3'),
-          className,
+          glass === true &&
+            cx(glassClass(glass), 'rounded-lg border border-white/10 p-3'),
+          className
         )}
         data-component="calendar-heatmap"
       >
@@ -77,7 +88,7 @@ export const CalendarHeatmap = forwardRef<SVGSVGElement, CalendarHeatmapProps>(
               >
                 {label}
               </text>
-            ) : null,
+            ) : null
           )}
           {cells.map((c) => (
             <rect
@@ -90,8 +101,14 @@ export const CalendarHeatmap = forwardRef<SVGSVGElement, CalendarHeatmapProps>(
               x={labelWidth + c.x}
               y={headerHeight + c.y}
               onMouseEnter={(e) => {
-                const rect = (e.target as SVGRectElement).getBoundingClientRect()
-                setTooltip({ x: rect.x, y: rect.y, text: `${c.date}: ${c.value}` })
+                const rect = (
+                  e.target as SVGRectElement
+                ).getBoundingClientRect()
+                setTooltip({
+                  x: rect.x,
+                  y: rect.y,
+                  text: `${c.date}: ${c.value}`,
+                })
               }}
               onMouseLeave={() => setTooltip(null)}
             />
@@ -99,7 +116,7 @@ export const CalendarHeatmap = forwardRef<SVGSVGElement, CalendarHeatmapProps>(
         </svg>
         {tooltip !== null && (
           <div
-            className="pointer-events-none fixed z-50 rounded bg-surface px-2 py-1 text-[10px] text-fg shadow-md border border-border"
+            className="bg-surface text-fg border-border pointer-events-none fixed z-50 rounded border px-2 py-1 text-[10px] shadow-md"
             style={{ left: tooltip.x, top: tooltip.y - 28 }}
           >
             {tooltip.text}
@@ -107,5 +124,5 @@ export const CalendarHeatmap = forwardRef<SVGSVGElement, CalendarHeatmapProps>(
         )}
       </div>
     )
-  },
+  }
 )

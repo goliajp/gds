@@ -12,7 +12,10 @@ type ErrorBoundaryState = {
   error: Error | null
 }
 
-class ErrorBoundaryClass extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+class ErrorBoundaryClass extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   state: ErrorBoundaryState = { error: null }
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
@@ -42,7 +45,7 @@ class ErrorBoundaryClass extends Component<ErrorBoundaryProps, ErrorBoundaryStat
 
     return (
       <div
-        className="flex flex-col items-center justify-center gap-2 gds-pad gds-text-body text-danger"
+        className="gds-pad gds-text-body text-danger flex flex-col items-center justify-center gap-2"
         data-component="error-boundary"
       >
         <p className="font-semibold">Something went wrong</p>

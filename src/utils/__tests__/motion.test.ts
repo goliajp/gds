@@ -16,7 +16,16 @@ describe('motionClass', () => {
   })
 
   it('maps all 8 presets', () => {
-    const presets = ['fadeIn', 'fadeOut', 'scaleIn', 'scaleOut', 'slideUp', 'slideDown', 'slideLeft', 'slideRight']
+    const presets = [
+      'fadeIn',
+      'fadeOut',
+      'scaleIn',
+      'scaleOut',
+      'slideUp',
+      'slideDown',
+      'slideLeft',
+      'slideRight',
+    ]
     for (const p of presets) {
       expect(motionClass(p)).toMatch(/^animate-/)
     }
@@ -29,11 +38,15 @@ describe('motionClass', () => {
 
 describe('motionClassWithSpeed', () => {
   it('adds animate-fast', () => {
-    expect(motionClassWithSpeed('fadeIn', 'fast')).toBe('animate-fade-in animate-fast')
+    expect(motionClassWithSpeed('fadeIn', 'fast')).toBe(
+      'animate-fade-in animate-fast'
+    )
   })
 
   it('adds animate-slow', () => {
-    expect(motionClassWithSpeed('scaleIn', 'slow')).toBe('animate-scale-in animate-slow')
+    expect(motionClassWithSpeed('scaleIn', 'slow')).toBe(
+      'animate-scale-in animate-slow'
+    )
   })
 
   it('no speed = default', () => {

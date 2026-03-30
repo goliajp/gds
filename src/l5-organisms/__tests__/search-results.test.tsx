@@ -4,14 +4,23 @@ import { describe, expect, it, vi } from 'vitest'
 import { SearchResults } from '../search-results'
 
 const results = [
-  { id: '1', title: 'React Components', description: 'Build UI with React', category: 'Docs' },
+  {
+    id: '1',
+    title: 'React Components',
+    description: 'Build UI with React',
+    category: 'Docs',
+  },
   { id: '2', title: 'React Hooks Guide' },
 ]
 
 describe('SearchResults', () => {
   it('renders with data-component', () => {
-    const { container } = render(<SearchResults results={results} query="react" />)
-    expect(container.querySelector('[data-component="search-results"]')).not.toBeNull()
+    const { container } = render(
+      <SearchResults results={results} query="react" />
+    )
+    expect(
+      container.querySelector('[data-component="search-results"]')
+    ).not.toBeNull()
   })
 
   it('renders result titles', () => {
@@ -42,7 +51,9 @@ describe('SearchResults', () => {
   })
 
   it('does not have button role when onSelect is not provided', () => {
-    const { container } = render(<SearchResults results={results} query="react" />)
+    const { container } = render(
+      <SearchResults results={results} query="react" />
+    )
     expect(container.querySelector('[role="button"]')).toBeNull()
   })
 
@@ -63,25 +74,33 @@ describe('SearchResults', () => {
   })
 
   it('renders description when provided', () => {
-    const { container } = render(<SearchResults results={results} query="react" />)
+    const { container } = render(
+      <SearchResults results={results} query="react" />
+    )
     expect(container.textContent).toContain('Build UI with React')
   })
 
   it('does not render description when not provided', () => {
     const noDescResults = [{ id: '1', title: 'No Desc Item' }]
-    const { container } = render(<SearchResults results={noDescResults} query="no" />)
+    const { container } = render(
+      <SearchResults results={noDescResults} query="no" />
+    )
     expect(container.textContent).toContain('No Desc Item')
   })
 
   it('does not render category badge when not provided', () => {
     const noCatResults = [{ id: '1', title: 'No Category' }]
-    const { container } = render(<SearchResults results={noCatResults} query="no" />)
-    expect(container.querySelector('[data-component="search-results"]')).not.toBeNull()
+    const { container } = render(
+      <SearchResults results={noCatResults} query="no" />
+    )
+    expect(
+      container.querySelector('[data-component="search-results"]')
+    ).not.toBeNull()
   })
 
   it('applies custom className', () => {
     const { container } = render(
-      <SearchResults results={results} query="react" className="my-results" />,
+      <SearchResults results={results} query="react" className="my-results" />
     )
     const root = container.querySelector('[data-component="search-results"]')
     expect(root?.className).toContain('my-results')

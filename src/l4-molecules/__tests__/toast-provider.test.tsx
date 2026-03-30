@@ -100,12 +100,16 @@ describe('ToastProvider', () => {
     act(() => {
       toast.success('Hello')
     })
-    expect(document.querySelector('[data-component="toast-provider"]')).not.toBeNull()
+    expect(
+      document.querySelector('[data-component="toast-provider"]')
+    ).not.toBeNull()
   })
 
   it('renders nothing when no toasts', () => {
     render(<ToastProvider />)
-    expect(document.querySelector('[data-component="toast-provider"]')).toBeNull()
+    expect(
+      document.querySelector('[data-component="toast-provider"]')
+    ).toBeNull()
   })
 
   it('renders toast description', () => {

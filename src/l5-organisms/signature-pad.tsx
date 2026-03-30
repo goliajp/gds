@@ -3,9 +3,18 @@ import { forwardRef, useCallback, useRef, useState } from 'react'
 
 import { focusCls } from '../utils/a11y'
 import { cx } from '../utils/cx'
-import { beginStroke, canvasToDataUrl, clearCanvas, continueStroke, getCanvasPosition } from './signature-drawing'
+import {
+  beginStroke,
+  canvasToDataUrl,
+  clearCanvas,
+  continueStroke,
+  getCanvasPosition,
+} from './signature-drawing'
 
-type SignaturePadProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> & {
+type SignaturePadProps = Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  'children'
+> & {
   disabled?: boolean
   height?: number
   onSign: (dataUrl: string) => void
@@ -26,7 +35,7 @@ export const SignaturePad = forwardRef<HTMLDivElement, SignaturePadProps>(
       width = 400,
       ...props
     },
-    ref,
+    ref
   ) {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const isDrawingRef = useRef(false)
@@ -43,22 +52,19 @@ export const SignaturePad = forwardRef<HTMLDivElement, SignaturePadProps>(
         const pos = getCanvasPosition(canvas, clientX, clientY)
         beginStroke(ctx, pos, { strokeColor, strokeWidth })
       },
-      [disabled, strokeColor, strokeWidth],
+      [disabled, strokeColor, strokeWidth]
     )
 
-    const draw = useCallback(
-      (clientX: number, clientY: number) => {
-        if (!isDrawingRef.current) return
-        const canvas = canvasRef.current
-        if (canvas === null) return
-        const ctx = canvas.getContext('2d')
-        if (ctx === null) return
-        const pos = getCanvasPosition(canvas, clientX, clientY)
-        continueStroke(ctx, pos)
-        setIsEmpty(false)
-      },
-      [],
-    )
+    const draw = useCallback((clientX: number, clientY: number) => {
+      if (!isDrawingRef.current) return
+      const canvas = canvasRef.current
+      if (canvas === null) return
+      const ctx = canvas.getContext('2d')
+      if (ctx === null) return
+      const pos = getCanvasPosition(canvas, clientX, clientY)
+      continueStroke(ctx, pos)
+      setIsEmpty(false)
+    }, [])
 
     const endDraw = useCallback(() => {
       if (!isDrawingRef.current) return
@@ -73,14 +79,14 @@ export const SignaturePad = forwardRef<HTMLDivElement, SignaturePadProps>(
       (e: React.MouseEvent<HTMLCanvasElement>) => {
         startDraw(e.clientX, e.clientY)
       },
-      [startDraw],
+      [startDraw]
     )
 
     const handleMouseMove = useCallback(
       (e: React.MouseEvent<HTMLCanvasElement>) => {
         draw(e.clientX, e.clientY)
       },
-      [draw],
+      [draw]
     )
 
     const handleTouchStart = useCallback(
@@ -90,7 +96,7 @@ export const SignaturePad = forwardRef<HTMLDivElement, SignaturePadProps>(
         if (touch === undefined) return
         startDraw(touch.clientX, touch.clientY)
       },
-      [startDraw],
+      [startDraw]
     )
 
     const handleTouchMove = useCallback(
@@ -100,7 +106,7 @@ export const SignaturePad = forwardRef<HTMLDivElement, SignaturePadProps>(
         if (touch === undefined) return
         draw(touch.clientX, touch.clientY)
       },
-      [draw],
+      [draw]
     )
 
     const handleTouchEnd = useCallback(
@@ -108,7 +114,7 @@ export const SignaturePad = forwardRef<HTMLDivElement, SignaturePadProps>(
         e.preventDefault()
         endDraw()
       },
-      [endDraw],
+      [endDraw]
     )
 
     const handleClear = useCallback(() => {
@@ -121,9 +127,9 @@ export const SignaturePad = forwardRef<HTMLDivElement, SignaturePadProps>(
     return (
       <div
         className={cx(
-          'gds-ctx inline-flex flex-col gap-2 gds-radius-popover border border-border bg-surface p-3',
+          'gds-ctx gds-radius-popover border-border bg-surface inline-flex flex-col gap-2 border p-3',
           disabled === true && 'pointer-events-none opacity-40',
-          className,
+          className
         )}
         data-component="signature-pad"
         ref={ref}
@@ -131,7 +137,7 @@ export const SignaturePad = forwardRef<HTMLDivElement, SignaturePadProps>(
       >
         <div className="relative">
           <canvas
-            className="block cursor-crosshair rounded border border-border/50 bg-bg"
+            className="border-border/50 bg-bg block cursor-crosshair rounded border"
             height={height}
             onMouseDown={handleMouseDown}
             onMouseLeave={endDraw}
@@ -146,15 +152,17 @@ export const SignaturePad = forwardRef<HTMLDivElement, SignaturePadProps>(
           />
           {isEmpty && (
             <div className="pointer-events-none absolute inset-0 flex items-end justify-center pb-4">
-              <span className="select-none text-xs text-fg-muted/50">Sign above</span>
+              <span className="text-fg-muted/50 text-xs select-none">
+                Sign above
+              </span>
             </div>
           )}
         </div>
         <div className="flex justify-end">
           <button
             className={cx(
-              'rounded px-2.5 py-1 text-xs text-fg-muted transition-colors hover:bg-fg-muted/10 hover:text-fg',
-              focusCls,
+              'text-fg-muted hover:bg-fg-muted/10 hover:text-fg rounded px-2.5 py-1 text-xs transition-colors',
+              focusCls
             )}
             onClick={handleClear}
             type="button"
@@ -164,7 +172,7 @@ export const SignaturePad = forwardRef<HTMLDivElement, SignaturePadProps>(
         </div>
       </div>
     )
-  },
+  }
 )
 
 export type { SignaturePadProps }

@@ -17,18 +17,18 @@ export const FieldSet = forwardRef<HTMLFieldSetElement, FieldSetProps>(
       <fieldset
         ref={ref}
         className={cx(
-          'gds-radius border border-border gds-pad',
+          'gds-radius border-border gds-pad border',
           disabled && 'cursor-not-allowed opacity-50',
-          className,
+          className
         )}
         data-component="field-set"
         disabled={disabled}
       >
-        <legend className="px-2 text-xs font-medium text-fg-muted select-none">
+        <legend className="text-fg-muted px-2 text-xs font-medium select-none">
           {legend}
         </legend>
         {children}
       </fieldset>
     )
-  },
+  }
 )

@@ -6,7 +6,9 @@ import { ContactCard } from '../contact-card'
 describe('ContactCard', () => {
   it('renders with data-component', () => {
     const { container } = render(<ContactCard name="Alice" />)
-    expect(container.querySelector('[data-component="contact-card"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="contact-card"]')
+    ).not.toBeNull()
   })
 
   it('renders name and role', () => {
@@ -21,7 +23,9 @@ describe('ContactCard', () => {
   })
 
   it('renders contact info', () => {
-    render(<ContactCard name="Bob" email="bob@example.com" phone="+1-555-0100" />)
+    render(
+      <ContactCard name="Bob" email="bob@example.com" phone="+1-555-0100" />
+    )
     expect(screen.getByText('bob@example.com')).toBeDefined()
     expect(screen.getByText('+1-555-0100')).toBeDefined()
   })
@@ -33,17 +37,23 @@ describe('ContactCard', () => {
   })
 
   it('renders actions slot', () => {
-    render(<ContactCard name="Alice" actions={<button type="button">Edit</button>} />)
+    render(
+      <ContactCard name="Alice" actions={<button type="button">Edit</button>} />
+    )
     expect(screen.getByText('Edit')).toBeDefined()
   })
 
   it('does not render email, phone, role when not provided', () => {
     const { container } = render(<ContactCard name="Alice" />)
-    expect(container.querySelector('[data-component="contact-card"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="contact-card"]')
+    ).not.toBeNull()
   })
 
   it('applies custom className', () => {
-    const { container } = render(<ContactCard name="Alice" className="my-card" />)
+    const { container } = render(
+      <ContactCard name="Alice" className="my-card" />
+    )
     const root = container.querySelector('[data-component="contact-card"]')
     expect(root?.className).toContain('my-card')
   })

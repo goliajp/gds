@@ -32,47 +32,62 @@ function MiniSparkline({ data }: { data: number[] }) {
 
   return (
     <svg className="mt-2" height={h} viewBox={`0 0 ${w} ${h}`} width={w}>
-      <polyline fill="none" points={points} stroke="var(--gds-accent)" strokeWidth={1.5} />
+      <polyline
+        fill="none"
+        points={points}
+        stroke="var(--gds-accent)"
+        strokeWidth={1.5}
+      />
     </svg>
   )
 }
 
 export const StatsCard = forwardRef<HTMLDivElement, StatsCardProps>(
-  function StatsCard({ icon, label, value, trend, sparkData, glass, className }, ref) {
+  function StatsCard(
+    { icon, label, value, trend, sparkData, glass, className },
+    ref
+  ) {
     const isPositive = trend !== undefined && trend >= 0
 
     return (
       <div
         ref={ref}
         className={cx(
-          'relative gds-ctx gds-radius-card border gds-pad-x-lg gds-pad-y-lg',
+          'gds-ctx gds-radius-card gds-pad-x-lg gds-pad-y-lg relative border',
           glass === true
-            ? cx(glassClass(glass), 'border-white/10 bg-bg/60')
+            ? cx(glassClass(glass), 'bg-bg/60 border-white/10')
             : 'border-border bg-surface',
-          className,
+          className
         )}
         data-component="stats-card"
       >
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-2">
-            {icon !== undefined && <div className="text-fg-muted/50">{icon}</div>}
+            {icon !== undefined && (
+              <div className="text-fg-muted/50">{icon}</div>
+            )}
             <p className="gds-text-body text-fg-muted">{label}</p>
           </div>
           {trend !== undefined && (
             <span
               className={cx(
                 'inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[10px] font-medium',
-                isPositive ? 'bg-success/10 text-success' : 'bg-danger/10 text-danger',
+                isPositive
+                  ? 'bg-success/10 text-success'
+                  : 'bg-danger/10 text-danger'
               )}
             >
               {isPositive ? '\u2191' : '\u2193'}
-              {isPositive ? '+' : ''}{trend}%
+              {isPositive ? '+' : ''}
+              {trend}%
             </span>
           )}
         </div>
-        <p className="mt-1 text-2xl font-bold text-fg">{value}</p>
-        {sparkData !== undefined && sparkData.length >= 2 && <MiniSparkline data={sparkData} />}
+        <p className="text-fg mt-1 text-2xl font-bold">{value}</p>
+        {sparkData !== undefined && sparkData.length >= 2 && (
+          <MiniSparkline data={sparkData} />
+        )}
       </div>
     )
-  },
+  }
 )

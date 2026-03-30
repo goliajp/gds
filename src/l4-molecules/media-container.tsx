@@ -15,14 +15,21 @@ export type MediaContainerProps = {
 }
 
 export const MediaContainer = forwardRef<HTMLDivElement, MediaContainerProps>(
-  function MediaContainer({ alt, aspectRatio, className, rounded, src, type }, ref) {
+  function MediaContainer(
+    { alt, aspectRatio, className, rounded, src, type },
+    ref
+  ) {
     const roundedCls = rounded === true ? 'rounded-lg overflow-hidden' : ''
 
     return (
       <div
         ref={ref}
         className={cx('relative w-full', roundedCls, className)}
-        style={aspectRatio !== undefined ? { aspectRatio: String(aspectRatio) } : undefined}
+        style={
+          aspectRatio !== undefined
+            ? { aspectRatio: String(aspectRatio) }
+            : undefined
+        }
         data-component="media-container"
         data-variant={type}
       >
@@ -46,5 +53,5 @@ export const MediaContainer = forwardRef<HTMLDivElement, MediaContainerProps>(
         )}
       </div>
     )
-  },
+  }
 )

@@ -13,12 +13,16 @@ export type DescriptionProps = {
 export const Description = forwardRef<HTMLDivElement, DescriptionProps>(
   function Description({ children, title, className }, ref) {
     return (
-      <div ref={ref} className={cx('space-y-0.5', className)} data-component="description">
+      <div
+        ref={ref}
+        className={cx('space-y-0.5', className)}
+        data-component="description"
+      >
         {title !== undefined && (
-          <div className="gds-text-body font-medium text-fg">{title}</div>
+          <div className="gds-text-body text-fg font-medium">{title}</div>
         )}
         <div className="gds-text-body text-fg-muted">{children}</div>
       </div>
     )
-  },
+  }
 )

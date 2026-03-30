@@ -12,7 +12,10 @@ type SegmentedControlOption = {
 
 type SegmentedControlSize = 'default' | 'sm'
 
-type SegmentedControlProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
+type SegmentedControlProps = Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  'onChange'
+> & {
   options: SegmentedControlOption[]
   value: string
   onChange: (value: string) => void
@@ -27,15 +30,27 @@ const sizeClasses: Record<SegmentedControlSize, string> = {
 }
 
 const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps>(
-  function SegmentedControl({ options, value, onChange, size = 'default', disabled, glass, className, ...props }, ref) {
+  function SegmentedControl(
+    {
+      options,
+      value,
+      onChange,
+      size = 'default',
+      disabled,
+      glass,
+      className,
+      ...props
+    },
+    ref
+  ) {
     return (
       <div
         ref={ref}
         className={cx(
-          'inline-flex select-none gds-radius-button bg-bg-tertiary p-0.5',
+          'gds-radius-button bg-bg-tertiary inline-flex p-0.5 select-none',
           glass === true && glassClass(glass),
           disabled === true && 'pointer-events-none opacity-50',
-          className,
+          className
         )}
         data-component="segmented-control"
         data-state={disabled === true ? 'disabled' : 'enabled'}
@@ -61,8 +76,8 @@ const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps>(
                 sizeClasses[size ?? 'default'],
                 focusCls,
                 isActive
-                  ? 'bg-bg font-medium text-fg gds-shadow-sm'
-                  : 'text-fg-muted hover:text-fg',
+                  ? 'bg-bg text-fg gds-shadow-sm font-medium'
+                  : 'text-fg-muted hover:text-fg'
               )}
             >
               {option.label}
@@ -71,8 +86,12 @@ const SegmentedControl = forwardRef<HTMLDivElement, SegmentedControlProps>(
         })}
       </div>
     )
-  },
+  }
 )
 
 export { SegmentedControl }
-export type { SegmentedControlOption, SegmentedControlProps, SegmentedControlSize }
+export type {
+  SegmentedControlOption,
+  SegmentedControlProps,
+  SegmentedControlSize,
+}

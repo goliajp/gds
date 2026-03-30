@@ -17,12 +17,20 @@ const avatarVariants = cva(
         xs: 'h-5 w-5 text-[9px]',
       },
     },
-  },
+  }
 )
 
 const paletteColors = [
-  'bg-palette-0', 'bg-palette-1', 'bg-palette-2', 'bg-palette-3', 'bg-palette-4',
-  'bg-palette-5', 'bg-palette-6', 'bg-palette-7', 'bg-palette-8', 'bg-palette-9',
+  'bg-palette-0',
+  'bg-palette-1',
+  'bg-palette-2',
+  'bg-palette-3',
+  'bg-palette-4',
+  'bg-palette-5',
+  'bg-palette-6',
+  'bg-palette-7',
+  'bg-palette-8',
+  'bg-palette-9',
 ]
 
 const statusColors: Record<string, string> = {
@@ -69,44 +77,49 @@ type AvatarProps = React.HTMLAttributes<HTMLSpanElement> &
     status?: AvatarStatus
   }
 
-export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(
-  function Avatar({ className, glass, loading, name, size = 'default', src, status, ...props }, ref) {
-    const sizeKey = size ?? 'default'
-    const colorIdx = name !== undefined ? hashName(name) % 10 : 0
+export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(function Avatar(
+  { className, glass, loading, name, size = 'default', src, status, ...props },
+  ref
+) {
+  const sizeKey = size ?? 'default'
+  const colorIdx = name !== undefined ? hashName(name) % 10 : 0
 
-    return (
-      <span
-        className={cx(
-          avatarVariants({ size }),
-          src === undefined && paletteColors[colorIdx],
-          src === undefined && 'text-accent-fg',
-          glassClass(glass),
-          className,
-        )}
-        data-component="avatar"
-        ref={ref}
-        {...props}
-      >
-        {loading === true ? (
-          <span className="absolute inset-0 animate-pulse rounded-full bg-fg-muted/20" />
-        ) : src !== undefined ? (
-          <img alt={name ?? ''} className="absolute inset-0 h-full w-full rounded-full object-cover" src={src} />
-        ) : (
-          <span>{name !== undefined ? getInitials(name) : '?'}</span>
-        )}
-        {status !== undefined && (
-          <span
-            className={cx(
-              'absolute right-0 bottom-0 rounded-full ring-2 ring-bg',
-              statusSizeMap[sizeKey],
-              statusColors[status],
-            )}
-          />
-        )}
-      </span>
-    )
-  },
-)
+  return (
+    <span
+      className={cx(
+        avatarVariants({ size }),
+        src === undefined && paletteColors[colorIdx],
+        src === undefined && 'text-accent-fg',
+        glassClass(glass),
+        className
+      )}
+      data-component="avatar"
+      ref={ref}
+      {...props}
+    >
+      {loading === true ? (
+        <span className="bg-fg-muted/20 absolute inset-0 animate-pulse rounded-full" />
+      ) : src !== undefined ? (
+        <img
+          alt={name ?? ''}
+          className="absolute inset-0 h-full w-full rounded-full object-cover"
+          src={src}
+        />
+      ) : (
+        <span>{name !== undefined ? getInitials(name) : '?'}</span>
+      )}
+      {status !== undefined && (
+        <span
+          className={cx(
+            'ring-bg absolute right-0 bottom-0 rounded-full ring-2',
+            statusSizeMap[sizeKey],
+            statusColors[status]
+          )}
+        />
+      )}
+    </span>
+  )
+})
 
 type AvatarGroupProps = React.HTMLAttributes<HTMLDivElement> & {
   max?: number
@@ -127,13 +140,13 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
       >
         {visible}
         {overflow > 0 && (
-          <span className="inline-flex gds-sq items-center justify-center rounded-full bg-bg-tertiary gds-text-body font-medium text-fg-muted ring-2 ring-bg">
+          <span className="gds-sq bg-bg-tertiary gds-text-body text-fg-muted ring-bg inline-flex items-center justify-center rounded-full font-medium ring-2">
             +{overflow}
           </span>
         )}
       </div>
     )
-  },
+  }
 )
 
 export { avatarVariants }

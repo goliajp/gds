@@ -12,17 +12,23 @@ describe('Checkbox', () => {
 
   it('has aria-checked=false by default', () => {
     render(<Checkbox />)
-    expect(screen.getByRole('checkbox').getAttribute('aria-checked')).toBe('false')
+    expect(screen.getByRole('checkbox').getAttribute('aria-checked')).toBe(
+      'false'
+    )
   })
 
   it('has aria-checked=true when checked', () => {
     render(<Checkbox checked />)
-    expect(screen.getByRole('checkbox').getAttribute('aria-checked')).toBe('true')
+    expect(screen.getByRole('checkbox').getAttribute('aria-checked')).toBe(
+      'true'
+    )
   })
 
   it('has data-component="checkbox"', () => {
     const { container } = render(<Checkbox />)
-    expect(container.querySelector('[data-component="checkbox"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="checkbox"]')
+    ).not.toBeNull()
   })
 
   it('has data-state="unchecked" when not checked', () => {

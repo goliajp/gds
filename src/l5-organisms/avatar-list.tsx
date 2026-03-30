@@ -21,13 +21,16 @@ type AvatarListProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const AvatarList = forwardRef<HTMLDivElement, AvatarListProps>(
-  function AvatarList({ users, onSelect, compact = false, glass, className, ...props }, ref) {
+  function AvatarList(
+    { users, onSelect, compact = false, glass, className, ...props },
+    ref
+  ) {
     return (
       <div
         className={cx(
-          'gds-radius-popover overflow-hidden border border-border',
+          'gds-radius-popover border-border overflow-hidden border',
           glassClass(glass),
-          className,
+          className
         )}
         data-component="avatar-list"
         ref={ref}
@@ -36,11 +39,20 @@ export const AvatarList = forwardRef<HTMLDivElement, AvatarListProps>(
         {users.map((user) => {
           const content = (
             <>
-              <Avatar name={user.name} src={user.src} status={user.status} size="sm" />
+              <Avatar
+                name={user.name}
+                src={user.src}
+                status={user.status}
+                size="sm"
+              />
               <div className="min-w-0 flex-1">
-                <div className="truncate gds-text-body font-medium text-fg">{user.name}</div>
+                <div className="gds-text-body text-fg truncate font-medium">
+                  {user.name}
+                </div>
                 {compact !== true && user.role !== undefined && (
-                  <div className="truncate gds-text-caption text-fg-muted">{user.role}</div>
+                  <div className="gds-text-caption text-fg-muted truncate">
+                    {user.role}
+                  </div>
                 )}
               </div>
             </>
@@ -49,7 +61,8 @@ export const AvatarList = forwardRef<HTMLDivElement, AvatarListProps>(
           const rowCls = cx(
             'flex items-center gds-gap gds-pad-x gds-pad-y',
             'border-b border-border last:border-b-0',
-            onSelect !== undefined && `cursor-pointer transition-colors hover:bg-bg-tertiary/30 ${focusCls}`,
+            onSelect !== undefined &&
+              `cursor-pointer transition-colors hover:bg-bg-tertiary/30 ${focusCls}`
           )
 
           if (onSelect !== undefined) {
@@ -73,7 +86,7 @@ export const AvatarList = forwardRef<HTMLDivElement, AvatarListProps>(
         })}
       </div>
     )
-  },
+  }
 )
 
 export type { AvatarListProps, AvatarListUser }

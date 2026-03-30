@@ -72,14 +72,26 @@ describe('Meter', () => {
   })
 
   it('applies named variant colors', () => {
-    const { container: c1 } = render(<Meter showValue={false} value={50} variant="danger" />)
-    expect(c1.querySelector('[role="meter"] > div')?.className).toContain('bg-danger')
+    const { container: c1 } = render(
+      <Meter showValue={false} value={50} variant="danger" />
+    )
+    expect(c1.querySelector('[role="meter"] > div')?.className).toContain(
+      'bg-danger'
+    )
 
-    const { container: c2 } = render(<Meter showValue={false} value={50} variant="success" />)
-    expect(c2.querySelector('[role="meter"] > div')?.className).toContain('bg-success')
+    const { container: c2 } = render(
+      <Meter showValue={false} value={50} variant="success" />
+    )
+    expect(c2.querySelector('[role="meter"] > div')?.className).toContain(
+      'bg-success'
+    )
 
-    const { container: c3 } = render(<Meter showValue={false} value={50} variant="warning" />)
-    expect(c3.querySelector('[role="meter"] > div')?.className).toContain('bg-warning')
+    const { container: c3 } = render(
+      <Meter showValue={false} value={50} variant="warning" />
+    )
+    expect(c3.querySelector('[role="meter"] > div')?.className).toContain(
+      'bg-warning'
+    )
   })
 
   it('handles zero range (max equals min)', () => {
@@ -90,7 +102,9 @@ describe('Meter', () => {
   it('hides label and value when neither is set', () => {
     const { container } = render(<Meter showValue={false} value={50} />)
     // no header row with label/value
-    const headerDiv = container.querySelector('[data-component="meter"] > div:first-child')
+    const headerDiv = container.querySelector(
+      '[data-component="meter"] > div:first-child'
+    )
     // first child should be the meter bar container itself (role="meter")
     expect(headerDiv?.getAttribute('role')).toBe('meter')
   })

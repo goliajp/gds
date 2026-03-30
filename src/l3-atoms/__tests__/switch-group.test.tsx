@@ -5,14 +5,23 @@ import { describe, expect, it, vi } from 'vitest'
 import { SwitchGroup } from '../switch-group'
 
 const items = [
-  { id: 'dark', label: 'Dark mode', description: 'Use dark theme', checked: true },
+  {
+    id: 'dark',
+    label: 'Dark mode',
+    description: 'Use dark theme',
+    checked: true,
+  },
   { id: 'notify', label: 'Notifications', checked: false },
 ]
 
 describe('SwitchGroup', () => {
   it('renders with data-component attribute', () => {
-    const { container } = render(<SwitchGroup items={items} onChange={() => {}} />)
-    expect(container.querySelector('[data-component="switch-group"]')).not.toBeNull()
+    const { container } = render(
+      <SwitchGroup items={items} onChange={() => {}} />
+    )
+    expect(
+      container.querySelector('[data-component="switch-group"]')
+    ).not.toBeNull()
   })
 
   it('renders all item labels', () => {

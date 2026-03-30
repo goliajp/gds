@@ -14,7 +14,10 @@ export const NoiseOverlay = forwardRef<HTMLDivElement, NoiseOverlayProps>(
     return (
       <div
         ref={ref}
-        className={cx('pointer-events-none absolute inset-0 overflow-hidden', className)}
+        className={cx(
+          'pointer-events-none absolute inset-0 overflow-hidden',
+          className
+        )}
         style={{ opacity }}
         data-component="noise-overlay"
       >
@@ -41,5 +44,5 @@ export const NoiseOverlay = forwardRef<HTMLDivElement, NoiseOverlayProps>(
         </svg>
       </div>
     )
-  },
+  }
 )

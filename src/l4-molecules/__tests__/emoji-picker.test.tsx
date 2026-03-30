@@ -29,7 +29,9 @@ describe('EmojiPicker', () => {
 
   it('applies data-component attribute', () => {
     const { container } = render(<EmojiPicker onSelect={vi.fn()} />)
-    expect(container.querySelector('[data-component="emoji-picker"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="emoji-picker"]')
+    ).not.toBeNull()
   })
 
   it('switches categories on tab click', () => {

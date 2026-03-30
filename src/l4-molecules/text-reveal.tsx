@@ -11,19 +11,30 @@ export type TextRevealProps = {
 }
 
 export const TextReveal = forwardRef<HTMLSpanElement, TextRevealProps>(
-  function TextReveal({ by = 'word', className, staggerDelay = 50, text }, ref) {
+  function TextReveal(
+    { by = 'word', className, staggerDelay = 50, text },
+    ref
+  ) {
     const parts = useMemo(() => {
       if (by === 'character') return text.split('')
       return text.split(' ')
     }, [by, text])
 
     return (
-      <span ref={ref} className={cx('inline', className)} data-component="text-reveal" aria-label={text}>
+      <span
+        ref={ref}
+        className={cx('inline', className)}
+        data-component="text-reveal"
+        aria-label={text}
+      >
         {parts.map((part, i) => (
           <span
             key={`${i}-${part}`}
-            className="inline-block animate-fadeIn opacity-0"
-            style={{ animationDelay: `${i * staggerDelay}ms`, animationFillMode: 'forwards' }}
+            className="animate-fadeIn inline-block opacity-0"
+            style={{
+              animationDelay: `${i * staggerDelay}ms`,
+              animationFillMode: 'forwards',
+            }}
             aria-hidden
           >
             {part}
@@ -32,5 +43,5 @@ export const TextReveal = forwardRef<HTMLSpanElement, TextRevealProps>(
         ))}
       </span>
     )
-  },
+  }
 )

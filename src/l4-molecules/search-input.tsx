@@ -17,14 +17,28 @@ type SearchInputProps = {
 }
 
 const searchSvg = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <circle cx="11" cy="11" r="8" />
     <line x1="21" y1="21" x2="16.65" y2="16.65" />
   </svg>
 )
 
 const clearSvg = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <line x1="18" y1="6" x2="6" y2="18" />
     <line x1="6" y1="6" x2="18" y2="18" />
   </svg>
@@ -32,8 +46,18 @@ const clearSvg = (
 
 export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
   function SearchInput(
-    { className, clearable = true, disabled = false, inputSize, loading = false, onChange, onSearch, placeholder = 'Search...', value },
-    ref,
+    {
+      className,
+      clearable = true,
+      disabled = false,
+      inputSize,
+      loading = false,
+      onChange,
+      onSearch,
+      placeholder = 'Search...',
+      value,
+    },
+    ref
   ) {
     const leftIcon = loading ? <Spinner size="sm" /> : searchSvg
 
@@ -41,7 +65,7 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
     const rightIcon = showClear ? (
       <button
         aria-label="Clear search"
-        className="cursor-pointer text-fg-muted/50 hover:text-fg-muted"
+        className="text-fg-muted/50 hover:text-fg-muted cursor-pointer"
         onClick={() => onChange('')}
         tabIndex={-1}
         type="button"
@@ -70,7 +94,7 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
         value={value}
       />
     )
-  },
+  }
 )
 
 export type { SearchInputProps }

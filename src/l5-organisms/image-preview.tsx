@@ -34,11 +34,17 @@ export const ImagePreview = forwardRef<HTMLDivElement, ImagePreviewProps>(
       if (!open) return
       const prev = document.body.style.overflow
       document.body.style.overflow = 'hidden'
-      return () => { document.body.style.overflow = prev }
+      return () => {
+        document.body.style.overflow = prev
+      }
     }, [open])
 
     return (
-      <div ref={ref} className={cx('inline-block', className)} data-component="image-preview">
+      <div
+        ref={ref}
+        className={cx('inline-block', className)}
+        data-component="image-preview"
+      >
         {/* thumbnail */}
         <button
           type="button"
@@ -55,36 +61,47 @@ export const ImagePreview = forwardRef<HTMLDivElement, ImagePreviewProps>(
         </button>
 
         {/* lightbox overlay */}
-        {open && renderPortal(
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
-            onClick={(e) => { if (e.target === e.currentTarget) handleClose() }}
-            data-testid="lightbox"
-          >
-            {/* close button */}
-            <button
-              type="button"
-              onClick={handleClose}
-              className={cx(
-                'absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20',
-                focusCls,
-              )}
-              aria-label="Close preview"
+        {open &&
+          renderPortal(
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
+              onClick={(e) => {
+                if (e.target === e.currentTarget) handleClose()
+              }}
+              data-testid="lightbox"
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <path d="M3 3l10 10M13 3L3 13" />
-              </svg>
-            </button>
+              {/* close button */}
+              <button
+                type="button"
+                onClick={handleClose}
+                className={cx(
+                  'absolute top-4 right-4 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20',
+                  focusCls
+                )}
+                aria-label="Close preview"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                >
+                  <path d="M3 3l10 10M13 3L3 13" />
+                </svg>
+              </button>
 
-            {/* full image */}
-            <img
-              src={src}
-              alt={alt}
-              className="max-h-[90vh] max-w-[90vw] object-contain"
-            />
-          </div>,
-        )}
+              {/* full image */}
+              <img
+                src={src}
+                alt={alt}
+                className="max-h-[90vh] max-w-[90vw] object-contain"
+              />
+            </div>
+          )}
       </div>
     )
-  },
+  }
 )

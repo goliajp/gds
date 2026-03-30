@@ -34,7 +34,7 @@ export function useSwipe(onSwipe: SwipeHandler) {
       currentY: e.clientY,
       pointerId: e.pointerId,
     }
-    ;if (e.target instanceof Element) e.target.setPointerCapture(e.pointerId)
+    if (e.target instanceof Element) e.target.setPointerCapture(e.pointerId)
   }, [])
 
   const onPointerMove = useCallback((e: React.PointerEvent) => {
@@ -82,15 +82,18 @@ export function useSwipe(onSwipe: SwipeHandler) {
 // detects long press on an element
 export function useLongPress(onLongPress: () => void) {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const startRef = useRef<{ x: number, y: number } | null>(null)
+  const startRef = useRef<{ x: number; y: number } | null>(null)
 
-  const onPointerDown = useCallback((e: React.PointerEvent) => {
-    startRef.current = { x: e.clientX, y: e.clientY }
-    timerRef.current = setTimeout(() => {
-      onLongPress()
-      timerRef.current = null
-    }, longPress.duration)
-  }, [onLongPress])
+  const onPointerDown = useCallback(
+    (e: React.PointerEvent) => {
+      startRef.current = { x: e.clientX, y: e.clientY }
+      timerRef.current = setTimeout(() => {
+        onLongPress()
+        timerRef.current = null
+      }, longPress.duration)
+    },
+    [onLongPress]
+  )
 
   const onPointerMove = useCallback((e: React.PointerEvent) => {
     if (startRef.current === null || timerRef.current === null) return
@@ -123,7 +126,10 @@ export type DragState = {
 
 export type DragHandler = (state: DragState) => void
 
-export function useDrag(onDrag: DragHandler, onDragEnd?: (state: DragState) => void) {
+export function useDrag(
+  onDrag: DragHandler,
+  onDragEnd?: (state: DragState) => void
+) {
   const stateRef = useRef<PointerState | null>(null)
   const isDragging = useRef(false)
 
@@ -137,26 +143,33 @@ export function useDrag(onDrag: DragHandler, onDragEnd?: (state: DragState) => v
       pointerId: e.pointerId,
     }
     isDragging.current = false
-    ;if (e.target instanceof Element) e.target.setPointerCapture(e.pointerId)
+    if (e.target instanceof Element) e.target.setPointerCapture(e.pointerId)
   }, [])
 
-  const onPointerMove = useCallback((e: React.PointerEvent) => {
-    const s = stateRef.current
-    if (s === null) return
+  const onPointerMove = useCallback(
+    (e: React.PointerEvent) => {
+      const s = stateRef.current
+      if (s === null) return
 
-    const dx = e.clientX - s.startX
-    const dy = e.clientY - s.startY
+      const dx = e.clientX - s.startX
+      const dy = e.clientY - s.startY
 
-    // start threshold — prevent accidental drag on tap
-    if (!isDragging.current) {
-      if (Math.abs(dx) < drag.startThreshold && Math.abs(dy) < drag.startThreshold) return
-      isDragging.current = true
-    }
+      // start threshold — prevent accidental drag on tap
+      if (!isDragging.current) {
+        if (
+          Math.abs(dx) < drag.startThreshold &&
+          Math.abs(dy) < drag.startThreshold
+        )
+          return
+        isDragging.current = true
+      }
 
-    s.currentX = e.clientX
-    s.currentY = e.clientY
-    onDrag({ dx, dy, isDragging: true })
-  }, [onDrag])
+      s.currentX = e.clientX
+      s.currentY = e.clientY
+      onDrag({ dx, dy, isDragging: true })
+    },
+    [onDrag]
+  )
 
   const onPointerUp = useCallback(() => {
     const s = stateRef.current
@@ -182,9 +195,10 @@ export function applyInertia(
   velocity: number,
   position: number,
   onFrame: (pos: number) => void,
-  onEnd?: () => void,
+  onEnd?: () => void
 ): () => void {
-  let vel = Math.min(Math.abs(velocity), inertia.maxVelocity) * Math.sign(velocity)
+  let vel =
+    Math.min(Math.abs(velocity), inertia.maxVelocity) * Math.sign(velocity)
   let pos = position
   let frame: number
 

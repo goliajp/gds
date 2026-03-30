@@ -5,27 +5,35 @@ import { SortableHeader } from '../sortable-header'
 
 // wrapper to render th inside table structure
 function renderInTable(ui: React.ReactElement) {
-  return render(<table><thead><tr>{ui}</tr></thead></table>)
+  return render(
+    <table>
+      <thead>
+        <tr>{ui}</tr>
+      </thead>
+    </table>
+  )
 }
 
 describe('SortableHeader', () => {
   it('renders with data-component', () => {
     const { container } = renderInTable(
-      <SortableHeader label="Name" direction={null} onSort={() => {}} />,
+      <SortableHeader label="Name" direction={null} onSort={() => {}} />
     )
-    expect(container.querySelector('[data-component="sortable-header"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="sortable-header"]')
+    ).not.toBeNull()
   })
 
   it('renders label text', () => {
     const { getByText } = renderInTable(
-      <SortableHeader label="Name" direction={null} onSort={() => {}} />,
+      <SortableHeader label="Name" direction={null} onSort={() => {}} />
     )
     expect(getByText('Name')).toBeDefined()
   })
 
   it('sets data-state="none" when direction is null', () => {
     const { container } = renderInTable(
-      <SortableHeader label="Name" direction={null} onSort={() => {}} />,
+      <SortableHeader label="Name" direction={null} onSort={() => {}} />
     )
     const th = container.querySelector('[data-component="sortable-header"]')!
     expect(th.getAttribute('data-state')).toBe('none')
@@ -33,7 +41,7 @@ describe('SortableHeader', () => {
 
   it('sets data-state="asc" for ascending', () => {
     const { container } = renderInTable(
-      <SortableHeader label="Name" direction="asc" onSort={() => {}} />,
+      <SortableHeader label="Name" direction="asc" onSort={() => {}} />
     )
     const th = container.querySelector('[data-component="sortable-header"]')!
     expect(th.getAttribute('data-state')).toBe('asc')
@@ -41,7 +49,7 @@ describe('SortableHeader', () => {
 
   it('sets data-state="desc" for descending', () => {
     const { container } = renderInTable(
-      <SortableHeader label="Name" direction="desc" onSort={() => {}} />,
+      <SortableHeader label="Name" direction="desc" onSort={() => {}} />
     )
     const th = container.querySelector('[data-component="sortable-header"]')!
     expect(th.getAttribute('data-state')).toBe('desc')
@@ -49,7 +57,7 @@ describe('SortableHeader', () => {
 
   it('renders asc svg icon when direction is asc', () => {
     const { container } = renderInTable(
-      <SortableHeader label="Name" direction="asc" onSort={() => {}} />,
+      <SortableHeader label="Name" direction="asc" onSort={() => {}} />
     )
     const svgs = container.querySelectorAll('svg')
     expect(svgs.length).toBe(1)
@@ -57,7 +65,7 @@ describe('SortableHeader', () => {
 
   it('renders desc svg icon when direction is desc', () => {
     const { container } = renderInTable(
-      <SortableHeader label="Name" direction="desc" onSort={() => {}} />,
+      <SortableHeader label="Name" direction="desc" onSort={() => {}} />
     )
     const svgs = container.querySelectorAll('svg')
     expect(svgs.length).toBe(1)
@@ -65,7 +73,7 @@ describe('SortableHeader', () => {
 
   it('renders no svg icon when direction is null', () => {
     const { container } = renderInTable(
-      <SortableHeader label="Name" direction={null} onSort={() => {}} />,
+      <SortableHeader label="Name" direction={null} onSort={() => {}} />
     )
     const svgs = container.querySelectorAll('svg')
     expect(svgs.length).toBe(0)
@@ -73,7 +81,7 @@ describe('SortableHeader', () => {
 
   it('applies accent text color when active', () => {
     const { container } = renderInTable(
-      <SortableHeader label="Name" direction="asc" onSort={() => {}} />,
+      <SortableHeader label="Name" direction="asc" onSort={() => {}} />
     )
     const th = container.querySelector('th')!
     expect(th.className).toContain('text-accent')
@@ -81,7 +89,7 @@ describe('SortableHeader', () => {
 
   it('applies muted text color when inactive', () => {
     const { container } = renderInTable(
-      <SortableHeader label="Name" direction={null} onSort={() => {}} />,
+      <SortableHeader label="Name" direction={null} onSort={() => {}} />
     )
     const th = container.querySelector('th')!
     expect(th.className).toContain('text-fg-muted')
@@ -90,7 +98,7 @@ describe('SortableHeader', () => {
   it('calls onSort when clicked', () => {
     const handler = vi.fn()
     const { container } = renderInTable(
-      <SortableHeader label="Name" direction={null} onSort={handler} />,
+      <SortableHeader label="Name" direction={null} onSort={handler} />
     )
     fireEvent.click(container.querySelector('th')!)
     expect(handler).toHaveBeenCalledOnce()
@@ -98,7 +106,12 @@ describe('SortableHeader', () => {
 
   it('merges custom className', () => {
     const { container } = renderInTable(
-      <SortableHeader label="Name" direction={null} onSort={() => {}} className="extra" />,
+      <SortableHeader
+        label="Name"
+        direction={null}
+        onSort={() => {}}
+        className="extra"
+      />
     )
     const th = container.querySelector('th')!
     expect(th.className).toContain('extra')
@@ -106,7 +119,7 @@ describe('SortableHeader', () => {
 
   it('has role columnheader and tabIndex 0', () => {
     const { container } = renderInTable(
-      <SortableHeader label="Name" direction={null} onSort={() => {}} />,
+      <SortableHeader label="Name" direction={null} onSort={() => {}} />
     )
     const th = container.querySelector('th')!
     expect(th.getAttribute('role')).toBe('columnheader')

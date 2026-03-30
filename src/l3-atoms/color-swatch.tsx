@@ -25,7 +25,10 @@ type ColorSwatchProps = React.HTMLAttributes<HTMLSpanElement> &
   }
 
 export const ColorSwatch = forwardRef<HTMLSpanElement, ColorSwatchProps>(
-  function ColorSwatch({ className, color, copyable = false, label, size, ...props }, ref) {
+  function ColorSwatch(
+    { className, color, copyable = false, label, size, ...props },
+    ref
+  ) {
     const [copied, setCopied] = useState(false)
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -68,15 +71,15 @@ export const ColorSwatch = forwardRef<HTMLSpanElement, ColorSwatchProps>(
         ) : (
           swatchEl
         )}
-        <span className="font-mono text-[10px] text-fg-muted">
+        <span className="text-fg-muted font-mono text-[10px]">
           {copied ? 'Copied!' : color}
         </span>
         {label !== undefined && (
-          <span className="text-[10px] text-fg-muted/60">{label}</span>
+          <span className="text-fg-muted/60 text-[10px]">{label}</span>
         )}
       </span>
     )
-  },
+  }
 )
 
 export { colorSwatchVariants }

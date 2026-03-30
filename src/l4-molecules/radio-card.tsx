@@ -29,11 +29,14 @@ const columnMap: Record<number, string> = {
 }
 
 export const RadioCard = forwardRef<HTMLDivElement, RadioCardProps>(
-  function RadioCard({ options, value, onChange, columns = 1, disabled, glass, className }, ref) {
+  function RadioCard(
+    { options, value, onChange, columns = 1, disabled, glass, className },
+    ref
+  ) {
     return (
       <div
         ref={ref}
-        className={cx('grid gds-gap', columnMap[columns], className)}
+        className={cx('gds-gap grid', columnMap[columns], className)}
         data-component="radio-card"
         role="radiogroup"
       >
@@ -53,14 +56,14 @@ export const RadioCard = forwardRef<HTMLDivElement, RadioCardProps>(
                 }
               }}
               className={cx(
-                'flex items-center gds-gap gds-radius-card gds-pad-x gds-pad-y text-left transition-colors',
+                'gds-gap gds-radius-card gds-pad-x gds-pad-y flex items-center text-left transition-colors',
                 'cursor-pointer select-none',
                 glass === true
                   ? cx(glassClass(glass), 'border border-white/10')
                   : selected
-                    ? 'border border-accent bg-accent/5 ring-1 ring-accent'
-                    : 'border border-border hover:border-border-strong',
-                disabled === true && 'pointer-events-none opacity-50',
+                    ? 'border-accent bg-accent/5 ring-accent border ring-1'
+                    : 'border-border hover:border-border-strong border',
+                disabled === true && 'pointer-events-none opacity-50'
               )}
               data-state={selected ? 'selected' : 'idle'}
             >
@@ -68,26 +71,28 @@ export const RadioCard = forwardRef<HTMLDivElement, RadioCardProps>(
               <span
                 className={cx(
                   'flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors',
-                  selected
-                    ? 'border-accent bg-accent'
-                    : 'border-border-strong',
+                  selected ? 'border-accent bg-accent' : 'border-border-strong'
                 )}
               >
                 {selected && (
-                  <span className="h-1.5 w-1.5 rounded-full bg-fg" />
+                  <span className="bg-fg h-1.5 w-1.5 rounded-full" />
                 )}
               </span>
 
               {/* icon */}
               {option.icon !== undefined && (
-                <span className="shrink-0 text-fg-muted">{option.icon}</span>
+                <span className="text-fg-muted shrink-0">{option.icon}</span>
               )}
 
               {/* label + description */}
               <div className="min-w-0 flex-1">
-                <div className="text-sm font-medium text-fg">{option.label}</div>
+                <div className="text-fg text-sm font-medium">
+                  {option.label}
+                </div>
                 {option.description !== undefined && (
-                  <div className="mt-0.5 text-xs text-fg-muted">{option.description}</div>
+                  <div className="text-fg-muted mt-0.5 text-xs">
+                    {option.description}
+                  </div>
                 )}
               </div>
             </button>
@@ -95,5 +100,5 @@ export const RadioCard = forwardRef<HTMLDivElement, RadioCardProps>(
         })}
       </div>
     )
-  },
+  }
 )

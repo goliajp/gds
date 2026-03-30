@@ -10,7 +10,10 @@ type RibbonBannerProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const RibbonBanner = forwardRef<HTMLDivElement, RibbonBannerProps>(
-  function RibbonBanner({ className, color, position = 'top-right', text, ...props }, ref) {
+  function RibbonBanner(
+    { className, color, position = 'top-right', text, ...props },
+    ref
+  ) {
     const isRight = position === 'top-right'
 
     return (
@@ -18,7 +21,7 @@ export const RibbonBanner = forwardRef<HTMLDivElement, RibbonBannerProps>(
         className={cx(
           'absolute top-0 z-10 overflow-hidden',
           isRight ? 'right-0' : 'left-0',
-          className,
+          className
         )}
         data-component="ribbon-banner"
         ref={ref}
@@ -26,7 +29,7 @@ export const RibbonBanner = forwardRef<HTMLDivElement, RibbonBannerProps>(
         {...props}
       >
         <div
-          className="flex items-center justify-center text-xs font-bold text-accent-fg select-none"
+          className="text-accent-fg flex items-center justify-center text-xs font-bold select-none"
           style={{
             backgroundColor: color ?? 'var(--color-accent)',
             left: isRight ? undefined : -20,
@@ -41,7 +44,7 @@ export const RibbonBanner = forwardRef<HTMLDivElement, RibbonBannerProps>(
         </div>
       </div>
     )
-  },
+  }
 )
 
 export type { RibbonBannerProps }

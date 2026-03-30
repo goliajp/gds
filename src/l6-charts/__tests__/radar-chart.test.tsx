@@ -16,11 +16,15 @@ describe('RadarChart', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<RadarChart data={data} dataKey="value" />)
-    expect(container.querySelector('[data-component="radar-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="radar-chart"]')
+    ).not.toBeNull()
   })
 
   it('merges className', () => {
-    const { container } = render(<RadarChart className="custom-class" data={data} dataKey="value" />)
+    const { container } = render(
+      <RadarChart className="custom-class" data={data} dataKey="value" />
+    )
     const el = container.querySelector('[data-component="radar-chart"]')
     expect(el?.className).toContain('custom-class')
   })

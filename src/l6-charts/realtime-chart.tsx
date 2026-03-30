@@ -16,8 +16,17 @@ type RealtimeChartProps = {
 
 export const RealtimeChart = forwardRef<HTMLCanvasElement, RealtimeChartProps>(
   function RealtimeChart(
-    { className, color, data, height = 200, label, lineWidth = 2, maxPoints = 200, showGrid = true },
-    ref,
+    {
+      className,
+      color,
+      data,
+      height = 200,
+      label,
+      lineWidth = 2,
+      maxPoints = 200,
+      showGrid = true,
+    },
+    ref
   ) {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const rafRef = useRef<number>(0)
@@ -25,14 +34,14 @@ export const RealtimeChart = forwardRef<HTMLCanvasElement, RealtimeChartProps>(
 
     const setRef = useCallback(
       (el: HTMLCanvasElement | null) => {
-        (canvasRef as { current: HTMLCanvasElement | null }).current = el
+        ;(canvasRef as { current: HTMLCanvasElement | null }).current = el
         if (typeof ref === 'function') {
           ref(el)
         } else if (ref !== null && ref !== undefined) {
-          (ref as { current: HTMLCanvasElement | null }).current = el
+          ;(ref as { current: HTMLCanvasElement | null }).current = el
         }
       },
-      [ref],
+      [ref]
     )
 
     useEffect(() => {
@@ -57,10 +66,13 @@ export const RealtimeChart = forwardRef<HTMLCanvasElement, RealtimeChartProps>(
         ctx.clearRect(0, 0, w, h)
 
         const style = getComputedStyle(canvas)
-        const lineColor = color ?? (style.getPropertyValue('--gds-accent').trim() || '#2563eb')
-        const gridColor = style.getPropertyValue('--gds-border').trim() || '#e5e7eb'
+        const lineColor =
+          color ?? (style.getPropertyValue('--gds-accent').trim() || '#2563eb')
+        const gridColor =
+          style.getPropertyValue('--gds-border').trim() || '#e5e7eb'
         const fgColor = style.getPropertyValue('--gds-fg').trim() || '#1f2937'
-        const fgMutedColor = style.getPropertyValue('--gds-fg-muted').trim() || '#6b7280'
+        const fgMutedColor =
+          style.getPropertyValue('--gds-fg-muted').trim() || '#6b7280'
 
         const points = data.slice(-maxPoints)
         if (points.length === 0) return
@@ -90,7 +102,11 @@ export const RealtimeChart = forwardRef<HTMLCanvasElement, RealtimeChartProps>(
         for (let i = 0; i < points.length; i++) {
           const x = (i / (maxPoints - 1)) * w
           const y = pad + (1 - (points[i] - minVal) / range) * (h - pad * 2)
-          if (i === 0) { ctx.moveTo(x, y) } else { ctx.lineTo(x, y) }
+          if (i === 0) {
+            ctx.moveTo(x, y)
+          } else {
+            ctx.lineTo(x, y)
+          }
         }
         ctx.stroke()
 
@@ -102,7 +118,11 @@ export const RealtimeChart = forwardRef<HTMLCanvasElement, RealtimeChartProps>(
         for (let i = 0; i < points.length; i++) {
           const x = (i / (maxPoints - 1)) * w
           const y = pad + (1 - (points[i] - minVal) / range) * (h - pad * 2)
-          if (i === 0) { ctx.moveTo(x, y) } else { ctx.lineTo(x, y) }
+          if (i === 0) {
+            ctx.moveTo(x, y)
+          } else {
+            ctx.lineTo(x, y)
+          }
         }
         if (points.length > 0) {
           const lastX = ((points.length - 1) / (maxPoints - 1)) * w
@@ -146,13 +166,16 @@ export const RealtimeChart = forwardRef<HTMLCanvasElement, RealtimeChartProps>(
 
     return (
       <canvas
-        className={cx('block w-full rounded-lg border border-border bg-surface', className)}
+        className={cx(
+          'border-border bg-surface block w-full rounded-lg border',
+          className
+        )}
         data-component="realtime-chart"
         ref={setRef}
         style={{ height }}
       />
     )
-  },
+  }
 )
 
 export type { RealtimeChartProps }

@@ -17,17 +17,23 @@ describe('FunnelChart', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<FunnelChart data={data} dataKey="value" />)
-    expect(container.querySelector('[data-component="funnel-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="funnel-chart"]')
+    ).not.toBeNull()
   })
 
   it('merges className', () => {
-    const { container } = render(<FunnelChart className="custom-class" data={data} dataKey="value" />)
+    const { container } = render(
+      <FunnelChart className="custom-class" data={data} dataKey="value" />
+    )
     const el = container.querySelector('[data-component="funnel-chart"]')
     expect(el?.className).toContain('custom-class')
   })
 
   it('applies glass mode', () => {
-    const { container } = render(<FunnelChart data={data} dataKey="value" glass />)
+    const { container } = render(
+      <FunnelChart data={data} dataKey="value" glass />
+    )
     const el = container.querySelector('[data-component="funnel-chart"]')
     expect(el?.className).toContain('backdrop-blur-md')
   })
@@ -39,15 +45,25 @@ describe('FunnelChart', () => {
   })
 
   it('applies custom height', () => {
-    const { container } = render(<FunnelChart data={data} dataKey="value" height={500} />)
-    expect(container.querySelector('[data-component="funnel-chart"]')).not.toBeNull()
+    const { container } = render(
+      <FunnelChart data={data} dataKey="value" height={500} />
+    )
+    expect(
+      container.querySelector('[data-component="funnel-chart"]')
+    ).not.toBeNull()
   })
 
   it('applies custom colors', () => {
     const { container } = render(
-      <FunnelChart data={data} dataKey="value" colors={['red', 'green', 'blue']} />,
+      <FunnelChart
+        data={data}
+        dataKey="value"
+        colors={['red', 'green', 'blue']}
+      />
     )
-    expect(container.querySelector('[data-component="funnel-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="funnel-chart"]')
+    ).not.toBeNull()
   })
 
   it('forwards ref', () => {
@@ -57,7 +73,9 @@ describe('FunnelChart', () => {
   })
 
   it('spreads additional props', () => {
-    const { container } = render(<FunnelChart data={data} dataKey="value" data-custom="test" />)
+    const { container } = render(
+      <FunnelChart data={data} dataKey="value" data-custom="test" />
+    )
     const el = container.querySelector('[data-component="funnel-chart"]')
     expect(el?.getAttribute('data-custom')).toBe('test')
   })

@@ -11,7 +11,15 @@ describe('NumberStepper', () => {
 
   it('forwards ref to button element', () => {
     let el: HTMLButtonElement | null = null
-    render(<NumberStepper direction="increment" onClick={vi.fn()} ref={(node) => { el = node }} />)
+    render(
+      <NumberStepper
+        direction="increment"
+        onClick={vi.fn()}
+        ref={(node) => {
+          el = node
+        }}
+      />
+    )
     expect(el).toBeInstanceOf(HTMLButtonElement)
   })
 
@@ -27,12 +35,16 @@ describe('NumberStepper', () => {
 
   it('sets aria-label to "increment" for increment direction', () => {
     render(<NumberStepper direction="increment" onClick={vi.fn()} />)
-    expect(screen.getByRole('button').getAttribute('aria-label')).toBe('increment')
+    expect(screen.getByRole('button').getAttribute('aria-label')).toBe(
+      'increment'
+    )
   })
 
   it('sets aria-label to "decrement" for decrement direction', () => {
     render(<NumberStepper direction="decrement" onClick={vi.fn()} />)
-    expect(screen.getByRole('button').getAttribute('aria-label')).toBe('decrement')
+    expect(screen.getByRole('button').getAttribute('aria-label')).toBe(
+      'decrement'
+    )
   })
 
   it('has type="button"', () => {
@@ -66,11 +78,15 @@ describe('NumberStepper', () => {
 
   it('applies left-rounded class for decrement', () => {
     render(<NumberStepper direction="decrement" onClick={vi.fn()} />)
-    expect(screen.getByRole('button').className).toContain('rounded-l-[inherit]')
+    expect(screen.getByRole('button').className).toContain(
+      'rounded-l-[inherit]'
+    )
   })
 
   it('applies right-rounded class for increment', () => {
     render(<NumberStepper direction="increment" onClick={vi.fn()} />)
-    expect(screen.getByRole('button').className).toContain('rounded-r-[inherit]')
+    expect(screen.getByRole('button').className).toContain(
+      'rounded-r-[inherit]'
+    )
   })
 })

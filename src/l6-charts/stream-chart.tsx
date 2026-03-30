@@ -27,21 +27,28 @@ export type StreamChartProps = {
 }
 
 export const StreamChart = forwardRef<HTMLDivElement, StreamChartProps>(
-  function StreamChart({ data, keys, xKey = 'name', height = 300, glass, className, ...props }, ref) {
+  function StreamChart(
+    { data, keys, xKey = 'name', height = 300, glass, className, ...props },
+    ref
+  ) {
     return (
       <div
         ref={ref}
         className={cx(
-          'w-full gds-radius-popover border border-border',
-          glass && 'backdrop-blur-md bg-white/5',
-          className,
+          'gds-radius-popover border-border w-full border',
+          glass && 'bg-white/5 backdrop-blur-md',
+          className
         )}
         data-component="stream-chart"
         {...props}
       >
         <ResponsiveContainer height={height} width="100%">
           <AreaChart data={data}>
-            <XAxis dataKey={xKey} stroke="var(--gds-fg-muted, #6b7280)" tick={{ fontSize: 11 }} />
+            <XAxis
+              dataKey={xKey}
+              stroke="var(--gds-fg-muted, #6b7280)"
+              tick={{ fontSize: 11 }}
+            />
             <Tooltip />
             {keys.map((key, i) => (
               <Area
@@ -59,5 +66,5 @@ export const StreamChart = forwardRef<HTMLDivElement, StreamChartProps>(
         </ResponsiveContainer>
       </div>
     )
-  },
+  }
 )

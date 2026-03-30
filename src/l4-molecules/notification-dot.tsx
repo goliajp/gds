@@ -19,7 +19,10 @@ const variantMap: Record<NotificationDotVariant, string> = {
 }
 
 export const NotificationDot = forwardRef<HTMLDivElement, NotificationDotProps>(
-  function NotificationDot({ children, count = 0, max = 99, variant = 'danger', className, ...props }, ref) {
+  function NotificationDot(
+    { children, count = 0, max = 99, variant = 'danger', className, ...props },
+    ref
+  ) {
     const visible = count > 0
     const display = count > max ? `${max}+` : String(count)
 
@@ -32,16 +35,18 @@ export const NotificationDot = forwardRef<HTMLDivElement, NotificationDotProps>(
       >
         {children}
         {visible && (
-          <span className={cx(
-            'absolute -right-1.5 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-bold leading-none',
-            variantMap[variant],
-          )}>
+          <span
+            className={cx(
+              'absolute -top-1.5 -right-1.5 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] leading-none font-bold',
+              variantMap[variant]
+            )}
+          >
             {display}
           </span>
         )}
       </div>
     )
-  },
+  }
 )
 
 export type { NotificationDotProps, NotificationDotVariant }

@@ -6,7 +6,9 @@ import { DataCard } from '../data-card'
 describe('DataCard', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(<DataCard title="Revenue" value="$1,000" />)
-    expect(container.querySelector('[data-component="data-card"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="data-card"]')
+    ).not.toBeNull()
   })
 
   it('renders title and value', () => {
@@ -53,13 +55,17 @@ describe('DataCard', () => {
 
   it('does not render icon when icon is undefined', () => {
     const { container } = render(<DataCard title="T" value="V" />)
-    const header = container.querySelector('[data-component="data-card"] > div:first-child')
+    const header = container.querySelector(
+      '[data-component="data-card"] > div:first-child'
+    )
     // only title span, no icon span
     expect(header?.children.length).toBe(1)
   })
 
   it('renders icon when provided', () => {
-    render(<DataCard title="T" value="V" icon={<span data-testid="icon">I</span>} />)
+    render(
+      <DataCard title="T" value="V" icon={<span data-testid="icon">I</span>} />
+    )
     expect(screen.getByTestId('icon')).toBeDefined()
   })
 
@@ -80,7 +86,9 @@ describe('DataCard', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<DataCard title="T" value="V" className="my-cls" />)
+    const { container } = render(
+      <DataCard title="T" value="V" className="my-cls" />
+    )
     const el = container.querySelector('[data-component="data-card"]')
     expect(el?.className).toContain('my-cls')
   })

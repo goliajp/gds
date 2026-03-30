@@ -18,11 +18,18 @@ const variantColors: Record<VerifiedBadgeVariant, string> = {
 const sizeMap = { default: 16, sm: 12 } as const
 
 export const VerifiedBadge = forwardRef<HTMLSpanElement, VerifiedBadgeProps>(
-  function VerifiedBadge({ className, size = 'default', variant = 'default', ...props }, ref) {
+  function VerifiedBadge(
+    { className, size = 'default', variant = 'default', ...props },
+    ref
+  ) {
     const s = sizeMap[size]
     return (
       <span
-        className={cx('inline-flex shrink-0 items-center', variantColors[variant], className)}
+        className={cx(
+          'inline-flex shrink-0 items-center',
+          variantColors[variant],
+          className
+        )}
         data-component="verified-badge"
         data-variant={variant}
         ref={ref}
@@ -33,7 +40,7 @@ export const VerifiedBadge = forwardRef<HTMLSpanElement, VerifiedBadgeProps>(
         </svg>
       </span>
     )
-  },
+  }
 )
 
 export type { VerifiedBadgeProps, VerifiedBadgeVariant }

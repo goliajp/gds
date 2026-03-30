@@ -24,7 +24,7 @@ export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>(
       threshold = 0.8,
       ...props
     },
-    ref,
+    ref
   ) {
     const sentinelRef = useRef<HTMLDivElement>(null)
 
@@ -35,11 +35,16 @@ export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>(
       const observer = new IntersectionObserver(
         (entries) => {
           const entry = entries[0]
-          if (entry !== undefined && entry.isIntersecting && hasMore && !loading) {
+          if (
+            entry !== undefined &&
+            entry.isIntersecting &&
+            hasMore &&
+            !loading
+          ) {
             onLoadMore()
           }
         },
-        { threshold },
+        { threshold }
       )
 
       observer.observe(sentinel)
@@ -64,7 +69,7 @@ export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>(
         <div ref={sentinelRef} data-sentinel="true" className="h-px w-full" />
       </div>
     )
-  },
+  }
 )
 
 export type { InfiniteScrollProps }

@@ -27,5 +27,5 @@ export const MasonryGrid = forwardRef<HTMLDivElement, MasonryGridProps>(
         ))}
       </div>
     )
-  },
+  }
 )

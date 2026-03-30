@@ -6,9 +6,13 @@ import { ResponsiveStack } from '../responsive-stack'
 describe('ResponsiveStack', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(
-      <ResponsiveStack><div>child</div></ResponsiveStack>,
+      <ResponsiveStack>
+        <div>child</div>
+      </ResponsiveStack>
     )
-    expect(container.querySelector('[data-component="responsive-stack"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="responsive-stack"]')
+    ).not.toBeNull()
   })
 
   it('renders children', () => {
@@ -16,7 +20,7 @@ describe('ResponsiveStack', () => {
       <ResponsiveStack>
         <div>Alpha</div>
         <div>Beta</div>
-      </ResponsiveStack>,
+      </ResponsiveStack>
     )
     expect(screen.getByText('Alpha')).toBeDefined()
     expect(screen.getByText('Beta')).toBeDefined()
@@ -24,7 +28,9 @@ describe('ResponsiveStack', () => {
 
   it('applies default breakpoint (md), gap (default), and align (stretch)', () => {
     const { container } = render(
-      <ResponsiveStack><div>child</div></ResponsiveStack>,
+      <ResponsiveStack>
+        <div>child</div>
+      </ResponsiveStack>
     )
     const root = container.querySelector('[data-component="responsive-stack"]')
     expect(root?.className).toContain('md:flex-row')
@@ -34,7 +40,9 @@ describe('ResponsiveStack', () => {
 
   it('applies sm breakpoint', () => {
     const { container } = render(
-      <ResponsiveStack breakpoint="sm"><div>child</div></ResponsiveStack>,
+      <ResponsiveStack breakpoint="sm">
+        <div>child</div>
+      </ResponsiveStack>
     )
     const root = container.querySelector('[data-component="responsive-stack"]')
     expect(root?.className).toContain('sm:flex-row')
@@ -42,7 +50,9 @@ describe('ResponsiveStack', () => {
 
   it('applies lg breakpoint', () => {
     const { container } = render(
-      <ResponsiveStack breakpoint="lg"><div>child</div></ResponsiveStack>,
+      <ResponsiveStack breakpoint="lg">
+        <div>child</div>
+      </ResponsiveStack>
     )
     const root = container.querySelector('[data-component="responsive-stack"]')
     expect(root?.className).toContain('lg:flex-row')
@@ -50,7 +60,9 @@ describe('ResponsiveStack', () => {
 
   it('applies sm gap', () => {
     const { container } = render(
-      <ResponsiveStack gap="sm"><div>child</div></ResponsiveStack>,
+      <ResponsiveStack gap="sm">
+        <div>child</div>
+      </ResponsiveStack>
     )
     const root = container.querySelector('[data-component="responsive-stack"]')
     expect(root?.className).toContain('gap-2')
@@ -58,7 +70,9 @@ describe('ResponsiveStack', () => {
 
   it('applies lg gap', () => {
     const { container } = render(
-      <ResponsiveStack gap="lg"><div>child</div></ResponsiveStack>,
+      <ResponsiveStack gap="lg">
+        <div>child</div>
+      </ResponsiveStack>
     )
     const root = container.querySelector('[data-component="responsive-stack"]')
     expect(root?.className).toContain('gap-6')
@@ -66,7 +80,9 @@ describe('ResponsiveStack', () => {
 
   it('applies start alignment', () => {
     const { container } = render(
-      <ResponsiveStack align="start"><div>child</div></ResponsiveStack>,
+      <ResponsiveStack align="start">
+        <div>child</div>
+      </ResponsiveStack>
     )
     const root = container.querySelector('[data-component="responsive-stack"]')
     expect(root?.className).toContain('items-start')
@@ -74,7 +90,9 @@ describe('ResponsiveStack', () => {
 
   it('applies center alignment', () => {
     const { container } = render(
-      <ResponsiveStack align="center"><div>child</div></ResponsiveStack>,
+      <ResponsiveStack align="center">
+        <div>child</div>
+      </ResponsiveStack>
     )
     const root = container.querySelector('[data-component="responsive-stack"]')
     expect(root?.className).toContain('items-center')
@@ -82,7 +100,9 @@ describe('ResponsiveStack', () => {
 
   it('applies end alignment', () => {
     const { container } = render(
-      <ResponsiveStack align="end"><div>child</div></ResponsiveStack>,
+      <ResponsiveStack align="end">
+        <div>child</div>
+      </ResponsiveStack>
     )
     const root = container.querySelector('[data-component="responsive-stack"]')
     expect(root?.className).toContain('items-end')
@@ -90,7 +110,9 @@ describe('ResponsiveStack', () => {
 
   it('applies custom className', () => {
     const { container } = render(
-      <ResponsiveStack className="extra"><div>child</div></ResponsiveStack>,
+      <ResponsiveStack className="extra">
+        <div>child</div>
+      </ResponsiveStack>
     )
     const root = container.querySelector('[data-component="responsive-stack"]')
     expect(root?.className).toContain('extra')
@@ -98,7 +120,9 @@ describe('ResponsiveStack', () => {
 
   it('always includes flex and flex-col base classes', () => {
     const { container } = render(
-      <ResponsiveStack><div>child</div></ResponsiveStack>,
+      <ResponsiveStack>
+        <div>child</div>
+      </ResponsiveStack>
     )
     const root = container.querySelector('[data-component="responsive-stack"]')
     expect(root?.className).toContain('flex')
@@ -108,9 +132,13 @@ describe('ResponsiveStack', () => {
   it('forwards ref', () => {
     let divRef: HTMLDivElement | null = null
     render(
-      <ResponsiveStack ref={(el) => { divRef = el }}>
+      <ResponsiveStack
+        ref={(el) => {
+          divRef = el
+        }}
+      >
         <div>child</div>
-      </ResponsiveStack>,
+      </ResponsiveStack>
     )
     expect(divRef).not.toBeNull()
     expect((divRef as unknown as HTMLElement)?.tagName).toBe('DIV')

@@ -37,6 +37,8 @@ describe('WaffleChart', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<WaffleChart data={data} />)
-    expect(container.querySelector('[data-component="waffle-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="waffle-chart"]')
+    ).not.toBeNull()
   })
 })

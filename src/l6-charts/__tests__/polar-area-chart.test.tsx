@@ -17,7 +17,9 @@ describe('PolarAreaChart', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<PolarAreaChart data={data} />)
-    expect(container.querySelector('[data-component="polar-area-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="polar-area-chart"]')
+    ).not.toBeNull()
   })
 
   it('renders SVG path segments', () => {
@@ -27,7 +29,11 @@ describe('PolarAreaChart', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<PolarAreaChart className="custom" data={data} />)
-    expect(container.querySelector('[data-component="polar-area-chart"]')?.className).toContain('custom')
+    const { container } = render(
+      <PolarAreaChart className="custom" data={data} />
+    )
+    expect(
+      container.querySelector('[data-component="polar-area-chart"]')?.className
+    ).toContain('custom')
   })
 })

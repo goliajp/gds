@@ -9,7 +9,10 @@ type StickyHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const StickyHeader = forwardRef<HTMLDivElement, StickyHeaderProps>(
-  function StickyHeader({ children, className, glass = true, threshold = 0, ...props }, ref) {
+  function StickyHeader(
+    { children, className, glass = true, threshold = 0, ...props },
+    ref
+  ) {
     const [isSticky, setIsSticky] = useState(false)
 
     useEffect(() => {
@@ -24,9 +27,9 @@ export const StickyHeader = forwardRef<HTMLDivElement, StickyHeaderProps>(
       <div
         className={cx(
           'sticky top-0 z-40 transition-[background-color,box-shadow] duration-200',
-          isSticky && 'shadow-md bg-bg/80',
+          isSticky && 'bg-bg/80 shadow-md',
           isSticky && glass && glassClass(true),
-          className,
+          className
         )}
         data-component="sticky-header"
         data-sticky={isSticky}
@@ -36,7 +39,7 @@ export const StickyHeader = forwardRef<HTMLDivElement, StickyHeaderProps>(
         {children}
       </div>
     )
-  },
+  }
 )
 
 export type { StickyHeaderProps }

@@ -11,7 +11,15 @@ export type TextScrambleProps = {
 }
 
 export const TextScramble = forwardRef<HTMLSpanElement, TextScrambleProps>(
-  function TextScramble({ characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%', className, speed = 50, text }, ref) {
+  function TextScramble(
+    {
+      characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%',
+      className,
+      speed = 50,
+      text,
+    },
+    ref
+  ) {
     const [display, setDisplay] = useState(text)
     const frameRef = useRef(0)
 
@@ -27,7 +35,7 @@ export const TextScramble = forwardRef<HTMLSpanElement, TextScrambleProps>(
               if (i < iteration) return target[i]
               return characters[Math.floor(Math.random() * characters.length)]
             })
-            .join(''),
+            .join('')
         )
 
         iteration += 1 / 3
@@ -49,12 +57,12 @@ export const TextScramble = forwardRef<HTMLSpanElement, TextScrambleProps>(
     return (
       <span
         ref={ref}
-        className={cx('inline-block font-mono text-fg', className)}
+        className={cx('text-fg inline-block font-mono', className)}
         data-component="text-scramble"
         aria-label={text}
       >
         {display}
       </span>
     )
-  },
+  }
 )

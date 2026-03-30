@@ -21,16 +21,16 @@ function UnifiedView({ lines }: { lines: DiffLine[] }) {
       <tbody>
         {lines.map((line, idx) => (
           <tr key={idx} className={lineClass(line.type)}>
-            <td className="w-10 select-none pr-2 text-right text-fg-muted/50">
+            <td className="text-fg-muted/50 w-10 pr-2 text-right select-none">
               {line.oldLineNum ?? ''}
             </td>
-            <td className="w-10 select-none pr-2 text-right text-fg-muted/50">
+            <td className="text-fg-muted/50 w-10 pr-2 text-right select-none">
               {line.newLineNum ?? ''}
             </td>
-            <td className="w-4 select-none text-center text-fg-muted/70">
+            <td className="text-fg-muted/70 w-4 text-center select-none">
               {linePrefix(line.type)}
             </td>
-            <td className="whitespace-pre px-2">{line.content}</td>
+            <td className="px-2 whitespace-pre">{line.content}</td>
           </tr>
         ))}
       </tbody>
@@ -38,7 +38,11 @@ function UnifiedView({ lines }: { lines: DiffLine[] }) {
   )
 }
 
-function SplitView({ lines, oldTitle, newTitle }: {
+function SplitView({
+  lines,
+  oldTitle,
+  newTitle,
+}: {
   lines: DiffLine[]
   oldTitle: string
   newTitle: string
@@ -61,36 +65,42 @@ function SplitView({ lines, oldTitle, newTitle }: {
   }
 
   return (
-    <div className="grid grid-cols-2 divide-x divide-border">
+    <div className="divide-border grid grid-cols-2 divide-x">
       <div>
-        <div className="border-b border-border px-3 py-1.5 text-[10px] font-medium text-fg-muted select-none">
+        <div className="border-border text-fg-muted border-b px-3 py-1.5 text-[10px] font-medium select-none">
           {oldTitle}
         </div>
         <table className="w-full border-collapse font-mono text-xs">
           <tbody>
             {oldLines.map((line, idx) => (
-              <tr key={idx} className={line !== null ? lineClass(line.type) : ''}>
-                <td className="w-10 select-none pr-2 text-right text-fg-muted/50">
+              <tr
+                key={idx}
+                className={line !== null ? lineClass(line.type) : ''}
+              >
+                <td className="text-fg-muted/50 w-10 pr-2 text-right select-none">
                   {line?.oldLineNum ?? ''}
                 </td>
-                <td className="whitespace-pre px-2">{line?.content ?? ''}</td>
+                <td className="px-2 whitespace-pre">{line?.content ?? ''}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       <div>
-        <div className="border-b border-border px-3 py-1.5 text-[10px] font-medium text-fg-muted select-none">
+        <div className="border-border text-fg-muted border-b px-3 py-1.5 text-[10px] font-medium select-none">
           {newTitle}
         </div>
         <table className="w-full border-collapse font-mono text-xs">
           <tbody>
             {newLines.map((line, idx) => (
-              <tr key={idx} className={line !== null ? lineClass(line.type) : ''}>
-                <td className="w-10 select-none pr-2 text-right text-fg-muted/50">
+              <tr
+                key={idx}
+                className={line !== null ? lineClass(line.type) : ''}
+              >
+                <td className="text-fg-muted/50 w-10 pr-2 text-right select-none">
                   {line?.newLineNum ?? ''}
                 </td>
-                <td className="whitespace-pre px-2">{line?.content ?? ''}</td>
+                <td className="px-2 whitespace-pre">{line?.content ?? ''}</td>
               </tr>
             ))}
           </tbody>
@@ -102,8 +112,16 @@ function SplitView({ lines, oldTitle, newTitle }: {
 
 export const DiffViewer = forwardRef<HTMLDivElement, DiffViewerProps>(
   function DiffViewer(
-    { oldText, newText, mode = 'unified', oldTitle = 'Old', newTitle = 'New', glass, className },
-    ref,
+    {
+      oldText,
+      newText,
+      mode = 'unified',
+      oldTitle = 'Old',
+      newTitle = 'New',
+      glass,
+      className,
+    },
+    ref
   ) {
     const lines = useMemo(() => {
       const oldLines = oldText.split('\n')
@@ -115,10 +133,10 @@ export const DiffViewer = forwardRef<HTMLDivElement, DiffViewerProps>(
       <div
         ref={ref}
         className={cx(
-          'overflow-auto gds-radius-popover border border-border',
+          'gds-radius-popover border-border overflow-auto border',
           glass === true && 'bg-white/5 backdrop-blur-md',
           glass !== true && 'bg-bg-secondary',
-          className,
+          className
         )}
         data-component="diff-viewer"
         data-variant={mode}
@@ -130,5 +148,5 @@ export const DiffViewer = forwardRef<HTMLDivElement, DiffViewerProps>(
         )}
       </div>
     )
-  },
+  }
 )

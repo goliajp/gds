@@ -14,21 +14,27 @@ describe('Tooltip', () => {
 
   it('has data-component="tooltip"', () => {
     const { container } = render(
-      <Tooltip content="Help text"><button>Hover me</button></Tooltip>,
+      <Tooltip content="Help text">
+        <button>Hover me</button>
+      </Tooltip>
     )
     expect(container.querySelector('[data-component="tooltip"]')).not.toBeNull()
   })
 
   it('has data-state="closed" by default', () => {
     const { container } = render(
-      <Tooltip content="Help text"><button>Hover me</button></Tooltip>,
+      <Tooltip content="Help text">
+        <button>Hover me</button>
+      </Tooltip>
     )
     expect(container.querySelector('[data-state="closed"]')).not.toBeNull()
   })
 
   it('shows content on mouseEnter after delay', () => {
     const { container } = render(
-      <Tooltip content="Help text" delay={100}><button>Hover me</button></Tooltip>,
+      <Tooltip content="Help text" delay={100}>
+        <button>Hover me</button>
+      </Tooltip>
     )
     const wrapper = container.querySelector('[data-component="tooltip"]')!
 
@@ -44,7 +50,9 @@ describe('Tooltip', () => {
 
   it('hides content on mouseLeave', () => {
     const { container } = render(
-      <Tooltip content="Help text" delay={0}><button>Hover me</button></Tooltip>,
+      <Tooltip content="Help text" delay={0}>
+        <button>Hover me</button>
+      </Tooltip>
     )
     const wrapper = container.querySelector('[data-component="tooltip"]')!
 
@@ -60,7 +68,9 @@ describe('Tooltip', () => {
 
   it('uses delayed close when interactive is true', () => {
     const { container } = render(
-      <Tooltip content="Interactive tip" delay={0} interactive><button>Hover me</button></Tooltip>,
+      <Tooltip content="Interactive tip" delay={0} interactive>
+        <button>Hover me</button>
+      </Tooltip>
     )
     const wrapper = container.querySelector('[data-component="tooltip"]')!
 
@@ -83,7 +93,9 @@ describe('Tooltip', () => {
 
   it('cancels close when re-entering interactive tooltip', () => {
     const { container } = render(
-      <Tooltip content="Interactive tip" delay={0} interactive><button>Hover me</button></Tooltip>,
+      <Tooltip content="Interactive tip" delay={0} interactive>
+        <button>Hover me</button>
+      </Tooltip>
     )
     const wrapper = container.querySelector('[data-component="tooltip"]')!
 
@@ -107,7 +119,9 @@ describe('Tooltip', () => {
 
   it('applies glass classes when glass is true', () => {
     const { container } = render(
-      <Tooltip content="Glass tip" delay={0} glass><button>Hover me</button></Tooltip>,
+      <Tooltip content="Glass tip" delay={0} glass>
+        <button>Hover me</button>
+      </Tooltip>
     )
     const wrapper = container.querySelector('[data-component="tooltip"]')!
 
@@ -123,7 +137,9 @@ describe('Tooltip', () => {
 
   it('applies maxWidth style when provided', () => {
     const { container } = render(
-      <Tooltip content="Long text" delay={0} maxWidth={200}><button>Hover me</button></Tooltip>,
+      <Tooltip content="Long text" delay={0} maxWidth={200}>
+        <button>Hover me</button>
+      </Tooltip>
     )
     const wrapper = container.querySelector('[data-component="tooltip"]')!
 
@@ -140,7 +156,9 @@ describe('Tooltip', () => {
   it('renders with different placements', () => {
     for (const placement of ['top', 'bottom', 'left', 'right'] as const) {
       const { container } = render(
-        <Tooltip content="Tip" delay={0} placement={placement}><button>H</button></Tooltip>,
+        <Tooltip content="Tip" delay={0} placement={placement}>
+          <button>H</button>
+        </Tooltip>
       )
       const wrapper = container.querySelector('[data-component="tooltip"]')!
       fireEvent.mouseEnter(wrapper)
@@ -154,7 +172,9 @@ describe('Tooltip', () => {
 
   it('cancels enter timer on mouse leave before delay fires', () => {
     const { container } = render(
-      <Tooltip content="Tip" delay={500}><button>Hover me</button></Tooltip>,
+      <Tooltip content="Tip" delay={500}>
+        <button>Hover me</button>
+      </Tooltip>
     )
     const wrapper = container.querySelector('[data-component="tooltip"]')!
 
@@ -169,7 +189,9 @@ describe('Tooltip', () => {
 
   it('interactive tooltip popup has pointer-events-auto and mouse handlers', () => {
     const { container } = render(
-      <Tooltip content="Interactive" delay={0} interactive><button>Hover</button></Tooltip>,
+      <Tooltip content="Interactive" delay={0} interactive>
+        <button>Hover</button>
+      </Tooltip>
     )
     const wrapper = container.querySelector('[data-component="tooltip"]')!
     fireEvent.mouseEnter(wrapper)

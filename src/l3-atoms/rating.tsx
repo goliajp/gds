@@ -16,7 +16,7 @@ function DefaultStar({ filled }: { filled: boolean }) {
     <svg
       className={cx(
         sizeMap.default,
-        filled ? 'fill-warning text-warning' : 'text-fg-muted/20',
+        filled ? 'fill-warning text-warning' : 'text-fg-muted/20'
       )}
       fill={filled ? 'currentColor' : 'none'}
       stroke="currentColor"
@@ -41,65 +41,69 @@ type RatingProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
   value: number
 }
 
-export const Rating = forwardRef<HTMLDivElement, RatingProps>(
-  function Rating(
-    {
-      className,
-      max = 5,
-      onChange,
-      readonly = false,
-      renderStar,
-      size = 'default',
-      value,
-      ...props
-    },
-    ref,
-  ) {
-    const [hovered, setHovered] = useState<number | null>(null)
-
-    const handleLeave = useCallback(() => setHovered(null), [])
-
-    return (
-      <div
-        className={cx('inline-flex gds-gap-xs', className)}
-        data-component="rating"
-        onMouseLeave={readonly ? undefined : handleLeave}
-        ref={ref}
-        role="group"
-        {...props}
-      >
-        {Array.from({ length: max }, (_, i) => {
-          const starIndex = i + 1
-          const filled = hovered !== null ? starIndex <= hovered : starIndex <= value
-
-          if (readonly) {
-            return (
-              <span className={sizeMap[size]} key={i}>
-                {renderStar !== undefined ? renderStar(filled, i) : <DefaultStar filled={filled} />}
-              </span>
-            )
-          }
-
-          return (
-            <button
-              className={cx(
-                'transition-transform hover:scale-110',
-                focusCls,
-              )}
-              key={i}
-              onClick={() => onChange?.(starIndex)}
-              onMouseEnter={() => setHovered(starIndex)}
-              type="button"
-            >
-              <span className={sizeMap[size]}>
-                {renderStar !== undefined ? renderStar(filled, i) : <DefaultStar filled={filled} />}
-              </span>
-            </button>
-          )
-        })}
-      </div>
-    )
+export const Rating = forwardRef<HTMLDivElement, RatingProps>(function Rating(
+  {
+    className,
+    max = 5,
+    onChange,
+    readonly = false,
+    renderStar,
+    size = 'default',
+    value,
+    ...props
   },
-)
+  ref
+) {
+  const [hovered, setHovered] = useState<number | null>(null)
+
+  const handleLeave = useCallback(() => setHovered(null), [])
+
+  return (
+    <div
+      className={cx('gds-gap-xs inline-flex', className)}
+      data-component="rating"
+      onMouseLeave={readonly ? undefined : handleLeave}
+      ref={ref}
+      role="group"
+      {...props}
+    >
+      {Array.from({ length: max }, (_, i) => {
+        const starIndex = i + 1
+        const filled =
+          hovered !== null ? starIndex <= hovered : starIndex <= value
+
+        if (readonly) {
+          return (
+            <span className={sizeMap[size]} key={i}>
+              {renderStar !== undefined ? (
+                renderStar(filled, i)
+              ) : (
+                <DefaultStar filled={filled} />
+              )}
+            </span>
+          )
+        }
+
+        return (
+          <button
+            className={cx('transition-transform hover:scale-110', focusCls)}
+            key={i}
+            onClick={() => onChange?.(starIndex)}
+            onMouseEnter={() => setHovered(starIndex)}
+            type="button"
+          >
+            <span className={sizeMap[size]}>
+              {renderStar !== undefined ? (
+                renderStar(filled, i)
+              ) : (
+                <DefaultStar filled={filled} />
+              )}
+            </span>
+          </button>
+        )
+      })}
+    </div>
+  )
+})
 
 export type { RatingProps }

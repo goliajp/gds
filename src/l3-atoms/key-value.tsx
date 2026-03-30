@@ -15,15 +15,18 @@ export const KeyValue = forwardRef<HTMLDivElement, KeyValueProps>(
     return (
       <div
         ref={ref}
-        className={cx('inline-flex items-baseline gap-1.5 gds-text-body', className)}
+        className={cx(
+          'gds-text-body inline-flex items-baseline gap-1.5',
+          className
+        )}
         data-component="key-value"
         {...props}
       >
-        <span className="shrink-0 text-fg-muted gds-text-caption">{label}</span>
+        <span className="text-fg-muted gds-text-caption shrink-0">{label}</span>
         <span className={cx('text-fg', mono && 'font-mono')}>{value}</span>
       </div>
     )
-  },
+  }
 )
 
 export type { KeyValueProps }

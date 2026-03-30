@@ -23,7 +23,7 @@ export const TransactionList = forwardRef<HTMLDivElement, TransactionListProps>(
   function TransactionList({ className, transactions, ...props }, ref) {
     return (
       <div
-        className={cx('flex flex-col divide-y divide-border', className)}
+        className={cx('divide-border flex flex-col divide-y', className)}
         data-component="transaction-list"
         ref={ref}
         {...props}
@@ -32,15 +32,20 @@ export const TransactionList = forwardRef<HTMLDivElement, TransactionListProps>(
           const currency = tx.currency ?? '\u00a5'
           const isPositive = tx.amount >= 0
           return (
-            <div className="flex items-center justify-between px-3 py-2.5" key={tx.id}>
+            <div
+              className="flex items-center justify-between px-3 py-2.5"
+              key={tx.id}
+            >
               <div className="flex flex-col gap-0.5">
-                <span className="text-sm font-medium text-fg">{tx.description}</span>
-                <span className="text-xs text-fg-muted">{tx.date}</span>
+                <span className="text-fg text-sm font-medium">
+                  {tx.description}
+                </span>
+                <span className="text-fg-muted text-xs">{tx.date}</span>
               </div>
               <span
                 className={cx(
                   'text-sm font-semibold tabular-nums',
-                  isPositive ? 'text-success' : 'text-danger',
+                  isPositive ? 'text-success' : 'text-danger'
                 )}
               >
                 {formatAmount(tx.amount, currency)}
@@ -50,7 +55,7 @@ export const TransactionList = forwardRef<HTMLDivElement, TransactionListProps>(
         })}
       </div>
     )
-  },
+  }
 )
 
 export type { Transaction, TransactionListProps }

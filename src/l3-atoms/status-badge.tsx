@@ -4,7 +4,13 @@ import { forwardRef } from 'react'
 import { cx } from '../utils/cx'
 import { glassClass } from '../utils/glass'
 
-type StatusType = 'active' | 'draft' | 'error' | 'inactive' | 'pending' | 'warning'
+type StatusType =
+  | 'active'
+  | 'draft'
+  | 'error'
+  | 'inactive'
+  | 'pending'
+  | 'warning'
 
 const statusColorMap: Record<StatusType, string> = {
   active: 'bg-success/10 text-success',
@@ -26,20 +32,23 @@ type StatusBadgeProps = React.HTMLAttributes<HTMLSpanElement> & {
 export const StatusBadge = forwardRef<HTMLSpanElement, StatusBadgeProps>(
   function StatusBadge(
     { className, glass, icon, label, size = 'default', status, ...props },
-    ref,
+    ref
   ) {
     const displayLabel = label ?? status
-    const sizeClasses = size === 'sm' ? 'gds-pad-x-sm py-px gds-text-caption' : 'gds-pad-x-sm gds-pad-y-sm gds-text-body'
+    const sizeClasses =
+      size === 'sm'
+        ? 'gds-pad-x-sm py-px gds-text-caption'
+        : 'gds-pad-x-sm gds-pad-y-sm gds-text-body'
 
     return (
       <span
         className={cx(
-          'inline-flex select-none items-center gds-gap-xs gds-radius-badge font-medium',
+          'gds-gap-xs gds-radius-badge inline-flex items-center font-medium select-none',
           sizeClasses,
           statusColorMap[status],
           glassClass(glass),
           glass === true && 'border border-white/10 bg-white/5',
-          className,
+          className
         )}
         data-component="status-badge"
         data-state={status}
@@ -52,7 +61,7 @@ export const StatusBadge = forwardRef<HTMLSpanElement, StatusBadgeProps>(
         {displayLabel}
       </span>
     )
-  },
+  }
 )
 
 const statusBadgeVariants = {

@@ -6,7 +6,9 @@ import { UserCard } from '../user-card'
 describe('UserCard', () => {
   it('renders with data-component', () => {
     const { container } = render(<UserCard name="Alice" />)
-    expect(container.querySelector('[data-component="user-card"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="user-card"]')
+    ).not.toBeNull()
   })
 
   it('renders name', () => {
@@ -20,7 +22,9 @@ describe('UserCard', () => {
   })
 
   it('shows avatar image when provided', () => {
-    const { container } = render(<UserCard name="Alice" avatar="https://img.com/a.jpg" />)
+    const { container } = render(
+      <UserCard name="Alice" avatar="https://img.com/a.jpg" />
+    )
     const img = container.querySelector('img')!
     expect(img).not.toBeNull()
     expect(img.getAttribute('src')).toBe('https://img.com/a.jpg')
@@ -43,7 +47,9 @@ describe('UserCard', () => {
   })
 
   it('renders separator between role and department', () => {
-    const { getByText } = render(<UserCard name="Alice" role="Engineer" department="R&D" />)
+    const { getByText } = render(
+      <UserCard name="Alice" role="Engineer" department="R&D" />
+    )
     expect(getByText('/')).toBeDefined()
   })
 
@@ -60,7 +66,9 @@ describe('UserCard', () => {
   })
 
   it('renders email when provided', () => {
-    const { getByText } = render(<UserCard name="Alice" email="alice@example.com" />)
+    const { getByText } = render(
+      <UserCard name="Alice" email="alice@example.com" />
+    )
     expect(getByText('alice@example.com')).toBeDefined()
   })
 
@@ -113,7 +121,11 @@ describe('UserCard', () => {
   })
 
   it('renders children', () => {
-    const { getByText } = render(<UserCard name="Alice"><span>Action</span></UserCard>)
+    const { getByText } = render(
+      <UserCard name="Alice">
+        <span>Action</span>
+      </UserCard>
+    )
     expect(getByText('Action')).toBeDefined()
   })
 

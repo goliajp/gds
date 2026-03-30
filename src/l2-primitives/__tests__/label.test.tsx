@@ -11,14 +11,24 @@ describe('Label', () => {
 
   it('forwards ref', () => {
     let el: HTMLLabelElement | null = null
-    render(<Label ref={(node) => { el = node }}>Name</Label>)
+    render(
+      <Label
+        ref={(node) => {
+          el = node
+        }}
+      >
+        Name
+      </Label>
+    )
     expect(el).toBeTruthy()
     expect(el!.tagName).toBe('LABEL')
   })
 
   it('has data-component attribute', () => {
     render(<Label>Name</Label>)
-    expect(screen.getByText('Name').closest('label')!.getAttribute('data-component')).toBe('label')
+    expect(
+      screen.getByText('Name').closest('label')!.getAttribute('data-component')
+    ).toBe('label')
   })
 
   it('renders a label element', () => {
@@ -28,7 +38,9 @@ describe('Label', () => {
 
   it('merges className', () => {
     render(<Label className="custom-class">Name</Label>)
-    expect(screen.getByText('Name').closest('label')!.className).toContain('custom-class')
+    expect(screen.getByText('Name').closest('label')!.className).toContain(
+      'custom-class'
+    )
   })
 
   it('shows asterisk when required', () => {

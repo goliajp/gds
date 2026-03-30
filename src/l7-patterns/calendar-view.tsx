@@ -18,7 +18,10 @@ type CalendarViewProps = React.HTMLAttributes<HTMLDivElement> & {
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 export const CalendarView = forwardRef<HTMLDivElement, CalendarViewProps>(
-  function CalendarView({ className, events = [], month, onDateClick, year, ...props }, ref) {
+  function CalendarView(
+    { className, events = [], month, onDateClick, year, ...props },
+    ref
+  ) {
     const firstDay = new Date(year, month - 1, 1).getDay()
     const daysInMonth = new Date(year, month, 0).getDate()
     const cells: (number | null)[] = []
@@ -41,7 +44,12 @@ export const CalendarView = forwardRef<HTMLDivElement, CalendarViewProps>(
       >
         <div className="grid grid-cols-7 gap-1">
           {WEEKDAYS.map((d) => (
-            <div className="py-1 text-center text-xs font-medium text-fg-muted" key={d}>{d}</div>
+            <div
+              className="text-fg-muted py-1 text-center text-xs font-medium"
+              key={d}
+            >
+              {d}
+            </div>
           ))}
           {cells.map((day, i) => {
             const dayEvents = day !== null ? (eventsByDate.get(day) ?? []) : []
@@ -49,11 +57,14 @@ export const CalendarView = forwardRef<HTMLDivElement, CalendarViewProps>(
               <div
                 className={cx(
                   'flex min-h-[36px] flex-col items-center rounded p-1 text-xs',
-                  day !== null && 'cursor-pointer text-fg hover:bg-accent/10',
-                  day === null && 'pointer-events-none',
+                  day !== null && 'text-fg hover:bg-accent/10 cursor-pointer',
+                  day === null && 'pointer-events-none'
                 )}
                 key={i}
-                onClick={() => { if (day !== null && onDateClick !== undefined) onDateClick(day) }}
+                onClick={() => {
+                  if (day !== null && onDateClick !== undefined)
+                    onDateClick(day)
+                }}
               >
                 {day !== null && <span>{day}</span>}
                 {dayEvents.length > 0 && (
@@ -62,7 +73,9 @@ export const CalendarView = forwardRef<HTMLDivElement, CalendarViewProps>(
                       <span
                         className="h-1 w-1 rounded-full"
                         key={j}
-                        style={{ backgroundColor: ev.color ?? 'var(--color-accent)' }}
+                        style={{
+                          backgroundColor: ev.color ?? 'var(--color-accent)',
+                        }}
                         title={ev.label}
                       />
                     ))}
@@ -74,7 +87,7 @@ export const CalendarView = forwardRef<HTMLDivElement, CalendarViewProps>(
         </div>
       </div>
     )
-  },
+  }
 )
 
 export type { CalendarEvent, CalendarViewProps }

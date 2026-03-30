@@ -23,7 +23,12 @@ export type ContextMenuProps = {
   className?: string
 }
 
-export function ContextMenu({ trigger, items, onSelect, className }: ContextMenuProps) {
+export function ContextMenu({
+  trigger,
+  items,
+  onSelect,
+  className,
+}: ContextMenuProps) {
   const [open, setOpen] = useState(false)
   const [pos, setPos] = useState({ x: 0, y: 0 })
   const menuRef = useRef<HTMLDivElement>(null)
@@ -38,10 +43,13 @@ export function ContextMenu({ trigger, items, onSelect, className }: ContextMenu
     setOpen(true)
   }, [])
 
-  const handleSelect = useCallback((id: string) => {
-    setOpen(false)
-    onSelect(id)
-  }, [onSelect])
+  const handleSelect = useCallback(
+    (id: string) => {
+      setOpen(false)
+      onSelect(id)
+    },
+    [onSelect]
+  )
 
   return (
     <div
@@ -54,12 +62,12 @@ export function ContextMenu({ trigger, items, onSelect, className }: ContextMenu
       {open && (
         <div
           ref={menuRef}
-          className="fixed z-50 min-w-[160px] animate-popup gds-radius-popover border border-border bg-surface py-1 gds-shadow-lg"
+          className="animate-popup gds-radius-popover border-border bg-surface gds-shadow-lg fixed z-50 min-w-[160px] border py-1"
           style={{ left: pos.x, top: pos.y }}
         >
           {items.map((item) => {
             if (item.separator) {
-              return <div key={item.id} className="my-1 h-px bg-border" />
+              return <div key={item.id} className="bg-border my-1 h-px" />
             }
             return (
               <button
@@ -67,16 +75,26 @@ export function ContextMenu({ trigger, items, onSelect, className }: ContextMenu
                 type="button"
                 disabled={item.disabled}
                 className={cx(
-                  'flex w-full items-center gds-gap-sm gds-pad-x gds-pad-y-sm text-left gds-text-body',
+                  'gds-gap-sm gds-pad-x gds-pad-y-sm gds-text-body flex w-full items-center text-left',
                   focusCls,
-                  item.danger ? 'text-danger hover:bg-danger/10' : 'text-fg hover:bg-bg-secondary',
-                  item.disabled === true && 'pointer-events-none opacity-40',
+                  item.danger
+                    ? 'text-danger hover:bg-danger/10'
+                    : 'text-fg hover:bg-bg-secondary',
+                  item.disabled === true && 'pointer-events-none opacity-40'
                 )}
                 onClick={() => handleSelect(item.id)}
               >
-                {item.icon !== undefined && <span className="flex h-4 w-4 shrink-0 items-center justify-center">{item.icon}</span>}
+                {item.icon !== undefined && (
+                  <span className="flex h-4 w-4 shrink-0 items-center justify-center">
+                    {item.icon}
+                  </span>
+                )}
                 <span className="flex-1">{item.label}</span>
-                {item.shortcut !== undefined && <span className="ml-4 gds-text-caption text-fg-muted">{item.shortcut}</span>}
+                {item.shortcut !== undefined && (
+                  <span className="gds-text-caption text-fg-muted ml-4">
+                    {item.shortcut}
+                  </span>
+                )}
               </button>
             )
           })}

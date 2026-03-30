@@ -27,6 +27,8 @@ describe('QRCode', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<QRCode value="test" />)
-    expect(container.querySelector('[data-component="qr-code"]')).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="qr-code"]')
+    ).toBeInTheDocument()
   })
 })

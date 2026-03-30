@@ -31,7 +31,9 @@ describe('Slider', () => {
   })
 
   it('applies custom min/max/step/value', () => {
-    const { container } = render(<Slider min={10} max={50} step={5} value={25} />)
+    const { container } = render(
+      <Slider min={10} max={50} step={5} value={25} />
+    )
     const input = container.querySelector('input') as HTMLInputElement
     expect(input.min).toBe('10')
     expect(input.max).toBe('50')
@@ -47,7 +49,9 @@ describe('Slider', () => {
 
   it('calls onChange with numeric value', () => {
     const values: number[] = []
-    const { container } = render(<Slider value={0} onChange={(v) => values.push(v)} />)
+    const { container } = render(
+      <Slider value={0} onChange={(v) => values.push(v)} />
+    )
     const input = container.querySelector('input') as HTMLInputElement
     fireEvent.change(input, { target: { value: '75' } })
     expect(values).toEqual([75])
@@ -83,7 +87,13 @@ describe('Slider', () => {
 
   it('forwards ref to input element', () => {
     let el: HTMLInputElement | null = null
-    render(<Slider ref={(node) => { el = node }} />)
+    render(
+      <Slider
+        ref={(node) => {
+          el = node
+        }}
+      />
+    )
     expect(el).toBeTruthy()
     expect(el!.tagName.toLowerCase()).toBe('input')
   })

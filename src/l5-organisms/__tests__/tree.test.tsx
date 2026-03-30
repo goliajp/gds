@@ -76,7 +76,11 @@ describe('Tree', () => {
 
   it('renders custom icon when provided', () => {
     const nodesWithIcon = [
-      { id: 'file', label: 'file.ts', icon: <span data-testid="custom-icon">I</span> },
+      {
+        id: 'file',
+        label: 'file.ts',
+        icon: <span data-testid="custom-icon">I</span>,
+      },
     ]
     render(<Tree nodes={nodesWithIcon} />)
     expect(screen.getByTestId('custom-icon')).toBeDefined()

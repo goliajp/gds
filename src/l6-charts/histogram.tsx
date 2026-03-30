@@ -31,24 +31,34 @@ function computeBins(data: number[], binCount: number) {
   return Array.from({ length: binCount }, (_, i) => {
     const lo = min + i * binWidth
     const hi = lo + binWidth
-    const count = data.filter((v) => (i === binCount - 1 ? v >= lo && v <= hi : v >= lo && v < hi)).length
+    const count = data.filter((v) =>
+      i === binCount - 1 ? v >= lo && v <= hi : v >= lo && v < hi
+    ).length
     return { range: `${lo.toFixed(1)}–${hi.toFixed(1)}`, count }
   })
 }
 
 export const Histogram = forwardRef<HTMLDivElement, HistogramProps>(
   function Histogram(
-    { data, bins = 10, height = 300, color = 'var(--gds-accent)', glass, className, ...props },
-    ref,
+    {
+      data,
+      bins = 10,
+      height = 300,
+      color = 'var(--gds-accent)',
+      glass,
+      className,
+      ...props
+    },
+    ref
   ) {
     const binData = computeBins(data, bins)
 
     return (
       <div
         className={cx(
-          'w-full gds-radius-popover border border-border',
-          glass && 'backdrop-blur-md bg-white/5',
-          className,
+          'gds-radius-popover border-border w-full border',
+          glass && 'bg-white/5 backdrop-blur-md',
+          className
         )}
         data-component="histogram"
         ref={ref}
@@ -56,16 +66,26 @@ export const Histogram = forwardRef<HTMLDivElement, HistogramProps>(
       >
         <ResponsiveContainer height={height} width="100%">
           <BarChart data={binData}>
-            <CartesianGrid stroke="var(--gds-border, #e5e7eb)" strokeDasharray="3 3" />
-            <XAxis dataKey="range" stroke="var(--gds-fg-muted, #6b7280)" tick={{ fontSize: 10 }} />
-            <YAxis stroke="var(--gds-fg-muted, #6b7280)" tick={{ fontSize: 11 }} />
+            <CartesianGrid
+              stroke="var(--gds-border, #e5e7eb)"
+              strokeDasharray="3 3"
+            />
+            <XAxis
+              dataKey="range"
+              stroke="var(--gds-fg-muted, #6b7280)"
+              tick={{ fontSize: 10 }}
+            />
+            <YAxis
+              stroke="var(--gds-fg-muted, #6b7280)"
+              tick={{ fontSize: 11 }}
+            />
             <Tooltip />
             <Bar dataKey="count" fill={color} radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
     )
-  },
+  }
 )
 
 export { computeBins }

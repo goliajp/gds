@@ -21,16 +21,20 @@ export const MailComposer = forwardRef<HTMLFormElement, MailComposerProps>(
     const subjectRef = useRef<HTMLInputElement>(null)
     const bodyRef = useRef<HTMLTextAreaElement>(null)
 
-    const handleSubmit = useCallback((e: React.FormEvent) => {
-      e.preventDefault()
-      onSend({
-        to: toRef.current?.value ?? '',
-        subject: subjectRef.current?.value ?? '',
-        body: bodyRef.current?.value ?? '',
-      })
-    }, [onSend])
+    const handleSubmit = useCallback(
+      (e: React.FormEvent) => {
+        e.preventDefault()
+        onSend({
+          to: toRef.current?.value ?? '',
+          subject: subjectRef.current?.value ?? '',
+          body: bodyRef.current?.value ?? '',
+        })
+      },
+      [onSend]
+    )
 
-    const inputCls = 'w-full rounded-md border border-border bg-transparent px-3 py-2 gds-text-body text-fg placeholder:text-fg-muted/40 focus:border-accent focus:outline-none'
+    const inputCls =
+      'w-full rounded-md border border-border bg-transparent px-3 py-2 gds-text-body text-fg placeholder:text-fg-muted/40 focus:border-accent focus:outline-none'
 
     return (
       <form
@@ -39,18 +43,34 @@ export const MailComposer = forwardRef<HTMLFormElement, MailComposerProps>(
         data-component="mail-composer"
         onSubmit={handleSubmit}
       >
-        <input ref={toRef} type="email" placeholder="To" defaultValue={defaultTo ?? ''} className={inputCls} />
-        <input ref={subjectRef} type="text" placeholder="Subject" className={inputCls} />
-        <textarea ref={bodyRef} placeholder="Body" rows={6} className={cx(inputCls, 'resize-none')} />
+        <input
+          ref={toRef}
+          type="email"
+          placeholder="To"
+          defaultValue={defaultTo ?? ''}
+          className={inputCls}
+        />
+        <input
+          ref={subjectRef}
+          type="text"
+          placeholder="Subject"
+          className={inputCls}
+        />
+        <textarea
+          ref={bodyRef}
+          placeholder="Body"
+          rows={6}
+          className={cx(inputCls, 'resize-none')}
+        />
         <div className="flex justify-end">
           <button
             type="submit"
-            className="rounded-md bg-accent px-4 py-2 gds-text-body font-medium text-accent-fg hover:bg-accent/90 transition-colors"
+            className="bg-accent gds-text-body text-accent-fg hover:bg-accent/90 rounded-md px-4 py-2 font-medium transition-colors"
           >
             Send
           </button>
         </div>
       </form>
     )
-  },
+  }
 )

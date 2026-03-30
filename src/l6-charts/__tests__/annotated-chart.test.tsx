@@ -9,23 +9,29 @@ const data = [
   { x: 2, y: 15 },
 ]
 
-const annotations = [
-  { label: 'Peak', description: 'Highest point', x: 1 },
-]
+const annotations = [{ label: 'Peak', description: 'Highest point', x: 1 }]
 
 describe('AnnotatedChart', () => {
   it('renders without crash', () => {
-    const { container } = render(<AnnotatedChart annotations={annotations} data={data} />)
-    expect(container.querySelector('[data-component="annotated-chart"]')).not.toBeNull()
+    const { container } = render(
+      <AnnotatedChart annotations={annotations} data={data} />
+    )
+    expect(
+      container.querySelector('[data-component="annotated-chart"]')
+    ).not.toBeNull()
   })
 
   it('renders polyline for data', () => {
-    const { container } = render(<AnnotatedChart annotations={[]} data={data} />)
+    const { container } = render(
+      <AnnotatedChart annotations={[]} data={data} />
+    )
     expect(container.querySelector('polyline')).not.toBeNull()
   })
 
   it('renders annotation markers', () => {
-    const { container } = render(<AnnotatedChart annotations={annotations} data={data} />)
+    const { container } = render(
+      <AnnotatedChart annotations={annotations} data={data} />
+    )
     const rects = container.querySelectorAll('rect')
     expect(rects.length).toBe(1)
   })

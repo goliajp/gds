@@ -2,7 +2,11 @@
 // single source of truth: all dynamic tokens computed here
 // used by: L1 theme (runtime injection), SSR fallback, snapshot tests
 
-import { deriveDarkPalette, deriveLightPalette, paletteToVars } from './color-derive'
+import {
+  deriveDarkPalette,
+  deriveLightPalette,
+  paletteToVars,
+} from './color-derive'
 import { fontToCssVars } from './font-system'
 import { glassToCssVars } from './glass-system'
 import { motionToCssVars } from './motion-system'
@@ -15,10 +19,13 @@ const DEFAULT_PRIMARY = '#3b82f6'
 
 // generate all dynamic CSS variables for a given mode
 // uses default axis values: shape=default, density=default, elevation=raised, glass=full, motion=full
-export function generateDefaultCssVars(mode: 'dark' | 'light'): Record<string, string> {
-  const palette = mode === 'dark'
-    ? deriveDarkPalette(DEFAULT_PRIMARY)
-    : deriveLightPalette(DEFAULT_PRIMARY)
+export function generateDefaultCssVars(
+  mode: 'dark' | 'light'
+): Record<string, string> {
+  const palette =
+    mode === 'dark'
+      ? deriveDarkPalette(DEFAULT_PRIMARY)
+      : deriveLightPalette(DEFAULT_PRIMARY)
 
   return {
     // color (from primaryColor derivation)
@@ -41,7 +48,7 @@ export function generateDefaultCssVars(mode: 'dark' | 'light'): Record<string, s
 // apply CSS variables to a DOM element (usually document.documentElement)
 export function applyDefaultCssVars(
   element: HTMLElement,
-  mode: 'dark' | 'light',
+  mode: 'dark' | 'light'
 ): void {
   const vars = generateDefaultCssVars(mode)
   for (const [key, val] of Object.entries(vars)) {

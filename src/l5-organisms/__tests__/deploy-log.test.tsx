@@ -4,14 +4,28 @@ import { describe, expect, it } from 'vitest'
 import { DeployLog } from '../deploy-log'
 
 const entries = [
-  { project: 'admin', device: 't01', version: 'v1.2.3', status: 'success' as const, timestamp: '2m ago' },
-  { project: 'server', device: 't01', version: 'v0.9.1', status: 'failure' as const, timestamp: '1h ago' },
+  {
+    project: 'admin',
+    device: 't01',
+    version: 'v1.2.3',
+    status: 'success' as const,
+    timestamp: '2m ago',
+  },
+  {
+    project: 'server',
+    device: 't01',
+    version: 'v0.9.1',
+    status: 'failure' as const,
+    timestamp: '1h ago',
+  },
 ]
 
 describe('DeployLog', () => {
   it('renders data-component attribute', () => {
     const { container } = render(<DeployLog entries={entries} />)
-    expect(container.querySelector('[data-component="deploy-log"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="deploy-log"]')
+    ).not.toBeNull()
   })
 
   it('renders project names and versions', () => {

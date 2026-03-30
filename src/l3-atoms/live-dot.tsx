@@ -16,13 +16,15 @@ export const LiveDot = forwardRef<HTMLSpanElement, LiveDotProps>(
         {...props}
       >
         <span className="relative flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-danger opacity-75" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-danger" />
+          <span className="bg-danger absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
+          <span className="bg-danger relative inline-flex h-2 w-2 rounded-full" />
         </span>
-        <span className="text-xs font-bold uppercase tracking-wide text-danger">{label}</span>
+        <span className="text-danger text-xs font-bold tracking-wide uppercase">
+          {label}
+        </span>
       </span>
     )
-  },
+  }
 )
 
 export type { LiveDotProps }

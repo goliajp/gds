@@ -1,5 +1,11 @@
 import { forwardRef } from 'react'
-import { Cell, Pie, PieChart as RPieChart, ResponsiveContainer, Tooltip } from 'recharts'
+import {
+  Cell,
+  Pie,
+  PieChart as RPieChart,
+  ResponsiveContainer,
+  Tooltip,
+} from 'recharts'
 
 import { cx } from '../utils/cx'
 
@@ -31,12 +37,26 @@ export type PieChartProps = {
 
 export const PieChart = forwardRef<HTMLDivElement, PieChartProps>(
   function PieChart(
-    { data, dataKey, nameKey = 'name', className, height = 300, colors = PALETTE, innerRadius = 0, glass, ...props },
-    ref,
+    {
+      data,
+      dataKey,
+      nameKey = 'name',
+      className,
+      height = 300,
+      colors = PALETTE,
+      innerRadius = 0,
+      glass,
+      ...props
+    },
+    ref
   ) {
     return (
       <div
-        className={cx('w-full', glass && 'gds-radius-popover backdrop-blur-md bg-white/5', className)}
+        className={cx(
+          'w-full',
+          glass && 'gds-radius-popover bg-white/5 backdrop-blur-md',
+          className
+        )}
         data-component="pie-chart"
         ref={ref}
         {...props}
@@ -44,7 +64,14 @@ export const PieChart = forwardRef<HTMLDivElement, PieChartProps>(
         <ResponsiveContainer height={height} width="100%">
           <RPieChart>
             <Tooltip />
-            <Pie cx="50%" cy="50%" data={data} dataKey={dataKey} innerRadius={innerRadius} nameKey={nameKey}>
+            <Pie
+              cx="50%"
+              cy="50%"
+              data={data}
+              dataKey={dataKey}
+              innerRadius={innerRadius}
+              nameKey={nameKey}
+            >
               {data.map((_, i) => (
                 <Cell fill={colors[i % colors.length]} key={i} />
               ))}
@@ -53,5 +80,5 @@ export const PieChart = forwardRef<HTMLDivElement, PieChartProps>(
         </ResponsiveContainer>
       </div>
     )
-  },
+  }
 )

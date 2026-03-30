@@ -7,7 +7,9 @@ import { CopyField } from '../copy-field'
 describe('CopyField', () => {
   it('has data-component="copy-field"', () => {
     const { container } = render(<CopyField value="test-value" />)
-    expect(container.querySelector('[data-component="copy-field"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="copy-field"]')
+    ).not.toBeNull()
   })
 
   it('displays value text', () => {
@@ -54,7 +56,11 @@ describe('CopyField', () => {
 
   it('copies value on copy button click', async () => {
     const writeText = vi.fn().mockResolvedValue(undefined)
-    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, writable: true, configurable: true })
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText },
+      writable: true,
+      configurable: true,
+    })
 
     render(<CopyField value="copy-me" />)
     const btn = screen.getByLabelText('Copy')
@@ -64,7 +70,11 @@ describe('CopyField', () => {
 
   it('shows check icon after successful copy', async () => {
     const writeText = vi.fn().mockResolvedValue(undefined)
-    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, writable: true, configurable: true })
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText },
+      writable: true,
+      configurable: true,
+    })
 
     const { container } = render(<CopyField value="v" />)
     const btn = screen.getByLabelText('Copy')
@@ -72,7 +82,7 @@ describe('CopyField', () => {
     // after copy, should show check svg (path d starts with "M2 7")
     const svgs = container.querySelectorAll('svg')
     const checkSvg = Array.from(svgs).find((svg) =>
-      svg.querySelector('path[d="M2 7l3 3 7-7"]'),
+      svg.querySelector('path[d="M2 7l3 3 7-7"]')
     )
     expect(checkSvg).not.toBeUndefined()
   })

@@ -21,9 +21,11 @@ describe('KeyboardShortcut', () => {
   it('shows badge with Kbd elements when showBadge is true', () => {
     const onTrigger = vi.fn()
     const { container } = render(
-      <KeyboardShortcut keys="ctrl+k" onTrigger={onTrigger} showBadge />,
+      <KeyboardShortcut keys="ctrl+k" onTrigger={onTrigger} showBadge />
     )
-    const badge = container.querySelector('[data-component="keyboard-shortcut"]')
+    const badge = container.querySelector(
+      '[data-component="keyboard-shortcut"]'
+    )
     expect(badge).not.toBeNull()
     const kbds = container.querySelectorAll('kbd')
     expect(kbds.length).toBe(2)
@@ -38,16 +40,20 @@ describe('KeyboardShortcut', () => {
 
   it('has data-component attribute when showBadge', () => {
     const { container } = render(
-      <KeyboardShortcut keys="meta+p" onTrigger={() => {}} showBadge />,
+      <KeyboardShortcut keys="meta+p" onTrigger={() => {}} showBadge />
     )
-    expect(container.querySelector('[data-component="keyboard-shortcut"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="keyboard-shortcut"]')
+    ).not.toBeNull()
   })
 
   it('does not render anything when showBadge is false', () => {
     const { container } = render(
-      <KeyboardShortcut keys="ctrl+s" onTrigger={() => {}} />,
+      <KeyboardShortcut keys="ctrl+s" onTrigger={() => {}} />
     )
-    expect(container.querySelector('[data-component="keyboard-shortcut"]')).toBeNull()
+    expect(
+      container.querySelector('[data-component="keyboard-shortcut"]')
+    ).toBeNull()
   })
 
   it('parses shift modifier', () => {
@@ -81,7 +87,7 @@ describe('KeyboardShortcut', () => {
 
   it('formats labels correctly in badge mode', () => {
     const { container } = render(
-      <KeyboardShortcut keys="shift+alt+k" onTrigger={() => {}} showBadge />,
+      <KeyboardShortcut keys="shift+alt+k" onTrigger={() => {}} showBadge />
     )
     const kbds = container.querySelectorAll('kbd')
     expect(kbds.length).toBe(3)

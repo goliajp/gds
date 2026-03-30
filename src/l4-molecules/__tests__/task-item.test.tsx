@@ -6,7 +6,9 @@ import { TaskItem } from '../task-item'
 describe('TaskItem', () => {
   it('renders with data-component and title', () => {
     const { container } = render(<TaskItem title="Buy milk" />)
-    expect(container.querySelector('[data-component="task-item"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="task-item"]')
+    ).not.toBeNull()
     expect(screen.getByText('Buy milk')).toBeDefined()
   })
 

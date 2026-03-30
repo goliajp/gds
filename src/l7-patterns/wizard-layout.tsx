@@ -13,28 +13,29 @@ type WizardLayoutProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const WizardLayout = forwardRef<HTMLDivElement, WizardLayoutProps>(
-  function WizardLayout({ steps, currentStep, children, actions, className, ...props }, ref) {
+  function WizardLayout(
+    { steps, currentStep, children, actions, className, ...props },
+    ref
+  ) {
     return (
       <div
         ref={ref}
-        className={cx('flex min-h-0 flex-1 flex-col gds-gap', className)}
+        className={cx('gds-gap flex min-h-0 flex-1 flex-col', className)}
         data-component="wizard-layout"
         {...props}
       >
-        <div className="shrink-0 gds-pad-x">
+        <div className="gds-pad-x shrink-0">
           <ProgressSteps steps={steps} current={currentStep} />
         </div>
-        <div className="min-h-0 flex-1 overflow-auto gds-pad-x">
-          {children}
-        </div>
+        <div className="gds-pad-x min-h-0 flex-1 overflow-auto">{children}</div>
         {actions !== undefined && (
-          <div className="flex shrink-0 items-center justify-end gds-gap gds-pad-x gds-pad-y border-t border-border">
+          <div className="gds-gap gds-pad-x gds-pad-y border-border flex shrink-0 items-center justify-end border-t">
             {actions}
           </div>
         )}
       </div>
     )
-  },
+  }
 )
 
 export type { WizardLayoutProps }

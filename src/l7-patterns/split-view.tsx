@@ -13,7 +13,18 @@ type SplitViewProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const SplitView = forwardRef<HTMLDivElement, SplitViewProps>(
-  function SplitView({ className, defaultSplit = 50, left, minLeft = 20, minRight = 20, right, ...props }, ref) {
+  function SplitView(
+    {
+      className,
+      defaultSplit = 50,
+      left,
+      minLeft = 20,
+      minRight = 20,
+      right,
+      ...props
+    },
+    ref
+  ) {
     const [split, setSplit] = useState(defaultSplit)
     const containerRef = useRef<HTMLDivElement>(null)
 
@@ -31,7 +42,7 @@ export const SplitView = forwardRef<HTMLDivElement, SplitViewProps>(
           return next
         })
       },
-      [minLeft, minRight],
+      [minLeft, minRight]
     )
 
     return (
@@ -39,18 +50,25 @@ export const SplitView = forwardRef<HTMLDivElement, SplitViewProps>(
         className={cx('flex h-full w-full', className)}
         data-component="split-view"
         ref={(el) => {
-          (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = el
+          ;(
+            containerRef as React.MutableRefObject<HTMLDivElement | null>
+          ).current = el
           if (typeof ref === 'function') ref(el)
-          else if (ref !== null && ref !== undefined) (ref as React.MutableRefObject<HTMLDivElement | null>).current = el
+          else if (ref !== null && ref !== undefined)
+            (ref as React.MutableRefObject<HTMLDivElement | null>).current = el
         }}
         {...props}
       >
-        <div className="overflow-auto" style={{ width: `${split}%` }}>{left}</div>
+        <div className="overflow-auto" style={{ width: `${split}%` }}>
+          {left}
+        </div>
         <ResizeHandle orientation="vertical" onResize={handleResize} />
-        <div className="overflow-auto" style={{ width: `${100 - split}%` }}>{right}</div>
+        <div className="overflow-auto" style={{ width: `${100 - split}%` }}>
+          {right}
+        </div>
       </div>
     )
-  },
+  }
 )
 
 export type { SplitViewProps }

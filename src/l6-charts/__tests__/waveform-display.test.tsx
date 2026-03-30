@@ -20,12 +20,16 @@ describe('WaveformDisplay', () => {
   it('applies progress coloring', () => {
     const { container } = render(<WaveformDisplay data={data} progress={0.5} />)
     const rects = container.querySelectorAll('rect')
-    const playedCount = Array.from(rects).filter((r) => r.getAttribute('opacity') === '1').length
+    const playedCount = Array.from(rects).filter(
+      (r) => r.getAttribute('opacity') === '1'
+    ).length
     expect(playedCount).toBe(Math.floor(0.5 * data.length))
   })
 
   it('has data-component attribute', () => {
     const { container } = render(<WaveformDisplay data={data} />)
-    expect(container.querySelector('[data-component="waveform-display"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="waveform-display"]')
+    ).not.toBeNull()
   })
 })

@@ -32,7 +32,10 @@ export type SunburstChartProps = {
 }
 
 export const SunburstChart = forwardRef<HTMLDivElement, SunburstChartProps>(
-  function SunburstChart({ data, width = 300, height = 300, glass, className, ...props }, ref) {
+  function SunburstChart(
+    { data, width = 300, height = 300, glass, className, ...props },
+    ref
+  ) {
     const cxVal = width / 2
     const cyVal = height / 2
     const maxRadius = Math.min(cxVal, cyVal) - 10
@@ -46,9 +49,9 @@ export const SunburstChart = forwardRef<HTMLDivElement, SunburstChartProps>(
     return (
       <div
         className={cx(
-          'inline-flex gds-radius-popover border border-white/[0.06]',
+          'gds-radius-popover inline-flex border border-white/[0.06]',
           glassClass(glass),
-          className,
+          className
         )}
         data-component="sunburst-chart"
         ref={ref}
@@ -62,7 +65,14 @@ export const SunburstChart = forwardRef<HTMLDivElement, SunburstChartProps>(
             return (
               <path
                 key={i}
-                d={arcPath(cxVal, cyVal, innerR, outerR, arc.startAngle, arc.endAngle)}
+                d={arcPath(
+                  cxVal,
+                  cyVal,
+                  innerR,
+                  outerR,
+                  arc.startAngle,
+                  arc.endAngle
+                )}
                 fill={color}
                 opacity={1 - arc.depth * 0.15}
                 stroke="var(--gds-bg, #000)"
@@ -86,5 +96,5 @@ export const SunburstChart = forwardRef<HTMLDivElement, SunburstChartProps>(
         </svg>
       </div>
     )
-  },
+  }
 )

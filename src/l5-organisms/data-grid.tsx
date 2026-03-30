@@ -28,7 +28,10 @@ const alignClasses: Record<string, string> = {
 }
 
 export const DataGrid = forwardRef<HTMLTableElement, DataGridProps>(
-  function DataGrid({ columns, rows, compact = false, striped = false, glass, className }, ref) {
+  function DataGrid(
+    { columns, rows, compact = false, striped = false, glass, className },
+    ref
+  ) {
     const cellPadding = compact ? 'px-3 py-1' : 'px-3 py-2'
 
     return (
@@ -36,22 +39,24 @@ export const DataGrid = forwardRef<HTMLTableElement, DataGridProps>(
         className={cx(
           'w-full overflow-auto',
           glass === true && glassClass(glass),
-          className,
+          className
         )}
         data-component="data-grid"
       >
         <table className="w-full text-sm" ref={ref}>
           <thead>
-            <tr className="border-b border-border/40">
+            <tr className="border-border/40 border-b">
               {columns.map((col) => (
                 <th
                   key={col.key}
                   className={cx(
-                    'font-medium text-fg-muted select-none',
+                    'text-fg-muted font-medium select-none',
                     cellPadding,
-                    alignClasses[col.align ?? 'left'],
+                    alignClasses[col.align ?? 'left']
                   )}
-                  style={col.width !== undefined ? { width: col.width } : undefined}
+                  style={
+                    col.width !== undefined ? { width: col.width } : undefined
+                  }
                 >
                   {col.label}
                 </th>
@@ -61,7 +66,10 @@ export const DataGrid = forwardRef<HTMLTableElement, DataGridProps>(
           <tbody>
             {rows.length === 0 && (
               <tr>
-                <td className="px-3 py-8 text-center text-fg-muted" colSpan={columns.length}>
+                <td
+                  className="text-fg-muted px-3 py-8 text-center"
+                  colSpan={columns.length}
+                >
                   No data
                 </td>
               </tr>
@@ -70,14 +78,18 @@ export const DataGrid = forwardRef<HTMLTableElement, DataGridProps>(
               <tr
                 key={`${String(row[columns[0]?.key ?? ''] ?? '')}-${i}`}
                 className={cx(
-                  'border-b border-border/20',
-                  striped && i % 2 === 1 && 'bg-bg-secondary/30',
+                  'border-border/20 border-b',
+                  striped && i % 2 === 1 && 'bg-bg-secondary/30'
                 )}
               >
                 {columns.map((col) => (
                   <td
                     key={col.key}
-                    className={cx('text-fg', cellPadding, alignClasses[col.align ?? 'left'])}
+                    className={cx(
+                      'text-fg',
+                      cellPadding,
+                      alignClasses[col.align ?? 'left']
+                    )}
                   >
                     {row[col.key]}
                   </td>
@@ -88,5 +100,5 @@ export const DataGrid = forwardRef<HTMLTableElement, DataGridProps>(
         </table>
       </div>
     )
-  },
+  }
 )

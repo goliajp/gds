@@ -6,7 +6,9 @@ import { GlassPanel } from '../glass-panel'
 describe('GlassPanel', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(<GlassPanel>Content</GlassPanel>)
-    expect(container.querySelector('[data-component="glass-panel"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="glass-panel"]')
+    ).not.toBeNull()
   })
 
   it('renders children', () => {

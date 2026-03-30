@@ -14,7 +14,9 @@ type DataColumn<T = unknown> = {
   /** @deprecated Use label instead */
   header?: string
   /** Custom cell renderer — overrides format. Receives (value, row, index) */
-  render?: ((value: unknown, row: T, index: number) => ReactNode) | ((row: T) => ReactNode)
+  render?:
+    | ((value: unknown, row: T, index: number) => ReactNode)
+    | ((row: T) => ReactNode)
   /** Value formatter — receives (value, row), returns ReactNode */
   format?: (value: unknown, row: T) => ReactNode
   /** Enable sort toggle on column header click */
@@ -165,4 +167,12 @@ type DataTableProps<T = unknown> = {
   actions?: (row: T) => ReactNode
 }
 
-export type { AggregateFunction, BatchAction, ColumnAlign, DataColumn, DataTableProps, Density, SortDir }
+export type {
+  AggregateFunction,
+  BatchAction,
+  ColumnAlign,
+  DataColumn,
+  DataTableProps,
+  Density,
+  SortDir,
+}

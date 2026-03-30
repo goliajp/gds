@@ -21,7 +21,7 @@ const animationClassMap: Record<AnimatedListAnimation, string> = {
 export const AnimatedList = forwardRef<HTMLDivElement, AnimatedListProps>(
   function AnimatedList(
     { animation = 'slide-up', children, className, stagger = 50, ...props },
-    ref,
+    ref
   ) {
     const items = Children.toArray(children)
 
@@ -43,7 +43,7 @@ export const AnimatedList = forwardRef<HTMLDivElement, AnimatedListProps>(
         ))}
       </div>
     )
-  },
+  }
 )
 
 export type { AnimatedListAnimation, AnimatedListProps }

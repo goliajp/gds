@@ -25,7 +25,15 @@ type AdminLayoutProps = {
 // simple 3-line hamburger icon — no lucide dependency in L7
 function HamburgerIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    >
       <path d="M3 5h14M3 10h14M3 15h14" />
     </svg>
   )
@@ -43,7 +51,10 @@ function CollapseIcon({ collapsed }: { collapsed: boolean }) {
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={cx('transition-transform duration-200', collapsed && 'rotate-180')}
+      className={cx(
+        'transition-transform duration-200',
+        collapsed && 'rotate-180'
+      )}
     >
       <path d="M10 3L5 8l5 5" />
     </svg>
@@ -51,19 +62,22 @@ function CollapseIcon({ collapsed }: { collapsed: boolean }) {
 }
 
 const AdminLayout = forwardRef<HTMLDivElement, AdminLayoutProps>(
-  function AdminLayout({
-    sidebar,
-    topbar,
-    children,
-    sidebarWidth = 240,
-    sidebarCollapsible = true,
-    sidebarDefaultCollapsed = false,
-    mobileDrawer = true,
-    topbarHeight = 48,
-    topbarSticky = true,
-    logo,
-    className,
-  }, ref) {
+  function AdminLayout(
+    {
+      sidebar,
+      topbar,
+      children,
+      sidebarWidth = 240,
+      sidebarCollapsible = true,
+      sidebarDefaultCollapsed = false,
+      mobileDrawer = true,
+      topbarHeight = 48,
+      topbarSticky = true,
+      logo,
+      className,
+    },
+    ref
+  ) {
     const isMobile = useIsMobile()
     const [drawerOpen, setDrawerOpen] = useState(false)
     const [collapsed, setCollapsed] = useState(sidebarDefaultCollapsed)
@@ -72,28 +86,33 @@ const AdminLayout = forwardRef<HTMLDivElement, AdminLayoutProps>(
     const effectiveSidebarWidth = collapsed ? 56 : sidebarWidth
 
     return (
-      <div ref={ref} className={cx('flex h-screen min-h-0 bg-bg', className)} data-component="admin-layout">
+      <div
+        ref={ref}
+        className={cx('bg-bg flex h-screen min-h-0', className)}
+        data-component="admin-layout"
+      >
         {/* desktop sidebar */}
         {!showMobileDrawer && (
           <aside
-            className="relative shrink-0 overflow-y-auto border-r border-border bg-surface transition-[width] duration-200"
+            className="border-border bg-surface relative shrink-0 overflow-y-auto border-r transition-[width] duration-200"
             style={{ width: effectiveSidebarWidth }}
           >
             {logo !== undefined && (
-              <div className="flex items-center border-b border-border px-3" style={{ height: topbarHeight }}>
+              <div
+                className="border-border flex items-center border-b px-3"
+                style={{ height: topbarHeight }}
+              >
                 {logo}
               </div>
             )}
-            <div className={cx(collapsed && 'overflow-hidden')}>
-              {sidebar}
-            </div>
+            <div className={cx(collapsed && 'overflow-hidden')}>{sidebar}</div>
             {sidebarCollapsible && (
               <button
                 type="button"
                 onClick={() => setCollapsed((prev) => !prev)}
                 className={cx(
-                  'absolute bottom-3 right-2 flex h-6 w-6 items-center justify-center rounded-md text-fg-muted hover:text-fg hover:bg-surface-hover',
-                  focusCls,
+                  'text-fg-muted hover:text-fg hover:bg-surface-hover absolute right-2 bottom-3 flex h-6 w-6 items-center justify-center rounded-md',
+                  focusCls
                 )}
                 aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
               >
@@ -111,20 +130,18 @@ const AdminLayout = forwardRef<HTMLDivElement, AdminLayoutProps>(
             side="left"
             width={sidebarWidth}
           >
-            {logo !== undefined && (
-              <div className="mb-2">{logo}</div>
-            )}
+            {logo !== undefined && <div className="mb-2">{logo}</div>}
             {sidebar}
           </Sheet>
         )}
 
-        <div className="flex flex-1 flex-col min-w-0">
+        <div className="flex min-w-0 flex-1 flex-col">
           {/* topbar — always render if mobile (for hamburger), or if topbar content provided */}
           {(topbar !== undefined || showMobileDrawer) && (
             <header
               className={cx(
-                'z-10 shrink-0 flex items-center border-b border-border bg-surface/80 backdrop-blur-sm',
-                topbarSticky && 'sticky top-0',
+                'border-border bg-surface/80 z-10 flex shrink-0 items-center border-b backdrop-blur-sm',
+                topbarSticky && 'sticky top-0'
               )}
               style={{ height: topbarHeight }}
             >
@@ -133,8 +150,8 @@ const AdminLayout = forwardRef<HTMLDivElement, AdminLayoutProps>(
                   type="button"
                   onClick={() => setDrawerOpen(true)}
                   className={cx(
-                    'ml-2 flex h-9 w-9 items-center justify-center rounded-md text-fg-muted hover:text-fg hover:bg-surface-hover',
-                    focusCls,
+                    'text-fg-muted hover:text-fg hover:bg-surface-hover ml-2 flex h-9 w-9 items-center justify-center rounded-md',
+                    focusCls
                   )}
                   aria-label="Open sidebar menu"
                   data-testid="admin-layout-hamburger"
@@ -142,14 +159,16 @@ const AdminLayout = forwardRef<HTMLDivElement, AdminLayoutProps>(
                   <HamburgerIcon />
                 </button>
               )}
-              {topbar !== undefined && <div className="flex-1 min-w-0">{topbar}</div>}
+              {topbar !== undefined && (
+                <div className="min-w-0 flex-1">{topbar}</div>
+              )}
             </header>
           )}
           <main className="flex-1 overflow-auto">{children}</main>
         </div>
       </div>
     )
-  },
+  }
 )
 
 export { AdminLayout }

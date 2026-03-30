@@ -6,7 +6,9 @@ import { OnlineIndicator } from '../online-indicator'
 describe('OnlineIndicator', () => {
   it('renders with data-component', () => {
     const { container } = render(<OnlineIndicator online />)
-    expect(container.querySelector('[data-component="online-indicator"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="online-indicator"]')
+    ).not.toBeNull()
   })
 
   it('shows "Online" when online is true', () => {

@@ -16,7 +16,7 @@ const switchVariants = cva(
         sm: 'h-4 w-7',
       },
     },
-  },
+  }
 )
 
 const thumbSizeMap = {
@@ -29,7 +29,10 @@ const thumbTranslateMap = {
   sm: { off: 'translate-x-0.5', on: 'translate-x-3.5' },
 }
 
-type SwitchProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'> &
+type SwitchProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  'onChange'
+> &
   VariantProps<typeof switchVariants> & {
     checked?: boolean
     label?: string
@@ -38,17 +41,25 @@ type SwitchProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onChange
 
 export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
   function Switch(
-    { checked = false, className, disabled = false, label, onChange, size = 'default', ...props },
-    ref,
+    {
+      checked = false,
+      className,
+      disabled = false,
+      label,
+      onChange,
+      size = 'default',
+      ...props
+    },
+    ref
   ) {
     const sizeKey = size ?? 'default'
 
     return (
       <label
         className={cx(
-          'inline-flex select-none items-center gds-gap-sm',
+          'gds-gap-sm inline-flex items-center select-none',
           disabled && 'cursor-not-allowed opacity-50',
-          className,
+          className
         )}
         data-component="switch"
         data-state={checked ? 'on' : 'off'}
@@ -58,7 +69,7 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
           className={cx(
             switchVariants({ size }),
             checked ? 'bg-accent' : 'bg-bg-tertiary',
-            disabled && 'cursor-not-allowed',
+            disabled && 'cursor-not-allowed'
           )}
           disabled={disabled}
           onClick={() => onChange?.(!checked)}
@@ -71,7 +82,9 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
             className={cx(
               'gds-radius-badge bg-fg gds-shadow-sm transition-transform',
               thumbSizeMap[sizeKey],
-              checked ? thumbTranslateMap[sizeKey].on : thumbTranslateMap[sizeKey].off,
+              checked
+                ? thumbTranslateMap[sizeKey].on
+                : thumbTranslateMap[sizeKey].off
             )}
           />
         </button>
@@ -80,7 +93,7 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
         )}
       </label>
     )
-  },
+  }
 )
 
 export { switchVariants }

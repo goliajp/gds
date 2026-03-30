@@ -7,7 +7,14 @@ const sampleData = {
   name: 'root',
   value: 100,
   children: [
-    { name: 'a', value: 60, children: [{ name: 'a1', value: 30 }, { name: 'a2', value: 30 }] },
+    {
+      name: 'a',
+      value: 60,
+      children: [
+        { name: 'a1', value: 30 },
+        { name: 'a2', value: 30 },
+      ],
+    },
     { name: 'b', value: 40 },
   ],
 }
@@ -15,7 +22,9 @@ const sampleData = {
 describe('FlameChart', () => {
   it('renders without crash', () => {
     const { container } = render(<FlameChart data={sampleData} />)
-    expect(container.querySelector('[data-component="flame-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="flame-chart"]')
+    ).not.toBeNull()
   })
 
   it('renders bars for each node', () => {

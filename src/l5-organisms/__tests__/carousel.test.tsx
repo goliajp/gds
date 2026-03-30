@@ -11,7 +11,7 @@ describe('Carousel', () => {
         <div>Slide 1</div>
         <div>Slide 2</div>
         <div>Slide 3</div>
-      </Carousel>,
+      </Carousel>
     )
     expect(screen.getByText('Slide 1')).toBeDefined()
     expect(screen.getByText('Slide 2')).toBeDefined()
@@ -23,7 +23,7 @@ describe('Carousel', () => {
       <Carousel>
         <div>A</div>
         <div>B</div>
-      </Carousel>,
+      </Carousel>
     )
     const dots = screen.getAllByRole('tab')
     expect(dots.length).toBe(2)
@@ -34,7 +34,7 @@ describe('Carousel', () => {
       <Carousel>
         <div>A</div>
         <div>B</div>
-      </Carousel>,
+      </Carousel>
     )
     expect(screen.getByLabelText('Previous slide')).toBeDefined()
     expect(screen.getByLabelText('Next slide')).toBeDefined()
@@ -46,7 +46,7 @@ describe('Carousel', () => {
       <Carousel>
         <div>A</div>
         <div>B</div>
-      </Carousel>,
+      </Carousel>
     )
     const nextBtn = screen.getByLabelText('Next slide')
     await user.click(nextBtn)
@@ -62,7 +62,7 @@ describe('Carousel', () => {
         <div>A</div>
         <div>B</div>
         <div>C</div>
-      </Carousel>,
+      </Carousel>
     )
     // go to slide 2, then back to slide 1
     await user.click(screen.getByLabelText('Next slide'))
@@ -77,7 +77,7 @@ describe('Carousel', () => {
       <Carousel>
         <div>A</div>
         <div>B</div>
-      </Carousel>,
+      </Carousel>
     )
     await user.click(screen.getByLabelText('Next slide'))
     await user.click(screen.getByLabelText('Next slide'))
@@ -91,7 +91,7 @@ describe('Carousel', () => {
       <Carousel>
         <div>A</div>
         <div>B</div>
-      </Carousel>,
+      </Carousel>
     )
     await user.click(screen.getByLabelText('Previous slide'))
     const dots = screen.getAllByRole('tab')
@@ -105,7 +105,7 @@ describe('Carousel', () => {
         <div>A</div>
         <div>B</div>
         <div>C</div>
-      </Carousel>,
+      </Carousel>
     )
     const dots = screen.getAllByRole('tab')
     await user.click(dots[2])
@@ -117,7 +117,7 @@ describe('Carousel', () => {
       <Carousel showDots={false}>
         <div>A</div>
         <div>B</div>
-      </Carousel>,
+      </Carousel>
     )
     expect(screen.queryAllByRole('tab').length).toBe(0)
   })
@@ -127,7 +127,7 @@ describe('Carousel', () => {
       <Carousel showArrows={false}>
         <div>A</div>
         <div>B</div>
-      </Carousel>,
+      </Carousel>
     )
     expect(screen.queryByLabelText('Previous slide')).toBeNull()
     expect(screen.queryByLabelText('Next slide')).toBeNull()
@@ -138,9 +138,11 @@ describe('Carousel', () => {
       <Carousel>
         <div>A</div>
         <div>B</div>
-      </Carousel>,
+      </Carousel>
     )
-    expect(container.querySelector('[data-component="carousel"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="carousel"]')
+    ).not.toBeNull()
   })
 
   it('applies glass class when glass is true', () => {
@@ -148,7 +150,7 @@ describe('Carousel', () => {
       <Carousel glass>
         <div>A</div>
         <div>B</div>
-      </Carousel>,
+      </Carousel>
     )
     const root = container.querySelector('[data-component="carousel"]')
     expect(root?.className).toContain('gds-glass')
@@ -159,9 +161,11 @@ describe('Carousel', () => {
       <Carousel>
         <div>A</div>
         <div>B</div>
-      </Carousel>,
+      </Carousel>
     )
-    const carousel = screen.getByText('A').closest('[data-component="carousel"]')!
+    const carousel = screen
+      .getByText('A')
+      .closest('[data-component="carousel"]')!
 
     // swipe left (negative diff)
     fireEvent.touchStart(carousel, { touches: [{ clientX: 200 }] })
@@ -176,9 +180,11 @@ describe('Carousel', () => {
       <Carousel>
         <div>A</div>
         <div>B</div>
-      </Carousel>,
+      </Carousel>
     )
-    const carousel = screen.getByText('A').closest('[data-component="carousel"]')!
+    const carousel = screen
+      .getByText('A')
+      .closest('[data-component="carousel"]')!
 
     // first go to slide 2
     fireEvent.touchStart(carousel, { touches: [{ clientX: 200 }] })
@@ -197,9 +203,11 @@ describe('Carousel', () => {
       <Carousel>
         <div>A</div>
         <div>B</div>
-      </Carousel>,
+      </Carousel>
     )
-    const carousel = screen.getByText('A').closest('[data-component="carousel"]')!
+    const carousel = screen
+      .getByText('A')
+      .closest('[data-component="carousel"]')!
 
     // swipe less than 50px — should not change slide
     fireEvent.touchStart(carousel, { touches: [{ clientX: 200 }] })
@@ -219,7 +227,7 @@ describe('Carousel', () => {
           <div>A</div>
           <div>B</div>
           <div>C</div>
-        </Carousel>,
+        </Carousel>
       )
 
       act(() => vi.advanceTimersByTime(1100))
@@ -233,9 +241,11 @@ describe('Carousel', () => {
         <Carousel autoPlay interval={1000}>
           <div>A</div>
           <div>B</div>
-        </Carousel>,
+        </Carousel>
       )
-      const carousel = screen.getByText('A').closest('[data-component="carousel"]')!
+      const carousel = screen
+        .getByText('A')
+        .closest('[data-component="carousel"]')!
 
       fireEvent.mouseEnter(carousel)
       act(() => vi.advanceTimersByTime(2000))
@@ -257,7 +267,7 @@ describe('Carousel', () => {
     render(
       <Carousel>
         <div>Only one</div>
-      </Carousel>,
+      </Carousel>
     )
     expect(screen.queryByLabelText('Previous slide')).toBeNull()
     expect(screen.queryAllByRole('tab').length).toBe(0)

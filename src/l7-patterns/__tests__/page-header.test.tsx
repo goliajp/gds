@@ -15,7 +15,12 @@ describe('PageHeader', () => {
   })
 
   it('renders breadcrumb navigation', () => {
-    render(<PageHeader title="Detail" breadcrumb={[{ label: 'Home', href: '/' }, { label: 'Users' }]} />)
+    render(
+      <PageHeader
+        title="Detail"
+        breadcrumb={[{ label: 'Home', href: '/' }, { label: 'Users' }]}
+      />
+    )
     expect(screen.getByLabelText('Breadcrumb')).toBeDefined()
     expect(screen.getByText('Home')).toBeDefined()
     expect(screen.getByText('Users')).toBeDefined()

@@ -9,7 +9,7 @@ export function getLabel<T>(col: DataColumn<T>): string {
 export function resolveRowKey<T>(
   row: T,
   rowKey: string | ((row: T, index: number) => string) | undefined,
-  index: number,
+  index: number
 ): string {
   if (rowKey === undefined) {
     const r = row as Record<string, unknown>
@@ -36,7 +36,7 @@ export function getDensity(density: Density = 'default'): DensityClasses {
 export function computeAggregate<T>(
   rows: T[],
   key: string,
-  fn: AggregateFunction,
+  fn: AggregateFunction
 ): number | null {
   const values = rows
     .map((r) => {
@@ -59,7 +59,7 @@ export function computeAggregate<T>(
 export function downloadCsv<T>(
   columns: DataColumn<T>[],
   rows: T[],
-  filename: string,
+  filename: string
 ): void {
   const visibleCols = columns.filter((c) => c.hidden !== true)
   const header = visibleCols.map((c) => getLabel(c))
@@ -72,7 +72,7 @@ export function downloadCsv<T>(
         return `"${str.replace(/"/g, '""')}"`
       }
       return str
-    }),
+    })
   )
   const csv = [header.join(','), ...csvRows.map((r) => r.join(','))].join('\n')
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })

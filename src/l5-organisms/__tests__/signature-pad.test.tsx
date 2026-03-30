@@ -23,7 +23,9 @@ describe('SignaturePad', () => {
 
   it('has data-component="signature-pad"', () => {
     const { container } = render(<SignaturePad onSign={() => {}} />)
-    expect(container.querySelector('[data-component="signature-pad"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="signature-pad"]')
+    ).not.toBeNull()
   })
 
   it('shows placeholder text when empty', () => {
@@ -32,7 +34,9 @@ describe('SignaturePad', () => {
   })
 
   it('renders with custom dimensions', () => {
-    const { container } = render(<SignaturePad onSign={() => {}} width={600} height={300} />)
+    const { container } = render(
+      <SignaturePad onSign={() => {}} width={600} height={300} />
+    )
     const canvas = container.querySelector('canvas')
     expect(canvas?.getAttribute('width')).toBe('600')
     expect(canvas?.getAttribute('height')).toBe('300')
@@ -201,7 +205,7 @@ describe('SignaturePad', () => {
 
   it('accepts custom strokeColor and strokeWidth without crash', () => {
     const { container } = render(
-      <SignaturePad onSign={vi.fn()} strokeColor="#ff0000" strokeWidth={5} />,
+      <SignaturePad onSign={vi.fn()} strokeColor="#ff0000" strokeWidth={5} />
     )
     const canvas = container.querySelector('canvas')!
 
@@ -229,7 +233,9 @@ describe('SignaturePad', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<SignaturePad onSign={() => {}} className="my-pad" />)
+    const { container } = render(
+      <SignaturePad onSign={() => {}} className="my-pad" />
+    )
     const root = container.querySelector('[data-component="signature-pad"]')
     expect(root?.className).toContain('my-pad')
   })
@@ -242,7 +248,9 @@ describe('SignaturePad', () => {
   })
 
   it('spreads additional HTML props', () => {
-    const { container } = render(<SignaturePad onSign={() => {}} data-custom="test" />)
+    const { container } = render(
+      <SignaturePad onSign={() => {}} data-custom="test" />
+    )
     const root = container.querySelector('[data-component="signature-pad"]')
     expect(root?.getAttribute('data-custom')).toBe('test')
   })

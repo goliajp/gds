@@ -66,7 +66,9 @@ describe('CronSchedule', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<CronSchedule expression="* * * * *" className="my-cron" />)
+    const { container } = render(
+      <CronSchedule expression="* * * * *" className="my-cron" />
+    )
     const root = container.querySelector('[data-component="cron-schedule"]')
     expect(root?.className).toContain('my-cron')
   })

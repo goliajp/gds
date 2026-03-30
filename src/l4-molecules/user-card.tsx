@@ -27,7 +27,20 @@ export type UserCardProps = {
 }
 
 export const UserCard = forwardRef<HTMLDivElement, UserCardProps>(
-  function UserCard({ name, avatar, role, department, email, status, glass, className, children }, ref) {
+  function UserCard(
+    {
+      name,
+      avatar,
+      role,
+      department,
+      email,
+      status,
+      glass,
+      className,
+      children,
+    },
+    ref
+  ) {
     const initials = (name ?? '')
       .split(' ')
       .map((w) => w[0])
@@ -39,26 +52,30 @@ export const UserCard = forwardRef<HTMLDivElement, UserCardProps>(
       <div
         ref={ref}
         className={cx(
-          'inline-flex items-center gds-gap gds-radius border border-border bg-surface gds-pad select-none',
+          'gds-gap gds-radius border-border bg-surface gds-pad inline-flex items-center border select-none',
           glass === true && glassClass(glass),
-          className,
+          className
         )}
         data-component="user-card"
       >
         {/* avatar */}
         <div className="relative">
           {avatar !== undefined ? (
-            <img src={avatar} alt={name} className="h-9 w-9 rounded-full object-cover" />
+            <img
+              src={avatar}
+              alt={name}
+              className="h-9 w-9 rounded-full object-cover"
+            />
           ) : (
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-accent/15 text-xs font-medium text-accent">
+            <div className="bg-accent/15 text-accent flex h-9 w-9 items-center justify-center rounded-full text-xs font-medium">
               {initials}
             </div>
           )}
           {status !== undefined && (
             <span
               className={cx(
-                'absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-surface',
-                statusColors[status],
+                'border-surface absolute -right-0.5 -bottom-0.5 h-3 w-3 rounded-full border-2',
+                statusColors[status]
               )}
             />
           )}
@@ -66,9 +83,9 @@ export const UserCard = forwardRef<HTMLDivElement, UserCardProps>(
 
         {/* info */}
         <div className="flex min-w-0 flex-col gap-0.5">
-          <span className="truncate text-sm font-medium text-fg">{name}</span>
+          <span className="text-fg truncate text-sm font-medium">{name}</span>
           {(role !== undefined || department !== undefined) && (
-            <span className="flex items-center gap-1 gds-text-body text-fg-muted">
+            <span className="gds-text-body text-fg-muted flex items-center gap-1">
               {role !== undefined && <span>{role}</span>}
               {role !== undefined && department !== undefined && (
                 <span className="text-fg-muted/40">/</span>
@@ -77,9 +94,19 @@ export const UserCard = forwardRef<HTMLDivElement, UserCardProps>(
             </span>
           )}
           {email !== undefined && (
-            <span className="flex items-center gap-1 gds-text-body text-fg-muted/60">
-              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="3.5" width="12" height="9" rx="1.5" /><path d="M2 5l6 4 6-4" />
+            <span className="gds-text-body text-fg-muted/60 flex items-center gap-1">
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="2" y="3.5" width="12" height="9" rx="1.5" />
+                <path d="M2 5l6 4 6-4" />
               </svg>
               <span className="truncate">{email}</span>
             </span>
@@ -89,7 +116,7 @@ export const UserCard = forwardRef<HTMLDivElement, UserCardProps>(
         {children}
       </div>
     )
-  },
+  }
 )
 
 export type { UserCardStatus }

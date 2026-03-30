@@ -53,7 +53,9 @@ describe('TagInput', () => {
   })
 
   it('applies error state classes', () => {
-    const { container } = render(<TagInput error onChange={vi.fn()} value={[]} />)
+    const { container } = render(
+      <TagInput error onChange={vi.fn()} value={[]} />
+    )
     const wrapper = container.querySelector('[data-component="tag-input"]')
     expect(wrapper?.className).toContain('border-danger')
   })
@@ -66,7 +68,9 @@ describe('TagInput', () => {
 
   it('has data-component="tag-input"', () => {
     const { container } = render(<TagInput onChange={vi.fn()} value={[]} />)
-    expect(container.querySelector('[data-component="tag-input"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="tag-input"]')
+    ).not.toBeNull()
   })
 
   it('clears input after adding tag', async () => {

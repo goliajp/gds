@@ -30,18 +30,29 @@ export const ScrollToTop = forwardRef<HTMLButtonElement, ScrollToTopProps>(
         ref={ref}
         type="button"
         aria-label="Scroll to top"
-        onClick={() => window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' })}
+        onClick={() =>
+          window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' })
+        }
         className={cx(
-          'fixed bottom-6 right-6 z-40 flex h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-fg shadow-lg transition-opacity hover:bg-accent/90',
+          'bg-accent text-accent-fg hover:bg-accent/90 fixed right-6 bottom-6 z-40 flex h-10 w-10 items-center justify-center rounded-full shadow-lg transition-opacity',
           focusCls,
-          className,
+          className
         )}
         data-component="scroll-to-top"
       >
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <path d="M8 12V4M4 7l4-3 4 3" />
         </svg>
       </button>
     )
-  },
+  }
 )

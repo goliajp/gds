@@ -6,7 +6,12 @@ import { QuickAction } from '../quick-action'
 
 describe('QuickAction', () => {
   it('renders icon', () => {
-    render(<QuickAction icon={<span data-testid="icon">+</span>} onClick={() => {}} />)
+    render(
+      <QuickAction
+        icon={<span data-testid="icon">+</span>}
+        onClick={() => {}}
+      />
+    )
     expect(screen.getByTestId('icon')).toBeDefined()
   })
 

@@ -11,14 +11,22 @@ describe('Separator', () => {
 
   it('forwards ref', () => {
     let el: HTMLDivElement | null = null
-    render(<Separator ref={(node) => { el = node }} />)
+    render(
+      <Separator
+        ref={(node) => {
+          el = node
+        }}
+      />
+    )
     expect(el).toBeTruthy()
     expect(el!.tagName).toBe('DIV')
   })
 
   it('has data-component attribute', () => {
     render(<Separator />)
-    expect(screen.getByRole('separator').getAttribute('data-component')).toBe('separator')
+    expect(screen.getByRole('separator').getAttribute('data-component')).toBe(
+      'separator'
+    )
   })
 
   it('has role="separator"', () => {

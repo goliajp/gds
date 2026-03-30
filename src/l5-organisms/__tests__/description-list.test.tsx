@@ -24,14 +24,18 @@ describe('DescriptionList', () => {
   })
 
   it('applies horizontal layout data attribute', () => {
-    const { container } = render(<DescriptionList items={items} layout="horizontal" />)
+    const { container } = render(
+      <DescriptionList items={items} layout="horizontal" />
+    )
     const el = container.querySelector('[data-component="description-list"]')
     expect(el?.getAttribute('data-variant')).toBe('horizontal')
   })
 
   it('renders dividers by default', () => {
     const { container } = render(<DescriptionList items={items} />)
-    const rows = container.querySelectorAll('[data-component="description-list"] > div')
+    const rows = container.querySelectorAll(
+      '[data-component="description-list"] > div'
+    )
     // first two items should have border-b, last should not
     expect(rows[0]?.className).toContain('border-b')
     expect(rows[2]?.className).not.toContain('border-b')

@@ -36,19 +36,22 @@ export type AppShellProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const AppShell = forwardRef<HTMLDivElement, AppShellProps>(
-  function AppShell({
-    sidebar,
-    children,
-    statusBar,
-    mobileNav,
-    sidebarWidth = 56,
-    sidebarPosition = 'left',
-    padded = false,
-    gap = 0,
-    glass,
-    className,
-    ...props
-  }, ref) {
+  function AppShell(
+    {
+      sidebar,
+      children,
+      statusBar,
+      mobileNav,
+      sidebarWidth = 56,
+      sidebarPosition = 'left',
+      padded = false,
+      gap = 0,
+      glass,
+      className,
+      ...props
+    },
+    ref
+  ) {
     const isMobile = useIsMobile()
 
     return (
@@ -56,17 +59,17 @@ export const AppShell = forwardRef<HTMLDivElement, AppShellProps>(
         {...props}
         ref={ref}
         className={cx(
-          'fixed inset-0 flex flex-col bg-bg',
+          'bg-bg fixed inset-0 flex flex-col',
           glassClass(glass),
-          className,
+          className
         )}
         data-component="app-shell"
       >
         {/* main area: sidebar + content */}
         <div
           className={cx(
-            'flex flex-1 min-h-0',
-            sidebarPosition === 'right' && 'flex-row-reverse',
+            'flex min-h-0 flex-1',
+            sidebarPosition === 'right' && 'flex-row-reverse'
           )}
           style={gap > 0 ? { gap } : undefined}
         >
@@ -81,7 +84,12 @@ export const AppShell = forwardRef<HTMLDivElement, AppShellProps>(
           )}
 
           {/* content area */}
-          <div className={cx('flex-1 min-w-0 flex flex-col overflow-hidden', padded && 'p-1.5 md:p-1.5')}>
+          <div
+            className={cx(
+              'flex min-w-0 flex-1 flex-col overflow-hidden',
+              padded && 'p-1.5 md:p-1.5'
+            )}
+          >
             {children}
           </div>
         </div>
@@ -89,7 +97,7 @@ export const AppShell = forwardRef<HTMLDivElement, AppShellProps>(
         {/* status bar — desktop only */}
         {statusBar !== undefined && !isMobile && (
           <div
-            className="shrink-0 border-t border-border bg-bg-secondary"
+            className="border-border bg-bg-secondary shrink-0 border-t"
             data-component="app-shell-status-bar"
           >
             {statusBar}
@@ -99,7 +107,7 @@ export const AppShell = forwardRef<HTMLDivElement, AppShellProps>(
         {/* mobile nav — bottom, mobile only */}
         {mobileNav !== undefined && isMobile && (
           <div
-            className="shrink-0 border-t border-border bg-bg-secondary"
+            className="border-border bg-bg-secondary shrink-0 border-t"
             data-component="app-shell-mobile-nav"
           >
             {mobileNav}
@@ -107,5 +115,5 @@ export const AppShell = forwardRef<HTMLDivElement, AppShellProps>(
         )}
       </div>
     )
-  },
+  }
 )

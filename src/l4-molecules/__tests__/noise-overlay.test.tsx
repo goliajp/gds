@@ -11,7 +11,9 @@ describe('NoiseOverlay', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<NoiseOverlay />)
-    expect(container.querySelector('[data-component="noise-overlay"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="noise-overlay"]')
+    ).not.toBeNull()
   })
 
   it('renders SVG filter element', () => {
@@ -21,6 +23,8 @@ describe('NoiseOverlay', () => {
 
   it('applies custom className', () => {
     const { container } = render(<NoiseOverlay className="custom" />)
-    expect(container.querySelector('[data-component="noise-overlay"]')?.className).toContain('custom')
+    expect(
+      container.querySelector('[data-component="noise-overlay"]')?.className
+    ).toContain('custom')
   })
 })

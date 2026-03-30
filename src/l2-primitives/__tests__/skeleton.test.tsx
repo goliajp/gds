@@ -35,7 +35,9 @@ describe('Skeleton', () => {
 
   it('applies custom dimensions via style', () => {
     const { container } = render(<Skeleton width={200} height="3rem" />)
-    const el = container.querySelector('[data-component="skeleton"]') as HTMLElement
+    const el = container.querySelector(
+      '[data-component="skeleton"]'
+    ) as HTMLElement
     expect(el.style.width).toBe('200px')
     expect(el.style.height).toBe('3rem')
   })

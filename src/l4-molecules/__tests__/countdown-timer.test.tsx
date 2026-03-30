@@ -13,7 +13,9 @@ describe('CountdownTimer', () => {
   it('has data-component attribute', () => {
     const future = new Date(Date.now() + 100000)
     const { container } = render(<CountdownTimer target={future} />)
-    expect(container.querySelector('[data-component="countdown-timer"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="countdown-timer"]')
+    ).not.toBeNull()
   })
 
   it('renders label when provided', () => {
@@ -24,7 +26,11 @@ describe('CountdownTimer', () => {
 
   it('applies custom className', () => {
     const future = new Date(Date.now() + 100000)
-    const { container } = render(<CountdownTimer className="custom" target={future} />)
-    expect(container.querySelector('[data-component="countdown-timer"]')?.className).toContain('custom')
+    const { container } = render(
+      <CountdownTimer className="custom" target={future} />
+    )
+    expect(
+      container.querySelector('[data-component="countdown-timer"]')?.className
+    ).toContain('custom')
   })
 })

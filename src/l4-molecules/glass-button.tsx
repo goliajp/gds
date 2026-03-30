@@ -10,13 +10,12 @@ import type { VariantProps } from '../utils/types'
 const glassButtonVariants = cva(
   cx(
     'inline-flex select-none items-center justify-center font-medium gds-glass transition-colors',
-    focusCls,
+    focusCls
   ),
   {
     variants: {
       variant: {
-        default:
-          'border border-border/30 bg-bg/50 text-fg hover:bg-bg/70',
+        default: 'border border-border/30 bg-bg/50 text-fg hover:bg-bg/70',
         accent:
           'border border-accent/30 bg-accent/20 text-accent hover:bg-accent/30',
       },
@@ -27,7 +26,7 @@ const glassButtonVariants = cva(
       },
     },
     defaultVariants: { variant: 'default', size: 'default' },
-  },
+  }
 )
 
 export type GlassButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
@@ -47,7 +46,7 @@ export const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
         {children}
       </button>
     )
-  },
+  }
 )
 
 export { glassButtonVariants }

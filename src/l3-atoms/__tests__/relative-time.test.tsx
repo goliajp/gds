@@ -6,7 +6,9 @@ import { RelativeTime } from '../relative-time'
 describe('RelativeTime', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(<RelativeTime date={new Date()} />)
-    expect(container.querySelector('[data-component="relative-time"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="relative-time"]')
+    ).not.toBeNull()
   })
 
   it('renders as a time element', () => {
@@ -62,7 +64,9 @@ describe('RelativeTime', () => {
   })
 
   it('accepts date as string', () => {
-    const { container } = render(<RelativeTime date={new Date().toISOString()} />)
+    const { container } = render(
+      <RelativeTime date={new Date().toISOString()} />
+    )
     expect(container.querySelector('time')).not.toBeNull()
     expect(screen.getByText('just now')).toBeDefined()
   })
@@ -92,13 +96,17 @@ describe('RelativeTime', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<RelativeTime date={new Date()} className="custom" />)
+    const { container } = render(
+      <RelativeTime date={new Date()} className="custom" />
+    )
     const time = container.querySelector('time')
     expect(time?.className).toContain('custom')
   })
 
   it('forwards additional props', () => {
-    const { container } = render(<RelativeTime date={new Date()} data-testid="rt" />)
+    const { container } = render(
+      <RelativeTime date={new Date()} data-testid="rt" />
+    )
     expect(container.querySelector('[data-testid="rt"]')).not.toBeNull()
   })
 })

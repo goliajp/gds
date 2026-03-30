@@ -21,7 +21,9 @@ describe('CheckboxGroup', () => {
   it('calls onChange with added value when unchecked item clicked', async () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
-    render(<CheckboxGroup options={options} value={['apple']} onChange={onChange} />)
+    render(
+      <CheckboxGroup options={options} value={['apple']} onChange={onChange} />
+    )
     await user.click(screen.getByText('Banana'))
     expect(onChange).toHaveBeenCalledWith(['apple', 'banana'])
   })
@@ -29,7 +31,13 @@ describe('CheckboxGroup', () => {
   it('calls onChange with removed value when checked item clicked', async () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
-    render(<CheckboxGroup options={options} value={['apple', 'banana']} onChange={onChange} />)
+    render(
+      <CheckboxGroup
+        options={options}
+        value={['apple', 'banana']}
+        onChange={onChange}
+      />
+    )
     await user.click(screen.getByText('Apple'))
     expect(onChange).toHaveBeenCalledWith(['banana'])
   })
@@ -37,7 +45,14 @@ describe('CheckboxGroup', () => {
   it('renders select-all checkbox when selectAll is true', async () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
-    render(<CheckboxGroup options={options} value={[]} onChange={onChange} selectAll />)
+    render(
+      <CheckboxGroup
+        options={options}
+        value={[]}
+        onChange={onChange}
+        selectAll
+      />
+    )
     expect(screen.getByText('Select all')).toBeDefined()
     await user.click(screen.getByText('Select all'))
     expect(onChange).toHaveBeenCalledWith(['apple', 'banana', 'cherry'])

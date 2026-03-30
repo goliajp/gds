@@ -9,24 +9,25 @@ type KbdProps = React.HTMLAttributes<HTMLElement> & {
   glass?: boolean
 }
 
-export const Kbd = forwardRef<HTMLElement, KbdProps>(
-  function Kbd({ children, className, glass, ...props }, ref) {
-    return (
-      <kbd
-        className={cx(
-          'inline-flex select-none items-center gds-radius-button border border-border/60 bg-bg-tertiary gds-pad-x-sm gds-pad-y-sm font-mono gds-text-label text-fg-muted',
-          glassClass(glass),
-          glass === true && 'border-white/10 bg-bg/60',
-          className,
-        )}
-        data-component="kbd"
-        ref={ref}
-        {...props}
-      >
-        {children}
-      </kbd>
-    )
-  },
-)
+export const Kbd = forwardRef<HTMLElement, KbdProps>(function Kbd(
+  { children, className, glass, ...props },
+  ref
+) {
+  return (
+    <kbd
+      className={cx(
+        'gds-radius-button border-border/60 bg-bg-tertiary gds-pad-x-sm gds-pad-y-sm gds-text-label text-fg-muted inline-flex items-center border font-mono select-none',
+        glassClass(glass),
+        glass === true && 'bg-bg/60 border-white/10',
+        className
+      )}
+      data-component="kbd"
+      ref={ref}
+      {...props}
+    >
+      {children}
+    </kbd>
+  )
+})
 
 export type { KbdProps }

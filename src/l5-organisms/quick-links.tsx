@@ -32,20 +32,24 @@ export const QuickLinks = forwardRef<HTMLDivElement, QuickLinksProps>(
             <Tag
               key={link.label}
               className={cx(
-                'flex flex-col items-center gap-2 rounded-lg border border-border bg-surface p-4 text-fg transition-colors hover:bg-bg-secondary',
-                focusCls,
+                'border-border bg-surface text-fg hover:bg-bg-secondary flex flex-col items-center gap-2 rounded-lg border p-4 transition-colors',
+                focusCls
               )}
               {...(link.href !== undefined ? { href: link.href } : {})}
               onClick={link.onClick}
             >
-              {link.icon !== undefined && <div className="text-fg-muted">{link.icon}</div>}
-              <span className="text-xs font-medium select-none">{link.label}</span>
+              {link.icon !== undefined && (
+                <div className="text-fg-muted">{link.icon}</div>
+              )}
+              <span className="text-xs font-medium select-none">
+                {link.label}
+              </span>
             </Tag>
           )
         })}
       </div>
     )
-  },
+  }
 )
 
 export type { QuickLink, QuickLinksProps }

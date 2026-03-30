@@ -11,7 +11,9 @@ describe('GlitchText', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<GlitchText text="Hello" />)
-    expect(container.querySelector('[data-component="glitch-text"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="glitch-text"]')
+    ).not.toBeNull()
   })
 
   it('renders the text content', () => {

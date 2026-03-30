@@ -13,17 +13,31 @@ type PayslipCardProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const PayslipCard = forwardRef<HTMLDivElement, PayslipCardProps>(
-  function PayslipCard({ className, currency = '\u00a5', deductions, gross, net, period, ...props }, ref) {
+  function PayslipCard(
+    {
+      className,
+      currency = '\u00a5',
+      deductions,
+      gross,
+      net,
+      period,
+      ...props
+    },
+    ref
+  ) {
     const fmt = (n: number) => `${currency}${n.toLocaleString()}`
 
     return (
       <div
-        className={cx('gds-ctx gds-radius-card border border-border bg-surface gds-pad', className)}
+        className={cx(
+          'gds-ctx gds-radius-card border-border bg-surface gds-pad border',
+          className
+        )}
         data-component="payslip-card"
         ref={ref}
         {...props}
       >
-        <div className="mb-3 font-semibold text-fg">{period}</div>
+        <div className="text-fg mb-3 font-semibold">{period}</div>
         <div className="flex justify-between text-sm">
           <span className="text-fg-muted">Gross</span>
           <span className="text-fg">{fmt(gross)}</span>
@@ -34,14 +48,14 @@ export const PayslipCard = forwardRef<HTMLDivElement, PayslipCardProps>(
             <span className="text-danger">-{fmt(d.amount)}</span>
           </div>
         ))}
-        <div className="my-2 border-t border-border" />
+        <div className="border-border my-2 border-t" />
         <div className="flex justify-between font-bold">
           <span className="text-fg">Net Pay</span>
           <span className="text-fg">{fmt(net)}</span>
         </div>
       </div>
     )
-  },
+  }
 )
 
 export type { PayslipCardProps, PayslipDeduction }

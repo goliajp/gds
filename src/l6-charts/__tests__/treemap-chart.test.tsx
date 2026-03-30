@@ -16,11 +16,15 @@ describe('TreemapChart', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<TreemapChart data={data} />)
-    expect(container.querySelector('[data-component="treemap-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="treemap-chart"]')
+    ).not.toBeNull()
   })
 
   it('merges className', () => {
-    const { container } = render(<TreemapChart className="custom-class" data={data} />)
+    const { container } = render(
+      <TreemapChart className="custom-class" data={data} />
+    )
     const el = container.querySelector('[data-component="treemap-chart"]')
     expect(el?.className).toContain('custom-class')
   })

@@ -17,7 +17,10 @@ export type CTABannerProps = {
 }
 
 export const CTABanner = forwardRef<HTMLDivElement, CTABannerProps>(
-  function CTABanner({ title, description, actions, variant = 'default', glass, className }, ref) {
+  function CTABanner(
+    { title, description, actions, variant = 'default', glass, className },
+    ref
+  ) {
     const variantClass =
       variant === 'accent'
         ? 'bg-accent text-accent-fg'
@@ -33,19 +36,33 @@ export const CTABanner = forwardRef<HTMLDivElement, CTABannerProps>(
         className={cx(
           'gds-ctx gds-radius-card gds-pad-x-lg gds-pad-y-lg w-full text-center',
           variantClass,
-          className,
+          className
         )}
         data-component="cta-banner"
         data-variant={variant}
       >
-        <h2 className={cx('text-xl font-bold', variant === 'default' && 'text-fg')}>{title}</h2>
+        <h2
+          className={cx(
+            'text-xl font-bold',
+            variant === 'default' && 'text-fg'
+          )}
+        >
+          {title}
+        </h2>
         {description !== undefined && (
-          <p className={cx('mt-2 gds-text-body', variant === 'default' ? 'text-fg-muted' : 'opacity-80')}>
+          <p
+            className={cx(
+              'gds-text-body mt-2',
+              variant === 'default' ? 'text-fg-muted' : 'opacity-80'
+            )}
+          >
             {description}
           </p>
         )}
-        <div className="mt-4 flex items-center justify-center gap-3">{actions}</div>
+        <div className="mt-4 flex items-center justify-center gap-3">
+          {actions}
+        </div>
       </div>
     )
-  },
+  }
 )

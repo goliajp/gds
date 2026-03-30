@@ -8,9 +8,11 @@ describe('MediaGrid', () => {
     const { container } = render(
       <MediaGrid>
         <img src="a.jpg" alt="a" />
-      </MediaGrid>,
+      </MediaGrid>
     )
-    expect(container.querySelector('[data-component="media-grid"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="media-grid"]')
+    ).not.toBeNull()
   })
 
   it('renders children', () => {
@@ -19,7 +21,7 @@ describe('MediaGrid', () => {
         <img src="a.jpg" alt="a" />
         <img src="b.jpg" alt="b" />
         <img src="c.jpg" alt="c" />
-      </MediaGrid>,
+      </MediaGrid>
     )
     const items = container.querySelectorAll('[data-component="aspect-ratio"]')
     expect(items.length).toBe(3)
@@ -29,7 +31,7 @@ describe('MediaGrid', () => {
     const { container } = render(
       <MediaGrid columns={3}>
         <div>1</div>
-      </MediaGrid>,
+      </MediaGrid>
     )
     const grid = container.querySelector('[data-component="media-grid"]')
     expect(grid?.className).toContain('grid-cols-3')
@@ -39,7 +41,7 @@ describe('MediaGrid', () => {
     const { container } = render(
       <MediaGrid aspectRatio={16 / 9}>
         <div>1</div>
-      </MediaGrid>,
+      </MediaGrid>
     )
     const aspectDiv = container.querySelector('[data-component="aspect-ratio"]')
     expect(aspectDiv).not.toBeNull()
@@ -47,7 +49,9 @@ describe('MediaGrid', () => {
 
   it('applies responsive columns by default', () => {
     const { container } = render(
-      <MediaGrid><div>1</div></MediaGrid>,
+      <MediaGrid>
+        <div>1</div>
+      </MediaGrid>
     )
     const grid = container.querySelector('[data-component="media-grid"]')
     expect(grid?.className).toContain('sm:grid-cols-2')
@@ -57,7 +61,9 @@ describe('MediaGrid', () => {
 
   it('applies responsive columns with partial breakpoints', () => {
     const { container } = render(
-      <MediaGrid columns={{ sm: 1, lg: 3 }}><div>1</div></MediaGrid>,
+      <MediaGrid columns={{ sm: 1, lg: 3 }}>
+        <div>1</div>
+      </MediaGrid>
     )
     const grid = container.querySelector('[data-component="media-grid"]')
     expect(grid?.className).toContain('sm:grid-cols-1')
@@ -66,7 +72,9 @@ describe('MediaGrid', () => {
 
   it('applies small gap', () => {
     const { container } = render(
-      <MediaGrid gap="sm"><div>1</div></MediaGrid>,
+      <MediaGrid gap="sm">
+        <div>1</div>
+      </MediaGrid>
     )
     const grid = container.querySelector('[data-component="media-grid"]')
     expect(grid?.className).toContain('gds-gap-sm')
@@ -74,7 +82,9 @@ describe('MediaGrid', () => {
 
   it('applies large gap', () => {
     const { container } = render(
-      <MediaGrid gap="lg"><div>1</div></MediaGrid>,
+      <MediaGrid gap="lg">
+        <div>1</div>
+      </MediaGrid>
     )
     const grid = container.querySelector('[data-component="media-grid"]')
     expect(grid?.className).toContain('gds-gap-lg')

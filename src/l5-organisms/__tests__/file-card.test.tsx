@@ -6,7 +6,9 @@ import { FileCard } from '../file-card'
 describe('FileCard', () => {
   it('renders with data-component', () => {
     const { container } = render(<FileCard name="report.pdf" />)
-    expect(container.querySelector('[data-component="file-card"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="file-card"]')
+    ).not.toBeNull()
   })
 
   it('renders file name, size, and type', () => {
@@ -41,14 +43,21 @@ describe('FileCard', () => {
   })
 
   it('renders actions slot', () => {
-    render(<FileCard name="report.pdf" actions={<button type="button">Download</button>} />)
+    render(
+      <FileCard
+        name="report.pdf"
+        actions={<button type="button">Download</button>}
+      />
+    )
     expect(screen.getByText('Download')).toBeDefined()
   })
 
   it('does not render actions slot when not provided', () => {
     const { container } = render(<FileCard name="report.pdf" />)
     // should not have the actions div
-    expect(container.querySelector('[data-component="file-card"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="file-card"]')
+    ).not.toBeNull()
   })
 
   it('handles Enter key when clickable', () => {
@@ -83,7 +92,9 @@ describe('FileCard', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<FileCard name="report.pdf" className="my-card" />)
+    const { container } = render(
+      <FileCard name="report.pdf" className="my-card" />
+    )
     const root = container.querySelector('[data-component="file-card"]')
     expect(root?.className).toContain('my-card')
   })

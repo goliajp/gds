@@ -15,7 +15,9 @@ const defaultProps = {
 describe('EmailComposerField', () => {
   it('renders with data-component="email-composer-field"', () => {
     const { container } = render(<EmailComposerField {...defaultProps} />)
-    expect(container.querySelector('[data-component="email-composer-field"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="email-composer-field"]')
+    ).not.toBeNull()
   })
 
   it('renders label', () => {
@@ -56,7 +58,13 @@ describe('EmailComposerField', () => {
       { email: 'alice@example.com', name: 'Alice' },
     ]
     const onChange = vi.fn()
-    render(<EmailComposerField {...defaultProps} value={contacts} onChange={onChange} />)
+    render(
+      <EmailComposerField
+        {...defaultProps}
+        value={contacts}
+        onChange={onChange}
+      />
+    )
     const removeBtn = screen.getByLabelText('Remove Alice')
     fireEvent.click(removeBtn)
     expect(onChange).toHaveBeenCalledWith([])
@@ -69,16 +77,26 @@ describe('EmailComposerField', () => {
       { email: 'bob@example.com', name: 'Bob' },
     ]
     const onChange = vi.fn()
-    render(<EmailComposerField {...defaultProps} value={contacts} onChange={onChange} />)
+    render(
+      <EmailComposerField
+        {...defaultProps}
+        value={contacts}
+        onChange={onChange}
+      />
+    )
     const input = screen.getByRole('combobox')
     await user.click(input)
     await user.keyboard('{Backspace}')
-    expect(onChange).toHaveBeenCalledWith([{ email: 'alice@example.com', name: 'Alice' }])
+    expect(onChange).toHaveBeenCalledWith([
+      { email: 'alice@example.com', name: 'Alice' },
+    ])
   })
 
   it('applies glass classes when glass={true}', () => {
     const { container } = render(<EmailComposerField {...defaultProps} glass />)
-    const wrapper = container.querySelector('[data-component="email-composer-field"]')
+    const wrapper = container.querySelector(
+      '[data-component="email-composer-field"]'
+    )
     // glass class is applied to inner wrapper div
     const inner = wrapper?.querySelector('.border-white\\/10')
     expect(inner).not.toBeNull()
@@ -86,14 +104,18 @@ describe('EmailComposerField', () => {
 
   it('applies custom className', () => {
     const { container } = render(
-      <EmailComposerField {...defaultProps} className="my-field" />,
+      <EmailComposerField {...defaultProps} className="my-field" />
     )
-    const el = container.querySelector('[data-component="email-composer-field"]')
+    const el = container.querySelector(
+      '[data-component="email-composer-field"]'
+    )
     expect(el?.className).toContain('my-field')
   })
 
   it('renders placeholder when no contacts', () => {
-    render(<EmailComposerField {...defaultProps} placeholder="Add recipients" />)
+    render(
+      <EmailComposerField {...defaultProps} placeholder="Add recipients" />
+    )
     expect(screen.getByPlaceholderText('Add recipients')).toBeDefined()
   })
 

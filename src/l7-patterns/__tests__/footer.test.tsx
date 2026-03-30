@@ -8,9 +8,12 @@ describe('Footer', () => {
     render(
       <Footer
         columns={[
-          { title: 'Product', links: [{ label: 'Features', href: '/features' }] },
+          {
+            title: 'Product',
+            links: [{ label: 'Features', href: '/features' }],
+          },
         ]}
-      />,
+      />
     )
     expect(screen.getByText('Product')).toBeDefined()
     expect(screen.getByText('Features')).toBeDefined()

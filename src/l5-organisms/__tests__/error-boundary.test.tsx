@@ -10,14 +10,18 @@ function ThrowingComponent({ message }: { message: string }): never {
 describe('ErrorBoundary', () => {
   // suppress console.error from React error boundary logs
   const originalError = console.error
-  beforeAll(() => { console.error = () => {} })
-  afterAll(() => { console.error = originalError })
+  beforeAll(() => {
+    console.error = () => {}
+  })
+  afterAll(() => {
+    console.error = originalError
+  })
 
   it('renders children normally when no error', () => {
     render(
       <ErrorBoundary>
         <p>Hello world</p>
-      </ErrorBoundary>,
+      </ErrorBoundary>
     )
     expect(screen.getByText('Hello world')).toBeDefined()
   })
@@ -26,7 +30,7 @@ describe('ErrorBoundary', () => {
     render(
       <ErrorBoundary>
         <ThrowingComponent message="test failure" />
-      </ErrorBoundary>,
+      </ErrorBoundary>
     )
     expect(screen.getByText('Something went wrong')).toBeDefined()
     expect(screen.getByText('test failure')).toBeDefined()
@@ -37,7 +41,7 @@ describe('ErrorBoundary', () => {
     render(
       <ErrorBoundary onError={onError}>
         <ThrowingComponent message="callback test" />
-      </ErrorBoundary>,
+      </ErrorBoundary>
     )
     expect(onError).toHaveBeenCalledOnce()
     expect(onError.mock.calls[0][0].message).toBe('callback test')
@@ -47,7 +51,7 @@ describe('ErrorBoundary', () => {
     render(
       <ErrorBoundary fallback={<p>Custom error view</p>}>
         <ThrowingComponent message="custom" />
-      </ErrorBoundary>,
+      </ErrorBoundary>
     )
     expect(screen.getByText('Custom error view')).toBeDefined()
   })

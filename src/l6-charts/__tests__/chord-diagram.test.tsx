@@ -13,12 +13,16 @@ const labels = ['Alpha', 'Beta', 'Gamma']
 
 describe('ChordDiagram', () => {
   it('renders SVG', () => {
-    const { container } = render(<ChordDiagram matrix={matrix} labels={labels} />)
+    const { container } = render(
+      <ChordDiagram matrix={matrix} labels={labels} />
+    )
     expect(container.querySelector('svg')).not.toBeNull()
   })
 
   it('shows labels', () => {
-    const { container } = render(<ChordDiagram matrix={matrix} labels={labels} />)
+    const { container } = render(
+      <ChordDiagram matrix={matrix} labels={labels} />
+    )
     const texts = container.querySelectorAll('text')
     const textContents = Array.from(texts).map((t) => t.textContent)
     expect(textContents).toContain('Alpha')
@@ -27,44 +31,63 @@ describe('ChordDiagram', () => {
   })
 
   it('draws arcs for each entity', () => {
-    const { container } = render(<ChordDiagram matrix={matrix} labels={labels} />)
+    const { container } = render(
+      <ChordDiagram matrix={matrix} labels={labels} />
+    )
     const arcs = container.querySelectorAll('[data-arc]')
     expect(arcs.length).toBe(3)
   })
 
   it('has data-component attribute', () => {
-    const { container } = render(<ChordDiagram matrix={matrix} labels={labels} />)
-    expect(container.querySelector('[data-component="chord-diagram"]')).not.toBeNull()
+    const { container } = render(
+      <ChordDiagram matrix={matrix} labels={labels} />
+    )
+    expect(
+      container.querySelector('[data-component="chord-diagram"]')
+    ).not.toBeNull()
   })
 
   it('applies glass mode', () => {
-    const { container } = render(<ChordDiagram matrix={matrix} labels={labels} glass />)
+    const { container } = render(
+      <ChordDiagram matrix={matrix} labels={labels} glass />
+    )
     const el = container.querySelector('[data-component="chord-diagram"]')
     expect(el?.className).toContain('backdrop-blur-md')
   })
 
   it('does not apply glass mode when glass is falsy', () => {
-    const { container } = render(<ChordDiagram matrix={matrix} labels={labels} />)
+    const { container } = render(
+      <ChordDiagram matrix={matrix} labels={labels} />
+    )
     const el = container.querySelector('[data-component="chord-diagram"]')
     expect(el?.className).not.toContain('backdrop-blur-md')
   })
 
   it('merges custom className', () => {
-    const { container } = render(<ChordDiagram matrix={matrix} labels={labels} className="my-chord" />)
+    const { container } = render(
+      <ChordDiagram matrix={matrix} labels={labels} className="my-chord" />
+    )
     const el = container.querySelector('[data-component="chord-diagram"]')
     expect(el?.className).toContain('my-chord')
   })
 
   it('applies custom width and height', () => {
-    const { container } = render(<ChordDiagram matrix={matrix} labels={labels} width={500} height={500} />)
+    const { container } = render(
+      <ChordDiagram matrix={matrix} labels={labels} width={500} height={500} />
+    )
     const svg = container.querySelector('svg')
     expect(svg?.getAttribute('width')).toBe('500')
     expect(svg?.getAttribute('height')).toBe('500')
   })
 
   it('handles zero matrix (grandTotal === 0)', () => {
-    const zeroMatrix = [[0, 0], [0, 0]]
-    const { container } = render(<ChordDiagram matrix={zeroMatrix} labels={['A', 'B']} />)
+    const zeroMatrix = [
+      [0, 0],
+      [0, 0],
+    ]
+    const { container } = render(
+      <ChordDiagram matrix={zeroMatrix} labels={['A', 'B']} />
+    )
     // renders empty SVG fallback
     const el = container.querySelector('[data-component="chord-diagram"]')
     expect(el).not.toBeNull()
@@ -88,7 +111,9 @@ describe('ChordDiagram', () => {
   })
 
   it('renders chords between entities', () => {
-    const { container } = render(<ChordDiagram matrix={matrix} labels={labels} />)
+    const { container } = render(
+      <ChordDiagram matrix={matrix} labels={labels} />
+    )
     // chords are path elements without data-arc
     const allPaths = container.querySelectorAll('path')
     const arcPaths = container.querySelectorAll('[data-arc]')
@@ -104,9 +129,11 @@ describe('ChordDiagram', () => {
       [0, 0, 0],
     ]
     const { container } = render(
-      <ChordDiagram matrix={sparseMatrix} labels={['A', 'B', 'C']} />,
+      <ChordDiagram matrix={sparseMatrix} labels={['A', 'B', 'C']} />
     )
-    expect(container.querySelector('[data-component="chord-diagram"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="chord-diagram"]')
+    ).not.toBeNull()
   })
 })
 

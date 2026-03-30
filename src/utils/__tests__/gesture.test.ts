@@ -5,7 +5,9 @@ import { drag, inertia, longPress, swipe } from '../../l0-tokens/gesture-system'
 import { applyInertia, useDrag, useLongPress, useSwipe } from '../gesture'
 
 // helper to create a mock PointerEvent-like object
-function pointerEvent(overrides: Record<string, unknown> = {}): React.PointerEvent {
+function pointerEvent(
+  overrides: Record<string, unknown> = {}
+): React.PointerEvent {
   return {
     clientX: 0,
     clientY: 0,
@@ -30,7 +32,9 @@ describe('useSwipe', () => {
     // move far right
     const distance = swipe.minDistance + 20
     act(() => {
-      result.current.onPointerMove(pointerEvent({ clientX: distance, clientY: 0 }))
+      result.current.onPointerMove(
+        pointerEvent({ clientX: distance, clientY: 0 })
+      )
     })
 
     // release quickly (mock Date.now to control velocity)
@@ -49,7 +53,9 @@ describe('useSwipe', () => {
       result2.current.onPointerDown(pointerEvent({ clientX: 0, clientY: 0 }))
     })
     act(() => {
-      result2.current.onPointerMove(pointerEvent({ clientX: distance, clientY: 5 }))
+      result2.current.onPointerMove(
+        pointerEvent({ clientX: distance, clientY: 5 })
+      )
     })
     act(() => {
       result2.current.onPointerUp()
@@ -73,8 +79,14 @@ describe('useSwipe', () => {
     const { result } = renderHook(() => useSwipe(onSwipe))
     const distance = swipe.minDistance + 20
 
-    act(() => result.current.onPointerDown(pointerEvent({ clientX: 100, clientY: 50 })))
-    act(() => result.current.onPointerMove(pointerEvent({ clientX: 100 - distance, clientY: 50 })))
+    act(() =>
+      result.current.onPointerDown(pointerEvent({ clientX: 100, clientY: 50 }))
+    )
+    act(() =>
+      result.current.onPointerMove(
+        pointerEvent({ clientX: 100 - distance, clientY: 50 })
+      )
+    )
     act(() => result.current.onPointerUp())
 
     expect(onSwipe).toHaveBeenCalledWith('left', expect.any(Number))
@@ -93,8 +105,14 @@ describe('useSwipe', () => {
     const { result } = renderHook(() => useSwipe(onSwipe))
     const distance = swipe.minDistance + 20
 
-    act(() => result.current.onPointerDown(pointerEvent({ clientX: 50, clientY: 0 })))
-    act(() => result.current.onPointerMove(pointerEvent({ clientX: 50, clientY: distance })))
+    act(() =>
+      result.current.onPointerDown(pointerEvent({ clientX: 50, clientY: 0 }))
+    )
+    act(() =>
+      result.current.onPointerMove(
+        pointerEvent({ clientX: 50, clientY: distance })
+      )
+    )
     act(() => result.current.onPointerUp())
 
     expect(onSwipe).toHaveBeenCalledWith('down', expect.any(Number))
@@ -113,8 +131,14 @@ describe('useSwipe', () => {
     const { result } = renderHook(() => useSwipe(onSwipe))
     const distance = swipe.minDistance + 20
 
-    act(() => result.current.onPointerDown(pointerEvent({ clientX: 50, clientY: 100 })))
-    act(() => result.current.onPointerMove(pointerEvent({ clientX: 50, clientY: 100 - distance })))
+    act(() =>
+      result.current.onPointerDown(pointerEvent({ clientX: 50, clientY: 100 }))
+    )
+    act(() =>
+      result.current.onPointerMove(
+        pointerEvent({ clientX: 50, clientY: 100 - distance })
+      )
+    )
     act(() => result.current.onPointerUp())
 
     expect(onSwipe).toHaveBeenCalledWith('up', expect.any(Number))
@@ -132,8 +156,12 @@ describe('useSwipe', () => {
 
     const { result } = renderHook(() => useSwipe(onSwipe))
 
-    act(() => result.current.onPointerDown(pointerEvent({ clientX: 0, clientY: 0 })))
-    act(() => result.current.onPointerMove(pointerEvent({ clientX: 5, clientY: 0 })))
+    act(() =>
+      result.current.onPointerDown(pointerEvent({ clientX: 0, clientY: 0 }))
+    )
+    act(() =>
+      result.current.onPointerMove(pointerEvent({ clientX: 5, clientY: 0 }))
+    )
     act(() => result.current.onPointerUp())
 
     expect(onSwipe).not.toHaveBeenCalled()
@@ -152,8 +180,14 @@ describe('useSwipe', () => {
     const { result } = renderHook(() => useSwipe(onSwipe))
     const distance = swipe.minDistance + 20
 
-    act(() => result.current.onPointerDown(pointerEvent({ clientX: 0, clientY: 0 })))
-    act(() => result.current.onPointerMove(pointerEvent({ clientX: distance, clientY: 0 })))
+    act(() =>
+      result.current.onPointerDown(pointerEvent({ clientX: 0, clientY: 0 }))
+    )
+    act(() =>
+      result.current.onPointerMove(
+        pointerEvent({ clientX: distance, clientY: 0 })
+      )
+    )
     act(() => result.current.onPointerUp())
 
     expect(onSwipe).not.toHaveBeenCalled()
@@ -162,20 +196,23 @@ describe('useSwipe', () => {
 
   it('does not fire when cross deviation is too large', () => {
     const onSwipe = vi.fn()
-    vi.spyOn(Date, 'now')
-      .mockReturnValueOnce(1000)
-      .mockReturnValueOnce(1010)
+    vi.spyOn(Date, 'now').mockReturnValueOnce(1000).mockReturnValueOnce(1010)
 
     const { result } = renderHook(() => useSwipe(onSwipe))
     // use a large horizontal distance so it's clearly horizontal,
     // but with cross deviation exceeding threshold
     const distance = swipe.maxCrossDeviation + 50
 
-    act(() => result.current.onPointerDown(pointerEvent({ clientX: 0, clientY: 0 })))
+    act(() =>
+      result.current.onPointerDown(pointerEvent({ clientX: 0, clientY: 0 }))
+    )
     act(() =>
       result.current.onPointerMove(
-        pointerEvent({ clientX: distance, clientY: swipe.maxCrossDeviation + 10 }),
-      ),
+        pointerEvent({
+          clientX: distance,
+          clientY: swipe.maxCrossDeviation + 10,
+        })
+      )
     )
     act(() => result.current.onPointerUp())
 
@@ -187,7 +224,9 @@ describe('useSwipe', () => {
     const onSwipe = vi.fn()
     const { result } = renderHook(() => useSwipe(onSwipe))
 
-    act(() => result.current.onPointerMove(pointerEvent({ clientX: 100, clientY: 0 })))
+    act(() =>
+      result.current.onPointerMove(pointerEvent({ clientX: 100, clientY: 0 }))
+    )
     act(() => result.current.onPointerUp())
 
     expect(onSwipe).not.toHaveBeenCalled()
@@ -206,7 +245,9 @@ describe('useLongPress', () => {
     const onLongPress = vi.fn()
     const { result } = renderHook(() => useLongPress(onLongPress))
 
-    act(() => result.current.onPointerDown(pointerEvent({ clientX: 50, clientY: 50 })))
+    act(() =>
+      result.current.onPointerDown(pointerEvent({ clientX: 50, clientY: 50 }))
+    )
     act(() => vi.advanceTimersByTime(longPress.duration + 10))
 
     expect(onLongPress).toHaveBeenCalledOnce()
@@ -216,7 +257,9 @@ describe('useLongPress', () => {
     const onLongPress = vi.fn()
     const { result } = renderHook(() => useLongPress(onLongPress))
 
-    act(() => result.current.onPointerDown(pointerEvent({ clientX: 50, clientY: 50 })))
+    act(() =>
+      result.current.onPointerDown(pointerEvent({ clientX: 50, clientY: 50 }))
+    )
     act(() => vi.advanceTimersByTime(100))
     act(() => result.current.onPointerUp())
     act(() => vi.advanceTimersByTime(longPress.duration))
@@ -228,11 +271,13 @@ describe('useLongPress', () => {
     const onLongPress = vi.fn()
     const { result } = renderHook(() => useLongPress(onLongPress))
 
-    act(() => result.current.onPointerDown(pointerEvent({ clientX: 50, clientY: 50 })))
+    act(() =>
+      result.current.onPointerDown(pointerEvent({ clientX: 50, clientY: 50 }))
+    )
     act(() =>
       result.current.onPointerMove(
-        pointerEvent({ clientX: 50 + longPress.maxMovement + 5, clientY: 50 }),
-      ),
+        pointerEvent({ clientX: 50 + longPress.maxMovement + 5, clientY: 50 })
+      )
     )
     act(() => vi.advanceTimersByTime(longPress.duration + 10))
 
@@ -243,9 +288,13 @@ describe('useLongPress', () => {
     const onLongPress = vi.fn()
     const { result } = renderHook(() => useLongPress(onLongPress))
 
-    act(() => result.current.onPointerDown(pointerEvent({ clientX: 50, clientY: 50 })))
     act(() =>
-      result.current.onPointerMove(pointerEvent({ clientX: 50 + longPress.maxMovement - 1, clientY: 50 })),
+      result.current.onPointerDown(pointerEvent({ clientX: 50, clientY: 50 }))
+    )
+    act(() =>
+      result.current.onPointerMove(
+        pointerEvent({ clientX: 50 + longPress.maxMovement - 1, clientY: 50 })
+      )
     )
     act(() => vi.advanceTimersByTime(longPress.duration + 10))
 
@@ -256,7 +305,9 @@ describe('useLongPress', () => {
     const onLongPress = vi.fn()
     const { result } = renderHook(() => useLongPress(onLongPress))
 
-    act(() => result.current.onPointerMove(pointerEvent({ clientX: 100, clientY: 100 })))
+    act(() =>
+      result.current.onPointerMove(pointerEvent({ clientX: 100, clientY: 100 }))
+    )
     act(() => vi.advanceTimersByTime(longPress.duration + 10))
 
     expect(onLongPress).not.toHaveBeenCalled()
@@ -277,12 +328,14 @@ describe('useDrag', () => {
     const onDrag = vi.fn()
     const { result } = renderHook(() => useDrag(onDrag))
 
-    act(() => result.current.onPointerDown(pointerEvent({ clientX: 100, clientY: 100 })))
+    act(() =>
+      result.current.onPointerDown(pointerEvent({ clientX: 100, clientY: 100 }))
+    )
     // move less than threshold
     act(() =>
       result.current.onPointerMove(
-        pointerEvent({ clientX: 100 + drag.startThreshold - 1, clientY: 100 }),
-      ),
+        pointerEvent({ clientX: 100 + drag.startThreshold - 1, clientY: 100 })
+      )
     )
 
     expect(onDrag).not.toHaveBeenCalled()
@@ -292,11 +345,13 @@ describe('useDrag', () => {
     const onDrag = vi.fn()
     const { result } = renderHook(() => useDrag(onDrag))
 
-    act(() => result.current.onPointerDown(pointerEvent({ clientX: 100, clientY: 100 })))
+    act(() =>
+      result.current.onPointerDown(pointerEvent({ clientX: 100, clientY: 100 }))
+    )
     act(() =>
       result.current.onPointerMove(
-        pointerEvent({ clientX: 100 + drag.startThreshold + 5, clientY: 100 }),
-      ),
+        pointerEvent({ clientX: 100 + drag.startThreshold + 5, clientY: 100 })
+      )
     )
 
     expect(onDrag).toHaveBeenCalledWith({
@@ -311,9 +366,11 @@ describe('useDrag', () => {
     const onDragEnd = vi.fn()
     const { result } = renderHook(() => useDrag(onDrag, onDragEnd))
 
-    act(() => result.current.onPointerDown(pointerEvent({ clientX: 0, clientY: 0 })))
     act(() =>
-      result.current.onPointerMove(pointerEvent({ clientX: 50, clientY: 30 })),
+      result.current.onPointerDown(pointerEvent({ clientX: 0, clientY: 0 }))
+    )
+    act(() =>
+      result.current.onPointerMove(pointerEvent({ clientX: 50, clientY: 30 }))
     )
     act(() => result.current.onPointerUp())
 
@@ -329,10 +386,12 @@ describe('useDrag', () => {
     const onDragEnd = vi.fn()
     const { result } = renderHook(() => useDrag(onDrag, onDragEnd))
 
-    act(() => result.current.onPointerDown(pointerEvent({ clientX: 100, clientY: 100 })))
+    act(() =>
+      result.current.onPointerDown(pointerEvent({ clientX: 100, clientY: 100 }))
+    )
     // move less than threshold
     act(() =>
-      result.current.onPointerMove(pointerEvent({ clientX: 101, clientY: 100 })),
+      result.current.onPointerMove(pointerEvent({ clientX: 101, clientY: 100 }))
     )
     act(() => result.current.onPointerUp())
 
@@ -343,8 +402,12 @@ describe('useDrag', () => {
     const onDrag = vi.fn()
     const { result } = renderHook(() => useDrag(onDrag))
 
-    act(() => result.current.onPointerDown(pointerEvent({ clientX: 0, clientY: 0 })))
-    act(() => result.current.onPointerMove(pointerEvent({ clientX: 50, clientY: 0 })))
+    act(() =>
+      result.current.onPointerDown(pointerEvent({ clientX: 0, clientY: 0 }))
+    )
+    act(() =>
+      result.current.onPointerMove(pointerEvent({ clientX: 50, clientY: 0 }))
+    )
 
     expect(() => {
       act(() => result.current.onPointerUp())
@@ -355,7 +418,9 @@ describe('useDrag', () => {
     const onDrag = vi.fn()
     const { result } = renderHook(() => useDrag(onDrag))
 
-    act(() => result.current.onPointerMove(pointerEvent({ clientX: 200, clientY: 200 })))
+    act(() =>
+      result.current.onPointerMove(pointerEvent({ clientX: 200, clientY: 200 }))
+    )
     act(() => result.current.onPointerUp())
 
     expect(onDrag).not.toHaveBeenCalled()
@@ -365,12 +430,14 @@ describe('useDrag', () => {
     const onDrag = vi.fn()
     const { result } = renderHook(() => useDrag(onDrag))
 
-    act(() => result.current.onPointerDown(pointerEvent({ clientX: 100, clientY: 100 })))
+    act(() =>
+      result.current.onPointerDown(pointerEvent({ clientX: 100, clientY: 100 }))
+    )
     // move only in Y direction past threshold
     act(() =>
       result.current.onPointerMove(
-        pointerEvent({ clientX: 100, clientY: 100 + drag.startThreshold + 5 }),
-      ),
+        pointerEvent({ clientX: 100, clientY: 100 + drag.startThreshold + 5 })
+      )
     )
 
     expect(onDrag).toHaveBeenCalledWith({

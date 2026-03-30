@@ -16,14 +16,16 @@ const data = [
 describe('ResponsiveTable', () => {
   it('renders table with data-component', () => {
     const { container } = render(
-      <ResponsiveTable columns={columns} data={data} />,
+      <ResponsiveTable columns={columns} data={data} />
     )
-    expect(container.querySelector('[data-component="responsive-table"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="responsive-table"]')
+    ).not.toBeNull()
   })
 
   it('renders data rows in table mode', () => {
     const { getByText } = render(
-      <ResponsiveTable columns={columns} data={data} />,
+      <ResponsiveTable columns={columns} data={data} />
     )
     expect(getByText('Alice')).toBeDefined()
     expect(getByText('Bob')).toBeDefined()
@@ -32,7 +34,7 @@ describe('ResponsiveTable', () => {
 
   it('sets data-component attribute', () => {
     const { container } = render(
-      <ResponsiveTable columns={columns} data={data} />,
+      <ResponsiveTable columns={columns} data={data} />
     )
     const el = container.querySelector('[data-component="responsive-table"]')
     expect(el).not.toBeNull()
@@ -41,16 +43,20 @@ describe('ResponsiveTable', () => {
 
   it('supports glass prop', () => {
     const { container } = render(
-      <ResponsiveTable columns={columns} data={data} glass />,
+      <ResponsiveTable columns={columns} data={data} glass />
     )
-    expect(container.querySelector('[data-component="responsive-table"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="responsive-table"]')
+    ).not.toBeNull()
   })
 
   it('applies custom className', () => {
     const { container } = render(
-      <ResponsiveTable columns={columns} data={data} className="my-table" />,
+      <ResponsiveTable columns={columns} data={data} className="my-table" />
     )
-    expect(container.querySelector('[data-component="responsive-table"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="responsive-table"]')
+    ).not.toBeNull()
   })
 
   it('forwards ref', () => {
@@ -61,7 +67,7 @@ describe('ResponsiveTable', () => {
 
   it('renders column headers in table mode', () => {
     const { getByText } = render(
-      <ResponsiveTable columns={columns} data={data} />,
+      <ResponsiveTable columns={columns} data={data} />
     )
     expect(getByText('Name')).toBeDefined()
     expect(getByText('Role')).toBeDefined()
@@ -69,7 +75,7 @@ describe('ResponsiveTable', () => {
 
   it('renders all data cell values', () => {
     const { getByText } = render(
-      <ResponsiveTable columns={columns} data={data} />,
+      <ResponsiveTable columns={columns} data={data} />
     )
     expect(getByText('Engineer')).toBeDefined()
     expect(getByText('Designer')).toBeDefined()
@@ -101,7 +107,9 @@ describe('ResponsiveTable', () => {
       const mockMql = {
         matches: true,
         media: '(max-width: 1023px)',
-        addEventListener: (_: string, cb: () => void) => { listeners.push(cb) },
+        addEventListener: (_: string, cb: () => void) => {
+          listeners.push(cb)
+        },
         removeEventListener: vi.fn(),
         addListener: vi.fn(),
         removeListener: vi.fn(),
@@ -113,10 +121,11 @@ describe('ResponsiveTable', () => {
 
       // re-import module to pick up new matchMedia
       vi.resetModules()
-      const { ResponsiveTable: FreshResponsiveTable } = await import('../responsive-table')
+      const { ResponsiveTable: FreshResponsiveTable } =
+        await import('../responsive-table')
 
       const { container, getAllByText } = render(
-        <FreshResponsiveTable columns={columns} data={data} />,
+        <FreshResponsiveTable columns={columns} data={data} />
       )
 
       const el = container.querySelector('[data-component="responsive-table"]')
@@ -145,10 +154,11 @@ describe('ResponsiveTable', () => {
       window.matchMedia = vi.fn().mockReturnValue(mockMql)
 
       vi.resetModules()
-      const { ResponsiveTable: FreshResponsiveTable } = await import('../responsive-table')
+      const { ResponsiveTable: FreshResponsiveTable } =
+        await import('../responsive-table')
 
       const { container } = render(
-        <FreshResponsiveTable columns={columns} data={data} glass />,
+        <FreshResponsiveTable columns={columns} data={data} glass />
       )
 
       const el = container.querySelector('[data-component="responsive-table"]')
@@ -170,10 +180,15 @@ describe('ResponsiveTable', () => {
       window.matchMedia = vi.fn().mockReturnValue(mockMql)
 
       vi.resetModules()
-      const { ResponsiveTable: FreshResponsiveTable } = await import('../responsive-table')
+      const { ResponsiveTable: FreshResponsiveTable } =
+        await import('../responsive-table')
 
       const { container } = render(
-        <FreshResponsiveTable columns={columns} data={data} className="mobile-table" />,
+        <FreshResponsiveTable
+          columns={columns}
+          data={data}
+          className="mobile-table"
+        />
       )
 
       const el = container.querySelector('[data-component="responsive-table"]')
@@ -195,7 +210,8 @@ describe('ResponsiveTable', () => {
       window.matchMedia = vi.fn().mockReturnValue(mockMql)
 
       vi.resetModules()
-      const { ResponsiveTable: FreshResponsiveTable } = await import('../responsive-table')
+      const { ResponsiveTable: FreshResponsiveTable } =
+        await import('../responsive-table')
 
       const ref = { current: null as HTMLDivElement | null }
       render(<FreshResponsiveTable columns={columns} data={data} ref={ref} />)
@@ -218,11 +234,12 @@ describe('ResponsiveTable', () => {
       window.matchMedia = vi.fn().mockReturnValue(mockMql)
 
       vi.resetModules()
-      const { ResponsiveTable: FreshResponsiveTable } = await import('../responsive-table')
+      const { ResponsiveTable: FreshResponsiveTable } =
+        await import('../responsive-table')
 
       const sparseData = [{ name: 'Charlie' }] // missing 'role' key
       const { container } = render(
-        <FreshResponsiveTable columns={columns} data={sparseData} />,
+        <FreshResponsiveTable columns={columns} data={sparseData} />
       )
 
       const el = container.querySelector('[data-component="responsive-table"]')
@@ -233,7 +250,7 @@ describe('ResponsiveTable', () => {
   it('renders empty string for missing column keys in table mode', () => {
     const sparseData = [{ name: 'Charlie' }]
     const { container } = render(
-      <ResponsiveTable columns={columns} data={sparseData} />,
+      <ResponsiveTable columns={columns} data={sparseData} />
     )
     // should render without error, missing key produces empty string
     const cells = container.querySelectorAll('td')
@@ -242,7 +259,7 @@ describe('ResponsiveTable', () => {
 
   it('spreads additional HTML props', () => {
     const { container } = render(
-      <ResponsiveTable columns={columns} data={data} data-custom="test" />,
+      <ResponsiveTable columns={columns} data={data} data-custom="test" />
     )
     const el = container.querySelector('[data-component="responsive-table"]')
     expect(el?.getAttribute('data-custom')).toBe('test')

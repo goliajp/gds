@@ -27,39 +27,47 @@ export type CardProps = {
   padding?: CardPadding
 }
 
-export const Card = forwardRef<HTMLDivElement, CardProps>(
-  function Card({ children, className, glass, loading, onClick, padding = 'default' }, ref) {
-    if (loading === true) {
-      return (
-        <div
-          ref={ref}
-          className={cx('gds-ctx flex flex-col gds-gap animate-pulse gds-radius-card border border-border bg-bg-tertiary', paddingMap[padding], className)}
-          data-component="card"
-          data-state="loading"
-        >
-          <div className="h-20" />
-        </div>
-      )
-    }
-
+export const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
+  { children, className, glass, loading, onClick, padding = 'default' },
+  ref
+) {
+  if (loading === true) {
     return (
       <div
         ref={ref}
         className={cx(
-          'gds-ctx flex flex-col gds-gap gds-radius-card border transition-colors',
-          glass ? cx(glassClass(glass), 'border-white/10 bg-bg/60') : 'border-border bg-surface',
-          onClick !== undefined && 'cursor-pointer hover:border-fg-muted/40 hover:bg-surface/80',
+          'gds-ctx gds-gap gds-radius-card border-border bg-bg-tertiary flex animate-pulse flex-col border',
           paddingMap[padding],
-          className,
+          className
         )}
         data-component="card"
-        onClick={onClick}
+        data-state="loading"
       >
-        {children}
+        <div className="h-20" />
       </div>
     )
-  },
-)
+  }
+
+  return (
+    <div
+      ref={ref}
+      className={cx(
+        'gds-ctx gds-gap gds-radius-card flex flex-col border transition-colors',
+        glass
+          ? cx(glassClass(glass), 'bg-bg/60 border-white/10')
+          : 'border-border bg-surface',
+        onClick !== undefined &&
+          'hover:border-fg-muted/40 hover:bg-surface/80 cursor-pointer',
+        paddingMap[padding],
+        className
+      )}
+      data-component="card"
+      onClick={onClick}
+    >
+      {children}
+    </div>
+  )
+})
 
 export type CardHeaderProps = {
   action?: ReactNode
@@ -69,15 +77,31 @@ export type CardHeaderProps = {
   title?: string
 }
 
-export function CardHeader({ action, children, className, description, title }: CardHeaderProps) {
+export function CardHeader({
+  action,
+  children,
+  className,
+  description,
+  title,
+}: CardHeaderProps) {
   if (children !== undefined) {
-    return <div className={cx('flex items-start justify-between gds-gap', className)}>{children}</div>
+    return (
+      <div
+        className={cx('gds-gap flex items-start justify-between', className)}
+      >
+        {children}
+      </div>
+    )
   }
   return (
-    <div className={cx('flex items-start justify-between gds-gap', className)}>
+    <div className={cx('gds-gap flex items-start justify-between', className)}>
       <div className="min-w-0">
-        {title !== undefined && <h3 className="text-sm font-semibold text-fg">{title}</h3>}
-        {description !== undefined && <p className="mt-0.5 gds-text-body text-fg-muted">{description}</p>}
+        {title !== undefined && (
+          <h3 className="text-fg text-sm font-semibold">{title}</h3>
+        )}
+        {description !== undefined && (
+          <p className="gds-text-body text-fg-muted mt-0.5">{description}</p>
+        )}
       </div>
       {action !== undefined && <div className="shrink-0">{action}</div>}
     </div>
@@ -99,5 +123,14 @@ export type CardFooterProps = {
 }
 
 export function CardFooter({ children, className }: CardFooterProps) {
-  return <div className={cx('flex items-center gds-gap-sm border-t border-border pt-3', className)}>{children}</div>
+  return (
+    <div
+      className={cx(
+        'gds-gap-sm border-border flex items-center border-t pt-3',
+        className
+      )}
+    >
+      {children}
+    </div>
+  )
 }

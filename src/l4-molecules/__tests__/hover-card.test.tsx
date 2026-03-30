@@ -14,21 +14,25 @@ describe('HoverCard', () => {
 
   it('renders without crash', () => {
     const { container } = render(
-      <HoverCard trigger={<span>Hover me</span>}>Card content</HoverCard>,
+      <HoverCard trigger={<span>Hover me</span>}>Card content</HoverCard>
     )
-    expect(container.querySelector('[data-component="hover-card"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="hover-card"]')
+    ).not.toBeNull()
   })
 
   it('is closed by default', () => {
     const { container } = render(
-      <HoverCard trigger={<span>Hover me</span>}>Card content</HoverCard>,
+      <HoverCard trigger={<span>Hover me</span>}>Card content</HoverCard>
     )
     expect(container.querySelector('[data-state="closed"]')).not.toBeNull()
   })
 
   it('opens after delay on mouseEnter', () => {
     const { container } = render(
-      <HoverCard trigger={<span>Hover me</span>} delay={200}>Card content</HoverCard>,
+      <HoverCard trigger={<span>Hover me</span>} delay={200}>
+        Card content
+      </HoverCard>
     )
     const wrapper = container.querySelector('[data-component="hover-card"]')!
     fireEvent.mouseEnter(wrapper)
@@ -44,7 +48,9 @@ describe('HoverCard', () => {
 
   it('closes on mouseLeave', () => {
     const { container } = render(
-      <HoverCard trigger={<span>Hover me</span>} delay={0}>Card content</HoverCard>,
+      <HoverCard trigger={<span>Hover me</span>} delay={0}>
+        Card content
+      </HoverCard>
     )
     const wrapper = container.querySelector('[data-component="hover-card"]')!
 
@@ -65,7 +71,7 @@ describe('HoverCard', () => {
     const { container } = render(
       <HoverCard trigger={<span>Hover me</span>} delay={0} placement="top">
         Card content
-      </HoverCard>,
+      </HoverCard>
     )
     const wrapper = container.querySelector('[data-component="hover-card"]')!
     fireEvent.mouseEnter(wrapper)

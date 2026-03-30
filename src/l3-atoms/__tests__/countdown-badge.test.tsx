@@ -62,7 +62,9 @@ describe('CountdownBadge', () => {
   })
 
   it('passes extra props', () => {
-    const { container } = render(<CountdownBadge count={1} data-testid="badge" />)
+    const { container } = render(
+      <CountdownBadge count={1} data-testid="badge" />
+    )
     expect(container.querySelector('[data-testid="badge"]')).not.toBeNull()
   })
 })

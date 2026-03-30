@@ -11,8 +11,15 @@ type ScrollAreaProps = React.HTMLAttributes<HTMLDivElement> & {
 
 export const ScrollArea = forwardRef<HTMLDivElement, ScrollAreaProps>(
   function ScrollArea(
-    { children, className, maxHeight, orientation = 'vertical', style, ...props },
-    ref,
+    {
+      children,
+      className,
+      maxHeight,
+      orientation = 'vertical',
+      style,
+      ...props
+    },
+    ref
   ) {
     return (
       <div
@@ -20,7 +27,7 @@ export const ScrollArea = forwardRef<HTMLDivElement, ScrollAreaProps>(
           orientation === 'vertical' && 'overflow-x-hidden overflow-y-auto',
           orientation === 'horizontal' && 'overflow-x-auto overflow-y-hidden',
           orientation === 'both' && 'overflow-auto',
-          className,
+          className
         )}
         data-component="scroll-area"
         ref={ref}
@@ -38,7 +45,7 @@ export const ScrollArea = forwardRef<HTMLDivElement, ScrollAreaProps>(
         {children}
       </div>
     )
-  },
+  }
 )
 
 export type { ScrollAreaProps }

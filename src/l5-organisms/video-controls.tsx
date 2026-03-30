@@ -41,7 +41,14 @@ function MuteIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
       <path d="M2 5h3l4-3v12l-4-3H2V5z" />
-      <line x1="12" y1="5" x2="12" y2="11" stroke="currentColor" strokeWidth="1.5" />
+      <line
+        x1="12"
+        y1="5"
+        x2="12"
+        y2="11"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
     </svg>
   )
 }
@@ -50,14 +57,26 @@ function UnmuteIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
       <path d="M2 5h3l4-3v12l-4-3H2V5z" />
-      <path d="M11 4c1.5 1 2 2.5 2 4s-.5 3-2 4" fill="none" stroke="currentColor" strokeWidth="1.5" />
+      <path
+        d="M11 4c1.5 1 2 2.5 2 4s-.5 3-2 4"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
     </svg>
   )
 }
 
 function FullscreenIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    >
       <path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" />
     </svg>
   )
@@ -80,7 +99,7 @@ function VideoControls({
     <div
       className={cx(
         'absolute inset-x-0 bottom-0 flex items-center gap-2 bg-black/60 px-3 py-2 transition-opacity duration-200',
-        showControls ? 'opacity-100' : 'pointer-events-none opacity-0',
+        showControls ? 'opacity-100' : 'pointer-events-none opacity-0'
       )}
       data-testid="controls"
     >
@@ -95,7 +114,10 @@ function VideoControls({
       </button>
 
       <div
-        className={cx('relative h-1 flex-1 cursor-pointer rounded-full bg-white/30', focusCls)}
+        className={cx(
+          'relative h-1 flex-1 cursor-pointer rounded-full bg-white/30',
+          focusCls
+        )}
         onClick={onSeek}
         role="slider"
         aria-label="Seek"
@@ -111,7 +133,10 @@ function VideoControls({
         />
       </div>
 
-      <span className="select-none text-xs text-white/80" data-testid="time-display">
+      <span
+        className="text-xs text-white/80 select-none"
+        data-testid="time-display"
+      >
         {formatTime(currentTime)} / {formatTime(duration)}
       </span>
 

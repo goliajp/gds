@@ -16,11 +16,15 @@ describe('BarChart', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<BarChart data={data} dataKey="value" />)
-    expect(container.querySelector('[data-component="bar-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="bar-chart"]')
+    ).not.toBeNull()
   })
 
   it('merges className', () => {
-    const { container } = render(<BarChart className="custom-class" data={data} dataKey="value" />)
+    const { container } = render(
+      <BarChart className="custom-class" data={data} dataKey="value" />
+    )
     const el = container.querySelector('[data-component="bar-chart"]')
     expect(el?.className).toContain('custom-class')
   })

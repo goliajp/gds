@@ -39,9 +39,13 @@ export function BulletChart({
   return (
     <div className={cx('select-none', className)} data-component="bullet-chart">
       {label !== undefined && (
-        <div className="mb-1 text-xs font-medium text-fg-muted">{label}</div>
+        <div className="text-fg-muted mb-1 text-xs font-medium">{label}</div>
       )}
-      <svg height={TOTAL_HEIGHT} viewBox={`0 0 ${WIDTH} ${TOTAL_HEIGHT}`} width="100%">
+      <svg
+        height={TOTAL_HEIGHT}
+        viewBox={`0 0 ${WIDTH} ${TOTAL_HEIGHT}`}
+        width="100%"
+      >
         {computed.rangeWidths.map((w, i) => (
           <rect
             fill={`var(--gds-palette-${7 - i})`}

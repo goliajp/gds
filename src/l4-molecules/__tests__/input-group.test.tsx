@@ -8,7 +8,7 @@ describe('InputGroup', () => {
     const { container } = render(
       <InputGroup prefix="$">
         <input type="text" />
-      </InputGroup>,
+      </InputGroup>
     )
     const wrapper = container.querySelector('[data-component="input-group"]')
     expect(wrapper).not.toBeNull()
@@ -20,7 +20,7 @@ describe('InputGroup', () => {
     const { container } = render(
       <InputGroup suffix=".com">
         <input type="text" />
-      </InputGroup>,
+      </InputGroup>
     )
     const wrapper = container.querySelector('[data-component="input-group"]')
     const spans = wrapper?.querySelectorAll('span')
@@ -31,7 +31,7 @@ describe('InputGroup', () => {
     const { container } = render(
       <InputGroup prefix="https://" suffix=".com">
         <input type="text" />
-      </InputGroup>,
+      </InputGroup>
     )
     const wrapper = container.querySelector('[data-component="input-group"]')
     const spans = wrapper?.querySelectorAll('span')
@@ -44,7 +44,7 @@ describe('InputGroup', () => {
     const { container } = render(
       <InputGroup error>
         <input type="text" />
-      </InputGroup>,
+      </InputGroup>
     )
     const wrapper = container.querySelector('[data-component="input-group"]')
     expect(wrapper?.className).toContain('border-danger')
@@ -54,8 +54,10 @@ describe('InputGroup', () => {
     const { container } = render(
       <InputGroup>
         <input type="text" />
-      </InputGroup>,
+      </InputGroup>
     )
-    expect(container.querySelector('[data-component="input-group"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="input-group"]')
+    ).not.toBeNull()
   })
 })

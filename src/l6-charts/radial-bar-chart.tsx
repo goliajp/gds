@@ -40,7 +40,7 @@ export type RadialBarChartProps = {
 export const RadialBarChart = forwardRef<HTMLDivElement, RadialBarChartProps>(
   function RadialBarChart(
     { data, height = 300, innerRadius = '20%', glass, className, ...props },
-    ref,
+    ref
   ) {
     // assign palette colors to items without explicit fill
     const coloredData = data.map((d, i) => ({
@@ -51,9 +51,9 @@ export const RadialBarChart = forwardRef<HTMLDivElement, RadialBarChartProps>(
     return (
       <div
         className={cx(
-          'w-full gds-radius-popover border border-white/[0.06]',
+          'gds-radius-popover w-full border border-white/[0.06]',
           glassClass(glass),
-          className,
+          className
         )}
         data-component="radial-bar-chart"
         ref={ref}
@@ -67,12 +67,15 @@ export const RadialBarChart = forwardRef<HTMLDivElement, RadialBarChartProps>(
             innerRadius={innerRadius}
             outerRadius="90%"
           >
-            <RadialBar dataKey="value" background={{ fill: 'rgba(255,255,255,0.05)' }} />
+            <RadialBar
+              dataKey="value"
+              background={{ fill: 'rgba(255,255,255,0.05)' }}
+            />
             <Tooltip />
             <Legend iconSize={8} />
           </RRadialBarChart>
         </ResponsiveContainer>
       </div>
     )
-  },
+  }
 )

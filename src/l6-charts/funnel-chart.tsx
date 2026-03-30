@@ -1,5 +1,11 @@
 import { forwardRef } from 'react'
-import { Cell, Funnel, FunnelChart as RFunnelChart, ResponsiveContainer, Tooltip } from 'recharts'
+import {
+  Cell,
+  Funnel,
+  FunnelChart as RFunnelChart,
+  ResponsiveContainer,
+  Tooltip,
+} from 'recharts'
 
 import { cx } from '../utils/cx'
 
@@ -28,10 +34,25 @@ export type FunnelChartProps = {
 }
 
 export const FunnelChart = forwardRef<HTMLDivElement, FunnelChartProps>(
-  function FunnelChart({ data, dataKey, className, height = 300, colors = PALETTE, glass, ...props }, ref) {
+  function FunnelChart(
+    {
+      data,
+      dataKey,
+      className,
+      height = 300,
+      colors = PALETTE,
+      glass,
+      ...props
+    },
+    ref
+  ) {
     return (
       <div
-        className={cx('w-full', glass && 'gds-radius-popover backdrop-blur-md bg-white/5', className)}
+        className={cx(
+          'w-full',
+          glass && 'gds-radius-popover bg-white/5 backdrop-blur-md',
+          className
+        )}
         data-component="funnel-chart"
         ref={ref}
         {...props}
@@ -48,5 +69,5 @@ export const FunnelChart = forwardRef<HTMLDivElement, FunnelChartProps>(
         </ResponsiveContainer>
       </div>
     )
-  },
+  }
 )

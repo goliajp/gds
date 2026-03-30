@@ -1,8 +1,14 @@
 import type { GanttTask, GanttViewMode } from './gantt-chart-types'
 
 export const PALETTE = [
-  'var(--gds-palette-0)', 'var(--gds-palette-1)', 'var(--gds-palette-2)', 'var(--gds-palette-3)',
-  'var(--gds-palette-4)', 'var(--gds-palette-5)', 'var(--gds-palette-6)', 'var(--gds-palette-7)',
+  'var(--gds-palette-0)',
+  'var(--gds-palette-1)',
+  'var(--gds-palette-2)',
+  'var(--gds-palette-3)',
+  'var(--gds-palette-4)',
+  'var(--gds-palette-5)',
+  'var(--gds-palette-6)',
+  'var(--gds-palette-7)',
 ]
 
 export const DAY_MS = 86400000
@@ -36,20 +42,33 @@ const startOfMonth = (d: Date): Date => {
   return result
 }
 
-export const generateColumns = (minDate: Date, maxDate: Date, viewMode: GanttViewMode): Date[] => {
+export const generateColumns = (
+  minDate: Date,
+  maxDate: Date,
+  viewMode: GanttViewMode
+): Date[] => {
   const cols: Date[] = []
   const end = maxDate.getTime() + DAY_MS
 
   if (viewMode === 'day') {
     const d = new Date(minDate)
     d.setHours(0, 0, 0, 0)
-    while (d.getTime() <= end) { cols.push(new Date(d)); d.setDate(d.getDate() + 1) }
+    while (d.getTime() <= end) {
+      cols.push(new Date(d))
+      d.setDate(d.getDate() + 1)
+    }
   } else if (viewMode === 'week') {
     const d = startOfWeek(minDate)
-    while (d.getTime() <= end) { cols.push(new Date(d)); d.setDate(d.getDate() + 7) }
+    while (d.getTime() <= end) {
+      cols.push(new Date(d))
+      d.setDate(d.getDate() + 7)
+    }
   } else {
     const d = startOfMonth(minDate)
-    while (d.getTime() <= end) { cols.push(new Date(d)); d.setMonth(d.getMonth() + 1) }
+    while (d.getTime() <= end) {
+      cols.push(new Date(d))
+      d.setMonth(d.getMonth() + 1)
+    }
   }
   return cols
 }
@@ -80,7 +99,9 @@ export const computeCriticalPath = (tasks: GanttTask[]): Set<string> => {
   const endTasks = tasks.filter((t) => !hasDependents.has(t.id))
   const cache = new Map<string, { chain: string[]; duration: number }>()
 
-  const longestChain = (taskId: string): { chain: string[]; duration: number } => {
+  const longestChain = (
+    taskId: string
+  ): { chain: string[]; duration: number } => {
     const cached = cache.get(taskId)
     if (cached !== undefined) return cached
 
@@ -107,7 +128,10 @@ export const computeCriticalPath = (tasks: GanttTask[]): Set<string> => {
       }
     })
 
-    const result = { chain: [...bestDep.chain, taskId], duration: taskDuration + bestDep.duration }
+    const result = {
+      chain: [...bestDep.chain, taskId],
+      duration: taskDuration + bestDep.duration,
+    }
     cache.set(taskId, result)
     return result
   }

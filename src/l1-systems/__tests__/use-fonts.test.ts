@@ -21,7 +21,9 @@ describe('useFonts', () => {
 
   it('injects preconnect links', () => {
     renderHook(() => useFonts())
-    const preconnects = document.querySelectorAll('[data-gds="font-preconnect"]')
+    const preconnects = document.querySelectorAll(
+      '[data-gds="font-preconnect"]'
+    )
     expect(preconnects.length).toBe(2)
   })
 

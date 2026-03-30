@@ -17,11 +17,15 @@ describe('SankeyChart', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<SankeyChart links={links} nodes={nodes} />)
-    expect(container.querySelector('[data-component="sankey-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="sankey-chart"]')
+    ).not.toBeNull()
   })
 
   it('merges className', () => {
-    const { container } = render(<SankeyChart className="custom-class" links={links} nodes={nodes} />)
+    const { container } = render(
+      <SankeyChart className="custom-class" links={links} nodes={nodes} />
+    )
     const el = container.querySelector('[data-component="sankey-chart"]')
     expect(el?.className).toContain('custom-class')
   })

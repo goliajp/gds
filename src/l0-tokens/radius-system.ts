@@ -8,9 +8,9 @@ const RADIUS_STEPS = [4, 6, 8, 12] as const
 
 // shape factor — multiplies the base scale
 const SHAPE_FACTOR: Record<string, number> = {
-  sharp: 0.5,    // halves all radii → 2/3/4/6
-  default: 1.0,  // base → 4/6/8/12
-  rounded: 2.0,  // doubles → 8/12/16/24
+  sharp: 0.5, // halves all radii → 2/3/4/6
+  default: 1.0, // base → 4/6/8/12
+  rounded: 2.0, // doubles → 8/12/16/24
 }
 
 export function radiusScale(shape: string): {

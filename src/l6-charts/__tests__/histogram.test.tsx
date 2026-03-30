@@ -19,7 +19,9 @@ describe('Histogram', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<Histogram data={data} />)
-    expect(container.querySelector('[data-component="histogram"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="histogram"]')
+    ).not.toBeNull()
   })
 
   it('applies glass class', () => {

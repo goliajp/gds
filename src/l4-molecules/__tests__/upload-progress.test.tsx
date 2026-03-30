@@ -6,7 +6,12 @@ import { UploadProgress } from '../upload-progress'
 const files = [
   { name: 'photo.jpg', progress: 75, status: 'uploading' as const },
   { name: 'doc.pdf', progress: 100, status: 'done' as const },
-  { name: 'data.csv', progress: 30, status: 'error' as const, error: 'Network error' },
+  {
+    name: 'data.csv',
+    progress: 30,
+    status: 'error' as const,
+    error: 'Network error',
+  },
 ]
 
 describe('UploadProgress', () => {
@@ -17,7 +22,9 @@ describe('UploadProgress', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<UploadProgress files={files} />)
-    expect(container.querySelector('[data-component="upload-progress"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="upload-progress"]')
+    ).not.toBeNull()
   })
 
   it('renders file names', () => {
@@ -28,7 +35,11 @@ describe('UploadProgress', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<UploadProgress className="custom" files={files} />)
-    expect(container.querySelector('[data-component="upload-progress"]')?.className).toContain('custom')
+    const { container } = render(
+      <UploadProgress className="custom" files={files} />
+    )
+    expect(
+      container.querySelector('[data-component="upload-progress"]')?.className
+    ).toContain('custom')
   })
 })

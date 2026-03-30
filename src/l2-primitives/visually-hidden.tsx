@@ -10,16 +10,19 @@ type VisuallyHiddenProps = {
   className?: string
 }
 
-const VisuallyHidden = forwardRef<HTMLElement, VisuallyHiddenProps>(function VisuallyHidden(
-  { as: Tag = 'span', children, className },
-  ref,
-) {
-  return (
-    <Tag ref={ref as never} className={cx(srOnly, className)} data-component="visually-hidden">
-      {children}
-    </Tag>
-  )
-})
+const VisuallyHidden = forwardRef<HTMLElement, VisuallyHiddenProps>(
+  function VisuallyHidden({ as: Tag = 'span', children, className }, ref) {
+    return (
+      <Tag
+        ref={ref as never}
+        className={cx(srOnly, className)}
+        data-component="visually-hidden"
+      >
+        {children}
+      </Tag>
+    )
+  }
+)
 
 export { VisuallyHidden }
 export type { VisuallyHiddenProps }

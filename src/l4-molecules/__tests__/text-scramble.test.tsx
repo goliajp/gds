@@ -11,7 +11,9 @@ describe('TextScramble', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<TextScramble text="Hello" />)
-    expect(container.querySelector('[data-component="text-scramble"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="text-scramble"]')
+    ).not.toBeNull()
   })
 
   it('renders text content', () => {
@@ -23,6 +25,8 @@ describe('TextScramble', () => {
 
   it('applies custom className', () => {
     const { container } = render(<TextScramble className="custom" text="Hi" />)
-    expect(container.querySelector('[data-component="text-scramble"]')?.className).toContain('custom')
+    expect(
+      container.querySelector('[data-component="text-scramble"]')?.className
+    ).toContain('custom')
   })
 })

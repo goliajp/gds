@@ -13,8 +13,14 @@ export type MarqueeProps = {
 
 export const Marquee = forwardRef<HTMLDivElement, MarqueeProps>(
   function Marquee(
-    { children, speed = 30, direction = 'left', pauseOnHover = true, className },
-    ref,
+    {
+      children,
+      speed = 30,
+      direction = 'left',
+      pauseOnHover = true,
+      className,
+    },
+    ref
   ) {
     const innerRef = useRef<HTMLDivElement>(null)
     const [duration, setDuration] = useState(10)
@@ -36,17 +42,24 @@ export const Marquee = forwardRef<HTMLDivElement, MarqueeProps>(
       >
         <div
           ref={innerRef}
-          className={cx('inline-flex will-change-transform', pauseOnHover && 'hover:[animation-play-state:paused]')}
-          style={{
-            animation: `marquee-scroll ${duration}s linear infinite`,
-            '--marquee-from': translateFrom,
-            '--marquee-to': translateTo,
-          } as React.CSSProperties}
+          className={cx(
+            'inline-flex will-change-transform',
+            pauseOnHover && 'hover:[animation-play-state:paused]'
+          )}
+          style={
+            {
+              animation: `marquee-scroll ${duration}s linear infinite`,
+              '--marquee-from': translateFrom,
+              '--marquee-to': translateTo,
+            } as React.CSSProperties
+          }
         >
           <div className="flex shrink-0">{children}</div>
-          <div className="flex shrink-0" aria-hidden>{children}</div>
+          <div className="flex shrink-0" aria-hidden>
+            {children}
+          </div>
         </div>
       </div>
     )
-  },
+  }
 )

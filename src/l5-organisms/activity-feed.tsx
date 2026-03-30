@@ -30,25 +30,27 @@ export const ActivityFeed = forwardRef<HTMLDivElement, ActivityFeedProps>(
         {items.map((item) => (
           <div
             key={item.id}
-            className="flex items-start gap-3 gds-pad-x gds-pad-y-sm"
+            className="gds-pad-x gds-pad-y-sm flex items-start gap-3"
             role="listitem"
           >
             <Avatar name={item.user} src={item.avatar} size="sm" />
             <div className="min-w-0 flex-1">
               <div className="gds-text-body">
-                <span className="font-medium text-fg">{item.user}</span>
+                <span className="text-fg font-medium">{item.user}</span>
                 <span className="text-fg-muted"> {item.action}</span>
                 {item.target !== undefined && (
-                  <span className="font-medium text-fg"> {item.target}</span>
+                  <span className="text-fg font-medium"> {item.target}</span>
                 )}
               </div>
-              <div className="mt-0.5 gds-text-caption text-fg-muted">{item.timestamp}</div>
+              <div className="gds-text-caption text-fg-muted mt-0.5">
+                {item.timestamp}
+              </div>
             </div>
           </div>
         ))}
       </div>
     )
-  },
+  }
 )
 
 export type { ActivityFeedItem, ActivityFeedProps }

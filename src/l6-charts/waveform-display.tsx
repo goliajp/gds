@@ -26,7 +26,7 @@ export const WaveformDisplay = forwardRef<HTMLDivElement, WaveformDisplayProps>(
       className,
       ...props
     },
-    ref,
+    ref
   ) {
     const resolvedPlayedColor = playedColor ?? color
     const progressIndex = Math.floor(progress * data.length)
@@ -51,9 +51,9 @@ export const WaveformDisplay = forwardRef<HTMLDivElement, WaveformDisplayProps>(
       <div
         ref={ref}
         className={cx(
-          'inline-block gds-radius-popover border border-border',
-          glass && 'backdrop-blur-md bg-white/5',
-          className,
+          'gds-radius-popover border-border inline-block border',
+          glass && 'bg-white/5 backdrop-blur-md',
+          className
         )}
         data-component="waveform-display"
         {...props}
@@ -74,5 +74,5 @@ export const WaveformDisplay = forwardRef<HTMLDivElement, WaveformDisplayProps>(
         </svg>
       </div>
     )
-  },
+  }
 )

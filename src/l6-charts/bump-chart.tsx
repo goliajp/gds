@@ -34,23 +34,37 @@ export type BumpChartProps = {
 }
 
 export const BumpChart = forwardRef<HTMLDivElement, BumpChartProps>(
-  function BumpChart({ data, series, xKey = 'name', height = 300, glass, className, ...props }, ref) {
+  function BumpChart(
+    { data, series, xKey = 'name', height = 300, glass, className, ...props },
+    ref
+  ) {
     return (
       <div
         ref={ref}
         className={cx(
-          'w-full gds-radius-popover border border-border',
-          glass && 'backdrop-blur-md bg-white/5',
-          className,
+          'gds-radius-popover border-border w-full border',
+          glass && 'bg-white/5 backdrop-blur-md',
+          className
         )}
         data-component="bump-chart"
         {...props}
       >
         <ResponsiveContainer height={height} width="100%">
           <LineChart data={data}>
-            <CartesianGrid stroke="var(--gds-border, #e5e7eb)" strokeDasharray="3 3" />
-            <XAxis dataKey={xKey} stroke="var(--gds-fg-muted, #6b7280)" tick={{ fontSize: 11 }} />
-            <YAxis reversed stroke="var(--gds-fg-muted, #6b7280)" tick={{ fontSize: 11 }} />
+            <CartesianGrid
+              stroke="var(--gds-border, #e5e7eb)"
+              strokeDasharray="3 3"
+            />
+            <XAxis
+              dataKey={xKey}
+              stroke="var(--gds-fg-muted, #6b7280)"
+              tick={{ fontSize: 11 }}
+            />
+            <YAxis
+              reversed
+              stroke="var(--gds-fg-muted, #6b7280)"
+              tick={{ fontSize: 11 }}
+            />
             <Tooltip />
             {series.map((key, i) => (
               <Line
@@ -66,5 +80,5 @@ export const BumpChart = forwardRef<HTMLDivElement, BumpChartProps>(
         </ResponsiveContainer>
       </div>
     )
-  },
+  }
 )

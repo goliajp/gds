@@ -11,7 +11,9 @@ const items = [
 describe('KeyValueList', () => {
   it('renders with data-component', () => {
     const { container } = render(<KeyValueList items={items} />)
-    expect(container.querySelector('[data-component="key-value-list"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="key-value-list"]')
+    ).not.toBeNull()
   })
 
   it('renders all items', () => {
@@ -35,13 +37,17 @@ describe('KeyValueList', () => {
   })
 
   it('merges custom className', () => {
-    const { container } = render(<KeyValueList items={items} className="my-class" />)
+    const { container } = render(
+      <KeyValueList items={items} className="my-class" />
+    )
     const el = container.querySelector('[data-component="key-value-list"]')!
     expect(el.className).toContain('my-class')
   })
 
   it('renders empty list without error', () => {
     const { container } = render(<KeyValueList items={[]} />)
-    expect(container.querySelector('[data-component="key-value-list"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="key-value-list"]')
+    ).not.toBeNull()
   })
 })

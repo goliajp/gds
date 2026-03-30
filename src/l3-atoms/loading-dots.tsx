@@ -13,10 +13,13 @@ const sizeMap = {
 }
 
 export const LoadingDots = forwardRef<HTMLSpanElement, LoadingDotsProps>(
-  function LoadingDots({ className, count = 3, size = 'default', ...props }, ref) {
+  function LoadingDots(
+    { className, count = 3, size = 'default', ...props },
+    ref
+  ) {
     return (
       <span
-        className={cx('inline-flex items-center gds-gap-xs', className)}
+        className={cx('gds-gap-xs inline-flex items-center', className)}
         data-component="loading-dots"
         ref={ref}
         role="status"
@@ -26,7 +29,7 @@ export const LoadingDots = forwardRef<HTMLSpanElement, LoadingDotsProps>(
           <span
             className={cx(
               'gds-radius-badge bg-fg-muted/40 animate-pulse',
-              sizeMap[size],
+              sizeMap[size]
             )}
             key={i}
             style={{ animationDelay: `${i * 150}ms` }}
@@ -34,7 +37,7 @@ export const LoadingDots = forwardRef<HTMLSpanElement, LoadingDotsProps>(
         ))}
       </span>
     )
-  },
+  }
 )
 
 export type { LoadingDotsProps }

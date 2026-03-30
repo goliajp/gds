@@ -32,13 +32,9 @@ export const Masonry = forwardRef<HTMLDivElement, MasonryProps>(
       >
         {Children.map(children, (child) => {
           if (child === null || child === undefined) return null
-          return (
-            <div style={itemStyle}>
-              {child}
-            </div>
-          )
+          return <div style={itemStyle}>{child}</div>
         })}
       </div>
     )
-  },
+  }
 )

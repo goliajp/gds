@@ -16,11 +16,15 @@ describe('LineChart', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<LineChart data={data} dataKey="value" />)
-    expect(container.querySelector('[data-component="line-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="line-chart"]')
+    ).not.toBeNull()
   })
 
   it('merges className', () => {
-    const { container } = render(<LineChart className="custom-class" data={data} dataKey="value" />)
+    const { container } = render(
+      <LineChart className="custom-class" data={data} dataKey="value" />
+    )
     const el = container.querySelector('[data-component="line-chart"]')
     expect(el?.className).toContain('custom-class')
   })

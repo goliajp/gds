@@ -5,12 +5,19 @@ import { WaterfallChart } from '../waterfall-chart'
 
 describe('WaterfallChart', () => {
   it('renders without crash', () => {
-    const { container } = render(<WaterfallChart data={[{ label: 'A', value: 100 }]} />)
-    expect(container.querySelector('[data-component="waterfall-chart"]')).not.toBeNull()
+    const { container } = render(
+      <WaterfallChart data={[{ label: 'A', value: 100 }]} />
+    )
+    expect(
+      container.querySelector('[data-component="waterfall-chart"]')
+    ).not.toBeNull()
   })
 
   it('renders bars for data items plus total', () => {
-    const data = [{ label: 'Revenue', value: 200 }, { label: 'Cost', value: -80 }]
+    const data = [
+      { label: 'Revenue', value: 200 },
+      { label: 'Cost', value: -80 },
+    ]
     const { container } = render(<WaterfallChart data={data} />)
     // 2 data + 1 total = 3 rects
     const rects = container.querySelectorAll('rect')

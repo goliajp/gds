@@ -13,11 +13,15 @@ describe('Sparkline', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<Sparkline data={data} dataKey="v" />)
-    expect(container.querySelector('[data-component="sparkline"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="sparkline"]')
+    ).not.toBeNull()
   })
 
   it('merges className', () => {
-    const { container } = render(<Sparkline className="custom-class" data={data} dataKey="v" />)
+    const { container } = render(
+      <Sparkline className="custom-class" data={data} dataKey="v" />
+    )
     const el = container.querySelector('[data-component="sparkline"]')
     expect(el?.className).toContain('custom-class')
   })

@@ -8,21 +8,24 @@ const mockObserve = vi.fn()
 const mockDisconnect = vi.fn()
 let observerCallback: IntersectionObserverCallback
 
-vi.stubGlobal('IntersectionObserver', class {
-  constructor(callback: IntersectionObserverCallback) {
-    observerCallback = callback
+vi.stubGlobal(
+  'IntersectionObserver',
+  class {
+    constructor(callback: IntersectionObserverCallback) {
+      observerCallback = callback
+    }
+    observe = mockObserve
+    disconnect = mockDisconnect
+    unobserve = vi.fn()
   }
-  observe = mockObserve
-  disconnect = mockDisconnect
-  unobserve = vi.fn()
-})
+)
 
 describe('InfiniteScroll', () => {
   it('renders children', () => {
     render(
       <InfiniteScroll onLoadMore={vi.fn()} hasMore>
         <div>Child content</div>
-      </InfiniteScroll>,
+      </InfiniteScroll>
     )
     expect(screen.getByText('Child content')).toBeDefined()
   })
@@ -31,16 +34,23 @@ describe('InfiniteScroll', () => {
     const { container } = render(
       <InfiniteScroll onLoadMore={vi.fn()} hasMore loading>
         <div>Content</div>
-      </InfiniteScroll>,
+      </InfiniteScroll>
     )
-    expect(container.querySelector('[data-component="loading-dots"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="loading-dots"]')
+    ).not.toBeNull()
   })
 
   it('shows custom loader when provided', () => {
     render(
-      <InfiniteScroll onLoadMore={vi.fn()} hasMore loading loader={<div data-testid="custom-loader">Loading...</div>}>
+      <InfiniteScroll
+        onLoadMore={vi.fn()}
+        hasMore
+        loading
+        loader={<div data-testid="custom-loader">Loading...</div>}
+      >
         <div>Content</div>
-      </InfiniteScroll>,
+      </InfiniteScroll>
     )
     expect(screen.getByTestId('custom-loader')).toBeDefined()
   })
@@ -49,16 +59,18 @@ describe('InfiniteScroll', () => {
     const { container } = render(
       <InfiniteScroll onLoadMore={vi.fn()} hasMore loading={false}>
         <div>Content</div>
-      </InfiniteScroll>,
+      </InfiniteScroll>
     )
-    expect(container.querySelector('[data-component="loading-dots"]')).toBeNull()
+    expect(
+      container.querySelector('[data-component="loading-dots"]')
+    ).toBeNull()
   })
 
   it('renders sentinel div', () => {
     const { container } = render(
       <InfiniteScroll onLoadMore={vi.fn()} hasMore>
         <div>Content</div>
-      </InfiniteScroll>,
+      </InfiniteScroll>
     )
     expect(container.querySelector('[data-sentinel="true"]')).not.toBeNull()
   })
@@ -67,9 +79,11 @@ describe('InfiniteScroll', () => {
     const { container } = render(
       <InfiniteScroll onLoadMore={vi.fn()} hasMore>
         <div>Content</div>
-      </InfiniteScroll>,
+      </InfiniteScroll>
     )
-    expect(container.querySelector('[data-component="infinite-scroll"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="infinite-scroll"]')
+    ).not.toBeNull()
   })
 
   it('calls onLoadMore when sentinel is intersecting and hasMore is true', () => {
@@ -77,13 +91,13 @@ describe('InfiniteScroll', () => {
     render(
       <InfiniteScroll onLoadMore={onLoadMore} hasMore>
         <div>Content</div>
-      </InfiniteScroll>,
+      </InfiniteScroll>
     )
 
     // simulate intersection
     observerCallback(
       [{ isIntersecting: true } as IntersectionObserverEntry],
-      {} as IntersectionObserver,
+      {} as IntersectionObserver
     )
 
     expect(onLoadMore).toHaveBeenCalledOnce()
@@ -94,12 +108,12 @@ describe('InfiniteScroll', () => {
     render(
       <InfiniteScroll onLoadMore={onLoadMore} hasMore>
         <div>Content</div>
-      </InfiniteScroll>,
+      </InfiniteScroll>
     )
 
     observerCallback(
       [{ isIntersecting: false } as IntersectionObserverEntry],
-      {} as IntersectionObserver,
+      {} as IntersectionObserver
     )
 
     expect(onLoadMore).not.toHaveBeenCalled()
@@ -110,12 +124,12 @@ describe('InfiniteScroll', () => {
     render(
       <InfiniteScroll onLoadMore={onLoadMore} hasMore={false}>
         <div>Content</div>
-      </InfiniteScroll>,
+      </InfiniteScroll>
     )
 
     observerCallback(
       [{ isIntersecting: true } as IntersectionObserverEntry],
-      {} as IntersectionObserver,
+      {} as IntersectionObserver
     )
 
     expect(onLoadMore).not.toHaveBeenCalled()
@@ -126,12 +140,12 @@ describe('InfiniteScroll', () => {
     render(
       <InfiniteScroll onLoadMore={onLoadMore} hasMore loading>
         <div>Content</div>
-      </InfiniteScroll>,
+      </InfiniteScroll>
     )
 
     observerCallback(
       [{ isIntersecting: true } as IntersectionObserverEntry],
-      {} as IntersectionObserver,
+      {} as IntersectionObserver
     )
 
     expect(onLoadMore).not.toHaveBeenCalled()
@@ -141,7 +155,7 @@ describe('InfiniteScroll', () => {
     const { container } = render(
       <InfiniteScroll onLoadMore={vi.fn()} hasMore>
         <div>Content</div>
-      </InfiniteScroll>,
+      </InfiniteScroll>
     )
 
     const sentinel = container.querySelector('[data-sentinel="true"]')
@@ -152,7 +166,7 @@ describe('InfiniteScroll', () => {
     const { unmount } = render(
       <InfiniteScroll onLoadMore={vi.fn()} hasMore>
         <div>Content</div>
-      </InfiniteScroll>,
+      </InfiniteScroll>
     )
 
     unmount()
@@ -163,7 +177,7 @@ describe('InfiniteScroll', () => {
     const { container } = render(
       <InfiniteScroll onLoadMore={vi.fn()} hasMore className="my-scroll">
         <div>Content</div>
-      </InfiniteScroll>,
+      </InfiniteScroll>
     )
     const el = container.querySelector('[data-component="infinite-scroll"]')
     expect(el?.className).toContain('my-scroll')
@@ -174,7 +188,7 @@ describe('InfiniteScroll', () => {
     render(
       <InfiniteScroll onLoadMore={vi.fn()} hasMore ref={ref}>
         <div>Content</div>
-      </InfiniteScroll>,
+      </InfiniteScroll>
     )
     expect(ref.current).not.toBeNull()
     expect(ref.current?.getAttribute('data-component')).toBe('infinite-scroll')
@@ -184,7 +198,7 @@ describe('InfiniteScroll', () => {
     const { container } = render(
       <InfiniteScroll onLoadMore={vi.fn()} hasMore data-custom="test">
         <div>Content</div>
-      </InfiniteScroll>,
+      </InfiniteScroll>
     )
     const el = container.querySelector('[data-component="infinite-scroll"]')
     expect(el?.getAttribute('data-custom')).toBe('test')
@@ -194,8 +208,10 @@ describe('InfiniteScroll', () => {
     const { container } = render(
       <InfiniteScroll onLoadMore={vi.fn()} hasMore>
         <div>Content</div>
-      </InfiniteScroll>,
+      </InfiniteScroll>
     )
-    expect(container.querySelector('[data-component="loading-dots"]')).toBeNull()
+    expect(
+      container.querySelector('[data-component="loading-dots"]')
+    ).toBeNull()
   })
 })

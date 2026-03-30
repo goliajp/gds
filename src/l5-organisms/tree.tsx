@@ -24,7 +24,10 @@ export type TreeProps = {
 function ChevronSvg({ expanded }: { expanded: boolean }) {
   return (
     <svg
-      className={cx('h-3 w-3 shrink-0 text-fg-muted transition-transform', expanded && 'rotate-90')}
+      className={cx(
+        'text-fg-muted h-3 w-3 shrink-0 transition-transform',
+        expanded && 'rotate-90'
+      )}
       viewBox="0 0 12 12"
       fill="currentColor"
     >
@@ -67,10 +70,12 @@ function TreeNodeItem({
     <div>
       <button
         className={cx(
-          'flex w-full items-center gds-gap-sm gds-radius-button gds-pad-x-sm gds-pad-y-sm text-sm select-none',
-          isSelected ? 'bg-accent/10 text-accent' : 'text-fg hover:bg-bg-secondary',
+          'gds-gap-sm gds-radius-button gds-pad-x-sm gds-pad-y-sm flex w-full items-center text-sm select-none',
+          isSelected
+            ? 'bg-accent/10 text-accent'
+            : 'text-fg hover:bg-bg-secondary',
           isDisabled && 'cursor-not-allowed opacity-50',
-          focusCls,
+          focusCls
         )}
         style={{ paddingLeft: `${depth * 16 + 8}px` }}
         onClick={handleClick}
@@ -83,7 +88,7 @@ function TreeNodeItem({
           <span className="h-3 w-3 shrink-0" />
         )}
         {node.icon !== undefined && (
-          <span className="shrink-0 text-fg-muted">{node.icon}</span>
+          <span className="text-fg-muted shrink-0">{node.icon}</span>
         )}
         <span className="truncate">{node.label}</span>
       </button>
@@ -106,43 +111,44 @@ function TreeNodeItem({
   )
 }
 
-export const Tree = forwardRef<HTMLDivElement, TreeProps>(
-  function Tree({ nodes, onSelect, selected, defaultExpanded, className }, ref) {
-    const [expanded, setExpanded] = useState<Set<string>>(
-      () => new Set(defaultExpanded ?? []),
-    )
+export const Tree = forwardRef<HTMLDivElement, TreeProps>(function Tree(
+  { nodes, onSelect, selected, defaultExpanded, className },
+  ref
+) {
+  const [expanded, setExpanded] = useState<Set<string>>(
+    () => new Set(defaultExpanded ?? [])
+  )
 
-    const handleToggle = useCallback((id: string) => {
-      setExpanded((prev) => {
-        const next = new Set(prev)
-        if (next.has(id)) {
-          next.delete(id)
-        } else {
-          next.add(id)
-        }
-        return next
-      })
-    }, [])
+  const handleToggle = useCallback((id: string) => {
+    setExpanded((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
+      }
+      return next
+    })
+  }, [])
 
-    return (
-      <div
-        ref={ref}
-        className={cx('flex flex-col gds-gap-xs', className)}
-        data-component="tree"
-        role="tree"
-      >
-        {nodes.map((node) => (
-          <TreeNodeItem
-            key={node.id}
-            node={node}
-            depth={0}
-            selected={selected}
-            expanded={expanded}
-            onToggle={handleToggle}
-            onSelect={onSelect}
-          />
-        ))}
-      </div>
-    )
-  },
-)
+  return (
+    <div
+      ref={ref}
+      className={cx('gds-gap-xs flex flex-col', className)}
+      data-component="tree"
+      role="tree"
+    >
+      {nodes.map((node) => (
+        <TreeNodeItem
+          key={node.id}
+          node={node}
+          depth={0}
+          selected={selected}
+          expanded={expanded}
+          onToggle={handleToggle}
+          onSelect={onSelect}
+        />
+      ))}
+    </div>
+  )
+})

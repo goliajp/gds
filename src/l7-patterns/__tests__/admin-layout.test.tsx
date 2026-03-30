@@ -14,9 +14,11 @@ import { AdminLayout } from '../admin-layout'
 describe('AdminLayout', () => {
   it('renders with data-component', () => {
     const { container } = render(
-      <AdminLayout sidebar={<nav>Menu</nav>}>Content</AdminLayout>,
+      <AdminLayout sidebar={<nav>Menu</nav>}>Content</AdminLayout>
     )
-    expect(container.querySelector('[data-component="admin-layout"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="admin-layout"]')
+    ).not.toBeNull()
   })
 
   it('renders sidebar and content', () => {
@@ -29,7 +31,7 @@ describe('AdminLayout', () => {
     render(
       <AdminLayout sidebar={<nav>Side</nav>} topbar={<div>Top Bar</div>}>
         Main
-      </AdminLayout>,
+      </AdminLayout>
     )
     expect(screen.getByText('Top Bar')).toBeDefined()
   })
@@ -40,7 +42,7 @@ describe('AdminLayout', () => {
     render(
       <AdminLayout sidebar={<nav>Side</nav>} logo={<div>My Logo</div>}>
         Main
-      </AdminLayout>,
+      </AdminLayout>
     )
     expect(screen.getByText('My Logo')).toBeDefined()
   })
@@ -49,7 +51,7 @@ describe('AdminLayout', () => {
     const { container } = render(
       <AdminLayout sidebar={<nav>Side</nav>} sidebarWidth={300}>
         Main
-      </AdminLayout>,
+      </AdminLayout>
     )
     const aside = container.querySelector('aside')
     expect(aside?.style.width).toBe('300px')
@@ -59,7 +61,7 @@ describe('AdminLayout', () => {
     const { container } = render(
       <AdminLayout sidebar={<nav>Side</nav>} sidebarCollapsible>
         Main
-      </AdminLayout>,
+      </AdminLayout>
     )
     const collapseBtn = container.querySelector('aside button')
     expect(collapseBtn).not.toBeNull()
@@ -70,7 +72,7 @@ describe('AdminLayout', () => {
     const { container } = render(
       <AdminLayout sidebar={<nav>Side</nav>} topbar={<div>Top</div>}>
         Main
-      </AdminLayout>,
+      </AdminLayout>
     )
     const header = container.querySelector('header')
     expect(header?.className).toContain('sticky')
@@ -78,9 +80,13 @@ describe('AdminLayout', () => {
 
   it('does not make topbar sticky when topbarSticky is false', () => {
     const { container } = render(
-      <AdminLayout sidebar={<nav>Side</nav>} topbar={<div>Top</div>} topbarSticky={false}>
+      <AdminLayout
+        sidebar={<nav>Side</nav>}
+        topbar={<div>Top</div>}
+        topbarSticky={false}
+      >
         Main
-      </AdminLayout>,
+      </AdminLayout>
     )
     const header = container.querySelector('header')
     expect(header?.className).not.toContain('sticky')
@@ -88,9 +94,13 @@ describe('AdminLayout', () => {
 
   it('applies custom topbarHeight', () => {
     const { container } = render(
-      <AdminLayout sidebar={<nav>Side</nav>} topbar={<div>Top</div>} topbarHeight={64}>
+      <AdminLayout
+        sidebar={<nav>Side</nav>}
+        topbar={<div>Top</div>}
+        topbarHeight={64}
+      >
         Main
-      </AdminLayout>,
+      </AdminLayout>
     )
     const header = container.querySelector('header')
     expect(header?.style.height).toBe('64px')
@@ -100,7 +110,7 @@ describe('AdminLayout', () => {
     const { container } = render(
       <AdminLayout sidebar={<nav>Side</nav>} sidebarDefaultCollapsed>
         Main
-      </AdminLayout>,
+      </AdminLayout>
     )
     const aside = container.querySelector('aside')
     // collapsed width is default 56px
@@ -111,7 +121,7 @@ describe('AdminLayout', () => {
     const { container } = render(
       <AdminLayout sidebar={<nav>Side</nav>} className="my-admin">
         Main
-      </AdminLayout>,
+      </AdminLayout>
     )
     const el = container.querySelector('[data-component="admin-layout"]')
     expect(el?.className).toContain('my-admin')
@@ -122,7 +132,7 @@ describe('AdminLayout', () => {
     render(
       <AdminLayout sidebar={<nav>Side</nav>} ref={ref}>
         Main
-      </AdminLayout>,
+      </AdminLayout>
     )
     expect(ref.current).not.toBeNull()
     expect(ref.current?.getAttribute('data-component')).toBe('admin-layout')
@@ -132,11 +142,7 @@ describe('AdminLayout', () => {
 
   it('renders hamburger button on mobile', () => {
     vi.mocked(useIsMobile).mockReturnValue(true)
-    render(
-      <AdminLayout sidebar={<nav>Mobile Nav</nav>}>
-        Content
-      </AdminLayout>,
-    )
+    render(<AdminLayout sidebar={<nav>Mobile Nav</nav>}>Content</AdminLayout>)
     expect(screen.getByLabelText('Open sidebar menu')).toBeDefined()
     vi.mocked(useIsMobile).mockReturnValue(false)
   })
@@ -144,9 +150,7 @@ describe('AdminLayout', () => {
   it('does not render aside on mobile', () => {
     vi.mocked(useIsMobile).mockReturnValue(true)
     const { container } = render(
-      <AdminLayout sidebar={<nav>Side</nav>}>
-        Content
-      </AdminLayout>,
+      <AdminLayout sidebar={<nav>Side</nav>}>Content</AdminLayout>
     )
     expect(container.querySelector('aside')).toBeNull()
     vi.mocked(useIsMobile).mockReturnValue(false)
@@ -155,11 +159,7 @@ describe('AdminLayout', () => {
   it('opens mobile drawer when hamburger is clicked', async () => {
     vi.mocked(useIsMobile).mockReturnValue(true)
     const user = userEvent.setup()
-    render(
-      <AdminLayout sidebar={<nav>Drawer Nav</nav>}>
-        Content
-      </AdminLayout>,
-    )
+    render(<AdminLayout sidebar={<nav>Drawer Nav</nav>}>Content</AdminLayout>)
     await user.click(screen.getByLabelText('Open sidebar menu'))
     // Sheet should now be open and sidebar content visible inside it
     expect(screen.getByText('Drawer Nav')).toBeDefined()
@@ -168,11 +168,7 @@ describe('AdminLayout', () => {
 
   it('does not render hamburger on desktop', () => {
     vi.mocked(useIsMobile).mockReturnValue(false)
-    render(
-      <AdminLayout sidebar={<nav>Side</nav>}>
-        Content
-      </AdminLayout>,
-    )
+    render(<AdminLayout sidebar={<nav>Side</nav>}>Content</AdminLayout>)
     expect(screen.queryByLabelText('Open sidebar menu')).toBeNull()
   })
 
@@ -181,7 +177,7 @@ describe('AdminLayout', () => {
     const { container } = render(
       <AdminLayout sidebar={<nav>Side</nav>} mobileDrawer={false}>
         Content
-      </AdminLayout>,
+      </AdminLayout>
     )
     // should render aside even on mobile when mobileDrawer is disabled
     expect(container.querySelector('aside')).not.toBeNull()

@@ -15,7 +15,7 @@ export type TypewriterProps = {
 export const Typewriter = forwardRef<HTMLSpanElement, TypewriterProps>(
   function Typewriter(
     { text, speed = 50, delay = 0, cursor = true, onComplete, className },
-    ref,
+    ref
   ) {
     const [length, setLength] = useState(0)
     const [started, setStarted] = useState(delay <= 0)
@@ -56,5 +56,5 @@ export const Typewriter = forwardRef<HTMLSpanElement, TypewriterProps>(
         )}
       </span>
     )
-  },
+  }
 )

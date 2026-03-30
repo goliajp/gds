@@ -19,33 +19,59 @@ const priorityCls: Record<TaskItemPriority, string> = {
   critical: 'bg-danger text-white',
 }
 
-const TaskItem = forwardRef<HTMLDivElement, TaskItemProps>(
-  function TaskItem({ className, completed = false, dueDate, onToggle, priority, title, ...props }, ref) {
-    return (
-      <div
-        className={cx('flex items-center gap-2 rounded px-2 py-1.5 text-sm', className)}
-        data-component="task-item"
-        data-completed={completed}
-        ref={ref}
-        {...props}
-      >
-        <input
-          checked={completed}
-          className="shrink-0 accent-accent"
-          onChange={onToggle}
-          type="checkbox"
-        />
-        <span className={cx('flex-1 truncate', completed && 'line-through text-fg-muted')}>{title}</span>
-        {priority !== undefined && (
-          <span className={cx('rounded px-1.5 py-0.5 text-[10px] font-medium uppercase', priorityCls[priority])}>{priority}</span>
-        )}
-        {dueDate !== undefined && (
-          <span className="shrink-0 text-xs text-fg-muted">{dueDate}</span>
-        )}
-      </div>
-    )
+const TaskItem = forwardRef<HTMLDivElement, TaskItemProps>(function TaskItem(
+  {
+    className,
+    completed = false,
+    dueDate,
+    onToggle,
+    priority,
+    title,
+    ...props
   },
-)
+  ref
+) {
+  return (
+    <div
+      className={cx(
+        'flex items-center gap-2 rounded px-2 py-1.5 text-sm',
+        className
+      )}
+      data-component="task-item"
+      data-completed={completed}
+      ref={ref}
+      {...props}
+    >
+      <input
+        checked={completed}
+        className="accent-accent shrink-0"
+        onChange={onToggle}
+        type="checkbox"
+      />
+      <span
+        className={cx(
+          'flex-1 truncate',
+          completed && 'text-fg-muted line-through'
+        )}
+      >
+        {title}
+      </span>
+      {priority !== undefined && (
+        <span
+          className={cx(
+            'rounded px-1.5 py-0.5 text-[10px] font-medium uppercase',
+            priorityCls[priority]
+          )}
+        >
+          {priority}
+        </span>
+      )}
+      {dueDate !== undefined && (
+        <span className="text-fg-muted shrink-0 text-xs">{dueDate}</span>
+      )}
+    </div>
+  )
+})
 
 export { TaskItem }
 export type { TaskItemPriority, TaskItemProps }

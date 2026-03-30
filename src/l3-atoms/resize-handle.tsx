@@ -19,7 +19,7 @@ export const ResizeHandle = forwardRef<HTMLDivElement, ResizeHandleProps>(
       orientation = 'vertical',
       ...props
     },
-    ref,
+    ref
   ) {
     const startPos = useRef(0)
 
@@ -47,7 +47,7 @@ export const ResizeHandle = forwardRef<HTMLDivElement, ResizeHandleProps>(
         document.addEventListener('mousemove', handleMouseMove)
         document.addEventListener('mouseup', handleMouseUp)
       },
-      [disabled, onResize, onResizeEnd, orientation],
+      [disabled, onResize, onResizeEnd, orientation]
     )
 
     return (
@@ -58,7 +58,7 @@ export const ResizeHandle = forwardRef<HTMLDivElement, ResizeHandleProps>(
             ? 'w-2 cursor-col-resize flex-col self-stretch'
             : 'h-2 cursor-row-resize self-stretch',
           disabled && 'pointer-events-none opacity-40',
-          className,
+          className
         )}
         data-component="resize-handle"
         data-orientation={orientation}
@@ -72,13 +72,13 @@ export const ResizeHandle = forwardRef<HTMLDivElement, ResizeHandleProps>(
           className={cx(
             'transition-colors',
             orientation === 'vertical'
-              ? 'h-full w-0.5 bg-border group-hover:bg-accent/50 group-active:bg-accent'
-              : 'h-0.5 w-full bg-border group-hover:bg-accent/50 group-active:bg-accent',
+              ? 'bg-border group-hover:bg-accent/50 group-active:bg-accent h-full w-0.5'
+              : 'bg-border group-hover:bg-accent/50 group-active:bg-accent h-0.5 w-full'
           )}
         />
       </div>
     )
-  },
+  }
 )
 
 export type { ResizeHandleProps }

@@ -11,14 +11,22 @@ describe('Spinner', () => {
 
   it('forwards ref to svg element', () => {
     let el: SVGSVGElement | null = null
-    render(<Spinner ref={(node) => { el = node }} />)
+    render(
+      <Spinner
+        ref={(node) => {
+          el = node
+        }}
+      />
+    )
     expect(el).toBeTruthy()
     expect(el!.tagName.toLowerCase()).toBe('svg')
   })
 
   it('has data-component attribute', () => {
     render(<Spinner />)
-    expect(screen.getByRole('status').getAttribute('data-component')).toBe('spinner')
+    expect(screen.getByRole('status').getAttribute('data-component')).toBe(
+      'spinner'
+    )
   })
 
   it('has role="status"', () => {
@@ -28,21 +36,29 @@ describe('Spinner', () => {
 
   it('merges className', () => {
     render(<Spinner className="custom-class" />)
-    expect(screen.getByRole('status').getAttribute('class')).toContain('custom-class')
+    expect(screen.getByRole('status').getAttribute('class')).toContain(
+      'custom-class'
+    )
   })
 
   it('applies sm size variant', () => {
     render(<Spinner size="sm" />)
-    expect(screen.getByRole('status').getAttribute('class')).toContain('gds-icon-sm')
+    expect(screen.getByRole('status').getAttribute('class')).toContain(
+      'gds-icon-sm'
+    )
   })
 
   it('applies lg size variant', () => {
     render(<Spinner size="lg" />)
-    expect(screen.getByRole('status').getAttribute('class')).toContain('gds-icon-lg')
+    expect(screen.getByRole('status').getAttribute('class')).toContain(
+      'gds-icon-lg'
+    )
   })
 
   it('applies default size variant', () => {
     render(<Spinner />)
-    expect(screen.getByRole('status').getAttribute('class')).toContain('gds-icon')
+    expect(screen.getByRole('status').getAttribute('class')).toContain(
+      'gds-icon'
+    )
   })
 })

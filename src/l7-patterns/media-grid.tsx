@@ -40,8 +40,14 @@ function buildCols(columns: number | ResponsiveColumns): string {
 
 export const MediaGrid = forwardRef<HTMLDivElement, MediaGridProps>(
   function MediaGrid(
-    { aspectRatio = 1, children, className, columns = { sm: 2, md: 3, lg: 4 }, gap = 'default' },
-    ref,
+    {
+      aspectRatio = 1,
+      children,
+      className,
+      columns = { sm: 2, md: 3, lg: 4 },
+      gap = 'default',
+    },
+    ref
   ) {
     return (
       <div
@@ -50,11 +56,14 @@ export const MediaGrid = forwardRef<HTMLDivElement, MediaGridProps>(
         data-component="media-grid"
       >
         {Children.map(children, (child) => (
-          <AspectRatio ratio={aspectRatio} className="overflow-hidden rounded-lg">
+          <AspectRatio
+            ratio={aspectRatio}
+            className="overflow-hidden rounded-lg"
+          >
             {child}
           </AspectRatio>
         ))}
       </div>
     )
-  },
+  }
 )

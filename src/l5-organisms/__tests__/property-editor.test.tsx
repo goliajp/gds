@@ -21,12 +21,18 @@ describe('PropertyEditor', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<PropertyEditor properties={properties} />)
-    expect(container.querySelector('[data-component="property-editor"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="property-editor"]')
+    ).not.toBeNull()
   })
 
   it('shows inline edit for editable properties', () => {
-    const { container } = render(<PropertyEditor properties={properties} onChange={vi.fn()} />)
-    expect(container.querySelectorAll('[data-component="inline-edit"]')).toHaveLength(2)
+    const { container } = render(
+      <PropertyEditor properties={properties} onChange={vi.fn()} />
+    )
+    expect(
+      container.querySelectorAll('[data-component="inline-edit"]')
+    ).toHaveLength(2)
   })
 
   it('calls onChange when editable property is saved', async () => {

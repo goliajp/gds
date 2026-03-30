@@ -17,7 +17,21 @@ export type EmailListItemProps = {
 }
 
 export const EmailListItem = forwardRef<HTMLDivElement, EmailListItemProps>(
-  function EmailListItem({ sender, senderAvatar, subject, preview, timestamp, unread, starred, selected, onClick, className }, ref) {
+  function EmailListItem(
+    {
+      sender,
+      senderAvatar,
+      subject,
+      preview,
+      timestamp,
+      unread,
+      starred,
+      selected,
+      onClick,
+      className,
+    },
+    ref
+  ) {
     const isUnread = unread === true
     const avatarText = senderAvatar ?? sender.charAt(0).toUpperCase()
 
@@ -27,42 +41,64 @@ export const EmailListItem = forwardRef<HTMLDivElement, EmailListItemProps>(
         role={onClick !== undefined ? 'button' : undefined}
         tabIndex={onClick !== undefined ? 0 : undefined}
         onClick={onClick}
-        onKeyDown={onClick !== undefined ? (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault()
-            onClick()
-          }
-        } : undefined}
+        onKeyDown={
+          onClick !== undefined
+            ? (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  onClick()
+                }
+              }
+            : undefined
+        }
         className={cx(
-          'flex items-start gap-3 gds-pad-x gds-pad-y-sm gds-text-body select-none',
-          onClick !== undefined && 'cursor-pointer hover:bg-bg-tertiary',
+          'gds-pad-x gds-pad-y-sm gds-text-body flex items-start gap-3 select-none',
+          onClick !== undefined && 'hover:bg-bg-tertiary cursor-pointer',
           selected === true && 'bg-accent/5',
-          className,
+          className
         )}
         data-component="email-list-item"
         data-state={isUnread ? 'unread' : 'read'}
       >
         {/* avatar */}
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-bg-tertiary text-xs font-semibold text-fg-muted">
+        <div className="bg-bg-tertiary text-fg-muted flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold">
           {avatarText}
         </div>
 
         {/* body */}
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            {isUnread && <span className="h-2 w-2 shrink-0 rounded-full bg-accent" />}
-            <span className={cx('truncate', isUnread ? 'font-semibold text-fg' : 'text-fg')}>{sender}</span>
-            {starred === true && <span className="shrink-0 text-warning">★</span>}
+            {isUnread && (
+              <span className="bg-accent h-2 w-2 shrink-0 rounded-full" />
+            )}
+            <span
+              className={cx(
+                'truncate',
+                isUnread ? 'text-fg font-semibold' : 'text-fg'
+              )}
+            >
+              {sender}
+            </span>
+            {starred === true && (
+              <span className="text-warning shrink-0">★</span>
+            )}
           </div>
-          <div className={cx('truncate', isUnread ? 'font-medium text-fg' : 'text-fg-muted')}>{subject}</div>
+          <div
+            className={cx(
+              'truncate',
+              isUnread ? 'text-fg font-medium' : 'text-fg-muted'
+            )}
+          >
+            {subject}
+          </div>
           {preview !== undefined && (
-            <div className="truncate text-fg-muted/60">{preview}</div>
+            <div className="text-fg-muted/60 truncate">{preview}</div>
           )}
         </div>
 
         {/* timestamp */}
-        <span className="shrink-0 text-xs text-fg-muted">{timestamp}</span>
+        <span className="text-fg-muted shrink-0 text-xs">{timestamp}</span>
       </div>
     )
-  },
+  }
 )

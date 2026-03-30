@@ -16,7 +16,9 @@ describe('UserInfo', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<UserInfo name="Charlie" />)
-    expect(container.querySelector('[data-component="user-info"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="user-info"]')
+    ).not.toBeNull()
   })
 
   it('uses sm size variant', () => {
@@ -38,13 +40,17 @@ describe('UserInfo', () => {
   })
 
   it('renders role with sm size class', () => {
-    const { container } = render(<UserInfo name="Alice" role="Admin" size="sm" />)
+    const { container } = render(
+      <UserInfo name="Alice" role="Admin" size="sm" />
+    )
     const roleEl = container.querySelector('.text-\\[10px\\]')
     expect(roleEl).not.toBeNull()
   })
 
   it('renders avatar src when provided', () => {
-    const { container } = render(<UserInfo name="Alice" avatar="https://example.com/pic.jpg" />)
+    const { container } = render(
+      <UserInfo name="Alice" avatar="https://example.com/pic.jpg" />
+    )
     const img = container.querySelector('img')
     expect(img?.getAttribute('src')).toBe('https://example.com/pic.jpg')
   })

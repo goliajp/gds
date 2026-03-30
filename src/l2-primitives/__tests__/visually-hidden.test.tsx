@@ -11,7 +11,9 @@ describe('VisuallyHidden', () => {
 
   it('has data-component attribute', () => {
     render(<VisuallyHidden>content</VisuallyHidden>)
-    expect(screen.getByText('content').getAttribute('data-component')).toBe('visually-hidden')
+    expect(screen.getByText('content').getAttribute('data-component')).toBe(
+      'visually-hidden'
+    )
   })
 
   it('renders as span by default', () => {

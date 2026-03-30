@@ -15,7 +15,10 @@ export type EmailContact = {
   avatar?: string
 }
 
-export type EmailComposerFieldProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
+export type EmailComposerFieldProps = Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  'onChange'
+> & {
   /** current recipient list */
   value: EmailContact[]
   /** update recipient list */
@@ -72,20 +75,28 @@ function ContactChip({
   return (
     <span
       className={cx(
-        'inline-flex items-center gap-1 rounded-full px-2 py-0.5 gds-text-label select-none',
-        emailColor(contact.email),
+        'gds-text-label inline-flex items-center gap-1 rounded-full px-2 py-0.5 select-none',
+        emailColor(contact.email)
       )}
       data-component="contact-chip"
     >
-      <span className="truncate max-w-[160px]">{displayName}</span>
+      <span className="max-w-[160px] truncate">{displayName}</span>
       <button
         type="button"
-        className="shrink-0 rounded-full p-0.5 hover:bg-white/10 transition-colors"
+        className="shrink-0 rounded-full p-0.5 transition-colors hover:bg-white/10"
         onClick={onRemove}
         aria-label={`Remove ${displayName}`}
         tabIndex={-1}
       >
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+        <svg
+          width="10"
+          height="10"
+          viewBox="0 0 10 10"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        >
           <path d="M2 2l6 6M8 2l-6 6" />
         </svg>
       </button>
@@ -107,28 +118,41 @@ function SuggestionDropdown({
   if (results.length === 0) return null
 
   return (
-    <div className="absolute left-0 right-0 top-full mt-1 z-50 rounded-lg border border-border bg-bg-secondary shadow-lg overflow-hidden max-h-48 overflow-y-auto" role="listbox" id="email-composer-suggestions">
+    <div
+      className="border-border bg-bg-secondary absolute top-full right-0 left-0 z-50 mt-1 max-h-48 overflow-hidden overflow-y-auto rounded-lg border shadow-lg"
+      role="listbox"
+      id="email-composer-suggestions"
+    >
       {results.map((contact, i) => (
         <button
           key={contact.email}
           type="button"
           className={cx(
-            'flex w-full items-center gap-2 px-3 py-2 text-left gds-text-body transition-colors',
-            i === activeIndex ? 'bg-accent/10 text-accent' : 'text-fg hover:bg-white/[0.04]',
+            'gds-text-body flex w-full items-center gap-2 px-3 py-2 text-left transition-colors',
+            i === activeIndex
+              ? 'bg-accent/10 text-accent'
+              : 'text-fg hover:bg-white/[0.04]'
           )}
           onClick={() => onSelect(contact)}
           data-active={i === activeIndex}
           role="option"
           aria-selected={i === activeIndex}
         >
-          <span className={cx('flex h-6 w-6 shrink-0 items-center justify-center rounded-full gds-text-caption font-medium', emailColor(contact.email))}>
+          <span
+            className={cx(
+              'gds-text-caption flex h-6 w-6 shrink-0 items-center justify-center rounded-full font-medium',
+              emailColor(contact.email)
+            )}
+          >
             {(contact.name ?? contact.email).charAt(0).toUpperCase()}
           </span>
           <div className="min-w-0 flex-1">
             {contact.name !== undefined && (
-              <div className="truncate text-fg">{contact.name}</div>
+              <div className="text-fg truncate">{contact.name}</div>
             )}
-            <div className="truncate text-fg-muted gds-text-label">{contact.email}</div>
+            <div className="text-fg-muted gds-text-label truncate">
+              {contact.email}
+            </div>
           </div>
         </button>
       ))}
@@ -138,8 +162,11 @@ function SuggestionDropdown({
 
 // ---- main component ----
 
-export const EmailComposerField = forwardRef<HTMLDivElement, EmailComposerFieldProps>(
-  function EmailComposerField({
+export const EmailComposerField = forwardRef<
+  HTMLDivElement,
+  EmailComposerFieldProps
+>(function EmailComposerField(
+  {
     value,
     onChange,
     onSearch,
@@ -149,74 +176,83 @@ export const EmailComposerField = forwardRef<HTMLDivElement, EmailComposerFieldP
     glass,
     className,
     ...props
-  }, ref) {
-    const [query, setQuery] = useState('')
-    const [results, setResults] = useState<EmailContact[]>([])
-    const [activeIndex, setActiveIndex] = useState(0)
-    const [showDropdown, setShowDropdown] = useState(false)
-    const inputRef = useRef<HTMLInputElement>(null)
-    const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined)
-    const searchSeqRef = useRef(0)
-    const blurTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
+  },
+  ref
+) {
+  const [query, setQuery] = useState('')
+  const [results, setResults] = useState<EmailContact[]>([])
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [showDropdown, setShowDropdown] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined)
+  const searchSeqRef = useRef(0)
+  const blurTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
 
-    // cleanup blur timer on unmount
-    useEffect(() => {
-      return () => {
-        if (blurTimerRef.current !== undefined) {
-          clearTimeout(blurTimerRef.current)
-        }
+  // cleanup blur timer on unmount
+  useEffect(() => {
+    return () => {
+      if (blurTimerRef.current !== undefined) {
+        clearTimeout(blurTimerRef.current)
       }
-    }, [])
+    }
+  }, [])
 
-    // async search with debounce
-    useEffect(() => {
-      if (query.length < 1) {
-        setResults(suggestions ?? [])
-        return
-      }
+  // async search with debounce
+  useEffect(() => {
+    if (query.length < 1) {
+      setResults(suggestions ?? [])
+      return
+    }
 
+    if (debounceRef.current !== undefined) {
+      clearTimeout(debounceRef.current)
+    }
+
+    const seq = ++searchSeqRef.current
+
+    debounceRef.current = setTimeout(async () => {
+      const searchResults = await onSearch(query)
+      // discard stale responses from out-of-order async completions
+      if (seq !== searchSeqRef.current) return
+      // filter out already-selected contacts
+      const filtered = searchResults.filter(
+        (r) => !value.some((v) => v.email === r.email)
+      )
+      setResults(filtered)
+      setActiveIndex(0)
+    }, 200)
+
+    return () => {
       if (debounceRef.current !== undefined) {
         clearTimeout(debounceRef.current)
       }
+    }
+  }, [query, onSearch, suggestions, value])
 
-      const seq = ++searchSeqRef.current
-
-      debounceRef.current = setTimeout(async () => {
-        const searchResults = await onSearch(query)
-        // discard stale responses from out-of-order async completions
-        if (seq !== searchSeqRef.current) return
-        // filter out already-selected contacts
-        const filtered = searchResults.filter(
-          r => !value.some(v => v.email === r.email),
-        )
-        setResults(filtered)
-        setActiveIndex(0)
-      }, 200)
-
-      return () => {
-        if (debounceRef.current !== undefined) {
-          clearTimeout(debounceRef.current)
-        }
-      }
-    }, [query, onSearch, suggestions, value])
-
-    const addContact = useCallback((contact: EmailContact) => {
-      if (value.some(v => v.email === contact.email)) return
+  const addContact = useCallback(
+    (contact: EmailContact) => {
+      if (value.some((v) => v.email === contact.email)) return
       onChange([...value, contact])
       setQuery('')
       setResults([])
       setShowDropdown(false)
       inputRef.current?.focus()
-    }, [value, onChange])
+    },
+    [value, onChange]
+  )
 
-    const addEmailFromText = useCallback((text: string) => {
+  const addEmailFromText = useCallback(
+    (text: string) => {
       const trimmed = text.trim()
       if (trimmed === '') return
       // handle paste with commas
-      const emails = trimmed.split(/[,;\n]+/).map(e => e.trim()).filter(e => e !== '')
+      const emails = trimmed
+        .split(/[,;\n]+/)
+        .map((e) => e.trim())
+        .filter((e) => e !== '')
       const newContacts: EmailContact[] = []
       for (const email of emails) {
-        if (isValidEmail(email) && !value.some(v => v.email === email)) {
+        if (isValidEmail(email) && !value.some((v) => v.email === email)) {
           newContacts.push({ email })
         }
       }
@@ -224,22 +260,34 @@ export const EmailComposerField = forwardRef<HTMLDivElement, EmailComposerFieldP
         onChange([...value, ...newContacts])
         setQuery('')
       }
-    }, [value, onChange])
+    },
+    [value, onChange]
+  )
 
-    const removeContact = useCallback((index: number) => {
+  const removeContact = useCallback(
+    (index: number) => {
       const next = [...value]
       next.splice(index, 1)
       onChange(next)
-    }, [value, onChange])
+    },
+    [value, onChange]
+  )
 
-    const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
       if (e.key === 'ArrowDown' && showDropdown) {
         e.preventDefault()
-        setActiveIndex(prev => (prev + 1) % Math.max(results.length, 1))
+        setActiveIndex((prev) => (prev + 1) % Math.max(results.length, 1))
       } else if (e.key === 'ArrowUp' && showDropdown) {
         e.preventDefault()
-        setActiveIndex(prev => (prev - 1 + results.length) % Math.max(results.length, 1))
-      } else if (e.key === 'Enter' && showDropdown && results[activeIndex] !== undefined) {
+        setActiveIndex(
+          (prev) => (prev - 1 + results.length) % Math.max(results.length, 1)
+        )
+      } else if (
+        e.key === 'Enter' &&
+        showDropdown &&
+        results[activeIndex] !== undefined
+      ) {
         e.preventDefault()
         addContact(results[activeIndex])
       } else if (e.key === 'Enter' || e.key === 'Tab' || e.key === ',') {
@@ -250,82 +298,101 @@ export const EmailComposerField = forwardRef<HTMLDivElement, EmailComposerFieldP
       } else if (e.key === 'Backspace' && query === '' && value.length > 0) {
         removeContact(value.length - 1)
       }
-    }, [showDropdown, results, activeIndex, query, value, addContact, addEmailFromText, removeContact])
+    },
+    [
+      showDropdown,
+      results,
+      activeIndex,
+      query,
+      value,
+      addContact,
+      addEmailFromText,
+      removeContact,
+    ]
+  )
 
-    const handlePaste = useCallback((e: React.ClipboardEvent) => {
+  const handlePaste = useCallback(
+    (e: React.ClipboardEvent) => {
       const text = e.clipboardData.getData('text')
       if (text.includes(',') || text.includes(';') || text.includes('\n')) {
         e.preventDefault()
         addEmailFromText(text)
       }
-    }, [addEmailFromText])
+    },
+    [addEmailFromText]
+  )
 
-    return (
+  return (
+    <div
+      {...props}
+      ref={ref}
+      className={cx('relative', className)}
+      data-component="email-composer-field"
+    >
       <div
-        {...props}
-        ref={ref}
-        className={cx('relative', className)}
-        data-component="email-composer-field"
-      >
-        <div
-          className={cx(
-            'flex flex-wrap items-center gap-1 min-h-[36px] px-2 py-1 border border-border gds-radius-input bg-bg transition-colors',
-            'focus-within:ring-2 focus-within:ring-accent/30',
-            glass === true && glassClass(glass),
-            glass === true && 'border-white/10 bg-bg/60',
-          )}
-          onClick={() => inputRef.current?.focus()}
-        >
-          <span className="shrink-0 gds-text-label text-fg-muted select-none w-6">{label}</span>
-
-          {value.map((contact, i) => (
-            <ContactChip
-              key={contact.email}
-              contact={contact}
-              onRemove={() => removeContact(i)}
-            />
-          ))}
-
-          <input
-            ref={inputRef}
-            type="text"
-            value={query}
-            onChange={(e) => {
-              setQuery(e.target.value)
-              setShowDropdown(true)
-            }}
-            onKeyDown={handleKeyDown}
-            onPaste={handlePaste}
-            onFocus={() => setShowDropdown(true)}
-            role="combobox"
-            aria-expanded={showDropdown && results.length > 0}
-            aria-autocomplete="list"
-            aria-controls="email-composer-suggestions"
-            aria-label={`${label} recipients`}
-            onBlur={() => {
-              // delay to allow dropdown click to fire
-              if (blurTimerRef.current !== undefined) {
-                clearTimeout(blurTimerRef.current)
-              }
-              blurTimerRef.current = setTimeout(() => {
-                blurTimerRef.current = undefined
-                setShowDropdown(false)
-                if (query.trim() !== '') addEmailFromText(query)
-              }, 200)
-            }}
-            placeholder={value.length === 0 ? (placeholder ?? `${label.toLowerCase()}@example.com`) : ''}
-            className="flex-1 min-w-[120px] bg-transparent gds-text-body text-fg placeholder:text-fg-muted/30 outline-none"
-          />
-        </div>
-
-        {showDropdown && results.length > 0 && (
-          <SuggestionDropdown
-            results={results}
-            activeIndex={activeIndex}
-            onSelect={addContact}
-          />
+        className={cx(
+          'border-border gds-radius-input bg-bg flex min-h-[36px] flex-wrap items-center gap-1 border px-2 py-1 transition-colors',
+          'focus-within:ring-accent/30 focus-within:ring-2',
+          glass === true && glassClass(glass),
+          glass === true && 'bg-bg/60 border-white/10'
         )}
+        onClick={() => inputRef.current?.focus()}
+      >
+        <span className="gds-text-label text-fg-muted w-6 shrink-0 select-none">
+          {label}
+        </span>
+
+        {value.map((contact, i) => (
+          <ContactChip
+            key={contact.email}
+            contact={contact}
+            onRemove={() => removeContact(i)}
+          />
+        ))}
+
+        <input
+          ref={inputRef}
+          type="text"
+          value={query}
+          onChange={(e) => {
+            setQuery(e.target.value)
+            setShowDropdown(true)
+          }}
+          onKeyDown={handleKeyDown}
+          onPaste={handlePaste}
+          onFocus={() => setShowDropdown(true)}
+          role="combobox"
+          aria-expanded={showDropdown && results.length > 0}
+          aria-autocomplete="list"
+          aria-controls="email-composer-suggestions"
+          aria-label={`${label} recipients`}
+          onBlur={() => {
+            // delay to allow dropdown click to fire
+            if (blurTimerRef.current !== undefined) {
+              clearTimeout(blurTimerRef.current)
+            }
+            blurTimerRef.current = setTimeout(() => {
+              blurTimerRef.current = undefined
+              setShowDropdown(false)
+              if (query.trim() !== '') addEmailFromText(query)
+            }, 200)
+          }}
+          placeholder={
+            value.length === 0
+              ? (placeholder ?? `${label.toLowerCase()}@example.com`)
+              : ''
+          }
+          className="gds-text-body text-fg placeholder:text-fg-muted/30 min-w-[120px] flex-1 bg-transparent outline-none"
+        />
       </div>
-    )
-  },
-)
+
+      {showDropdown && results.length > 0 && (
+        <SuggestionDropdown
+          results={results}
+          activeIndex={activeIndex}
+          onSelect={addContact}
+        />
+      )}
+    </div>
+  )
+})

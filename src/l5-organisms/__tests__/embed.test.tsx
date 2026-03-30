@@ -12,8 +12,12 @@ describe('Embed', () => {
   })
 
   it('applies aspect ratio via style', () => {
-    const { container } = render(<Embed src="https://example.com" ratio={4 / 3} />)
-    const el = container.querySelector('[data-component="embed"]') as HTMLElement
+    const { container } = render(
+      <Embed src="https://example.com" ratio={4 / 3} />
+    )
+    const el = container.querySelector(
+      '[data-component="embed"]'
+    ) as HTMLElement
     expect(el.style.aspectRatio).toContain(String(4 / 3))
   })
 
@@ -25,6 +29,8 @@ describe('Embed', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<Embed src="https://example.com" />)
-    expect(container.querySelector('[data-component="embed"]')).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="embed"]')
+    ).toBeInTheDocument()
   })
 })

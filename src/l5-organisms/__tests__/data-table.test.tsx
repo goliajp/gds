@@ -19,12 +19,16 @@ const data: Row[] = [
 describe('DataTable', () => {
   it('renders without crash', () => {
     const { container } = render(<DataTable columns={columns} data={data} />)
-    expect(container.querySelector('[data-component="data-table"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="data-table"]')
+    ).not.toBeNull()
   })
 
   it('has data-component attribute', () => {
     const { container } = render(<DataTable columns={columns} data={data} />)
-    expect(container.querySelector('[data-component="data-table"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="data-table"]')
+    ).not.toBeNull()
   })
 
   it('renders column headers and row data', () => {
@@ -46,7 +50,9 @@ describe('DataTable', () => {
   })
 
   it('shows loading state with skeleton rows', () => {
-    const { container } = render(<DataTable columns={columns} data={[]} loading />)
+    const { container } = render(
+      <DataTable columns={columns} data={[]} loading />
+    )
     const el = container.querySelector('[data-component="data-table"]')
     expect(el?.getAttribute('data-state')).toBe('loading')
     // should have skeleton pulse elements
@@ -71,7 +77,7 @@ describe('DataTable', () => {
 
   it('renders rows with cursor-pointer when onRowClick provided', () => {
     const { container } = render(
-      <DataTable columns={columns} data={data} onRowClick={vi.fn()} />,
+      <DataTable columns={columns} data={data} onRowClick={vi.fn()} />
     )
     const rows = container.querySelectorAll('tbody tr')
     expect(rows[0].className).toContain('cursor-pointer')
@@ -89,7 +95,9 @@ describe('DataTable', () => {
       { key: 'age', header: 'Age' },
     ]
     const onSort = vi.fn()
-    const { container } = render(<DataTable columns={sortableCols} data={data} onSort={onSort} />)
+    const { container } = render(
+      <DataTable columns={sortableCols} data={data} onSort={onSort} />
+    )
     // sortable column with onSort should have cursor-pointer
     const headers = container.querySelectorAll('th')
     expect(headers[0].className).toContain('cursor-pointer')
@@ -99,9 +107,7 @@ describe('DataTable', () => {
   it('calls onSort when sortable header is clicked', async () => {
     const user = userEvent.setup()
     const onSort = vi.fn()
-    const sortableCols = [
-      { key: 'name', header: 'Name', sortable: true },
-    ]
+    const sortableCols = [{ key: 'name', header: 'Name', sortable: true }]
     render(<DataTable columns={sortableCols} data={data} onSort={onSort} />)
     await user.click(screen.getByText('Name'))
     expect(onSort).toHaveBeenCalledWith('name')
@@ -117,20 +123,21 @@ describe('DataTable', () => {
 
   it('does not call onSort when onSort is undefined', async () => {
     const user = userEvent.setup()
-    const sortableCols = [
-      { key: 'name', header: 'Name', sortable: true },
-    ]
+    const sortableCols = [{ key: 'name', header: 'Name', sortable: true }]
     // should not throw when onSort is undefined
     render(<DataTable columns={sortableCols} data={data} />)
     await user.click(screen.getByText('Name'))
   })
 
   it('shows asc sort indicator for active column', () => {
-    const sortableCols = [
-      { key: 'name', header: 'Name', sortable: true },
-    ]
+    const sortableCols = [{ key: 'name', header: 'Name', sortable: true }]
     const { container } = render(
-      <DataTable columns={sortableCols} data={data} sortKey="name" sortDir="asc" />,
+      <DataTable
+        columns={sortableCols}
+        data={data}
+        sortKey="name"
+        sortDir="asc"
+      />
     )
     // should have asc chevron
     const svg = container.querySelector('th svg')
@@ -138,11 +145,14 @@ describe('DataTable', () => {
   })
 
   it('shows desc sort indicator for active column', () => {
-    const sortableCols = [
-      { key: 'name', header: 'Name', sortable: true },
-    ]
+    const sortableCols = [{ key: 'name', header: 'Name', sortable: true }]
     const { container } = render(
-      <DataTable columns={sortableCols} data={data} sortKey="name" sortDir="desc" />,
+      <DataTable
+        columns={sortableCols}
+        data={data}
+        sortKey="name"
+        sortDir="desc"
+      />
     )
     const svg = container.querySelector('th svg')
     expect(svg).not.toBeNull()
@@ -150,7 +160,11 @@ describe('DataTable', () => {
 
   it('uses custom render function for columns', () => {
     const customCols = [
-      { key: 'name', header: 'Name', render: (row: Row) => <b>{row.name.toUpperCase()}</b> },
+      {
+        key: 'name',
+        header: 'Name',
+        render: (row: Row) => <b>{row.name.toUpperCase()}</b>,
+      },
       { key: 'age', header: 'Age' },
     ]
     render(<DataTable columns={customCols} data={data} />)
@@ -168,21 +182,25 @@ describe('DataTable', () => {
   })
 
   it('applies glass styling', () => {
-    const { container } = render(<DataTable columns={columns} data={data} glass />)
+    const { container } = render(
+      <DataTable columns={columns} data={data} glass />
+    )
     const el = container.querySelector('[data-component="data-table"]')
     expect(el?.className).toContain('bg-bg/60')
   })
 
   it('applies custom className', () => {
     const { container } = render(
-      <DataTable columns={columns} data={data} className="my-table" />,
+      <DataTable columns={columns} data={data} className="my-table" />
     )
     const el = container.querySelector('[data-component="data-table"]')
     expect(el?.className).toContain('my-table')
   })
 
   it('applies striped row styling on odd rows when striped is true', () => {
-    const { container } = render(<DataTable columns={columns} data={data} striped />)
+    const { container } = render(
+      <DataTable columns={columns} data={data} striped />
+    )
     const rows = container.querySelectorAll('tbody tr')
     // second row (index 1) should have striped class
     expect(rows[1].className).toContain('bg-bg-secondary/30')

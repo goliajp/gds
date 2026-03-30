@@ -13,7 +13,10 @@ type UserInfoProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const UserInfo = forwardRef<HTMLDivElement, UserInfoProps>(
-  function UserInfo({ avatar, className, name, role, size = 'default', ...props }, ref) {
+  function UserInfo(
+    { avatar, className, name, role, size = 'default', ...props },
+    ref
+  ) {
     const avatarSize = size === 'sm' ? 'sm' : 'default'
     const textCls = size === 'sm' ? 'text-xs' : 'text-sm'
 
@@ -26,14 +29,23 @@ export const UserInfo = forwardRef<HTMLDivElement, UserInfoProps>(
       >
         <Avatar name={name} size={avatarSize} src={avatar} />
         <div className="flex flex-col">
-          <span className={cx('font-medium text-fg leading-tight', textCls)}>{name}</span>
+          <span className={cx('text-fg leading-tight font-medium', textCls)}>
+            {name}
+          </span>
           {role !== undefined && (
-            <span className={cx('text-fg-muted leading-tight', size === 'sm' ? 'text-[10px]' : 'text-xs')}>{role}</span>
+            <span
+              className={cx(
+                'text-fg-muted leading-tight',
+                size === 'sm' ? 'text-[10px]' : 'text-xs'
+              )}
+            >
+              {role}
+            </span>
           )}
         </div>
       </div>
     )
-  },
+  }
 )
 
 export type { UserInfoProps, UserInfoSize }

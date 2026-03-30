@@ -32,6 +32,8 @@ describe('TimelineChart', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<TimelineChart events={events} />)
-    expect(container.querySelector('[data-component="timeline-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="timeline-chart"]')
+    ).not.toBeNull()
   })
 })

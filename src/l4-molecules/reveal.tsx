@@ -18,21 +18,24 @@ const translateMap: Record<NonNullable<RevealProps['direction']>, string> = {
   right: 'translate-x-[20px]',
 }
 
-export const Reveal = forwardRef<HTMLDivElement, RevealProps>(
-  function Reveal({ active, children, className, direction = 'bottom' }, ref) {
-    return (
-      <div
-        ref={ref}
-        className={cx(
-          'transition-all duration-300 ease-out',
-          active ? 'opacity-100 translate-x-0 translate-y-0' : cx('opacity-0', translateMap[direction]),
-          className,
-        )}
-        data-component="reveal"
-        data-state={active ? 'visible' : 'hidden'}
-      >
-        {children}
-      </div>
-    )
-  },
-)
+export const Reveal = forwardRef<HTMLDivElement, RevealProps>(function Reveal(
+  { active, children, className, direction = 'bottom' },
+  ref
+) {
+  return (
+    <div
+      ref={ref}
+      className={cx(
+        'transition-all duration-300 ease-out',
+        active
+          ? 'translate-x-0 translate-y-0 opacity-100'
+          : cx('opacity-0', translateMap[direction]),
+        className
+      )}
+      data-component="reveal"
+      data-state={active ? 'visible' : 'hidden'}
+    >
+      {children}
+    </div>
+  )
+})

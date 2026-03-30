@@ -6,7 +6,9 @@ import { SkeletonGroup } from '../skeleton-group'
 describe('SkeletonGroup', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(<SkeletonGroup />)
-    expect(container.querySelector('[data-component="skeleton-group"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="skeleton-group"]')
+    ).not.toBeNull()
   })
 
   it('renders correct variant attribute', () => {
@@ -15,7 +17,9 @@ describe('SkeletonGroup', () => {
   })
 
   it('renders multiple items when count is set', () => {
-    const { container } = render(<SkeletonGroup variant="form-field" count={3} />)
+    const { container } = render(
+      <SkeletonGroup variant="form-field" count={3} />
+    )
     const group = container.querySelector('[data-component="skeleton-group"]')
     expect(group?.children.length).toBe(3)
   })

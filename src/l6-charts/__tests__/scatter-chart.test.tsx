@@ -16,17 +16,23 @@ describe('ScatterChart', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<ScatterChart data={data} xKey="x" yKey="y" />)
-    expect(container.querySelector('[data-component="scatter-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="scatter-chart"]')
+    ).not.toBeNull()
   })
 
   it('merges className', () => {
-    const { container } = render(<ScatterChart className="custom-class" data={data} xKey="x" yKey="y" />)
+    const { container } = render(
+      <ScatterChart className="custom-class" data={data} xKey="x" yKey="y" />
+    )
     const el = container.querySelector('[data-component="scatter-chart"]')
     expect(el?.className).toContain('custom-class')
   })
 
   it('applies glass mode', () => {
-    const { container } = render(<ScatterChart data={data} xKey="x" yKey="y" glass />)
+    const { container } = render(
+      <ScatterChart data={data} xKey="x" yKey="y" glass />
+    )
     const el = container.querySelector('[data-component="scatter-chart"]')
     expect(el?.className).toContain('backdrop-blur-md')
   })
@@ -38,13 +44,21 @@ describe('ScatterChart', () => {
   })
 
   it('applies custom height', () => {
-    const { container } = render(<ScatterChart data={data} xKey="x" yKey="y" height={500} />)
-    expect(container.querySelector('[data-component="scatter-chart"]')).not.toBeNull()
+    const { container } = render(
+      <ScatterChart data={data} xKey="x" yKey="y" height={500} />
+    )
+    expect(
+      container.querySelector('[data-component="scatter-chart"]')
+    ).not.toBeNull()
   })
 
   it('applies custom color', () => {
-    const { container } = render(<ScatterChart data={data} xKey="x" yKey="y" color="#ff0000" />)
-    expect(container.querySelector('[data-component="scatter-chart"]')).not.toBeNull()
+    const { container } = render(
+      <ScatterChart data={data} xKey="x" yKey="y" color="#ff0000" />
+    )
+    expect(
+      container.querySelector('[data-component="scatter-chart"]')
+    ).not.toBeNull()
   })
 
   it('forwards ref', () => {
@@ -54,7 +68,9 @@ describe('ScatterChart', () => {
   })
 
   it('spreads additional props', () => {
-    const { container } = render(<ScatterChart data={data} xKey="x" yKey="y" data-custom="test" />)
+    const { container } = render(
+      <ScatterChart data={data} xKey="x" yKey="y" data-custom="test" />
+    )
     const el = container.querySelector('[data-component="scatter-chart"]')
     expect(el?.getAttribute('data-custom')).toBe('test')
   })

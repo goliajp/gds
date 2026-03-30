@@ -8,7 +8,9 @@ const steps = ['Upload', 'Review', 'Confirm', 'Done']
 describe('ProgressSteps', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(<ProgressSteps steps={steps} current={0} />)
-    expect(container.querySelector('[data-component="progress-steps"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="progress-steps"]')
+    ).not.toBeNull()
   })
 
   it('has role="list"', () => {

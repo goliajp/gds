@@ -8,16 +8,18 @@ describe('ToolbarGroup', () => {
     const { container } = render(
       <ToolbarGroup>
         <button>A</button>
-      </ToolbarGroup>,
+      </ToolbarGroup>
     )
-    expect(container.querySelector('[data-component="toolbar-group"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="toolbar-group"]')
+    ).not.toBeNull()
   })
 
   it('has role="toolbar"', () => {
     const { container } = render(
       <ToolbarGroup>
         <button>A</button>
-      </ToolbarGroup>,
+      </ToolbarGroup>
     )
     expect(container.querySelector('[role="toolbar"]')).not.toBeNull()
   })
@@ -28,7 +30,7 @@ describe('ToolbarGroup', () => {
         <button>A</button>
         <button>B</button>
         <button>C</button>
-      </ToolbarGroup>,
+      </ToolbarGroup>
     )
     const buttons = container.querySelectorAll('button')
     expect(buttons.length).toBe(3)

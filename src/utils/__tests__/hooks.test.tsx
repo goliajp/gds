@@ -164,13 +164,17 @@ describe('useMediaQuery', () => {
 
     const mockMql = {
       matches: false,
-      addEventListener: vi.fn((_event: string, handler: (e: MediaQueryListEvent) => void) => {
-        changeHandler = handler
-      }),
+      addEventListener: vi.fn(
+        (_event: string, handler: (e: MediaQueryListEvent) => void) => {
+          changeHandler = handler
+        }
+      ),
       removeEventListener: vi.fn(),
     }
 
-    vi.spyOn(window, 'matchMedia').mockReturnValue(mockMql as unknown as MediaQueryList)
+    vi.spyOn(window, 'matchMedia').mockReturnValue(
+      mockMql as unknown as MediaQueryList
+    )
 
     const { result } = renderHook(() => useMediaQuery('(min-width: 1024px)'))
     expect(result.current).toBe(false)
@@ -263,7 +267,11 @@ describe('useFocusTrap', () => {
     btn1.focus()
 
     // dispatch Shift+Tab while on first element
-    const tabEvent = new KeyboardEvent('keydown', { key: 'Tab', shiftKey: true, bubbles: true })
+    const tabEvent = new KeyboardEvent('keydown', {
+      key: 'Tab',
+      shiftKey: true,
+      bubbles: true,
+    })
     document.dispatchEvent(tabEvent)
 
     vi.useRealTimers()
@@ -275,7 +283,10 @@ describe('useFocusTrap', () => {
     act(() => vi.advanceTimersByTime(60))
 
     // dispatch Enter — should not throw
-    const enterEvent = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })
+    const enterEvent = new KeyboardEvent('keydown', {
+      key: 'Enter',
+      bubbles: true,
+    })
     document.dispatchEvent(enterEvent)
 
     vi.useRealTimers()

@@ -19,7 +19,9 @@ const rows = [
 describe('DataGrid', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(<DataGrid columns={columns} rows={rows} />)
-    expect(container.querySelector('[data-component="data-grid"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="data-grid"]')
+    ).not.toBeNull()
   })
 
   it('renders column headers', () => {
@@ -41,7 +43,9 @@ describe('DataGrid', () => {
   })
 
   it('applies compact padding', () => {
-    const { container } = render(<DataGrid columns={columns} compact rows={rows} />)
+    const { container } = render(
+      <DataGrid columns={columns} compact rows={rows} />
+    )
     const th = container.querySelector('th')
     expect(th?.className).toContain('py-1')
   })
@@ -53,7 +57,9 @@ describe('DataGrid', () => {
   })
 
   it('applies striped class on odd rows', () => {
-    const { container } = render(<DataGrid columns={columns} rows={rows} striped />)
+    const { container } = render(
+      <DataGrid columns={columns} rows={rows} striped />
+    )
     const trs = container.querySelectorAll('tbody tr')
     // second row (index 1) should have striped background
     expect(trs[1]?.className).toContain('bg-bg-secondary/30')
@@ -88,7 +94,9 @@ describe('DataGrid', () => {
   })
 
   it('applies glass class when glass is true', () => {
-    const { container } = render(<DataGrid columns={columns} glass rows={rows} />)
+    const { container } = render(
+      <DataGrid columns={columns} glass rows={rows} />
+    )
     const wrapper = container.querySelector('[data-component="data-grid"]')
     expect(wrapper?.className).toContain('gds-glass')
   })
@@ -100,7 +108,9 @@ describe('DataGrid', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<DataGrid className="custom-class" columns={columns} rows={rows} />)
+    const { container } = render(
+      <DataGrid className="custom-class" columns={columns} rows={rows} />
+    )
     const wrapper = container.querySelector('[data-component="data-grid"]')
     expect(wrapper?.className).toContain('custom-class')
   })
@@ -110,9 +120,11 @@ describe('DataGrid', () => {
     render(
       <DataGrid
         columns={columns}
-        ref={(el) => { tableRef = el }}
+        ref={(el) => {
+          tableRef = el
+        }}
         rows={rows}
-      />,
+      />
     )
     expect(tableRef).not.toBeNull()
     expect((tableRef as unknown as HTMLElement)?.tagName).toBe('TABLE')

@@ -1,6 +1,13 @@
 // carousel — horizontal slide carousel with prev/next navigation
 import type { ReactNode } from 'react'
-import { Children, forwardRef, useCallback, useEffect, useRef, useState } from 'react'
+import {
+  Children,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 
 import { focusCls } from '../utils/a11y'
 import { cx } from '../utils/cx'
@@ -17,29 +24,61 @@ export type CarouselProps = {
 }
 
 const ArrowLeft = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path d="M10 3L5 8l5 5" />
   </svg>
 )
 
 const ArrowRight = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path d="M6 3l5 5-5 5" />
   </svg>
 )
 
 export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(
-  function Carousel({ children, autoPlay = false, interval = 5000, showDots = true, showArrows = true, glass = false, className }, ref) {
+  function Carousel(
+    {
+      children,
+      autoPlay = false,
+      interval = 5000,
+      showDots = true,
+      showArrows = true,
+      glass = false,
+      className,
+    },
+    ref
+  ) {
     const slides = Children.toArray(children)
     const count = slides.length
     const [activeIndex, setActiveIndex] = useState(0)
     const hoverRef = useRef(false)
     const touchStartRef = useRef<number | null>(null)
 
-    const goTo = useCallback((index: number) => {
-      const next = ((index % count) + count) % count
-      setActiveIndex(next)
-    }, [count])
+    const goTo = useCallback(
+      (index: number) => {
+        const next = ((index % count) + count) % count
+        setActiveIndex(next)
+      },
+      [count]
+    )
 
     const goPrev = useCallback(() => goTo(activeIndex - 1), [activeIndex, goTo])
     const goNext = useCallback(() => goTo(activeIndex + 1), [activeIndex, goTo])
@@ -60,23 +99,34 @@ export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(
       touchStartRef.current = e.touches[0].clientX
     }, [])
 
-    const handleTouchEnd = useCallback((e: React.TouchEvent) => {
-      if (touchStartRef.current === null) return
-      const diff = e.changedTouches[0].clientX - touchStartRef.current
-      if (Math.abs(diff) > 50) {
-        if (diff < 0) goNext()
-        else goPrev()
-      }
-      touchStartRef.current = null
-    }, [goNext, goPrev])
+    const handleTouchEnd = useCallback(
+      (e: React.TouchEvent) => {
+        if (touchStartRef.current === null) return
+        const diff = e.changedTouches[0].clientX - touchStartRef.current
+        if (Math.abs(diff) > 50) {
+          if (diff < 0) goNext()
+          else goPrev()
+        }
+        touchStartRef.current = null
+      },
+      [goNext, goPrev]
+    )
 
     return (
       <div
         ref={ref}
-        className={cx('relative overflow-hidden gds-radius', glass && glassClass(glass), className)}
+        className={cx(
+          'gds-radius relative overflow-hidden',
+          glass && glassClass(glass),
+          className
+        )}
         data-component="carousel"
-        onMouseEnter={() => { hoverRef.current = true }}
-        onMouseLeave={() => { hoverRef.current = false }}
+        onMouseEnter={() => {
+          hoverRef.current = true
+        }}
+        onMouseLeave={() => {
+          hoverRef.current = false
+        }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
@@ -99,8 +149,8 @@ export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(
               type="button"
               onClick={goPrev}
               className={cx(
-                'absolute left-2 top-1/2 -translate-y-1/2 rounded-full border border-border bg-bg/80 p-1.5 text-fg transition-colors hover:bg-bg',
-                focusCls,
+                'border-border bg-bg/80 text-fg hover:bg-bg absolute top-1/2 left-2 -translate-y-1/2 rounded-full border p-1.5 transition-colors',
+                focusCls
               )}
               aria-label="Previous slide"
             >
@@ -110,8 +160,8 @@ export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(
               type="button"
               onClick={goNext}
               className={cx(
-                'absolute right-2 top-1/2 -translate-y-1/2 rounded-full border border-border bg-bg/80 p-1.5 text-fg transition-colors hover:bg-bg',
-                focusCls,
+                'border-border bg-bg/80 text-fg hover:bg-bg absolute top-1/2 right-2 -translate-y-1/2 rounded-full border p-1.5 transition-colors',
+                focusCls
               )}
               aria-label="Next slide"
             >
@@ -122,7 +172,10 @@ export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(
 
         {/* dots */}
         {showDots && count > 1 && (
-          <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5" role="tablist">
+          <div
+            className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5"
+            role="tablist"
+          >
             {slides.map((_, i) => (
               <button
                 key={i}
@@ -133,8 +186,10 @@ export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(
                 aria-label={`Slide ${i + 1}`}
                 className={cx(
                   'h-2 w-2 rounded-full transition-all',
-                  i === activeIndex ? 'bg-accent scale-125' : 'bg-fg-muted/30 hover:bg-fg-muted/50',
-                  focusCls,
+                  i === activeIndex
+                    ? 'bg-accent scale-125'
+                    : 'bg-fg-muted/30 hover:bg-fg-muted/50',
+                  focusCls
                 )}
               />
             ))}
@@ -142,5 +197,5 @@ export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(
         )}
       </div>
     )
-  },
+  }
 )

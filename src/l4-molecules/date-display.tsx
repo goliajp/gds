@@ -45,11 +45,16 @@ const DateDisplay = forwardRef<HTMLSpanElement, DateDisplayProps>(
     const d = date instanceof Date ? date : new Date(date)
 
     return (
-      <span ref={ref} className={cx('text-fg-muted gds-text', className)} data-component="date-display" title={d.toISOString()}>
+      <span
+        ref={ref}
+        className={cx('text-fg-muted gds-text', className)}
+        data-component="date-display"
+        title={d.toISOString()}
+      >
         {text}
       </span>
     )
-  },
+  }
 )
 
 export { DateDisplay }

@@ -6,8 +6,12 @@ import { CopyToClipboard } from '../copy-to-clipboard'
 
 describe('CopyToClipboard', () => {
   it('renders with data-component attribute', () => {
-    const { container } = render(<CopyToClipboard value="test">Copy me</CopyToClipboard>)
-    expect(container.querySelector('[data-component="copy-to-clipboard"]')).not.toBeNull()
+    const { container } = render(
+      <CopyToClipboard value="test">Copy me</CopyToClipboard>
+    )
+    expect(
+      container.querySelector('[data-component="copy-to-clipboard"]')
+    ).not.toBeNull()
   })
 
   it('renders children', () => {
@@ -30,14 +34,20 @@ describe('CopyToClipboard', () => {
   it('uses custom feedback text', () => {
     // just ensure component renders with custom feedback prop without error
     const { container } = render(
-      <CopyToClipboard value="val" feedback="Done!">Copy</CopyToClipboard>,
+      <CopyToClipboard value="val" feedback="Done!">
+        Copy
+      </CopyToClipboard>
     )
-    expect(container.querySelector('[data-component="copy-to-clipboard"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="copy-to-clipboard"]')
+    ).not.toBeNull()
   })
 
   it('applies custom className', () => {
     const { container } = render(
-      <CopyToClipboard value="val" className="my-cls">Copy</CopyToClipboard>,
+      <CopyToClipboard value="val" className="my-cls">
+        Copy
+      </CopyToClipboard>
     )
     const el = container.querySelector('[data-component="copy-to-clipboard"]')
     expect(el?.className).toContain('my-cls')
@@ -45,10 +55,14 @@ describe('CopyToClipboard', () => {
 
   it('shows feedback tooltip after successful copy', async () => {
     const writeText = vi.fn().mockResolvedValue(undefined)
-    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, writable: true, configurable: true })
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText },
+      writable: true,
+      configurable: true,
+    })
 
     const { container } = render(
-      <CopyToClipboard value="test-value">Copy</CopyToClipboard>,
+      <CopyToClipboard value="test-value">Copy</CopyToClipboard>
     )
     const el = container.querySelector('[data-component="copy-to-clipboard"]')!
     await userEvent.click(el)
@@ -58,10 +72,16 @@ describe('CopyToClipboard', () => {
 
   it('shows custom feedback text after copy', async () => {
     const writeText = vi.fn().mockResolvedValue(undefined)
-    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, writable: true, configurable: true })
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText },
+      writable: true,
+      configurable: true,
+    })
 
     const { container } = render(
-      <CopyToClipboard value="v" feedback="Done!">Copy</CopyToClipboard>,
+      <CopyToClipboard value="v" feedback="Done!">
+        Copy
+      </CopyToClipboard>
     )
     const el = container.querySelector('[data-component="copy-to-clipboard"]')!
     await userEvent.click(el)
@@ -70,10 +90,14 @@ describe('CopyToClipboard', () => {
 
   it('handles clipboard error gracefully', async () => {
     const writeText = vi.fn().mockRejectedValue(new Error('Not allowed'))
-    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, writable: true, configurable: true })
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText },
+      writable: true,
+      configurable: true,
+    })
 
     const { container } = render(
-      <CopyToClipboard value="test">Copy</CopyToClipboard>,
+      <CopyToClipboard value="test">Copy</CopyToClipboard>
     )
     const el = container.querySelector('[data-component="copy-to-clipboard"]')!
     await userEvent.click(el)
@@ -83,10 +107,14 @@ describe('CopyToClipboard', () => {
 
   it('clears previous timer on rapid clicks', async () => {
     const writeText = vi.fn().mockResolvedValue(undefined)
-    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, writable: true, configurable: true })
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText },
+      writable: true,
+      configurable: true,
+    })
 
     const { container } = render(
-      <CopyToClipboard value="v">Copy</CopyToClipboard>,
+      <CopyToClipboard value="v">Copy</CopyToClipboard>
     )
     const el = container.querySelector('[data-component="copy-to-clipboard"]')!
     await userEvent.click(el)

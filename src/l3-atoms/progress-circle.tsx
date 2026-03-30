@@ -21,8 +21,15 @@ type ProgressCircleProps = {
 
 const ProgressCircle = forwardRef<SVGSVGElement, ProgressCircleProps>(
   function ProgressCircle(
-    { value, size = 64, strokeWidth = 4, showValue = true, variant = 'accent', className },
-    ref,
+    {
+      value,
+      size = 64,
+      strokeWidth = 4,
+      showValue = true,
+      variant = 'accent',
+      className,
+    },
+    ref
   ) {
     const radius = (size - strokeWidth) / 2
     const circumference = 2 * Math.PI * radius
@@ -74,7 +81,7 @@ const ProgressCircle = forwardRef<SVGSVGElement, ProgressCircleProps>(
         )}
       </svg>
     )
-  },
+  }
 )
 
 export { ProgressCircle }

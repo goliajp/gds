@@ -13,7 +13,15 @@ type BulkActionBarProps = {
 }
 
 const closeIcon = (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 14 14"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+  >
     <path d="M3 3l8 8M11 3l-8 8" />
   </svg>
 )
@@ -26,20 +34,23 @@ export const BulkActionBar = forwardRef<HTMLDivElement, BulkActionBarProps>(
       <div
         ref={ref}
         className={cx(
-          'fixed bottom-4 left-1/2 z-40 flex -translate-x-1/2 items-center gds-gap gds-pad-x-lg gds-pad-y',
-          'animate-popup gds-radius-popover border border-border bg-surface gds-shadow-xl',
-          className,
+          'gds-gap gds-pad-x-lg gds-pad-y fixed bottom-4 left-1/2 z-40 flex -translate-x-1/2 items-center',
+          'animate-popup gds-radius-popover border-border bg-surface gds-shadow-xl border',
+          className
         )}
         data-component="bulk-action-bar"
       >
-        <span className="gds-text-body select-none whitespace-nowrap font-medium text-fg">
+        <span className="gds-text-body text-fg font-medium whitespace-nowrap select-none">
           {count} selected
         </span>
-        <div className="flex items-center gds-gap-sm">{actions}</div>
+        <div className="gds-gap-sm flex items-center">{actions}</div>
         {onClear !== undefined && (
           <button
             aria-label="Clear selection"
-            className={cx('shrink-0 p-0.5 text-fg-muted hover:text-fg', focusCls)}
+            className={cx(
+              'text-fg-muted hover:text-fg shrink-0 p-0.5',
+              focusCls
+            )}
             onClick={onClear}
             type="button"
           >
@@ -48,7 +59,7 @@ export const BulkActionBar = forwardRef<HTMLDivElement, BulkActionBarProps>(
         )}
       </div>
     )
-  },
+  }
 )
 
 export type { BulkActionBarProps }

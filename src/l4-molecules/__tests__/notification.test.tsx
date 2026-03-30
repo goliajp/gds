@@ -11,7 +11,12 @@ describe('Notification', () => {
   })
 
   it('shows description when provided', () => {
-    render(<Notification title="Update" description="A new version is ready to install" />)
+    render(
+      <Notification
+        title="Update"
+        description="A new version is ready to install"
+      />
+    )
     expect(screen.getByText('A new version is ready to install')).toBeDefined()
   })
 
@@ -34,7 +39,9 @@ describe('Notification', () => {
   })
 
   it('applies variant data attribute', () => {
-    const { container } = render(<Notification title="Error" variant="danger" />)
+    const { container } = render(
+      <Notification title="Error" variant="danger" />
+    )
     const el = container.querySelector('[data-component="notification"]')
     expect(el?.getAttribute('data-variant')).toBe('danger')
   })

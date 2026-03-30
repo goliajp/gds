@@ -12,13 +12,21 @@ describe('Input', () => {
 
   it('forwards ref to input element', () => {
     let el: HTMLInputElement | null = null
-    render(<Input ref={(node) => { el = node }} />)
+    render(
+      <Input
+        ref={(node) => {
+          el = node
+        }}
+      />
+    )
     expect(el).toBeInstanceOf(HTMLInputElement)
   })
 
   it('has data-component="input" without icons', () => {
     render(<Input data-testid="inp" />)
-    expect(screen.getByTestId('inp').getAttribute('data-component')).toBe('input')
+    expect(screen.getByTestId('inp').getAttribute('data-component')).toBe(
+      'input'
+    )
   })
 
   it('has data-component="input" with icons (on wrapper)', () => {
@@ -35,7 +43,9 @@ describe('Input', () => {
   it('renders plain input when no icons', () => {
     render(<Input data-testid="inp" />)
     expect(screen.getByTestId('inp').tagName).toBe('INPUT')
-    expect(screen.getByTestId('inp').parentElement?.getAttribute('data-component')).toBeNull()
+    expect(
+      screen.getByTestId('inp').parentElement?.getAttribute('data-component')
+    ).toBeNull()
   })
 
   it('wraps in relative div when icon present', () => {
@@ -118,13 +128,17 @@ describe('Input', () => {
   })
 
   it('renders action element', () => {
-    render(<Input action={<button type="button">Go</button>} data-testid="inp" />)
+    render(
+      <Input action={<button type="button">Go</button>} data-testid="inp" />
+    )
     expect(screen.getByText('Go')).toBeDefined()
   })
 
   it('shows clearable button when value is present', () => {
     const onClear = vi.fn()
-    render(<Input clearable value="hello" onClear={onClear} data-testid="inp" />)
+    render(
+      <Input clearable value="hello" onClear={onClear} data-testid="inp" />
+    )
     expect(screen.getByLabelText('Clear')).toBeDefined()
   })
 

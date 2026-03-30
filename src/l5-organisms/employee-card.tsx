@@ -21,44 +21,78 @@ const statusCls: Record<EmployeeStatus, string> = {
 }
 
 export const EmployeeCard = forwardRef<HTMLDivElement, EmployeeCardProps>(
-  function EmployeeCard({ avatar, className, department, email, name, phone, role, status, ...props }, ref) {
-    const initials = name.split(' ').map((w) => w[0]).join('').slice(0, 2).toUpperCase()
+  function EmployeeCard(
+    {
+      avatar,
+      className,
+      department,
+      email,
+      name,
+      phone,
+      role,
+      status,
+      ...props
+    },
+    ref
+  ) {
+    const initials = name
+      .split(' ')
+      .map((w) => w[0])
+      .join('')
+      .slice(0, 2)
+      .toUpperCase()
 
     return (
       <div
-        className={cx('gds-ctx gds-radius-card border border-border bg-surface gds-pad', className)}
+        className={cx(
+          'gds-ctx gds-radius-card border-border bg-surface gds-pad border',
+          className
+        )}
         data-component="employee-card"
         ref={ref}
         {...props}
       >
-        <div className="flex items-center gds-gap">
+        <div className="gds-gap flex items-center">
           {avatar !== undefined ? (
-            <img src={avatar} alt={name} className="h-12 w-12 rounded-full object-cover" />
+            <img
+              src={avatar}
+              alt={name}
+              className="h-12 w-12 rounded-full object-cover"
+            />
           ) : (
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 text-sm font-semibold text-accent">
+            <div className="bg-accent/10 text-accent flex h-12 w-12 items-center justify-center rounded-full text-sm font-semibold">
               {initials}
             </div>
           )}
-          <div className="flex-1 min-w-0">
-            <div className="font-semibold text-fg truncate">{name}</div>
-            {role !== undefined && <div className="text-xs text-fg-muted truncate">{role}</div>}
-            {department !== undefined && <div className="text-xs text-fg-muted truncate">{department}</div>}
+          <div className="min-w-0 flex-1">
+            <div className="text-fg truncate font-semibold">{name}</div>
+            {role !== undefined && (
+              <div className="text-fg-muted truncate text-xs">{role}</div>
+            )}
+            {department !== undefined && (
+              <div className="text-fg-muted truncate text-xs">{department}</div>
+            )}
           </div>
           {status !== undefined && (
-            <span className={cx('shrink-0 rounded-full px-2 py-0.5 text-xs font-medium', statusCls[status])}>
+            <span
+              className={cx(
+                'shrink-0 rounded-full px-2 py-0.5 text-xs font-medium',
+                statusCls[status]
+              )}
+            >
               {status}
             </span>
           )}
         </div>
         {(email !== undefined || phone !== undefined) && (
-          <div className="mt-3 space-y-0.5 text-xs text-fg-muted">
+          <div className="text-fg-muted mt-3 space-y-0.5 text-xs">
             {email !== undefined && <div>{email}</div>}
             {phone !== undefined && <div>{phone}</div>}
           </div>
         )}
       </div>
     )
-  },
+  }
 )
 
 export type { EmployeeCardProps, EmployeeStatus }

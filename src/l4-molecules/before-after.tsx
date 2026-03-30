@@ -12,7 +12,10 @@ export type BeforeAfterProps = {
 }
 
 export const BeforeAfter = forwardRef<HTMLDivElement, BeforeAfterProps>(
-  function BeforeAfter({ before, after, initialPosition = 50, className }, ref) {
+  function BeforeAfter(
+    { before, after, initialPosition = 50, className },
+    ref
+  ) {
     const [position, setPosition] = useState(initialPosition)
     const containerRef = useRef<HTMLDivElement>(null)
     const dragging = useRef(false)
@@ -32,7 +35,7 @@ export const BeforeAfter = forwardRef<HTMLDivElement, BeforeAfterProps>(
         ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
         updatePosition(e.clientX)
       },
-      [updatePosition],
+      [updatePosition]
     )
 
     const onPointerMove = useCallback(
@@ -40,7 +43,7 @@ export const BeforeAfter = forwardRef<HTMLDivElement, BeforeAfterProps>(
         if (!dragging.current) return
         updatePosition(e.clientX)
       },
-      [updatePosition],
+      [updatePosition]
     )
 
     const onPointerUp = useCallback(() => {
@@ -50,13 +53,19 @@ export const BeforeAfter = forwardRef<HTMLDivElement, BeforeAfterProps>(
     return (
       <div
         ref={(node) => {
-          ;(containerRef as React.MutableRefObject<HTMLDivElement | null>).current = node
+          ;(
+            containerRef as React.MutableRefObject<HTMLDivElement | null>
+          ).current = node
           if (typeof ref === 'function') ref(node)
           else if (ref !== null && ref !== undefined) {
-            ;(ref as React.MutableRefObject<HTMLDivElement | null>).current = node
+            ;(ref as React.MutableRefObject<HTMLDivElement | null>).current =
+              node
           }
         }}
-        className={cx('relative overflow-hidden gds-radius select-none', className)}
+        className={cx(
+          'gds-radius relative overflow-hidden select-none',
+          className
+        )}
         data-component="before-after"
         style={{ cursor: 'ew-resize' }}
         onPointerDown={onPointerDown}
@@ -76,12 +85,12 @@ export const BeforeAfter = forwardRef<HTMLDivElement, BeforeAfterProps>(
 
         {/* divider handle */}
         <div
-          className="absolute inset-y-0 z-10 w-0.5 bg-fg/80"
+          className="bg-fg/80 absolute inset-y-0 z-10 w-0.5"
           style={{ left: `${position}%` }}
         >
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-border bg-bg p-1 shadow">
+          <div className="border-border bg-bg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border p-1 shadow">
             <svg
-              className="h-3 w-3 text-fg-muted"
+              className="text-fg-muted h-3 w-3"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
@@ -93,5 +102,5 @@ export const BeforeAfter = forwardRef<HTMLDivElement, BeforeAfterProps>(
         </div>
       </div>
     )
-  },
+  }
 )

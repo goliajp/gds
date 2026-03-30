@@ -11,7 +11,9 @@ describe('NumberInput', () => {
 
   it('displays current value', () => {
     render(<NumberInput onChange={vi.fn()} value={42} />)
-    expect((screen.getByRole('spinbutton') as HTMLInputElement).value).toBe('42')
+    expect((screen.getByRole('spinbutton') as HTMLInputElement).value).toBe(
+      '42'
+    )
   })
 
   it('calls onChange with incremented value on + click', () => {
@@ -44,18 +46,22 @@ describe('NumberInput', () => {
 
   it('applies error state', () => {
     render(<NumberInput error onChange={vi.fn()} value={1} />)
-    const container = screen.getByRole('spinbutton').closest('[data-component="number-input"]')
+    const container = screen
+      .getByRole('spinbutton')
+      .closest('[data-component="number-input"]')
     expect(container?.className).toContain('border-danger')
   })
 
   it('applies disabled state', () => {
     render(<NumberInput disabled onChange={vi.fn()} value={1} />)
-    expect((screen.getByRole('spinbutton') as HTMLInputElement).disabled).toBe(true)
+    expect((screen.getByRole('spinbutton') as HTMLInputElement).disabled).toBe(
+      true
+    )
     expect(
-      (screen.getByLabelText('increment') as HTMLButtonElement).disabled,
+      (screen.getByLabelText('increment') as HTMLButtonElement).disabled
     ).toBe(true)
     expect(
-      (screen.getByLabelText('decrement') as HTMLButtonElement).disabled,
+      (screen.getByLabelText('decrement') as HTMLButtonElement).disabled
     ).toBe(true)
   })
 
@@ -82,13 +88,17 @@ describe('NumberInput', () => {
 
   it('applies glass styles', () => {
     render(<NumberInput glass onChange={vi.fn()} value={1} />)
-    const container = screen.getByRole('spinbutton').closest('[data-component="number-input"]')
+    const container = screen
+      .getByRole('spinbutton')
+      .closest('[data-component="number-input"]')
     expect(container?.className).toContain('gds-glass')
   })
 
   it('applies sm size variant', () => {
     render(<NumberInput inputSize="sm" onChange={vi.fn()} value={1} />)
-    const container = screen.getByRole('spinbutton').closest('[data-component="number-input"]')
+    const container = screen
+      .getByRole('spinbutton')
+      .closest('[data-component="number-input"]')
     expect(container?.className).toContain('gds-h-sm')
   })
 })

@@ -12,7 +12,9 @@ describe('Breadcrumb', () => {
 
   it('renders without crash', () => {
     const { container } = render(<Breadcrumb items={items} />)
-    expect(container.querySelector('[data-component="breadcrumb"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="breadcrumb"]')
+    ).not.toBeNull()
   })
 
   it('has aria-label="Breadcrumb"', () => {

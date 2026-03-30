@@ -17,14 +17,18 @@ describe('Shimmer', () => {
 
   it('applies default width and height via style', () => {
     const { container } = render(<Shimmer />)
-    const el = container.querySelector('[data-component="shimmer"]') as HTMLElement
+    const el = container.querySelector(
+      '[data-component="shimmer"]'
+    ) as HTMLElement
     expect(el.style.width).toBe('100%')
     expect(el.style.height).toBe('20px')
   })
 
   it('applies custom width and height', () => {
     const { container } = render(<Shimmer width="200px" height="40px" />)
-    const el = container.querySelector('[data-component="shimmer"]') as HTMLElement
+    const el = container.querySelector(
+      '[data-component="shimmer"]'
+    ) as HTMLElement
     expect(el.style.width).toBe('200px')
     expect(el.style.height).toBe('40px')
   })
@@ -58,13 +62,21 @@ describe('Shimmer', () => {
 
   it('forwards ref', () => {
     let el: HTMLDivElement | null = null
-    render(<Shimmer ref={(node) => { el = node }} />)
+    render(
+      <Shimmer
+        ref={(node) => {
+          el = node
+        }}
+      />
+    )
     expect(el).toBeTruthy()
     expect(el!.tagName.toLowerCase()).toBe('div')
   })
 
   it('spreads additional HTML attributes', () => {
-    const { container } = render(<Shimmer data-testid="my-shimmer" aria-label="loading" />)
+    const { container } = render(
+      <Shimmer data-testid="my-shimmer" aria-label="loading" />
+    )
     const el = container.querySelector('[data-component="shimmer"]')
     expect(el!.getAttribute('data-testid')).toBe('my-shimmer')
     expect(el!.getAttribute('aria-label')).toBe('loading')

@@ -15,13 +15,13 @@ export const BottomBar = forwardRef<HTMLDivElement, BottomBarProps>(
       <div
         ref={ref}
         className={cx(
-          'fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-bg flex items-center justify-around gds-pad-y',
-          className,
+          'border-border bg-bg gds-pad-y fixed right-0 bottom-0 left-0 z-40 flex items-center justify-around border-t',
+          className
         )}
         data-component="bottom-bar"
       >
         {children}
       </div>
     )
-  },
+  }
 )

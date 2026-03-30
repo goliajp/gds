@@ -6,7 +6,9 @@ import { PinInput } from '../pin-input'
 describe('PinInput', () => {
   it('renders with data-component', () => {
     const { container } = render(<PinInput />)
-    expect(container.querySelector('[data-component="pin-input"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="pin-input"]')
+    ).not.toBeNull()
   })
 
   it('renders 4 inputs by default', () => {
@@ -121,7 +123,9 @@ describe('PinInput', () => {
 
   it('filters non-numeric paste when numeric is true', () => {
     const handler = vi.fn()
-    const { container } = render(<PinInput value="" onChange={handler} numeric />)
+    const { container } = render(
+      <PinInput value="" onChange={handler} numeric />
+    )
     const input = container.querySelectorAll('input')[0]
     fireEvent.paste(input, { clipboardData: { getData: () => 'ab12' } })
     expect(handler).toHaveBeenCalledWith('12')
@@ -130,7 +134,12 @@ describe('PinInput', () => {
   it('calls onComplete when all digits filled (controlled)', () => {
     const onComplete = vi.fn()
     const { container } = render(
-      <PinInput value="123" onChange={() => {}} onComplete={onComplete} length={4} />,
+      <PinInput
+        value="123"
+        onChange={() => {}}
+        onComplete={onComplete}
+        length={4}
+      />
     )
     const input = container.querySelectorAll('input')[3]
     fireEvent.input(input, { target: { value: '4' } })
@@ -142,7 +151,9 @@ describe('PinInput', () => {
     const input = container.querySelectorAll('input')[0]
     fireEvent.input(input, { target: { value: 'x' } })
     // no crash is success for uncontrolled
-    expect(container.querySelector('[data-component="pin-input"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="pin-input"]')
+    ).not.toBeNull()
   })
 
   it('handles uncontrolled backspace on non-empty', () => {
@@ -150,21 +161,27 @@ describe('PinInput', () => {
     const input0 = container.querySelectorAll('input')[0]
     fireEvent.input(input0, { target: { value: 'a' } })
     fireEvent.keyDown(input0, { key: 'Backspace' })
-    expect(container.querySelector('[data-component="pin-input"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="pin-input"]')
+    ).not.toBeNull()
   })
 
   it('handles uncontrolled backspace on empty moves to previous', () => {
     const { container } = render(<PinInput />)
     const input1 = container.querySelectorAll('input')[1]
     fireEvent.keyDown(input1, { key: 'Backspace' })
-    expect(container.querySelector('[data-component="pin-input"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="pin-input"]')
+    ).not.toBeNull()
   })
 
   it('handles uncontrolled paste', () => {
     const { container } = render(<PinInput />)
     const input = container.querySelectorAll('input')[0]
     fireEvent.paste(input, { clipboardData: { getData: () => 'abcd' } })
-    expect(container.querySelector('[data-component="pin-input"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="pin-input"]')
+    ).not.toBeNull()
   })
 
   it('ignores empty paste', () => {
@@ -178,7 +195,9 @@ describe('PinInput', () => {
 
   it('rejects non-numeric input when numeric is true', () => {
     const handler = vi.fn()
-    const { container } = render(<PinInput value="" onChange={handler} numeric />)
+    const { container } = render(
+      <PinInput value="" onChange={handler} numeric />
+    )
     const input = container.querySelectorAll('input')[0]
     fireEvent.input(input, { target: { value: 'a' } })
     expect(handler).not.toHaveBeenCalled()
@@ -186,7 +205,9 @@ describe('PinInput', () => {
 
   it('calls onComplete via paste in uncontrolled mode', () => {
     const onComplete = vi.fn()
-    const { container } = render(<PinInput length={4} onComplete={onComplete} />)
+    const { container } = render(
+      <PinInput length={4} onComplete={onComplete} />
+    )
     const input = container.querySelectorAll('input')[0]
     fireEvent.paste(input, { clipboardData: { getData: () => 'abcd' } })
     expect(onComplete).toHaveBeenCalledWith('abcd')
@@ -195,7 +216,12 @@ describe('PinInput', () => {
   it('calls onComplete via paste in controlled mode', () => {
     const onComplete = vi.fn()
     const { container } = render(
-      <PinInput value="" onChange={() => {}} onComplete={onComplete} length={4} />,
+      <PinInput
+        value=""
+        onChange={() => {}}
+        onComplete={onComplete}
+        length={4}
+      />
     )
     const input = container.querySelectorAll('input')[0]
     fireEvent.paste(input, { clipboardData: { getData: () => '1234' } })
@@ -205,7 +231,12 @@ describe('PinInput', () => {
   it('does not call onComplete via paste when length is short', () => {
     const onComplete = vi.fn()
     const { container } = render(
-      <PinInput value="" onChange={() => {}} onComplete={onComplete} length={4} />,
+      <PinInput
+        value=""
+        onChange={() => {}}
+        onComplete={onComplete}
+        length={4}
+      />
     )
     const input = container.querySelectorAll('input')[0]
     fireEvent.paste(input, { clipboardData: { getData: () => '12' } })
@@ -223,7 +254,9 @@ describe('PinInput', () => {
 
   it('calls onComplete in uncontrolled mode when all digits filled', () => {
     const onComplete = vi.fn()
-    const { container } = render(<PinInput length={2} onComplete={onComplete} />)
+    const { container } = render(
+      <PinInput length={2} onComplete={onComplete} />
+    )
     const inputs = container.querySelectorAll('input')
     fireEvent.input(inputs[0], { target: { value: 'a' } })
     fireEvent.input(inputs[1], { target: { value: 'b' } })
@@ -233,7 +266,9 @@ describe('PinInput', () => {
   it('fills gaps when controlled input index exceeds current value length', () => {
     const handler = vi.fn()
     // value is empty string, typing at index 2 should fill gaps
-    const { container } = render(<PinInput value="" onChange={handler} length={4} />)
+    const { container } = render(
+      <PinInput value="" onChange={handler} length={4} />
+    )
     const inputs = container.querySelectorAll('input')
     fireEvent.input(inputs[2], { target: { value: 'x' } })
     expect(handler).toHaveBeenCalled()

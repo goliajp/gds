@@ -15,8 +15,15 @@ type CollapsibleProps = {
 
 const Collapsible = forwardRef<HTMLDivElement, CollapsibleProps>(
   function Collapsible(
-    { trigger, children, defaultOpen = false, open: controlledOpen, onOpenChange, className },
-    ref,
+    {
+      trigger,
+      children,
+      defaultOpen = false,
+      open: controlledOpen,
+      onOpenChange,
+      className,
+    },
+    ref
   ) {
     const [internalOpen, setInternalOpen] = useState(defaultOpen)
     const isControlled = controlledOpen !== undefined
@@ -33,10 +40,14 @@ const Collapsible = forwardRef<HTMLDivElement, CollapsibleProps>(
     }
 
     return (
-      <div ref={ref} className={cx('w-full', className)} data-component="collapsible">
+      <div
+        ref={ref}
+        className={cx('w-full', className)}
+        data-component="collapsible"
+      >
         <button
           aria-expanded={isOpen}
-          className="w-full cursor-pointer select-none text-left"
+          className="w-full cursor-pointer text-left select-none"
           onClick={handleToggle}
           type="button"
         >
@@ -45,7 +56,7 @@ const Collapsible = forwardRef<HTMLDivElement, CollapsibleProps>(
         <div
           className={cx(
             'overflow-hidden transition-[max-height] duration-200',
-            isOpen ? 'max-h-[2000px]' : 'max-h-0',
+            isOpen ? 'max-h-[2000px]' : 'max-h-0'
           )}
           data-state={isOpen ? 'open' : 'closed'}
         >
@@ -53,7 +64,7 @@ const Collapsible = forwardRef<HTMLDivElement, CollapsibleProps>(
         </div>
       </div>
     )
-  },
+  }
 )
 
 // composition sub-components for admin compatibility
@@ -68,4 +79,8 @@ function CollapsibleContent({ children, className }: CollapsibleContentProps) {
 }
 
 export { Collapsible, CollapsibleContent, CollapsibleTrigger }
-export type { CollapsibleContentProps, CollapsibleProps, CollapsibleTriggerProps }
+export type {
+  CollapsibleContentProps,
+  CollapsibleProps,
+  CollapsibleTriggerProps,
+}

@@ -14,22 +14,28 @@ const AnalyticsDashboard = forwardRef<HTMLDivElement, AnalyticsDashboardProps>(
   function AnalyticsDashboard({ charts, className, data, metrics }, ref) {
     return (
       <div
-        className={cx('flex flex-col gds-gap', className)}
+        className={cx('gds-gap flex flex-col', className)}
         data-component="analytics-dashboard"
         ref={ref}
       >
         {metrics !== undefined && (
-          <section className="flex flex-wrap gds-gap" data-slot="metrics">{metrics}</section>
+          <section className="gds-gap flex flex-wrap" data-slot="metrics">
+            {metrics}
+          </section>
         )}
         {charts !== undefined && (
-          <section className="flex flex-col gds-gap" data-slot="charts">{charts}</section>
+          <section className="gds-gap flex flex-col" data-slot="charts">
+            {charts}
+          </section>
         )}
         {data !== undefined && (
-          <section className="flex flex-col gds-gap" data-slot="data">{data}</section>
+          <section className="gds-gap flex flex-col" data-slot="data">
+            {data}
+          </section>
         )}
       </div>
     )
-  },
+  }
 )
 
 export { AnalyticsDashboard }

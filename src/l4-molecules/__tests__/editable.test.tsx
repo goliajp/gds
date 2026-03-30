@@ -43,7 +43,9 @@ describe('Editable', () => {
   })
 
   it('shows placeholder when value is empty', () => {
-    render(<Editable value="" onChange={() => {}} placeholder="Click to edit" />)
+    render(
+      <Editable value="" onChange={() => {}} placeholder="Click to edit" />
+    )
     expect(screen.getByText('Click to edit')).toBeDefined()
   })
 
@@ -88,7 +90,9 @@ describe('Editable', () => {
   })
 
   it('has tabIndex -1 when disabled', () => {
-    const { container } = render(<Editable value="Hi" onChange={() => {}} disabled />)
+    const { container } = render(
+      <Editable value="Hi" onChange={() => {}} disabled />
+    )
     const el = container.querySelector('[data-component="editable"]')
     expect(el?.getAttribute('tabindex')).toBe('-1')
   })

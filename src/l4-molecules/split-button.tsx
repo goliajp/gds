@@ -16,7 +16,10 @@ type SplitButtonItem = {
   danger?: boolean
 }
 
-type SplitButtonProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onClick'> & {
+type SplitButtonProps = Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  'onClick'
+> & {
   children: ReactNode
   variant?: SplitButtonVariant
   size?: SplitButtonSize
@@ -28,7 +31,8 @@ type SplitButtonProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onClick'> & 
 
 const variantClasses: Record<SplitButtonVariant, string> = {
   primary: 'bg-accent text-accent-fg hover:bg-accent/90',
-  secondary: 'bg-bg-secondary text-fg border border-border hover:bg-bg-tertiary',
+  secondary:
+    'bg-bg-secondary text-fg border border-border hover:bg-bg-tertiary',
   danger: 'bg-danger text-white hover:bg-danger/90',
 }
 
@@ -38,14 +42,28 @@ const dividerClasses: Record<SplitButtonVariant, string> = {
   danger: 'border-l-white/20',
 }
 
-const sizeClasses: Record<SplitButtonSize, { main: string, trigger: string }> = {
-  sm: { main: 'px-2.5 py-1 text-xs', trigger: 'px-1.5 py-1' },
-  default: { main: 'px-3 py-1.5 text-sm', trigger: 'px-2 py-1.5' },
-  lg: { main: 'px-4 py-2 text-sm', trigger: 'px-2.5 py-2' },
-}
+const sizeClasses: Record<SplitButtonSize, { main: string; trigger: string }> =
+  {
+    sm: { main: 'px-2.5 py-1 text-xs', trigger: 'px-1.5 py-1' },
+    default: { main: 'px-3 py-1.5 text-sm', trigger: 'px-2 py-1.5' },
+    lg: { main: 'px-4 py-2 text-sm', trigger: 'px-2.5 py-2' },
+  }
 
 const SplitButton = forwardRef<HTMLDivElement, SplitButtonProps>(
-  function SplitButton({ children, variant = 'primary', size = 'default', items, onSelect, onClick, disabled, className, ...props }, ref) {
+  function SplitButton(
+    {
+      children,
+      variant = 'primary',
+      size = 'default',
+      items,
+      onSelect,
+      onClick,
+      disabled,
+      className,
+      ...props
+    },
+    ref
+  ) {
     const [open, setOpen] = useState(false)
     const containerRef = useRef<HTMLDivElement>(null)
     useClickOutside(containerRef, open, () => setOpen(false))
@@ -69,11 +87,11 @@ const SplitButton = forwardRef<HTMLDivElement, SplitButtonProps>(
             disabled={disabled}
             onClick={onClick}
             className={cx(
-              'inline-flex select-none items-center font-medium transition-colors rounded-l-md',
+              'inline-flex items-center rounded-l-md font-medium transition-colors select-none',
               variantClasses[v],
               sizeClasses[s].main,
               focusCls,
-              disabled === true && 'pointer-events-none opacity-50',
+              disabled === true && 'pointer-events-none opacity-50'
             )}
           >
             {children}
@@ -84,22 +102,31 @@ const SplitButton = forwardRef<HTMLDivElement, SplitButtonProps>(
             onClick={() => setOpen((prev) => !prev)}
             aria-label="More actions"
             className={cx(
-              'inline-flex select-none items-center border-l font-medium transition-colors rounded-r-md',
+              'inline-flex items-center rounded-r-md border-l font-medium transition-colors select-none',
               variantClasses[v],
               dividerClasses[v],
               sizeClasses[s].trigger,
               focusCls,
-              disabled === true && 'pointer-events-none opacity-50',
+              disabled === true && 'pointer-events-none opacity-50'
             )}
           >
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="M3 5l3 3 3-3" />
             </svg>
           </button>
         </div>
 
         {open && (
-          <div className="absolute left-0 top-full z-50 mt-1 min-w-[160px] animate-popup gds-radius-popover border border-border bg-surface py-1 gds-shadow-lg">
+          <div className="animate-popup gds-radius-popover border-border bg-surface gds-shadow-lg absolute top-full left-0 z-50 mt-1 min-w-[160px] border py-1">
             {items.map((item) => (
               <button
                 key={item.id}
@@ -109,11 +136,11 @@ const SplitButton = forwardRef<HTMLDivElement, SplitButtonProps>(
                   setOpen(false)
                 }}
                 className={cx(
-                  'flex w-full items-center gds-pad-x gds-pad-y-sm gds-text-body transition-colors',
+                  'gds-pad-x gds-pad-y-sm gds-text-body flex w-full items-center transition-colors',
                   focusCls,
                   item.danger === true
                     ? 'text-danger hover:bg-danger/10'
-                    : 'text-fg hover:bg-bg-tertiary',
+                    : 'text-fg hover:bg-bg-tertiary'
                 )}
               >
                 {item.label}
@@ -123,8 +150,13 @@ const SplitButton = forwardRef<HTMLDivElement, SplitButtonProps>(
         )}
       </div>
     )
-  },
+  }
 )
 
 export { SplitButton }
-export type { SplitButtonItem, SplitButtonProps, SplitButtonSize, SplitButtonVariant }
+export type {
+  SplitButtonItem,
+  SplitButtonProps,
+  SplitButtonSize,
+  SplitButtonVariant,
+}

@@ -20,24 +20,39 @@ const variantCls: Record<AuditEntryVariant, string> = {
 }
 
 export const AuditEntry = forwardRef<HTMLDivElement, AuditEntryProps>(
-  function AuditEntry({ action, className, target, timestamp, user, variant = 'default', ...props }, ref) {
+  function AuditEntry(
+    {
+      action,
+      className,
+      target,
+      timestamp,
+      user,
+      variant = 'default',
+      ...props
+    },
+    ref
+  ) {
     return (
       <div
-        className={cx('flex items-center justify-between gds-gap gds-text', className)}
+        className={cx(
+          'gds-gap gds-text flex items-center justify-between',
+          className
+        )}
         data-component="audit-entry"
         ref={ref}
         {...props}
       >
-        <span className="shrink-0 text-xs text-fg-muted">{timestamp}</span>
+        <span className="text-fg-muted shrink-0 text-xs">{timestamp}</span>
         <span className="flex-1 truncate">
-          <span className="font-medium text-fg">{user}</span>
-          {' '}
+          <span className="text-fg font-medium">{user}</span>{' '}
           <span className={variantCls[variant]}>{action}</span>
-          {target !== undefined && <span className="text-fg-muted"> {target}</span>}
+          {target !== undefined && (
+            <span className="text-fg-muted"> {target}</span>
+          )}
         </span>
       </div>
     )
-  },
+  }
 )
 
 export type { AuditEntryProps, AuditEntryVariant }

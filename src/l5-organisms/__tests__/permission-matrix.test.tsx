@@ -14,7 +14,13 @@ const values = [
 
 describe('PermissionMatrix', () => {
   it('renders role headers and permission rows', () => {
-    render(<PermissionMatrix roles={roles} permissions={permissions} values={values} />)
+    render(
+      <PermissionMatrix
+        roles={roles}
+        permissions={permissions}
+        values={values}
+      />
+    )
     expect(screen.getByText('Admin')).toBeDefined()
     expect(screen.getByText('Editor')).toBeDefined()
     expect(screen.getByText('Read')).toBeDefined()
@@ -22,7 +28,13 @@ describe('PermissionMatrix', () => {
   })
 
   it('renders checkboxes in editable mode', () => {
-    render(<PermissionMatrix roles={roles} permissions={permissions} values={values} />)
+    render(
+      <PermissionMatrix
+        roles={roles}
+        permissions={permissions}
+        values={values}
+      />
+    )
     const checkboxes = screen.getAllByRole('checkbox')
     expect(checkboxes.length).toBe(9)
   })
@@ -30,14 +42,28 @@ describe('PermissionMatrix', () => {
   it('calls onChange when checkbox is toggled', async () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
-    render(<PermissionMatrix roles={roles} permissions={permissions} values={values} onChange={onChange} />)
+    render(
+      <PermissionMatrix
+        roles={roles}
+        permissions={permissions}
+        values={values}
+        onChange={onChange}
+      />
+    )
     const checkbox = screen.getByLabelText('Delete - Viewer')
     await user.click(checkbox)
     expect(onChange).toHaveBeenCalledWith(2, 2, true)
   })
 
   it('shows check/dash in readonly mode', () => {
-    render(<PermissionMatrix roles={roles} permissions={permissions} values={values} readonly />)
+    render(
+      <PermissionMatrix
+        roles={roles}
+        permissions={permissions}
+        values={values}
+        readonly
+      />
+    )
     expect(screen.queryAllByRole('checkbox').length).toBe(0)
     expect(screen.getAllByText('✓').length).toBe(6)
     expect(screen.getAllByText('—').length).toBe(3)

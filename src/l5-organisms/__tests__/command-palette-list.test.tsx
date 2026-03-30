@@ -29,7 +29,7 @@ describe('CommandPaletteList', () => {
         activeIndex={0}
         filteredCount={0}
         onSelect={vi.fn()}
-      />,
+      />
     )
     expect(container.textContent).toContain('No results found')
   })
@@ -42,7 +42,7 @@ describe('CommandPaletteList', () => {
         activeIndex={0}
         filteredCount={3}
         onSelect={vi.fn()}
-      />,
+      />
     )
     expect(screen.getByText('Save File')).toBeDefined()
     expect(screen.getByText('Open File')).toBeDefined()
@@ -57,7 +57,7 @@ describe('CommandPaletteList', () => {
         activeIndex={0}
         filteredCount={3}
         onSelect={vi.fn()}
-      />,
+      />
     )
     const headings = container.querySelectorAll('.uppercase')
     expect(headings.length).toBe(2)
@@ -74,7 +74,7 @@ describe('CommandPaletteList', () => {
         activeIndex={0}
         filteredCount={1}
         onSelect={vi.fn()}
-      />,
+      />
     )
     expect(screen.getByText('No Group Item')).toBeDefined()
     // should not have a heading element with tracking style
@@ -90,7 +90,7 @@ describe('CommandPaletteList', () => {
         activeIndex={1}
         filteredCount={3}
         onSelect={vi.fn()}
-      />,
+      />
     )
     const buttons = screen.getAllByRole('button')
     expect(buttons[0].getAttribute('data-active')).toBe('false')
@@ -108,7 +108,7 @@ describe('CommandPaletteList', () => {
         activeIndex={0}
         filteredCount={3}
         onSelect={onSelect}
-      />,
+      />
     )
     await user.click(screen.getByText('Open File'))
     expect(onSelect).toHaveBeenCalledWith('open')
@@ -122,7 +122,7 @@ describe('CommandPaletteList', () => {
         activeIndex={0}
         filteredCount={3}
         onSelect={vi.fn()}
-      />,
+      />
     )
     expect(screen.getByText('⌘S')).toBeDefined()
     expect(screen.getByText('⌘S').tagName).toBe('KBD')
@@ -136,7 +136,7 @@ describe('CommandPaletteList', () => {
         activeIndex={0}
         filteredCount={3}
         onSelect={vi.fn()}
-      />,
+      />
     )
     expect(screen.getByText('🎨')).toBeDefined()
   })

@@ -39,7 +39,7 @@ describe('RadioGroup', () => {
 
   it('applies horizontal direction', () => {
     const { container } = render(
-      <RadioGroup direction="horizontal" options={options} />,
+      <RadioGroup direction="horizontal" options={options} />
     )
     const group = container.querySelector('[data-component="radio-group"]')
     expect(group?.className).toContain('flex-row')
@@ -61,6 +61,8 @@ describe('RadioGroup', () => {
 
   it('has data-component="radio-group"', () => {
     const { container } = render(<RadioGroup options={options} />)
-    expect(container.querySelector('[data-component="radio-group"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="radio-group"]')
+    ).not.toBeNull()
   })
 })

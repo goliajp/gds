@@ -28,11 +28,18 @@ export const SwitchGroup = forwardRef<HTMLDivElement, SwitchGroupProps>(
         role="group"
       >
         {items.map((item) => (
-          <div key={item.id} className="flex items-center justify-between gap-4 gds-pad-x gds-pad-y-sm">
+          <div
+            key={item.id}
+            className="gds-pad-x gds-pad-y-sm flex items-center justify-between gap-4"
+          >
             <div className="min-w-0 flex-1">
-              <div className="gds-text-body font-medium text-fg">{item.label}</div>
+              <div className="gds-text-body text-fg font-medium">
+                {item.label}
+              </div>
               {item.description !== undefined && (
-                <div className="mt-0.5 gds-text-caption text-fg-muted">{item.description}</div>
+                <div className="gds-text-caption text-fg-muted mt-0.5">
+                  {item.description}
+                </div>
               )}
             </div>
             <Switch
@@ -44,7 +51,7 @@ export const SwitchGroup = forwardRef<HTMLDivElement, SwitchGroupProps>(
         ))}
       </div>
     )
-  },
+  }
 )
 
 export type { SwitchGroupItem, SwitchGroupProps }

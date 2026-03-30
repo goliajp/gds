@@ -14,7 +14,9 @@ const milestones: Milestone[] = [
 describe('ProgressTimeline', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(<ProgressTimeline milestones={milestones} />)
-    expect(container.querySelector('[data-component="progress-timeline"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="progress-timeline"]')
+    ).not.toBeNull()
   })
 
   it('renders all milestone labels and dates', () => {
@@ -41,7 +43,8 @@ describe('ProgressTimeline', () => {
     const accentDivs = container.querySelectorAll('.bg-accent')
     // at least one should be the progress line (not a circle)
     const progressLine = Array.from(accentDivs).find(
-      (el) => el.classList.contains('h-0.5') && el.classList.contains('absolute'),
+      (el) =>
+        el.classList.contains('h-0.5') && el.classList.contains('absolute')
     )
     expect(progressLine).not.toBeUndefined()
   })
@@ -52,8 +55,11 @@ describe('ProgressTimeline', () => {
       { label: 'B', date: '2025-02-01', completed: false },
     ]
     const { container } = render(<ProgressTimeline milestones={noComplete} />)
-    const progressLines = Array.from(container.querySelectorAll('.bg-accent')).filter(
-      (el) => el.classList.contains('h-0.5') && el.classList.contains('absolute'),
+    const progressLines = Array.from(
+      container.querySelectorAll('.bg-accent')
+    ).filter(
+      (el) =>
+        el.classList.contains('h-0.5') && el.classList.contains('absolute')
     )
     expect(progressLines.length).toBe(0)
   })
@@ -63,15 +69,18 @@ describe('ProgressTimeline', () => {
       { label: 'Only', date: '2025-01-01', completed: true },
     ]
     const { container } = render(<ProgressTimeline milestones={single} />)
-    const progressLines = Array.from(container.querySelectorAll('.bg-accent')).filter(
-      (el) => el.classList.contains('h-0.5') && el.classList.contains('absolute'),
+    const progressLines = Array.from(
+      container.querySelectorAll('.bg-accent')
+    ).filter(
+      (el) =>
+        el.classList.contains('h-0.5') && el.classList.contains('absolute')
     )
     expect(progressLines.length).toBe(0)
   })
 
   it('applies custom className', () => {
     const { container } = render(
-      <ProgressTimeline className="custom" milestones={milestones} />,
+      <ProgressTimeline className="custom" milestones={milestones} />
     )
     const root = container.querySelector('[data-component="progress-timeline"]')
     expect(root?.className).toContain('custom')
@@ -82,8 +91,10 @@ describe('ProgressTimeline', () => {
     render(
       <ProgressTimeline
         milestones={milestones}
-        ref={(el) => { divRef = el }}
-      />,
+        ref={(el) => {
+          divRef = el
+        }}
+      />
     )
     expect(divRef).not.toBeNull()
     expect((divRef as unknown as HTMLElement)?.tagName).toBe('DIV')
@@ -97,8 +108,11 @@ describe('ProgressTimeline', () => {
       { label: 'C', date: '2025-03-01', completed: true },
     ]
     const { container } = render(<ProgressTimeline milestones={allComplete} />)
-    const progressLine = Array.from(container.querySelectorAll('.bg-accent')).find(
-      (el) => el.classList.contains('h-0.5') && el.classList.contains('absolute'),
+    const progressLine = Array.from(
+      container.querySelectorAll('.bg-accent')
+    ).find(
+      (el) =>
+        el.classList.contains('h-0.5') && el.classList.contains('absolute')
     ) as HTMLElement
     expect(progressLine?.style.width).toBe('100%')
   })

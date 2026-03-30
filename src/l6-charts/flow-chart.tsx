@@ -49,7 +49,13 @@ function renderNode(node: FlowNode, x: number, y: number) {
           stroke={color}
           strokeWidth={1.5}
         />
-        <text x={x} y={y + 4} textAnchor="middle" fill="var(--gds-fg, #e5e7eb)" fontSize={10}>
+        <text
+          x={x}
+          y={y + 4}
+          textAnchor="middle"
+          fill="var(--gds-fg, #e5e7eb)"
+          fontSize={10}
+        >
           {node.label}
         </text>
       </g>
@@ -70,7 +76,13 @@ function renderNode(node: FlowNode, x: number, y: number) {
         stroke={color}
         strokeWidth={1.5}
       />
-      <text x={x} y={y + 4} textAnchor="middle" fill="var(--gds-fg, #e5e7eb)" fontSize={10}>
+      <text
+        x={x}
+        y={y + 4}
+        textAnchor="middle"
+        fill="var(--gds-fg, #e5e7eb)"
+        fontSize={10}
+      >
         {node.label}
       </text>
     </g>
@@ -78,26 +90,38 @@ function renderNode(node: FlowNode, x: number, y: number) {
 }
 
 export const FlowChart = forwardRef<HTMLDivElement, FlowChartProps>(
-  function FlowChart({ nodes, edges, width = 600, height = 200, glass, className }, ref) {
+  function FlowChart(
+    { nodes, edges, width = 600, height = 200, glass, className },
+    ref
+  ) {
     const spacing = nodes.length > 1 ? (width - 80) / (nodes.length - 1) : 0
     const startX = nodes.length === 1 ? width / 2 : 40
     const centerY = height / 2
 
-    const posMap = new Map(nodes.map((n, i) => [n.id, { x: startX + i * spacing, y: centerY }]))
+    const posMap = new Map(
+      nodes.map((n, i) => [n.id, { x: startX + i * spacing, y: centerY }])
+    )
 
     return (
       <div
         ref={ref}
         className={cx(
-          'gds-radius-popover border border-border',
-          glass && 'backdrop-blur-md bg-white/5',
-          className,
+          'gds-radius-popover border-border border',
+          glass && 'bg-white/5 backdrop-blur-md',
+          className
         )}
         data-component="flow-chart"
       >
         <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
           <defs>
-            <marker id="gds-arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <marker
+              id="gds-arrow"
+              markerWidth="8"
+              markerHeight="6"
+              refX="8"
+              refY="3"
+              orient="auto"
+            >
               <path d="M0,0 L8,3 L0,6" fill="var(--gds-fg-muted, #6b7280)" />
             </marker>
           </defs>
@@ -123,7 +147,13 @@ export const FlowChart = forwardRef<HTMLDivElement, FlowChartProps>(
                   markerEnd="url(#gds-arrow)"
                 />
                 {edge.label !== undefined && (
-                  <text x={midX} y={midY - 8} textAnchor="middle" fill="var(--gds-fg-muted, #9ca3af)" fontSize={9}>
+                  <text
+                    x={midX}
+                    y={midY - 8}
+                    textAnchor="middle"
+                    fill="var(--gds-fg-muted, #9ca3af)"
+                    fontSize={9}
+                  >
                     {edge.label}
                   </text>
                 )}
@@ -140,7 +170,7 @@ export const FlowChart = forwardRef<HTMLDivElement, FlowChartProps>(
         </svg>
       </div>
     )
-  },
+  }
 )
 
 export type { FlowEdge, FlowNode }

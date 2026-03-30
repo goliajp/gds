@@ -6,7 +6,9 @@ import { ProgressRing } from '../progress-ring'
 describe('ProgressRing', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(<ProgressRing value={50} />)
-    expect(container.querySelector('[data-component="progress-ring"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="progress-ring"]')
+    ).not.toBeNull()
   })
 
   it('has progressbar role with aria attributes', () => {
@@ -46,7 +48,9 @@ describe('ProgressRing', () => {
   })
 
   it('accepts custom size and strokeWidth', () => {
-    const { container } = render(<ProgressRing value={50} size={100} strokeWidth={8} />)
+    const { container } = render(
+      <ProgressRing value={50} size={100} strokeWidth={8} />
+    )
     const svg = container.querySelector('svg')
     expect(svg?.getAttribute('width')).toBe('100')
     expect(svg?.getAttribute('height')).toBe('100')
@@ -64,11 +68,16 @@ describe('ProgressRing', () => {
 
     const { container } = render(<ProgressRing value={60} />)
     const foreground = container.querySelectorAll('circle')[1]
-    expect(Number(foreground?.getAttribute('stroke-dashoffset'))).toBeCloseTo(expectedOffset, 1)
+    expect(Number(foreground?.getAttribute('stroke-dashoffset'))).toBeCloseTo(
+      expectedOffset,
+      1
+    )
   })
 
   it('applies custom className', () => {
-    const { container } = render(<ProgressRing value={50} className="custom-class" />)
+    const { container } = render(
+      <ProgressRing value={50} className="custom-class" />
+    )
     const el = container.querySelector('[data-component="progress-ring"]')
     expect(el?.className).toContain('custom-class')
   })

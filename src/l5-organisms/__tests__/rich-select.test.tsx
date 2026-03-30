@@ -12,13 +12,22 @@ const options = [
 
 describe('RichSelect', () => {
   it('renders placeholder when no value', () => {
-    render(<RichSelect options={options} value={null} onChange={vi.fn()} placeholder="Pick one" />)
+    render(
+      <RichSelect
+        options={options}
+        value={null}
+        onChange={vi.fn()}
+        placeholder="Pick one"
+      />
+    )
     expect(screen.getByText('Pick one')).toBeDefined()
   })
 
   it('opens dropdown on click', async () => {
     const user = userEvent.setup()
-    const { container } = render(<RichSelect options={options} value={null} onChange={vi.fn()} />)
+    const { container } = render(
+      <RichSelect options={options} value={null} onChange={vi.fn()} />
+    )
     const trigger = container.querySelector('button')!
     await user.click(trigger)
     expect(screen.getByRole('listbox')).toBeDefined()
@@ -28,7 +37,9 @@ describe('RichSelect', () => {
 
   it('shows option details (description + badge)', async () => {
     const user = userEvent.setup()
-    const { container } = render(<RichSelect options={options} value={null} onChange={vi.fn()} />)
+    const { container } = render(
+      <RichSelect options={options} value={null} onChange={vi.fn()} />
+    )
     await user.click(container.querySelector('button')!)
     expect(screen.getByText('A fruit')).toBeDefined()
     expect(screen.getByText('popular')).toBeDefined()
@@ -37,15 +48,21 @@ describe('RichSelect', () => {
   it('selects option on click', async () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
-    const { container } = render(<RichSelect options={options} value={null} onChange={onChange} />)
+    const { container } = render(
+      <RichSelect options={options} value={null} onChange={onChange} />
+    )
     await user.click(container.querySelector('button')!)
     await user.click(screen.getByText('Banana'))
     expect(onChange).toHaveBeenCalledWith('banana')
   })
 
   it('has data-component attribute', () => {
-    const { container } = render(<RichSelect options={options} value={null} onChange={vi.fn()} />)
-    expect(container.querySelector('[data-component="rich-select"]')).not.toBeNull()
+    const { container } = render(
+      <RichSelect options={options} value={null} onChange={vi.fn()} />
+    )
+    expect(
+      container.querySelector('[data-component="rich-select"]')
+    ).not.toBeNull()
   })
 
   it('shows default placeholder when none provided', () => {
@@ -55,9 +72,15 @@ describe('RichSelect', () => {
 
   it('shows selected option label and icon when value is set', () => {
     const optionsWithIcon = [
-      { value: 'apple', label: 'Apple', icon: <span data-testid="apple-icon">A</span> },
+      {
+        value: 'apple',
+        label: 'Apple',
+        icon: <span data-testid="apple-icon">A</span>,
+      },
     ]
-    render(<RichSelect options={optionsWithIcon} value="apple" onChange={vi.fn()} />)
+    render(
+      <RichSelect options={optionsWithIcon} value="apple" onChange={vi.fn()} />
+    )
     expect(screen.getByText('Apple')).toBeDefined()
     expect(screen.getByTestId('apple-icon')).toBeDefined()
   })
@@ -69,7 +92,7 @@ describe('RichSelect', () => {
 
   it('applies error styling', () => {
     const { container } = render(
-      <RichSelect options={options} value={null} onChange={vi.fn()} error />,
+      <RichSelect options={options} value={null} onChange={vi.fn()} error />
     )
     const button = container.querySelector('button')!
     expect(button.className).toContain('border-danger')
@@ -79,7 +102,7 @@ describe('RichSelect', () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
     const { container } = render(
-      <RichSelect options={options} value={null} onChange={onChange} disabled />,
+      <RichSelect options={options} value={null} onChange={onChange} disabled />
     )
     const button = container.querySelector('button')!
     expect(button.disabled).toBe(true)
@@ -91,7 +114,7 @@ describe('RichSelect', () => {
   it('applies glass class', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <RichSelect options={options} value={null} onChange={vi.fn()} glass />,
+      <RichSelect options={options} value={null} onChange={vi.fn()} glass />
     )
     await user.click(container.querySelector('button')!)
     expect(screen.getByRole('listbox')).toBeDefined()
@@ -99,7 +122,12 @@ describe('RichSelect', () => {
 
   it('applies custom className', () => {
     const { container } = render(
-      <RichSelect options={options} value={null} onChange={vi.fn()} className="my-select" />,
+      <RichSelect
+        options={options}
+        value={null}
+        onChange={vi.fn()}
+        className="my-select"
+      />
     )
     const root = container.querySelector('[data-component="rich-select"]')
     expect(root?.className).toContain('my-select')
@@ -108,7 +136,7 @@ describe('RichSelect', () => {
   it('sets data-state to open/closed', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <RichSelect options={options} value={null} onChange={vi.fn()} />,
+      <RichSelect options={options} value={null} onChange={vi.fn()} />
     )
     const root = container.querySelector('[data-component="rich-select"]')!
     expect(root.getAttribute('data-state')).toBe('closed')
@@ -122,7 +150,7 @@ describe('RichSelect', () => {
       <div>
         <div data-testid="outside">Outside</div>
         <RichSelect options={options} value={null} onChange={vi.fn()} />
-      </div>,
+      </div>
     )
     const button = container.querySelector('button')!
     await user.click(button)
@@ -134,7 +162,7 @@ describe('RichSelect', () => {
   it('opens on keyboard Enter when closed', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <RichSelect options={options} value={null} onChange={vi.fn()} />,
+      <RichSelect options={options} value={null} onChange={vi.fn()} />
     )
     // onKeyDown is on the wrapper div
     await user.click(container.querySelector('button')!)
@@ -148,7 +176,7 @@ describe('RichSelect', () => {
   it('closes on Escape key when open', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <RichSelect options={options} value={null} onChange={vi.fn()} />,
+      <RichSelect options={options} value={null} onChange={vi.fn()} />
     )
     await user.click(container.querySelector('button')!)
     expect(screen.getByRole('listbox')).toBeDefined()
@@ -159,7 +187,7 @@ describe('RichSelect', () => {
   it('navigates options with ArrowDown when open', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <RichSelect options={options} value={null} onChange={vi.fn()} />,
+      <RichSelect options={options} value={null} onChange={vi.fn()} />
     )
     await user.click(container.querySelector('button')!)
     await user.keyboard('{ArrowDown}')
@@ -170,7 +198,7 @@ describe('RichSelect', () => {
   it('navigates options with ArrowUp when open', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <RichSelect options={options} value={null} onChange={vi.fn()} />,
+      <RichSelect options={options} value={null} onChange={vi.fn()} />
     )
     await user.click(container.querySelector('button')!)
     await user.keyboard('{ArrowUp}')
@@ -181,7 +209,7 @@ describe('RichSelect', () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
     const { container } = render(
-      <RichSelect options={options} value={null} onChange={onChange} />,
+      <RichSelect options={options} value={null} onChange={onChange} />
     )
     await user.click(container.querySelector('button')!)
     // focusedIndex starts at -1 after click open; ArrowDown moves to 0 (apple), then 1 (banana)
@@ -194,7 +222,7 @@ describe('RichSelect', () => {
   it('toggles dropdown open and closed on button click', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <RichSelect options={options} value={null} onChange={vi.fn()} />,
+      <RichSelect options={options} value={null} onChange={vi.fn()} />
     )
     const button = container.querySelector('button')!
     await user.click(button)

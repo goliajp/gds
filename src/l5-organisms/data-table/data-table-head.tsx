@@ -5,15 +5,27 @@ import { getDensity, getLabel } from './data-table-utils'
 function SortIcon({ dir }: { dir?: SortDir | null }) {
   if (dir === undefined || dir === null) {
     return (
-      <svg className="ml-1 inline h-3 w-3 text-fg-muted/40" fill="currentColor" viewBox="0 0 12 12">
+      <svg
+        className="text-fg-muted/40 ml-1 inline h-3 w-3"
+        fill="currentColor"
+        viewBox="0 0 12 12"
+      >
         <path d="M6 2L9 5H3L6 2Z" />
         <path d="M6 10L3 7H9L6 10Z" />
       </svg>
     )
   }
   return (
-    <svg className="ml-1 inline h-3 w-3 text-fg-muted" fill="currentColor" viewBox="0 0 12 12">
-      {dir === 'asc' ? <path d="M6 2L9 5H3L6 2Z" /> : <path d="M6 10L3 7H9L6 10Z" />}
+    <svg
+      className="text-fg-muted ml-1 inline h-3 w-3"
+      fill="currentColor"
+      viewBox="0 0 12 12"
+    >
+      {dir === 'asc' ? (
+        <path d="M6 2L9 5H3L6 2Z" />
+      ) : (
+        <path d="M6 10L3 7H9L6 10Z" />
+      )}
     </svg>
   )
 }
@@ -57,26 +69,46 @@ export function DataTableHead<T>({
   onColumnFilterChange,
 }: DataTableHeadProps<T>) {
   const d = getDensity(density)
-  const borderCls = bordered === true ? 'border border-border' : 'border-b border-border'
-  const hasFilters = columns.some((c) => c.filterable === true) && onColumnFilterChange !== undefined
+  const borderCls =
+    bordered === true ? 'border border-border' : 'border-b border-border'
+  const hasFilters =
+    columns.some((c) => c.filterable === true) &&
+    onColumnFilterChange !== undefined
 
   return (
     <thead>
-      <tr className={cx('bg-bg-secondary/50', stickyHeader === true && 'sticky top-0 z-10')}>
+      <tr
+        className={cx(
+          'bg-bg-secondary/50',
+          stickyHeader === true && 'sticky top-0 z-10'
+        )}
+      >
         {hasExpand === true && <th className={cx(d.th, borderCls, 'w-8')} />}
         {hasSelection && (
           <th className={cx(d.th, borderCls, 'w-8 text-center')}>
             <input
               type="checkbox"
               checked={allSelected === true}
-              ref={(el) => { if (el !== null) el.indeterminate = someSelected === true && allSelected !== true }}
+              ref={(el) => {
+                if (el !== null)
+                  el.indeterminate =
+                    someSelected === true && allSelected !== true
+              }}
               onChange={() => onToggleSelectAll?.()}
               className="accent-accent"
             />
           </th>
         )}
         {rowNumbers === true && (
-          <th className={cx(d.th, borderCls, 'w-8 text-center font-medium text-fg-muted select-none')}>#</th>
+          <th
+            className={cx(
+              d.th,
+              borderCls,
+              'text-fg-muted w-8 text-center font-medium select-none'
+            )}
+          >
+            #
+          </th>
         )}
         {columns.map((col) => (
           <th
@@ -84,10 +116,12 @@ export function DataTableHead<T>({
             className={cx(
               d.th,
               borderCls,
-              'font-semibold tracking-wide text-fg-muted select-none whitespace-nowrap',
+              'text-fg-muted font-semibold tracking-wide whitespace-nowrap select-none',
               col.align === 'right' && 'text-right',
               col.align === 'center' && 'text-center',
-              col.sortable === true && onSort !== undefined && 'cursor-pointer hover:text-fg',
+              col.sortable === true &&
+                onSort !== undefined &&
+                'hover:text-fg cursor-pointer'
             )}
             style={{
               width: col.width,
@@ -105,9 +139,7 @@ export function DataTableHead<T>({
             )}
           </th>
         ))}
-        {hasActions && (
-          <th className={cx(d.th, borderCls, 'w-12')} />
-        )}
+        {hasActions && <th className={cx(d.th, borderCls, 'w-12')} />}
       </tr>
       {hasFilters && (
         <tr className="bg-bg-secondary/30">
@@ -119,21 +151,27 @@ export function DataTableHead<T>({
               {col.filterable === true ? (
                 col.filterOptions !== undefined ? (
                   <select
-                    className="w-full rounded border border-border bg-bg px-1.5 py-0.5 text-[11px] text-fg outline-none"
+                    className="border-border bg-bg text-fg w-full rounded border px-1.5 py-0.5 text-[11px] outline-none"
                     value={columnFilters?.[col.key] ?? ''}
-                    onChange={(e) => onColumnFilterChange?.(col.key, e.target.value)}
+                    onChange={(e) =>
+                      onColumnFilterChange?.(col.key, e.target.value)
+                    }
                   >
                     <option value="">All</option>
                     {col.filterOptions.map((opt) => (
-                      <option key={opt.value} value={opt.value}>{opt.label}</option>
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
                     ))}
                   </select>
                 ) : (
                   <input
-                    className="w-full rounded border border-border bg-bg px-1.5 py-0.5 text-[11px] text-fg outline-none placeholder:text-fg-muted/50"
+                    className="border-border bg-bg text-fg placeholder:text-fg-muted/50 w-full rounded border px-1.5 py-0.5 text-[11px] outline-none"
                     placeholder="Filter..."
                     value={columnFilters?.[col.key] ?? ''}
-                    onChange={(e) => onColumnFilterChange?.(col.key, e.target.value)}
+                    onChange={(e) =>
+                      onColumnFilterChange?.(col.key, e.target.value)
+                    }
                   />
                 )
               ) : null}

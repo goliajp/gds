@@ -12,14 +12,16 @@ describe('Dropdown', () => {
 
   it('renders without crash', () => {
     const { container } = render(
-      <Dropdown trigger={<span>Menu</span>} items={items} onSelect={vi.fn()} />,
+      <Dropdown trigger={<span>Menu</span>} items={items} onSelect={vi.fn()} />
     )
-    expect(container.querySelector('[data-component="dropdown"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="dropdown"]')
+    ).not.toBeNull()
   })
 
   it('is closed by default', () => {
     const { container } = render(
-      <Dropdown trigger={<span>Menu</span>} items={items} onSelect={vi.fn()} />,
+      <Dropdown trigger={<span>Menu</span>} items={items} onSelect={vi.fn()} />
     )
     expect(container.querySelector('[data-state="closed"]')).not.toBeNull()
   })
@@ -27,7 +29,7 @@ describe('Dropdown', () => {
   it('opens on trigger click', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <Dropdown trigger={<span>Menu</span>} items={items} onSelect={vi.fn()} />,
+      <Dropdown trigger={<span>Menu</span>} items={items} onSelect={vi.fn()} />
     )
     await user.click(screen.getByText('Menu'))
     expect(container.querySelector('[data-state="open"]')).not.toBeNull()
@@ -38,7 +40,7 @@ describe('Dropdown', () => {
     const user = userEvent.setup()
     const onSelect = vi.fn()
     const { container } = render(
-      <Dropdown trigger={<span>Menu</span>} items={items} onSelect={onSelect} />,
+      <Dropdown trigger={<span>Menu</span>} items={items} onSelect={onSelect} />
     )
     await user.click(screen.getByText('Menu'))
     await user.click(screen.getByText('Edit'))
@@ -49,7 +51,7 @@ describe('Dropdown', () => {
   it('toggles on repeated trigger clicks', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <Dropdown trigger={<span>Menu</span>} items={items} onSelect={vi.fn()} />,
+      <Dropdown trigger={<span>Menu</span>} items={items} onSelect={vi.fn()} />
     )
     await user.click(screen.getByText('Menu'))
     expect(container.querySelector('[data-state="open"]')).not.toBeNull()
@@ -65,7 +67,11 @@ describe('Dropdown', () => {
       { id: 'delete', label: 'Delete', danger: true },
     ]
     const { container } = render(
-      <Dropdown trigger={<span>Menu</span>} items={itemsWithSep} onSelect={vi.fn()} />,
+      <Dropdown
+        trigger={<span>Menu</span>}
+        items={itemsWithSep}
+        onSelect={vi.fn()}
+      />
     )
     await user.click(screen.getByText('Menu'))
     // separator should be a div with h-px class
@@ -76,10 +82,18 @@ describe('Dropdown', () => {
   it('renders item with icon', async () => {
     const user = userEvent.setup()
     const itemsWithIcon = [
-      { id: 'edit', label: 'Edit', icon: <span data-testid="edit-icon">E</span> },
+      {
+        id: 'edit',
+        label: 'Edit',
+        icon: <span data-testid="edit-icon">E</span>,
+      },
     ]
     render(
-      <Dropdown trigger={<span>Menu</span>} items={itemsWithIcon} onSelect={vi.fn()} />,
+      <Dropdown
+        trigger={<span>Menu</span>}
+        items={itemsWithIcon}
+        onSelect={vi.fn()}
+      />
     )
     await user.click(screen.getByText('Menu'))
     expect(screen.getByTestId('edit-icon')).toBeDefined()
@@ -87,11 +101,13 @@ describe('Dropdown', () => {
 
   it('renders item with shortcut', async () => {
     const user = userEvent.setup()
-    const itemsWithShortcut = [
-      { id: 'edit', label: 'Edit', shortcut: '⌘E' },
-    ]
+    const itemsWithShortcut = [{ id: 'edit', label: 'Edit', shortcut: '⌘E' }]
     render(
-      <Dropdown trigger={<span>Menu</span>} items={itemsWithShortcut} onSelect={vi.fn()} />,
+      <Dropdown
+        trigger={<span>Menu</span>}
+        items={itemsWithShortcut}
+        onSelect={vi.fn()}
+      />
     )
     await user.click(screen.getByText('Menu'))
     expect(screen.getByText('⌘E')).toBeDefined()
@@ -99,11 +115,13 @@ describe('Dropdown', () => {
 
   it('renders disabled items with opacity', async () => {
     const user = userEvent.setup()
-    const itemsWithDisabled = [
-      { id: 'edit', label: 'Edit', disabled: true },
-    ]
+    const itemsWithDisabled = [{ id: 'edit', label: 'Edit', disabled: true }]
     render(
-      <Dropdown trigger={<span>Menu</span>} items={itemsWithDisabled} onSelect={vi.fn()} />,
+      <Dropdown
+        trigger={<span>Menu</span>}
+        items={itemsWithDisabled}
+        onSelect={vi.fn()}
+      />
     )
     await user.click(screen.getByText('Menu'))
     const editBtn = screen.getByText('Edit').closest('button')
@@ -114,7 +132,7 @@ describe('Dropdown', () => {
   it('applies danger styling to danger items', async () => {
     const user = userEvent.setup()
     render(
-      <Dropdown trigger={<span>Menu</span>} items={items} onSelect={vi.fn()} />,
+      <Dropdown trigger={<span>Menu</span>} items={items} onSelect={vi.fn()} />
     )
     await user.click(screen.getByText('Menu'))
     const deleteBtn = screen.getByText('Delete').closest('button')
@@ -124,7 +142,12 @@ describe('Dropdown', () => {
   it('aligns to end when align="end"', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <Dropdown trigger={<span>Menu</span>} items={items} onSelect={vi.fn()} align="end" />,
+      <Dropdown
+        trigger={<span>Menu</span>}
+        items={items}
+        onSelect={vi.fn()}
+        align="end"
+      />
     )
     await user.click(screen.getByText('Menu'))
     const menu = container.querySelector('.animate-popup')
@@ -134,7 +157,7 @@ describe('Dropdown', () => {
   it('aligns to start by default', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <Dropdown trigger={<span>Menu</span>} items={items} onSelect={vi.fn()} />,
+      <Dropdown trigger={<span>Menu</span>} items={items} onSelect={vi.fn()} />
     )
     await user.click(screen.getByText('Menu'))
     const menu = container.querySelector('.animate-popup')
@@ -144,7 +167,12 @@ describe('Dropdown', () => {
   it('applies glass styling when glass is true', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <Dropdown trigger={<span>Menu</span>} items={items} onSelect={vi.fn()} glass />,
+      <Dropdown
+        trigger={<span>Menu</span>}
+        items={items}
+        onSelect={vi.fn()}
+        glass
+      />
     )
     await user.click(screen.getByText('Menu'))
     const menu = container.querySelector('.animate-popup')
@@ -154,7 +182,7 @@ describe('Dropdown', () => {
   it('applies non-glass styling when glass is falsy', async () => {
     const user = userEvent.setup()
     const { container } = render(
-      <Dropdown trigger={<span>Menu</span>} items={items} onSelect={vi.fn()} />,
+      <Dropdown trigger={<span>Menu</span>} items={items} onSelect={vi.fn()} />
     )
     await user.click(screen.getByText('Menu'))
     const menu = container.querySelector('.animate-popup')
@@ -163,7 +191,12 @@ describe('Dropdown', () => {
 
   it('applies custom className', () => {
     const { container } = render(
-      <Dropdown trigger={<span>Menu</span>} items={items} onSelect={vi.fn()} className="my-dd" />,
+      <Dropdown
+        trigger={<span>Menu</span>}
+        items={items}
+        onSelect={vi.fn()}
+        className="my-dd"
+      />
     )
     const el = container.querySelector('[data-component="dropdown"]')
     expect(el?.className).toContain('my-dd')

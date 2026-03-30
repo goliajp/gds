@@ -7,12 +7,16 @@ import { Calendar } from '../calendar'
 describe('Calendar', () => {
   it('renders without crash', () => {
     const { container } = render(<Calendar />)
-    expect(container.querySelector('[data-component="calendar"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="calendar"]')
+    ).not.toBeNull()
   })
 
   it('has data-component attribute', () => {
     const { container } = render(<Calendar />)
-    expect(container.querySelector('[data-component="calendar"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="calendar"]')
+    ).not.toBeNull()
   })
 
   it('displays weekday headers', () => {
@@ -38,7 +42,7 @@ describe('Calendar', () => {
         value={new Date(2025, 0, 15)}
         min={new Date(2025, 0, 10)}
         max={new Date(2025, 0, 20)}
-      />,
+      />
     )
     const day5 = screen.getByText('5')
     expect(day5.hasAttribute('disabled')).toBe(true)
@@ -83,7 +87,7 @@ describe('Calendar', () => {
         onChange={onChange}
         min={new Date(2025, 0, 10)}
         max={new Date(2025, 0, 20)}
-      />,
+      />
     )
     const day5 = screen.getByText('5')
     await user.click(day5)

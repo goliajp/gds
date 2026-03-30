@@ -1,6 +1,6 @@
-import { act,renderHook } from '@testing-library/react'
+import { act, renderHook } from '@testing-library/react'
 import { useAtom } from 'jotai'
-import { beforeEach,describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
 import { DEFAULT_THEME, themeAtom } from '../theme'
 import {
@@ -246,7 +246,9 @@ describe('useSetThemeColors', () => {
   it('sets color overrides', () => {
     const { result: setter } = renderHook(() => useSetThemeColors())
     const { result: theme } = renderHook(() => useTheme())
-    act(() => setter.current({ '--gds-accent': '#ff0000', '--gds-danger': '#00ff00' }))
+    act(() =>
+      setter.current({ '--gds-accent': '#ff0000', '--gds-danger': '#00ff00' })
+    )
     expect(theme.current.colorOverrides).toEqual({
       '--gds-accent': '#ff0000',
       '--gds-danger': '#00ff00',

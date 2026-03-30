@@ -16,7 +16,9 @@ describe('Callout', () => {
   })
 
   it('applies variant data attribute', () => {
-    const { container } = render(<Callout variant="danger">Error occurred</Callout>)
+    const { container } = render(
+      <Callout variant="danger">Error occurred</Callout>
+    )
     const el = container.querySelector('[data-component="callout"]')
     expect(el?.getAttribute('data-variant')).toBe('danger')
   })

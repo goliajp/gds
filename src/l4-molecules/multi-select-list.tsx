@@ -20,7 +20,7 @@ type MultiSelectListProps = {
 function CheckIcon() {
   return (
     <svg
-      className="h-3.5 w-3.5 text-accent"
+      className="text-accent h-3.5 w-3.5"
       fill="none"
       stroke="currentColor"
       strokeLinecap="round"
@@ -45,15 +45,15 @@ function MultiSelectList({
   return (
     <div
       className={cx(
-        'absolute left-0 right-0 z-50 mt-1 animate-popup gds-radius-popover border gds-shadow-lg',
+        'animate-popup gds-radius-popover gds-shadow-lg absolute right-0 left-0 z-50 mt-1 border',
         glass
-          ? cx(glassClass(glass), 'border-white/10 bg-bg/60')
-          : 'border-border bg-surface',
+          ? cx(glassClass(glass), 'bg-bg/60 border-white/10')
+          : 'border-border bg-surface'
       )}
     >
-      <div className="border-b border-border p-1.5">
+      <div className="border-border border-b p-1.5">
         <input
-          className="w-full bg-transparent px-2 py-1 text-sm text-fg outline-none placeholder:text-fg-muted/50"
+          className="text-fg placeholder:text-fg-muted/50 w-full bg-transparent px-2 py-1 text-sm outline-none"
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="Search..."
           ref={searchRef}
@@ -63,7 +63,7 @@ function MultiSelectList({
       </div>
       <div className="max-h-60 overflow-y-auto py-1">
         {filtered.length === 0 && (
-          <div className="gds-pad-x gds-pad-y-sm text-sm text-fg-muted">
+          <div className="gds-pad-x gds-pad-y-sm text-fg-muted text-sm">
             No results
           </div>
         )}
@@ -72,9 +72,9 @@ function MultiSelectList({
           return (
             <button
               className={cx(
-                'flex w-full items-center gap-2 gds-pad-x gds-pad-y-sm text-left text-sm transition-colors',
+                'gds-pad-x gds-pad-y-sm flex w-full items-center gap-2 text-left text-sm transition-colors',
                 isSelected && 'text-accent',
-                !isSelected && 'text-fg hover:bg-bg-tertiary',
+                !isSelected && 'text-fg hover:bg-bg-tertiary'
               )}
               key={opt.value}
               onClick={() => onToggle(opt.value)}
@@ -83,9 +83,7 @@ function MultiSelectList({
               <span
                 className={cx(
                   'flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-colors',
-                  isSelected
-                    ? 'border-accent bg-accent/10'
-                    : 'border-border',
+                  isSelected ? 'border-accent bg-accent/10' : 'border-border'
                 )}
               >
                 {isSelected && <CheckIcon />}

@@ -13,7 +13,9 @@ const items = [
 describe('StackedList', () => {
   it('renders all items', () => {
     const { container } = render(<StackedList items={items} />)
-    expect(container.querySelector('[data-component="stacked-list"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="stacked-list"]')
+    ).not.toBeNull()
     expect(screen.getByText('First item')).toBeDefined()
     expect(screen.getByText('Second item')).toBeDefined()
     expect(screen.getByText('Third item')).toBeDefined()

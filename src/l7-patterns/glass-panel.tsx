@@ -29,7 +29,10 @@ export type GlassPanelProps = {
 }
 
 export const GlassPanel = forwardRef<HTMLDivElement, GlassPanelProps>(
-  function GlassPanel({ children, blur = 'default', padding = 'default', className }, ref) {
+  function GlassPanel(
+    { children, blur = 'default', padding = 'default', className },
+    ref
+  ) {
     return (
       <div
         ref={ref}
@@ -37,12 +40,12 @@ export const GlassPanel = forwardRef<HTMLDivElement, GlassPanelProps>(
           'gds-ctx gds-radius-card border border-white/10',
           glassClass(blurToGlass[blur]),
           paddingMap[padding],
-          className,
+          className
         )}
         data-component="glass-panel"
       >
         {children}
       </div>
     )
-  },
+  }
 )

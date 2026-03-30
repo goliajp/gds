@@ -18,7 +18,10 @@ export type MarkdownPreviewProps = {
 }
 
 export const MarkdownPreview = forwardRef<HTMLDivElement, MarkdownPreviewProps>(
-  function MarkdownPreview({ content, glass, className, sanitize: shouldSanitize = true }, ref) {
+  function MarkdownPreview(
+    { content, glass, className, sanitize: shouldSanitize = true },
+    ref
+  ) {
     const html = useMemo(() => {
       const raw = parseMarkdown(content)
       if (!shouldSanitize) return raw
@@ -34,13 +37,13 @@ export const MarkdownPreview = forwardRef<HTMLDivElement, MarkdownPreviewProps>(
       <div
         ref={ref}
         className={cx(
-          'gds-radius-popover gds-pad-x gds-pad-y text-sm text-fg leading-relaxed',
+          'gds-radius-popover gds-pad-x gds-pad-y text-fg text-sm leading-relaxed',
           glass === true && 'bg-white/5 backdrop-blur-md',
-          className,
+          className
         )}
         data-component="markdown-preview"
         dangerouslySetInnerHTML={{ __html: html }}
       />
     )
-  },
+  }
 )

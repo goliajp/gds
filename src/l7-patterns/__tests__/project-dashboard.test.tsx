@@ -6,7 +6,9 @@ import { ProjectDashboard } from '../project-dashboard'
 describe('ProjectDashboard', () => {
   it('renders with data-component', () => {
     const { container } = render(<ProjectDashboard />)
-    expect(container.querySelector('[data-component="project-dashboard"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="project-dashboard"]')
+    ).not.toBeNull()
   })
 
   it('renders all four slots', () => {
@@ -16,7 +18,7 @@ describe('ProjectDashboard', () => {
         progress={<div>Progress Bar</div>}
         tasks={<div>Task List</div>}
         team={<div>Team Members</div>}
-      />,
+      />
     )
     expect(screen.getByText('Progress Bar')).toBeDefined()
     expect(screen.getByText('Team Members')).toBeDefined()
@@ -27,7 +29,9 @@ describe('ProjectDashboard', () => {
   })
 
   it('omits empty slots', () => {
-    const { container } = render(<ProjectDashboard progress={<div>Only Progress</div>} />)
+    const { container } = render(
+      <ProjectDashboard progress={<div>Only Progress</div>} />
+    )
     expect(container.querySelector('[data-slot="progress"]')).not.toBeNull()
     expect(container.querySelector('[data-slot="team"]')).toBeNull()
     expect(container.querySelector('[data-slot="activity"]')).toBeNull()

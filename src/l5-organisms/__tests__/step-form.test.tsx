@@ -6,14 +6,22 @@ import { StepForm } from '../step-form'
 
 const steps: FormStep[] = [
   { label: 'Account', content: <div>Account form</div> },
-  { label: 'Profile', description: 'Your profile info', content: <div>Profile form</div> },
+  {
+    label: 'Profile',
+    description: 'Your profile info',
+    content: <div>Profile form</div>,
+  },
   { label: 'Review', content: <div>Review form</div> },
 ]
 
 describe('StepForm', () => {
   it('renders with data-component attribute', () => {
-    const { container } = render(<StepForm onComplete={vi.fn()} steps={steps} />)
-    expect(container.querySelector('[data-component="step-form"]')).not.toBeNull()
+    const { container } = render(
+      <StepForm onComplete={vi.fn()} steps={steps} />
+    )
+    expect(
+      container.querySelector('[data-component="step-form"]')
+    ).not.toBeNull()
   })
 
   it('renders all step labels', () => {
@@ -74,7 +82,9 @@ describe('StepForm', () => {
   })
 
   it('renders step indicators with correct styling for completed/current/future steps', () => {
-    const { container } = render(<StepForm onComplete={vi.fn()} steps={steps} />)
+    const { container } = render(
+      <StepForm onComplete={vi.fn()} steps={steps} />
+    )
     // advance to step 2 (index 1)
     fireEvent.click(screen.getByText('Next'))
 
@@ -88,7 +98,9 @@ describe('StepForm', () => {
   })
 
   it('renders check svg for completed steps', () => {
-    const { container } = render(<StepForm onComplete={vi.fn()} steps={steps} />)
+    const { container } = render(
+      <StepForm onComplete={vi.fn()} steps={steps} />
+    )
     fireEvent.click(screen.getByText('Next'))
     // first step indicator should contain an svg (checkmark)
     const indicators = container.querySelectorAll('.flex.h-6.w-6')
@@ -103,7 +115,9 @@ describe('StepForm', () => {
   })
 
   it('renders connector lines between steps', () => {
-    const { container } = render(<StepForm onComplete={vi.fn()} steps={steps} />)
+    const { container } = render(
+      <StepForm onComplete={vi.fn()} steps={steps} />
+    )
     // connector lines are h-px w-8 divs, should be present for steps after the first
     const connectors = container.querySelectorAll('.h-px.w-8')
     expect(connectors.length).toBe(2) // between step 0-1, and 1-2
@@ -111,7 +125,7 @@ describe('StepForm', () => {
 
   it('applies custom className', () => {
     const { container } = render(
-      <StepForm className="my-form" onComplete={vi.fn()} steps={steps} />,
+      <StepForm className="my-form" onComplete={vi.fn()} steps={steps} />
     )
     const root = container.querySelector('[data-component="step-form"]')
     expect(root?.className).toContain('my-form')
@@ -122,9 +136,11 @@ describe('StepForm', () => {
     render(
       <StepForm
         onComplete={vi.fn()}
-        ref={(el) => { divRef = el }}
+        ref={(el) => {
+          divRef = el
+        }}
         steps={steps}
-      />,
+      />
     )
     expect(divRef).not.toBeNull()
     expect((divRef as unknown as HTMLElement)?.tagName).toBe('DIV')

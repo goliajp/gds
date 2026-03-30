@@ -25,12 +25,25 @@ export type RadarChartProps = {
 
 export const RadarChart = forwardRef<HTMLDivElement, RadarChartProps>(
   function RadarChart(
-    { data, dataKey, angleKey = 'name', className, height = 300, color = 'var(--gds-accent)', glass, ...props },
-    ref,
+    {
+      data,
+      dataKey,
+      angleKey = 'name',
+      className,
+      height = 300,
+      color = 'var(--gds-accent)',
+      glass,
+      ...props
+    },
+    ref
   ) {
     return (
       <div
-        className={cx('w-full', glass && 'gds-radius-popover backdrop-blur-md bg-white/5', className)}
+        className={cx(
+          'w-full',
+          glass && 'gds-radius-popover bg-white/5 backdrop-blur-md',
+          className
+        )}
         data-component="radar-chart"
         ref={ref}
         {...props}
@@ -38,13 +51,26 @@ export const RadarChart = forwardRef<HTMLDivElement, RadarChartProps>(
         <ResponsiveContainer height={height} width="100%">
           <RRadarChart cx="50%" cy="50%" data={data} outerRadius="80%">
             <PolarGrid stroke="var(--gds-border, #e5e7eb)" />
-            <PolarAngleAxis dataKey={angleKey} stroke="var(--gds-fg-muted, #6b7280)" tick={{ fontSize: 11 }} />
-            <PolarRadiusAxis stroke="var(--gds-fg-muted, #6b7280)" tick={{ fontSize: 10 }} />
+            <PolarAngleAxis
+              dataKey={angleKey}
+              stroke="var(--gds-fg-muted, #6b7280)"
+              tick={{ fontSize: 11 }}
+            />
+            <PolarRadiusAxis
+              stroke="var(--gds-fg-muted, #6b7280)"
+              tick={{ fontSize: 10 }}
+            />
             <Tooltip />
-            <Radar dataKey={dataKey} fill={color} fillOpacity={0.3} stroke={color} strokeWidth={2} />
+            <Radar
+              dataKey={dataKey}
+              fill={color}
+              fillOpacity={0.3}
+              stroke={color}
+              strokeWidth={2}
+            />
           </RRadarChart>
         </ResponsiveContainer>
       </div>
     )
-  },
+  }
 )

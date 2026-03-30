@@ -21,21 +21,32 @@ export type FieldGroupProps = {
 }
 
 export const FieldGroup = forwardRef<HTMLFieldSetElement, FieldGroupProps>(
-  function FieldGroup({ children, columns = 1, title, description, className }, ref) {
+  function FieldGroup(
+    { children, columns = 1, title, description, className },
+    ref
+  ) {
     return (
-      <fieldset ref={ref} className={cx('space-y-4', className)} data-component="field-group">
+      <fieldset
+        ref={ref}
+        className={cx('space-y-4', className)}
+        data-component="field-group"
+      >
         {title !== undefined && (
           <div>
-            <legend className="text-sm font-semibold text-fg">{title}</legend>
+            <legend className="text-fg text-sm font-semibold">{title}</legend>
             {description !== undefined && (
-              <p className="mt-0.5 gds-text-body text-fg-muted">{description}</p>
+              <p className="gds-text-body text-fg-muted mt-0.5">
+                {description}
+              </p>
             )}
           </div>
         )}
-        <div className={cx('grid gds-gap', columnClasses[columns])}>{children}</div>
+        <div className={cx('gds-gap grid', columnClasses[columns])}>
+          {children}
+        </div>
       </fieldset>
     )
-  },
+  }
 )
 
 export type { FieldGroupColumns }

@@ -36,7 +36,11 @@ export const ActionMenu = forwardRef<HTMLDivElement, ActionMenuProps>(
     useEscapeKey(open, () => setOpen(false))
 
     return (
-      <div className={cx('relative inline-block', className)} data-component="action-menu" ref={ref}>
+      <div
+        className={cx('relative inline-block', className)}
+        data-component="action-menu"
+        ref={ref}
+      >
         <div ref={containerRef}>
           <IconButton
             disabled={disabled}
@@ -46,19 +50,26 @@ export const ActionMenu = forwardRef<HTMLDivElement, ActionMenuProps>(
             variant="default"
           />
           {open && (
-            <div className="absolute right-0 z-50 mt-1 min-w-[140px] animate-popup rounded-lg border border-border bg-surface py-1 shadow-lg">
+            <div className="animate-popup border-border bg-surface absolute right-0 z-50 mt-1 min-w-[140px] rounded-lg border py-1 shadow-lg">
               {items.map((item) => (
                 <button
                   key={item.id}
                   className={cx(
-                    'flex w-full items-center gds-gap-sm px-3 py-1.5 gds-text-body transition-colors',
+                    'gds-gap-sm gds-text-body flex w-full items-center px-3 py-1.5 transition-colors',
                     focusCls,
-                    item.danger === true ? 'text-danger hover:bg-danger/10' : 'text-fg hover:bg-bg-tertiary',
+                    item.danger === true
+                      ? 'text-danger hover:bg-danger/10'
+                      : 'text-fg hover:bg-bg-tertiary'
                   )}
-                  onClick={() => { onSelect(item.id); setOpen(false) }}
+                  onClick={() => {
+                    onSelect(item.id)
+                    setOpen(false)
+                  }}
                   type="button"
                 >
-                  {item.icon !== undefined && <span className="shrink-0">{item.icon}</span>}
+                  {item.icon !== undefined && (
+                    <span className="shrink-0">{item.icon}</span>
+                  )}
                   <span>{item.label}</span>
                 </button>
               ))}
@@ -67,7 +78,7 @@ export const ActionMenu = forwardRef<HTMLDivElement, ActionMenuProps>(
         </div>
       </div>
     )
-  },
+  }
 )
 
 export type { ActionMenuItem, ActionMenuProps }

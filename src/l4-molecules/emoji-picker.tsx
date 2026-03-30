@@ -11,19 +11,71 @@ type EmojiCategory = {
 const defaultCategories: EmojiCategory[] = [
   {
     name: 'Smileys',
-    emojis: ['😀', '😂', '🥹', '😍', '🤔', '😎', '🥳', '😴', '🤯', '😱', '🙄', '😤'],
+    emojis: [
+      '😀',
+      '😂',
+      '🥹',
+      '😍',
+      '🤔',
+      '😎',
+      '🥳',
+      '😴',
+      '🤯',
+      '😱',
+      '🙄',
+      '😤',
+    ],
   },
   {
     name: 'Gestures',
-    emojis: ['👍', '👎', '👏', '🤝', '✌️', '🤞', '🫶', '💪', '🙏', '👋', '🫡', '🤙'],
+    emojis: [
+      '👍',
+      '👎',
+      '👏',
+      '🤝',
+      '✌️',
+      '🤞',
+      '🫶',
+      '💪',
+      '🙏',
+      '👋',
+      '🫡',
+      '🤙',
+    ],
   },
   {
     name: 'Animals',
-    emojis: ['🐶', '🐱', '🐻', '🦊', '🐸', '🐵', '🦁', '🐧', '🦋', '🐝', '🐢', '🐬'],
+    emojis: [
+      '🐶',
+      '🐱',
+      '🐻',
+      '🦊',
+      '🐸',
+      '🐵',
+      '🦁',
+      '🐧',
+      '🦋',
+      '🐝',
+      '🐢',
+      '🐬',
+    ],
   },
   {
     name: 'Objects',
-    emojis: ['🔥', '⭐', '💡', '🎯', '🚀', '💎', '🎉', '📌', '🔔', '💬', '❤️', '✅'],
+    emojis: [
+      '🔥',
+      '⭐',
+      '💡',
+      '🎯',
+      '🚀',
+      '💎',
+      '🎉',
+      '📌',
+      '🔔',
+      '💬',
+      '❤️',
+      '✅',
+    ],
   },
 ]
 
@@ -36,8 +88,15 @@ export type EmojiPickerProps = React.HTMLAttributes<HTMLDivElement> & {
 
 export const EmojiPicker = forwardRef<HTMLDivElement, EmojiPickerProps>(
   function EmojiPicker(
-    { onSelect, categories = defaultCategories, columns = 8, glass = false, className, ...props },
-    ref,
+    {
+      onSelect,
+      categories = defaultCategories,
+      columns = 8,
+      glass = false,
+      className,
+      ...props
+    },
+    ref
   ) {
     const [activeTab, setActiveTab] = useState(0)
     const [search, setSearch] = useState('')
@@ -52,9 +111,9 @@ export const EmojiPicker = forwardRef<HTMLDivElement, EmojiPickerProps>(
       <div
         ref={ref}
         className={cx(
-          'w-fit rounded-lg border border-border p-2 shadow-lg',
+          'border-border w-fit rounded-lg border p-2 shadow-lg',
           glass ? 'bg-bg/80 backdrop-blur-xl' : 'bg-bg-secondary',
-          className,
+          className
         )}
         data-component="emoji-picker"
         {...props}
@@ -65,7 +124,7 @@ export const EmojiPicker = forwardRef<HTMLDivElement, EmojiPickerProps>(
           placeholder="Search..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="mb-2 w-full rounded-md border border-border bg-transparent px-2 py-1 text-xs text-fg placeholder:text-fg-muted outline-none"
+          className="border-border text-fg placeholder:text-fg-muted mb-2 w-full rounded-md border bg-transparent px-2 py-1 text-xs outline-none"
         />
 
         {/* category tabs */}
@@ -78,7 +137,7 @@ export const EmojiPicker = forwardRef<HTMLDivElement, EmojiPickerProps>(
                   'shrink-0 rounded-md px-2 py-0.5 text-[10px] font-medium transition-colors',
                   i === activeTab
                     ? 'bg-accent/15 text-accent'
-                    : 'text-fg-muted hover:text-fg',
+                    : 'text-fg-muted hover:text-fg'
                 )}
                 onClick={() => setActiveTab(i)}
               >
@@ -96,7 +155,7 @@ export const EmojiPicker = forwardRef<HTMLDivElement, EmojiPickerProps>(
           {filteredEmojis.map((emoji, i) => (
             <button
               key={`${emoji}-${i}`}
-              className="flex h-8 w-8 items-center justify-center rounded-md text-base hover:bg-white/10 transition-colors"
+              className="flex h-8 w-8 items-center justify-center rounded-md text-base transition-colors hover:bg-white/10"
               onClick={() => onSelect(emoji)}
             >
               {emoji}
@@ -105,5 +164,5 @@ export const EmojiPicker = forwardRef<HTMLDivElement, EmojiPickerProps>(
         </div>
       </div>
     )
-  },
+  }
 )

@@ -15,7 +15,7 @@ export type Particle = {
 
 export function createParticle(
   canvasWidth: number,
-  colors: string[],
+  colors: string[]
 ): Particle {
   return {
     x: Math.random() * canvasWidth,

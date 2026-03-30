@@ -22,17 +22,17 @@ const LoadingOverlay = forwardRef<HTMLDivElement, LoadingOverlayProps>(
         className={cx(
           'absolute inset-0 z-10 flex flex-col items-center justify-center',
           glass === true ? glassClass(true) : 'bg-bg/80',
-          className,
+          className
         )}
         data-component="loading-overlay"
       >
         <Spinner />
         {message !== undefined && (
-          <span className="mt-2 text-xs text-fg-muted">{message}</span>
+          <span className="text-fg-muted mt-2 text-xs">{message}</span>
         )}
       </div>
     )
-  },
+  }
 )
 
 export { LoadingOverlay }

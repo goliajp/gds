@@ -29,9 +29,17 @@ describe('VideoPlayer', () => {
     const video = screen.getByTestId('video-element') as HTMLVideoElement
 
     let paused = true
-    Object.defineProperty(video, 'paused', { get: () => paused, configurable: true })
-    video.play = vi.fn().mockImplementation(() => { paused = false; return Promise.resolve() })
-    video.pause = vi.fn().mockImplementation(() => { paused = true })
+    Object.defineProperty(video, 'paused', {
+      get: () => paused,
+      configurable: true,
+    })
+    video.play = vi.fn().mockImplementation(() => {
+      paused = false
+      return Promise.resolve()
+    })
+    video.pause = vi.fn().mockImplementation(() => {
+      paused = true
+    })
 
     const playBtn = screen.getByTestId('play-button')
     expect(playBtn).toHaveAttribute('aria-label', 'Play')
@@ -57,7 +65,9 @@ describe('VideoPlayer', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<VideoPlayer src="test.mp4" />)
-    expect(container.querySelector('[data-component="video-player"]')).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="video-player"]')
+    ).toBeInTheDocument()
   })
 
   it('handles timeupdate event', () => {
@@ -87,11 +97,17 @@ describe('VideoPlayer', () => {
 
     // start playing
     fireEvent.click(screen.getByTestId('play-button'))
-    expect(screen.getByTestId('play-button')).toHaveAttribute('aria-label', 'Pause')
+    expect(screen.getByTestId('play-button')).toHaveAttribute(
+      'aria-label',
+      'Pause'
+    )
 
     // trigger ended
     fireEvent.ended(video)
-    expect(screen.getByTestId('play-button')).toHaveAttribute('aria-label', 'Play')
+    expect(screen.getByTestId('play-button')).toHaveAttribute(
+      'aria-label',
+      'Play'
+    )
     // controls should be visible
     expect(screen.getByTestId('controls').className).toContain('opacity-100')
   })
@@ -105,7 +121,14 @@ describe('VideoPlayer', () => {
 
     const progressBar = screen.getByTestId('progress-bar')
     vi.spyOn(progressBar, 'getBoundingClientRect').mockReturnValue({
-      left: 0, width: 200, top: 0, right: 200, bottom: 10, height: 10, x: 0, y: 0,
+      left: 0,
+      width: 200,
+      top: 0,
+      right: 200,
+      bottom: 10,
+      height: 10,
+      x: 0,
+      y: 0,
       toJSON: vi.fn(),
     })
 
@@ -144,7 +167,9 @@ describe('VideoPlayer', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<VideoPlayer src="test.mp4" className="my-player" />)
+    const { container } = render(
+      <VideoPlayer src="test.mp4" className="my-player" />
+    )
     const el = container.querySelector('[data-component="video-player"]')
     expect(el?.className).toContain('my-player')
   })
@@ -202,7 +227,9 @@ describe('VideoPlayer', () => {
   })
 
   it('does not attach mouse handlers when controls=false', () => {
-    const { container } = render(<VideoPlayer src="test.mp4" controls={false} />)
+    const { container } = render(
+      <VideoPlayer src="test.mp4" controls={false} />
+    )
     const el = container.querySelector('[data-component="video-player"]')!
     // mouseMove and mouseLeave should not cause errors
     fireEvent.mouseMove(el)
@@ -212,14 +239,20 @@ describe('VideoPlayer', () => {
   it('handles fullscreen exit when already in fullscreen', () => {
     render(<VideoPlayer src="test.mp4" />)
     // simulate being in fullscreen
-    Object.defineProperty(document, 'fullscreenElement', { value: document.body, configurable: true })
+    Object.defineProperty(document, 'fullscreenElement', {
+      value: document.body,
+      configurable: true,
+    })
     document.exitFullscreen = vi.fn().mockResolvedValue(undefined)
 
     fireEvent.click(screen.getByTestId('fullscreen-button'))
     expect(document.exitFullscreen).toHaveBeenCalled()
 
     // restore
-    Object.defineProperty(document, 'fullscreenElement', { value: null, configurable: true })
+    Object.defineProperty(document, 'fullscreenElement', {
+      value: null,
+      configurable: true,
+    })
   })
 
   it('does not apply glass class when glass is false', () => {
@@ -235,8 +268,14 @@ describe('VideoPlayer', () => {
     const video = screen.getByTestId('video-element') as HTMLVideoElement
 
     let paused = true
-    Object.defineProperty(video, 'paused', { get: () => paused, configurable: true })
-    video.play = vi.fn().mockImplementation(() => { paused = false; return Promise.resolve() })
+    Object.defineProperty(video, 'paused', {
+      get: () => paused,
+      configurable: true,
+    })
+    video.play = vi.fn().mockImplementation(() => {
+      paused = false
+      return Promise.resolve()
+    })
 
     // start playing
     fireEvent.click(screen.getByTestId('play-button'))
@@ -260,7 +299,10 @@ describe('VideoPlayer', () => {
     const video = screen.getByTestId('video-element') as HTMLVideoElement
 
     // ensure not in fullscreen
-    Object.defineProperty(document, 'fullscreenElement', { value: null, configurable: true })
+    Object.defineProperty(document, 'fullscreenElement', {
+      value: null,
+      configurable: true,
+    })
     video.requestFullscreen = vi.fn().mockResolvedValue(undefined)
 
     fireEvent.click(screen.getByTestId('fullscreen-button'))
@@ -275,8 +317,14 @@ describe('VideoPlayer', () => {
     const el = container.querySelector('[data-component="video-player"]')!
 
     let paused = true
-    Object.defineProperty(video, 'paused', { get: () => paused, configurable: true })
-    video.play = vi.fn().mockImplementation(() => { paused = false; return Promise.resolve() })
+    Object.defineProperty(video, 'paused', {
+      get: () => paused,
+      configurable: true,
+    })
+    video.play = vi.fn().mockImplementation(() => {
+      paused = false
+      return Promise.resolve()
+    })
 
     fireEvent.click(screen.getByTestId('play-button'))
 

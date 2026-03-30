@@ -70,7 +70,10 @@ function buildColumnClasses(columns: number | ResponsiveColumns): string {
 }
 
 export const GridLayout = forwardRef<HTMLDivElement, GridLayoutProps>(
-  function GridLayout({ children, columns = { sm: 1, md: 2, lg: 3 }, gap = 'default', className }, ref) {
+  function GridLayout(
+    { children, columns = { sm: 1, md: 2, lg: 3 }, gap = 'default', className },
+    ref
+  ) {
     return (
       <div
         ref={ref}
@@ -78,12 +81,12 @@ export const GridLayout = forwardRef<HTMLDivElement, GridLayoutProps>(
           'grid',
           buildColumnClasses(columns),
           gapMap[gap],
-          className,
+          className
         )}
         data-component="grid-layout"
       >
         {children}
       </div>
     )
-  },
+  }
 )

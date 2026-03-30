@@ -10,13 +10,19 @@ const items = [
 
 describe('CircularMenu', () => {
   it('renders without crash', () => {
-    const { container } = render(<CircularMenu items={items} trigger={<button>Open</button>} />)
+    const { container } = render(
+      <CircularMenu items={items} trigger={<button>Open</button>} />
+    )
     expect(container.firstChild).not.toBeNull()
   })
 
   it('has data-component attribute', () => {
-    const { container } = render(<CircularMenu items={items} trigger={<button>Open</button>} />)
-    expect(container.querySelector('[data-component="circular-menu"]')).not.toBeNull()
+    const { container } = render(
+      <CircularMenu items={items} trigger={<button>Open</button>} />
+    )
+    expect(
+      container.querySelector('[data-component="circular-menu"]')
+    ).not.toBeNull()
   })
 
   it('renders trigger element', () => {
@@ -25,7 +31,15 @@ describe('CircularMenu', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<CircularMenu className="custom" items={items} trigger={<button>T</button>} />)
-    expect(container.querySelector('[data-component="circular-menu"]')?.className).toContain('custom')
+    const { container } = render(
+      <CircularMenu
+        className="custom"
+        items={items}
+        trigger={<button>T</button>}
+      />
+    )
+    expect(
+      container.querySelector('[data-component="circular-menu"]')?.className
+    ).toContain('custom')
   })
 })

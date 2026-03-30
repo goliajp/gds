@@ -2,7 +2,13 @@
 // place once at app root: <ToastProvider />
 // then call toast.success('Done!') from anywhere
 
-import { forwardRef, useCallback, useEffect, useRef, useSyncExternalStore } from 'react'
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useSyncExternalStore,
+} from 'react'
 
 import { cx } from '../utils/cx'
 import { renderPortal } from '../utils/portal'
@@ -10,7 +16,13 @@ import { Toast } from './toast'
 import type { ToastItem } from './toast-store'
 import { toast as toastApi, toastStore } from './toast-store'
 
-export type ToastPosition = 'bottom-center' | 'bottom-left' | 'bottom-right' | 'top-center' | 'top-left' | 'top-right'
+export type ToastPosition =
+  | 'bottom-center'
+  | 'bottom-left'
+  | 'bottom-right'
+  | 'top-center'
+  | 'top-left'
+  | 'top-right'
 
 export type ToastProviderProps = React.HTMLAttributes<HTMLDivElement> & {
   maxVisible?: number
@@ -29,13 +41,18 @@ const positionStyles: Record<ToastPosition, string> = {
 const emptySnapshot: ToastItem[] = []
 
 export const ToastProvider = forwardRef<HTMLDivElement, ToastProviderProps>(
-  function ToastProvider({ position = 'bottom-right', maxVisible = 5, className, ...props }, ref) {
+  function ToastProvider(
+    { position = 'bottom-right', maxVisible = 5, className, ...props },
+    ref
+  ) {
     const items = useSyncExternalStore(
       toastStore.subscribe,
       toastStore.getSnapshot,
-      () => emptySnapshot,
+      () => emptySnapshot
     )
-    const timersRef = useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map())
+    const timersRef = useRef<Map<string, ReturnType<typeof setTimeout>>>(
+      new Map()
+    )
 
     const handleClose = useCallback((id: string) => {
       const timer = timersRef.current.get(id)
@@ -68,7 +85,7 @@ export const ToastProvider = forwardRef<HTMLDivElement, ToastProviderProps>(
       }
       // cleanup timers for removed items
       for (const [id, timer] of timers) {
-        if (!items.some(i => i.id === id)) {
+        if (!items.some((i) => i.id === id)) {
           clearTimeout(timer)
           timers.delete(id)
         }
@@ -96,7 +113,7 @@ export const ToastProvider = forwardRef<HTMLDivElement, ToastProviderProps>(
             item.action?.onClick()
             handleClose(item.id)
           }}
-          className="shrink-0 gds-text-label font-medium text-accent hover:underline"
+          className="gds-text-label text-accent shrink-0 font-medium hover:underline"
         >
           {item.action.label}
         </button>
@@ -108,26 +125,28 @@ export const ToastProvider = forwardRef<HTMLDivElement, ToastProviderProps>(
         {...props}
         ref={ref}
         className={cx(
-          'fixed z-[var(--gds-z-toast)] flex w-80 flex-col gap-2 pointer-events-none',
+          'pointer-events-none fixed z-[var(--gds-z-toast)] flex w-80 flex-col gap-2',
           positionStyles[position],
-          className,
+          className
         )}
         data-component="toast-provider"
         aria-live="polite"
         aria-label="Notifications"
       >
-        {visible.map(item => (
-          <div key={item.id} className="pointer-events-auto animate-slide-up">
+        {visible.map((item) => (
+          <div key={item.id} className="animate-slide-up pointer-events-auto">
             <Toast
               title={item.title}
               description={item.description}
               variant={item.variant}
-              onClose={item.dismissible ? () => handleClose(item.id) : undefined}
+              onClose={
+                item.dismissible ? () => handleClose(item.id) : undefined
+              }
               action={actionButton(item)}
             />
           </div>
         ))}
-      </div>,
+      </div>
     )
-  },
+  }
 )

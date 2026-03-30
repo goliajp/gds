@@ -19,7 +19,20 @@ export type HeatmapGrid = {
 }
 
 export const DAY_LABELS = ['Mon', '', 'Wed', '', 'Fri', '', '']
-const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const MONTH_NAMES = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+]
 
 function getWeekday(d: Date): number {
   // 0=Mon ... 6=Sun
@@ -27,11 +40,17 @@ function getWeekday(d: Date): number {
 }
 
 function computeThresholds(data: HeatmapDatum[]): number[] {
-  const values = data.map((d) => d.value).filter((v) => v > 0).sort((a, b) => a - b)
+  const values = data
+    .map((d) => d.value)
+    .filter((v) => v > 0)
+    .sort((a, b) => a - b)
   const thresholds: number[] = []
   if (values.length > 0) {
     for (let i = 1; i <= 4; i++) {
-      const idx = Math.min(Math.floor((i / 4) * values.length), values.length - 1)
+      const idx = Math.min(
+        Math.floor((i / 4) * values.length),
+        values.length - 1
+      )
       thresholds.push(values[idx])
     }
   }
@@ -50,12 +69,13 @@ export function computeHeatmapGrid(
   data: HeatmapDatum[],
   startDate: string | undefined,
   endDate: string | undefined,
-  step: number,
+  step: number
 ): HeatmapGrid {
   const end = endDate !== undefined ? new Date(endDate) : new Date()
-  const start = startDate !== undefined
-    ? new Date(startDate)
-    : new Date(end.getFullYear() - 1, end.getMonth(), end.getDate() + 1)
+  const start =
+    startDate !== undefined
+      ? new Date(startDate)
+      : new Date(end.getFullYear() - 1, end.getMonth(), end.getDate() + 1)
 
   const lookup = new Map<string, number>()
   for (const d of data) {

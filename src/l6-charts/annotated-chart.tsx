@@ -19,7 +19,11 @@ type AnnotatedChartProps = {
 
 const PADDING = 32
 
-function scalePoints(data: { x: number; y: number }[], width: number, height: number): { sx: number; sy: number }[] {
+function scalePoints(
+  data: { x: number; y: number }[],
+  width: number,
+  height: number
+): { sx: number; sy: number }[] {
   if (data.length === 0) return []
   const xMin = Math.min(...data.map((d) => d.x))
   const xMax = Math.max(...data.map((d) => d.x))
@@ -33,16 +37,29 @@ function scalePoints(data: { x: number; y: number }[], width: number, height: nu
   }))
 }
 
-export function AnnotatedChart({ annotations, className, data, height = 200 }: AnnotatedChartProps) {
+export function AnnotatedChart({
+  annotations,
+  className,
+  data,
+  height = 200,
+}: AnnotatedChartProps) {
   const [activeIdx, setActiveIdx] = useState<null | number>(null)
   const width = 400
   const scaled = scalePoints(data, width, height)
   const polylinePoints = scaled.map((p) => `${p.sx},${p.sy}`).join(' ')
 
   return (
-    <div className={cx('relative select-none', className)} data-component="annotated-chart">
+    <div
+      className={cx('relative select-none', className)}
+      data-component="annotated-chart"
+    >
       <svg className="w-full" viewBox={`0 0 ${width} ${height}`}>
-        <polyline className="stroke-accent" fill="none" points={polylinePoints} strokeWidth={2} />
+        <polyline
+          className="stroke-accent"
+          fill="none"
+          points={polylinePoints}
+          strokeWidth={2}
+        />
         {annotations.map((ann, i) => {
           const idx = data.findIndex((d) => d.x === ann.x)
           if (idx < 0) return null
@@ -52,7 +69,12 @@ export function AnnotatedChart({ annotations, className, data, height = 200 }: A
               className="cursor-pointer outline-none"
               key={i}
               onClick={() => setActiveIdx(activeIdx === i ? null : i)}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveIdx(activeIdx === i ? null : i) } }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  setActiveIdx(activeIdx === i ? null : i)
+                }
+              }}
               role="button"
               tabIndex={0}
             >
@@ -67,21 +89,25 @@ export function AnnotatedChart({ annotations, className, data, height = 200 }: A
           )
         })}
       </svg>
-      {activeIdx !== null && (() => {
-        const ann = annotations[activeIdx]
-        const idx = data.findIndex((d) => d.x === ann.x)
-        if (idx < 0) return null
-        const pos = scaled[idx]
-        return (
-          <div
-            className="absolute z-10 rounded-lg border border-border bg-surface px-3 py-2 shadow-lg"
-            style={{ left: `${(pos.sx / width) * 100}%`, top: `${(pos.sy / height) * 100}%` }}
-          >
-            <div className="text-xs font-bold text-fg">{ann.label}</div>
-            <div className="text-xs text-fg-muted">{ann.description}</div>
-          </div>
-        )
-      })()}
+      {activeIdx !== null &&
+        (() => {
+          const ann = annotations[activeIdx]
+          const idx = data.findIndex((d) => d.x === ann.x)
+          if (idx < 0) return null
+          const pos = scaled[idx]
+          return (
+            <div
+              className="border-border bg-surface absolute z-10 rounded-lg border px-3 py-2 shadow-lg"
+              style={{
+                left: `${(pos.sx / width) * 100}%`,
+                top: `${(pos.sy / height) * 100}%`,
+              }}
+            >
+              <div className="text-fg text-xs font-bold">{ann.label}</div>
+              <div className="text-fg-muted text-xs">{ann.description}</div>
+            </div>
+          )
+        })()}
     </div>
   )
 }

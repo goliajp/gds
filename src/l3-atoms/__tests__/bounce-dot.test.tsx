@@ -12,13 +12,17 @@ describe('BounceDot', () => {
 
   it('renders 3 dots by default', () => {
     const { container } = render(<BounceDot />)
-    const dots = container.querySelectorAll('[data-component="bounce-dot"] > span')
+    const dots = container.querySelectorAll(
+      '[data-component="bounce-dot"] > span'
+    )
     expect(dots.length).toBe(3)
   })
 
   it('renders custom count of dots', () => {
     const { container } = render(<BounceDot count={5} />)
-    const dots = container.querySelectorAll('[data-component="bounce-dot"] > span')
+    const dots = container.querySelectorAll(
+      '[data-component="bounce-dot"] > span'
+    )
     expect(dots.length).toBe(5)
   })
 
@@ -45,13 +49,17 @@ describe('BounceDot', () => {
 
   it('applies custom color via inline style', () => {
     const { container } = render(<BounceDot color="#ff0000" />)
-    const dot = container.querySelector('[data-component="bounce-dot"] > span') as HTMLElement
+    const dot = container.querySelector(
+      '[data-component="bounce-dot"] > span'
+    ) as HTMLElement
     expect(dot?.style.backgroundColor).toBe('#ff0000')
   })
 
   it('does not set backgroundColor when color is not provided', () => {
     const { container } = render(<BounceDot />)
-    const dot = container.querySelector('[data-component="bounce-dot"] > span') as HTMLElement
+    const dot = container.querySelector(
+      '[data-component="bounce-dot"] > span'
+    ) as HTMLElement
     expect(dot?.style.backgroundColor).toBe('')
   })
 
@@ -69,7 +77,9 @@ describe('BounceDot', () => {
 
   it('sets animation delay per dot', () => {
     const { container } = render(<BounceDot count={3} />)
-    const dots = container.querySelectorAll('[data-component="bounce-dot"] > span') as NodeListOf<HTMLElement>
+    const dots = container.querySelectorAll(
+      '[data-component="bounce-dot"] > span'
+    ) as NodeListOf<HTMLElement>
     expect(dots[0]?.style.animationDelay).toBe('0ms')
     expect(dots[1]?.style.animationDelay).toBe('160ms')
     expect(dots[2]?.style.animationDelay).toBe('320ms')

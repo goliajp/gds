@@ -15,13 +15,16 @@ export const FlipCard = forwardRef<HTMLDivElement, FlipCardProps>(
   function FlipCard({ back, className, front, trigger = 'click' }, ref) {
     const [flipped, setFlipped] = useState(false)
 
-    const hoverHandlers = trigger === 'hover'
-      ? { onMouseEnter: () => setFlipped(true), onMouseLeave: () => setFlipped(false) }
-      : {}
+    const hoverHandlers =
+      trigger === 'hover'
+        ? {
+            onMouseEnter: () => setFlipped(true),
+            onMouseLeave: () => setFlipped(false),
+          }
+        : {}
 
-    const clickHandler = trigger === 'click'
-      ? { onClick: () => setFlipped((prev) => !prev) }
-      : {}
+    const clickHandler =
+      trigger === 'click' ? { onClick: () => setFlipped((prev) => !prev) } : {}
 
     return (
       <div
@@ -45,12 +48,15 @@ export const FlipCard = forwardRef<HTMLDivElement, FlipCardProps>(
           </div>
           <div
             className="absolute inset-0"
-            style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+            style={{
+              backfaceVisibility: 'hidden',
+              transform: 'rotateY(180deg)',
+            }}
           >
             {back}
           </div>
         </div>
       </div>
     )
-  },
+  }
 )

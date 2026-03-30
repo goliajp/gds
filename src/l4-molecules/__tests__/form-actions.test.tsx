@@ -6,7 +6,9 @@ import { FormActions } from '../form-actions'
 describe('FormActions', () => {
   it('renders with data-component', () => {
     const { container } = render(<FormActions onSave={() => {}} />)
-    expect(container.querySelector('[data-component="form-actions"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="form-actions"]')
+    ).not.toBeNull()
   })
 
   it('renders save button with custom label', () => {

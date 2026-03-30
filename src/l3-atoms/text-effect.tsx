@@ -14,7 +14,7 @@ type TextEffectProps = React.HTMLAttributes<HTMLSpanElement> & {
 export const TextEffect = forwardRef<HTMLSpanElement, TextEffectProps>(
   function TextEffect(
     { children, className, effect, gradientFrom, gradientTo, style, ...props },
-    ref,
+    ref
   ) {
     const from = gradientFrom ?? 'var(--gds-accent)'
     const to = gradientTo ?? 'var(--gds-success)'
@@ -22,10 +22,7 @@ export const TextEffect = forwardRef<HTMLSpanElement, TextEffectProps>(
     if (effect === 'gradient') {
       return (
         <span
-          className={cx(
-            'bg-clip-text text-transparent',
-            className,
-          )}
+          className={cx('bg-clip-text text-transparent', className)}
           data-component="text-effect"
           data-variant={effect}
           ref={ref}
@@ -43,10 +40,7 @@ export const TextEffect = forwardRef<HTMLSpanElement, TextEffectProps>(
     if (effect === 'highlight') {
       return (
         <span
-          className={cx(
-            'box-decoration-clone bg-accent/20 px-1',
-            className,
-          )}
+          className={cx('bg-accent/20 box-decoration-clone px-1', className)}
           data-component="text-effect"
           data-variant={effect}
           ref={ref}
@@ -74,7 +68,7 @@ export const TextEffect = forwardRef<HTMLSpanElement, TextEffectProps>(
         {children}
       </span>
     )
-  },
+  }
 )
 
 export type { TextEffectProps, TextEffectType }

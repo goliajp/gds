@@ -16,11 +16,12 @@ const sizeClasses: Record<LoadingSize, { container: string; dot: string }> = {
   sm: { container: 'gap-1', dot: 'h-1.5 w-1.5' },
 }
 
-const barSizeClasses: Record<LoadingSize, { bar: string; container: string }> = {
-  default: { bar: 'w-1 h-4', container: 'gap-1 h-4' },
-  lg: { bar: 'w-1.5 h-6', container: 'gap-1.5 h-6' },
-  sm: { bar: 'w-0.5 h-3', container: 'gap-0.5 h-3' },
-}
+const barSizeClasses: Record<LoadingSize, { bar: string; container: string }> =
+  {
+    default: { bar: 'w-1 h-4', container: 'gap-1 h-4' },
+    lg: { bar: 'w-1.5 h-6', container: 'gap-1.5 h-6' },
+    sm: { bar: 'w-0.5 h-3', container: 'gap-0.5 h-3' },
+  }
 
 const pulseSizeClasses: Record<LoadingSize, string> = {
   default: 'h-4 w-4',
@@ -47,7 +48,7 @@ export const LoadingDots = forwardRef<HTMLDivElement, LoadingProps>(
       >
         {[0, 1, 2].map((i) => (
           <span
-            className={cx('rounded-full bg-accent', s.dot)}
+            className={cx('bg-accent rounded-full', s.dot)}
             key={i}
             style={{
               animation: 'loading-dots 1.4s infinite ease-in-out both',
@@ -57,7 +58,7 @@ export const LoadingDots = forwardRef<HTMLDivElement, LoadingProps>(
         ))}
       </div>
     )
-  },
+  }
 )
 
 export const LoadingBars = forwardRef<HTMLDivElement, LoadingProps>(
@@ -73,7 +74,7 @@ export const LoadingBars = forwardRef<HTMLDivElement, LoadingProps>(
       >
         {[0, 1, 2, 3, 4].map((i) => (
           <span
-            className={cx('rounded-sm bg-accent', s.bar)}
+            className={cx('bg-accent rounded-sm', s.bar)}
             key={i}
             style={{
               animation: 'loading-bars 1.2s infinite ease-in-out',
@@ -83,7 +84,7 @@ export const LoadingBars = forwardRef<HTMLDivElement, LoadingProps>(
         ))}
       </div>
     )
-  },
+  }
 )
 
 export const LoadingPulse = forwardRef<HTMLDivElement, LoadingProps>(
@@ -97,12 +98,12 @@ export const LoadingPulse = forwardRef<HTMLDivElement, LoadingProps>(
         role="status"
       >
         <span
-          className={cx('rounded-full bg-accent', pulseSizeClasses[size])}
+          className={cx('bg-accent rounded-full', pulseSizeClasses[size])}
           style={{ animation: 'loading-pulse 2s infinite ease-in-out' }}
         />
       </div>
     )
-  },
+  }
 )
 
 export const LoadingRing = forwardRef<HTMLDivElement, LoadingProps>(
@@ -117,13 +118,13 @@ export const LoadingRing = forwardRef<HTMLDivElement, LoadingProps>(
       >
         <span
           className={cx(
-            'animate-spin rounded-full border-accent border-t-transparent',
-            ringSizeClasses[size],
+            'border-accent animate-spin rounded-full border-t-transparent',
+            ringSizeClasses[size]
           )}
         />
       </div>
     )
-  },
+  }
 )
 
 export const LoadingWave = forwardRef<HTMLDivElement, LoadingProps>(
@@ -139,7 +140,7 @@ export const LoadingWave = forwardRef<HTMLDivElement, LoadingProps>(
       >
         {[0, 1, 2, 3, 4].map((i) => (
           <span
-            className={cx('rounded-full bg-fg-muted', s.dot)}
+            className={cx('bg-fg-muted rounded-full', s.dot)}
             key={i}
             style={{
               animation: 'loading-wave 1.2s infinite ease-in-out',
@@ -149,7 +150,7 @@ export const LoadingWave = forwardRef<HTMLDivElement, LoadingProps>(
         ))}
       </div>
     )
-  },
+  }
 )
 
 export type { LoadingProps, LoadingSize }

@@ -12,7 +12,9 @@ const rows = [
 describe('HeatmapTable', () => {
   it('renders with data-component', () => {
     const { container } = render(<HeatmapTable headers={headers} rows={rows} />)
-    expect(container.querySelector('[data-component="heatmap-table"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="heatmap-table"]')
+    ).not.toBeNull()
   })
 
   it('renders headers', () => {
@@ -30,7 +32,11 @@ describe('HeatmapTable', () => {
   })
 
   it('uses custom maxValue', () => {
-    const { container } = render(<HeatmapTable headers={headers} rows={rows} maxValue={20} />)
-    expect(container.querySelector('[data-component="heatmap-table"]')).not.toBeNull()
+    const { container } = render(
+      <HeatmapTable headers={headers} rows={rows} maxValue={20} />
+    )
+    expect(
+      container.querySelector('[data-component="heatmap-table"]')
+    ).not.toBeNull()
   })
 })

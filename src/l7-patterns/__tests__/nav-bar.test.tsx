@@ -16,7 +16,7 @@ describe('NavBar', () => {
           { label: 'Home', href: '/', active: true },
           { label: 'About', href: '/about' },
         ]}
-      />,
+      />
     )
     expect(screen.getByText('Home')).toBeDefined()
     expect(screen.getByText('About')).toBeDefined()

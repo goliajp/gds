@@ -12,33 +12,36 @@ export type InputGroupProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
-  function InputGroup({ prefix, suffix, error, disabled, className, children, ...props }, ref) {
+  function InputGroup(
+    { prefix, suffix, error, disabled, className, children, ...props },
+    ref
+  ) {
     return (
       <div
         ref={ref}
         data-component="input-group"
         className={cx(
-          'flex items-center gds-radius-input overflow-hidden border transition-colors',
+          'gds-radius-input flex items-center overflow-hidden border transition-colors',
           error ? 'border-danger' : 'border-border',
-          disabled && 'opacity-50 pointer-events-none',
+          disabled && 'pointer-events-none opacity-50',
           // strip border/radius from nested inputs
-          '[&_input]:border-0 [&_input]:rounded-none [&_input]:ring-0 [&_input]:focus-visible:ring-0 [&_input]:flex-1',
-          className,
+          '[&_input]:flex-1 [&_input]:rounded-none [&_input]:border-0 [&_input]:ring-0 [&_input]:focus-visible:ring-0',
+          className
         )}
         {...props}
       >
         {prefix !== undefined && (
-          <span className="flex items-center bg-bg-tertiary border-r border-border px-3 text-sm text-fg-muted select-none">
+          <span className="bg-bg-tertiary border-border text-fg-muted flex items-center border-r px-3 text-sm select-none">
             {prefix}
           </span>
         )}
         {children}
         {suffix !== undefined && (
-          <span className="flex items-center bg-bg-tertiary border-l border-border px-3 text-sm text-fg-muted select-none">
+          <span className="bg-bg-tertiary border-border text-fg-muted flex items-center border-l px-3 text-sm select-none">
             {suffix}
           </span>
         )}
       </div>
     )
-  },
+  }
 )

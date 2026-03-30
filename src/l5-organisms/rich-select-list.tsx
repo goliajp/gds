@@ -14,13 +14,20 @@ type RichSelectListProps = {
 
 export type { RichSelectListProps }
 
-export function RichSelectList({ options, value, focusedIndex, glass, onSelect, onFocus }: RichSelectListProps) {
+export function RichSelectList({
+  options,
+  value,
+  focusedIndex,
+  glass,
+  onSelect,
+  onFocus,
+}: RichSelectListProps) {
   return (
     <div
       role="listbox"
       className={cx(
-        'absolute z-50 mt-1 w-full gds-radius-popover border border-border bg-bg shadow-lg overflow-auto max-h-60',
-        glassClass(glass),
+        'gds-radius-popover border-border bg-bg absolute z-50 mt-1 max-h-60 w-full overflow-auto border shadow-lg',
+        glassClass(glass)
       )}
     >
       {options.map((opt, i) => (
@@ -30,23 +37,29 @@ export function RichSelectList({ options, value, focusedIndex, glass, onSelect, 
           aria-selected={opt.value === value}
           data-focused={i === focusedIndex ? '' : undefined}
           className={cx(
-            'flex items-start gap-2 px-3 py-2 cursor-pointer transition-colors',
+            'flex cursor-pointer items-start gap-2 px-3 py-2 transition-colors',
             opt.value === value && 'bg-accent/10 text-accent',
             i === focusedIndex && 'bg-bg-tertiary/50',
-            opt.value !== value && i !== focusedIndex && 'hover:bg-bg-tertiary/30',
+            opt.value !== value &&
+              i !== focusedIndex &&
+              'hover:bg-bg-tertiary/30'
           )}
           onClick={() => onSelect(opt.value)}
           onMouseEnter={() => onFocus(i)}
         >
-          {opt.icon !== undefined && <span className="mt-0.5 shrink-0">{opt.icon}</span>}
-          <div className="flex-1 min-w-0">
-            <div className="text-sm truncate">{opt.label}</div>
+          {opt.icon !== undefined && (
+            <span className="mt-0.5 shrink-0">{opt.icon}</span>
+          )}
+          <div className="min-w-0 flex-1">
+            <div className="truncate text-sm">{opt.label}</div>
             {opt.description !== undefined && (
-              <div className="text-xs text-fg-muted truncate">{opt.description}</div>
+              <div className="text-fg-muted truncate text-xs">
+                {opt.description}
+              </div>
             )}
           </div>
           {opt.badge !== undefined && (
-            <span className="shrink-0 rounded-full bg-bg-tertiary px-2 py-0.5 text-[10px] text-fg-muted">
+            <span className="bg-bg-tertiary text-fg-muted shrink-0 rounded-full px-2 py-0.5 text-[10px]">
               {opt.badge}
             </span>
           )}

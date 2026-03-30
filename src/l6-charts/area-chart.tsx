@@ -27,12 +27,25 @@ const GRADIENT_ID = 'gds-area-gradient'
 
 export const AreaChart = forwardRef<HTMLDivElement, AreaChartProps>(
   function AreaChart(
-    { data, dataKey, xKey = 'name', className, height = 300, color = 'var(--gds-accent)', glass, ...props },
-    ref,
+    {
+      data,
+      dataKey,
+      xKey = 'name',
+      className,
+      height = 300,
+      color = 'var(--gds-accent)',
+      glass,
+      ...props
+    },
+    ref
   ) {
     return (
       <div
-        className={cx('w-full', glass && 'gds-radius-popover backdrop-blur-md bg-white/5', className)}
+        className={cx(
+          'w-full',
+          glass && 'gds-radius-popover bg-white/5 backdrop-blur-md',
+          className
+        )}
         data-component="area-chart"
         ref={ref}
         {...props}
@@ -45,9 +58,19 @@ export const AreaChart = forwardRef<HTMLDivElement, AreaChartProps>(
                 <stop offset="95%" stopColor={color} stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid stroke="var(--gds-border, #e5e7eb)" strokeDasharray="3 3" />
-            <XAxis dataKey={xKey} stroke="var(--gds-fg-muted, #6b7280)" tick={{ fontSize: 11 }} />
-            <YAxis stroke="var(--gds-fg-muted, #6b7280)" tick={{ fontSize: 11 }} />
+            <CartesianGrid
+              stroke="var(--gds-border, #e5e7eb)"
+              strokeDasharray="3 3"
+            />
+            <XAxis
+              dataKey={xKey}
+              stroke="var(--gds-fg-muted, #6b7280)"
+              tick={{ fontSize: 11 }}
+            />
+            <YAxis
+              stroke="var(--gds-fg-muted, #6b7280)"
+              tick={{ fontSize: 11 }}
+            />
             <Tooltip />
             <Area
               dataKey={dataKey}
@@ -61,5 +84,5 @@ export const AreaChart = forwardRef<HTMLDivElement, AreaChartProps>(
         </ResponsiveContainer>
       </div>
     )
-  },
+  }
 )

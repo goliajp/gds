@@ -6,19 +6,16 @@ import { forwardRef } from 'react'
 import { cx } from '../utils/cx'
 import type { VariantProps } from '../utils/types'
 
-const glassCardVariants = cva(
-  'gds-ctx gds-radius border bg-bg/60',
-  {
-    variants: {
-      blur: {
-        sm: 'gds-glass-sm border-border/25',
-        default: 'gds-glass border-border/20',
-        lg: 'gds-glass-lg border-border/15',
-      },
+const glassCardVariants = cva('gds-ctx gds-radius border bg-bg/60', {
+  variants: {
+    blur: {
+      sm: 'gds-glass-sm border-border/25',
+      default: 'gds-glass border-border/20',
+      lg: 'gds-glass-lg border-border/15',
     },
-    defaultVariants: { blur: 'default' },
   },
-)
+  defaultVariants: { blur: 'default' },
+})
 
 export type GlassCardProps = VariantProps<typeof glassCardVariants> & {
   children: ReactNode
@@ -36,7 +33,7 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
         {children}
       </div>
     )
-  },
+  }
 )
 
 export { glassCardVariants }

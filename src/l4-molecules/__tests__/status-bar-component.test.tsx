@@ -13,7 +13,9 @@ describe('StatusBarComponent', () => {
 
   it('renders data-component attribute', () => {
     const { container } = render(<StatusBarComponent items={['test']} />)
-    expect(container.querySelector('[data-component="status-bar"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="status-bar"]')
+    ).not.toBeNull()
   })
 
   it('renders dividers between items', () => {

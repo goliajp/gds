@@ -31,29 +31,43 @@ const variantToToast = (v?: ToastEntry['variant']) => {
   return v ?? 'default'
 }
 
-export const NotificationToast = forwardRef<HTMLDivElement, NotificationToastProps>(
-  function NotificationToast({ toasts, onClose, position = 'top-right', className }, ref) {
-    useEffect(() => {
-      const timers = toasts.map((t) =>
-        window.setTimeout(() => onClose(t.id), 5000),
-      )
-      return () => timers.forEach((id) => window.clearTimeout(id))
-    }, [toasts, onClose])
-
-    if (toasts.length === 0) return null
-
-    return renderPortal(
-      <div
-        ref={ref}
-        className={cx('fixed z-50 flex w-80 flex-col gap-2', positionMap[position], className)}
-        data-component="notification-toast"
-      >
-        {toasts.map((t) => (
-          <Toast key={t.id} title={t.title} description={t.message} variant={variantToToast(t.variant)} onClose={() => onClose(t.id)} />
-        ))}
-      </div>,
+export const NotificationToast = forwardRef<
+  HTMLDivElement,
+  NotificationToastProps
+>(function NotificationToast(
+  { toasts, onClose, position = 'top-right', className },
+  ref
+) {
+  useEffect(() => {
+    const timers = toasts.map((t) =>
+      window.setTimeout(() => onClose(t.id), 5000)
     )
-  },
-)
+    return () => timers.forEach((id) => window.clearTimeout(id))
+  }, [toasts, onClose])
+
+  if (toasts.length === 0) return null
+
+  return renderPortal(
+    <div
+      ref={ref}
+      className={cx(
+        'fixed z-50 flex w-80 flex-col gap-2',
+        positionMap[position],
+        className
+      )}
+      data-component="notification-toast"
+    >
+      {toasts.map((t) => (
+        <Toast
+          key={t.id}
+          title={t.title}
+          description={t.message}
+          variant={variantToToast(t.variant)}
+          onClose={() => onClose(t.id)}
+        />
+      ))}
+    </div>
+  )
+})
 
 export type { NotificationToastPosition, NotificationToastProps, ToastEntry }

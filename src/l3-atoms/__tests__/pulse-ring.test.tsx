@@ -6,7 +6,9 @@ import { PulseRing } from '../pulse-ring'
 describe('PulseRing', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(<PulseRing />)
-    expect(container.querySelector('[data-component="pulse-ring"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="pulse-ring"]')
+    ).not.toBeNull()
   })
 
   it('renders rings when active (default)', () => {
@@ -23,7 +25,9 @@ describe('PulseRing', () => {
 
   it('still has data-component when inactive', () => {
     const { container } = render(<PulseRing active={false} />)
-    expect(container.querySelector('[data-component="pulse-ring"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="pulse-ring"]')
+    ).not.toBeNull()
   })
 
   it('renders custom count of rings', () => {
@@ -34,7 +38,9 @@ describe('PulseRing', () => {
 
   it('applies custom size', () => {
     const { container } = render(<PulseRing size={120} />)
-    const el = container.querySelector('[data-component="pulse-ring"]') as HTMLElement
+    const el = container.querySelector(
+      '[data-component="pulse-ring"]'
+    ) as HTMLElement
     expect(el.style.width).toBe('120px')
     expect(el.style.height).toBe('120px')
   })
@@ -58,7 +64,9 @@ describe('PulseRing', () => {
   })
 
   it('applies className when inactive', () => {
-    const { container } = render(<PulseRing active={false} className="my-class" />)
+    const { container } = render(
+      <PulseRing active={false} className="my-class" />
+    )
     const el = container.querySelector('[data-component="pulse-ring"]')
     expect(el?.className).toContain('my-class')
   })

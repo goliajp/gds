@@ -24,7 +24,7 @@ function filterBySize(files: File[], maxSize?: number): File[] {
 function UploadIcon() {
   return (
     <svg
-      className="h-8 w-8 text-fg-muted/40"
+      className="text-fg-muted/40 h-8 w-8"
       fill="none"
       stroke="currentColor"
       strokeLinecap="round"
@@ -51,7 +51,7 @@ export const FileUpload = forwardRef<HTMLDivElement, FileUploadProps>(
       multiple = false,
       onFiles,
     },
-    ref,
+    ref
   ) {
     const [dragOver, setDragOver] = useState(false)
     const [selectedFiles, setSelectedFiles] = useState<File[]>([])
@@ -63,7 +63,7 @@ export const FileUpload = forwardRef<HTMLDivElement, FileUploadProps>(
         setSelectedFiles(files)
         onFiles(files)
       },
-      [maxSize, onFiles],
+      [maxSize, onFiles]
     )
 
     const handleClick = useCallback(() => {
@@ -77,7 +77,7 @@ export const FileUpload = forwardRef<HTMLDivElement, FileUploadProps>(
         if (disabled) return
         setDragOver(true)
       },
-      [disabled],
+      [disabled]
     )
 
     const handleDragLeave = useCallback((e: React.DragEvent) => {
@@ -92,7 +92,7 @@ export const FileUpload = forwardRef<HTMLDivElement, FileUploadProps>(
         if (disabled) return
         handleFiles(e.dataTransfer.files)
       },
-      [disabled, handleFiles],
+      [disabled, handleFiles]
     )
 
     const handleInputChange = useCallback(
@@ -101,7 +101,7 @@ export const FileUpload = forwardRef<HTMLDivElement, FileUploadProps>(
           handleFiles(e.target.files)
         }
       },
-      [handleFiles],
+      [handleFiles]
     )
 
     return (
@@ -113,7 +113,7 @@ export const FileUpload = forwardRef<HTMLDivElement, FileUploadProps>(
           dragOver && 'border-accent bg-accent/5',
           disabled && 'pointer-events-none cursor-not-allowed opacity-50',
           glassClass(glass),
-          className,
+          className
         )}
         data-component="file-upload"
         data-state={dragOver ? 'drag-over' : 'idle'}
@@ -135,19 +135,20 @@ export const FileUpload = forwardRef<HTMLDivElement, FileUploadProps>(
         ) : (
           <>
             <UploadIcon />
-            <div className="text-sm text-fg-muted">
+            <div className="text-fg-muted text-sm">
               Drop files here or click to browse
             </div>
             {selectedFiles.length > 0 && (
-              <div className="text-xs text-fg-muted/60">
-                {selectedFiles.length} file{selectedFiles.length > 1 ? 's' : ''} selected
+              <div className="text-fg-muted/60 text-xs">
+                {selectedFiles.length} file{selectedFiles.length > 1 ? 's' : ''}{' '}
+                selected
               </div>
             )}
           </>
         )}
       </div>
     )
-  },
+  }
 )
 
 export type { FileUploadProps }

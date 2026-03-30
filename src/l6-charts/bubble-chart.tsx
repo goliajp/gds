@@ -23,14 +23,14 @@ export type BubbleChartProps = {
 export const BubbleChart = forwardRef<HTMLDivElement, BubbleChartProps>(
   function BubbleChart(
     { data, xLabel, yLabel, height = 300, glass, className, ...props },
-    ref,
+    ref
   ) {
     return (
       <div
         className={cx(
-          'w-full gds-radius-popover border border-[var(--gds-border,#e5e7eb)]',
-          glass && 'backdrop-blur-md bg-white/5',
-          className,
+          'gds-radius-popover w-full border border-[var(--gds-border,#e5e7eb)]',
+          glass && 'bg-white/5 backdrop-blur-md',
+          className
         )}
         data-component="bubble-chart"
         ref={ref}
@@ -59,5 +59,5 @@ export const BubbleChart = forwardRef<HTMLDivElement, BubbleChartProps>(
         </ResponsiveContainer>
       </div>
     )
-  },
+  }
 )

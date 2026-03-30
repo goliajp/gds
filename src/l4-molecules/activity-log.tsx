@@ -21,27 +21,33 @@ export const ActivityLog = forwardRef<HTMLDivElement, ActivityLogProps>(
     return (
       <div
         ref={ref}
-        className={cx('flex flex-col gds-gap', className)}
+        className={cx('gds-gap flex flex-col', className)}
         data-component="activity-log"
       >
         {entries.map((entry) => (
           <div
             key={entry.id}
-            className="flex items-start gds-gap-sm border-l-2 border-border pl-3 py-1"
+            className="gds-gap-sm border-border flex items-start border-l-2 py-1 pl-3"
           >
             <div className="min-w-0 flex-1">
-              <span className="gds-text font-medium text-fg">{entry.actor}</span>
-              <span className="mx-1.5 inline-block rounded bg-bg-tertiary px-1.5 py-0.5 text-xs text-fg-muted">
+              <span className="gds-text text-fg font-medium">
+                {entry.actor}
+              </span>
+              <span className="bg-bg-tertiary text-fg-muted mx-1.5 inline-block rounded px-1.5 py-0.5 text-xs">
                 {entry.action}
               </span>
               {entry.target !== undefined && (
-                <span className="gds-text text-fg-secondary">{entry.target}</span>
+                <span className="gds-text text-fg-secondary">
+                  {entry.target}
+                </span>
               )}
             </div>
-            <time className="shrink-0 text-xs text-fg-muted">{entry.timestamp}</time>
+            <time className="text-fg-muted shrink-0 text-xs">
+              {entry.timestamp}
+            </time>
           </div>
         ))}
       </div>
     )
-  },
+  }
 )

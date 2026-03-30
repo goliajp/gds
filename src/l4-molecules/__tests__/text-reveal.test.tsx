@@ -11,7 +11,9 @@ describe('TextReveal', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<TextReveal text="Hello World" />)
-    expect(container.querySelector('[data-component="text-reveal"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="text-reveal"]')
+    ).not.toBeNull()
   })
 
   it('sets aria-label with full text', () => {
@@ -21,7 +23,9 @@ describe('TextReveal', () => {
 
   it('splits text by word by default', () => {
     const { container } = render(<TextReveal text="Hello World" />)
-    const spans = container.querySelectorAll('[data-component="text-reveal"] > span')
+    const spans = container.querySelectorAll(
+      '[data-component="text-reveal"] > span'
+    )
     expect(spans.length).toBe(2)
   })
 })

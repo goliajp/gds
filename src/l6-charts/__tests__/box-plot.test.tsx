@@ -22,7 +22,9 @@ describe('BoxPlot', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<BoxPlot data={data} />)
-    expect(container.querySelector('[data-component="box-plot"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="box-plot"]')
+    ).not.toBeNull()
   })
 
   it('applies glass class', () => {
@@ -44,7 +46,9 @@ describe('BoxPlot', () => {
   })
 
   it('applies custom width and height', () => {
-    const { container } = render(<BoxPlot data={data} width={500} height={400} />)
+    const { container } = render(
+      <BoxPlot data={data} width={500} height={400} />
+    )
     const svg = container.querySelector('svg')
     expect(svg?.getAttribute('width')).toBe('500')
     expect(svg?.getAttribute('height')).toBe('400')

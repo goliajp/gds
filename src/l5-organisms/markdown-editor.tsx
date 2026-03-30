@@ -15,28 +15,31 @@ const MarkdownEditor = forwardRef<HTMLDivElement, MarkdownEditorProps>(
   function MarkdownEditor({ value, onChange, placeholder, className }, ref) {
     const handleChange = useCallback(
       (e: React.ChangeEvent<HTMLTextAreaElement>) => onChange(e.target.value),
-      [onChange],
+      [onChange]
     )
 
     return (
       <div
         ref={ref}
-        className={cx('flex gap-px rounded-lg border border-border bg-surface overflow-hidden', className)}
+        className={cx(
+          'border-border bg-surface flex gap-px overflow-hidden rounded-lg border',
+          className
+        )}
         data-component="markdown-editor"
       >
         <textarea
-          className="flex-1 resize-none bg-transparent p-3 text-sm text-fg outline-none font-mono min-h-[200px]"
+          className="text-fg min-h-[200px] flex-1 resize-none bg-transparent p-3 font-mono text-sm outline-none"
           value={value}
           onChange={handleChange}
           placeholder={placeholder}
         />
-        <div className="w-px bg-border" />
-        <div className="flex-1 overflow-auto min-h-[200px]">
+        <div className="bg-border w-px" />
+        <div className="min-h-[200px] flex-1 overflow-auto">
           <MarkdownPreview content={value} className="h-full" />
         </div>
       </div>
     )
-  },
+  }
 )
 
 export { MarkdownEditor }

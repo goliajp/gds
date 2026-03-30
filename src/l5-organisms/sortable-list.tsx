@@ -19,7 +19,7 @@ type SortableListProps = React.HTMLAttributes<HTMLDivElement> & {
 function GripIcon() {
   return (
     <svg
-      className="h-4 w-4 text-fg-muted/50"
+      className="text-fg-muted/50 h-4 w-4"
       fill="currentColor"
       viewBox="0 0 16 16"
     >
@@ -36,7 +36,7 @@ function GripIcon() {
 export const SortableList = forwardRef<HTMLDivElement, SortableListProps>(
   function SortableList(
     { className, disabled, itemClassName, items, onReorder, ...props },
-    ref,
+    ref
   ) {
     const [dragIndex, setDragIndex] = useState<number | null>(null)
     const [dropIndex, setDropIndex] = useState<number | null>(null)
@@ -88,12 +88,12 @@ export const SortableList = forwardRef<HTMLDivElement, SortableListProps>(
         {items.map((item, index) => (
           <div
             className={cx(
-              'flex items-center gds-gap border-b border-border px-2 py-2 transition-opacity',
+              'gds-gap border-border flex items-center border-b px-2 py-2 transition-opacity',
               dragIndex === index && 'opacity-50',
-              dropIndex === index && 'border-t-2 border-t-accent',
+              dropIndex === index && 'border-t-accent border-t-2',
               disabled !== true && 'cursor-grab active:cursor-grabbing',
               disabled === true && 'pointer-events-none opacity-60',
-              itemClassName,
+              itemClassName
             )}
             data-item-id={item.id}
             draggable={disabled !== true}
@@ -114,7 +114,7 @@ export const SortableList = forwardRef<HTMLDivElement, SortableListProps>(
         ))}
       </div>
     )
-  },
+  }
 )
 
 export type { SortableItem, SortableListProps }

@@ -25,7 +25,9 @@ describe('RadioCard', () => {
   })
 
   it('shows selected state', () => {
-    const { container } = render(<RadioCard options={options} value="a" onChange={() => {}} />)
+    const { container } = render(
+      <RadioCard options={options} value="a" onChange={() => {}} />
+    )
     const selected = container.querySelector('[data-state="selected"]')
     expect(selected).not.toBeNull()
     expect(selected?.textContent).toContain('Option A')
@@ -33,13 +35,22 @@ describe('RadioCard', () => {
 
   it('disables interaction when disabled', () => {
     const onChange = vi.fn()
-    render(<RadioCard options={options} value={null} onChange={onChange} disabled />)
+    render(
+      <RadioCard options={options} value={null} onChange={onChange} disabled />
+    )
     fireEvent.click(screen.getByText('Option A'))
     expect(onChange).not.toHaveBeenCalled()
   })
 
   it('applies column layout', () => {
-    const { container } = render(<RadioCard options={options} value={null} onChange={() => {}} columns={3} />)
+    const { container } = render(
+      <RadioCard
+        options={options}
+        value={null}
+        onChange={() => {}}
+        columns={3}
+      />
+    )
     const grid = container.querySelector('[data-component="radio-card"]')
     expect(grid?.className).toContain('grid-cols-3')
   })

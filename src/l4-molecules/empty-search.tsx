@@ -16,16 +16,25 @@ export const EmptySearch = forwardRef<HTMLDivElement, EmptySearchProps>(
         ref={ref}
         className={cx(
           'flex flex-col items-center justify-center py-12 text-center select-none',
-          className,
+          className
         )}
         data-component="empty-search"
       >
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-bg-tertiary/50">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-            <circle cx="11" cy="11" r="7" /><path d="M21 21l-4.35-4.35" />
+        <div className="bg-bg-tertiary/50 flex h-12 w-12 items-center justify-center rounded-full">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="M21 21l-4.35-4.35" />
           </svg>
         </div>
-        <h3 className="mt-3 text-sm font-medium text-fg">
+        <h3 className="text-fg mt-3 text-sm font-medium">
           No results for &apos;{query}&apos;
         </h3>
         {suggestions !== undefined && suggestions.length > 0 && (
@@ -33,7 +42,7 @@ export const EmptySearch = forwardRef<HTMLDivElement, EmptySearchProps>(
             {suggestions.map((suggestion) => (
               <span
                 key={suggestion}
-                className="rounded-full bg-bg-tertiary/50 px-3 py-1 text-[11px] text-fg-muted"
+                className="bg-bg-tertiary/50 text-fg-muted rounded-full px-3 py-1 text-[11px]"
               >
                 {suggestion}
               </span>
@@ -42,5 +51,5 @@ export const EmptySearch = forwardRef<HTMLDivElement, EmptySearchProps>(
         )}
       </div>
     )
-  },
+  }
 )

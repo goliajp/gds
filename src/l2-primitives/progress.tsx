@@ -15,7 +15,7 @@ const progressVariants = cva(
         sm: 'h-1',
       },
     },
-  },
+  }
 )
 
 const barColorMap = {
@@ -34,14 +34,21 @@ type ProgressProps = React.HTMLAttributes<HTMLDivElement> &
 
 export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
   function Progress(
-    { className, showLabel = false, size, value = 0, variant = 'default', ...props },
-    ref,
+    {
+      className,
+      showLabel = false,
+      size,
+      value = 0,
+      variant = 'default',
+      ...props
+    },
+    ref
   ) {
     const clamped = Math.max(0, Math.min(100, value))
 
     return (
       <div
-        className={cx('flex items-center gds-gap-sm', className)}
+        className={cx('gds-gap-sm flex items-center', className)}
         data-component="progress"
         ref={ref}
         {...props}
@@ -55,20 +62,20 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
         >
           <div
             className={cx(
-              'h-full gds-radius-badge transition-all',
-              barColorMap[variant],
+              'gds-radius-badge h-full transition-all',
+              barColorMap[variant]
             )}
             style={{ width: `${clamped}%` }}
           />
         </div>
         {showLabel && (
-          <span className="shrink-0 font-mono gds-text-label text-fg-muted tabular-nums select-none">
+          <span className="gds-text-label text-fg-muted shrink-0 font-mono tabular-nums select-none">
             {clamped}%
           </span>
         )}
       </div>
     )
-  },
+  }
 )
 
 export { progressVariants }

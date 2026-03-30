@@ -17,7 +17,9 @@ describe('CandlestickChart', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<CandlestickChart data={data} />)
-    expect(container.querySelector('[data-component="candlestick-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="candlestick-chart"]')
+    ).not.toBeNull()
   })
 
   it('applies custom height', () => {
@@ -39,21 +41,27 @@ describe('CandlestickChart', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<CandlestickChart data={data} className="my-chart" />)
+    const { container } = render(
+      <CandlestickChart data={data} className="my-chart" />
+    )
     const el = container.querySelector('[data-component="candlestick-chart"]')
     expect(el?.className).toContain('my-chart')
   })
 
   it('renders with custom up and down colors', () => {
     const { container } = render(
-      <CandlestickChart data={data} upColor="#00ff00" downColor="#ff0000" />,
+      <CandlestickChart data={data} upColor="#00ff00" downColor="#ff0000" />
     )
-    expect(container.querySelector('[data-component="candlestick-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="candlestick-chart"]')
+    ).not.toBeNull()
   })
 
   it('handles empty data array', () => {
     const { container } = render(<CandlestickChart data={[]} />)
-    expect(container.querySelector('[data-component="candlestick-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="candlestick-chart"]')
+    ).not.toBeNull()
   })
 
   it('handles single data point', () => {
@@ -61,7 +69,9 @@ describe('CandlestickChart', () => {
       { date: '2026-01-01', open: 100, high: 110, low: 95, close: 105 },
     ]
     const { container } = render(<CandlestickChart data={singleData} />)
-    expect(container.querySelector('[data-component="candlestick-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="candlestick-chart"]')
+    ).not.toBeNull()
   })
 
   it('handles data where close equals open (doji candle)', () => {
@@ -69,25 +79,33 @@ describe('CandlestickChart', () => {
       { date: '2026-01-01', open: 100, high: 110, low: 95, close: 100 },
     ]
     const { container } = render(<CandlestickChart data={dojiData} />)
-    expect(container.querySelector('[data-component="candlestick-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="candlestick-chart"]')
+    ).not.toBeNull()
   })
 
   it('forwards ref', () => {
     const ref = { current: null as HTMLDivElement | null }
     render(<CandlestickChart data={data} ref={ref} />)
     expect(ref.current).not.toBeNull()
-    expect(ref.current?.getAttribute('data-component')).toBe('candlestick-chart')
+    expect(ref.current?.getAttribute('data-component')).toBe(
+      'candlestick-chart'
+    )
   })
 
   it('distinguishes up (close >= open) and down (close < open) candles', () => {
     // first candle: close(105) >= open(100) → up
     // second candle: close(98) < open(105) → down
     const { container } = render(<CandlestickChart data={data} />)
-    expect(container.querySelector('[data-component="candlestick-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="candlestick-chart"]')
+    ).not.toBeNull()
   })
 
   it('spreads additional props', () => {
-    const { container } = render(<CandlestickChart data={data} data-custom="test" />)
+    const { container } = render(
+      <CandlestickChart data={data} data-custom="test" />
+    )
     const el = container.querySelector('[data-component="candlestick-chart"]')
     expect(el?.getAttribute('data-custom')).toBe('test')
   })
@@ -112,7 +130,9 @@ describe('CandlestickChart', () => {
       { date: '2026-01-02', open: 95, high: 120, low: 90, close: 115 },
     ]
     const { container } = render(<CandlestickChart data={upData} />)
-    expect(container.querySelector('[data-component="candlestick-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="candlestick-chart"]')
+    ).not.toBeNull()
   })
 
   it('handles all-down candles (close < open for all)', () => {
@@ -121,7 +141,9 @@ describe('CandlestickChart', () => {
       { date: '2026-01-02', open: 120, high: 125, low: 90, close: 95 },
     ]
     const { container } = render(<CandlestickChart data={downData} />)
-    expect(container.querySelector('[data-component="candlestick-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="candlestick-chart"]')
+    ).not.toBeNull()
   })
 
   it('computes correct domain from data lows and highs', () => {
@@ -129,12 +151,14 @@ describe('CandlestickChart', () => {
       { date: '2026-01-01', open: 50, high: 200, low: 10, close: 100 },
     ]
     const { container } = render(<CandlestickChart data={wideData} />)
-    expect(container.querySelector('[data-component="candlestick-chart"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="candlestick-chart"]')
+    ).not.toBeNull()
   })
 
   it('applies className together with glass', () => {
     const { container } = render(
-      <CandlestickChart data={data} glass className="extra" />,
+      <CandlestickChart data={data} glass className="extra" />
     )
     const el = container.querySelector('[data-component="candlestick-chart"]')
     expect(el?.className).toContain('backdrop-blur-md')
@@ -154,7 +178,9 @@ describe('CandleShape', () => {
 
   it('returns null when payload is undefined', () => {
     const { container } = render(
-      <svg><CandleShape x={10} y={20} width={8} height={10} /></svg>,
+      <svg>
+        <CandleShape x={10} y={20} width={8} height={10} />
+      </svg>
     )
     // no g element rendered
     expect(container.querySelector('g')).toBeNull()
@@ -163,14 +189,18 @@ describe('CandleShape', () => {
   it('returns null when h and bodyHeight are both 0', () => {
     const zeroPayload: PreparedCandle = { ...payload, bodyHeight: 0 }
     const { container } = render(
-      <svg><CandleShape x={10} y={20} width={8} height={0} payload={zeroPayload} /></svg>,
+      <svg>
+        <CandleShape x={10} y={20} width={8} height={0} payload={zeroPayload} />
+      </svg>
     )
     expect(container.querySelector('g')).toBeNull()
   })
 
   it('renders wick and body when payload is valid', () => {
     const { container } = render(
-      <svg><CandleShape x={10} y={20} width={8} height={10} payload={payload} /></svg>,
+      <svg>
+        <CandleShape x={10} y={20} width={8} height={10} payload={payload} />
+      </svg>
     )
     expect(container.querySelector('g')).not.toBeNull()
     expect(container.querySelector('line')).not.toBeNull()
@@ -179,7 +209,9 @@ describe('CandleShape', () => {
 
   it('renders with default values when x/y/width/height are omitted', () => {
     const { container } = render(
-      <svg><CandleShape payload={payload} /></svg>,
+      <svg>
+        <CandleShape payload={payload} />
+      </svg>
     )
     // defaults to x=0, y=0, width=0, height=0
     // h=0 but bodyHeight=10 > 0, so it should render
@@ -189,7 +221,9 @@ describe('CandleShape', () => {
   it('sets minimum height of 1 for the rect', () => {
     const tinyPayload: PreparedCandle = { ...payload, bodyHeight: 5 }
     const { container } = render(
-      <svg><CandleShape x={10} y={20} width={8} height={0} payload={tinyPayload} /></svg>,
+      <svg>
+        <CandleShape x={10} y={20} width={8} height={0} payload={tinyPayload} />
+      </svg>
     )
     // h=0 but bodyHeight=5 > 0, so it renders; rect height = max(0, 1) = 1
     const rect = container.querySelector('rect')
@@ -199,7 +233,9 @@ describe('CandleShape', () => {
 
   it('uses fill from payload', () => {
     const { container } = render(
-      <svg><CandleShape x={10} y={20} width={8} height={10} payload={payload} /></svg>,
+      <svg>
+        <CandleShape x={10} y={20} width={8} height={10} payload={payload} />
+      </svg>
     )
     const rect = container.querySelector('rect')
     expect(rect?.getAttribute('fill')).toBe('#22c55e')

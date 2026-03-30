@@ -18,7 +18,10 @@ export function sanitizeEmailHtml(html: string): string {
 }
 
 export function sanitizeHtml(html: string, config?: SanitizeConfig): string {
-  return DOMPurify.sanitize(html, { ...config, RETURN_TRUSTED_TYPE: false }) as string
+  return DOMPurify.sanitize(html, {
+    ...config,
+    RETURN_TRUSTED_TYPE: false,
+  }) as string
 }
 
 export { EMAIL_SANITIZE_CONFIG }

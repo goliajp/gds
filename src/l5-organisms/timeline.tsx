@@ -34,10 +34,16 @@ export type TimelineGroupProps = {
   label: string
 }
 
-export function TimelineGroup({ children, className, label }: TimelineGroupProps) {
+export function TimelineGroup({
+  children,
+  className,
+  label,
+}: TimelineGroupProps) {
   return (
     <div className={cx('', className)}>
-      <div className="mb-2 pl-6 text-xs font-semibold text-fg-muted">{label}</div>
+      <div className="text-fg-muted mb-2 pl-6 text-xs font-semibold">
+        {label}
+      </div>
       <div className="flex flex-col gap-4">{children}</div>
     </div>
   )
@@ -63,20 +69,33 @@ export function TimelineItemComponent({
   title,
 }: TimelineItemComponentProps) {
   return (
-    <div className={cx('relative flex gds-gap pl-6', className)}>
-      <div className="absolute left-0 top-1.5">
+    <div className={cx('gds-gap relative flex pl-6', className)}>
+      <div className="absolute top-1.5 left-0">
         {icon !== undefined ? (
-          <span className="flex h-[15px] w-[15px] items-center justify-center text-fg-muted">{icon}</span>
+          <span className="text-fg-muted flex h-[15px] w-[15px] items-center justify-center">
+            {icon}
+          </span>
         ) : (
-          <span className={cx('block h-[15px] w-[15px] gds-radius-badge border-2 border-bg', dotColors[status])} />
+          <span
+            className={cx(
+              'gds-radius-badge border-bg block h-[15px] w-[15px] border-2',
+              dotColors[status]
+            )}
+          />
         )}
       </div>
       <div className="min-w-0 flex-1 pb-1">
-        <div className="flex items-baseline justify-between gds-gap-sm">
-          <span className="text-sm font-medium text-fg">{title}</span>
-          {timestamp !== undefined && <span className="shrink-0 gds-text-body text-fg-muted">{timestamp}</span>}
+        <div className="gds-gap-sm flex items-baseline justify-between">
+          <span className="text-fg text-sm font-medium">{title}</span>
+          {timestamp !== undefined && (
+            <span className="gds-text-body text-fg-muted shrink-0">
+              {timestamp}
+            </span>
+          )}
         </div>
-        {description !== undefined && <p className="mt-0.5 gds-text-body text-fg-muted">{description}</p>}
+        {description !== undefined && (
+          <p className="gds-text-body text-fg-muted mt-0.5">{description}</p>
+        )}
         {children}
       </div>
     </div>
@@ -92,37 +111,45 @@ export const Timeline = forwardRef<HTMLDivElement, TimelineProps>(
         data-component="timeline"
       >
         {/* vertical line */}
-        <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border" />
+        <div className="bg-border absolute top-2 bottom-2 left-[7px] w-px" />
 
         <div className="flex flex-col gap-4">
           {items.map((item) => {
             const variant = item.variant ?? 'default'
             return (
-              <div key={item.id} className="relative flex gds-gap pl-6">
+              <div key={item.id} className="gds-gap relative flex pl-6">
                 {/* dot */}
-                <div className="absolute left-0 top-1.5">
+                <div className="absolute top-1.5 left-0">
                   {item.icon !== undefined ? (
-                    <span className="flex h-[15px] w-[15px] items-center justify-center text-fg-muted">
+                    <span className="text-fg-muted flex h-[15px] w-[15px] items-center justify-center">
                       {item.icon}
                     </span>
                   ) : (
-                    <span className={cx(
-                      'block h-[15px] w-[15px] gds-radius-badge border-2 border-bg',
-                      dotColors[variant],
-                    )} />
+                    <span
+                      className={cx(
+                        'gds-radius-badge border-bg block h-[15px] w-[15px] border-2',
+                        dotColors[variant]
+                      )}
+                    />
                   )}
                 </div>
 
                 {/* content */}
                 <div className="min-w-0 flex-1 pb-1">
-                  <div className="flex items-baseline justify-between gds-gap-sm">
-                    <span className="text-sm font-medium text-fg">{item.title}</span>
+                  <div className="gds-gap-sm flex items-baseline justify-between">
+                    <span className="text-fg text-sm font-medium">
+                      {item.title}
+                    </span>
                     {item.date !== undefined && (
-                      <span className="shrink-0 gds-text-body text-fg-muted">{item.date}</span>
+                      <span className="gds-text-body text-fg-muted shrink-0">
+                        {item.date}
+                      </span>
                     )}
                   </div>
                   {item.description !== undefined && (
-                    <p className="mt-0.5 gds-text-body text-fg-muted">{item.description}</p>
+                    <p className="gds-text-body text-fg-muted mt-0.5">
+                      {item.description}
+                    </p>
                   )}
                 </div>
               </div>
@@ -131,5 +158,5 @@ export const Timeline = forwardRef<HTMLDivElement, TimelineProps>(
         </div>
       </div>
     )
-  },
+  }
 )

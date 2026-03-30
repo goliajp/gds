@@ -13,23 +13,36 @@ describe('IconButton', () => {
 
   it('forwards ref to button element', () => {
     let el: HTMLButtonElement | null = null
-    render(<IconButton icon={icon} ref={(node) => { el = node }} />)
+    render(
+      <IconButton
+        icon={icon}
+        ref={(node) => {
+          el = node
+        }}
+      />
+    )
     expect(el).toBeInstanceOf(HTMLButtonElement)
   })
 
   it('has data-component="icon-button"', () => {
     render(<IconButton icon={icon} />)
-    expect(screen.getByRole('button').getAttribute('data-component')).toBe('icon-button')
+    expect(screen.getByRole('button').getAttribute('data-component')).toBe(
+      'icon-button'
+    )
   })
 
   it('has data-variant defaulting to "default"', () => {
     render(<IconButton icon={icon} />)
-    expect(screen.getByRole('button').getAttribute('data-variant')).toBe('default')
+    expect(screen.getByRole('button').getAttribute('data-variant')).toBe(
+      'default'
+    )
   })
 
   it('sets data-variant to specified variant', () => {
     render(<IconButton icon={icon} variant="danger" />)
-    expect(screen.getByRole('button').getAttribute('data-variant')).toBe('danger')
+    expect(screen.getByRole('button').getAttribute('data-variant')).toBe(
+      'danger'
+    )
   })
 
   it('merges className', () => {

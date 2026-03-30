@@ -10,7 +10,10 @@ type GradientTextProps = React.HTMLAttributes<HTMLSpanElement> & {
 }
 
 export const GradientText = forwardRef<HTMLSpanElement, GradientTextProps>(
-  function GradientText({ children, className, from = '#6366f1', to = '#ec4899', ...props }, ref) {
+  function GradientText(
+    { children, className, from = '#6366f1', to = '#ec4899', ...props },
+    ref
+  ) {
     return (
       <span
         className={cx('inline-block bg-clip-text text-transparent', className)}
@@ -24,7 +27,7 @@ export const GradientText = forwardRef<HTMLSpanElement, GradientTextProps>(
         {children}
       </span>
     )
-  },
+  }
 )
 
 export type { GradientTextProps }

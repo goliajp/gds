@@ -15,7 +15,10 @@ type ChipGroupProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
 }
 
 export const ChipGroup = forwardRef<HTMLDivElement, ChipGroupProps>(
-  function ChipGroup({ options, value, onChange, exclusive = false, className, ...props }, ref) {
+  function ChipGroup(
+    { options, value, onChange, exclusive = false, className, ...props },
+    ref
+  ) {
     function handleClick(optionValue: string) {
       if (exclusive) {
         const next = value.includes(optionValue) ? [] : [optionValue]
@@ -30,7 +33,7 @@ export const ChipGroup = forwardRef<HTMLDivElement, ChipGroupProps>(
 
     return (
       <div
-        className={cx('flex flex-wrap gds-gap', className)}
+        className={cx('gds-gap flex flex-wrap', className)}
         data-component="chip-group"
         ref={ref}
         {...props}
@@ -50,7 +53,7 @@ export const ChipGroup = forwardRef<HTMLDivElement, ChipGroupProps>(
         ))}
       </div>
     )
-  },
+  }
 )
 
 export type { ChipGroupOption, ChipGroupProps }

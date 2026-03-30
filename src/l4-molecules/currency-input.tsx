@@ -42,7 +42,7 @@ export const CurrencyInput = forwardRef<HTMLDivElement, CurrencyInputProps>(
       placeholder = '0',
       className,
     },
-    ref,
+    ref
   ) {
     const [editing, setEditing] = useState(false)
     const [inputValue, setInputValue] = useState('')
@@ -79,16 +79,18 @@ export const CurrencyInput = forwardRef<HTMLDivElement, CurrencyInputProps>(
       <div
         ref={ref}
         className={cx(
-          'inline-flex items-center gds-h gds-radius-input border',
+          'gds-h gds-radius-input inline-flex items-center border',
           error ? 'border-danger' : 'border-border',
           disabled && 'cursor-not-allowed opacity-40',
-          className,
+          className
         )}
         data-component="currency-input"
         data-disabled={disabled ? '' : undefined}
         data-error={error ? '' : undefined}
       >
-        <span className="select-none pl-3 text-fg-muted gds-text-body">{currency}</span>
+        <span className="text-fg-muted gds-text-body pl-3 select-none">
+          {currency}
+        </span>
         <input
           type="text"
           inputMode="numeric"
@@ -99,12 +101,12 @@ export const CurrencyInput = forwardRef<HTMLDivElement, CurrencyInputProps>(
           disabled={disabled}
           placeholder={placeholder}
           className={cx(
-            'flex-1 bg-transparent px-2 text-right text-fg gds-text-body focus:outline-none',
-            focusCls,
+            'text-fg gds-text-body flex-1 bg-transparent px-2 text-right focus:outline-none',
+            focusCls
           )}
           aria-label="Currency amount"
         />
       </div>
     )
-  },
+  }
 )

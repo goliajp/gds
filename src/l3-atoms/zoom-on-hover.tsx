@@ -11,7 +11,10 @@ type ZoomOnHoverProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const ZoomOnHover = forwardRef<HTMLDivElement, ZoomOnHoverProps>(
-  function ZoomOnHover({ children, className, duration = 300, scale = 1.1, ...props }, ref) {
+  function ZoomOnHover(
+    { children, className, duration = 300, scale = 1.1, ...props },
+    ref
+  ) {
     return (
       <div
         className={cx('overflow-hidden', className)}
@@ -33,7 +36,7 @@ export const ZoomOnHover = forwardRef<HTMLDivElement, ZoomOnHoverProps>(
         </div>
       </div>
     )
-  },
+  }
 )
 
 export type { ZoomOnHoverProps }

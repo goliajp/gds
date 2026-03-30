@@ -12,16 +12,27 @@ type ProjectDashboardProps = {
 }
 
 const ProjectDashboard = forwardRef<HTMLDivElement, ProjectDashboardProps>(
-  function ProjectDashboard({ activity, className, progress, tasks, team }, ref) {
+  function ProjectDashboard(
+    { activity, className, progress, tasks, team },
+    ref
+  ) {
     return (
-      <div className={cx('grid grid-cols-2 gds-gap', className)} data-component="project-dashboard" ref={ref}>
-        {progress !== undefined && <section data-slot="progress">{progress}</section>}
+      <div
+        className={cx('gds-gap grid grid-cols-2', className)}
+        data-component="project-dashboard"
+        ref={ref}
+      >
+        {progress !== undefined && (
+          <section data-slot="progress">{progress}</section>
+        )}
         {team !== undefined && <section data-slot="team">{team}</section>}
-        {activity !== undefined && <section data-slot="activity">{activity}</section>}
+        {activity !== undefined && (
+          <section data-slot="activity">{activity}</section>
+        )}
         {tasks !== undefined && <section data-slot="tasks">{tasks}</section>}
       </div>
     )
-  },
+  }
 )
 
 export { ProjectDashboard }

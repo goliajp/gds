@@ -6,7 +6,9 @@ import { MetricTile } from '../metric-tile'
 describe('MetricTile', () => {
   it('renders with data-component', () => {
     const { container } = render(<MetricTile label="CPU" value="72%" />)
-    expect(container.querySelector('[data-component="metric-tile"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="metric-tile"]')
+    ).not.toBeNull()
   })
 
   it('renders label and value', () => {

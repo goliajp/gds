@@ -21,8 +21,15 @@ export type StepperFormProps = React.HTMLAttributes<HTMLDivElement> & {
 
 export const StepperForm = forwardRef<HTMLDivElement, StepperFormProps>(
   function StepperForm(
-    { steps, onComplete, completeLabel = 'Complete', glass = false, className, ...props },
-    ref,
+    {
+      steps,
+      onComplete,
+      completeLabel = 'Complete',
+      glass = false,
+      className,
+      ...props
+    },
+    ref
   ) {
     const [current, setCurrent] = useState(0)
     const isFirst = current === 0
@@ -37,9 +44,9 @@ export const StepperForm = forwardRef<HTMLDivElement, StepperFormProps>(
       <div
         ref={ref}
         className={cx(
-          'flex flex-col rounded-lg border border-border p-6',
+          'border-border flex flex-col rounded-lg border p-6',
           glass ? 'bg-bg/80 backdrop-blur-xl' : 'bg-bg-secondary',
-          className,
+          className
         )}
         data-component="stepper-form"
         {...props}
@@ -48,9 +55,7 @@ export const StepperForm = forwardRef<HTMLDivElement, StepperFormProps>(
         <Stepper steps={stepDefs} current={current} className="mb-6" />
 
         {/* step content */}
-        <div className="min-h-[120px] flex-1">
-          {steps[current]?.content}
-        </div>
+        <div className="min-h-[120px] flex-1">{steps[current]?.content}</div>
 
         {/* navigation */}
         <div className="mt-6 flex items-center justify-between">
@@ -75,5 +80,5 @@ export const StepperForm = forwardRef<HTMLDivElement, StepperFormProps>(
         </div>
       </div>
     )
-  },
+  }
 )

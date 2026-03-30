@@ -27,7 +27,9 @@ function makeMessage(overrides: Partial<EmailMessage> = {}): EmailMessage {
 describe('EmailThread', () => {
   it('renders with data-component="email-thread"', () => {
     const { container } = render(<EmailThread messages={[makeMessage()]} />)
-    expect(container.querySelector('[data-component="email-thread"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="email-thread"]')
+    ).not.toBeNull()
   })
 
   it('renders message list with role="list"', () => {
@@ -51,27 +53,30 @@ describe('EmailThread', () => {
 
   it('shows own messages with data-own="true"', () => {
     const { container } = render(
-      <EmailThread messages={[makeMessage({ isOwn: true })]} />,
+      <EmailThread messages={[makeMessage({ isOwn: true })]} />
     )
-    const bubble = container.querySelector('[data-component="email-message-bubble"]')
+    const bubble = container.querySelector(
+      '[data-component="email-message-bubble"]'
+    )
     expect(bubble?.getAttribute('data-own')).toBe('true')
   })
 
   it('shows received messages with data-own="false"', () => {
     const { container } = render(
-      <EmailThread messages={[makeMessage({ isOwn: false })]} />,
+      <EmailThread messages={[makeMessage({ isOwn: false })]} />
     )
-    const bubble = container.querySelector('[data-component="email-message-bubble"]')
+    const bubble = container.querySelector(
+      '[data-component="email-message-bubble"]'
+    )
     expect(bubble?.getAttribute('data-own')).toBe('false')
   })
 
   it('expands last message by default', () => {
-    const messages = [
-      makeMessage({ id: '1' }),
-      makeMessage({ id: '2' }),
-    ]
+    const messages = [makeMessage({ id: '1' }), makeMessage({ id: '2' })]
     const { container } = render(<EmailThread messages={messages} />)
-    const bubbles = container.querySelectorAll('[data-component="email-message-bubble"]')
+    const bubbles = container.querySelectorAll(
+      '[data-component="email-message-bubble"]'
+    )
     expect(bubbles[0]?.getAttribute('data-state')).toBe('collapsed')
     expect(bubbles[1]?.getAttribute('data-state')).toBe('expanded')
   })
@@ -79,7 +84,9 @@ describe('EmailThread', () => {
   it('toggles expand/collapse on header click', () => {
     const messages = [makeMessage({ id: '1' })]
     const { container } = render(<EmailThread messages={messages} />)
-    const bubble = container.querySelector('[data-component="email-message-bubble"]')
+    const bubble = container.querySelector(
+      '[data-component="email-message-bubble"]'
+    )
     expect(bubble?.getAttribute('data-state')).toBe('expanded')
 
     // click the toggle button (first button inside the bubble header)
@@ -102,19 +109,18 @@ describe('EmailThread', () => {
   })
 
   it('expands all messages when expandAll is true', () => {
-    const messages = [
-      makeMessage({ id: '1' }),
-      makeMessage({ id: '2' }),
-    ]
+    const messages = [makeMessage({ id: '1' }), makeMessage({ id: '2' })]
     const { container } = render(<EmailThread messages={messages} expandAll />)
-    const bubbles = container.querySelectorAll('[data-component="email-message-bubble"]')
+    const bubbles = container.querySelectorAll(
+      '[data-component="email-message-bubble"]'
+    )
     expect(bubbles[0]?.getAttribute('data-state')).toBe('expanded')
     expect(bubbles[1]?.getAttribute('data-state')).toBe('expanded')
   })
 
   it('applies custom className', () => {
     const { container } = render(
-      <EmailThread messages={[makeMessage()]} className="my-thread" />,
+      <EmailThread messages={[makeMessage()]} className="my-thread" />
     )
     const el = container.querySelector('[data-component="email-thread"]')
     expect(el?.className).toContain('my-thread')

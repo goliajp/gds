@@ -6,7 +6,9 @@ import { Description } from '../description'
 describe('Description', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(<Description>Body text</Description>)
-    expect(container.querySelector('[data-component="description"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="description"]')
+    ).not.toBeNull()
   })
 
   it('renders children as body text', () => {
@@ -32,7 +34,9 @@ describe('Description', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<Description className="my-cls">Body</Description>)
+    const { container } = render(
+      <Description className="my-cls">Body</Description>
+    )
     const el = container.querySelector('[data-component="description"]')
     expect(el?.className).toContain('my-cls')
   })

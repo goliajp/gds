@@ -13,8 +13,7 @@ const numberInputVariants = cva(
     compoundVariants: [
       {
         error: true,
-        className:
-          '[&:has(input:focus-visible)]:ring-danger',
+        className: '[&:has(input:focus-visible)]:ring-danger',
       },
     ],
     defaultVariants: {
@@ -31,7 +30,7 @@ const numberInputVariants = cva(
         sm: 'gds-h-sm gds-text-label',
       },
     },
-  },
+  }
 )
 
 type NumberInputProps = VariantProps<typeof numberInputVariants> & {
@@ -61,8 +60,22 @@ function clamp(val: number, min?: number, max?: number): number {
 
 const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
   function NumberInput(
-    { className, disabled, error, glass, inputSize, max, min, onChange, placeholder, prefix, step = 1, suffix, value },
-    ref,
+    {
+      className,
+      disabled,
+      error,
+      glass,
+      inputSize,
+      max,
+      min,
+      onChange,
+      placeholder,
+      prefix,
+      step = 1,
+      suffix,
+      value,
+    },
+    ref
   ) {
     const handleDecrement = useCallback(() => {
       const base = value ?? 0
@@ -87,7 +100,7 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
         }
         onChange(clamp(parsed, min, max))
       },
-      [min, max, onChange],
+      [min, max, onChange]
     )
 
     const handleKeyDown = useCallback(
@@ -101,7 +114,7 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
           handleDecrement()
         }
       },
-      [handleIncrement, handleDecrement],
+      [handleIncrement, handleDecrement]
     )
 
     return (
@@ -109,18 +122,26 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
         className={cx(
           numberInputVariants({ error, inputSize }),
           glassClass(glass),
-          glass === true && 'border-white/10 bg-bg/60',
+          glass === true && 'bg-bg/60 border-white/10',
           disabled === true && 'cursor-not-allowed opacity-50',
-          className,
+          className
         )}
         data-component="number-input"
       >
-        <NumberStepper direction="decrement" disabled={disabled} onClick={handleDecrement} />
-        {prefix !== undefined && <span className="shrink-0 select-none pl-1 text-fg-muted/50">{prefix}</span>}
+        <NumberStepper
+          direction="decrement"
+          disabled={disabled}
+          onClick={handleDecrement}
+        />
+        {prefix !== undefined && (
+          <span className="text-fg-muted/50 shrink-0 pl-1 select-none">
+            {prefix}
+          </span>
+        )}
         <input
           className={cx(
-            'min-w-0 flex-1 bg-transparent text-center outline-none placeholder:text-fg-muted/50',
-            '[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none',
+            'placeholder:text-fg-muted/50 min-w-0 flex-1 bg-transparent text-center outline-none',
+            '[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none'
           )}
           disabled={disabled}
           onChange={handleChange}
@@ -130,11 +151,19 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
           type="number"
           value={value ?? ''}
         />
-        {suffix !== undefined && <span className="shrink-0 select-none pr-1 text-fg-muted/50">{suffix}</span>}
-        <NumberStepper direction="increment" disabled={disabled} onClick={handleIncrement} />
+        {suffix !== undefined && (
+          <span className="text-fg-muted/50 shrink-0 pr-1 select-none">
+            {suffix}
+          </span>
+        )}
+        <NumberStepper
+          direction="increment"
+          disabled={disabled}
+          onClick={handleIncrement}
+        />
       </div>
     )
-  },
+  }
 )
 
 export { NumberInput, numberInputVariants }

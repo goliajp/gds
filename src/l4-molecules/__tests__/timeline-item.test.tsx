@@ -6,7 +6,9 @@ import { TimelineEntry } from '../timeline-item'
 describe('TimelineEntry', () => {
   it('renders with data-component', () => {
     const { container } = render(<TimelineEntry>Event</TimelineEntry>)
-    expect(container.querySelector('[data-component="timeline-entry"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="timeline-entry"]')
+    ).not.toBeNull()
   })
 
   it('renders children content', () => {

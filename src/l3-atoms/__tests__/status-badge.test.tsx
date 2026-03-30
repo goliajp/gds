@@ -6,7 +6,9 @@ import { StatusBadge } from '../status-badge'
 describe('StatusBadge', () => {
   it('has data-component="status-badge"', () => {
     const { container } = render(<StatusBadge status="active" />)
-    expect(container.querySelector('[data-component="status-badge"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="status-badge"]')
+    ).not.toBeNull()
   })
 
   it('has data-state matching status', () => {
@@ -29,7 +31,7 @@ describe('StatusBadge', () => {
       <StatusBadge
         icon={<span data-testid="status-icon">!</span>}
         status="error"
-      />,
+      />
     )
     expect(screen.getByTestId('status-icon')).toBeDefined()
   })
@@ -41,7 +43,14 @@ describe('StatusBadge', () => {
   })
 
   it('renders all status types', () => {
-    const statuses = ['active', 'inactive', 'pending', 'draft', 'error', 'warning'] as const
+    const statuses = [
+      'active',
+      'inactive',
+      'pending',
+      'draft',
+      'error',
+      'warning',
+    ] as const
     for (const status of statuses) {
       const { container } = render(<StatusBadge status={status} />)
       expect(container.querySelector(`[data-state="${status}"]`)).not.toBeNull()

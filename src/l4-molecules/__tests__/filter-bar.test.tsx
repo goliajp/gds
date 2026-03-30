@@ -33,7 +33,9 @@ describe('FilterBar', () => {
 
   it('does not render clear button when no filters active', () => {
     const inactive = filters.map((f) => ({ ...f, active: false }))
-    render(<FilterBar filters={inactive} onChange={vi.fn()} onClear={vi.fn()} />)
+    render(
+      <FilterBar filters={inactive} onChange={vi.fn()} onClear={vi.fn()} />
+    )
     expect(screen.queryByText('Clear all')).toBeNull()
   })
 })

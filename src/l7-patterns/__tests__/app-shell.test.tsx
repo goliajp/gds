@@ -13,11 +13,17 @@ import { AppShell } from '../app-shell'
 describe('AppShell', () => {
   it('renders with data-component="app-shell"', () => {
     const { container } = render(<AppShell>content</AppShell>)
-    expect(container.querySelector('[data-component="app-shell"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="app-shell"]')
+    ).not.toBeNull()
   })
 
   it('renders children in content area', () => {
-    render(<AppShell><p>Main content</p></AppShell>)
+    render(
+      <AppShell>
+        <p>Main content</p>
+      </AppShell>
+    )
     expect(screen.getByText('Main content')).toBeDefined()
   })
 
@@ -35,7 +41,7 @@ describe('AppShell', () => {
 
   it('renders statusBar on desktop, hides on mobile', () => {
     const { unmount } = render(
-      <AppShell statusBar={<div>Status</div>}>content</AppShell>,
+      <AppShell statusBar={<div>Status</div>}>content</AppShell>
     )
     expect(screen.getByText('Status')).toBeDefined()
     unmount()
@@ -52,16 +58,18 @@ describe('AppShell', () => {
 
     vi.mocked(useIsMobile).mockReturnValue(true)
     const { container } = render(
-      <AppShell mobileNav={<div>MobileNav</div>}>content</AppShell>,
+      <AppShell mobileNav={<div>MobileNav</div>}>content</AppShell>
     )
     expect(screen.getByText('MobileNav')).toBeDefined()
-    expect(container.querySelector('[data-component="app-shell-mobile-nav"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="app-shell-mobile-nav"]')
+    ).not.toBeNull()
     vi.mocked(useIsMobile).mockReturnValue(false)
   })
 
   it('applies className', () => {
     const { container } = render(
-      <AppShell className="custom-class">content</AppShell>,
+      <AppShell className="custom-class">content</AppShell>
     )
     const el = container.querySelector('[data-component="app-shell"]')
     expect(el?.className).toContain('custom-class')

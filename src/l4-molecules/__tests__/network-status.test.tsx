@@ -11,7 +11,9 @@ describe('NetworkStatus', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<NetworkStatus status="online" />)
-    expect(container.querySelector('[data-component="network-status"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="network-status"]')
+    ).not.toBeNull()
   })
 
   it('displays online status', () => {

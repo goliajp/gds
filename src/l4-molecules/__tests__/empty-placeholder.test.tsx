@@ -11,7 +11,9 @@ describe('EmptyPlaceholder', () => {
 
   it('renders data-component attribute', () => {
     const { container } = render(<EmptyPlaceholder message="Empty" />)
-    expect(container.querySelector('[data-component="empty-placeholder"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="empty-placeholder"]')
+    ).not.toBeNull()
   })
 
   it('renders icon and action slots when provided', () => {
@@ -20,7 +22,7 @@ describe('EmptyPlaceholder', () => {
         message="Nothing here"
         icon={<span>icon</span>}
         action={<button>Add</button>}
-      />,
+      />
     )
     expect(screen.getByText('icon')).toBeDefined()
     expect(screen.getByText('Add')).toBeDefined()

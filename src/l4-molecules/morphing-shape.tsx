@@ -18,7 +18,10 @@ const paths: Record<MorphingShapeProps['variant'], string> = {
 }
 
 export const MorphingShape = forwardRef<SVGSVGElement, MorphingShapeProps>(
-  function MorphingShape({ className, color = 'currentColor', size = 100, variant }, ref) {
+  function MorphingShape(
+    { className, color = 'currentColor', size = 100, variant },
+    ref
+  ) {
     const d = useMemo(() => paths[variant], [variant])
 
     return (
@@ -34,5 +37,5 @@ export const MorphingShape = forwardRef<SVGSVGElement, MorphingShapeProps>(
         <path d={d} fill={color} style={{ transition: 'd 0.4s ease' }} />
       </svg>
     )
-  },
+  }
 )

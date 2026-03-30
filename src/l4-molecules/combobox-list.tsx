@@ -42,7 +42,8 @@ function ComboboxList({
   value,
 }: ComboboxListProps) {
   // determine if the "Create" row should appear
-  const showCreate = creatable && query.trim() !== '' && filtered.length === 0 && !loading
+  const showCreate =
+    creatable && query.trim() !== '' && filtered.length === 0 && !loading
   // total navigable items includes the create row
   const totalItems = filtered.length + (showCreate ? 1 : 0)
 
@@ -51,13 +52,13 @@ function ComboboxList({
       if (e.key === 'ArrowDown') {
         e.preventDefault()
         setHighlightedIndex(
-          highlightedIndex >= totalItems - 1 ? 0 : highlightedIndex + 1,
+          highlightedIndex >= totalItems - 1 ? 0 : highlightedIndex + 1
         )
       }
       if (e.key === 'ArrowUp') {
         e.preventDefault()
         setHighlightedIndex(
-          highlightedIndex <= 0 ? totalItems - 1 : highlightedIndex - 1,
+          highlightedIndex <= 0 ? totalItems - 1 : highlightedIndex - 1
         )
       }
       if (e.key === 'Enter') {
@@ -75,21 +76,30 @@ function ComboboxList({
         }
       }
     },
-    [filtered, highlightedIndex, onSelect, setHighlightedIndex, totalItems, showCreate, onCreateOption, query],
+    [
+      filtered,
+      highlightedIndex,
+      onSelect,
+      setHighlightedIndex,
+      totalItems,
+      showCreate,
+      onCreateOption,
+      query,
+    ]
   )
 
   return (
     <div
       className={cx(
-        'absolute left-0 right-0 z-50 mt-1 animate-popup gds-radius-popover border gds-shadow-lg',
+        'animate-popup gds-radius-popover gds-shadow-lg absolute right-0 left-0 z-50 mt-1 border',
         glass
-          ? cx(glassClass(glass), 'border-white/10 bg-bg/60')
-          : 'border-border bg-surface',
+          ? cx(glassClass(glass), 'bg-bg/60 border-white/10')
+          : 'border-border bg-surface'
       )}
     >
-      <div className="border-b border-border p-1.5">
+      <div className="border-border border-b p-1.5">
         <input
-          className="w-full bg-transparent px-2 py-1 text-sm text-fg outline-none placeholder:text-fg-muted/50"
+          className="text-fg placeholder:text-fg-muted/50 w-full bg-transparent px-2 py-1 text-sm outline-none"
           onChange={(e) => onSearchChange(e.target.value)}
           onKeyDown={handleSearchKeyDown}
           placeholder={searchPlaceholder}
@@ -100,42 +110,43 @@ function ComboboxList({
       </div>
       <div className="max-h-60 overflow-y-auto py-1">
         {loading && (
-          <div className="flex items-center justify-center gds-pad-y-sm">
-            <Spinner className="h-4 w-4 text-fg-muted" />
+          <div className="gds-pad-y-sm flex items-center justify-center">
+            <Spinner className="text-fg-muted h-4 w-4" />
           </div>
         )}
         {!loading && filtered.length === 0 && !showCreate && (
-          <div className="gds-pad-x gds-pad-y-sm text-sm text-fg-muted">
+          <div className="gds-pad-x gds-pad-y-sm text-fg-muted text-sm">
             No results
           </div>
         )}
-        {!loading && filtered.map((opt, index) => {
-          const isActive = opt.value === value
-          const isHighlighted = index === highlightedIndex
-          return (
-            <button
-              className={cx(
-                'flex w-full items-center gds-pad-x gds-pad-y-sm text-left text-sm transition-colors',
-                isActive && 'bg-accent/10 text-accent',
-                !isActive && 'text-fg',
-                isHighlighted && !isActive && 'bg-bg-tertiary',
-                !isHighlighted && !isActive && 'hover:bg-bg-tertiary',
-              )}
-              key={opt.value}
-              onClick={() => onSelect(opt.value)}
-              onMouseEnter={() => setHighlightedIndex(index)}
-              type="button"
-            >
-              {opt.label}
-            </button>
-          )
-        })}
+        {!loading &&
+          filtered.map((opt, index) => {
+            const isActive = opt.value === value
+            const isHighlighted = index === highlightedIndex
+            return (
+              <button
+                className={cx(
+                  'gds-pad-x gds-pad-y-sm flex w-full items-center text-left text-sm transition-colors',
+                  isActive && 'bg-accent/10 text-accent',
+                  !isActive && 'text-fg',
+                  isHighlighted && !isActive && 'bg-bg-tertiary',
+                  !isHighlighted && !isActive && 'hover:bg-bg-tertiary'
+                )}
+                key={opt.value}
+                onClick={() => onSelect(opt.value)}
+                onMouseEnter={() => setHighlightedIndex(index)}
+                type="button"
+              >
+                {opt.label}
+              </button>
+            )
+          })}
         {showCreate && (
           <button
             className={cx(
-              'flex w-full items-center gds-pad-x gds-pad-y-sm text-left text-sm transition-colors text-accent',
+              'gds-pad-x gds-pad-y-sm text-accent flex w-full items-center text-left text-sm transition-colors',
               highlightedIndex === filtered.length && 'bg-bg-tertiary',
-              highlightedIndex !== filtered.length && 'hover:bg-bg-tertiary',
+              highlightedIndex !== filtered.length && 'hover:bg-bg-tertiary'
             )}
             onClick={() => {
               if (onCreateOption !== undefined) {

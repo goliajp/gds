@@ -11,7 +11,9 @@ const options = [
   { value: 'svelte', label: 'Svelte' },
 ]
 
-function renderList(overrides: Partial<React.ComponentProps<typeof ComboboxList>> = {}) {
+function renderList(
+  overrides: Partial<React.ComponentProps<typeof ComboboxList>> = {}
+) {
   const searchRef = React.createRef<HTMLInputElement>()
   const defaultProps = {
     filtered: options,
@@ -51,7 +53,9 @@ describe('ComboboxList', () => {
 
   it('displays search query in input', () => {
     const { container } = renderList({ query: 'rea' })
-    const input = container.querySelector('input[type="text"]') as HTMLInputElement
+    const input = container.querySelector(
+      'input[type="text"]'
+    ) as HTMLInputElement
     expect(input.value).toBe('rea')
   })
 
@@ -93,7 +97,10 @@ describe('ComboboxList', () => {
 
   it('ArrowDown increments highlightedIndex', () => {
     const setHighlightedIndex = vi.fn()
-    const { container } = renderList({ highlightedIndex: 0, setHighlightedIndex })
+    const { container } = renderList({
+      highlightedIndex: 0,
+      setHighlightedIndex,
+    })
     const input = container.querySelector('input[type="text"]')!
     fireEvent.keyDown(input, { key: 'ArrowDown' })
     expect(setHighlightedIndex).toHaveBeenCalledWith(1)
@@ -101,7 +108,10 @@ describe('ComboboxList', () => {
 
   it('ArrowDown wraps from last to first', () => {
     const setHighlightedIndex = vi.fn()
-    const { container } = renderList({ highlightedIndex: 2, setHighlightedIndex })
+    const { container } = renderList({
+      highlightedIndex: 2,
+      setHighlightedIndex,
+    })
     const input = container.querySelector('input[type="text"]')!
     fireEvent.keyDown(input, { key: 'ArrowDown' })
     expect(setHighlightedIndex).toHaveBeenCalledWith(0)
@@ -109,7 +119,10 @@ describe('ComboboxList', () => {
 
   it('ArrowUp decrements highlightedIndex', () => {
     const setHighlightedIndex = vi.fn()
-    const { container } = renderList({ highlightedIndex: 2, setHighlightedIndex })
+    const { container } = renderList({
+      highlightedIndex: 2,
+      setHighlightedIndex,
+    })
     const input = container.querySelector('input[type="text"]')!
     fireEvent.keyDown(input, { key: 'ArrowUp' })
     expect(setHighlightedIndex).toHaveBeenCalledWith(1)
@@ -117,7 +130,10 @@ describe('ComboboxList', () => {
 
   it('ArrowUp wraps from first to last', () => {
     const setHighlightedIndex = vi.fn()
-    const { container } = renderList({ highlightedIndex: 0, setHighlightedIndex })
+    const { container } = renderList({
+      highlightedIndex: 0,
+      setHighlightedIndex,
+    })
     const input = container.querySelector('input[type="text"]')!
     fireEvent.keyDown(input, { key: 'ArrowUp' })
     expect(setHighlightedIndex).toHaveBeenCalledWith(2)
@@ -133,7 +149,11 @@ describe('ComboboxList', () => {
 
   it('Enter does nothing when filtered list is empty', () => {
     const onSelect = vi.fn()
-    const { container } = renderList({ filtered: [], highlightedIndex: 0, onSelect })
+    const { container } = renderList({
+      filtered: [],
+      highlightedIndex: 0,
+      onSelect,
+    })
     const input = container.querySelector('input[type="text"]')!
     fireEvent.keyDown(input, { key: 'Enter' })
     expect(onSelect).not.toHaveBeenCalled()

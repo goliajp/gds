@@ -6,7 +6,9 @@ import { LoadingDots } from '../loading-dots'
 describe('LoadingDots', () => {
   it('has data-component="loading-dots"', () => {
     const { container } = render(<LoadingDots />)
-    expect(container.querySelector('[data-component="loading-dots"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="loading-dots"]')
+    ).not.toBeNull()
   })
 
   it('has role="status"', () => {

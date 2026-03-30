@@ -1,5 +1,12 @@
 // combobox — searchable select dropdown
-import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 
 import { focusCls } from '../utils/a11y'
 import { cx } from '../utils/cx'
@@ -29,7 +36,10 @@ type ComboboxProps = {
 function ChevronIcon({ open }: { open: boolean }) {
   return (
     <svg
-      className={cx('h-3 w-3 text-fg-muted transition-transform', open && 'rotate-180')}
+      className={cx(
+        'text-fg-muted h-3 w-3 transition-transform',
+        open && 'rotate-180'
+      )}
       fill="none"
       stroke="currentColor"
       strokeLinecap="round"
@@ -60,12 +70,14 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
       searchPlaceholder = 'Search...',
       value,
     },
-    ref,
+    ref
   ) {
     const [open, setOpen] = useState(false)
     const [query, setQuery] = useState('')
     const [highlightedIndex, setHighlightedIndex] = useState(0)
-    const [asyncResults, setAsyncResults] = useState<ComboboxOption[] | null>(null)
+    const [asyncResults, setAsyncResults] = useState<ComboboxOption[] | null>(
+      null
+    )
     const [asyncLoading, setAsyncLoading] = useState(false)
     const containerRef = useRef<HTMLDivElement>(null)
     const searchRef = useRef<HTMLInputElement>(null)
@@ -116,7 +128,7 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
 
     const selectedOption = useMemo(
       () => options.find((opt) => opt.value === value),
-      [options, value],
+      [options, value]
     )
 
     const handleOpen = useCallback(() => {
@@ -142,7 +154,7 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
         onChange(optionValue)
         handleClose()
       },
-      [onChange, handleClose],
+      [onChange, handleClose]
     )
 
     const handleCreate = useCallback(
@@ -152,7 +164,7 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
         onChange(newOption.value)
         handleClose()
       },
-      [onCreateOption, onChange, handleClose],
+      [onCreateOption, onChange, handleClose]
     )
 
     const handleSearchChange = useCallback((val: string) => {
@@ -172,20 +184,24 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
       >
         <button
           className={cx(
-            'flex w-full items-center justify-between gds-h gds-radius-popover gds-pad-x border bg-transparent text-left text-sm text-fg transition-colors',
+            'gds-h gds-radius-popover gds-pad-x text-fg flex w-full items-center justify-between border bg-transparent text-left text-sm transition-colors',
             focusCls,
             !error && 'border-border hover:border-fg-muted',
             error && 'border-danger',
             error && 'focus-visible:ring-danger',
             disabled && 'cursor-not-allowed opacity-50',
             glassClass(glass),
-            glass === true && 'border-white/10 bg-bg/60',
+            glass === true && 'bg-bg/60 border-white/10'
           )}
           disabled={disabled}
           onClick={handleOpen}
           type="button"
         >
-          <span className={cx(selectedOption !== undefined ? 'text-fg' : 'text-fg-muted')}>
+          <span
+            className={cx(
+              selectedOption !== undefined ? 'text-fg' : 'text-fg-muted'
+            )}
+          >
             {selectedOption !== undefined ? selectedOption.label : placeholder}
           </span>
           <ChevronIcon open={open} />
@@ -210,7 +226,7 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
         )}
       </div>
     )
-  },
+  }
 )
 
 export type { ComboboxOption, ComboboxProps }

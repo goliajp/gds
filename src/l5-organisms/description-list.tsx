@@ -35,11 +35,13 @@ export function DescriptionList({
           className={cx(
             'gds-pad-x gds-pad-y-sm',
             isHorizontal && 'grid grid-cols-[1fr_2fr] gap-4',
-            dividers && i < items.length - 1 && 'border-b border-border',
+            dividers && i < items.length - 1 && 'border-border border-b'
           )}
         >
-          <dt className="font-medium text-fg-muted">{item.term}</dt>
-          <dd className={cx('text-fg', isHorizontal ? '' : 'mt-1')}>{item.description}</dd>
+          <dt className="text-fg-muted font-medium">{item.term}</dt>
+          <dd className={cx('text-fg', isHorizontal ? '' : 'mt-1')}>
+            {item.description}
+          </dd>
         </div>
       ))}
     </dl>

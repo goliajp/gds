@@ -33,18 +33,34 @@ export const tabVariants = cva(
     },
     compoundVariants: [
       { variant: 'default', active: true, class: 'border-accent text-accent' },
-      { variant: 'default', active: false, class: 'border-transparent text-fg-muted hover:text-fg' },
+      {
+        variant: 'default',
+        active: false,
+        class: 'border-transparent text-fg-muted hover:text-fg',
+      },
       { variant: 'pills', active: true, class: 'bg-accent text-accent-fg' },
-      { variant: 'pills', active: false, class: 'text-fg-muted hover:bg-fg-muted/10 hover:text-fg' },
-      { variant: 'underline', active: true, class: 'border-accent text-accent' },
-      { variant: 'underline', active: false, class: 'border-transparent text-fg-muted hover:text-fg' },
+      {
+        variant: 'pills',
+        active: false,
+        class: 'text-fg-muted hover:bg-fg-muted/10 hover:text-fg',
+      },
+      {
+        variant: 'underline',
+        active: true,
+        class: 'border-accent text-accent',
+      },
+      {
+        variant: 'underline',
+        active: false,
+        class: 'border-transparent text-fg-muted hover:text-fg',
+      },
     ],
     defaultVariants: {
       size: 'default',
       active: false,
       variant: 'default',
     },
-  },
+  }
 )
 
 export type TabsProps = {
@@ -58,11 +74,25 @@ export type TabsProps = {
   className?: string
 }
 
-export function Tabs({ tabs, active, onChange, glass, size = 'default', variant = 'default', scrollable = true, className }: TabsProps) {
+export function Tabs({
+  tabs,
+  active,
+  onChange,
+  glass,
+  size = 'default',
+  variant = 'default',
+  scrollable = true,
+  className,
+}: TabsProps) {
   const isPills = variant === 'pills'
 
   function handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
-    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight' && e.key !== 'Home' && e.key !== 'End') {
+    if (
+      e.key !== 'ArrowLeft' &&
+      e.key !== 'ArrowRight' &&
+      e.key !== 'Home' &&
+      e.key !== 'End'
+    ) {
       return
     }
     e.preventDefault()
@@ -90,11 +120,13 @@ export function Tabs({ tabs, active, onChange, glass, size = 'default', variant 
     <div
       className={cx(
         'flex',
-        !isPills && 'border-b border-border',
+        !isPills && 'border-border border-b',
         isPills && 'gap-1.5',
-        scrollable && 'overflow-x-auto scrollbar-hide',
-        glass ? cx('rounded-t-lg border-white/10 bg-bg/60', glassClass(glass)) : '',
-        className,
+        scrollable && 'scrollbar-hide overflow-x-auto',
+        glass
+          ? cx('bg-bg/60 rounded-t-lg border-white/10', glassClass(glass))
+          : '',
+        className
       )}
       data-component="tabs"
       role="tablist"
@@ -114,7 +146,7 @@ export function Tabs({ tabs, active, onChange, glass, size = 'default', variant 
           >
             {tab.label}
             {tab.count !== undefined && (
-              <span className="ml-1.5 gds-radius-badge bg-fg-muted/10 px-1.5 gds-text-caption">
+              <span className="gds-radius-badge bg-fg-muted/10 gds-text-caption ml-1.5 px-1.5">
                 {tab.count}
               </span>
             )}

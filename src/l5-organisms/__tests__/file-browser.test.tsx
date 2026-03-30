@@ -6,18 +6,28 @@ import { FileBrowser } from '../file-browser'
 
 const files = [
   { id: '1', name: 'Documents', type: 'folder' as const },
-  { id: '2', name: 'readme.txt', type: 'file' as const, size: 2048, modified: '2025-01-01' },
+  {
+    id: '2',
+    name: 'readme.txt',
+    type: 'file' as const,
+    size: 2048,
+    modified: '2025-01-01',
+  },
 ]
 
 describe('FileBrowser', () => {
   it('renders without crash', () => {
     const { container } = render(<FileBrowser files={files} />)
-    expect(container.querySelector('[data-component="file-browser"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="file-browser"]')
+    ).not.toBeNull()
   })
 
   it('has data-component attribute', () => {
     const { container } = render(<FileBrowser files={files} />)
-    expect(container.querySelector('[data-component="file-browser"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="file-browser"]')
+    ).not.toBeNull()
   })
 
   it('renders file and folder names', () => {
@@ -64,7 +74,9 @@ describe('FileBrowser', () => {
   })
 
   it('formats file size in bytes', () => {
-    const smallFiles = [{ id: '1', name: 'tiny.txt', type: 'file' as const, size: 512 }]
+    const smallFiles = [
+      { id: '1', name: 'tiny.txt', type: 'file' as const, size: 512 },
+    ]
     render(<FileBrowser files={smallFiles} />)
     expect(screen.getByText('512 B')).toBeDefined()
   })
@@ -75,7 +87,14 @@ describe('FileBrowser', () => {
   })
 
   it('formats file size in MB', () => {
-    const bigFiles = [{ id: '1', name: 'big.zip', type: 'file' as const, size: 2 * 1024 * 1024 }]
+    const bigFiles = [
+      {
+        id: '1',
+        name: 'big.zip',
+        type: 'file' as const,
+        size: 2 * 1024 * 1024,
+      },
+    ]
     render(<FileBrowser files={bigFiles} />)
     expect(screen.getByText('2.0 MB')).toBeDefined()
   })
@@ -104,7 +123,9 @@ describe('FileBrowser', () => {
 
   it('handles Enter key on folder row', () => {
     const onNavigate = vi.fn()
-    const { container } = render(<FileBrowser files={files} onNavigate={onNavigate} />)
+    const { container } = render(
+      <FileBrowser files={files} onNavigate={onNavigate} />
+    )
     const rows = container.querySelectorAll('tbody tr')
     fireEvent.keyDown(rows[0], { key: 'Enter' })
     expect(onNavigate).toHaveBeenCalledWith('1')
@@ -112,7 +133,9 @@ describe('FileBrowser', () => {
 
   it('handles Enter key on file row', () => {
     const onSelect = vi.fn()
-    const { container } = render(<FileBrowser files={files} onSelect={onSelect} />)
+    const { container } = render(
+      <FileBrowser files={files} onSelect={onSelect} />
+    )
     const rows = container.querySelectorAll('tbody tr')
     fireEvent.keyDown(rows[1], { key: 'Enter' })
     expect(onSelect).toHaveBeenCalledWith('2')
@@ -120,14 +143,21 @@ describe('FileBrowser', () => {
 
   it('renders custom icon when provided', () => {
     const filesWithIcon = [
-      { id: '1', name: 'custom.txt', type: 'file' as const, icon: <span data-testid="custom-icon">C</span> },
+      {
+        id: '1',
+        name: 'custom.txt',
+        type: 'file' as const,
+        icon: <span data-testid="custom-icon">C</span>,
+      },
     ]
     render(<FileBrowser files={filesWithIcon} />)
     expect(screen.getByTestId('custom-icon')).toBeDefined()
   })
 
   it('applies custom className', () => {
-    const { container } = render(<FileBrowser files={files} className="my-browser" />)
+    const { container } = render(
+      <FileBrowser files={files} className="my-browser" />
+    )
     const root = container.querySelector('[data-component="file-browser"]')
     expect(root?.className).toContain('my-browser')
   })

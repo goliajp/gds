@@ -6,7 +6,9 @@ import { StarRating } from '../star-rating'
 describe('StarRating', () => {
   it('has data-component="star-rating"', () => {
     const { container } = render(<StarRating value={3} />)
-    expect(container.querySelector('[data-component="star-rating"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="star-rating"]')
+    ).not.toBeNull()
   })
 
   it('renders 5 stars by default', () => {

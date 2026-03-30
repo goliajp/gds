@@ -26,24 +26,24 @@ const justifyMap: Record<ActionBarJustify, string> = {
 export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
   function ActionBar(
     { children, className, glass = true, justify = 'end', position = 'bottom' },
-    ref,
+    ref
   ) {
     return (
       <div
         ref={ref}
         className={cx(
-          'sticky z-10 flex items-center gds-pad-x-lg gds-pad-y',
+          'gds-pad-x-lg gds-pad-y sticky z-10 flex items-center',
           position === 'bottom' ? 'bottom-0 border-t' : 'top-0 border-b',
           justifyMap[justify],
           glass === true
-            ? cx(glassClass(glass), 'border-white/10 bg-bg/60')
+            ? cx(glassClass(glass), 'bg-bg/60 border-white/10')
             : 'border-border bg-surface',
-          className,
+          className
         )}
         data-component="action-bar"
       >
         {children}
       </div>
     )
-  },
+  }
 )

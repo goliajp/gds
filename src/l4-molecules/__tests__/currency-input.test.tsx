@@ -50,7 +50,9 @@ describe('CurrencyInput', () => {
   })
 
   it('applies error state', () => {
-    const { container } = render(<CurrencyInput value={0} onChange={() => {}} error />)
+    const { container } = render(
+      <CurrencyInput value={0} onChange={() => {}} error />
+    )
     expect(container.querySelector('[data-error]')).not.toBeNull()
   })
 })

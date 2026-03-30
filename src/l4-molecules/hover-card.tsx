@@ -18,7 +18,17 @@ export type HoverCardProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 export const HoverCard = forwardRef<HTMLDivElement, HoverCardProps>(
-  function HoverCard({ trigger, children, delay = 300, placement = 'bottom', className, ...props }, ref) {
+  function HoverCard(
+    {
+      trigger,
+      children,
+      delay = 300,
+      placement = 'bottom',
+      className,
+      ...props
+    },
+    ref
+  ) {
     const [open, setOpen] = useState(false)
     const enterTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
     const leaveTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
@@ -47,8 +57,8 @@ export const HoverCard = forwardRef<HTMLDivElement, HoverCardProps>(
         {open && (
           <div
             className={cx(
-              'absolute z-50 animate-popup gds-radius-popover border border-border bg-surface gds-pad-x gds-pad-y gds-shadow-lg',
-              positionClasses[placement],
+              'animate-popup gds-radius-popover border-border bg-surface gds-pad-x gds-pad-y gds-shadow-lg absolute z-50 border',
+              positionClasses[placement]
             )}
             onMouseEnter={handleEnter}
             onMouseLeave={handleLeave}
@@ -58,5 +68,5 @@ export const HoverCard = forwardRef<HTMLDivElement, HoverCardProps>(
         )}
       </div>
     )
-  },
+  }
 )

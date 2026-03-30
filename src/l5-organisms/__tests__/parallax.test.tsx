@@ -9,61 +9,107 @@ describe('Parallax', () => {
   })
 
   it('renders children', () => {
-    render(<Parallax><span>Hello</span></Parallax>)
+    render(
+      <Parallax>
+        <span>Hello</span>
+      </Parallax>
+    )
     expect(screen.getByText('Hello')).toBeDefined()
   })
 
   it('applies data-component attribute', () => {
-    const { container } = render(<Parallax><span>Test</span></Parallax>)
-    expect(container.querySelector('[data-component="parallax"]')).not.toBeNull()
+    const { container } = render(
+      <Parallax>
+        <span>Test</span>
+      </Parallax>
+    )
+    expect(
+      container.querySelector('[data-component="parallax"]')
+    ).not.toBeNull()
   })
 
   it('does not apply transform when disabled', () => {
-    const { container } = render(<Parallax disabled><span>Test</span></Parallax>)
-    const el = container.querySelector('[data-component="parallax"]') as HTMLElement
+    const { container } = render(
+      <Parallax disabled>
+        <span>Test</span>
+      </Parallax>
+    )
+    const el = container.querySelector(
+      '[data-component="parallax"]'
+    ) as HTMLElement
     expect(el.style.transform).toBe('')
   })
 
   it('respects speed prop via will-change class', () => {
-    const { container } = render(<Parallax speed={0.8}><span>Test</span></Parallax>)
-    const el = container.querySelector('[data-component="parallax"]') as HTMLElement
+    const { container } = render(
+      <Parallax speed={0.8}>
+        <span>Test</span>
+      </Parallax>
+    )
+    const el = container.querySelector(
+      '[data-component="parallax"]'
+    ) as HTMLElement
     expect(el.className).toContain('will-change-transform')
   })
 
   it('applies custom className', () => {
-    const { container } = render(<Parallax className="my-parallax"><span>Test</span></Parallax>)
+    const { container } = render(
+      <Parallax className="my-parallax">
+        <span>Test</span>
+      </Parallax>
+    )
     const el = container.querySelector('[data-component="parallax"]')
     expect(el?.className).toContain('my-parallax')
   })
 
   it('adds scroll listener when not disabled', () => {
     const addSpy = vi.spyOn(window, 'addEventListener')
-    render(<Parallax><span>Test</span></Parallax>)
-    expect(addSpy).toHaveBeenCalledWith('scroll', expect.any(Function), { passive: true })
+    render(
+      <Parallax>
+        <span>Test</span>
+      </Parallax>
+    )
+    expect(addSpy).toHaveBeenCalledWith('scroll', expect.any(Function), {
+      passive: true,
+    })
   })
 
   it('does not add scroll listener when disabled', () => {
     const addSpy = vi.spyOn(window, 'addEventListener')
-    render(<Parallax disabled><span>Test</span></Parallax>)
+    render(
+      <Parallax disabled>
+        <span>Test</span>
+      </Parallax>
+    )
     const scrollCalls = addSpy.mock.calls.filter(
-      ([event]) => event === 'scroll',
+      ([event]) => event === 'scroll'
     )
     expect(scrollCalls.length).toBe(0)
   })
 
   it('removes scroll listener on unmount', () => {
     const removeSpy = vi.spyOn(window, 'removeEventListener')
-    const { unmount } = render(<Parallax><span>Test</span></Parallax>)
+    const { unmount } = render(
+      <Parallax>
+        <span>Test</span>
+      </Parallax>
+    )
     unmount()
     const scrollCalls = removeSpy.mock.calls.filter(
-      ([event]) => event === 'scroll',
+      ([event]) => event === 'scroll'
     )
     expect(scrollCalls.length).toBeGreaterThan(0)
   })
 
   it('applies vertical transform by default', () => {
-    const { container } = render(<Parallax><span>Test</span></Parallax>)
-    const el = container.querySelector('[data-component="parallax"]') as HTMLElement
+    const { container } = render(
+      <Parallax>
+        <span>Test</span>
+      </Parallax>
+    )
+    const el = container.querySelector(
+      '[data-component="parallax"]'
+    ) as HTMLElement
     // transform should contain translateY
     if (el.style.transform !== '') {
       expect(el.style.transform).toContain('translateY')
@@ -72,9 +118,13 @@ describe('Parallax', () => {
 
   it('applies horizontal transform when direction is horizontal', () => {
     const { container } = render(
-      <Parallax direction="horizontal"><span>Test</span></Parallax>,
+      <Parallax direction="horizontal">
+        <span>Test</span>
+      </Parallax>
     )
-    const el = container.querySelector('[data-component="parallax"]') as HTMLElement
+    const el = container.querySelector(
+      '[data-component="parallax"]'
+    ) as HTMLElement
     if (el.style.transform !== '') {
       expect(el.style.transform).toContain('translateX')
     }
@@ -82,13 +132,21 @@ describe('Parallax', () => {
 
   it('forwards ref (function ref)', () => {
     const refFn = vi.fn()
-    render(<Parallax ref={refFn}><span>Test</span></Parallax>)
+    render(
+      <Parallax ref={refFn}>
+        <span>Test</span>
+      </Parallax>
+    )
     expect(refFn).toHaveBeenCalledWith(expect.any(HTMLDivElement))
   })
 
   it('forwards ref (object ref)', () => {
     const ref = { current: null as HTMLDivElement | null }
-    render(<Parallax ref={ref}><span>Test</span></Parallax>)
+    render(
+      <Parallax ref={ref}>
+        <span>Test</span>
+      </Parallax>
+    )
     expect(ref.current).not.toBeNull()
     expect(ref.current?.getAttribute('data-component')).toBe('parallax')
   })
@@ -105,8 +163,14 @@ describe('Parallax', () => {
       dispatchEvent: vi.fn(),
     })
 
-    render(<Parallax><span>Test</span></Parallax>)
-    expect(matchMediaSpy).toHaveBeenCalledWith('(prefers-reduced-motion: reduce)')
+    render(
+      <Parallax>
+        <span>Test</span>
+      </Parallax>
+    )
+    expect(matchMediaSpy).toHaveBeenCalledWith(
+      '(prefers-reduced-motion: reduce)'
+    )
   })
 
   it('applies vertical transform after scroll event fires rAF', () => {
@@ -117,25 +181,42 @@ describe('Parallax', () => {
       return 1
     })
 
-    const { container } = render(<Parallax speed={0.5}><span>Test</span></Parallax>)
-    const el = container.querySelector('[data-component="parallax"]') as HTMLElement
+    const { container } = render(
+      <Parallax speed={0.5}>
+        <span>Test</span>
+      </Parallax>
+    )
+    const el = container.querySelector(
+      '[data-component="parallax"]'
+    ) as HTMLElement
 
     // mock getBoundingClientRect to return a specific top value
     vi.spyOn(el, 'getBoundingClientRect').mockReturnValue({
-      top: -100, left: 0, width: 100, height: 100,
-      right: 100, bottom: 0, x: 0, y: -100, toJSON: vi.fn(),
+      top: -100,
+      left: 0,
+      width: 100,
+      height: 100,
+      right: 100,
+      bottom: 0,
+      x: 0,
+      y: -100,
+      toJSON: vi.fn(),
     })
 
     // trigger scroll handler (it was called during mount, so rafCb should be set)
     // flush the rAF callback
     if (rafCb !== null) {
-      act(() => { (rafCb as (time: number) => void)(16) })
+      act(() => {
+        ;(rafCb as (time: number) => void)(16)
+      })
     }
 
     // now trigger another scroll and flush
     fireEvent.scroll(window)
     if (rafCb !== null) {
-      act(() => { (rafCb as (time: number) => void)(32) })
+      act(() => {
+        ;(rafCb as (time: number) => void)(32)
+      })
     }
 
     expect(el.style.transform).toContain('translateY')
@@ -152,18 +233,31 @@ describe('Parallax', () => {
     })
 
     const { container } = render(
-      <Parallax speed={0.5} direction="horizontal"><span>Test</span></Parallax>,
+      <Parallax speed={0.5} direction="horizontal">
+        <span>Test</span>
+      </Parallax>
     )
-    const el = container.querySelector('[data-component="parallax"]') as HTMLElement
+    const el = container.querySelector(
+      '[data-component="parallax"]'
+    ) as HTMLElement
 
     vi.spyOn(el, 'getBoundingClientRect').mockReturnValue({
-      top: 0, left: -200, width: 100, height: 100,
-      right: -100, bottom: 100, x: -200, y: 0, toJSON: vi.fn(),
+      top: 0,
+      left: -200,
+      width: 100,
+      height: 100,
+      right: -100,
+      bottom: 100,
+      x: -200,
+      y: 0,
+      toJSON: vi.fn(),
     })
 
     // flush the rAF
     if (rafCb !== null) {
-      act(() => { (rafCb as (time: number) => void)(16) })
+      act(() => {
+        ;(rafCb as (time: number) => void)(16)
+      })
     }
 
     expect(el.style.transform).toContain('translateX')
@@ -183,11 +277,21 @@ describe('Parallax', () => {
       dispatchEvent: vi.fn(),
     })
 
-    const { container, rerender } = render(<Parallax><span>Test</span></Parallax>)
+    const { container, rerender } = render(
+      <Parallax>
+        <span>Test</span>
+      </Parallax>
+    )
     // after effects run, prefersReducedMotion.current is true
     // on next re-render, shouldDisable is true so transform is undefined
-    rerender(<Parallax><span>Test</span></Parallax>)
-    const el = container.querySelector('[data-component="parallax"]') as HTMLElement
+    rerender(
+      <Parallax>
+        <span>Test</span>
+      </Parallax>
+    )
+    const el = container.querySelector(
+      '[data-component="parallax"]'
+    ) as HTMLElement
     expect(el.style.transform).toBe('')
   })
 
@@ -200,7 +304,11 @@ describe('Parallax', () => {
       return 42
     })
 
-    const { unmount } = render(<Parallax><span>Test</span></Parallax>)
+    const { unmount } = render(
+      <Parallax>
+        <span>Test</span>
+      </Parallax>
+    )
 
     // scroll to create a pending rAF
     fireEvent.scroll(window)
@@ -221,7 +329,11 @@ describe('Parallax', () => {
       return rafCount
     })
 
-    render(<Parallax><span>Test</span></Parallax>)
+    render(
+      <Parallax>
+        <span>Test</span>
+      </Parallax>
+    )
 
     // initial mount calls handleScroll once
     const initialCount = rafCount

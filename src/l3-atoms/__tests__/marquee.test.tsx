@@ -5,7 +5,11 @@ import { Marquee } from '../marquee'
 
 describe('Marquee', () => {
   it('renders children', () => {
-    render(<Marquee><span data-testid="child">hello</span></Marquee>)
+    render(
+      <Marquee>
+        <span data-testid="child">hello</span>
+      </Marquee>
+    )
     const matches = screen.getAllByTestId('child')
     // children duplicated for seamless loop
     expect(matches.length).toBe(2)
@@ -28,7 +32,9 @@ describe('Marquee', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<Marquee>x</Marquee>)
-    expect(container.querySelector('[data-component="marquee"]')).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="marquee"]')
+    ).toBeInTheDocument()
   })
 
   it('sets right-to-left animation when direction is "right"', () => {

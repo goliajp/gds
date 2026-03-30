@@ -9,14 +9,20 @@ type DateRange = {
   to: string
 }
 
-type DataExportCardProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> & {
+type DataExportCardProps = Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  'title'
+> & {
   formats: string[]
   onExport: (format: string, dateRange?: DateRange) => void
   title?: string
 }
 
 const DataExportCard = forwardRef<HTMLDivElement, DataExportCardProps>(
-  function DataExportCard({ formats, onExport, title = 'Export Data', className, ...props }, ref) {
+  function DataExportCard(
+    { formats, onExport, title = 'Export Data', className, ...props },
+    ref
+  ) {
     const [format, setFormat] = useState(formats[0] ?? '')
     const [from, setFrom] = useState('')
     const [to, setTo] = useState('')
@@ -27,23 +33,51 @@ const DataExportCard = forwardRef<HTMLDivElement, DataExportCardProps>(
     }
 
     return (
-      <div ref={ref} className={cx('gds-ctx rounded-lg border border-border bg-surface gds-pad gds-shadow', className)} data-component="data-export-card" {...props}>
-        <h3 className="select-none font-medium gds-heading text-fg mb-3">{title}</h3>
+      <div
+        ref={ref}
+        className={cx(
+          'gds-ctx border-border bg-surface gds-pad gds-shadow rounded-lg border',
+          className
+        )}
+        data-component="data-export-card"
+        {...props}
+      >
+        <h3 className="gds-heading text-fg mb-3 font-medium select-none">
+          {title}
+        </h3>
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-1">
-            <label className="select-none text-xs text-fg-muted">Format</label>
-            <select value={format} onChange={(e) => setFormat(e.target.value)} className="rounded border border-border bg-bg px-2 py-1.5 gds-text-body text-fg">
-              {formats.map((f) => <option key={f} value={f}>{f}</option>)}
+            <label className="text-fg-muted text-xs select-none">Format</label>
+            <select
+              value={format}
+              onChange={(e) => setFormat(e.target.value)}
+              className="border-border bg-bg gds-text-body text-fg rounded border px-2 py-1.5"
+            >
+              {formats.map((f) => (
+                <option key={f} value={f}>
+                  {f}
+                </option>
+              ))}
             </select>
           </div>
           <div className="flex gap-2">
             <div className="flex flex-1 flex-col gap-1">
-              <label className="select-none text-xs text-fg-muted">From</label>
-              <input type="date" value={from} onChange={(e) => setFrom(e.target.value)} className="rounded border border-border bg-bg px-2 py-1.5 gds-text-body text-fg" />
+              <label className="text-fg-muted text-xs select-none">From</label>
+              <input
+                type="date"
+                value={from}
+                onChange={(e) => setFrom(e.target.value)}
+                className="border-border bg-bg gds-text-body text-fg rounded border px-2 py-1.5"
+              />
             </div>
             <div className="flex flex-1 flex-col gap-1">
-              <label className="select-none text-xs text-fg-muted">To</label>
-              <input type="date" value={to} onChange={(e) => setTo(e.target.value)} className="rounded border border-border bg-bg px-2 py-1.5 gds-text-body text-fg" />
+              <label className="text-fg-muted text-xs select-none">To</label>
+              <input
+                type="date"
+                value={to}
+                onChange={(e) => setTo(e.target.value)}
+                className="border-border bg-bg gds-text-body text-fg rounded border px-2 py-1.5"
+              />
             </div>
           </div>
           <Button type="button" onClick={handleExport} className="mt-1">
@@ -52,7 +86,7 @@ const DataExportCard = forwardRef<HTMLDivElement, DataExportCardProps>(
         </div>
       </div>
     )
-  },
+  }
 )
 
 export { DataExportCard }

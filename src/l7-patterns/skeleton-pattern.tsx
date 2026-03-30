@@ -15,7 +15,7 @@ export type SkeletonPatternProps = {
 
 function CardSkeleton() {
   return (
-    <div className="flex flex-col gds-gap gds-ctx gds-pad gds-radius-card">
+    <div className="gds-gap gds-ctx gds-pad gds-radius-card flex flex-col">
       <Skeleton variant="rect" height={120} />
       <Skeleton variant="text" width="60%" />
       <Skeleton variant="text" lines={2} />
@@ -37,7 +37,7 @@ function ListRow() {
 
 function ProfileSkeleton() {
   return (
-    <div className="flex flex-col items-center gds-gap gds-ctx gds-pad">
+    <div className="gds-gap gds-ctx gds-pad flex flex-col items-center">
       <Skeleton variant="circle" width={64} height={64} />
       <Skeleton variant="text" width="30%" />
       <Skeleton variant="text" lines={3} />
@@ -72,7 +72,12 @@ export const SkeletonPattern = forwardRef<HTMLDivElement, SkeletonPatternProps>(
 
     if (variant === 'card') {
       return (
-        <div ref={ref} className={cx('gds-ctx gds-radius-card', glassClass, className)} data-component="skeleton-pattern" data-variant="card">
+        <div
+          ref={ref}
+          className={cx('gds-ctx gds-radius-card', glassClass, className)}
+          data-component="skeleton-pattern"
+          data-variant="card"
+        >
           <CardSkeleton />
         </div>
       )
@@ -80,7 +85,16 @@ export const SkeletonPattern = forwardRef<HTMLDivElement, SkeletonPatternProps>(
 
     if (variant === 'list') {
       return (
-        <div ref={ref} className={cx('flex flex-col gds-gap gds-ctx gds-pad', glassClass, className)} data-component="skeleton-pattern" data-variant="list">
+        <div
+          ref={ref}
+          className={cx(
+            'gds-gap gds-ctx gds-pad flex flex-col',
+            glassClass,
+            className
+          )}
+          data-component="skeleton-pattern"
+          data-variant="list"
+        >
           {Array.from({ length: count }, (_, i) => (
             <ListRow key={i} />
           ))}
@@ -90,18 +104,28 @@ export const SkeletonPattern = forwardRef<HTMLDivElement, SkeletonPatternProps>(
 
     if (variant === 'profile') {
       return (
-        <div ref={ref} className={cx(glassClass, className)} data-component="skeleton-pattern" data-variant="profile">
+        <div
+          ref={ref}
+          className={cx(glassClass, className)}
+          data-component="skeleton-pattern"
+          data-variant="profile"
+        >
           <ProfileSkeleton />
         </div>
       )
     }
 
     return (
-      <div ref={ref} className={cx('gds-ctx gds-pad', glassClass, className)} data-component="skeleton-pattern" data-variant="table">
+      <div
+        ref={ref}
+        className={cx('gds-ctx gds-pad', glassClass, className)}
+        data-component="skeleton-pattern"
+        data-variant="table"
+      >
         <TableSkeleton rows={count} />
       </div>
     )
-  },
+  }
 )
 
 export type { SkeletonPatternVariant }

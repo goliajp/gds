@@ -14,7 +14,9 @@ describe('ThemeToggle', () => {
   })
 
   it('shows moon icon in light mode (to switch to dark)', () => {
-    const { container } = render(<ThemeToggle mode="light" onChange={vi.fn()} />)
+    const { container } = render(
+      <ThemeToggle mode="light" onChange={vi.fn()} />
+    )
     const btn = container.querySelector('[data-component="theme-toggle"]')!
     expect(btn.getAttribute('data-state')).toBe('light')
     // moon icon has no circle element
@@ -31,7 +33,9 @@ describe('ThemeToggle', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<ThemeToggle mode="dark" onChange={vi.fn()} />)
-    expect(container.querySelector('[data-component="theme-toggle"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="theme-toggle"]')
+    ).not.toBeNull()
   })
 
   it('toggles from light to dark on click', async () => {
@@ -43,7 +47,9 @@ describe('ThemeToggle', () => {
   })
 
   it('renders with sm size', () => {
-    const { container } = render(<ThemeToggle mode="dark" onChange={vi.fn()} size="sm" />)
+    const { container } = render(
+      <ThemeToggle mode="dark" onChange={vi.fn()} size="sm" />
+    )
     const btn = container.querySelector('[data-component="theme-toggle"]')
     expect(btn?.className).toContain('h-6')
   })

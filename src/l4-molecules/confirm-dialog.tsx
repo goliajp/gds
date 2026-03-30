@@ -31,14 +31,32 @@ export const ConfirmDialog = forwardRef<HTMLDivElement, ConfirmDialogProps>(
       title = 'Confirm',
       variant = 'default',
     },
-    ref,
+    ref
   ) {
     return (
-      <Dialog className={className} onClose={onClose} open={open} ref={ref} title={title} width="sm">
-        <div className="flex flex-col gds-gap" data-component="confirm-dialog" data-variant={variant}>
-          {message !== undefined && <p className="gds-text-body text-fg-muted">{message}</p>}
-          <div className="flex items-center justify-end gds-gap-sm">
-            <Button disabled={loading} onClick={onClose} size="sm" variant="ghost">
+      <Dialog
+        className={className}
+        onClose={onClose}
+        open={open}
+        ref={ref}
+        title={title}
+        width="sm"
+      >
+        <div
+          className="gds-gap flex flex-col"
+          data-component="confirm-dialog"
+          data-variant={variant}
+        >
+          {message !== undefined && (
+            <p className="gds-text-body text-fg-muted">{message}</p>
+          )}
+          <div className="gds-gap-sm flex items-center justify-end">
+            <Button
+              disabled={loading}
+              onClick={onClose}
+              size="sm"
+              variant="ghost"
+            >
               {cancelLabel}
             </Button>
             <Button
@@ -53,7 +71,7 @@ export const ConfirmDialog = forwardRef<HTMLDivElement, ConfirmDialogProps>(
         </div>
       </Dialog>
     )
-  },
+  }
 )
 
 export type { ConfirmDialogProps }

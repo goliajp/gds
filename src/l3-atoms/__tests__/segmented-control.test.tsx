@@ -35,14 +35,30 @@ describe('SegmentedControl', () => {
   })
 
   it('applies disabled state', () => {
-    const { container } = render(<SegmentedControl options={options} value="a" onChange={() => {}} disabled />)
+    const { container } = render(
+      <SegmentedControl
+        options={options}
+        value="a"
+        onChange={() => {}}
+        disabled
+      />
+    )
     const el = container.querySelector('[data-component="segmented-control"]')
     expect(el?.getAttribute('data-state')).toBe('disabled')
   })
 
   it('renders with sm size', () => {
-    const { container } = render(<SegmentedControl options={options} value="a" onChange={() => {}} size="sm" />)
-    expect(container.querySelector('[data-component="segmented-control"]')).not.toBeNull()
+    const { container } = render(
+      <SegmentedControl
+        options={options}
+        value="a"
+        onChange={() => {}}
+        size="sm"
+      />
+    )
+    expect(
+      container.querySelector('[data-component="segmented-control"]')
+    ).not.toBeNull()
   })
 
   it('does not call onChange when clicking already active option', async () => {
@@ -54,14 +70,18 @@ describe('SegmentedControl', () => {
   })
 
   it('applies glass class when glass is true', () => {
-    const { container } = render(<SegmentedControl options={options} value="a" onChange={() => {}} glass />)
+    const { container } = render(
+      <SegmentedControl options={options} value="a" onChange={() => {}} glass />
+    )
     const el = container.querySelector('[data-component="segmented-control"]')
     // glass class should be applied (backdrop-blur or similar)
     expect(el).not.toBeNull()
   })
 
   it('has data-state="enabled" when not disabled', () => {
-    const { container } = render(<SegmentedControl options={options} value="a" onChange={() => {}} />)
+    const { container } = render(
+      <SegmentedControl options={options} value="a" onChange={() => {}} />
+    )
     const el = container.querySelector('[data-component="segmented-control"]')
     expect(el?.getAttribute('data-state')).toBe('enabled')
   })

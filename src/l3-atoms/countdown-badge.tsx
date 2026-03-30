@@ -15,7 +15,7 @@ const countdownBadgeVariants = cva(
         default: 'bg-accent',
       },
     },
-  },
+  }
 )
 
 type CountdownBadgeProps = React.HTMLAttributes<HTMLSpanElement> &
@@ -25,7 +25,10 @@ type CountdownBadgeProps = React.HTMLAttributes<HTMLSpanElement> &
   }
 
 export const CountdownBadge = forwardRef<HTMLSpanElement, CountdownBadgeProps>(
-  function CountdownBadge({ className, count, max = 99, variant, ...props }, ref) {
+  function CountdownBadge(
+    { className, count, max = 99, variant, ...props },
+    ref
+  ) {
     if (count <= 0) return null
 
     const display = count > max ? `${max}+` : String(count)
@@ -40,7 +43,7 @@ export const CountdownBadge = forwardRef<HTMLSpanElement, CountdownBadgeProps>(
         {display}
       </span>
     )
-  },
+  }
 )
 
 export { countdownBadgeVariants }

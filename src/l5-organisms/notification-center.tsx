@@ -22,67 +22,77 @@ export type NotificationCenterProps = React.HTMLAttributes<HTMLDivElement> & {
   onClose?: (id: string) => void
 }
 
-export const NotificationCenter = forwardRef<HTMLDivElement, NotificationCenterProps>(
-  function NotificationCenter(
-    {
-      className,
-      emptyMessage = 'No notifications',
-      glass,
-      notifications,
-      onClear,
-      onClose,
-      ...props
-    },
-    ref,
-  ) {
-    const hasItems = notifications.length > 0
-
-    return (
-      <div
-        ref={ref}
-        className={cx(
-          'flex flex-col gds-radius-popover border border-border',
-          glass === true ? cx(glassClass(glass), 'border-white/10 bg-bg/60') : 'bg-surface',
-          className,
-        )}
-        data-component="notification-center"
-        {...props}
-      >
-        <div className="flex items-center justify-between border-b border-border gds-pad-x gds-pad-y-sm">
-          <span className="gds-text-body font-medium text-fg select-none">Notifications</span>
-          {hasItems && onClear !== undefined && (
-            <button
-              type="button"
-              onClick={onClear}
-              className={cx('gds-text-label text-accent hover:text-accent-hover', focusCls)}
-            >
-              Clear all
-            </button>
-          )}
-        </div>
-
-        <div className="flex-1 overflow-y-auto">
-          {hasItems ? (
-            <div className="flex flex-col gds-gap-sm gds-pad">
-              {notifications.map((n) => (
-                <Notification
-                  key={n.id}
-                  title={n.title}
-                  description={n.message}
-                  variant={n.variant ?? 'info'}
-                  onClose={onClose !== undefined ? () => onClose(n.id) : undefined}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="flex items-center justify-center gds-pad-lg">
-              <span className="gds-text-label text-fg-muted">{emptyMessage}</span>
-            </div>
-          )}
-        </div>
-      </div>
-    )
+export const NotificationCenter = forwardRef<
+  HTMLDivElement,
+  NotificationCenterProps
+>(function NotificationCenter(
+  {
+    className,
+    emptyMessage = 'No notifications',
+    glass,
+    notifications,
+    onClear,
+    onClose,
+    ...props
   },
-)
+  ref
+) {
+  const hasItems = notifications.length > 0
+
+  return (
+    <div
+      ref={ref}
+      className={cx(
+        'gds-radius-popover border-border flex flex-col border',
+        glass === true
+          ? cx(glassClass(glass), 'bg-bg/60 border-white/10')
+          : 'bg-surface',
+        className
+      )}
+      data-component="notification-center"
+      {...props}
+    >
+      <div className="border-border gds-pad-x gds-pad-y-sm flex items-center justify-between border-b">
+        <span className="gds-text-body text-fg font-medium select-none">
+          Notifications
+        </span>
+        {hasItems && onClear !== undefined && (
+          <button
+            type="button"
+            onClick={onClear}
+            className={cx(
+              'gds-text-label text-accent hover:text-accent-hover',
+              focusCls
+            )}
+          >
+            Clear all
+          </button>
+        )}
+      </div>
+
+      <div className="flex-1 overflow-y-auto">
+        {hasItems ? (
+          <div className="gds-gap-sm gds-pad flex flex-col">
+            {notifications.map((n) => (
+              <Notification
+                key={n.id}
+                title={n.title}
+                description={n.message}
+                variant={n.variant ?? 'info'}
+                onClose={
+                  onClose !== undefined ? () => onClose(n.id) : undefined
+                }
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="gds-pad-lg flex items-center justify-center">
+            <span className="gds-text-label text-fg-muted">{emptyMessage}</span>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+})
 
 export type { NotificationItem }

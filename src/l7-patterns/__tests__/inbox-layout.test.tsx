@@ -16,14 +16,19 @@ import { InboxLayout } from '../inbox-layout'
 describe('InboxLayout', () => {
   it('renders with data-component="inbox-layout"', () => {
     const { container } = render(
-      <InboxLayout list={<div>List</div>} detail={<div>Detail</div>} />,
+      <InboxLayout list={<div>List</div>} detail={<div>Detail</div>} />
     )
-    expect(container.querySelector('[data-component="inbox-layout"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="inbox-layout"]')
+    ).not.toBeNull()
   })
 
   it('renders list and detail panes', () => {
     render(
-      <InboxLayout list={<div>Email list</div>} detail={<div>Email detail</div>} />,
+      <InboxLayout
+        list={<div>Email list</div>}
+        detail={<div>Email detail</div>}
+      />
     )
     expect(screen.getByText('Email list')).toBeDefined()
     expect(screen.getByText('Email detail')).toBeDefined()
@@ -34,7 +39,7 @@ describe('InboxLayout', () => {
       <InboxLayout
         list={<div>List</div>}
         emptyState={<div>Select an email</div>}
-      />,
+      />
     )
     expect(screen.getByText('Select an email')).toBeDefined()
   })
@@ -45,14 +50,18 @@ describe('InboxLayout', () => {
         sidebar={<div>Sidebar</div>}
         list={<div>List</div>}
         detail={<div>Detail</div>}
-      />,
+      />
     )
     expect(screen.getByText('Sidebar')).toBeDefined()
   })
 
   it('applies custom list width', () => {
     const { container } = render(
-      <InboxLayout list={<div>List</div>} detail={<div>Detail</div>} listWidth={400} />,
+      <InboxLayout
+        list={<div>List</div>}
+        detail={<div>Detail</div>}
+        listWidth={400}
+      />
     )
     const layout = container.querySelector('[data-component="inbox-layout"]')
     // list pane is the first child div (or second if sidebar exists)
@@ -62,7 +71,7 @@ describe('InboxLayout', () => {
 
   it('renders resizable divider by default', () => {
     const { container } = render(
-      <InboxLayout list={<div>List</div>} detail={<div>Detail</div>} />,
+      <InboxLayout list={<div>List</div>} detail={<div>Detail</div>} />
     )
     const separator = container.querySelector('[role="separator"]')
     expect(separator).not.toBeNull()
@@ -70,7 +79,11 @@ describe('InboxLayout', () => {
 
   it('hides resizable divider when resizable={false}', () => {
     const { container } = render(
-      <InboxLayout list={<div>List</div>} detail={<div>Detail</div>} resizable={false} />,
+      <InboxLayout
+        list={<div>List</div>}
+        detail={<div>Detail</div>}
+        resizable={false}
+      />
     )
     const separator = container.querySelector('[role="separator"]')
     expect(separator).toBeNull()
@@ -82,14 +95,14 @@ describe('InboxLayout', () => {
         list={<div>List</div>}
         detail={<div>Detail</div>}
         batchActions={<div>Batch actions bar</div>}
-      />,
+      />
     )
     expect(screen.getByText('Batch actions bar')).toBeDefined()
   })
 
   it('applies custom className', () => {
     const { container } = render(
-      <InboxLayout list={<div>List</div>} className="my-inbox" />,
+      <InboxLayout list={<div>List</div>} className="my-inbox" />
     )
     const el = container.querySelector('[data-component="inbox-layout"]')
     expect(el?.className).toContain('my-inbox')
@@ -102,7 +115,7 @@ describe('InboxLayout', () => {
         <InboxLayout
           list={<div>Mobile list</div>}
           detail={<div>Mobile detail</div>}
-        />,
+        />
       )
       expect(screen.getByText('Mobile list')).toBeDefined()
       expect(screen.queryByText('Mobile detail')).toBeNull()
@@ -115,7 +128,7 @@ describe('InboxLayout', () => {
           list={<div>Mobile list</div>}
           detail={<div>Mobile detail</div>}
           mobileView="detail"
-        />,
+        />
       )
       expect(screen.queryByText('Mobile list')).toBeNull()
       expect(screen.getByText('Mobile detail')).toBeDefined()
@@ -128,7 +141,7 @@ describe('InboxLayout', () => {
           list={<div>List</div>}
           detail={<div>Detail</div>}
           mobileView="detail"
-        />,
+        />
       )
       expect(screen.getByText('Back')).toBeDefined()
     })
@@ -142,7 +155,7 @@ describe('InboxLayout', () => {
           detail={<div>Detail</div>}
           mobileView="detail"
           onMobileViewChange={onMobileViewChange}
-        />,
+        />
       )
       fireEvent.click(screen.getByText('Back'))
       expect(onMobileViewChange).toHaveBeenCalledWith('list')
@@ -151,7 +164,7 @@ describe('InboxLayout', () => {
     it('sets data-mobile-view attribute', () => {
       vi.mocked(useIsMobile).mockReturnValue(true)
       const { container } = render(
-        <InboxLayout list={<div>List</div>} mobileView="list" />,
+        <InboxLayout list={<div>List</div>} mobileView="list" />
       )
       const el = container.querySelector('[data-component="inbox-layout"]')
       expect(el?.getAttribute('data-mobile-view')).toBe('list')
@@ -160,9 +173,7 @@ describe('InboxLayout', () => {
     // reset mock after mobile tests
     it('desktop: does not show Back button', () => {
       vi.mocked(useIsMobile).mockReturnValue(false)
-      render(
-        <InboxLayout list={<div>List</div>} detail={<div>Detail</div>} />,
-      )
+      render(<InboxLayout list={<div>List</div>} detail={<div>Detail</div>} />)
       expect(screen.queryByText('Back')).toBeNull()
     })
   })

@@ -11,7 +11,9 @@ const rings = [
 describe('DonutGauge', () => {
   it('renders without crash', () => {
     const { container } = render(<DonutGauge rings={rings} />)
-    expect(container.querySelector('[data-component="donut-gauge"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="donut-gauge"]')
+    ).not.toBeNull()
   })
 
   it('renders circles for each ring (track + fill)', () => {

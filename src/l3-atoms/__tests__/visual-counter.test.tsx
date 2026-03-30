@@ -7,7 +7,9 @@ import { VisualCounter } from '../visual-counter'
 describe('VisualCounter', () => {
   it('has data-component="visual-counter"', () => {
     const { container } = render(<VisualCounter value={3} onChange={vi.fn()} />)
-    expect(container.querySelector('[data-component="visual-counter"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="visual-counter"]')
+    ).not.toBeNull()
   })
 
   it('displays the current value', () => {

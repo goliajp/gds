@@ -12,7 +12,9 @@ describe('Truncate', () => {
 
   it('applies line-clamp styles for multi-line', () => {
     const { container } = render(<Truncate lines={3}>multi line text</Truncate>)
-    const el = container.querySelector('[data-component="truncate"]') as HTMLElement
+    const el = container.querySelector(
+      '[data-component="truncate"]'
+    ) as HTMLElement
     expect(el.style.overflow).toBe('hidden')
     expect(el.className).not.toContain('truncate')
   })
@@ -22,9 +24,11 @@ describe('Truncate', () => {
     const { container } = render(
       <Truncate lines={2} onToggle={onToggle}>
         controlled text
-      </Truncate>,
+      </Truncate>
     )
-    const el = container.querySelector('[data-component="truncate"]') as HTMLElement
+    const el = container.querySelector(
+      '[data-component="truncate"]'
+    ) as HTMLElement
     expect(el.style.overflow).toBe('hidden')
     fireEvent.click(el)
     expect(onToggle).toHaveBeenCalledOnce()
@@ -34,15 +38,19 @@ describe('Truncate', () => {
     const { container } = render(
       <Truncate lines={2} expanded onToggle={() => {}}>
         expanded text
-      </Truncate>,
+      </Truncate>
     )
-    const el = container.querySelector('[data-component="truncate"]') as HTMLElement
+    const el = container.querySelector(
+      '[data-component="truncate"]'
+    ) as HTMLElement
     expect(el.getAttribute('data-expanded')).toBe('true')
     expect(el.style.overflow).toBe('')
   })
 
   it('has data-component attribute', () => {
     const { container } = render(<Truncate>text</Truncate>)
-    expect(container.querySelector('[data-component="truncate"]')).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="truncate"]')
+    ).toBeInTheDocument()
   })
 })

@@ -11,7 +11,15 @@ describe('Kbd', () => {
 
   it('forwards ref', () => {
     let el: HTMLElement | null = null
-    render(<Kbd ref={(node) => { el = node }}>K</Kbd>)
+    render(
+      <Kbd
+        ref={(node) => {
+          el = node
+        }}
+      >
+        K
+      </Kbd>
+    )
     expect(el).toBeTruthy()
     expect(el!.tagName).toBe('KBD')
   })

@@ -10,9 +10,11 @@ describe('ResponsiveContainer', () => {
         mobile={<span>mobile</span>}
         tablet={<span>tablet</span>}
         desktop={<span>desktop</span>}
-      />,
+      />
     )
-    const el = container.querySelector('[data-component="responsive-container"]')
+    const el = container.querySelector(
+      '[data-component="responsive-container"]'
+    )
     expect(el).not.toBeNull()
     // all slots rendered in DOM (visibility controlled by CSS)
     expect(el?.textContent).toContain('mobile')
@@ -25,9 +27,11 @@ describe('ResponsiveContainer', () => {
       <ResponsiveContainer
         mobile={<span>mobile-content</span>}
         desktop={<span>desktop-content</span>}
-      />,
+      />
     )
-    const el = container.querySelector('[data-component="responsive-container"]')
+    const el = container.querySelector(
+      '[data-component="responsive-container"]'
+    )
     // tablet slot should also show mobile content
     const children = el?.children
     expect(children?.length).toBe(3)
@@ -41,9 +45,11 @@ describe('ResponsiveContainer', () => {
         className="custom-cls"
         mobile={<span>m</span>}
         desktop={<span>d</span>}
-      />,
+      />
     )
-    const el = container.querySelector('[data-component="responsive-container"]')
+    const el = container.querySelector(
+      '[data-component="responsive-container"]'
+    )
     expect(el?.className).toContain('custom-cls')
   })
 })

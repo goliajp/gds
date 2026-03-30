@@ -22,7 +22,7 @@ export const GradientBorder = forwardRef<HTMLDivElement, GradientBorderProps>(
       style: styleProp,
       ...props
     },
-    ref,
+    ref
   ) {
     const innerRadius = Math.max(0, radius - width)
 
@@ -32,15 +32,17 @@ export const GradientBorder = forwardRef<HTMLDivElement, GradientBorderProps>(
         ref={ref}
         data-component="gradient-border"
         className={cx(className)}
-        style={{ ...styleProp, background: gradient, padding: width, borderRadius: radius }}
+        style={{
+          ...styleProp,
+          background: gradient,
+          padding: width,
+          borderRadius: radius,
+        }}
       >
-        <div
-          className="bg-bg"
-          style={{ borderRadius: innerRadius }}
-        >
+        <div className="bg-bg" style={{ borderRadius: innerRadius }}>
           {children}
         </div>
       </div>
     )
-  },
+  }
 )

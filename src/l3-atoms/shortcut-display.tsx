@@ -9,26 +9,27 @@ type ShortcutDisplayProps = React.HTMLAttributes<HTMLSpanElement> & {
   keys: string[]
 }
 
-export const ShortcutDisplay = forwardRef<HTMLSpanElement, ShortcutDisplayProps>(
-  function ShortcutDisplay({ className, description, keys, ...props }, ref) {
-    return (
-      <span
-        className={cx('inline-flex items-center gap-2', className)}
-        data-component="shortcut-display"
-        ref={ref}
-        {...props}
-      >
-        <span className="inline-flex items-center gap-0.5">
-          {keys.map((key, i) => (
-            <Kbd key={i}>{key}</Kbd>
-          ))}
-        </span>
-        {description !== undefined && (
-          <span className="text-xs text-fg-muted">{description}</span>
-        )}
+export const ShortcutDisplay = forwardRef<
+  HTMLSpanElement,
+  ShortcutDisplayProps
+>(function ShortcutDisplay({ className, description, keys, ...props }, ref) {
+  return (
+    <span
+      className={cx('inline-flex items-center gap-2', className)}
+      data-component="shortcut-display"
+      ref={ref}
+      {...props}
+    >
+      <span className="inline-flex items-center gap-0.5">
+        {keys.map((key, i) => (
+          <Kbd key={i}>{key}</Kbd>
+        ))}
       </span>
-    )
-  },
-)
+      {description !== undefined && (
+        <span className="text-fg-muted text-xs">{description}</span>
+      )}
+    </span>
+  )
+})
 
 export type { ShortcutDisplayProps }

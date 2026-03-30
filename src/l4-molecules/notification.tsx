@@ -31,23 +31,60 @@ const iconColorMap: Record<NotificationVariant, string> = {
 
 const iconMap: Record<NotificationVariant, ReactNode> = {
   info: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-      <circle cx="8" cy="8" r="6.5" /><path d="M8 5.5h.01M8 7.5v3" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    >
+      <circle cx="8" cy="8" r="6.5" />
+      <path d="M8 5.5h.01M8 7.5v3" />
     </svg>
   ),
   success: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="8" cy="8" r="6.5" /><path d="M5.5 8l2 2 3-3.5" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="8" cy="8" r="6.5" />
+      <path d="M5.5 8l2 2 3-3.5" />
     </svg>
   ),
   warning: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-      <path d="M7.13 2.5l-5.5 10h11l-5.5-10z" /><path d="M7.63 6.5v2.5M7.63 11h.01" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    >
+      <path d="M7.13 2.5l-5.5 10h11l-5.5-10z" />
+      <path d="M7.63 6.5v2.5M7.63 11h.01" />
     </svg>
   ),
   danger: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-      <circle cx="8" cy="8" r="6.5" /><path d="M5.5 5.5l5 5M10.5 5.5l-5 5" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    >
+      <circle cx="8" cy="8" r="6.5" />
+      <path d="M5.5 5.5l5 5M10.5 5.5l-5 5" />
     </svg>
   ),
 }
@@ -62,45 +99,72 @@ type NotificationProps = React.HTMLAttributes<HTMLDivElement> & {
 }
 
 const Notification = forwardRef<HTMLDivElement, NotificationProps>(
-  function Notification({ title, description, variant = 'info', action, onClose, glass, className, ...props }, ref) {
+  function Notification(
+    {
+      title,
+      description,
+      variant = 'info',
+      action,
+      onClose,
+      glass,
+      className,
+      ...props
+    },
+    ref
+  ) {
     const v = variant ?? 'info'
 
     return (
       <div
         ref={ref}
         className={cx(
-          'flex w-full items-start gds-gap gds-radius-popover border border-border border-l-2 gds-pad-x gds-pad-y',
+          'gds-gap gds-radius-popover border-border gds-pad-x gds-pad-y flex w-full items-start border border-l-2',
           borderColorMap[v],
           bgColorMap[v],
           glass === true && glassClass(glass),
-          className,
+          className
         )}
         data-component="notification"
         data-variant={v}
         role="alert"
         {...props}
       >
-        <span className={cx('mt-px shrink-0', iconColorMap[v])}>{iconMap[v]}</span>
+        <span className={cx('mt-px shrink-0', iconColorMap[v])}>
+          {iconMap[v]}
+        </span>
         <div className="min-w-0 flex-1">
-          <p className="gds-text-body font-medium text-fg">{title}</p>
-          {description !== undefined && <p className="mt-0.5 gds-text-label text-fg-muted">{description}</p>}
+          <p className="gds-text-body text-fg font-medium">{title}</p>
+          {description !== undefined && (
+            <p className="gds-text-label text-fg-muted mt-0.5">{description}</p>
+          )}
         </div>
         {action !== undefined && <div className="shrink-0">{action}</div>}
         {onClose !== undefined && (
           <button
             type="button"
             onClick={onClose}
-            className={cx('shrink-0 gds-radius-button p-0.5 text-fg-muted opacity-60 hover:opacity-100', focusCls)}
+            className={cx(
+              'gds-radius-button text-fg-muted shrink-0 p-0.5 opacity-60 hover:opacity-100',
+              focusCls
+            )}
             aria-label="Dismiss"
           >
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            >
               <path d="M2 2l8 8M10 2l-8 8" />
             </svg>
           </button>
         )}
       </div>
     )
-  },
+  }
 )
 
 export { Notification }

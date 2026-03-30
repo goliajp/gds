@@ -31,7 +31,9 @@ describe('AudioPlayer', () => {
 
   it('has data-component attribute', () => {
     const { container } = render(<AudioPlayer src="test.mp3" />)
-    expect(container.querySelector('[data-component="audio-player"]')).toBeInTheDocument()
+    expect(
+      container.querySelector('[data-component="audio-player"]')
+    ).toBeInTheDocument()
   })
 
   it('toggles play/pause on click', async () => {
@@ -41,9 +43,17 @@ describe('AudioPlayer', () => {
 
     // mock paused property and play/pause methods
     let paused = true
-    Object.defineProperty(audio, 'paused', { get: () => paused, configurable: true })
-    audio.play = vi.fn().mockImplementation(() => { paused = false; return Promise.resolve() })
-    audio.pause = vi.fn().mockImplementation(() => { paused = true })
+    Object.defineProperty(audio, 'paused', {
+      get: () => paused,
+      configurable: true,
+    })
+    audio.play = vi.fn().mockImplementation(() => {
+      paused = false
+      return Promise.resolve()
+    })
+    audio.pause = vi.fn().mockImplementation(() => {
+      paused = true
+    })
 
     const playBtn = screen.getByTestId('play-button')
     await user.click(playBtn)
@@ -153,7 +163,9 @@ describe('AudioPlayer', () => {
   })
 
   it('applies custom className', () => {
-    const { container } = render(<AudioPlayer src="test.mp3" className="my-player" />)
+    const { container } = render(
+      <AudioPlayer src="test.mp3" className="my-player" />
+    )
     const el = container.querySelector('[data-component="audio-player"]')
     expect(el?.className).toContain('my-player')
   })
@@ -188,7 +200,15 @@ describe('AudioPlayer', () => {
     render(<AudioPlayer src="test.mp3" />)
     const progressBar = screen.getByTestId('progress-bar')
     vi.spyOn(progressBar, 'getBoundingClientRect').mockReturnValue({
-      left: 0, width: 200, top: 0, right: 200, bottom: 10, height: 10, x: 0, y: 0, toJSON: vi.fn(),
+      left: 0,
+      width: 200,
+      top: 0,
+      right: 200,
+      bottom: 10,
+      height: 10,
+      x: 0,
+      y: 0,
+      toJSON: vi.fn(),
     })
     fireEvent.click(progressBar, { clientX: 100 })
   })
@@ -199,9 +219,17 @@ describe('AudioPlayer', () => {
     const playBtn = screen.getByTestId('play-button')
 
     let paused = true
-    Object.defineProperty(audio, 'paused', { get: () => paused, configurable: true })
-    audio.play = vi.fn().mockImplementation(() => { paused = false; return Promise.resolve() })
-    audio.pause = vi.fn().mockImplementation(() => { paused = true })
+    Object.defineProperty(audio, 'paused', {
+      get: () => paused,
+      configurable: true,
+    })
+    audio.play = vi.fn().mockImplementation(() => {
+      paused = false
+      return Promise.resolve()
+    })
+    audio.pause = vi.fn().mockImplementation(() => {
+      paused = true
+    })
 
     // play
     fireEvent.click(playBtn)
@@ -223,7 +251,15 @@ describe('AudioPlayer', () => {
 
     const progressBar = screen.getByTestId('progress-bar')
     vi.spyOn(progressBar, 'getBoundingClientRect').mockReturnValue({
-      left: 100, width: 400, top: 0, right: 500, bottom: 10, height: 10, x: 100, y: 0, toJSON: vi.fn(),
+      left: 100,
+      width: 400,
+      top: 0,
+      right: 500,
+      bottom: 10,
+      height: 10,
+      x: 100,
+      y: 0,
+      toJSON: vi.fn(),
     })
 
     // click at 25% position: (200 - 100) / 400 = 0.25

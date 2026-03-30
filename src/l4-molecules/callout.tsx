@@ -16,23 +16,59 @@ const variantStyles: Record<CalloutVariant, string> = {
 
 const defaultIcons: Record<CalloutVariant, ReactNode> = {
   info: (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-      <circle cx="10" cy="10" r="8" /><path d="M10 7h.01M10 9.5v4" />
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    >
+      <circle cx="10" cy="10" r="8" />
+      <path d="M10 7h.01M10 9.5v4" />
     </svg>
   ),
   tip: (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M7.5 15h5M8 17h4M10 2a5.5 5.5 0 0 0-2 10.65V14h4v-1.35A5.5 5.5 0 0 0 10 2z" />
     </svg>
   ),
   warning: (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-      <path d="M9.13 3l-7 12.5h14l-7-12.5z" /><path d="M9.63 8.5v3M9.63 13.5h.01" />
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    >
+      <path d="M9.13 3l-7 12.5h14l-7-12.5z" />
+      <path d="M9.63 8.5v3M9.63 13.5h.01" />
     </svg>
   ),
   danger: (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-      <circle cx="10" cy="10" r="8" /><path d="M7 7l6 6M13 7l-6 6" />
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    >
+      <circle cx="10" cy="10" r="8" />
+      <path d="M7 7l6 6M13 7l-6 6" />
     </svg>
   ),
 }
@@ -47,17 +83,20 @@ export type CalloutProps = {
 }
 
 export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
-  function Callout({ variant = 'info', title, children, icon, glass, className }, ref) {
+  function Callout(
+    { variant = 'info', title, children, icon, glass, className },
+    ref
+  ) {
     const resolvedIcon = icon ?? defaultIcons[variant]
 
     return (
       <div
         ref={ref}
         className={cx(
-          'flex items-start gap-3 border-l-[3px] gds-radius-popover gds-pad-x-lg gds-pad-y-lg gds-text-body',
+          'gds-radius-popover gds-pad-x-lg gds-pad-y-lg gds-text-body flex items-start gap-3 border-l-[3px]',
           variantStyles[variant],
           glass === true && glassClass(glass),
-          className,
+          className
         )}
         data-component="callout"
         data-variant={variant}
@@ -69,5 +108,5 @@ export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
         </div>
       </div>
     )
-  },
+  }
 )

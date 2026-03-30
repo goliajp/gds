@@ -22,38 +22,43 @@ export type ProfileCardProps = {
 }
 
 export const ProfileCard = forwardRef<HTMLDivElement, ProfileCardProps>(
-  function ProfileCard({ actions, avatar, className, glass, name, role, stats }, ref) {
+  function ProfileCard(
+    { actions, avatar, className, glass, name, role, stats },
+    ref
+  ) {
     return (
       <div
         ref={ref}
         className={cx(
-          'gds-ctx flex flex-col items-center gds-pad gds-radius-card border',
+          'gds-ctx gds-pad gds-radius-card flex flex-col items-center border',
           glass === true
-            ? cx(glassClass(glass), 'border-white/10 bg-bg/60')
+            ? cx(glassClass(glass), 'bg-bg/60 border-white/10')
             : 'border-border bg-surface',
-          className,
+          className
         )}
         data-component="profile-card"
       >
         <Avatar name={name} src={avatar} size="lg" />
-        <p className="mt-3 text-sm font-semibold text-fg">{name}</p>
+        <p className="text-fg mt-3 text-sm font-semibold">{name}</p>
         {role !== undefined && (
-          <p className="mt-0.5 text-xs text-fg-muted">{role}</p>
+          <p className="text-fg-muted mt-0.5 text-xs">{role}</p>
         )}
         {stats !== undefined && stats.length > 0 && (
-          <div className="mt-3 flex w-full justify-center gds-gap">
+          <div className="gds-gap mt-3 flex w-full justify-center">
             {stats.map((stat) => (
               <div key={stat.label} className="flex flex-col items-center">
-                <span className="text-sm font-bold text-fg">{stat.value}</span>
-                <span className="text-[10px] text-fg-muted">{stat.label}</span>
+                <span className="text-fg text-sm font-bold">{stat.value}</span>
+                <span className="text-fg-muted text-[10px]">{stat.label}</span>
               </div>
             ))}
           </div>
         )}
         {actions !== undefined && (
-          <div className="mt-3 flex w-full justify-center gds-gap">{actions}</div>
+          <div className="gds-gap mt-3 flex w-full justify-center">
+            {actions}
+          </div>
         )}
       </div>
     )
-  },
+  }
 )

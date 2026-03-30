@@ -6,7 +6,9 @@ import { CodeSnippet } from '../code-snippet'
 describe('CodeSnippet', () => {
   it('renders with data-component attribute', () => {
     const { container } = render(<CodeSnippet code="hello" />)
-    expect(container.querySelector('[data-component="code-snippet"]')).not.toBeNull()
+    expect(
+      container.querySelector('[data-component="code-snippet"]')
+    ).not.toBeNull()
   })
 
   it('renders code content', () => {
@@ -20,15 +22,25 @@ describe('CodeSnippet', () => {
     // line number spans with select-none class exist inside pre
     const pre = container.querySelector('pre')
     const lineNumSpans = pre?.querySelectorAll('.select-none')
-    expect(lineNumSpans !== undefined && lineNumSpans !== null && lineNumSpans.length === 2).toBe(true)
+    expect(
+      lineNumSpans !== undefined &&
+        lineNumSpans !== null &&
+        lineNumSpans.length === 2
+    ).toBe(true)
   })
 
   it('hides line numbers when showLineNumbers is false', () => {
     const code = ['line1', 'line2'].join('\n')
-    const { container } = render(<CodeSnippet code={code} showLineNumbers={false} />)
+    const { container } = render(
+      <CodeSnippet code={code} showLineNumbers={false} />
+    )
     const pre = container.querySelector('pre')
     const lineNumSpans = pre?.querySelectorAll('.select-none')
-    expect(lineNumSpans === undefined || lineNumSpans === null || lineNumSpans.length === 0).toBe(true)
+    expect(
+      lineNumSpans === undefined ||
+        lineNumSpans === null ||
+        lineNumSpans.length === 0
+    ).toBe(true)
   })
 
   it('shows language header when language is provided', () => {
@@ -73,7 +85,9 @@ describe('CodeSnippet', () => {
 
   it('renders multiple lines including empty ones', () => {
     const code = ['a', '', 'b'].join('\n')
-    const { container } = render(<CodeSnippet code={code} showLineNumbers={false} />)
+    const { container } = render(
+      <CodeSnippet code={code} showLineNumbers={false} />
+    )
     const lines = container.querySelectorAll('pre code .flex-1')
     expect(lines.length).toBe(3)
   })
