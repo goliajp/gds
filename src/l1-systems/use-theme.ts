@@ -20,6 +20,7 @@ import {
   resolvedModeAtom,
   resolveThemeCssVars,
   themeAtom,
+  themePresets,
 } from './theme'
 
 // color presets — app registers named presets, each is just a primaryColor
@@ -59,6 +60,20 @@ export function useSetThemePreset(): (presetId: string) => void {
   const [, setTheme] = useAtom(themeAtom)
   return useCallback(
     (presetId: string) => {
+      // check built-in presets first, then registered color presets
+      const builtIn = themePresets[presetId as keyof typeof themePresets]
+      if (builtIn !== undefined) {
+        setTheme((prev) => ({
+          ...prev,
+          presetId,
+          // reset all overrides first, then apply preset (which may set mode-aware ones)
+          colorOverrides: null,
+          colorOverridesLight: null,
+          colorOverridesDark: null,
+          ...builtIn,
+        }))
+        return
+      }
       const preset = themeConfig.colorPresets[presetId]
       const primaryColor = preset?.primaryColor ?? DEFAULT_THEME.primaryColor
       setTheme((prev) => ({
@@ -66,6 +81,8 @@ export function useSetThemePreset(): (presetId: string) => void {
         presetId,
         primaryColor,
         colorOverrides: null,
+        colorOverridesLight: null,
+        colorOverridesDark: null,
       }))
     },
     [setTheme]
@@ -76,7 +93,13 @@ export function useSetThemePrimaryColor(): (color: string) => void {
   const [, setTheme] = useAtom(themeAtom)
   return useCallback(
     (primaryColor: string) => {
-      setTheme((prev) => ({ ...prev, primaryColor, colorOverrides: null }))
+      setTheme((prev) => ({
+        ...prev,
+        primaryColor,
+        colorOverrides: null,
+        colorOverridesLight: null,
+        colorOverridesDark: null,
+      }))
     },
     [setTheme]
   )
@@ -138,7 +161,14 @@ export function useSetThemeColors(): (
   const [, setTheme] = useAtom(themeAtom)
   return useCallback(
     (colorOverrides: Partial<ThemeColorOverrides> | null) => {
-      setTheme((prev) => ({ ...prev, colorOverrides }))
+      setTheme((prev) => ({
+        ...prev,
+        colorOverrides,
+        // clear mode-aware overrides — user's explicit override should not be
+        // shadowed by leftover mode-specific values from a preset
+        colorOverridesLight: null,
+        colorOverridesDark: null,
+      }))
     },
     [setTheme]
   )

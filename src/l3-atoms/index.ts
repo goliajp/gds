@@ -137,7 +137,7 @@ export type { TextEffectProps, TextEffectType } from './text-effect'
 export { TextEffect } from './text-effect'
 export type { TextareaCounterProps } from './textarea-counter'
 export { TextareaCounter } from './textarea-counter'
-export type { ThemeToggleProps } from './theme-toggle'
+export type { ThemeToggleMode, ThemeToggleProps } from './theme-toggle'
 export { ThemeToggle } from './theme-toggle'
 export type {
   ToggleGroupItem,

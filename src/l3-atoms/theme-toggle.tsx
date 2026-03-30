@@ -4,7 +4,7 @@ import { forwardRef } from 'react'
 import { focusCls } from '../utils/a11y'
 import { cx } from '../utils/cx'
 
-type ThemeToggleMode = 'dark' | 'light'
+export type ThemeToggleMode = 'dark' | 'light'
 
 export type ThemeToggleProps = {
   mode: ThemeToggleMode
