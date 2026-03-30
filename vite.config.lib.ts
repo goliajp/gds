@@ -21,6 +21,7 @@ export default defineConfig({
         'l3-atoms/index': resolve(__dirname, 'src/l3-atoms/index.ts'),
         'l4-molecules/index': resolve(__dirname, 'src/l4-molecules/index.ts'),
         'l5-organisms/index': resolve(__dirname, 'src/l5-organisms/index.ts'),
+        'editor/index': resolve(__dirname, 'src/editor/index.ts'),
         'l6-charts/index': resolve(__dirname, 'src/l6-charts/index.ts'),
         'l7-patterns/index': resolve(__dirname, 'src/l7-patterns/index.ts'),
         'utils/index': resolve(__dirname, 'src/utils/index.ts'),

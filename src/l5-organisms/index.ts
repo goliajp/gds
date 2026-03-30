@@ -68,23 +68,10 @@ export type {
 export { DescriptionList } from './description-list'
 export type { DiffViewerProps } from './diff-viewer'
 export { DiffViewer } from './diff-viewer'
-export type {
-  AssembledEmail,
-  ComposerBlock,
-  EmailComposerHandle,
-  EmailComposerMode,
-  EmailComposerProps,
-} from './email-composer'
-export { EmailComposer } from './email-composer'
+// EmailComposer — moved to '@goliapkg/gds/editor'
 export type { EmailListItemProps } from './email-list-item'
 export { EmailListItem } from './email-list-item'
-export type {
-  EmailAiAnalysis,
-  EmailAttachment,
-  EmailMessage,
-  EmailThreadProps,
-} from './email-thread'
-export { EmailThread } from './email-thread'
+// EmailThread — moved to '@goliapkg/gds/editor'
 export type { EmbedProps } from './embed'
 export { Embed } from './embed'
 export type { EmployeeCardProps, EmployeeStatus } from './employee-card'
@@ -115,10 +102,7 @@ export type {
   KanbanProps,
 } from './kanban'
 export { Kanban, KanbanCard, KanbanColumnComponent } from './kanban'
-export type { MarkdownEditorProps } from './markdown-editor'
-export { MarkdownEditor } from './markdown-editor'
-export type { MarkdownPreviewProps } from './markdown-preview'
-export { MarkdownPreview } from './markdown-preview'
+// MarkdownEditor, MarkdownPreview — moved to '@goliapkg/gds/editor'
 export type { MasonryGridProps } from './masonry-grid'
 export { MasonryGrid } from './masonry-grid'
 export type {
@@ -155,12 +139,7 @@ export type {
 export { ResponsiveTable } from './responsive-table'
 export type { RichSelectOption, RichSelectProps } from './rich-select'
 export { RichSelect } from './rich-select'
-export type {
-  RichTextEditorHandle,
-  RichTextEditorProps,
-  ToolbarItem,
-} from './rich-text-editor'
-export { RichTextEditor } from './rich-text-editor'
+// RichTextEditor — moved to '@goliapkg/gds/editor'
 export type { SearchResult, SearchResultsProps } from './search-results'
 export { SearchResults } from './search-results'
 export type { ServiceCardProps, ServiceCardStatus } from './service-card'
