@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.0.1] - 2026-03-30
+
+### Fixed
+
+- resolve theme persistence race condition: useThemeEffect no longer overwrites saved preferences on mount
+
+### Changed
+
+- upgrade typescript 5.9 to 6.0 (target ES2025, lib ES2025+DOM, remove deprecated baseUrl)
+- upgrade lucide-react 0.577 to 1.7.0, jotai 2.18 to 2.19, tiptap 3.0 to 3.21
+- upgrade vite 8.0.2 to 8.0.3, vitest 4.1.1 to 4.1.2
+- upgrade CI actions to v6 (native node24 support)
+- add prettier with tailwind plugin, format all source files
+- export loadPersistedTheme for consumer pre-render theme loading
+
 ## [2.0.0] - 2026-03-30
 
 ### Added
