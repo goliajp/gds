@@ -34,3 +34,9 @@ export type {
   SvgProps,
   VariantProps,
 } from './types'
+
+// v2: anti-corruption wrappers for optional peer deps
+// these re-export external libs so component code never imports them directly
+// consumers only need these installed if they use RichTextEditor / EmailThread
+export type { SanitizeConfig } from './sanitize'
+export { sanitizeEmailHtml } from './sanitize'

@@ -32,20 +32,22 @@ export type GlowEffectProps = {
   color?: string
   intensity?: GlowIntensity
   radius?: number
-}
+} & Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'className'>
 
 export const GlowEffect = forwardRef<HTMLDivElement, GlowEffectProps>(
   function GlowEffect(
-    { children, className, color = 'var(--gds-accent)', intensity = 'default', radius },
+    { children, className, color = 'var(--gds-accent)', intensity = 'default', radius, style: styleProp, ...props },
     ref,
   ) {
     const config = intensityMap[intensity]
     return (
       <div
+        {...props}
         ref={ref}
         data-component="glow-effect"
         className={cx('relative', className)}
         style={{
+          ...styleProp,
           borderRadius: radius !== undefined ? `${radius}px` : undefined,
           boxShadow: buildShadow(color, config),
         }}

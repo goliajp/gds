@@ -10,6 +10,7 @@ const DURATION_BASE = 100
 
 const DURATION_MULTIPLIERS = {
   fast: 1,      // 100ms — hover, micro-feedback
+  medium: 1.5,  // 150ms — v2: color transitions, hover states (mailrs-proven sweet spot)
   normal: 2,    // 200ms — panel expand, tab switch
   slow: 3,      // 300ms — modal, page transition
   slower: 5,    // 500ms — complex orchestration
@@ -65,6 +66,7 @@ export type KeyframePresetId = keyof typeof keyframePresets
 export function motionToCssVars(level: MotionLevel): Record<string, string> {
   return {
     '--gds-duration-fast': `${duration('fast', level)}ms`,
+    '--gds-duration-medium': `${duration('medium', level)}ms`,
     '--gds-duration-normal': `${duration('normal', level)}ms`,
     '--gds-duration-slow': `${duration('slow', level)}ms`,
     '--gds-duration-slower': `${duration('slower', level)}ms`,

@@ -132,6 +132,42 @@ export function applyThemeToDocument(
   return keys
 }
 
+// named theme presets — optimized axis combinations for specific application types
+export type ThemePreset = Omit<ThemeState, 'mode' | 'presetId' | 'colorOverrides'>
+
+export const themePresets = {
+  // default: balanced for general-purpose dashboards
+  default: {
+    primaryColor: DEFAULT_PRIMARY,
+    shape: 'default' as const,
+    density: 'default' as const,
+    elevation: 'raised' as const,
+    glass: 'full' as const,
+    motion: 'full' as const,
+  },
+  // email: optimized for email/productivity apps (mailrs-proven)
+  // comfortable density for readable 14px base, subtle elevation for clean modern look
+  email: {
+    primaryColor: '#3b7ddd',  // slightly desaturated blue, validated in production
+    shape: 'default' as const,
+    density: 'comfortable' as const,
+    elevation: 'subtle' as const,
+    glass: 'subtle' as const,
+    motion: 'full' as const,
+  },
+  // dashboard: data-dense monitoring/analytics
+  dashboard: {
+    primaryColor: DEFAULT_PRIMARY,
+    shape: 'default' as const,
+    density: 'compact' as const,
+    elevation: 'subtle' as const,
+    glass: 'off' as const,
+    motion: 'full' as const,
+  },
+} as const satisfies Record<string, ThemePreset>
+
+export type ThemePresetId = keyof typeof themePresets
+
 // persistence keys
 const STORAGE_KEY = 'gds-theme'
 

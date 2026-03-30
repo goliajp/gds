@@ -1,5 +1,5 @@
 // combobox — searchable select dropdown
-import { forwardRef, useCallback, useMemo, useRef, useState } from 'react'
+import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { focusCls } from '../utils/a11y'
 import { cx } from '../utils/cx'
@@ -10,10 +10,15 @@ import { ComboboxList } from './combobox-list'
 
 type ComboboxProps = {
   className?: string
+  creatable?: boolean
+  debounce?: number
   disabled?: boolean
   error?: boolean
   glass?: boolean
+  loading?: boolean
   onChange: (value: string | null) => void
+  onCreateOption?: (value: string) => ComboboxOption
+  onSearch?: (query: string) => Promise<ComboboxOption[]>
   options: ComboboxOption[]
   placeholder?: string
   searchPlaceholder?: string
@@ -41,10 +46,15 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
   function Combobox(
     {
       className,
+      creatable = false,
+      debounce: debounceDuration = 300,
       disabled = false,
       error = false,
       glass,
+      loading: externalLoading = false,
       onChange,
+      onCreateOption,
+      onSearch,
       options,
       placeholder = 'Select...',
       searchPlaceholder = 'Search...',
@@ -55,17 +65,54 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
     const [open, setOpen] = useState(false)
     const [query, setQuery] = useState('')
     const [highlightedIndex, setHighlightedIndex] = useState(0)
+    const [asyncResults, setAsyncResults] = useState<ComboboxOption[] | null>(null)
+    const [asyncLoading, setAsyncLoading] = useState(false)
     const containerRef = useRef<HTMLDivElement>(null)
     const searchRef = useRef<HTMLInputElement>(null)
 
     // merge forwarded ref with internal ref
     const mergedRef = (ref ?? containerRef) as React.RefObject<HTMLDivElement>
 
+    // debounced async search
+    useEffect(() => {
+      if (onSearch === undefined) return
+      if (!open) return
+
+      if (query === '') {
+        setAsyncResults(null)
+        setAsyncLoading(false)
+        return
+      }
+
+      setAsyncLoading(true)
+      const timer = setTimeout(() => {
+        onSearch(query)
+          .then((results) => {
+            setAsyncResults(results)
+            setHighlightedIndex(0)
+          })
+          .finally(() => {
+            setAsyncLoading(false)
+          })
+      }, debounceDuration)
+
+      return () => {
+        clearTimeout(timer)
+      }
+    }, [query, onSearch, open, debounceDuration])
+
+    const isLoading = externalLoading || asyncLoading
+
     const filtered = useMemo(() => {
+      // when async search is active, use async results
+      if (onSearch !== undefined) {
+        if (asyncResults !== null) return asyncResults
+        return options
+      }
       if (query === '') return options
       const lower = query.toLowerCase()
       return options.filter((opt) => opt.label.toLowerCase().includes(lower))
-    }, [options, query])
+    }, [options, query, onSearch, asyncResults])
 
     const selectedOption = useMemo(
       () => options.find((opt) => opt.value === value),
@@ -86,6 +133,8 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
     const handleClose = useCallback(() => {
       setOpen(false)
       setQuery('')
+      setAsyncResults(null)
+      setAsyncLoading(false)
     }, [])
 
     const handleSelect = useCallback(
@@ -94,6 +143,16 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
         handleClose()
       },
       [onChange, handleClose],
+    )
+
+    const handleCreate = useCallback(
+      (inputValue: string) => {
+        if (onCreateOption === undefined) return
+        const newOption = onCreateOption(inputValue)
+        onChange(newOption.value)
+        handleClose()
+      },
+      [onCreateOption, onChange, handleClose],
     )
 
     const handleSearchChange = useCallback((val: string) => {
@@ -134,9 +193,12 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
 
         {open && (
           <ComboboxList
+            creatable={creatable}
             filtered={filtered}
             glass={glass}
             highlightedIndex={highlightedIndex}
+            loading={isLoading}
+            onCreateOption={handleCreate}
             onSearchChange={handleSearchChange}
             onSelect={handleSelect}
             query={query}

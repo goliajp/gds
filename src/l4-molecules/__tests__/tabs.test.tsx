@@ -74,4 +74,90 @@ describe('Tabs', () => {
     const tabButtons = container.querySelectorAll('[role="tab"]')
     expect(tabButtons[0]?.className).toContain('gds-pad-x-sm')
   })
+
+  // --- v2 feature tests ---
+
+  it('renders pills variant with correct active styling', () => {
+    const { container } = render(
+      <Tabs tabs={tabs} active="general" onChange={vi.fn()} variant="pills" />,
+    )
+    const activeTab = container.querySelector('[aria-selected="true"]')
+    expect(activeTab?.className).toContain('bg-accent')
+    // pills should not have bottom border on container
+    const el = container.querySelector('[data-component="tabs"]')
+    expect(el?.className).not.toContain('border-b')
+    expect(el?.className).toContain('gap-1.5')
+  })
+
+  it('renders underline variant with correct active styling', () => {
+    const { container } = render(
+      <Tabs tabs={tabs} active="general" onChange={vi.fn()} variant="underline" />,
+    )
+    const activeTab = container.querySelector('[aria-selected="true"]')
+    expect(activeTab?.className).toContain('border-accent')
+  })
+
+  it('applies scrollable class by default', () => {
+    const { container } = render(
+      <Tabs tabs={tabs} active="general" onChange={vi.fn()} />,
+    )
+    const el = container.querySelector('[data-component="tabs"]')
+    expect(el?.className).toContain('overflow-x-auto')
+  })
+
+  it('does not apply scrollable class when scrollable is false', () => {
+    const { container } = render(
+      <Tabs tabs={tabs} active="general" onChange={vi.fn()} scrollable={false} />,
+    )
+    const el = container.querySelector('[data-component="tabs"]')
+    expect(el?.className).not.toContain('overflow-x-auto')
+  })
+
+  it('navigates with ArrowRight key', async () => {
+    const user = userEvent.setup()
+    const onChange = vi.fn()
+    render(<Tabs tabs={tabs} active="general" onChange={onChange} />)
+    screen.getByRole('tablist') // verify tablist exists
+    const activeTab = screen.getAllByRole('tab').find(t => t.getAttribute('aria-selected') === 'true')!
+    activeTab.focus()
+    await user.keyboard('{ArrowRight}')
+    expect(onChange).toHaveBeenCalledWith('security')
+  })
+
+  it('navigates with ArrowLeft key and wraps around', async () => {
+    const user = userEvent.setup()
+    const onChange = vi.fn()
+    render(<Tabs tabs={tabs} active="general" onChange={onChange} />)
+    const activeTab = screen.getAllByRole('tab').find(t => t.getAttribute('aria-selected') === 'true')!
+    activeTab.focus()
+    await user.keyboard('{ArrowLeft}')
+    expect(onChange).toHaveBeenCalledWith('billing')
+  })
+
+  it('navigates to first tab with Home key', async () => {
+    const user = userEvent.setup()
+    const onChange = vi.fn()
+    render(<Tabs tabs={tabs} active="billing" onChange={onChange} />)
+    const activeTab = screen.getAllByRole('tab').find(t => t.getAttribute('aria-selected') === 'true')!
+    activeTab.focus()
+    await user.keyboard('{Home}')
+    expect(onChange).toHaveBeenCalledWith('general')
+  })
+
+  it('navigates to last tab with End key', async () => {
+    const user = userEvent.setup()
+    const onChange = vi.fn()
+    render(<Tabs tabs={tabs} active="general" onChange={onChange} />)
+    const activeTab = screen.getAllByRole('tab').find(t => t.getAttribute('aria-selected') === 'true')!
+    activeTab.focus()
+    await user.keyboard('{End}')
+    expect(onChange).toHaveBeenCalledWith('billing')
+  })
+
+  it('handles empty tabs array without crashing', () => {
+    const { container } = render(
+      <Tabs tabs={[]} active="" onChange={vi.fn()} />,
+    )
+    expect(container.querySelector('[data-component="tabs"]')).not.toBeNull()
+  })
 })

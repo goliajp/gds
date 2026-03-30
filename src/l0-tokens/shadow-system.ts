@@ -30,8 +30,10 @@ const ELEVATION_FACTOR: Record<string, number> = {
 }
 
 // dark mode multiplier — darker mode needs stronger shadows
+// v2: bumped dark from 3.0→4.0 to match mailrs's production-proven dark shadows
+// mailrs uses ~5-6× but combined with subtle elevation (0.6×) the effective is ~2.4-3.6×
 const MODE_FACTOR: Record<string, number> = {
-  dark: 3.0,
+  dark: 4.0,
   light: 1.0,
 }
 

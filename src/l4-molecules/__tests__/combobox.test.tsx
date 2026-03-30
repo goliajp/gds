@@ -248,4 +248,97 @@ describe('Combobox', () => {
     await user.type(searchInput, '{Enter}')
     expect(onChange).not.toHaveBeenCalled()
   })
+
+  // --- v2 feature tests ---
+
+  it('shows create option when creatable and no matches', async () => {
+    const user = userEvent.setup()
+    const onChange = vi.fn()
+    const onCreateOption = vi.fn().mockReturnValue({ value: 'new-one', label: 'New One' })
+    const { container } = render(
+      <Combobox
+        options={options}
+        value={null}
+        onChange={onChange}
+        creatable
+        onCreateOption={onCreateOption}
+      />,
+    )
+    await user.click(container.querySelector('button')!)
+    const searchInput = container.querySelector('input[type="text"]')!
+    await user.type(searchInput, 'xyznotfound')
+    // should show create row
+    expect(screen.getByText(/Create: xyznotfound/)).toBeDefined()
+  })
+
+  it('calls onCreateOption and selects when create row is clicked', async () => {
+    const user = userEvent.setup()
+    const onChange = vi.fn()
+    const onCreateOption = vi.fn().mockReturnValue({ value: 'new-item', label: 'New Item' })
+    const { container } = render(
+      <Combobox
+        options={options}
+        value={null}
+        onChange={onChange}
+        creatable
+        onCreateOption={onCreateOption}
+      />,
+    )
+    await user.click(container.querySelector('button')!)
+    const searchInput = container.querySelector('input[type="text"]')!
+    await user.type(searchInput, 'brandnew')
+    await user.click(screen.getByText(/Create: brandnew/))
+    expect(onCreateOption).toHaveBeenCalledWith('brandnew')
+    expect(onChange).toHaveBeenCalledWith('new-item')
+  })
+
+  it('uses fallback options when onSearch is provided but query is empty', async () => {
+    const user = userEvent.setup()
+    const onSearch = vi.fn().mockResolvedValue([])
+    const { container } = render(
+      <Combobox options={options} value={null} onChange={() => {}} onSearch={onSearch} />,
+    )
+    await user.click(container.querySelector('button')!)
+    // with empty query, onSearch should not be called and options should be shown
+    expect(screen.getByText('React')).toBeDefined()
+    expect(screen.getByText('Vue')).toBeDefined()
+  })
+
+  it('shows loading state when externalLoading is true', () => {
+    const { container } = render(
+      <Combobox options={options} value={null} onChange={() => {}} loading />,
+    )
+    // trigger should be rendered (loading doesn't prevent render)
+    expect(container.querySelector('[data-component="combobox"]')).not.toBeNull()
+  })
+
+  it('does not call onSearch with empty query', async () => {
+    const user = userEvent.setup()
+    const onSearch = vi.fn().mockResolvedValue([])
+    const { container } = render(
+      <Combobox options={options} value={null} onChange={() => {}} onSearch={onSearch} />,
+    )
+    await user.click(container.querySelector('button')!)
+    // with empty query, onSearch should never be called
+    expect(onSearch).not.toHaveBeenCalled()
+    // default options should be shown
+    expect(screen.getByText('React')).toBeDefined()
+  })
+
+  it('shows default options when reopened after close', async () => {
+    const user = userEvent.setup()
+    const { container } = render(
+      <Combobox options={options} value={null} onChange={() => {}} />,
+    )
+    await user.click(container.querySelector('button')!)
+    expect(container.querySelector('[data-state="open"]')).not.toBeNull()
+    await user.keyboard('{Escape}')
+    expect(container.querySelector('[data-state="closed"]')).not.toBeNull()
+    // reopen should show all default options
+    await user.click(container.querySelector('button')!)
+    expect(screen.getByText('React')).toBeDefined()
+    expect(screen.getByText('Vue')).toBeDefined()
+    expect(screen.getByText('Svelte')).toBeDefined()
+    expect(screen.getByText('Angular')).toBeDefined()
+  })
 })

@@ -222,6 +222,7 @@
 
 /* speed variants — override default timing */
 @utility animate-fast { animation-duration: var(--gds-duration-fast, 100ms); }
+@utility animate-medium { animation-duration: var(--gds-duration-medium, 150ms); }
 @utility animate-slow { animation-duration: var(--gds-duration-slow, 300ms); }
 
 /* prefers-reduced-motion — global kill switch */
@@ -257,3 +258,7 @@
 .gds-ctx .gds-ctx { --gds-ctx-gap: 12px; --gds-ctx-pad: 12px; --gds-ctx-radius: 8px; --gds-ctx-shadow: none; --gds-ctx-text: 11px; --gds-ctx-heading: 13px; --gds-ctx-fg-alpha: 0.88; }
 .gds-ctx .gds-ctx .gds-ctx { --gds-ctx-gap: 8px; --gds-ctx-pad: 8px; --gds-ctx-radius: 6px; --gds-ctx-shadow: none; --gds-ctx-text: 10px; --gds-ctx-heading: 12px; --gds-ctx-fg-alpha: 0.80; }
 .gds-ctx .gds-ctx .gds-ctx .gds-ctx { --gds-ctx-gap: 6px; --gds-ctx-pad: 6px; --gds-ctx-radius: 4px; --gds-ctx-shadow: none; --gds-ctx-text: 10px; --gds-ctx-heading: 11px; --gds-ctx-fg-alpha: 0.72; }
+
+/* depth reset — escape hatch for deep nesting (e.g. EmailThread > message > attachment > preview) */
+.gds-ctx-reset { --gds-ctx-gap: 16px; --gds-ctx-pad: 16px; --gds-ctx-radius: 10px; --gds-ctx-shadow: var(--gds-shadow-sm); --gds-ctx-text: 12px; --gds-ctx-heading: 14px; --gds-ctx-fg-alpha: 0.95; }
+@utility gds-ctx-reset { --gds-ctx-gap: 16px; --gds-ctx-pad: 16px; --gds-ctx-radius: 10px; --gds-ctx-shadow: var(--gds-shadow-sm); --gds-ctx-text: 12px; --gds-ctx-heading: 14px; --gds-ctx-fg-alpha: 0.95; }

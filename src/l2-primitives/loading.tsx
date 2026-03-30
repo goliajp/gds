@@ -8,7 +8,7 @@ type LoadingSize = 'default' | 'lg' | 'sm'
 type LoadingProps = {
   className?: string
   size?: LoadingSize
-}
+} & Omit<React.HTMLAttributes<HTMLDivElement>, 'className'>
 
 const sizeClasses: Record<LoadingSize, { container: string; dot: string }> = {
   default: { container: 'gap-1.5', dot: 'h-2 w-2' },
@@ -35,10 +35,11 @@ const ringSizeClasses: Record<LoadingSize, string> = {
 }
 
 export const LoadingDots = forwardRef<HTMLDivElement, LoadingProps>(
-  function LoadingDots({ className, size = 'default' }, ref) {
+  function LoadingDots({ className, size = 'default', ...props }, ref) {
     const s = sizeClasses[size]
     return (
       <div
+        {...props}
         className={cx('inline-flex items-center', s.container, className)}
         data-component="loading-dots"
         ref={ref}
@@ -60,10 +61,11 @@ export const LoadingDots = forwardRef<HTMLDivElement, LoadingProps>(
 )
 
 export const LoadingBars = forwardRef<HTMLDivElement, LoadingProps>(
-  function LoadingBars({ className, size = 'default' }, ref) {
+  function LoadingBars({ className, size = 'default', ...props }, ref) {
     const s = barSizeClasses[size]
     return (
       <div
+        {...props}
         className={cx('inline-flex items-center', s.container, className)}
         data-component="loading-bars"
         ref={ref}
@@ -85,9 +87,10 @@ export const LoadingBars = forwardRef<HTMLDivElement, LoadingProps>(
 )
 
 export const LoadingPulse = forwardRef<HTMLDivElement, LoadingProps>(
-  function LoadingPulse({ className, size = 'default' }, ref) {
+  function LoadingPulse({ className, size = 'default', ...props }, ref) {
     return (
       <div
+        {...props}
         className={cx('inline-flex items-center justify-center', className)}
         data-component="loading-pulse"
         ref={ref}
@@ -103,9 +106,10 @@ export const LoadingPulse = forwardRef<HTMLDivElement, LoadingProps>(
 )
 
 export const LoadingRing = forwardRef<HTMLDivElement, LoadingProps>(
-  function LoadingRing({ className, size = 'default' }, ref) {
+  function LoadingRing({ className, size = 'default', ...props }, ref) {
     return (
       <div
+        {...props}
         className={cx('inline-flex items-center justify-center', className)}
         data-component="loading-ring"
         ref={ref}
@@ -123,10 +127,11 @@ export const LoadingRing = forwardRef<HTMLDivElement, LoadingProps>(
 )
 
 export const LoadingWave = forwardRef<HTMLDivElement, LoadingProps>(
-  function LoadingWave({ className, size = 'default' }, ref) {
+  function LoadingWave({ className, size = 'default', ...props }, ref) {
     const s = sizeClasses[size]
     return (
       <div
+        {...props}
         className={cx('inline-flex items-end', s.container, className)}
         data-component="loading-wave"
         ref={ref}
