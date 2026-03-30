@@ -57,11 +57,11 @@ export const BarChart = forwardRef<HTMLDivElement, BarChartProps>(
             <XAxis
               dataKey={xKey}
               stroke="var(--gds-fg-muted, #6b7280)"
-              tick={{ fontSize: 11 }}
+              tick={{ fill: 'var(--gds-fg-muted, #6b7280)', fontSize: 11 }}
             />
             <YAxis
               stroke="var(--gds-fg-muted, #6b7280)"
-              tick={{ fontSize: 11 }}
+              tick={{ fill: 'var(--gds-fg-muted, #6b7280)', fontSize: 11 }}
             />
             <Tooltip />
             <Bar dataKey={dataKey} fill={color} radius={[4, 4, 0, 0]} />

@@ -58,12 +58,12 @@ export const BumpChart = forwardRef<HTMLDivElement, BumpChartProps>(
             <XAxis
               dataKey={xKey}
               stroke="var(--gds-fg-muted, #6b7280)"
-              tick={{ fontSize: 11 }}
+              tick={{ fill: 'var(--gds-fg-muted, #6b7280)', fontSize: 11 }}
             />
             <YAxis
               reversed
               stroke="var(--gds-fg-muted, #6b7280)"
-              tick={{ fontSize: 11 }}
+              tick={{ fill: 'var(--gds-fg-muted, #6b7280)', fontSize: 11 }}
             />
             <Tooltip />
             {series.map((key, i) => (

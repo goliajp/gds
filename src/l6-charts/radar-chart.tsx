@@ -54,11 +54,11 @@ export const RadarChart = forwardRef<HTMLDivElement, RadarChartProps>(
             <PolarAngleAxis
               dataKey={angleKey}
               stroke="var(--gds-fg-muted, #6b7280)"
-              tick={{ fontSize: 11 }}
+              tick={{ fill: 'var(--gds-fg-muted, #6b7280)', fontSize: 11 }}
             />
             <PolarRadiusAxis
               stroke="var(--gds-fg-muted, #6b7280)"
-              tick={{ fontSize: 10 }}
+              tick={{ fill: 'var(--gds-fg-muted, #6b7280)', fontSize: 10 }}
             />
             <Tooltip />
             <Radar

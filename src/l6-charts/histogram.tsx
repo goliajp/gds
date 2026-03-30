@@ -73,11 +73,11 @@ export const Histogram = forwardRef<HTMLDivElement, HistogramProps>(
             <XAxis
               dataKey="range"
               stroke="var(--gds-fg-muted, #6b7280)"
-              tick={{ fontSize: 10 }}
+              tick={{ fill: 'var(--gds-fg-muted, #6b7280)', fontSize: 10 }}
             />
             <YAxis
               stroke="var(--gds-fg-muted, #6b7280)"
-              tick={{ fontSize: 11 }}
+              tick={{ fill: 'var(--gds-fg-muted, #6b7280)', fontSize: 11 }}
             />
             <Tooltip />
             <Bar dataKey="count" fill={color} radius={[4, 4, 0, 0]} />
