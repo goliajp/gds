@@ -12,8 +12,7 @@ import { toast as toastApi, toastStore } from './toast-store'
 
 export type ToastPosition = 'bottom-center' | 'bottom-left' | 'bottom-right' | 'top-center' | 'top-left' | 'top-right'
 
-export type ToastProviderProps = {
-  className?: string
+export type ToastProviderProps = React.HTMLAttributes<HTMLDivElement> & {
   maxVisible?: number
   position?: ToastPosition
 }
@@ -30,7 +29,7 @@ const positionStyles: Record<ToastPosition, string> = {
 const emptySnapshot: ToastItem[] = []
 
 export const ToastProvider = forwardRef<HTMLDivElement, ToastProviderProps>(
-  function ToastProvider({ position = 'bottom-right', maxVisible = 5, className }, ref) {
+  function ToastProvider({ position = 'bottom-right', maxVisible = 5, className, ...props }, ref) {
     const items = useSyncExternalStore(
       toastStore.subscribe,
       toastStore.getSnapshot,
@@ -50,12 +49,20 @@ export const ToastProvider = forwardRef<HTMLDivElement, ToastProviderProps>(
     // auto-dismiss timers
     useEffect(() => {
       const timers = timersRef.current
+      const now = Date.now()
       for (const item of items) {
         if (item.duration > 0 && !timers.has(item.id)) {
+          // account for elapsed time since creation (e.g. toast fired before provider mounted)
+          const elapsed = now - item.createdAt
+          const remaining = Math.max(0, item.duration - elapsed)
+          if (remaining === 0) {
+            toastApi.dismiss(item.id)
+            continue
+          }
           const timer = setTimeout(() => {
             timers.delete(item.id)
             toastApi.dismiss(item.id)
-          }, item.duration)
+          }, remaining)
           timers.set(item.id, timer)
         }
       }
@@ -98,6 +105,7 @@ export const ToastProvider = forwardRef<HTMLDivElement, ToastProviderProps>(
 
     return renderPortal(
       <div
+        {...props}
         ref={ref}
         className={cx(
           'fixed z-[var(--gds-z-toast)] flex w-80 flex-col gap-2 pointer-events-none',
@@ -105,6 +113,8 @@ export const ToastProvider = forwardRef<HTMLDivElement, ToastProviderProps>(
           className,
         )}
         data-component="toast-provider"
+        aria-live="polite"
+        aria-label="Notifications"
       >
         {visible.map(item => (
           <div key={item.id} className="pointer-events-auto animate-slide-up">

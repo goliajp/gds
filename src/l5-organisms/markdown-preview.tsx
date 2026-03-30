@@ -25,8 +25,8 @@ export const MarkdownPreview = forwardRef<HTMLDivElement, MarkdownPreviewProps>(
       try {
         return sanitizeHtml(raw, { ADD_ATTR: ['target', 'rel'] })
       } catch {
-        // DOMPurify not installed — fall back to regex sanitization
-        return raw
+        // DOMPurify not installed — strip all HTML tags to prevent XSS
+        return raw.replace(/<[^>]*>/g, '')
       }
     }, [content, shouldSanitize])
 

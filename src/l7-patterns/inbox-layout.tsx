@@ -10,7 +10,7 @@ import { cx } from '../utils/cx'
 import { glassClass } from '../utils/glass'
 import { useIsMobile } from '../utils/hooks'
 
-export type InboxLayoutProps = {
+export type InboxLayoutProps = React.HTMLAttributes<HTMLDivElement> & {
   /** left sidebar (e.g. app navigation) */
   sidebar?: ReactNode
   /** conversation list pane */
@@ -58,6 +58,7 @@ export const InboxLayout = forwardRef<HTMLDivElement, InboxLayoutProps>(
     batchActions,
     glass,
     className,
+    ...props
   }, ref) {
     const isMobile = useIsMobile()
     const [listWidth, setListWidth] = useState(initialListWidth)
@@ -93,6 +94,12 @@ export const InboxLayout = forwardRef<HTMLDivElement, InboxLayoutProps>(
       return () => {
         document.removeEventListener('mousemove', handleMouseMove)
         document.removeEventListener('mouseup', handleMouseUp)
+        // reset body styles if unmounted during drag
+        if (isDragging.current) {
+          isDragging.current = false
+          document.body.style.cursor = ''
+          document.body.style.userSelect = ''
+        }
       }
     }, [listMinWidth, listMaxWidth])
 
@@ -112,9 +119,11 @@ export const InboxLayout = forwardRef<HTMLDivElement, InboxLayoutProps>(
     if (isMobile) {
       return (
         <div
+          {...props}
           ref={ref}
           className={cx('flex h-full flex-col overflow-hidden', className)}
           data-component="inbox-layout"
+          data-state={mobileView}
           data-mobile-view={mobileView}
         >
           {mobileView === 'list' && (
@@ -131,6 +140,7 @@ export const InboxLayout = forwardRef<HTMLDivElement, InboxLayoutProps>(
                 type="button"
                 className="flex items-center gap-1.5 px-3 py-2 text-sm text-accent hover:bg-white/[0.04] border-b border-border"
                 onClick={handleMobileBack}
+                aria-label="Back to message list"
               >
                 <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="15 18 9 12 15 6" />
@@ -149,6 +159,7 @@ export const InboxLayout = forwardRef<HTMLDivElement, InboxLayoutProps>(
     // desktop: multi-pane layout
     return (
       <div
+        {...props}
         ref={ref}
         className={cx(
           'flex h-full overflow-hidden',
@@ -156,6 +167,7 @@ export const InboxLayout = forwardRef<HTMLDivElement, InboxLayoutProps>(
           className,
         )}
         data-component="inbox-layout"
+        data-state={detail !== undefined ? 'detail' : 'list'}
       >
         {/* sidebar */}
         {sidebar !== undefined && (
@@ -180,12 +192,32 @@ export const InboxLayout = forwardRef<HTMLDivElement, InboxLayoutProps>(
         {/* resize divider */}
         {resizable && (
           <div
-            className="shrink-0 w-1 cursor-col-resize bg-transparent hover:bg-accent/20 active:bg-accent/30 transition-colors"
+            className="shrink-0 w-1 cursor-col-resize bg-transparent hover:bg-accent/20 active:bg-accent/30 transition-colors focus:bg-accent/20 focus:outline-none"
             onMouseDown={handleDragStart}
             onDoubleClick={handleDividerDoubleClick}
+            onKeyDown={(e) => {
+              const step = e.shiftKey ? 50 : 10
+              if (e.key === 'ArrowLeft') {
+                e.preventDefault()
+                setListWidth(prev => Math.max(listMinWidth, prev - step))
+              } else if (e.key === 'ArrowRight') {
+                e.preventDefault()
+                setListWidth(prev => Math.min(listMaxWidth, prev + step))
+              } else if (e.key === 'Home') {
+                e.preventDefault()
+                setListWidth(listMinWidth)
+              } else if (e.key === 'End') {
+                e.preventDefault()
+                setListWidth(listMaxWidth)
+              }
+            }}
             role="separator"
             aria-orientation="vertical"
             aria-label="Resize list pane"
+            aria-valuenow={listWidth}
+            aria-valuemin={listMinWidth}
+            aria-valuemax={listMaxWidth}
+            tabIndex={0}
           />
         )}
 

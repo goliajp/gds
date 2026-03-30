@@ -4,12 +4,13 @@
 
 import { Paperclip, Send, X } from 'lucide-react'
 import type { ReactNode } from 'react'
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react'
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 
 import type { EmailContact } from '../l4-molecules/email-composer-field'
 import { EmailComposerField } from '../l4-molecules/email-composer-field'
 import { cx } from '../utils/cx'
 import { glassClass } from '../utils/glass'
+import { sanitizeEmailHtml } from '../utils/sanitize'
 import type { RichTextEditorHandle } from './rich-text-editor'
 import { RichTextEditor } from './rich-text-editor'
 
@@ -38,7 +39,7 @@ export type EmailComposerHandle = {
   clearContent: () => void
 }
 
-export type EmailComposerProps = {
+export type EmailComposerProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'ref'> & {
   /** compose mode */
   mode: EmailComposerMode
 
@@ -79,9 +80,6 @@ export type EmailComposerProps = {
 
   /** extra action buttons in footer (e.g. AI Suggest, Polish) */
   footerActions?: ReactNode
-
-  /** ref */
-  ref?: React.Ref<EmailComposerHandle>
 
   /** frosted glass effect */
   glass?: boolean
@@ -155,11 +153,13 @@ export const EmailComposer = forwardRef<EmailComposerHandle, EmailComposerProps>
     signature,
     onSend,
     onDiscard,
+    onSaveDraft: _onSaveDraft,
     submitLabel,
     submitShortcut,
     footerActions,
     glass,
     className,
+    ...props
   }, ref) {
     const [showCc, setShowCc] = useState(initialShowCc === true)
     const [showBcc, setShowBcc] = useState(initialShowBcc === true)
@@ -167,6 +167,12 @@ export const EmailComposer = forwardRef<EmailComposerHandle, EmailComposerProps>
     const [quoteCollapsed, setQuoteCollapsed] = useState(true)
     const editorRef = useRef<RichTextEditorHandle>(null)
     const fileInputRef = useRef<HTMLInputElement>(null)
+
+    // sanitize quoted HTML to prevent XSS
+    const sanitizedQuotedHtml = useMemo(() => {
+      if (quotedHtml === undefined || quotedHtml === '') return quotedHtml
+      return sanitizeEmailHtml(quotedHtml)
+    }, [quotedHtml])
 
     // assemble and send
     const handleSend = useCallback(() => {
@@ -229,6 +235,7 @@ export const EmailComposer = forwardRef<EmailComposerHandle, EmailComposerProps>
 
     return (
       <div
+        {...props}
         className={cx(
           'flex flex-col border border-border gds-radius-card bg-surface overflow-hidden',
           glass === true && glassClass(glass),
@@ -338,12 +345,14 @@ export const EmailComposer = forwardRef<EmailComposerHandle, EmailComposerProps>
         )}
 
         {/* quoted content (reply/forward) */}
-        {quotedHtml !== undefined && quotedHtml !== '' && (
+        {sanitizedQuotedHtml !== undefined && sanitizedQuotedHtml !== '' && (
           <div className="border-t border-border">
             <button
               type="button"
               className="flex items-center gap-1.5 w-full px-3 py-1.5 gds-text-label text-fg-muted hover:text-fg transition-colors"
               onClick={() => setQuoteCollapsed(prev => !prev)}
+              aria-expanded={!quoteCollapsed}
+              aria-label={quoteCollapsed ? 'Show original message' : 'Hide original message'}
             >
               <svg
                 className={cx('h-3 w-3 transition-transform', !quoteCollapsed && 'rotate-90')}
@@ -356,7 +365,7 @@ export const EmailComposer = forwardRef<EmailComposerHandle, EmailComposerProps>
             {!quoteCollapsed && (
               <div
                 className="px-3 pb-3 border-l-2 border-accent/20 ml-3 text-fg-muted gds-text-body"
-                dangerouslySetInnerHTML={{ __html: quotedHtml }}
+                dangerouslySetInnerHTML={{ __html: sanitizedQuotedHtml }}
               />
             )}
           </div>
@@ -371,6 +380,7 @@ export const EmailComposer = forwardRef<EmailComposerHandle, EmailComposerProps>
               className="flex items-center justify-center rounded p-1.5 text-fg-muted hover:text-fg hover:bg-white/[0.04] transition-colors"
               onClick={() => fileInputRef.current?.click()}
               title="Attach file"
+              aria-label="Attach file"
             >
               <Paperclip className="h-4 w-4" />
             </button>
@@ -379,6 +389,7 @@ export const EmailComposer = forwardRef<EmailComposerHandle, EmailComposerProps>
               type="file"
               multiple
               className="hidden"
+              aria-label="Choose files to attach"
               onChange={(e) => {
                 if (e.target.files !== null && e.target.files.length > 0) {
                   addFiles(e.target.files)

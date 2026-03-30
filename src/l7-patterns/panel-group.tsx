@@ -10,7 +10,7 @@ import { useIsMobile } from '../utils/hooks'
 
 // ---- Pane ----
 
-export type PaneProps = {
+export type PaneProps = React.HTMLAttributes<HTMLDivElement> & {
   children: ReactNode
   /** fixed width in px (desktop only), omit for flex-1 */
   width?: number
@@ -34,6 +34,7 @@ export const Pane = forwardRef<HTMLDivElement, PaneProps>(
     center,
     scrollable = true,
     className,
+    ...props
   }, ref) {
     const isMobile = useIsMobile()
 
@@ -47,6 +48,7 @@ export const Pane = forwardRef<HTMLDivElement, PaneProps>(
 
     return (
       <div
+        {...props}
         ref={ref}
         className={cx(
           width === undefined && 'flex-1',
@@ -66,7 +68,7 @@ export const Pane = forwardRef<HTMLDivElement, PaneProps>(
 
 // ---- PaneGroup ----
 
-export type PaneGroupProps = {
+export type PaneGroupProps = React.HTMLAttributes<HTMLDivElement> & {
   children: ReactNode
   /** layout direction, default 'horizontal' */
   direction?: 'horizontal' | 'vertical'
@@ -74,7 +76,7 @@ export type PaneGroupProps = {
 }
 
 export const PaneGroup = forwardRef<HTMLDivElement, PaneGroupProps>(
-  function PaneGroup({ children, direction = 'horizontal', className }, ref) {
+  function PaneGroup({ children, direction = 'horizontal', className, ...props }, ref) {
     const isMobile = useIsMobile()
 
     // on mobile, horizontal groups stack vertically
@@ -82,6 +84,7 @@ export const PaneGroup = forwardRef<HTMLDivElement, PaneGroupProps>(
 
     return (
       <div
+        {...props}
         ref={ref}
         className={cx(
           'flex min-h-0 flex-1',
