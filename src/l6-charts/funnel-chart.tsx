@@ -59,7 +59,7 @@ export const FunnelChart = forwardRef<HTMLDivElement, FunnelChartProps>(
       >
         <ResponsiveContainer height={height} width="100%">
           <RFunnelChart>
-            <Tooltip />
+            <Tooltip contentStyle={{ background: 'var(--gds-bg-secondary, #1f2937)', border: '1px solid var(--gds-border, #374151)', borderRadius: 6, color: 'var(--gds-fg, #f9fafb)' }} labelStyle={{ color: 'var(--gds-fg-muted, #9ca3af)' }} />
             <Funnel dataKey={dataKey} data={data} isAnimationActive={false}>
               {data.map((_, i) => (
                 <Cell fill={colors[i % colors.length]} key={i} />
