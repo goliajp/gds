@@ -64,10 +64,10 @@ export const GDS_DEPS: DepInfo[] = [
   },
   {
     name: 'jotai',
-    version: '^2.18.1',
+    version: '^2.19.0',
     role: 'atomic state management — theme, i18n, responsive atoms',
     layer: 'L-dep',
-    type: 'runtime',
+    type: 'peer',
     usedBy: ['L1-systems'],
   },
   {

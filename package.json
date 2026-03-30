@@ -1,6 +1,6 @@
 {
   "name": "@goliapkg/gds",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "GOLIA Design System — enterprise-grade UI component library with contextual depth, glass materials, AI-native structure, and 10 design principles",
   "license": "MIT",
   "type": "module",
@@ -108,6 +108,7 @@
   "peerDependencies": {
     "react": ">=19.0.0",
     "react-dom": ">=19.0.0",
+    "jotai": "^2.19.0",
     "@tiptap/react": "^3.0.0",
     "@tiptap/starter-kit": "^3.0.0",
     "@tiptap/extension-code-block-lowlight": "^3.0.0",
@@ -162,7 +163,6 @@
   "dependencies": {
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "jotai": "^2.19.0",
     "lucide-react": "^1.7.0",
     "recharts": "^3.8.1",
     "shiki": "^4.0.2",
@@ -196,6 +196,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "happy-dom": "^20.8.9",
+    "jotai": "^2.19.0",
     "lowlight": "^3.3.0",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",

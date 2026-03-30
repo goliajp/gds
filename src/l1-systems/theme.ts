@@ -22,11 +22,35 @@ import type {
 import { resolveAxesToCssVars } from '../l0-tokens/scales'
 
 // color overrides — per-token overrides for advanced users
+// consumers can override ANY --gds-* color variable to fully customize the palette
 export type ThemeColorOverrides = {
+  // accent family
   '--gds-accent': string
   '--gds-accent-fg': string
   '--gds-accent-hover': string
+
+  // base surfaces
+  '--gds-bg': string
+  '--gds-bg-secondary': string
+  '--gds-bg-tertiary': string
+  '--gds-surface': string
+  '--gds-surface-raised': string
+
+  // foreground
+  '--gds-fg': string
+  '--gds-fg-secondary': string
+  '--gds-fg-muted': string
+
+  // borders
+  '--gds-border': string
+  '--gds-border-strong': string
+
+  // overlay
+  '--gds-overlay': string
+
+  // semantic
   '--gds-danger': string
+  '--gds-info': string
   '--gds-success': string
   '--gds-warning': string
 }
@@ -46,6 +70,9 @@ export type ThemeState = {
   motion: ThemeMotion
   // optional per-token color overrides (advanced — overrides derivation)
   colorOverrides: Partial<ThemeColorOverrides> | null
+  // mode-aware overrides — applied on top of colorOverrides for the matching mode
+  colorOverridesLight: Partial<ThemeColorOverrides> | null
+  colorOverridesDark: Partial<ThemeColorOverrides> | null
 }
 
 // default theme — beautiful out of the box
@@ -59,6 +86,8 @@ export const DEFAULT_THEME: ThemeState = {
   glass: 'full',
   motion: 'full',
   colorOverrides: null,
+  colorOverridesLight: null,
+  colorOverridesDark: null,
 }
 
 // persistence — must be defined before themeAtom so atom init can load from localStorage
@@ -181,10 +210,19 @@ export function resolveThemeCssVars(
   )
 
   // 4. per-token color overrides (highest priority — advanced users)
-  if (state.colorOverrides !== null) {
-    for (const [key, val] of Object.entries(state.colorOverrides)) {
-      if (val !== undefined) {
-        vars[key] = val
+  // apply order: colorOverrides (both modes) → colorOverrides{Light|Dark} (mode-specific)
+  const overrideLayers = [
+    state.colorOverrides,
+    resolvedMode === 'dark'
+      ? state.colorOverridesDark
+      : state.colorOverridesLight,
+  ]
+  for (const layer of overrideLayers) {
+    if (layer !== null && layer !== undefined) {
+      for (const [key, val] of Object.entries(layer)) {
+        if (val !== undefined) {
+          vars[key] = val
+        }
       }
     }
   }
@@ -223,10 +261,19 @@ export function applyThemeToDocument(
 }
 
 // named theme presets — optimized axis combinations for specific application types
+// override fields are optional — simple presets only need axes + primaryColor
 export type ThemePreset = Omit<
   ThemeState,
-  'mode' | 'presetId' | 'colorOverrides'
->
+  | 'mode'
+  | 'presetId'
+  | 'colorOverrides'
+  | 'colorOverridesLight'
+  | 'colorOverridesDark'
+> & {
+  colorOverrides?: Partial<ThemeColorOverrides> | null
+  colorOverridesLight?: Partial<ThemeColorOverrides> | null
+  colorOverridesDark?: Partial<ThemeColorOverrides> | null
+}
 
 export const themePresets = {
   // default: balanced for general-purpose dashboards
@@ -256,6 +303,57 @@ export const themePresets = {
     elevation: 'subtle' as const,
     glass: 'off' as const,
     motion: 'full' as const,
+  },
+  // zinc-neutral: pure neutral surfaces for productivity apps (email, editors, docs)
+  // zero hue tint — uses Tailwind zinc scale for content-neutral backgrounds
+  // mailrs-proven palette, optimized for long-session comfort
+  'zinc-neutral': {
+    primaryColor: '#3b7ddd',
+    shape: 'default' as const,
+    density: 'default' as const,
+    elevation: 'subtle' as const,
+    glass: 'subtle' as const,
+    motion: 'full' as const,
+    colorOverridesLight: {
+      '--gds-bg': '#fafafa', // zinc-50
+      '--gds-bg-secondary': '#f4f4f5', // zinc-100
+      '--gds-bg-tertiary': '#e4e4e7', // zinc-200
+      '--gds-surface': '#ffffff',
+      '--gds-surface-raised': '#ffffff',
+      '--gds-fg': '#09090b', // zinc-950
+      '--gds-fg-secondary': '#3f3f46', // zinc-700
+      '--gds-fg-muted': '#71717a', // zinc-500
+      '--gds-border': '#e4e4e7', // zinc-200
+      '--gds-border-strong': '#d4d4d8', // zinc-300
+      '--gds-overlay': 'rgba(0,0,0,0.5)',
+      '--gds-accent': '#3b7ddd',
+      '--gds-accent-hover': '#2b6bc5',
+      '--gds-accent-fg': '#ffffff',
+      '--gds-success': '#0ca678', // mantine green
+      '--gds-warning': '#e67700', // mantine orange
+      '--gds-danger': '#e03131', // mantine red
+      '--gds-info': '#3b7ddd',
+    },
+    colorOverridesDark: {
+      '--gds-bg': '#09090b', // zinc-950
+      '--gds-bg-secondary': '#0a0a0a', // near-black
+      '--gds-bg-tertiary': '#18181b', // zinc-900
+      '--gds-surface': '#18181b', // zinc-900
+      '--gds-surface-raised': '#27272a', // zinc-800
+      '--gds-fg': '#fafafa', // zinc-50
+      '--gds-fg-secondary': '#a1a1aa', // zinc-400
+      '--gds-fg-muted': '#71717a', // zinc-500
+      '--gds-border': '#27272a', // zinc-800
+      '--gds-border-strong': '#3f3f46', // zinc-700
+      '--gds-overlay': 'rgba(0,0,0,0.7)',
+      '--gds-accent': '#3b82f6', // blue-500
+      '--gds-accent-hover': '#60a5fa', // blue-400
+      '--gds-accent-fg': '#ffffff',
+      '--gds-success': '#22c55e', // green-500
+      '--gds-warning': '#f59e0b', // amber-500
+      '--gds-danger': '#ef4444', // red-500
+      '--gds-info': '#3b82f6',
+    },
   },
 } as const satisfies Record<string, ThemePreset>
 

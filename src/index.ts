@@ -27,6 +27,7 @@ export {
   themeAtom,
   themePresets,
 } from './l1-systems/theme'
+export { useFonts } from './l1-systems/use-fonts'
 export {
   configureTheme,
   useResetTheme,
