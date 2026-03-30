@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "ES2025",
+    "lib": ["ES2025", "DOM"],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
@@ -16,8 +17,7 @@
     "sourceMap": true,
     "paths": {
       "@gds/*": ["./src/*"]
-    },
-    "baseUrl": "."
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
