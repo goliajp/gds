@@ -63,7 +63,7 @@ export const PieChart = forwardRef<HTMLDivElement, PieChartProps>(
       >
         <ResponsiveContainer height={height} width="100%">
           <RPieChart>
-            <Tooltip />
+            <Tooltip contentStyle={{ background: 'var(--gds-bg-secondary, #1f2937)', border: '1px solid var(--gds-border, #374151)', borderRadius: 6, color: 'var(--gds-fg, #f9fafb)' }} labelStyle={{ color: 'var(--gds-fg-muted, #9ca3af)' }} />
             <Pie
               cx="50%"
               cy="50%"

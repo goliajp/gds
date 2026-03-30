@@ -71,7 +71,7 @@ export const RadialBarChart = forwardRef<HTMLDivElement, RadialBarChartProps>(
               dataKey="value"
               background={{ fill: 'rgba(255,255,255,0.05)' }}
             />
-            <Tooltip />
+            <Tooltip contentStyle={{ background: 'var(--gds-bg-secondary, #1f2937)', border: '1px solid var(--gds-border, #374151)', borderRadius: 6, color: 'var(--gds-fg, #f9fafb)' }} labelStyle={{ color: 'var(--gds-fg-muted, #9ca3af)' }} />
             <Legend iconSize={8} />
           </RRadialBarChart>
         </ResponsiveContainer>
