@@ -137,9 +137,12 @@ Components auto-scale spacing, radius, shadow, and typography based on nesting d
 - Use `flex flex-col gds-gap` instead of `space-y-*` for auto-scaling child spacing.
 - Fixed size overrides (`p-5`, `p-2`) are still valid for explicit padding modes (like Card's `padding="lg"`).
 
+**Depth reset escape hatch:**
+- `gds-ctx-reset` resets depth back to level 0 (useful for deep nesting like EmailThread > message > attachment).
+
 **When building leaf components:**
 - Do NOT add `gds-ctx`. Leaf components inherit the current depth.
 - Use `gds-text` for body text, `gds-heading` for headings, if you want depth-aware sizing.
 - Fixed Tailwind text sizes (`text-xs`, `text-sm`) are fine when absolute sizing is needed.
 
-**Currently depth-aware components:** Card, Dialog, Panel, Sheet.
+**Currently depth-aware components:** Card, Dialog, Panel, Sheet, AppShell, InboxLayout.

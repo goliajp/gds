@@ -1,6 +1,6 @@
 # GDS (GOLIA Design System) Library Code Standards
 
-This file governs code in `admin/src/components/ui/` — the design system library layer. These rules are STRICTER than general business code rules.
+This file governs code in `src/` — the GDS design system library. These rules are STRICTER than general business code rules.
 
 ## TypeScript Strictness
 
@@ -60,11 +60,22 @@ type ButtonProps = VariantProps<typeof buttonVariants> & { ... }
 export { buttonVariants }
 ```
 
+## Anti-Corruption Layer
+
+External packages must never be imported directly in component code. Use wrappers from `@gds/utils/`:
+
+- `cx()` from `@gds/utils/cx` — wraps clsx + tailwind-merge
+- `VariantProps` from `@gds/utils/types` — wraps CVA type import
+- `focusCls` from `@gds/utils/a11y` — standard focus ring class
+- `renderPortal()` from `@gds/utils/portal` — wraps react-dom createPortal
+- `useEditor`, `EditorContent`, `StarterKit`, extensions from `@gds/utils/tiptap` — wraps @tiptap/* (v2)
+- `sanitizeHtml()`, `sanitizeEmailHtml()` from `@gds/utils/sanitize` — wraps dompurify (v2)
+
 ## Styling
 
 - **Only semantic tokens** — never raw Tailwind colors (`bg-blue-500`)
-- **`cx()` for class merging** — import from `@torajs/react/common/utils/tailwind/cx`
-- **`focusCls` on all interactive elements** — from `@/utils/a11y`
+- **`cx()` for class merging** — import from `@gds/utils/cx`
+- **`focusCls` on all interactive elements** — from `@gds/utils/a11y`
 - **`select-none`** — on all non-content elements (buttons, labels, chrome)
 - **`cursor-pointer`** — via `role` or element type, not manually
 - **Responsive** — components must work at all breakpoints without custom media queries
