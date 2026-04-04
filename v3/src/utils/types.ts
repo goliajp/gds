@@ -67,14 +67,20 @@ export type MotionPreset =
   | 'slideLeft'
   | 'slideRight'
   | 'slideUp'
+  | 'pop'
 
-// component with glass + motion built-in capability (philosophy 06/08)
-// glass: frosted translucency via backdrop-filter (L0 glass-system)
-// motion: animation on enter/exit/state-change (L0 motion-system keyframePresets)
-export type GlassMotionProps = {
+// glow color variants — semantic status-aware glow
+export type GlowColor = 'accent' | 'success' | 'warning' | 'danger'
+
+// v3 unified interactive props — every interactive component must support these
+export type GDSInteractiveProps = {
   glass?: boolean
-  motion?: MotionPreset | (string & {}) // preset name or custom
+  glow?: boolean | GlowColor
+  motion?: MotionPreset | (string & {})
 }
+
+// backward compat alias
+export type GlassMotionProps = GDSInteractiveProps
 
 // AI-native data attributes (philosophy 07)
 // components should include these for machine parsing

@@ -12,6 +12,7 @@ const PRESET_TO_CLASS: Record<string, string> = {
   slideDown: 'animate-slide-down',
   slideLeft: 'animate-slide-left',
   slideRight: 'animate-slide-right',
+  pop: 'animate-pop',
 }
 
 // convert motion prop to className — returns empty string if no motion
