@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { useState } from 'react'
 
 // v2 components
@@ -32,6 +33,8 @@ import {
   SectionHeader,
 } from '@gds-v3/molecules'
 
+// --- types ---
+
 type ComponentId =
   | 'button'
   | 'badge'
@@ -41,6 +44,7 @@ type ComponentId =
   | 'checkbox'
   | 'progress'
   | 'new'
+type SizeOption = 'sm' | 'default' | 'lg'
 
 const COMPONENTS: { id: ComponentId; label: string }[] = [
   { id: 'button', label: 'Button' },
@@ -53,63 +57,121 @@ const COMPONENTS: { id: ComponentId; label: string }[] = [
   { id: 'new', label: 'v3 New' },
 ]
 
+const NA = <span className="text-fg-muted/50 gds-text-caption">—</span>
+
+// --- layout ---
+
+function Row({ label, v2, v3 }: { label: string; v2: ReactNode; v3: ReactNode }) {
+  return (
+    <div className="border-border/20 flex items-center border-b py-3">
+      <div className="gds-text-label text-fg-muted w-24 shrink-0 font-medium">{label}</div>
+      <div className="flex flex-1 items-center justify-center px-3">{v2}</div>
+      <div className="border-border/20 border-l" />
+      <div className="flex flex-1 items-center justify-center px-3">{v3}</div>
+    </div>
+  )
+}
+
+function Header() {
+  return (
+    <div className="border-border/40 flex items-center border-b py-2">
+      <div className="w-24 shrink-0" />
+      <div className="text-fg-muted gds-text-caption flex-1 text-center font-semibold tracking-wider uppercase">
+        v2
+      </div>
+      <div className="border-border/20 border-l" />
+      <div className="text-accent gds-text-caption flex-1 text-center font-semibold tracking-wider uppercase">
+        v3
+      </div>
+    </div>
+  )
+}
+
+// --- comparisons ---
+
 function ButtonCompare({
   size,
   glass,
   glow,
   loading,
 }: {
-  size: 'sm' | 'default' | 'lg'
+  size: SizeOption
   glass: boolean
   glow: boolean
   loading: boolean
 }) {
   return (
     <>
-      <Row label="Primary">
-        <ButtonV2 glass={glass} loading={loading} size={size} variant="primary">
-          Button
-        </ButtonV2>
-        <ButtonV3 glass={glass} glow={glow} loading={loading} size={size} variant="primary">
-          Button
-        </ButtonV3>
-      </Row>
-      <Row label="Secondary">
-        <ButtonV2 glass={glass} size={size} variant="secondary">
-          Button
-        </ButtonV2>
-        <ButtonV3 glass={glass} glow={glow} size={size} variant="secondary">
-          Button
-        </ButtonV3>
-      </Row>
-      <Row label="Ghost">
-        <ButtonV2 size={size} variant="ghost">
-          Button
-        </ButtonV2>
-        <ButtonV3 glow={glow} size={size} variant="ghost">
-          Button
-        </ButtonV3>
-      </Row>
-      <Row label="Danger">
-        <ButtonV2 size={size} variant="danger">
-          Button
-        </ButtonV2>
-        <ButtonV3 glow={glow ? 'danger' : false} size={size} variant="danger">
-          Button
-        </ButtonV3>
-      </Row>
-      <Row label="Link (v3 only)">
-        <span className="text-fg-muted gds-text-caption">N/A</span>
-        <ButtonV3 size={size} variant="link">
-          Link Button
-        </ButtonV3>
-      </Row>
-      <Row label="Tab (v3 only)">
-        <span className="text-fg-muted gds-text-caption">N/A</span>
-        <ButtonV3 data-active="true" size={size} variant="tab">
-          Active Tab
-        </ButtonV3>
-      </Row>
+      <Row
+        label="Primary"
+        v2={
+          <ButtonV2 glass={glass} loading={loading} size={size} variant="primary">
+            Button
+          </ButtonV2>
+        }
+        v3={
+          <ButtonV3 glass={glass} glow={glow} loading={loading} size={size} variant="primary">
+            Button
+          </ButtonV3>
+        }
+      />
+      <Row
+        label="Secondary"
+        v2={
+          <ButtonV2 glass={glass} size={size} variant="secondary">
+            Button
+          </ButtonV2>
+        }
+        v3={
+          <ButtonV3 glass={glass} glow={glow} size={size} variant="secondary">
+            Button
+          </ButtonV3>
+        }
+      />
+      <Row
+        label="Ghost"
+        v2={
+          <ButtonV2 size={size} variant="ghost">
+            Button
+          </ButtonV2>
+        }
+        v3={
+          <ButtonV3 glow={glow} size={size} variant="ghost">
+            Button
+          </ButtonV3>
+        }
+      />
+      <Row
+        label="Danger"
+        v2={
+          <ButtonV2 size={size} variant="danger">
+            Button
+          </ButtonV2>
+        }
+        v3={
+          <ButtonV3 glow={glow ? 'danger' : false} size={size} variant="danger">
+            Button
+          </ButtonV3>
+        }
+      />
+      <Row
+        label="Link ★"
+        v2={NA}
+        v3={
+          <ButtonV3 size={size} variant="link">
+            Link Button
+          </ButtonV3>
+        }
+      />
+      <Row
+        label="Tab ★"
+        v2={NA}
+        v3={
+          <ButtonV3 data-active="true" size={size} variant="tab">
+            Active Tab
+          </ButtonV3>
+        }
+      />
     </>
   )
 }
@@ -119,14 +181,20 @@ function BadgeCompare({ glass, glow }: { glass: boolean; glow: boolean }) {
   return (
     <>
       {variants.map((v) => (
-        <Row key={v} label={v}>
-          <BadgeV2 glass={glass} variant={v}>
-            {v}
-          </BadgeV2>
-          <BadgeV3 glass={glass} glow={glow} variant={v}>
-            {v}
-          </BadgeV3>
-        </Row>
+        <Row
+          key={v}
+          label={v}
+          v2={
+            <BadgeV2 glass={glass} variant={v}>
+              {v}
+            </BadgeV2>
+          }
+          v3={
+            <BadgeV3 glass={glass} glow={glow} variant={v}>
+              {v}
+            </BadgeV3>
+          }
+        />
       ))}
     </>
   )
@@ -135,14 +203,24 @@ function BadgeCompare({ glass, glow }: { glass: boolean; glow: boolean }) {
 function InputCompare({ glass, glow }: { glass: boolean; glow: boolean }) {
   return (
     <>
-      <Row label="Default">
-        <InputV2 glass={glass} placeholder="v2 input" />
-        <InputV3 glass={glass} glow={glow} placeholder="v3 input" />
-      </Row>
-      <Row label="Small">
-        <InputV2 glass={glass} inputSize="sm" placeholder="v2 small" />
-        <InputV3 glass={glass} glow={glow} inputSize="sm" placeholder="v3 small" />
-      </Row>
+      <Row
+        label="Default"
+        v2={<InputV2 className="w-48" glass={glass} placeholder="v2 input" />}
+        v3={<InputV3 className="w-48" glass={glass} glow={glow} placeholder="v3 input" />}
+      />
+      <Row
+        label="Small"
+        v2={<InputV2 className="w-48" glass={glass} inputSize="sm" placeholder="v2 small" />}
+        v3={
+          <InputV3
+            className="w-48"
+            glass={glass}
+            glow={glow}
+            inputSize="sm"
+            placeholder="v3 small"
+          />
+        }
+      />
     </>
   )
 }
@@ -150,16 +228,36 @@ function InputCompare({ glass, glow }: { glass: boolean; glow: boolean }) {
 function CardCompare({ glass, glow }: { glass: boolean; glow: boolean }) {
   return (
     <>
-      <Row label="Card + Header">
-        <CardV2 glass={glass} padding="sm">
-          <CardHeaderV2 title="v2 Card" description="With header" />
-          <CardContentV2>Content here</CardContentV2>
-        </CardV2>
-        <CardV3 glass={glass} glow={glow} padding="sm">
-          <CardHeaderV3 title="v3 Card" description="With header + glow" />
-          <CardContentV3>Content here</CardContentV3>
-        </CardV3>
-      </Row>
+      <Row
+        label="With Header"
+        v2={
+          <CardV2 className="w-56" glass={glass} padding="sm">
+            <CardHeaderV2 description="Description text" title="v2 Card" />
+            <CardContentV2>Card content</CardContentV2>
+          </CardV2>
+        }
+        v3={
+          <CardV3 className="w-56" glass={glass} glow={glow} padding="sm">
+            <CardHeaderV3 description="With glow support" title="v3 Card" />
+            <CardContentV3>Card content</CardContentV3>
+          </CardV3>
+        }
+      />
+      <Row
+        label="DataCard ★"
+        v2={NA}
+        v3={
+          <DataCard
+            className="w-56"
+            glass={glass}
+            glow={glow}
+            title="Revenue"
+            trend="up"
+            change="+12%"
+            value="¥1.2M"
+          />
+        }
+      />
     </>
   )
 }
@@ -168,10 +266,12 @@ function AvatarCompare({ glass, glow }: { glass: boolean; glow: boolean }) {
   return (
     <>
       {(['xs', 'sm', 'default', 'lg'] as const).map((s) => (
-        <Row key={s} label={`size=${s}`}>
-          <AvatarV2 glass={glass} name="Li Hao" size={s} />
-          <AvatarV3 glass={glass} glow={glow} name="Li Hao" size={s} />
-        </Row>
+        <Row
+          key={s}
+          label={s}
+          v2={<AvatarV2 glass={glass} name="Li Hao" size={s} />}
+          v3={<AvatarV3 glass={glass} glow={glow} name="Li Hao" size={s} />}
+        />
       ))}
     </>
   )
@@ -182,14 +282,16 @@ function CheckboxCompare({ glow }: { glow: boolean }) {
   const [v3, setV3] = useState(false)
   return (
     <>
-      <Row label="Unchecked">
-        <CheckboxV2 checked={v2} label="v2 checkbox" onChange={setV2} />
-        <CheckboxV3 checked={v3} glow={glow} label="v3 checkbox" onChange={setV3} />
-      </Row>
-      <Row label="Checked">
-        <CheckboxV2 checked label="v2 checked" onChange={() => {}} />
-        <CheckboxV3 checked glow={glow} label="v3 checked" onChange={() => {}} />
-      </Row>
+      <Row
+        label="Interactive"
+        v2={<CheckboxV2 checked={v2} label="v2 checkbox" onChange={setV2} />}
+        v3={<CheckboxV3 checked={v3} glow={glow} label="v3 checkbox" onChange={setV3} />}
+      />
+      <Row
+        label="Checked"
+        v2={<CheckboxV2 checked label="Checked" onChange={() => {}} />}
+        v3={<CheckboxV3 checked glow={glow} label="Checked" onChange={() => {}} />}
+      />
     </>
   )
 }
@@ -197,39 +299,50 @@ function CheckboxCompare({ glow }: { glow: boolean }) {
 function ProgressCompare({ glow }: { glow: boolean }) {
   return (
     <>
-      <Row label="Default">
-        <div className="w-40">
-          <ProgressV2 value={65} />
-        </div>
-        <div className="w-40">
-          <ProgressV3 glow={glow} value={65} />
-        </div>
-      </Row>
-      <Row label="ProgressBar (v3 only)">
-        <span className="text-fg-muted gds-text-caption">N/A</span>
-        <div className="w-52">
-          <ProgressBar color="success" glow={glow} label="CPU" showPercent value={72} />
-        </div>
-      </Row>
+      <Row
+        label="Bar"
+        v2={
+          <div className="w-44">
+            <ProgressV2 value={65} />
+          </div>
+        }
+        v3={
+          <div className="w-44">
+            <ProgressV3 glow={glow} value={65} />
+          </div>
+        }
+      />
+      <Row
+        label="ProgressBar ★"
+        v2={NA}
+        v3={
+          <div className="w-52">
+            <ProgressBar color="success" glow={glow} label="CPU" showPercent value={72} />
+          </div>
+        }
+      />
     </>
   )
 }
 
 function NewV3Only({ glass, glow }: { glass: boolean; glow: boolean }) {
   return (
-    <>
-      <div className="col-span-2 mb-4">
-        <p className="text-fg-muted gds-text-body">v3 独有组件，v2 中不存在</p>
-      </div>
-      <div className="col-span-2 space-y-4">
+    <div className="space-y-6 py-4">
+      <div>
+        <h3 className="text-fg gds-text-body mb-3 font-semibold">SectionHeader</h3>
         <SectionHeader
           action={
             <ButtonV3 size="sm" variant="ghost">
               Export
             </ButtonV3>
           }
-          title="SectionHeader"
+          title="财务指标"
+          description="2026 Q1"
         />
+      </div>
+
+      <div>
+        <h3 className="text-fg gds-text-body mb-3 font-semibold">DataCard</h3>
         <div className="grid grid-cols-3 gap-3">
           <DataCard
             change="+12%"
@@ -247,41 +360,38 @@ function NewV3Only({ glass, glow }: { glass: boolean; glow: boolean }) {
             value="86%"
           />
         </div>
+      </div>
+
+      <div>
+        <h3 className="text-fg gds-text-body mb-3 font-semibold">HStack / VStack</h3>
         <HStack gap="md">
           <ButtonV3 glow={glow} variant="primary">
-            HStack
+            Primary
           </ButtonV3>
-          <ButtonV3 variant="secondary">Layout</ButtonV3>
-          <ButtonV3 variant="ghost">Primitive</ButtonV3>
+          <ButtonV3 variant="secondary">Secondary</ButtonV3>
+          <ButtonV3 variant="ghost">Ghost</ButtonV3>
           <BadgeV3 variant="success">NEW</BadgeV3>
         </HStack>
-        <VStack gap="sm">
+      </div>
+
+      <div>
+        <h3 className="text-fg gds-text-body mb-3 font-semibold">ProgressBar</h3>
+        <VStack gap="sm" className="max-w-md">
           <ProgressBar color="accent" glow={glow} label="Design" value={90} />
           <ProgressBar color="success" label="Dev" value={65} />
           <ProgressBar color="warning" label="Test" value={30} />
+          <ProgressBar color="danger" label="Bugs" value={12} />
         </VStack>
       </div>
-    </>
+    </div>
   )
 }
 
-function Row({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <>
-      <div className="text-fg-muted gds-text-caption col-span-2 font-medium">{label}</div>
-      <div className="border-border/50 flex items-center justify-center rounded-lg border border-dashed p-3">
-        {Array.isArray(children) ? children[0] : children}
-      </div>
-      <div className="border-border/50 flex items-center justify-center rounded-lg border border-dashed p-3">
-        {Array.isArray(children) ? children[1] : null}
-      </div>
-    </>
-  )
-}
+// --- main ---
 
 export function CompareView() {
   const [active, setActive] = useState<ComponentId>('button')
-  const [size, setSize] = useState<'sm' | 'default' | 'lg'>('default')
+  const [size, setSize] = useState<SizeOption>('default')
   const [glass, setGlass] = useState(false)
   const [glow, setGlow] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -291,12 +401,12 @@ export function CompareView() {
       {/* header */}
       <header className="border-border flex shrink-0 items-center justify-between border-b px-6 py-3">
         <h1 className="text-fg gds-text-heading font-bold">v2 / v3 Component Compare</h1>
-        <a className="text-accent gds-text-caption hover:underline" href="/">
+        <a className="text-accent gds-text-label hover:underline" href="/">
           ← Home
         </a>
       </header>
 
-      {/* component selector */}
+      {/* component tabs */}
       <div className="border-border flex shrink-0 gap-1 border-b px-6 py-2">
         {COMPONENTS.map((c) => (
           <ButtonV3
@@ -312,31 +422,31 @@ export function CompareView() {
       </div>
 
       {/* controls */}
-      <div className="border-border flex shrink-0 items-center gap-4 border-b px-6 py-2">
-        <label className="text-fg-muted gds-text-caption flex items-center gap-2">
-          Size:
-          <select
-            className="bg-bg-secondary border-border gds-text-caption rounded border px-2 py-0.5"
-            onChange={(e) => setSize(e.target.value as 'sm' | 'default' | 'lg')}
-            value={size}
-          >
-            <option value="sm">sm</option>
-            <option value="default">default</option>
-            <option value="lg">lg</option>
-          </select>
-        </label>
+      <div className="border-border flex shrink-0 items-center gap-5 border-b px-6 py-2">
+        <div className="flex items-center gap-1">
+          <span className="text-fg-muted gds-text-caption mr-1">Size:</span>
+          {(['sm', 'default', 'lg'] as const).map((s) => (
+            <ButtonV3
+              className={size === s ? 'bg-accent/15 text-accent' : ''}
+              key={s}
+              onClick={() => setSize(s)}
+              size="sm"
+              variant="ghost"
+            >
+              {s}
+            </ButtonV3>
+          ))}
+        </div>
+        <div className="bg-border/30 h-4 w-px" />
         <CheckboxV3 checked={glass} label="glass" onChange={setGlass} />
         <CheckboxV3 checked={glow} label="glow" onChange={setGlow} />
         <CheckboxV3 checked={loading} label="loading" onChange={setLoading} />
       </div>
 
-      {/* comparison grid */}
-      <div className="flex-1 overflow-y-auto px-6 py-4">
-        <div className="grid grid-cols-[auto_1fr_1fr] items-center gap-3">
-          {/* column headers */}
-          <div />
-          <div className="text-fg-muted gds-text-caption text-center font-semibold">v2</div>
-          <div className="text-accent gds-text-caption text-center font-semibold">v3</div>
+      {/* comparison area */}
+      <div className="flex-1 overflow-y-auto px-6 py-2">
+        <div className="mx-auto max-w-3xl">
+          {active !== 'new' && <Header />}
 
           {active === 'button' && (
             <ButtonCompare glass={glass} glow={glow} loading={loading} size={size} />
