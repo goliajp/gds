@@ -1,0 +1,74 @@
+/* GDS → Tailwind @theme mapping
+ * import this file to make Tailwind utilities (shadow-sm, rounded-lg, etc.)
+ * use GDS theme-aware tokens injected by useThemeEffect()
+ *
+ * usage:
+ *   @import '@goliapkg/gds/theme.css';
+ */
+
+@theme {
+  /* colors — dynamic, set by useThemeEffect() */
+  --color-bg: var(--gds-bg);
+  --color-bg-secondary: var(--gds-bg-secondary);
+  --color-bg-tertiary: var(--gds-bg-tertiary);
+  --color-surface: var(--gds-surface);
+  --color-fg: var(--gds-fg);
+  --color-fg-secondary: var(--gds-fg-secondary);
+  --color-fg-muted: var(--gds-fg-muted);
+  --color-border: var(--gds-border);
+  --color-border-strong: var(--gds-border-strong);
+  --color-accent: var(--gds-accent);
+  --color-accent-hover: var(--gds-accent-hover);
+  --color-accent-fg: var(--gds-accent-fg);
+  --color-overlay: var(--gds-overlay);
+  --color-danger: var(--gds-danger);
+  --color-info: var(--gds-info);
+  --color-warning: var(--gds-warning);
+  --color-success: var(--gds-success);
+
+  /* shadows — dynamic, controlled by elevation axis */
+  --shadow-xs: var(--gds-shadow-xs);
+  --shadow-sm: var(--gds-shadow-sm);
+  --shadow-md: var(--gds-shadow-md);
+  --shadow-lg: var(--gds-shadow-lg);
+  --shadow-xl: var(--gds-shadow-xl);
+
+  /* border radius — dynamic, controlled by shape axis */
+  --radius-sm: var(--gds-radius-sm);
+  --radius-md: var(--gds-radius-md);
+  --radius-lg: var(--gds-radius-lg);
+  --radius-xl: var(--gds-radius-xl);
+  --radius-full: var(--gds-radius-full);
+
+  /* status colors — for badges, indicators, workflow states */
+  --color-status-active: var(--gds-status-active);
+  --color-status-inactive: var(--gds-status-inactive);
+  --color-status-pending: var(--gds-status-pending);
+  --color-status-draft: var(--gds-status-draft);
+
+  /* priority colors — for task/ticket priority levels */
+  --color-priority-critical: var(--gds-priority-critical);
+  --color-priority-high: var(--gds-priority-high);
+  --color-priority-medium: var(--gds-priority-medium);
+  --color-priority-low: var(--gds-priority-low);
+
+  /* action colors — for CRUD operation indicators */
+  --color-action-create: var(--gds-action-create);
+  --color-action-update: var(--gds-action-update);
+  --color-action-delete: var(--gds-action-delete);
+
+  /* dot color — for notification/status dots */
+  --color-dot: var(--gds-dot);
+
+  /* categorical palette — 10 colors for charts/tags/avatars */
+  --color-palette-0: var(--gds-palette-0);
+  --color-palette-1: var(--gds-palette-1);
+  --color-palette-2: var(--gds-palette-2);
+  --color-palette-3: var(--gds-palette-3);
+  --color-palette-4: var(--gds-palette-4);
+  --color-palette-5: var(--gds-palette-5);
+  --color-palette-6: var(--gds-palette-6);
+  --color-palette-7: var(--gds-palette-7);
+  --color-palette-8: var(--gds-palette-8);
+  --color-palette-9: var(--gds-palette-9);
+}
