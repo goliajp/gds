@@ -18,7 +18,14 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@gds-v3/primitives": ["../src/l2-primitives"],
+      "@gds-v3/atoms": ["../src/l3-atoms"],
+      "@gds-v3/molecules": ["../src/l4-molecules"],
+      "@gds-v3/utils": ["../src/utils"]
+    }
   },
-  "include": ["src", "vite-env.d.ts"]
+  "include": ["src", "../src", "vite-env.d.ts"]
 }
