@@ -1,0 +1,76 @@
+// stacked-progress — multi-segment horizontal progress bar with optional labels
+import { forwardRef } from 'react'
+
+import { cx } from '../utils/cx'
+
+export type StackedSegment = {
+  label: string
+  value: number
+  color?: string
+}
+
+export type StackedProgressProps = {
+  segments: StackedSegment[]
+  showLabels?: boolean
+  className?: string
+}
+
+const defaultColors = [
+  'var(--color-accent)',
+  'var(--color-success)',
+  'var(--color-warning)',
+  'var(--color-danger)',
+  'var(--color-fg-muted)',
+]
+
+export const StackedProgress = forwardRef<HTMLDivElement, StackedProgressProps>(
+  function StackedProgress({ segments, showLabels = true, className }, ref) {
+    const total = segments.reduce((sum, s) => sum + s.value, 0)
+
+    return (
+      <div
+        ref={ref}
+        className={cx('select-none', className)}
+        data-component="stacked-progress"
+      >
+        <div className="bg-fg-muted/10 flex h-3 overflow-hidden rounded-full">
+          {segments.map((seg, i) => {
+            const pct = total > 0 ? (seg.value / total) * 100 : 0
+            if (pct <= 0) return null
+            const color = seg.color ?? defaultColors[i % defaultColors.length]
+
+            return (
+              <div
+                key={`${seg.label}-${i}`}
+                className="transition-all duration-300"
+                style={{ width: `${pct}%`, backgroundColor: color }}
+              />
+            )
+          })}
+        </div>
+        {showLabels && (
+          <div className="mt-2 flex flex-wrap gap-3">
+            {segments.map((seg, i) => {
+              const pct = total > 0 ? (seg.value / total) * 100 : 0
+              const color = seg.color ?? defaultColors[i % defaultColors.length]
+
+              return (
+                <div
+                  key={`${seg.label}-${i}`}
+                  className="gds-text-body text-fg-muted flex items-center gap-1.5"
+                >
+                  <div
+                    className="h-2 w-2 rounded-full"
+                    style={{ backgroundColor: color }}
+                  />
+                  <span>{seg.label}</span>
+                  <span className="text-fg font-medium">{pct.toFixed(1)}%</span>
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </div>
+    )
+  }
+)
