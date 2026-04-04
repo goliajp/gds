@@ -516,6 +516,47 @@
   animation-duration: var(--gds-duration-slow, 300ms);
 }
 
+/* ===== POP animation ===== */
+@keyframes gds-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  70% {
+    transform: scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@utility animate-pop {
+  animation: gds-pop var(--gds-duration-normal, 200ms) var(--gds-ease-spring, ease) both;
+}
+
+/* ===== GLOW system ===== */
+@utility gds-glow {
+  box-shadow: 0 0 20px color-mix(in srgb, var(--gds-glow-color, var(--gds-accent)) 15%, transparent);
+}
+@utility gds-glow-sm {
+  box-shadow: 0 0 8px color-mix(in srgb, var(--gds-glow-color, var(--gds-accent)) 12%, transparent);
+}
+@utility gds-glow-lg {
+  box-shadow: 0 0 32px color-mix(in srgb, var(--gds-glow-color, var(--gds-accent)) 20%, transparent);
+}
+@utility gds-glow-accent {
+  --gds-glow-color: var(--gds-accent);
+}
+@utility gds-glow-success {
+  --gds-glow-color: var(--gds-success);
+}
+@utility gds-glow-warning {
+  --gds-glow-color: var(--gds-warning);
+}
+@utility gds-glow-danger {
+  --gds-glow-color: var(--gds-danger);
+}
+
 /* prefers-reduced-motion — global kill switch */
 @media (prefers-reduced-motion: reduce) {
   *,

@@ -7,6 +7,8 @@ export { clamp, isActivationKey, mergeRefs, uid } from './dom'
 export type { DragHandler, DragState, SwipeHandler } from './gesture'
 export { applyInertia, useDrag, useLongPress, useSwipe } from './gesture'
 export { glassClass, glassSurface } from './glass'
+export { glowClass } from './glow'
+export type { GlowColor } from './glow'
 export {
   useClickOutside,
   useEscapeKey,
@@ -26,7 +28,9 @@ export type {
   DataAttributes,
   DataRecord,
   DivProps,
+  GDSInteractiveProps,
   GlassMotionProps,
+  GlowColor as GlowColorType,
   InputProps,
   MergeProps,
   MotionPreset,
