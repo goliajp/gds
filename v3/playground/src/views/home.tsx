@@ -23,6 +23,16 @@ export function HomeView() {
     <div className="mx-auto max-w-4xl px-6 py-8">
       <h1 className="text-fg mb-2 text-xl font-bold">GDS v3 Playground</h1>
       <p className="text-fg-muted mb-8 text-sm">11 个真实业务场景，用 GDS 组件全量还原。</p>
+      <Link
+        className="border-accent/30 bg-accent/5 hover:bg-accent/10 mb-4 block rounded-lg border p-4 transition-colors"
+        to="/compare"
+      >
+        <h3 className="text-accent mb-1 text-sm font-semibold">v2 / v3 Component Compare</h3>
+        <p className="text-fg-muted text-xs">
+          同屏对比 v2 和 v3 组件 — Button, Badge, Input, Card, Avatar 等
+        </p>
+      </Link>
+
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {DEMOS.map((d) => (
           <Link

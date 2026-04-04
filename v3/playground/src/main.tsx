@@ -29,6 +29,10 @@ const router = createBrowserRouter([
     children: [
       { element: <HomeView />, index: true },
       {
+        path: 'compare',
+        lazy: () => import('./views/compare').then((m) => ({ Component: m.CompareView })),
+      },
+      {
         path: 'audit-log',
         lazy: () => import('./views/audit-log').then((m) => ({ Component: m.AuditLogView })),
       },

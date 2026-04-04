@@ -4,8 +4,7 @@
 export { focusCls, srOnly } from './a11y'
 export { cx } from './cx'
 export { clamp, isActivationKey, mergeRefs, uid } from './dom'
-export type { DragHandler, DragState, SwipeHandler } from './gesture'
-export { applyInertia, useDrag, useLongPress, useSwipe } from './gesture'
+// gesture exports deferred — will be added when L5 components need them
 export { glassClass, glassSurface } from './glass'
 export { glowClass } from './glow'
 export type { GlowColor } from './glow'
@@ -44,8 +43,4 @@ export type {
   VariantProps,
 } from './types'
 
-// v2: anti-corruption wrappers for optional peer deps
-// these re-export external libs so component code never imports them directly
-// consumers only need these installed if they use RichTextEditor / EmailThread
-export type { SanitizeConfig } from './sanitize'
-export { sanitizeEmailHtml } from './sanitize'
+// sanitize/tiptap exports deferred — will be added when editor components need them
