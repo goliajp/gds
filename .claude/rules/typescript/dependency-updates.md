@@ -1,8 +1,14 @@
-# Dependency Updates
+---
+paths:
+  - "**/package.json"
+  - "**/bun.lock"
+  - "**/bun.lockb"
+---
+# TypeScript Dependency Updates
 
 ## Principle
 
-Maintain a strong bias toward latest stable versions. Outdated dependencies accumulate security debt and compatibility friction. However, upgrades must be deliberate, not blind.
+Maintain a strong bias toward latest stable versions. Outdated dependencies accumulate security debt and compatibility friction. Upgrades must be deliberate, not blind.
 
 ## Workflow
 

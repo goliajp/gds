@@ -1,10 +1,6 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Communication
-
-Always reply in Chinese (中文).
+See `.claude/rules/` for shared Claude Code rules (language, coding style, testing, git workflow, security, data architecture, RFC workflow, plus the TypeScript subset). Those files are synced byte-for-byte from `dotclaude/` and apply to every managed project. The GDS library standards and the 10 design principles are **also synced** from `dotclaude/gds/` — they live at `rules/gds/gds-lib.md` and `rules/gds/gds-philosophy.md`, shared with the goliajp admin project (which maintains its own `rules/gds-overrides.md` for torajs-specific import paths).
 
 ## Project Overview
 
@@ -169,17 +165,4 @@ Every library component follows this structure:
 
 ## Coding Standards
 
-See `.claude/rules/` for detailed rules. Key points:
-
-- **`type` only** — never `interface` or `enum`
-- **No `any`** — use `unknown` + type guards
-- **No ternary** — use `if/else` or early return; `&&` for JSX conditional rendering only
-- **`??` over `||`** — always nullish coalescing
-- **Named exports only** — no default exports
-- **Semantic tokens only** — never raw Tailwind colors
-- **Files: kebab-case**, Exports: PascalCase, Variants: camelCase + `Variants`
-
-## Git Convention
-
-- Branching: git-flow-avh (`master` = production, `develop` = integration)
-- Commit: `feat:`, `fix:`, `refactor:`, `test:`, `chore:` — all lowercase, no trailing period
+GDS library code (`src/`) follows stricter rules than general project code. See `.claude/rules/gds/gds-lib.md` for the full set (no `interface`/`enum`/`any`/`as`/ternary/nested ternary, named exports only, kebab-case files, PascalCase exports, `camelCase + Variants` variant exports, CVA mandatory with `defaultVariants`, anti-corruption layer enforced). Design principles are in `.claude/rules/gds/gds-philosophy.md`.
