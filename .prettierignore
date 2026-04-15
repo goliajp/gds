@@ -1,0 +1,3 @@
+# Claude Code shared rules are synced byte-for-byte from dotclaude/
+# and must not be reformatted, or every sync will produce churn.
+.claude/rules/**

@@ -1,6 +1,8 @@
 # GDS (GOLIA Design System) Library Code Standards
 
-This file governs code in `src/` — the GDS design system library. These rules are STRICTER than general business code rules.
+Shared library-code rules for the GOLIA Design System — apply these when touching any file that implements a reusable UI component in a React + Tailwind + CVA project. These rules are STRICTER than general business code rules.
+
+Each consuming project should ship a small `rules/gds-overrides.md` alongside this file to declare the concrete import prefix for its wrappers (`@gds/utils/` in the gds repo itself, `@torajs/react/common/utils/` in goliajp admin, etc.) — everything else in this file is the same across projects.
 
 ## TypeScript Strictness
 
@@ -62,20 +64,20 @@ export { buttonVariants }
 
 ## Anti-Corruption Layer
 
-External packages must never be imported directly in component code. Use wrappers from `@gds/utils/`:
+External packages must never be imported directly in component code. Use the project's utility wrappers (see `rules/gds-overrides.md` for the concrete import prefix in this project):
 
-- `cx()` from `@gds/utils/cx` — wraps clsx + tailwind-merge
-- `VariantProps` from `@gds/utils/types` — wraps CVA type import
-- `focusCls` from `@gds/utils/a11y` — standard focus ring class
-- `renderPortal()` from `@gds/utils/portal` — wraps react-dom createPortal
-- `useEditor`, `EditorContent`, `StarterKit`, extensions from `@gds/utils/tiptap` — wraps @tiptap/* (v2)
-- `sanitizeHtml()`, `sanitizeEmailHtml()` from `@gds/utils/sanitize` — wraps dompurify (v2)
+- `cx()` — wraps `clsx` + `tailwind-merge`
+- `VariantProps` — wraps CVA type import
+- `focusCls` — standard focus ring class
+- `renderPortal()` — wraps `react-dom` `createPortal`
+- `useEditor`, `EditorContent`, `StarterKit`, extensions — wraps `@tiptap/*` (v2)
+- `sanitizeHtml()`, `sanitizeEmailHtml()` — wraps `dompurify` (v2)
 
 ## Styling
 
 - **Only semantic tokens** — never raw Tailwind colors (`bg-blue-500`)
-- **`cx()` for class merging** — import from `@gds/utils/cx`
-- **`focusCls` on all interactive elements** — from `@gds/utils/a11y`
+- **`cx()` for class merging** — imported via the project wrapper
+- **`focusCls` on all interactive elements** — imported via the project wrapper
 - **`select-none`** — on all non-content elements (buttons, labels, chrome)
 - **`cursor-pointer`** — via `role` or element type, not manually
 - **Responsive** — components must work at all breakpoints without custom media queries
