@@ -9,6 +9,14 @@ const root = resolve(import.meta.dirname, '..')
 export default defineConfig({
   base: '/',
   plugins: [tailwindcss(), react()],
+  server: {
+    port: 22301,
+    strictPort: true,
+  },
+  preview: {
+    port: 22301,
+    strictPort: true,
+  },
   resolve: {
     alias: {
       '@': resolve(import.meta.dirname, 'src'),
