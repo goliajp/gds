@@ -1,3 +1,5 @@
+import { VERSION } from '@goliapkg/gds'
+
 export function HomeView() {
   return (
     <div className="space-y-6">
@@ -6,6 +8,7 @@ export function HomeView() {
         <p className="text-fg-muted max-w-2xl">
           Fresh slate. No baggage. One component at a time, verified end-to-end before the next.
         </p>
+        <p className="text-fg-muted font-mono text-xs">library linked · @goliapkg/gds v{VERSION}</p>
       </div>
 
       <div className="border-border bg-bg-secondary rounded-lg border p-5">
