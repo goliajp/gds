@@ -1,0 +1,13 @@
+{
+  "name": "@goliapkg/gds-root",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "workspaces": ["web"],
+  "scripts": {
+    "dev": "bun --filter web dev",
+    "build": "bun --filter web build",
+    "check": "bun --filter web check",
+    "test": "bun --filter web test"
+  }
+}
