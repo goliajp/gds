@@ -12,10 +12,10 @@
   },
   "workspaces": ["web"],
   "scripts": {
-    "dev": "bun --filter web dev",
-    "build": "bun --filter web build",
-    "check": "bun --filter web check",
-    "test": "bun --filter web test"
+    "dev": "bun --filter @gds/web dev",
+    "build": "bun --filter @gds/web build",
+    "check": "bun --filter @gds/web check",
+    "test": "bun --filter @gds/web test"
   },
   "peerDependencies": {
     "react": ">=19.0.0",
