@@ -1,3 +1,4 @@
+import { cx } from '@goliapkg/gds'
 import { useEffect, useState } from 'react'
 
 type Mode = 'light' | 'system' | 'dark'
@@ -36,9 +37,10 @@ export function ThemeToggle() {
     <div className="bg-bg-tertiary flex items-center rounded-full p-0.5">
       {modes.map((m) => (
         <button
-          className={`cursor-pointer rounded-full px-3 py-1 text-xs capitalize transition-colors ${
+          className={cx(
+            'cursor-pointer rounded-full px-3 py-1 text-xs capitalize transition-colors',
             mode === m ? 'bg-bg text-fg shadow-sm' : 'text-fg-muted hover:text-fg'
-          }`}
+          )}
           key={m}
           onClick={() => setMode(m)}
           type="button"
