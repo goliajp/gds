@@ -1,13 +1,24 @@
 {
-  "name": "@goliapkg/gds-root",
+  "name": "@goliapkg/gds",
   "private": true,
   "version": "0.0.1",
+  "description": "GOLIA Design System v4 — rebuilt from scratch, one component at a time",
+  "license": "MIT",
   "type": "module",
+  "sideEffects": ["*.css"],
+  "exports": {
+    ".": "./src/index.ts",
+    "./package.json": "./package.json"
+  },
   "workspaces": ["web"],
   "scripts": {
     "dev": "bun --filter web dev",
     "build": "bun --filter web build",
     "check": "bun --filter web check",
     "test": "bun --filter web test"
+  },
+  "peerDependencies": {
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0"
   }
 }
