@@ -8,6 +8,7 @@ import { AppLayout } from './app'
 import { HomeView } from './views/home'
 import { PrinciplesView } from './views/principles'
 import { ResearchesView } from './views/researches'
+import { ThinkingsView } from './views/thinkings'
 
 // apply persisted theme before render to avoid FOUC
 const saved = localStorage.getItem('theme-mode') ?? 'system'
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
       { element: <HomeView />, index: true },
       { element: <PrinciplesView />, path: 'principles' },
       { element: <ResearchesView />, path: 'researches' },
+      { element: <ThinkingsView />, path: 'thinkings' },
     ],
     element: <AppLayout />,
     path: '/',
