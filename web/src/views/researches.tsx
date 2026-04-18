@@ -1,7 +1,8 @@
 import { cx } from '@goliapkg/gds'
 import { useState } from 'react'
 
-type Section = { heading: string; points: string[] }
+type SectionImage = { url: string; caption?: string; alt?: string }
+type Section = { heading: string; points: string[]; images?: SectionImage[] }
 
 type Research = {
   id: string
@@ -221,6 +222,105 @@ const RESEARCHES: Research[] = [
       'Mitigating Code LLM Hallucinations with API Documentation — arxiv 2407.09726',
     ],
   },
+  {
+    id: 'anthropic-frontend-design-skill-deep-dive',
+    title: 'Anthropic frontend-design skill 到底在做什么',
+    question: 'Claude Code 的 frontend-design 到底有什么用？它怎么工作？',
+    sections: [
+      {
+        heading: '它是什么',
+        points: [
+          'Anthropic 官方 Claude Code skill（plugin），目录在 github.com/anthropics/claude-code/plugins/frontend-design',
+          '体积非常小——全部指令约 400 tokens',
+          '**不是永久规则**：skill 只在匹配到"build 前端 UI"的请求时激活，不占 context 预算',
+          '装机量：截至 2026-03 已 277k+',
+        ],
+      },
+      {
+        heading: '它解决的核心问题：distributional convergence',
+        points: [
+          '观察：LLM 默认输出会收敛到训练数据的中心——Inter 字体、紫色渐变、白底、system fonts、可预测的卡片栅格',
+          '原因：采样时模型按统计模式预测 token，安全选择在 web 训练语料里占比最大',
+          '结果：不给方向的话，Claude 永远产出"好看但平庸"的 AI slop',
+          'Skill 的目标：在生成前**强制 Claude 选一个明确的美学立场**，把分布峰从"中位"推开',
+        ],
+      },
+      {
+        heading: 'SKILL.md 里具体写了什么',
+        points: [
+          '第一步"Design Thinking"要求先想：Purpose / Tone / Constraints / Differentiation',
+          'Tone 给了 11 个候选方向：brutally minimal · maximalist chaos · retro-futuristic · organic/natural · luxury/refined · playful/toy-like · editorial/magazine · brutalist/raw · art deco/geometric · soft/pastel · industrial/utilitarian',
+          '4 个美学维度，每个有具体指南：Typography / Color & Theme / Motion / Spatial Composition / Backgrounds',
+          '禁止清单（NEVER use）：Inter、Roboto、Arial、紫色渐变白底、可预测布局',
+          '"Match implementation complexity to aesthetic vision" —— minimalist 要 restraint，maximalist 要 elaborate 代码',
+        ],
+      },
+      {
+        heading: '具体建议（四个维度提要）',
+        points: [
+          'Typography：避 Inter/Roboto/Arial，选 Playfair Display / JetBrains Mono / Space Grotesk 等特征字体；display + body 双字体配对',
+          'Color：CSS 变量 + 主色 + 锐利 accent；大片平均分配的 palette 不如"主色 + 点睛色"有力',
+          'Motion：CSS-only 优先；React 用 Motion 库；集中火力在 "一个编排好的 page load（staggered reveals, animation-delay）" 上，胜过零散 micro-interaction',
+          'Spatial Composition：非对称、overlap、对角流、破栅格元素；要么大量负空间，要么高密度——两个都 OK，忌中庸',
+          'Backgrounds：gradient mesh、noise、几何图案、分层透明、戏剧性阴影、自定 cursor、grain overlay',
+        ],
+      },
+      {
+        heading: '配套 skill：web-artifacts-builder',
+        points: [
+          '同包下的另一个 skill，解锁 React + Tailwind + shadcn/ui + Parcel',
+          '让 Claude 能输出比单文件 HTML 更复杂的 React 组件',
+          '和 frontend-design 一起用：前者定美学、后者负责产出复杂代码',
+        ],
+      },
+      {
+        heading: '第三方评测：Justin Wetch 的 "Impeccable" 改进',
+        points: [
+          '指出原 skill 的一个根本 bug："NEVER converge across generations / no design should be the same" —— 每个 Claude 会话是无状态的，它根本不知道"以前生成过什么"，这条指令不可能被遵守',
+          '作者称之为"poor model theory of mind"——这是写 AI 指令时常见的思维误区',
+          '改进做法：把"pick an extreme"改成"commit to a distinct direction"、加 INSTEAD 块（避免 X，改用 Y）、标准化命令式语气、扩充风格方向（dark/moody、handcrafted、lo-fi）',
+          '结果：30 次跨 Haiku/Sonnet/Opus 4.5 评测，改进版 75% 胜率（21/28 决定性对比），p=0.0125',
+          '**Haiku 受益最多**——小模型更依赖 explicit instruction',
+        ],
+        images: [
+          {
+            url: 'https://images.squarespace-cdn.com/content/v1/577b6e3d3e00bef06962a109/45c7e77e-4fa3-408e-8c4f-206454c3ca0c/scr1.png',
+            caption:
+              'justinwetch.com 博客截图 #1（外链，内容未经 AI 确认——应为原版 skill 产出或对比截图）',
+            alt: 'Screenshot from justinwetch.com frontend design skill blog',
+          },
+          {
+            url: 'https://images.squarespace-cdn.com/content/v1/577b6e3d3e00bef06962a109/853e9598-a97a-4751-9b96-45a4c916a03e/scr3.png',
+            caption:
+              'justinwetch.com 博客截图 #2（外链，内容未经 AI 确认——应为改进版 skill 产出示例）',
+            alt: 'Screenshot from justinwetch.com frontend design skill blog',
+          },
+          {
+            url: 'https://images.squarespace-cdn.com/content/v1/577b6e3d3e00bef06962a109/01c633fd-278b-4ffe-bde9-7a606007276a/GRAPH.png',
+            caption: 'justinwetch.com 博客中的评测结果图——原版 vs 改进版 30 次对比，75% 胜率',
+            alt: 'Evaluation graph showing 75 percent win rate for improved skill',
+          },
+        ],
+      },
+      {
+        heading: '这套做法的核心观察',
+        points: [
+          '"先立美学立场 → 再让 AI 写代码" 是对抗 distributional convergence 的有效机制',
+          '禁止清单（NEVER use ...）比推荐清单更重要——直接切掉模型最想去的高概率区域',
+          'Skill 作为"窄激活 + 高密度指令"，比把规则塞进 system prompt / CLAUDE.md 永久消耗 context 更经济',
+          '指令里不要写模型做不到的事（比如"跨 session 不要重复"）——这需要对模型能力有清醒认知',
+          '小模型比大模型更依赖 explicit 指令——指令质量对 Haiku 的提升远大于对 Opus',
+        ],
+      },
+    ],
+    sources: [
+      'SKILL.md — github.com/anthropics/claude-code/blob/main/plugins/frontend-design/skills/frontend-design/SKILL.md',
+      'Anthropic 官方 plugin 页 — claude.com/plugins/frontend-design',
+      'Anthropic blog — claude.com/blog/improving-frontend-design-through-skills',
+      'Justin Wetch "Impeccable" 改进博客 — justinwetch.com/blog/improvingclaudefrontend',
+      'Impeccable skill 主页 — impeccable.style',
+    ],
+  },
 ]
 
 export function ResearchesView() {
@@ -278,6 +378,23 @@ function ResearchContent({ research }: { research: Research }) {
               <li key={p}>{p}</li>
             ))}
           </ul>
+          {s.images && s.images.length > 0 ? (
+            <div className="mt-4 space-y-4">
+              {s.images.map((img) => (
+                <figure key={img.url}>
+                  <img
+                    alt={img.alt ?? img.caption ?? ''}
+                    className="border-border bg-bg-tertiary w-full max-w-3xl rounded-lg border"
+                    loading="lazy"
+                    src={img.url}
+                  />
+                  {img.caption ? (
+                    <figcaption className="text-fg-muted mt-2 text-xs">{img.caption}</figcaption>
+                  ) : null}
+                </figure>
+              ))}
+            </div>
+          ) : null}
         </section>
       ))}
 
