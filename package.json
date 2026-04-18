@@ -15,6 +15,7 @@
     "dev": "bun --filter @gds/web dev",
     "build": "bun --filter @gds/web build",
     "check": "bun --filter @gds/web check",
+    "fix": "bun --filter @gds/web fix",
     "test": "bun --filter @gds/web test"
   },
   "peerDependencies": {
