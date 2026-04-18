@@ -7,6 +7,7 @@ const NAV = [
   { label: 'Principles', path: '/principles' },
   { label: 'Researches', path: '/researches' },
   { label: 'Thinkings', path: '/thinkings' },
+  { label: 'Labs', path: '/labs' },
 ]
 
 export function AppLayout() {

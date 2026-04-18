@@ -27,13 +27,15 @@ export function MasterDetailView({
   entries,
   listLabel,
   topicPrefix,
+  emptyHint,
 }: {
   entries: Entry[]
   listLabel: string
   topicPrefix: string
+  emptyHint?: string
 }) {
-  const [selectedId, setSelectedId] = useState<string>(entries[0]!.id)
-  const selected = entries.find((r) => r.id === selectedId)
+  const [selectedId, setSelectedId] = useState<string | null>(entries[0]?.id ?? null)
+  const selected = selectedId ? entries.find((r) => r.id === selectedId) : null
 
   return (
     <div className="flex h-full flex-col gap-6 md:flex-row">
@@ -64,7 +66,13 @@ export function MasterDetailView({
       </aside>
 
       <article className="min-w-0 flex-1 space-y-6 md:overflow-y-auto md:pr-2">
-        {selected ? <EntryContent entry={selected} topicPrefix={topicPrefix} /> : null}
+        {selected ? (
+          <EntryContent entry={selected} topicPrefix={topicPrefix} />
+        ) : (
+          <p className="text-fg-muted text-sm italic">
+            {emptyHint ?? '暂无条目。等用户定义第一个。'}
+          </p>
+        )}
       </article>
     </div>
   )
