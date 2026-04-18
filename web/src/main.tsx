@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 
 import { AppLayout } from './app'
 import { HomeView } from './views/home'
+import { LabsView } from './views/labs'
 import { PrinciplesView } from './views/principles'
 import { ResearchesView } from './views/researches'
 import { ThinkingsView } from './views/thinkings'
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       { element: <PrinciplesView />, path: 'principles' },
       { element: <ResearchesView />, path: 'researches' },
       { element: <ThinkingsView />, path: 'thinkings' },
+      { element: <LabsView />, path: 'labs' },
     ],
     element: <AppLayout />,
     path: '/',
