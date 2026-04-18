@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 
 import { AppLayout } from './app'
 import { HomeView } from './views/home'
+import { PrinciplesView } from './views/principles'
 
 // apply persisted theme before render to avoid FOUC
 const saved = localStorage.getItem('theme-mode') ?? 'system'
@@ -19,7 +20,10 @@ document.documentElement.dataset.theme = resolved
 
 const router = createBrowserRouter([
   {
-    children: [{ element: <HomeView />, index: true }],
+    children: [
+      { element: <HomeView />, index: true },
+      { element: <PrinciplesView />, path: 'principles' },
+    ],
     element: <AppLayout />,
     path: '/',
   },
