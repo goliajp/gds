@@ -39,10 +39,8 @@ export function AppLayout() {
         <ThemeToggle />
       </header>
 
-      <main className="flex-1 overflow-y-auto">
-        <div className="mx-auto max-w-4xl px-6 py-8">
-          <Outlet />
-        </div>
+      <main className="flex-1 overflow-y-auto px-6 py-8">
+        <Outlet />
       </main>
 
       <footer className="border-border text-fg-muted flex h-8 shrink-0 items-center justify-center border-t text-xs">
