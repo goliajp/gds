@@ -40,7 +40,7 @@ v4 从一开始把项目管理基础设施和业务代码同步构筑，而不�
 
 export function PrinciplesView() {
   return (
-    <div className="space-y-6">
+    <div className="mx-auto max-w-4xl space-y-6">
       <div className="space-y-2">
         <h1 className="text-fg text-2xl font-bold">Principles</h1>
         <p className="text-fg-muted max-w-2xl text-sm leading-relaxed">
