@@ -5,6 +5,7 @@ import { ThemeToggle } from './components/theme-toggle'
 const NAV = [
   { label: 'Home', path: '/' },
   { label: 'Principles', path: '/principles' },
+  { label: 'Researches', path: '/researches' },
 ]
 
 export function AppLayout() {
