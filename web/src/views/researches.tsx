@@ -129,6 +129,98 @@ const RESEARCHES: Research[] = [
       'iOS Safari 博文 2022 dvh/svh/lvh',
     ],
   },
+  {
+    id: 'ai-coding-ui-frameworks',
+    title: 'AI 写 UI 的框架与论文现状',
+    question:
+      '现在的 AI coding（Claude Code / Codex 等）有没有专门的 UI 框架？怎么设计？有相关论文吗？',
+    sections: [
+      {
+        heading: 'shadcn/ui —— AI 生成 UI 的事实标准',
+        points: [
+          '不是传统 npm 库，是把 TS 源码直接拷进你的 codebase（ownership 模型）',
+          'AI 友好核心：组件代码是可读 TS，LLM 能直接看、改、扩展——没有 Material UI 那种 theme override / styled-component 黑箱',
+          '统一 API + 已知模式让 LLM 输出可预测',
+          'Vercel v0 把它推成了 AI 生成 UI 的默认标准',
+          'Registry 机制：把设计系统（组件 + color tokens + 字体）结构化地"喂"给 AI',
+        ],
+      },
+      {
+        heading: 'v0 (Vercel) —— 代表性 AI UI 生成器',
+        points: [
+          '聊天式生成 React 组件，输出 Tailwind + shadcn/ui',
+          '支持自定义 Design System（Registry）：注入组件、颜色 tokens、字体给 AI 做上下文',
+          '可从 Figma 导入设计稿转 React',
+          '定位：prototyping / 组件 scaffolding，不做完整后端应用',
+        ],
+      },
+      {
+        heading: 'AI Elements (Vercel) —— 注意区分',
+        points: [
+          'AI Elements 是"给开发者构建 AI 应用用"，不是"给 AI 生成 UI 用"',
+          '25+ 个 React 组件，基于 shadcn/ui，配合 Vercel AI SDK',
+          '专门处理 conversation thread / message / code block / reasoning panel / response action 等 AI 场景原语',
+          '和 v0 不同：v0 是生成器，AI Elements 是给 AI chat 界面用的组件库',
+        ],
+      },
+      {
+        heading: 'Anthropic frontend-design Skill',
+        points: [
+          'Claude Code 官方 skill，截至 2026-03 已 277k+ 安装',
+          '核心观察："distributional convergence" / "AI slop"——LLM 默认输出训练数据中心化的安全选择',
+          '方法：coding 前先给 Claude 一套设计框架——purpose / audience / 美学方向（brutalist / maximalist / luxury / retro-futuristic / playful 等）',
+          '具体建议：typography 避开 Arial/Inter 等 generic 字体；color 用 CSS variables + dominant color + sharp accent；motion 集中在 high-impact 时刻（比如 staggered page load），不要 scattered micro-interaction',
+          '本质：用"明确的美学立场"对抗 LLM 的平庸中位回归',
+        ],
+      },
+      {
+        heading: 'MCP：跨 AI 注入设计系统上下文',
+        points: [
+          'shadcn 官方 Registry MCP：一条命令把任意 registry 变成 MCP 兼容，AI 能查组件 / tokens / 项目配置',
+          'AIDesigner MCP：跨 Claude Code / Cursor / Codex / Copilot / Windsurf，读 stack + tokens 生成贴合现有栈的 UI',
+          'Figma MCP：Figma × Codex + Figma × Claude Code 双向桥接',
+          '共同核心：Claude Code 原本"靠猜"组件 API / theme tokens，MCP 把真实项目配置注入 AI 的 context',
+          '成本观察：AI 从零生成 UI 要烧 100k-500k tokens，MCP + registry 能大幅降低',
+        ],
+      },
+      {
+        heading: '学术论文：生成式 UI 代表工作',
+        points: [
+          'Generative UI: LLMs are Effective UI Generators (Google, arxiv 2604.09577) —— 证明 LLM 配合合适工具能为"任何 prompt"产出高质量定制 UI，不只是 markdown wall of text',
+          'Generative Interfaces for Language Models (arxiv 2508.19227) —— 用 FSM 建模交互流 / state 转移 / 组件依赖，可控可解释',
+          'SpecifyUI (arxiv 2509.07334) —— SPEC：结构化 + 参数化 + 分层的中间表示，把 UI 规范和元素层次编码给 LLM',
+          'Towards Human-AI Synergy in UI Design / PrototypeFlow (arxiv 2412.20071) —— 多模态输入 + 意图澄清 + 主题设计模块协同',
+          'ReDemon UI (arxiv 2507.10099) —— reactive synthesis by demonstration，从交互样例反推 UI 逻辑',
+          'On Mitigating Code LLM Hallucinations with API Documentation (arxiv 2407.09726) —— API 文档写法显著影响 LLM 生成代码的 hallucination 率',
+        ],
+      },
+      {
+        heading: '跨工具 + 跨论文的共通设计模式',
+        points: [
+          '上下文注入 > 纯 prompt 工程：MCP / Registry / Skill 都在做"把真实项目结构喂给 AI"',
+          '结构化中间表示：SPEC / FSM / 组件依赖图，让 LLM 操作可控对象而不是自由文本',
+          '约束输出空间：限制 AI 能生成的形式（schema、allowed component set、token 清单），显著降低幻觉',
+          'Copy-paste ownership > 依赖黑箱：AI 能直接看改组件代码（shadcn），比包一层 theme override 可靠得多',
+          '先立美学 / 再写代码：Anthropic skill 的核心发现——先框定风格方向，再让 AI 生成，避开"AI slop"',
+          '一种 API 只做一件事：LLM 不擅长低层条件分支，把 branching 封到 API 内部，LLM 只做高层编排',
+        ],
+      },
+    ],
+    sources: [
+      'shadcn/ui — ui.shadcn.com (+ docs, blog)',
+      'Vercel v0 — vercel.com/blog/ai-powered-prototyping-with-design-systems, v0.app/docs',
+      'Vercel AI Elements — github.com/vercel/ai-elements, elements.ai-sdk.dev',
+      'Anthropic frontend-design skill — claude.com/plugins/frontend-design, claude.com/blog/improving-frontend-design-through-skills',
+      'shadcn Registry MCP — ui.shadcn.com/docs/mcp',
+      'AIDesigner MCP — a2a-mcp.org/entry/aidesigner-mcp',
+      'Generative UI (Google) — arxiv 2604.09577, generativeui.github.io',
+      'Generative Interfaces for Language Models — arxiv 2508.19227',
+      'SpecifyUI — arxiv 2509.07334',
+      'Towards Human-AI Synergy in UI Design — arxiv 2412.20071',
+      'ReDemon UI — arxiv 2507.10099',
+      'Mitigating Code LLM Hallucinations with API Documentation — arxiv 2407.09726',
+    ],
+  },
 ]
 
 export function ResearchesView() {
