@@ -2,7 +2,10 @@ import { Link, Outlet, useLocation } from 'react-router'
 
 import { ThemeToggle } from './components/theme-toggle'
 
-const NAV = [{ label: 'Home', path: '/' }]
+const NAV = [
+  { label: 'Home', path: '/' },
+  { label: 'Principles', path: '/principles' },
+]
 
 export function AppLayout() {
   const location = useLocation()
