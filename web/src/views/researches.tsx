@@ -136,8 +136,8 @@ export function ResearchesView() {
   const selected = RESEARCHES.find((r) => r.id === selectedId)
 
   return (
-    <div className="flex flex-col gap-6 md:flex-row">
-      <aside className="md:border-border md:w-72 md:shrink-0 md:border-r md:pr-4">
+    <div className="flex h-full flex-col gap-6 md:flex-row">
+      <aside className="md:border-border md:w-72 md:shrink-0 md:overflow-y-auto md:border-r md:pr-4">
         <div className="text-accent mb-3 font-mono text-xs tracking-wider uppercase">
           Researches
         </div>
@@ -163,7 +163,7 @@ export function ResearchesView() {
         </ol>
       </aside>
 
-      <article className="min-w-0 flex-1 space-y-6">
+      <article className="min-w-0 flex-1 space-y-6 md:overflow-y-auto md:pr-2">
         {selected ? <ResearchContent research={selected} /> : null}
       </article>
     </div>
