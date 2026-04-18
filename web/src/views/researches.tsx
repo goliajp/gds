@@ -1,18 +1,7 @@
-import { cx } from '@goliapkg/gds'
-import { useState } from 'react'
+import type { Entry } from './_master-detail'
+import { MasterDetailView } from './_master-detail'
 
-type SectionImage = { url: string; caption?: string; alt?: string }
-type Section = { heading: string; points: string[]; images?: SectionImage[] }
-
-type Research = {
-  id: string
-  title: string
-  question: string
-  sections: Section[]
-  sources?: string[]
-}
-
-const RESEARCHES: Research[] = [
+const RESEARCHES: Entry[] = [
   {
     id: 'mobile-friendly-ui-conventions',
     title: '成熟 UI 框架的 mobile 设计规范',
@@ -324,92 +313,5 @@ const RESEARCHES: Research[] = [
 ]
 
 export function ResearchesView() {
-  const [selectedId, setSelectedId] = useState<string>(RESEARCHES[0]!.id)
-  const selected = RESEARCHES.find((r) => r.id === selectedId)
-
-  return (
-    <div className="flex h-full flex-col gap-6 md:flex-row">
-      <aside className="md:border-border md:w-72 md:shrink-0 md:overflow-y-auto md:border-r md:pr-4">
-        <div className="text-accent mb-3 font-mono text-xs tracking-wider uppercase">
-          Researches
-        </div>
-        <ol className="space-y-1">
-          {RESEARCHES.map((r, i) => (
-            <li key={r.id}>
-              <button
-                className={cx(
-                  'flex w-full items-center rounded px-3 py-2 text-left text-sm transition-colors',
-                  selectedId === r.id
-                    ? 'bg-accent/10 text-accent'
-                    : 'text-fg-secondary hover:bg-bg-tertiary hover:text-fg'
-                )}
-                onClick={() => setSelectedId(r.id)}
-                title={r.title}
-                type="button"
-              >
-                <span className="text-fg-muted mr-2 shrink-0 font-mono text-xs">#{i + 1}</span>
-                <span className="truncate">{r.title}</span>
-              </button>
-            </li>
-          ))}
-        </ol>
-      </aside>
-
-      <article className="min-w-0 flex-1 space-y-6 md:overflow-y-auto md:pr-2">
-        {selected ? <ResearchContent research={selected} /> : null}
-      </article>
-    </div>
-  )
-}
-
-function ResearchContent({ research }: { research: Research }) {
-  return (
-    <>
-      <header className="space-y-2">
-        <h2 className="text-fg text-xl font-bold">{research.title}</h2>
-        <p className="text-fg-muted text-sm italic">Q：{research.question}</p>
-      </header>
-
-      {research.sections.map((s) => (
-        <section className="space-y-2" key={s.heading}>
-          <h3 className="text-fg text-base font-semibold">{s.heading}</h3>
-          <ul className="text-fg-secondary list-disc space-y-1.5 pl-5 text-sm leading-relaxed">
-            {s.points.map((p) => (
-              <li key={p}>{p}</li>
-            ))}
-          </ul>
-          {s.images && s.images.length > 0 ? (
-            <div className="mt-4 space-y-4">
-              {s.images.map((img) => (
-                <figure key={img.url}>
-                  <img
-                    alt={img.alt ?? img.caption ?? ''}
-                    className="border-border bg-bg-tertiary w-full max-w-3xl rounded-lg border"
-                    loading="lazy"
-                    src={img.url}
-                  />
-                  {img.caption ? (
-                    <figcaption className="text-fg-muted mt-2 text-xs">{img.caption}</figcaption>
-                  ) : null}
-                </figure>
-              ))}
-            </div>
-          ) : null}
-        </section>
-      ))}
-
-      {research.sources && research.sources.length > 0 ? (
-        <aside className="border-border border-t pt-4">
-          <h4 className="text-fg-muted mb-2 font-mono text-xs tracking-wider uppercase">
-            Sources（AI 整理，审计请人工确认）
-          </h4>
-          <ul className="text-fg-muted space-y-1 text-xs">
-            {research.sources.map((s) => (
-              <li key={s}>· {s}</li>
-            ))}
-          </ul>
-        </aside>
-      ) : null}
-    </>
-  )
+  return <MasterDetailView entries={RESEARCHES} listLabel="Researches" topicPrefix="Q" />
 }
