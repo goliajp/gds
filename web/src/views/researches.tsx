@@ -137,7 +137,7 @@ export function ResearchesView() {
 
   return (
     <div className="flex flex-col gap-6 md:flex-row">
-      <aside className="md:border-border md:w-56 md:shrink-0 md:border-r md:pr-4">
+      <aside className="md:border-border md:w-72 md:shrink-0 md:border-r md:pr-4">
         <div className="text-accent mb-3 font-mono text-xs tracking-wider uppercase">
           Researches
         </div>
@@ -146,16 +146,17 @@ export function ResearchesView() {
             <li key={r.id}>
               <button
                 className={cx(
-                  'w-full rounded px-3 py-2 text-left text-sm transition-colors',
+                  'flex w-full items-center rounded px-3 py-2 text-left text-sm transition-colors',
                   selectedId === r.id
                     ? 'bg-accent/10 text-accent'
                     : 'text-fg-secondary hover:bg-bg-tertiary hover:text-fg'
                 )}
                 onClick={() => setSelectedId(r.id)}
+                title={r.title}
                 type="button"
               >
-                <span className="text-fg-muted mr-2 font-mono text-xs">#{i + 1}</span>
-                {r.title}
+                <span className="text-fg-muted mr-2 shrink-0 font-mono text-xs">#{i + 1}</span>
+                <span className="truncate">{r.title}</span>
               </button>
             </li>
           ))}
