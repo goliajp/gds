@@ -74,10 +74,13 @@ const TEXT_LAB: Lab = {
   numeric?: 'tabular' | 'oldstyle'
   italic?: boolean
   dim?: boolean
+  highlight?: string | string[] | RegExp   // match 高亮，自动包 <mark>
+  highlightVariant?: 'accent' | 'warning' | 'success'   // 默认 accent
   children: React.ReactNode
   className?: string
 }`,
-      caption: '~14 个 prop。其余一切都是内部决策。',
+      caption:
+        '16 个 prop。其余一切都是内部决策。v4 偏好把能力挂到现有组件 prop 上——不为 match 高亮另开 `<Highlight>` 组件。',
     },
 
     { kind: 'heading', text: '3 · 语义层：as prop（唯一"需要思考"的决策）' },
@@ -219,12 +222,48 @@ xl   → 20px                   h3
     { kind: 'heading', text: '9 · Match 高亮 / <mark>（搜索命中、autocomplete、inline diff）' },
     {
       kind: 'prose',
-      text: 'search result、autocomplete、inline diff 等 UI 经常需要"原文一段，匹配部分高亮"。这是 Text 要做成一等公民的模式——既有低层原语（语义标签），也有高层组合（给一段文字自动高亮关键词）。HTML 原生 <mark> 的默认黄色背景 v4 必须 token 化。',
+      text: 'search result、autocomplete、inline diff 等 UI 经常需要"原文一段，匹配部分高亮"。v4 把这个能力**直接挂到 Text 的 `highlight` prop 上**，不另起 Highlight 组件——遵循"tag 尽可能少、能力强"的原则。HTML 原生 <mark> 的默认黄 v4 会 token 化。',
     },
     {
       kind: 'heading',
       level: 3,
-      text: '低层：as="mark" 直接语义标签',
+      text: '基本用法',
+    },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// 单关键词
+<Text highlight="world">hello world</Text>
+// 渲染：hello <mark>world</mark>
+
+// 多关键词
+<Text highlight={['foo', 'bar']}>foo and bar</Text>
+
+// 正则（大小写敏感走 RegExp 不带 i flag）
+<Text highlight={/\\b\\d+\\b/g}>id 123 and 456</Text>
+
+// 换 variant 颜色
+<Text highlight="保存" highlightVariant="warning">未保存的改动</Text>`,
+    },
+    {
+      kind: 'bullets',
+      items: [
+        '**自动包 `<mark>`**：命中的片段内部渲染成 `<mark>`，screen reader 自动 announce "highlighted"',
+        '**token 化颜色**：`highlightVariant` = accent | warning | success（默认 accent），底层走 `var(--color-<variant>-soft)` + `<variant>-strong`，不走浏览器默认黄',
+        '**默认 case-insensitive**：`highlight="World"` 匹配 "world" / "WORLD"。要大小写敏感传 RegExp 不带 `i` flag',
+        '**正则特殊字符**：string 形式内部自动 escape，消费者不用处理 `.` `*` `?`',
+        '**多关键词重叠**：按更长的优先（避免 "car" / "cart" 嵌套）',
+        '**空值容错**：空字符串 / 空数组 / 不存在的匹配 → 直接返回原文',
+        '**Unicode / emoji**：用 `[...string]` 迭代码点切片，不用 `String.length`',
+        '**RTL / bidi**：原文 dir 决定高亮方向，不强制 LTR',
+        '**性能**：内部单次 split 或 regex 扫描，不多次 replace',
+        '**children 约束**：`highlight` 只作用于 string 类型的 children。JSX children 时 skip + dev warn',
+      ],
+    },
+    {
+      kind: 'heading',
+      level: 3,
+      text: '手动语义（不走 highlight prop）',
     },
     {
       kind: 'code',
@@ -233,66 +272,23 @@ xl   → 20px                   h3
   hello <Text as="mark">world</Text>
 </Text>`,
       caption:
-        '手动知道哪段要高亮时用——Text 嵌套 Text 在 mark 这一个例外上允许（§18 anti-pattern 的豁免）。',
-    },
-    {
-      kind: 'bullets',
-      items: [
-        'mark 的 variant prop：`<Text as="mark" highlight="accent | warning | success">`——不走默认的浏览器黄',
-        '实现上底层用 `background: var(--color-accent-soft)` + `color: var(--color-accent-strong)`，走 token 不走 hex',
-        '语义上 `<mark>` screen reader 会 announce "highlighted"——保留',
-        '不改变 line-height、不 break 行内布局——内联行为和 span 一致',
-      ],
-    },
-    {
-      kind: 'heading',
-      level: 3,
-      text: '高层：<Highlight> 组合（自动切片 + 包 mark）',
-    },
-    {
-      kind: 'code',
-      lang: 'tsx',
-      content: `<Highlight
-  text="搜索命中关键词的场景"
-  match="命中"
-  variant="accent"
-/>
-// 等价于：
-<Text>
-  搜索<Text as="mark" highlight="accent">命中</Text>关键词的场景
-</Text>`,
-      caption: 'Highlight 是 Text 的姊妹组件，专门处理"原文 + 关键词"模式。',
-    },
-    {
-      kind: 'bullets',
-      items: [
-        '`match` 类型：`string | RegExp | string[]`——单关键词、正则、多关键词三种写法',
-        '默认 **case-insensitive**；想大小写敏感加 `caseSensitive` prop',
-        '多关键词重叠：按更长的优先匹配（避免"car" 和 "cart" 的嵌套高亮）',
-        '正则特殊字符：match 是 string 时内部自动 escape，消费者不需要自己处理 `.` `*` `?`',
-        '空 match 或 text 中不存在：直接返回原文，不报错',
-        'Unicode / emoji：JS `String.length` 对代理对（emoji、某些 CJK 扩展字）不准——用 `[...string]` 迭代码点做切片',
-        'RTL / bidi：原文 dir 决定高亮块的方向，不强制 LTR',
-        '性能：长文本 + 长关键词列表时，内部用**一次 split 或一次 regex 扫描**，不是多次 replace',
-        'a11y：高亮块保留 `<mark>` 语义，screen reader 能识别——不允许仅用 CSS 背景伪装（消费者很容易踩）',
-      ],
+        '手动知道哪段要高亮、不需要搜索逻辑时用。Text 嵌套 Text 在 as="mark" 上是豁免的例外。',
     },
     {
       kind: 'note',
       variant: 'warn',
-      text: '常见错误：开发者（含 AI）会用 `<span style={{ background: "yellow" }}>` 手搓高亮。视觉效果对但：(1) screen reader 不读出"highlighted"；(2) 颜色不走 token，dark mode 出洋相；(3) 不可审计。v4 的约束是强制走 mark。',
+      text: 'Anti-pattern：`<span style={{ background: "yellow" }}>` 手搓高亮。视觉对但：(1) screen reader 不读"highlighted"；(2) 颜色不走 token，dark mode 出洋相；(3) 不可审计。v4 强制走 `<Text highlight>` 或 `<Text as="mark">`。',
     },
     {
       kind: 'heading',
       level: 3,
-      text: '开放问题',
+      text: '未定的小细节',
     },
     {
       kind: 'bullets',
       items: [
-        'Highlight 做成独立组件（`<Highlight text="..." match="..." />`）还是 Text 的 prop（`<Text highlight="world">`）？—— 独立组件对 AI 更"一事一用"清晰，Text prop 让 API 更紧凑；两者各有代价，等真实消费场景出现再定',
-        'match 到多个关键词时颜色是否要能各自不同？（`match={[{ text: "foo", variant: "accent" }, { text: "bar", variant: "warning" }]}`）——复杂度 vs 真实需求',
-        '正则模式下消费者可以乱传——要不要限制？（比如禁止 backreferences 避免 ReDoS）',
+        '多关键词时要能各自不同颜色？—— 当前单一 `highlightVariant` 统一应用。真出现"红高亮 + 蓝高亮并存"的 UI 场景再加丰富形式',
+        '正则模式下要不要限制 backreferences / lookahead 防 ReDoS？—— MVP 不限，观察后加',
       ],
     },
 
