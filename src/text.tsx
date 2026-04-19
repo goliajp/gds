@@ -71,15 +71,17 @@ export type TextProps = {
 // Class maps
 // ---------------------------------------------------------------------------
 
-const SIZE_CLASS: Record<TextSize, string> = {
-  xs: 'text-[11px] leading-[1.4]',
-  sm: 'text-[13px] leading-[1.5]',
-  md: 'text-[14px] leading-[1.5]',
-  lg: 'text-[16px] leading-[1.45]',
-  xl: 'text-[20px] leading-[1.35]',
-  '2xl': 'text-[24px] leading-[1.3]',
-  '3xl': 'text-[32px] leading-[1.2]',
-  inherit: '',
+// size 走 inline style：绕开 tailwind-merge 把 text-[Npx] 和 text-fg 都当 "text-"
+// 前缀误合并的陷阱，也去除"库要保证 Tailwind 扫到"的依赖。
+const SIZE_STYLE: Record<TextSize, { fontSize?: string; lineHeight?: string }> = {
+  xs: { fontSize: '11px', lineHeight: '1.4' },
+  sm: { fontSize: '13px', lineHeight: '1.5' },
+  md: { fontSize: '14px', lineHeight: '1.5' },
+  lg: { fontSize: '16px', lineHeight: '1.45' },
+  xl: { fontSize: '20px', lineHeight: '1.35' },
+  '2xl': { fontSize: '24px', lineHeight: '1.3' },
+  '3xl': { fontSize: '32px', lineHeight: '1.2' },
+  inherit: {},
 }
 
 const WEIGHT_CLASS: Record<TextWeight, string> = {
@@ -260,7 +262,6 @@ export const Text = forwardRef<HTMLElement, TextProps>(function Text(props, ref)
   }
 
   const classes = cx(
-    SIZE_CLASS[size],
     WEIGHT_CLASS[weight],
     effectiveFamily ? FAMILY_CLASS[effectiveFamily] : '',
     COLOR_CLASS[color],
@@ -273,6 +274,11 @@ export const Text = forwardRef<HTMLElement, TextProps>(function Text(props, ref)
     className
   )
 
+  const style = {
+    ...(size !== 'inherit' ? SIZE_STYLE[size] : {}),
+    ...(truncateStyle ?? {}),
+  }
+
   const Tag = as as ElementType
 
   return createElement(
@@ -281,7 +287,7 @@ export const Text = forwardRef<HTMLElement, TextProps>(function Text(props, ref)
       ref,
       lang,
       className: classes,
-      style: truncateStyle,
+      style: Object.keys(style).length > 0 ? style : undefined,
       'data-gds-component': 'text',
       'data-gds-as': as,
       ...rest,
