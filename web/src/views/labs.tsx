@@ -1340,11 +1340,385 @@ function TextPlayground() {
 }
 
 // ============================================================================
+// Text Usecase Playground — live render every usecase from the design doc
+// ============================================================================
+
+function Demo({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section className="border-border bg-bg-secondary space-y-3 rounded-lg border p-4">
+      <h4 className="text-fg-muted font-mono text-[10px] tracking-wider uppercase">{title}</h4>
+      <div className="space-y-2">{children}</div>
+    </section>
+  )
+}
+
+function Row({ children }: { children: React.ReactNode }) {
+  return <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">{children}</div>
+}
+
+function TextUsecasePlayground() {
+  return (
+    <div className="space-y-4 p-4">
+      <div className="flex items-center justify-between">
+        <h3 className="text-fg text-base font-semibold">Live Usecases</h3>
+        <span className="text-fg-muted text-xs italic">每个场景都用真 &lt;Text&gt; 渲染</span>
+      </div>
+
+      <Demo title="1 · 层级信息">
+        <Text as="h1" size="3xl" weight="bold">
+          订单详情
+        </Text>
+        <Text size="lg" color="fg-secondary">
+          订单 #1042 · 2026-04-19
+        </Text>
+        <Text as="h2" size="xl" weight="semibold">
+          收货信息
+        </Text>
+        <Text as="h3" size="md" weight="semibold">
+          联系方式
+        </Text>
+        <Text size="sm" color="fg-muted">
+          订单 / 待发货 / 详情
+        </Text>
+      </Demo>
+
+      <Demo title="2 · 段落内容">
+        <Text as="p">用户可以在这里查看订单的完整信息……</Text>
+        <Text as="p" size="sm" color="fg-muted">
+          退款将在 3-5 个工作日内原路返回。
+        </Text>
+        <Text as="p">
+          请确认 <Text as="strong">订单金额</Text> 和 <Text as="strong">收货地址</Text>。
+        </Text>
+        <Text as="small" size="xs" color="fg-muted">
+          图 1：用户操作流程示意图
+        </Text>
+        <Text as="p">
+          <Text as="em">「这是引用的句子。」</Text> —— 某人
+        </Text>
+      </Demo>
+
+      <Demo title="3 · UI Chrome（按钮 / Tab / Badge / Tooltip）">
+        <Row>
+          <Text size="sm" weight="medium" select="none">
+            确认提交
+          </Text>
+          <Text size="sm" weight="medium" select="none">
+            概览
+          </Text>
+          <Text size="xs" weight="medium" color="accent" select="none">
+            进行中
+          </Text>
+          <Text size="xs" weight="semibold" color="danger" select="none">
+            新
+          </Text>
+        </Row>
+        <Text size="xs" color="fg-secondary">
+          <Text family="mono">⌘K</Text> 打开命令面板
+        </Text>
+        <Text size="sm" weight="medium" select="none">
+          订单管理
+        </Text>
+      </Demo>
+
+      <Demo title="4 · 表单元素（label / required / helper / error）">
+        <Text as="label" size="sm" weight="medium">
+          邮箱地址
+        </Text>
+        <Text as="label" size="sm" weight="medium">
+          邮箱地址 <Text color="danger">*</Text>
+        </Text>
+        <Text size="xs" color="fg-muted">
+          用于接收订单更新通知
+        </Text>
+        <Text size="xs" color="danger">
+          请输入有效的邮箱地址
+        </Text>
+        <Text size="xs" color="fg-muted" tabular>
+          127 / 500
+        </Text>
+      </Demo>
+
+      <Demo title="5 · 数据 / 数字 / 时间">
+        <Text size="3xl" weight="bold" tabular>
+          ¥12,480.00
+        </Text>
+        <Text size="sm" color="fg-muted">
+          本月收入
+        </Text>
+        <Row>
+          <Text size="sm" weight="medium" color="success">
+            +12.5%
+          </Text>
+          <Text size="sm" weight="medium" color="danger">
+            -4.3%
+          </Text>
+        </Row>
+        <Row>
+          <Text size="sm" tabular>
+            1,024.50
+          </Text>
+          <Text size="xs" color="fg-muted" tabular>
+            2026-04-19 14:32
+          </Text>
+          <Text size="xs" color="fg-muted">
+            3 分钟前
+          </Text>
+          <Text size="sm" tabular>
+            00:02:45
+          </Text>
+          <Text weight="semibold" tabular>
+            85%
+          </Text>
+          <Text size="sm" color="fg-muted">
+            USD
+          </Text>
+        </Row>
+      </Demo>
+
+      <Demo title="6 · 链接内文字（Link 包 Text）">
+        <Text>
+          详情见{' '}
+          <Text as="span" color="accent" decoration="underline">
+            帮助文档
+          </Text>
+        </Text>
+        <Text size="sm" color="accent" weight="medium">
+          查看全部 →
+        </Text>
+        <Text>
+          联系{' '}
+          <Text as="span" color="accent" decoration="underline">
+            客服
+          </Text>{' '}
+          获取帮助
+        </Text>
+      </Demo>
+
+      <Demo title="7 · 代码 / 技术 / 标识符">
+        <Text as="code">npm install @goliapkg/gds</Text>
+        <Text family="mono" size="sm">
+          userId
+        </Text>
+        <div className="w-full max-w-xs">
+          <Text family="mono" size="xs" color="fg-muted" truncate>
+            https://example.com/very/long/path/to/file.pdf
+          </Text>
+        </div>
+        <Row>
+          <Text family="mono" size="xs" color="fg-muted">
+            v4.0.0-alpha.1
+          </Text>
+          <Text family="mono" size="xs" color="fg-muted" tabular>
+            a3b4c5d6
+          </Text>
+          <Text family="mono" size="xs" select="none">
+            ⌘K
+          </Text>
+        </Row>
+      </Demo>
+
+      <Demo title="8 · 状态 / 反馈">
+        <Text as="p" size="sm" color="fg-muted" align="center">
+          这里还没有订单。创建第一个开始。
+        </Text>
+        <Text size="sm" color="fg-muted">
+          加载中…
+        </Text>
+        <Text size="sm" color="danger">
+          连接服务器失败，请检查网络后重试。
+        </Text>
+        <Text size="sm" color="success">
+          订单已提交，感谢购买。
+        </Text>
+        <Text size="sm" color="warning">
+          库存仅剩 3 件，建议尽快购买。
+        </Text>
+        <Text as="p" size="xs" color="fg-muted">
+          错误码 <Text family="mono">E_NETWORK_TIMEOUT</Text>，可能是网络不稳定
+        </Text>
+      </Demo>
+
+      <Demo title="9 · 搜索 / 过滤 / 高亮">
+        <Text highlight={{ match: 'v4' }}>GDS v4 是给 AI 写 webapp 的设计系统</Text>
+        <Text highlight={{ match: ['AI', 'webapp'] }}>GDS v4 是给 AI 写 webapp 的设计系统</Text>
+        <Text highlight={{ match: '未保存', variant: 'warning' }}>有未保存的改动</Text>
+        <Text highlight={{ match: /\d+/g }}>请输入验证码 123456</Text>
+        <Text size="sm" color="fg-muted">
+          找到{' '}
+          <Text color="fg" weight="medium" tabular>
+            42
+          </Text>{' '}
+          个结果
+        </Text>
+        <Text size="sm" color="fg-muted" align="center">
+          未找到与「React」相关的内容
+        </Text>
+      </Demo>
+
+      <Demo title="10 · 身份 / metadata">
+        <Row>
+          <Text size="sm" weight="medium">
+            张三
+          </Text>
+          <Text size="xs" color="fg-muted" family="mono">
+            zhangsan@example.com
+          </Text>
+          <Text size="xs" color="fg-muted">
+            设计师
+          </Text>
+        </Row>
+        <Row>
+          <Text size="sm" weight="semibold" select="none">
+            ZS
+          </Text>
+          <Text size="xs" color="fg-muted" tabular>
+            2026-04-19 14:32:05
+          </Text>
+          <Text size="xs" color="fg-muted">
+            3 分钟前
+          </Text>
+        </Row>
+        <Row>
+          <Text color="accent">@zhangsan</Text>
+          <Text color="accent">#v4</Text>
+        </Row>
+      </Demo>
+
+      <Demo title="11 · Dialog / Modal">
+        <Text as="h2" size="lg" weight="semibold">
+          确认删除
+        </Text>
+        <Text as="p" size="sm" color="fg-secondary">
+          此操作不可撤销，将永久删除该订单。
+        </Text>
+        <Text as="p" size="sm">
+          确定要删除订单 <Text weight="medium">#1042</Text> 吗？
+        </Text>
+        <Text as="p" size="sm" color="danger">
+          ⚠ 删除后无法恢复
+        </Text>
+      </Demo>
+
+      <Demo title="12 · 长内容 / UGC">
+        <Text as="p" size="sm">
+          这是用户发的一段评论内容，可能比较长，也可能包含表情符号和提到{' '}
+          <Text color="accent">@张三</Text>。
+        </Text>
+        <Text as="p">
+          这段包含 <Text as="strong">重要内容</Text>，请 <Text as="em">务必</Text> 阅读。
+        </Text>
+        <Text as="p">
+          当前价格：
+          <Text color="danger" weight="semibold">
+            ¥899
+          </Text>
+          （原价{' '}
+          <Text decoration="strike" color="fg-muted">
+            ¥1299
+          </Text>
+          ）
+        </Text>
+      </Demo>
+
+      <Demo title="13 · Marketing / Hero">
+        <Text as="h1" size="3xl" weight="bold" align="center">
+          给 AI 写 webapp 的设计系统
+        </Text>
+        <Text as="p" size="lg" color="fg-secondary" align="center">
+          克制 API 表面，吃掉海量兼容性细节
+        </Text>
+        <Text as="h3" size="xl" weight="semibold">
+          AI 友好的类型系统
+        </Text>
+        <Text as="p" size="md" color="fg-secondary">
+          所有 prop 走严格 string literal union，不允许任意字符串
+        </Text>
+        <Text size="sm" color="accent" weight="medium" transform="uppercase">
+          coming soon
+        </Text>
+      </Demo>
+
+      <Demo title="14 · i18n / CJK 混排">
+        <Text lang="zh-CN" as="p">
+          中文段落内容……渲染时检测 lang 应用对应 font-smoothing 策略。
+        </Text>
+        <Text lang="ja" as="p">
+          日本語の段落内容……
+        </Text>
+        <Text as="p">
+          使用 <Text as="code">TypeScript</Text> 是最佳选择
+        </Text>
+      </Demo>
+
+      <Demo title="15 · Selection 行为（试着选/复制）">
+        <Text as="p">这段是默认 select=auto，可以自由选中。</Text>
+        <Text select="none" size="sm" weight="medium">
+          这段 select=none，无法选中
+        </Text>
+        <Text as="code" select="all">
+          npm install @goliapkg/gds
+        </Text>
+        <Text select="none">
+          外层禁选，但内部
+          <Text select="text" family="mono">
+            sk_live_abc123
+          </Text>{' '}
+          强制可选
+        </Text>
+      </Demo>
+
+      <Demo title="16 · 截断（truncate 单行 / 多行）">
+        <div className="w-full max-w-[280px] space-y-2">
+          <Text truncate>这是一段非常非常非常长需要在容器边缘省略的文字</Text>
+          <Text truncate={2}>
+            这是多行 clamp 的示例，超过 2 行会显示省略号。这里写更多内容来触发换行，证明 clamp
+            真的工作。继续填充内容确保超出。
+          </Text>
+        </div>
+      </Demo>
+
+      <Demo title="18 · 反模式对照（红 ❌ / 绿 ✓）">
+        <div className="space-y-1">
+          <Text size="xs" color="fg-muted">
+            ❌ 手写 fontSize / color：
+          </Text>
+          <span style={{ fontSize: 14, color: 'red' }}>Hello (raw span)</span>
+          <Text size="xs" color="fg-muted">
+            ✓ Text size + color：
+          </Text>
+          <Text size="md" color="danger">
+            Hello (Text)
+          </Text>
+        </div>
+        <div className="space-y-1">
+          <Text size="xs" color="fg-muted">
+            ❌ raw span 高亮：
+          </Text>
+          <span>
+            搜索<span style={{ background: 'yellow', color: 'black' }}>命中</span>关键词
+          </span>
+          <Text size="xs" color="fg-muted">
+            ✓ Text highlight：
+          </Text>
+          <Text highlight={{ match: '命中' }}>搜索命中关键词</Text>
+        </div>
+      </Demo>
+
+      <div className="border-border text-fg-muted rounded border border-dashed p-3 text-xs italic">
+        §17（何时不该用 Text）和 §19（audit follow-ups）是文档性质的清单，无需 live demo。
+      </div>
+    </div>
+  )
+}
+
+// ============================================================================
 // Labs list
 // ============================================================================
 
-// Wire playground onto TEXT_LAB (mutation before LABS array — keeps data co-located)
+// Wire playgrounds onto labs (mutation before LABS array — keeps data co-located)
 TEXT_LAB.playground = () => <TextPlayground />
+TEXT_USECASE_LAB.playground = () => <TextUsecasePlayground />
 
 const LABS: Lab[] = [TEXT_LAB, TEXT_USECASE_LAB]
 
