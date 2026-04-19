@@ -216,7 +216,87 @@ xl   → 20px                   h3
       ],
     },
 
-    { kind: 'heading', text: '9 · Selection 控制（独立封装的核心理由）' },
+    { kind: 'heading', text: '9 · Match 高亮 / <mark>（搜索命中、autocomplete、inline diff）' },
+    {
+      kind: 'prose',
+      text: 'search result、autocomplete、inline diff 等 UI 经常需要"原文一段，匹配部分高亮"。这是 Text 要做成一等公民的模式——既有低层原语（语义标签），也有高层组合（给一段文字自动高亮关键词）。HTML 原生 <mark> 的默认黄色背景 v4 必须 token 化。',
+    },
+    {
+      kind: 'heading',
+      level: 3,
+      text: '低层：as="mark" 直接语义标签',
+    },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `<Text>
+  hello <Text as="mark">world</Text>
+</Text>`,
+      caption:
+        '手动知道哪段要高亮时用——Text 嵌套 Text 在 mark 这一个例外上允许（§18 anti-pattern 的豁免）。',
+    },
+    {
+      kind: 'bullets',
+      items: [
+        'mark 的 variant prop：`<Text as="mark" highlight="accent | warning | success">`——不走默认的浏览器黄',
+        '实现上底层用 `background: var(--color-accent-soft)` + `color: var(--color-accent-strong)`，走 token 不走 hex',
+        '语义上 `<mark>` screen reader 会 announce "highlighted"——保留',
+        '不改变 line-height、不 break 行内布局——内联行为和 span 一致',
+      ],
+    },
+    {
+      kind: 'heading',
+      level: 3,
+      text: '高层：<Highlight> 组合（自动切片 + 包 mark）',
+    },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `<Highlight
+  text="搜索命中关键词的场景"
+  match="命中"
+  variant="accent"
+/>
+// 等价于：
+<Text>
+  搜索<Text as="mark" highlight="accent">命中</Text>关键词的场景
+</Text>`,
+      caption: 'Highlight 是 Text 的姊妹组件，专门处理"原文 + 关键词"模式。',
+    },
+    {
+      kind: 'bullets',
+      items: [
+        '`match` 类型：`string | RegExp | string[]`——单关键词、正则、多关键词三种写法',
+        '默认 **case-insensitive**；想大小写敏感加 `caseSensitive` prop',
+        '多关键词重叠：按更长的优先匹配（避免"car" 和 "cart" 的嵌套高亮）',
+        '正则特殊字符：match 是 string 时内部自动 escape，消费者不需要自己处理 `.` `*` `?`',
+        '空 match 或 text 中不存在：直接返回原文，不报错',
+        'Unicode / emoji：JS `String.length` 对代理对（emoji、某些 CJK 扩展字）不准——用 `[...string]` 迭代码点做切片',
+        'RTL / bidi：原文 dir 决定高亮块的方向，不强制 LTR',
+        '性能：长文本 + 长关键词列表时，内部用**一次 split 或一次 regex 扫描**，不是多次 replace',
+        'a11y：高亮块保留 `<mark>` 语义，screen reader 能识别——不允许仅用 CSS 背景伪装（消费者很容易踩）',
+      ],
+    },
+    {
+      kind: 'note',
+      variant: 'warn',
+      text: '常见错误：开发者（含 AI）会用 `<span style={{ background: "yellow" }}>` 手搓高亮。视觉效果对但：(1) screen reader 不读出"highlighted"；(2) 颜色不走 token，dark mode 出洋相；(3) 不可审计。v4 的约束是强制走 mark。',
+    },
+    {
+      kind: 'heading',
+      level: 3,
+      text: '开放问题',
+    },
+    {
+      kind: 'bullets',
+      items: [
+        'Highlight 做成独立组件还是 Text 的 prop（`<Text highlight="world">`）？前者 AI 更清晰，后者 API 更紧凑——倾向前者',
+        'match 到多个关键词时颜色是否要能各自不同？（`match={[{ text: "foo", variant: "accent" }, { text: "bar", variant: "warning" }]}`）——复杂度 vs 真实需求',
+        '正则模式下消费者可以乱传——要不要限制？（比如禁止 backreferences 避免 ReDoS）',
+      ],
+    },
+
+    { kind: 'heading', text: '10 · Selection 控制（独立封装的核心理由）' },
     {
       kind: 'prose',
       text: 'HTML 默认所有文字可选中。但 UI chrome（按钮文字、nav 项、tab label、status chip）不该被选中——拖动应该 drag 整个元素，不是选文字。Content 文字必须可选。code block 点一下最好全选。这些必须在 primitive 层强制，不能依赖消费者记得写 CSS。',
@@ -235,7 +315,7 @@ xl   → 20px                   h3
       ],
     },
 
-    { kind: 'heading', text: '10 · 截断 & 溢出（单行 ellipsis / 多行 clamp / word-break）' },
+    { kind: 'heading', text: '11 · 截断 & 溢出（单行 ellipsis / 多行 clamp / word-break）' },
     {
       kind: 'prose',
       text: '文字溢出是 UI 的另一个大坑。v4 用一个 `truncate` prop 统一单行和多行。',
@@ -259,7 +339,7 @@ xl   → 20px                   h3
       ],
     },
 
-    { kind: 'heading', text: '11 · White-space 模式' },
+    { kind: 'heading', text: '12 · White-space 模式' },
     {
       kind: 'bullets',
       items: [
@@ -270,7 +350,7 @@ xl   → 20px                   h3
       ],
     },
 
-    { kind: 'heading', text: '12 · i18n & CJK 特殊处理' },
+    { kind: 'heading', text: '13 · i18n & CJK 特殊处理' },
     {
       kind: 'prose',
       text: '中文不空格分词、Thai 没空格、阿拉伯从右到左、日本可以竖排——v4 至少要让这些场景不崩。',
@@ -289,7 +369,7 @@ xl   → 20px                   h3
       ],
     },
 
-    { kind: 'heading', text: '13 · 移动端特定坑' },
+    { kind: 'heading', text: '14 · 移动端特定坑' },
     {
       kind: 'bullets',
       items: [
@@ -302,7 +382,7 @@ xl   → 20px                   h3
       ],
     },
 
-    { kind: 'heading', text: '14 · OpenType Features（ligatures / tabular / kerning）' },
+    { kind: 'heading', text: '15 · OpenType Features（ligatures / tabular / kerning）' },
     {
       kind: 'bullets',
       items: [
@@ -314,7 +394,7 @@ xl   → 20px                   h3
       ],
     },
 
-    { kind: 'heading', text: '15 · Accessibility' },
+    { kind: 'heading', text: '16 · Accessibility' },
     {
       kind: 'bullets',
       items:
@@ -330,7 +410,7 @@ xl   → 20px                   h3
           ]),
     },
 
-    { kind: 'heading', text: '16 · 浏览器 quirks 吸收清单' },
+    { kind: 'heading', text: '17 · 浏览器 quirks 吸收清单' },
     {
       kind: 'bullets',
       items: [
@@ -344,7 +424,7 @@ xl   → 20px                   h3
       ],
     },
 
-    { kind: 'heading', text: '17 · Anti-patterns（AI 容易犯的错）' },
+    { kind: 'heading', text: '18 · Anti-patterns（AI 容易犯的错）' },
     {
       kind: 'bullets',
       items: [
@@ -357,7 +437,7 @@ xl   → 20px                   h3
       ],
     },
 
-    { kind: 'heading', text: '18 · MVP 实现计划' },
+    { kind: 'heading', text: '19 · MVP 实现计划' },
     {
       kind: 'prose',
       text: '上面列的是理想态。第一版 MVP 不用全实现——但 API 类型要 final（避免后期 breaking）。分三阶段：',
@@ -375,7 +455,7 @@ xl   → 20px                   h3
       ],
     },
 
-    { kind: 'heading', text: '19 · 开放问题（等人定，AI 不预设）' },
+    { kind: 'heading', text: '20 · 开放问题（等人定，AI 不预设）' },
     {
       kind: 'bullets',
       items: [
