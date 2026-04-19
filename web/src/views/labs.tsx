@@ -477,10 +477,504 @@ xl   → 20px                   h3
 }
 
 // ============================================================================
+// Lab #2 — Text Usecase
+// ============================================================================
+
+const TEXT_USECASE_LAB: Lab = {
+  id: 'text-usecase',
+  title: 'Text Usecase — 所有典型场景的 API 查找表',
+  status: 'design',
+  summary:
+    '列出 Text 覆盖的所有常见 UI 场景与对应的 API 用法。写 UI 时从这里找：要渲染 X，用什么 props。下列例子**使用 audit 后的 14-prop API**（transform=uppercase/lowercase、tabular boolean、加 lang、砍 dim/italic/oldstyle 等）——如果 audit 未被接受会 rollback。',
+  blocks: [
+    {
+      kind: 'note',
+      variant: 'info',
+      text: '本 lab 的所有例子里，nested Text（`<Text>... <Text as="strong">强调</Text> ...</Text>`）是合法的——这说明 Text lab §3 / §17 里"不要嵌套 Text"的 anti-pattern 需要放宽为"不要嵌套同 `as` 的 Text"。已标为需要补的问题。',
+    },
+
+    { kind: 'heading', text: '1 · 层级信息' },
+    {
+      kind: 'prose',
+      text: '页面 / 区块的标题和辅助文案。语义走 `as`，视觉独立用 size/weight。',
+    },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// 页面 H1
+<Text as="h1" size="3xl" weight="bold">订单详情</Text>
+
+// 副标题 / lead
+<Text size="lg" color="fg-secondary">订单 #1042 · 2026-04-19</Text>
+
+// 区块 H2
+<Text as="h2" size="xl" weight="semibold">收货信息</Text>
+
+// 子区块 H3
+<Text as="h3" size="md" weight="semibold">联系方式</Text>
+
+// 面包屑（里面的点击项是 Link 包 Text）
+<Text size="sm" color="fg-muted">订单 / 待发货 / 详情</Text>`,
+    },
+
+    { kind: 'heading', text: '2 · 段落内容' },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// 普通段落
+<Text as="p">用户可以在这里查看订单的完整信息……</Text>
+
+// 静音段落（提示说明）
+<Text as="p" size="sm" color="fg-muted">
+  退款将在 3-5 个工作日内原路返回。
+</Text>
+
+// 段落内强调
+<Text as="p">
+  请确认 <Text as="strong">订单金额</Text> 和 <Text as="strong">收货地址</Text>。
+</Text>
+
+// figure caption
+<Text as="small" size="xs" color="fg-muted">
+  图 1：用户操作流程示意图
+</Text>
+
+// 引用（语义 + 视觉）—— italic 是 Phase 2 所以走 as="em" 拿斜体
+<Text as="p">
+  <Text as="em">「这是引用的句子。」</Text> —— 某人
+</Text>`,
+    },
+
+    { kind: 'heading', text: '3 · UI Chrome（按钮、Tab、Badge、Tooltip）' },
+    {
+      kind: 'prose',
+      text: 'UI 装饰文字的共同特征：**不应被选中**（select="none"）、**视觉级不大**（sm / xs）、**中等字重**（medium）。',
+    },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// 按钮内部文字（Button 会在内部封装）
+<Text size="sm" weight="medium" select="none">确认提交</Text>
+
+// Tab label
+<Text size="sm" weight="medium" select="none">概览</Text>
+
+// 状态 chip
+<Text size="xs" weight="medium" color="accent" select="none">进行中</Text>
+
+// Badge（小标）
+<Text size="xs" weight="semibold" color="danger" select="none">新</Text>
+
+// Tooltip 内容
+<Text size="xs" color="fg-secondary">
+  <Text family="mono">⌘K</Text> 打开命令面板
+</Text>
+
+// 导航项
+<Text size="sm" weight="medium" select="none">订单管理</Text>`,
+    },
+
+    { kind: 'heading', text: '4 · 表单元素（label / helper / error）' },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// Field label（htmlFor 走 rest spread）
+<Text as="label" size="sm" weight="medium" htmlFor="email">邮箱地址</Text>
+
+// 带必填星号
+<Text as="label" size="sm" weight="medium">
+  邮箱地址 <Text color="danger">*</Text>
+</Text>
+
+// Helper text（字段下方说明）
+<Text size="xs" color="fg-muted">
+  用于接收订单更新通知
+</Text>
+
+// Error message
+<Text size="xs" color="danger">
+  请输入有效的邮箱地址
+</Text>
+
+// 字数统计（tabular 让数字对齐不跳）
+<Text size="xs" color="fg-muted" tabular>127 / 500</Text>`,
+    },
+
+    { kind: 'heading', text: '5 · 数据 / 数字 / 时间' },
+    {
+      kind: 'prose',
+      text: '数字和时间有两个共同约束：(1) 需要 `tabular` 保证多行垂直对齐；(2) 颜色用 color prop（涨绿跌红）而不是手写颜色。',
+    },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// KPI 大数字 + 辅助说明
+<Text size="3xl" weight="bold" tabular>¥12,480.00</Text>
+<Text size="sm" color="fg-muted">本月收入</Text>
+
+// 涨跌 delta
+<Text size="sm" weight="medium" color="success">+12.5%</Text>
+<Text size="sm" weight="medium" color="danger">-4.3%</Text>
+
+// Table cell 数字
+<Text size="sm" tabular>1,024.50</Text>
+
+// 绝对时间
+<Text size="xs" color="fg-muted" tabular>2026-04-19 14:32</Text>
+
+// 相对时间
+<Text size="xs" color="fg-muted">3 分钟前</Text>
+
+// Duration（00:02:45）
+<Text size="sm" tabular>00:02:45</Text>
+
+// 百分比
+<Text weight="semibold" tabular>85%</Text>
+
+// Currency / unit 符号
+<Text size="sm" color="fg-muted">USD</Text>`,
+    },
+
+    { kind: 'heading', text: '6 · 链接内文字（Link 包 Text）' },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// Inline link
+<Link>
+  <Text color="accent" decoration="underline">了解更多</Text>
+</Link>
+
+// "查看全部"
+<Link>
+  <Text size="sm" color="accent" weight="medium">查看全部 →</Text>
+</Link>
+
+// 段落内链接
+<Text as="p">
+  详情见 <Link><Text color="accent" decoration="underline">帮助文档</Text></Link>
+</Text>`,
+    },
+
+    { kind: 'heading', text: '7 · 代码 / 技术 / 标识符' },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// Inline code
+<Text as="code">npm install @goliapkg/gds</Text>
+
+// 变量名
+<Text family="mono" size="sm">userId</Text>
+
+// URL / 文件路径（超长时 truncate）
+<Text family="mono" size="xs" color="fg-muted" truncate>
+  https://example.com/very/long/path/to/file.pdf
+</Text>
+
+// 版本号
+<Text family="mono" size="xs" color="fg-muted">v4.0.0-alpha.1</Text>
+
+// Commit hash / ID（tabular 对齐）
+<Text family="mono" size="xs" color="fg-muted" tabular>a3b4c5d6</Text>
+
+// 键盘快捷键（将来有 Kbd 组件；过渡期走 Text）
+<Text family="mono" size="xs" select="none">⌘K</Text>`,
+    },
+
+    { kind: 'heading', text: '8 · 状态 / 系统反馈' },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// Empty state
+<Text as="p" size="sm" color="fg-muted" align="center">
+  这里还没有订单。创建第一个开始。
+</Text>
+
+// Loading 文字
+<Text size="sm" color="fg-muted">加载中…</Text>
+
+// Error banner body
+<Text size="sm" color="danger">
+  连接服务器失败，请检查网络后重试。
+</Text>
+
+// Success toast
+<Text size="sm" color="success">订单已提交，感谢购买。</Text>
+
+// Warning 提示
+<Text size="sm" color="warning">
+  库存仅剩 3 件，建议尽快购买。
+</Text>
+
+// "为什么失败"说明
+<Text as="p" size="xs" color="fg-muted">
+  错误码 <Text family="mono">E_NETWORK_TIMEOUT</Text>，可能是网络不稳定
+</Text>`,
+    },
+
+    { kind: 'heading', text: '9 · 搜索 / 过滤 / 高亮' },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// 命中关键词（最常见场景）
+<Text highlight={{ match: 'v4' }}>
+  GDS v4 是给 AI 写 webapp 的设计系统
+</Text>
+
+// 多关键词
+<Text highlight={{ match: ['AI', 'webapp'] }}>
+  GDS v4 是给 AI 写 webapp 的设计系统
+</Text>
+
+// 警告颜色高亮
+<Text highlight={{ match: '未保存', variant: 'warning' }}>
+  有未保存的改动
+</Text>
+
+// 正则命中（大小写敏感不带 i flag）
+<Text highlight={{ match: /\\b\\d+\\b/g }}>
+  请输入验证码 123456
+</Text>
+
+// 结果数量（数字用 tabular，嵌套 Text 改颜色/字重）
+<Text size="sm" color="fg-muted">
+  找到 <Text color="fg" weight="medium" tabular>42</Text> 个结果
+</Text>
+
+// 无结果
+<Text size="sm" color="fg-muted" align="center">
+  未找到与「React」相关的内容
+</Text>`,
+    },
+
+    { kind: 'heading', text: '10 · 身份 / metadata' },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// User name
+<Text size="sm" weight="medium">张三</Text>
+
+// Email（mono 字体更清晰）
+<Text size="xs" color="fg-muted" family="mono">
+  zhangsan@example.com
+</Text>
+
+// Role / title
+<Text size="xs" color="fg-muted">设计师</Text>
+
+// Avatar fallback initials（Avatar 内部；select=none 避免拖动误选）
+<Text size="sm" weight="semibold" select="none">ZS</Text>
+
+// 绝对时间（tabular 对齐列表）
+<Text size="xs" color="fg-muted" tabular>2026-04-19 14:32:05</Text>
+
+// 相对时间
+<Text size="xs" color="fg-muted">3 分钟前</Text>
+
+// @mention（accent 色提示可点击）
+<Text color="accent">@zhangsan</Text>
+
+// Hashtag
+<Text color="accent">#v4</Text>`,
+    },
+
+    { kind: 'heading', text: '11 · Dialog / Modal / Confirmation' },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// Dialog title（小于 h1 但不失醒目）
+<Text as="h2" size="lg" weight="semibold">确认删除</Text>
+
+// Dialog description
+<Text as="p" size="sm" color="fg-secondary">
+  此操作不可撤销，将永久删除该订单。
+</Text>
+
+// Confirmation body with emphasis
+<Text as="p" size="sm">
+  确定要删除订单 <Text weight="medium">#1042</Text> 吗？
+</Text>
+
+// 破坏性操作警告
+<Text as="p" size="sm" color="danger">
+  ⚠ 删除后无法恢复
+</Text>`,
+    },
+
+    { kind: 'heading', text: '12 · 长内容 / UGC' },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// 用户评论正文
+<Text as="p" size="sm">
+  （用户发的评论……）
+</Text>
+
+// 用户 Post body
+<Text as="p" size="md">
+  （长段内容……）
+</Text>
+
+// 段落内嵌 emphasis
+<Text as="p">
+  这段包含 <Text as="strong">重要内容</Text>，请 <Text as="em">务必</Text> 阅读。
+</Text>
+
+// 带颜色强调（不带语义）
+<Text as="p">
+  当前价格: <Text color="danger" weight="semibold">¥899</Text>（原价 <Text decoration="strike" color="fg-muted">¥1299</Text>）
+</Text>`,
+    },
+
+    { kind: 'heading', text: '13 · Marketing / Hero' },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// Hero H1（wrap balance 是 Phase 2 才有）
+<Text as="h1" size="3xl" weight="bold" align="center">
+  给 AI 写 webapp 的设计系统
+</Text>
+
+// Hero subtitle
+<Text as="p" size="lg" color="fg-secondary" align="center">
+  克制 API 表面，吃掉海量兼容性细节
+</Text>
+
+// Feature title
+<Text as="h3" size="xl" weight="semibold">AI 友好的类型系统</Text>
+
+// Feature description
+<Text as="p" size="md" color="fg-secondary">
+  所有 prop 走严格 string literal union，不允许任意字符串
+</Text>
+
+// 标语 / Tagline
+<Text size="sm" color="accent" weight="medium" transform="uppercase">
+  Coming Soon
+</Text>`,
+    },
+
+    { kind: 'heading', text: '14 · i18n / CJK 混排' },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// 指定中文段落（影响 font-smoothing / hyphens）
+<Text lang="zh-CN" as="p">中文段落内容……</Text>
+
+// 指定日文段落
+<Text lang="ja" as="p">日本語の段落……</Text>
+
+// 中英混排
+<Text as="p">
+  使用 <Text as="code">TypeScript</Text> 是最佳选择
+</Text>
+
+// Screen reader 需要的语言提示
+<Text lang="en" aria-label="Version 4">v4</Text>`,
+    },
+
+    { kind: 'heading', text: '15 · Selection 行为（select prop）' },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// Content 段落（默认允许选中）
+<Text as="p">这段可以自由选中</Text>
+
+// UI chrome（禁止选中）
+<Text select="none" size="sm" weight="medium">保存</Text>
+
+// 代码片段（点击即全选，方便复制）
+<Text as="code" select="all">npm install @goliapkg/gds</Text>
+
+// 父级禁选但里面某段强制可选（如 API key 展示）
+<Text select="none">
+  你的 API key:
+  <Text select="text" family="mono">sk_live_abc123xyz789</Text>
+</Text>`,
+    },
+
+    { kind: 'heading', text: '16 · 截断（truncate 单行 / 多行）' },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// 单行省略
+<Text truncate>这是一段非常非常非常长需要省略的文字……</Text>
+
+// 3 行 clamp
+<Text truncate={3}>
+  （多行内容……超出 3 行后省略，带 ...）
+</Text>
+
+// 表格单元格（通常 truncate，tabular 保证列对齐）
+<Text size="sm" truncate>用户名称可能很长</Text>`,
+    },
+
+    { kind: 'heading', text: '17 · 何时不该用 Text（→ 其他组件）' },
+    {
+      kind: 'bullets',
+      items: [
+        '**需要点击 → Button / Link**（内部会包 Text，但你写 `<Button>文字</Button>`）',
+        '**屏幕阅读器专用隐藏文字 → VisuallyHidden**（未来组件）',
+        '**键盘快捷键语义 → Kbd**（未来组件；过渡期 `<Text family="mono">⌘K</Text>`）',
+        '**表情 / 图标 → Icon**（Lucide 或 v4 Icon 组件）',
+        '**多行代码块（带高亮）→ CodeBlock**（未来组件）',
+        '**Markdown 渲染 → Markdown**（未来组件）',
+        '**时间语义 + 机器可读 → `<time dateTime="...">`**（Text 不包含 dateTime attr 透传，需要单独 Time 组件）',
+      ],
+    },
+
+    { kind: 'heading', text: '18 · 反模式对照表（AI 容易写错的写法）' },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// ❌ 手写 fontSize
+<span style={{ fontSize: 14 }}>Hello</span>
+// ✓ 用 size prop
+<Text size="md">Hello</Text>
+
+// ❌ 手写颜色
+<span style={{ color: 'red' }}>Error</span>
+// ✓ 用 color token
+<Text color="danger">Error</Text>
+
+// ❌ 手写高亮
+<span style={{ background: 'yellow' }}>match</span>
+// ✓ 用 highlight
+<Text highlight={{ match: 'match' }}>some match here</Text>
+
+// ❌ Button 模拟（Text + onClick）
+<Text onClick={...}>Save</Text>
+// ✓ 用 Button
+<Button onClick={...}>Save</Button>
+
+// ❌ 视觉想要粗体，错用 semantic
+<Text as="strong">¥12.00</Text>  // 把"价格"标成语义强调
+// ✓ 只要视觉粗 → weight
+<Text weight="bold">¥12.00</Text>
+
+// ❌ 静态已知要 mark 的文字用了 highlight
+<Text highlight={{ match: '新' }}>新订单</Text>  // 搜索语义但其实是固定 label
+// ✓ 固定字面量直接用 as="mark"
+<Text as="mark">新</Text>订单`,
+    },
+
+    { kind: 'heading', text: '19 · Audit 发现需回头补的' },
+    {
+      kind: 'bullets',
+      items: [
+        '**§3 / §17 anti-pattern "不要嵌套 Text" 要放宽**——本 lab 里大量合理嵌套（段落内强调 / 改颜色 / 改字重）证明原规则过严。正确规则应该是"不要嵌套同 `as` 的 Text"或"不要通过嵌套绕开类型约束"',
+        '**表单 label 的 htmlFor 要明确走 rest spread**——§3 说 label 需要 htmlFor，API 层面没明示；usecase 里用了，要补进 prop 签名说明或 TS 示例',
+        '**数据 metadata 的"相对时间"经常自动更新**——每 60s 刷新 "3 分钟前"。不是 Text 的职责（上层 RelativeTime 组件处理），但使用 Text 的组合需要在 Text Usecase §10 或未来 RelativeTime lab 中说清',
+        'Hero 标题 wrap balance 是个明显的未覆盖缺口 —— Phase 2 加的优先级应该往前',
+      ],
+    },
+  ],
+}
+
+// ============================================================================
 // Labs list
 // ============================================================================
 
-const LABS: Lab[] = [TEXT_LAB]
+const LABS: Lab[] = [TEXT_LAB, TEXT_USECASE_LAB]
 
 // ============================================================================
 // View
