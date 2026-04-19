@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@source '../../src/**/*.{ts,tsx}';
+
 @theme {
   --color-bg: #0a0a0b;
   --color-bg-secondary: #111114;
