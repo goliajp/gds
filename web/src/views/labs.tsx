@@ -74,13 +74,20 @@ const TEXT_LAB: Lab = {
   numeric?: 'tabular' | 'oldstyle'
   italic?: boolean
   dim?: boolean
-  highlight?: string | string[] | RegExp   // match 高亮，自动包 <mark>
-  highlightVariant?: 'accent' | 'warning' | 'success'   // 默认 accent
+  highlight?: {
+    match: string | string[] | RegExp
+    variant?: 'accent' | 'warning' | 'success'  // 默认 accent
+    caseSensitive?: boolean                      // 默认 false
+  }
   children: React.ReactNode
   className?: string
-}`,
+}
+
+// sub-feature 配置统一用对象形式，不平铺 sibling props。v4 通用约定。
+// 好处：内聚、扩展不污染顶层 prop 空间、可 export 独立类型 TextHighlightConfig。
+// 代价：简单场景多打 {{ match: ... }} 的 10 个字符。接受。`,
       caption:
-        '16 个 prop。其余一切都是内部决策。v4 偏好把能力挂到现有组件 prop 上——不为 match 高亮另开 `<Highlight>` 组件。',
+        '15 个 prop。其余一切都是内部决策。v4 约定：sub-feature（比如 highlight）统一用对象配置，不平铺 sibling props。',
     },
 
     { kind: 'heading', text: '3 · 语义层：as prop（唯一"需要思考"的决策）' },
@@ -222,7 +229,7 @@ xl   → 20px                   h3
     { kind: 'heading', text: '9 · Match 高亮 / <mark>（搜索命中、autocomplete、inline diff）' },
     {
       kind: 'prose',
-      text: 'search result、autocomplete、inline diff 等 UI 经常需要"原文一段，匹配部分高亮"。v4 把这个能力**直接挂到 Text 的 `highlight` prop 上**，不另起 Highlight 组件——遵循"tag 尽可能少、能力强"的原则。HTML 原生 <mark> 的默认黄 v4 会 token 化。',
+      text: 'search result、autocomplete、inline diff 等 UI 经常需要"原文一段，匹配部分高亮"。v4 把这个能力**直接挂到 Text 的 `highlight` prop 上**——不另起 Highlight 组件（遵循"tag 尽可能少、能力强"），且配置走嵌套对象形式（遵循"sub-feature 走对象配置"）。HTML 原生 <mark> 的默认黄 v4 token 化。',
     },
     {
       kind: 'heading',
@@ -233,25 +240,28 @@ xl   → 20px                   h3
       kind: 'code',
       lang: 'tsx',
       content: `// 单关键词
-<Text highlight="world">hello world</Text>
+<Text highlight={{ match: 'world' }}>hello world</Text>
 // 渲染：hello <mark>world</mark>
 
 // 多关键词
-<Text highlight={['foo', 'bar']}>foo and bar</Text>
+<Text highlight={{ match: ['foo', 'bar'] }}>foo and bar</Text>
 
-// 正则（大小写敏感走 RegExp 不带 i flag）
-<Text highlight={/\\b\\d+\\b/g}>id 123 and 456</Text>
+// 正则
+<Text highlight={{ match: /\\b\\d+\\b/g }}>id 123 and 456</Text>
 
-// 换 variant 颜色
-<Text highlight="保存" highlightVariant="warning">未保存的改动</Text>`,
+// 换颜色
+<Text highlight={{ match: '保存', variant: 'warning' }}>未保存的改动</Text>
+
+// 大小写敏感
+<Text highlight={{ match: 'World', caseSensitive: true }}>hello World, world</Text>`,
     },
     {
       kind: 'bullets',
       items: [
         '**自动包 `<mark>`**：命中的片段内部渲染成 `<mark>`，screen reader 自动 announce "highlighted"',
-        '**token 化颜色**：`highlightVariant` = accent | warning | success（默认 accent），底层走 `var(--color-<variant>-soft)` + `<variant>-strong`，不走浏览器默认黄',
-        '**默认 case-insensitive**：`highlight="World"` 匹配 "world" / "WORLD"。要大小写敏感传 RegExp 不带 `i` flag',
-        '**正则特殊字符**：string 形式内部自动 escape，消费者不用处理 `.` `*` `?`',
+        '**token 化颜色**：`variant` 取 accent | warning | success（默认 accent），底层走 `var(--color-<variant>-soft)` + `<variant>-strong`，不走浏览器默认黄',
+        '**默认 case-insensitive**：`match: "World"` 匹配 "world" / "WORLD"。需要大小写敏感时设 `caseSensitive: true`，或传 RegExp 自控 flag',
+        '**正则特殊字符**：match 是 string 时内部自动 escape，消费者不用处理 `.` `*` `?`',
         '**多关键词重叠**：按更长的优先（避免 "car" / "cart" 嵌套）',
         '**空值容错**：空字符串 / 空数组 / 不存在的匹配 → 直接返回原文',
         '**Unicode / emoji**：用 `[...string]` 迭代码点切片，不用 `String.length`',
@@ -277,7 +287,7 @@ xl   → 20px                   h3
     {
       kind: 'note',
       variant: 'warn',
-      text: 'Anti-pattern：`<span style={{ background: "yellow" }}>` 手搓高亮。视觉对但：(1) screen reader 不读"highlighted"；(2) 颜色不走 token，dark mode 出洋相；(3) 不可审计。v4 强制走 `<Text highlight>` 或 `<Text as="mark">`。',
+      text: 'Anti-pattern：`<span style={{ background: "yellow" }}>` 手搓高亮。视觉对但：(1) screen reader 不读"highlighted"；(2) 颜色不走 token，dark mode 出洋相；(3) 不可审计。v4 强制走 `<Text highlight={{...}}>` 或 `<Text as="mark">`。',
     },
     {
       kind: 'heading',
@@ -287,7 +297,7 @@ xl   → 20px                   h3
     {
       kind: 'bullets',
       items: [
-        '多关键词时要能各自不同颜色？—— 当前单一 `highlightVariant` 统一应用。真出现"红高亮 + 蓝高亮并存"的 UI 场景再加丰富形式',
+        '多关键词时要能各自不同颜色？—— 当前 `highlight.variant` 统一应用到所有匹配。真出现"红高亮 + 蓝高亮并存"的 UI 场景时可以扩成 `match: [{ text, variant }, ...]` 的丰富形式',
         '正则模式下要不要限制 backreferences / lookahead 防 ReDoS？—— MVP 不限，观察后加',
       ],
     },
