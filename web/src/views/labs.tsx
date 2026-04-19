@@ -1,4 +1,17 @@
-import { cx } from '@goliapkg/gds'
+import {
+  cx,
+  Text,
+  type TextAlign,
+  type TextAs,
+  type TextColor,
+  type TextDecoration,
+  type TextFamily,
+  type TextHighlightVariant,
+  type TextSelect,
+  type TextSize,
+  type TextTransform,
+  type TextWeight,
+} from '@goliapkg/gds'
 import { useState } from 'react'
 
 type LabStatus = 'design' | 'prototype' | 'ready'
@@ -17,6 +30,7 @@ type Lab = {
   status: LabStatus
   summary: string
   blocks: LabBlock[]
+  playground?: () => React.ReactNode
 }
 
 // ============================================================================
@@ -26,7 +40,7 @@ type Lab = {
 const TEXT_LAB: Lab = {
   id: 'text',
   title: 'Text — 最基础的文本渲染原语',
-  status: 'design',
+  status: 'prototype',
   summary:
     '外部 API 尽量少（< 12 个 prop 覆盖 95% 场景），内部吃掉浏览器兼容、selection 控制、行高度量、i18n、iOS/Android 怪癖、OpenType features 等大量细节。',
   blocks: [
@@ -59,33 +73,32 @@ const TEXT_LAB: Lab = {
       lang: 'tsx',
       content: `type TextProps = {
   as?: 'span' | 'p' | 'div' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-      | 'strong' | 'em' | 'small' | 'code' | 'kbd' | 'label'
-      | 'caption' | 'time' | 'mark' | 'cite' | 'abbr'
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'
+      | 'strong' | 'em' | 'small' | 'code' | 'label'
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'inherit'
   weight?: 'regular' | 'medium' | 'semibold' | 'bold'
   family?: 'sans' | 'serif' | 'mono'
   color?: 'fg' | 'fg-secondary' | 'fg-muted' | 'accent'
          | 'danger' | 'warning' | 'success' | 'inherit'
   align?: 'start' | 'center' | 'end' | 'justify'
   select?: 'auto' | 'none' | 'text' | 'all'
-  transform?: 'none' | 'upper' | 'lower' | 'capitalize'
+  transform?: 'none' | 'uppercase' | 'lowercase'
   decoration?: 'none' | 'underline' | 'strike'
   truncate?: boolean | number   // true=1 line, n=n-line clamp
-  numeric?: 'tabular' | 'oldstyle'
-  italic?: boolean
-  dim?: boolean
+  tabular?: boolean
+  lang?: string
   highlight?: {
     match: string | string[] | RegExp
     variant?: 'accent' | 'warning' | 'success'  // 默认 accent
     caseSensitive?: boolean                      // 默认 false
   }
-  children: React.ReactNode
+  children?: React.ReactNode
   className?: string
 }
 
-// sub-feature 配置统一用对象形式，不平铺 sibling props。v4 通用约定。
-// 好处：内聚、扩展不污染顶层 prop 空间、可 export 独立类型 TextHighlightConfig。
-// 代价：简单场景多打 {{ match: ... }} 的 10 个字符。接受。`,
+// 14 个 prop。audit 后的最终形态。
+// 从 audit 前 16 个减下来：砍 dim / italic / numeric (oldstyle)；
+// 加 lang / size="inherit"；transform 换成 CSS 同词 uppercase/lowercase；
+// as 列表从 18 砍到 12（kbd/caption/time/cite/abbr/mark 暂不做）。`,
       caption:
         '15 个 prop。其余一切都是内部决策。v4 约定：sub-feature（比如 highlight）统一用对象配置，不平铺 sibling props。',
     },
@@ -104,17 +117,16 @@ const TEXT_LAB: Lab = {
         '`as="strong"` —— 语义强调 + 默认 bold（weight 可 override 但语义仍强调）',
         '`as="em"` —— 语义斜体',
         '`as="code"` —— 行内代码 + 默认 mono family + 默认 select=all',
-        '`as="kbd"` —— 键盘输入提示',
-        '`as="time"` —— 可配 `dateTime` attr（需要透传）',
-        '`as="abbr"` —— 带 title tooltip（title 需要透传）',
-        '`as="mark"` —— 高亮文字，默认 accent 背景',
+        '`as="small"` —— 旁注 / disclaimer',
         '`as="label"` —— form label，需要 htmlFor（透传）',
+        '砍掉但可能后续补：kbd / caption / time / cite / abbr / mark —— 真实用例出现再加',
+        'highlight 命中会在内部渲染 `<mark>`，消费者一般不直接写 `as="mark"`',
       ],
     },
     {
       kind: 'note',
       variant: 'warn',
-      text: 'Anti-pattern：不要用 Text 做可点击区域（用 Button / Link）；不要嵌套 Text（`<Text><Text/></Text>` 语义会出错，类型层禁止）。',
+      text: 'Anti-pattern：不要用 Text 做可点击区域（用 Button / Link）；**可以**嵌套 Text 来调整内部片段的 weight/color/decoration/as（常见场景，见 Text Usecase lab），但不要嵌套同 `as` 的 Text（例如 `<Text as="p"><Text as="p">...</Text></Text>` 生成非法 HTML）。',
     },
 
     { kind: 'heading', text: '4 · Typography Scale — size / weight / family' },
@@ -971,8 +983,368 @@ const TEXT_USECASE_LAB: Lab = {
 }
 
 // ============================================================================
+// Text Playground
+// ============================================================================
+
+const AS_OPTIONS = [
+  'span',
+  'p',
+  'div',
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  'strong',
+  'em',
+  'small',
+  'code',
+  'label',
+] as const satisfies readonly TextAs[]
+
+const SIZE_OPTIONS = [
+  'xs',
+  'sm',
+  'md',
+  'lg',
+  'xl',
+  '2xl',
+  '3xl',
+  'inherit',
+] as const satisfies readonly TextSize[]
+const WEIGHT_OPTIONS = [
+  'regular',
+  'medium',
+  'semibold',
+  'bold',
+] as const satisfies readonly TextWeight[]
+const FAMILY_OPTIONS = ['sans', 'serif', 'mono'] as const satisfies readonly TextFamily[]
+const COLOR_OPTIONS = [
+  'fg',
+  'fg-secondary',
+  'fg-muted',
+  'accent',
+  'danger',
+  'warning',
+  'success',
+  'inherit',
+] as const satisfies readonly TextColor[]
+const ALIGN_OPTIONS = ['start', 'center', 'end', 'justify'] as const satisfies readonly TextAlign[]
+const SELECT_OPTIONS = ['auto', 'none', 'text', 'all'] as const satisfies readonly TextSelect[]
+const TRANSFORM_OPTIONS = [
+  'none',
+  'uppercase',
+  'lowercase',
+] as const satisfies readonly TextTransform[]
+const DECORATION_OPTIONS = [
+  'none',
+  'underline',
+  'strike',
+] as const satisfies readonly TextDecoration[]
+const HL_VARIANT_OPTIONS = [
+  'accent',
+  'warning',
+  'success',
+] as const satisfies readonly TextHighlightVariant[]
+
+type PlaygroundState = {
+  content: string
+  as: TextAs
+  size: TextSize
+  weight: TextWeight
+  family: TextFamily | ''
+  color: TextColor
+  align: TextAlign | ''
+  select: TextSelect | ''
+  transform: TextTransform
+  decoration: TextDecoration
+  truncate: '' | 'true' | string // '' = off, 'true' = single, digits = N-line
+  tabular: boolean
+  lang: string
+  hlMatch: string
+  hlVariant: TextHighlightVariant
+}
+
+const INITIAL_STATE: PlaygroundState = {
+  content: 'GDS v4 Text primitive — 找到 world 就高亮',
+  as: 'span',
+  size: 'md',
+  weight: 'regular',
+  family: '',
+  color: 'fg',
+  align: '',
+  select: '',
+  transform: 'none',
+  decoration: 'none',
+  truncate: '',
+  tabular: false,
+  lang: '',
+  hlMatch: '',
+  hlVariant: 'accent',
+}
+
+function buildTextProps(s: PlaygroundState) {
+  return {
+    as: s.as,
+    size: s.size,
+    weight: s.weight,
+    family: s.family || undefined,
+    color: s.color,
+    align: s.align || undefined,
+    select: s.select || undefined,
+    transform: s.transform,
+    decoration: s.decoration,
+    truncate:
+      s.truncate === ''
+        ? undefined
+        : s.truncate === 'true'
+          ? true
+          : /^\d+$/.test(s.truncate)
+            ? Number(s.truncate)
+            : undefined,
+    tabular: s.tabular || undefined,
+    lang: s.lang || undefined,
+    highlight: s.hlMatch
+      ? {
+          match: s.hlMatch,
+          variant: s.hlVariant === 'accent' ? undefined : s.hlVariant,
+        }
+      : undefined,
+  }
+}
+
+function buildCodeSnippet(s: PlaygroundState): string {
+  const props: string[] = []
+  if (s.as !== 'span') props.push(`as="${s.as}"`)
+  if (s.size !== 'md') props.push(`size="${s.size}"`)
+  if (s.weight !== 'regular') props.push(`weight="${s.weight}"`)
+  if (s.family) props.push(`family="${s.family}"`)
+  if (s.color !== 'fg') props.push(`color="${s.color}"`)
+  if (s.align) props.push(`align="${s.align}"`)
+  if (s.select) props.push(`select="${s.select}"`)
+  if (s.transform !== 'none') props.push(`transform="${s.transform}"`)
+  if (s.decoration !== 'none') props.push(`decoration="${s.decoration}"`)
+  if (s.truncate === 'true') props.push('truncate')
+  else if (s.truncate !== '' && /^\d+$/.test(s.truncate)) props.push(`truncate={${s.truncate}}`)
+  if (s.tabular) props.push('tabular')
+  if (s.lang) props.push(`lang="${s.lang}"`)
+  if (s.hlMatch) {
+    const hl: string[] = [`match: '${s.hlMatch.replace(/'/g, "\\'")}'`]
+    if (s.hlVariant !== 'accent') hl.push(`variant: '${s.hlVariant}'`)
+    props.push(`highlight={{ ${hl.join(', ')} }}`)
+  }
+
+  const body = s.content || '...'
+  if (props.length === 0) return `<Text>${body}</Text>`
+  if (props.length <= 2) return `<Text ${props.join(' ')}>${body}</Text>`
+  return `<Text\n  ${props.join('\n  ')}\n>\n  ${body}\n</Text>`
+}
+
+function PgRow({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="grid grid-cols-[72px_1fr] items-center gap-2">
+      <label className="text-fg-muted font-mono text-[10px] tracking-wider uppercase">
+        {label}
+      </label>
+      <div>{children}</div>
+    </div>
+  )
+}
+
+function PgSelect<T extends string>({
+  value,
+  onChange,
+  options,
+  allowEmpty,
+}: {
+  value: T | ''
+  onChange: (v: T | '') => void
+  options: readonly T[]
+  allowEmpty?: boolean
+}) {
+  return (
+    <select
+      className="bg-bg-tertiary border-border text-fg w-full rounded border px-2 py-1 text-xs"
+      onChange={(e) => onChange(e.target.value as T | '')}
+      value={value}
+    >
+      {allowEmpty ? <option value="">—</option> : null}
+      {options.map((o) => (
+        <option key={o} value={o}>
+          {o}
+        </option>
+      ))}
+    </select>
+  )
+}
+
+function TextPlayground() {
+  const [state, setState] = useState<PlaygroundState>(INITIAL_STATE)
+  const set = <K extends keyof PlaygroundState>(key: K, v: PlaygroundState[K]) =>
+    setState((s) => ({ ...s, [key]: v }))
+
+  const props = buildTextProps(state)
+  const code = buildCodeSnippet(state)
+
+  return (
+    <div className="flex h-full flex-col gap-4 p-4">
+      <div className="flex items-center justify-between">
+        <h3 className="text-fg text-base font-semibold">Playground</h3>
+        <button
+          className="text-fg-muted hover:text-fg text-xs underline underline-offset-2"
+          onClick={() => setState(INITIAL_STATE)}
+          type="button"
+        >
+          reset
+        </button>
+      </div>
+
+      {/* Preview area */}
+      <div className="border-border bg-bg-secondary relative flex min-h-[140px] max-w-full items-center justify-center overflow-hidden rounded-lg border p-6">
+        <div className="max-w-full">
+          <Text {...props}>{state.content || ' '}</Text>
+        </div>
+      </div>
+
+      {/* Code snippet */}
+      <pre className="border-border bg-bg-tertiary max-w-full overflow-x-auto rounded-md border p-3 text-[11px] leading-relaxed">
+        <code className="font-mono">{code}</code>
+      </pre>
+
+      {/* Controls */}
+      <div className="flex flex-col gap-2 text-xs">
+        <PgRow label="content">
+          <input
+            className="bg-bg-tertiary border-border text-fg w-full rounded border px-2 py-1 font-mono text-xs"
+            onChange={(e) => set('content', e.target.value)}
+            type="text"
+            value={state.content}
+          />
+        </PgRow>
+        <PgRow label="as">
+          <PgSelect
+            onChange={(v) => set('as', v as TextAs)}
+            options={AS_OPTIONS}
+            value={state.as}
+          />
+        </PgRow>
+        <PgRow label="size">
+          <PgSelect
+            onChange={(v) => set('size', v as TextSize)}
+            options={SIZE_OPTIONS}
+            value={state.size}
+          />
+        </PgRow>
+        <PgRow label="weight">
+          <PgSelect
+            onChange={(v) => set('weight', v as TextWeight)}
+            options={WEIGHT_OPTIONS}
+            value={state.weight}
+          />
+        </PgRow>
+        <PgRow label="family">
+          <PgSelect
+            allowEmpty
+            onChange={(v) => set('family', (v || '') as TextFamily | '')}
+            options={FAMILY_OPTIONS}
+            value={state.family}
+          />
+        </PgRow>
+        <PgRow label="color">
+          <PgSelect
+            onChange={(v) => set('color', v as TextColor)}
+            options={COLOR_OPTIONS}
+            value={state.color}
+          />
+        </PgRow>
+        <PgRow label="align">
+          <PgSelect
+            allowEmpty
+            onChange={(v) => set('align', (v || '') as TextAlign | '')}
+            options={ALIGN_OPTIONS}
+            value={state.align}
+          />
+        </PgRow>
+        <PgRow label="select">
+          <PgSelect
+            allowEmpty
+            onChange={(v) => set('select', (v || '') as TextSelect | '')}
+            options={SELECT_OPTIONS}
+            value={state.select}
+          />
+        </PgRow>
+        <PgRow label="transform">
+          <PgSelect
+            onChange={(v) => set('transform', v as TextTransform)}
+            options={TRANSFORM_OPTIONS}
+            value={state.transform}
+          />
+        </PgRow>
+        <PgRow label="decoration">
+          <PgSelect
+            onChange={(v) => set('decoration', v as TextDecoration)}
+            options={DECORATION_OPTIONS}
+            value={state.decoration}
+          />
+        </PgRow>
+        <PgRow label="truncate">
+          <select
+            className="bg-bg-tertiary border-border text-fg w-full rounded border px-2 py-1 text-xs"
+            onChange={(e) => set('truncate', e.target.value)}
+            value={state.truncate}
+          >
+            <option value="">off</option>
+            <option value="true">single line</option>
+            <option value="2">2 lines</option>
+            <option value="3">3 lines</option>
+            <option value="4">4 lines</option>
+          </select>
+        </PgRow>
+        <PgRow label="tabular">
+          <input
+            checked={state.tabular}
+            className="accent-accent"
+            onChange={(e) => set('tabular', e.target.checked)}
+            type="checkbox"
+          />
+        </PgRow>
+        <PgRow label="lang">
+          <input
+            className="bg-bg-tertiary border-border text-fg w-full rounded border px-2 py-1 font-mono text-xs"
+            onChange={(e) => set('lang', e.target.value)}
+            placeholder="e.g. ja, zh-CN"
+            type="text"
+            value={state.lang}
+          />
+        </PgRow>
+        <PgRow label="highlight">
+          <input
+            className="bg-bg-tertiary border-border text-fg w-full rounded border px-2 py-1 font-mono text-xs"
+            onChange={(e) => set('hlMatch', e.target.value)}
+            placeholder="match string (empty = off)"
+            type="text"
+            value={state.hlMatch}
+          />
+        </PgRow>
+        <PgRow label="hl.variant">
+          <PgSelect
+            onChange={(v) => set('hlVariant', v as TextHighlightVariant)}
+            options={HL_VARIANT_OPTIONS}
+            value={state.hlVariant}
+          />
+        </PgRow>
+      </div>
+    </div>
+  )
+}
+
+// ============================================================================
 // Labs list
 // ============================================================================
+
+// Wire playground onto TEXT_LAB (mutation before LABS array — keeps data co-located)
+TEXT_LAB.playground = () => <TextPlayground />
 
 const LABS: Lab[] = [TEXT_LAB, TEXT_USECASE_LAB]
 
@@ -1022,6 +1394,16 @@ export function LabsView() {
           <p className="text-fg-muted text-sm italic">选择左侧一个 lab 查看。</p>
         )}
       </article>
+
+      <aside className="md:border-border hidden md:block md:min-w-0 md:flex-1 md:overflow-y-auto md:border-l">
+        {selected?.playground ? (
+          selected.playground()
+        ) : (
+          <div className="flex h-full items-center justify-center p-8">
+            <p className="text-fg-muted text-sm italic">此 lab 暂无 playground</p>
+          </div>
+        )}
+      </aside>
     </div>
   )
 }
