@@ -290,7 +290,7 @@ xl   → 20px                   h3
     {
       kind: 'bullets',
       items: [
-        'Highlight 做成独立组件还是 Text 的 prop（`<Text highlight="world">`）？前者 AI 更清晰，后者 API 更紧凑——倾向前者',
+        'Highlight 做成独立组件（`<Highlight text="..." match="..." />`）还是 Text 的 prop（`<Text highlight="world">`）？—— 独立组件对 AI 更"一事一用"清晰，Text prop 让 API 更紧凑；两者各有代价，等真实消费场景出现再定',
         'match 到多个关键词时颜色是否要能各自不同？（`match={[{ text: "foo", variant: "accent" }, { text: "bar", variant: "warning" }]}`）——复杂度 vs 真实需求',
         '正则模式下消费者可以乱传——要不要限制？（比如禁止 backreferences 避免 ReDoS）',
       ],
