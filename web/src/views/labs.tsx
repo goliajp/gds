@@ -1713,14 +1713,231 @@ function TextUsecasePlayground() {
 }
 
 // ============================================================================
+// Lab #3 — Text 正式设计（闭合 API 终稿）
+// ============================================================================
+
+const TEXT_SPEC_LAB: Lab = {
+  id: 'text-spec',
+  title: 'Text 正式设计 — 闭合 API 终稿',
+  status: 'prototype',
+  summary:
+    '综合 #1 设计过程 + #2 usecase + 最新"闭合 API / 不走 ...rest"决策。这是 Text 最终 TextProps 形态，src/text.tsx 已同步实现。之后任何签名改动都是 breaking change。',
+  blocks: [
+    { kind: 'heading', text: '1 · 目的与范围' },
+    {
+      kind: 'prose',
+      text: '此 lab 是 Text 设计的收尾。#1 走过所有 CSS / 浏览器 / i18n / a11y 维度的思考，#2 列了 18 个典型场景的 API 用法。把这两份输入综合、再加上"闭合 API"的最新决策，定下**最终 TextProps 形态**——src/text.tsx 的 signature 锁在这里。',
+    },
+    {
+      kind: 'bullets',
+      items: [
+        '**输入**：Lab #1 的 20 节 deep design + Lab #2 的 live usecase + 关于闭合 API 和 a11y camelCase 的决策',
+        '**输出**：最终 TextProps schema（TS 类型）+ 每个 prop 的 rationale + 明确排除的清单',
+        '本 lab 通过后，Text 的 API 表面**冻结**——下次改就是 breaking change，需要 major bump + codemod',
+      ],
+    },
+
+    { kind: 'heading', text: '2 · 三个核心决策' },
+    {
+      kind: 'bullets',
+      items: [
+        '**(1) 闭合 API**：不走 `...rest: HTMLAttributes` 透传。每个允许的 prop 必须显式列。原因：MCP / skill 能 100% 覆盖组件可用表面；审计规则是"不在 schema 里的 attr = 违规"',
+        '**(2) 功能性 vs 样式性分离**：v4 的 props 是**功能性**（semantic、typography、behavior、a11y、identification）；`className` 是**样式性**逃生口，v4 不控制样式只定义功能',
+        '**(3) a11y 一等 prop + camelCase**：`aria-*` / `role` / `id` 提升为一等 prop，命名 camelCase（`ariaLabel`）—— v4 全在 React 系语境，跟 className / htmlFor / onClick 一致；内部 render 时 map 回 DOM kebab-case',
+      ],
+    },
+
+    { kind: 'heading', text: '3 · 最终 TextProps 签名' },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `export type TextProps = {
+  // === 功能性：语义 + 排版 + 行为 ===
+  as?: 'span' | 'p' | 'div' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+      | 'strong' | 'em' | 'small' | 'code' | 'label'
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'inherit'
+  weight?: 'regular' | 'medium' | 'semibold' | 'bold'
+  family?: 'sans' | 'serif' | 'mono'
+  color?: 'fg' | 'fg-secondary' | 'fg-muted' | 'accent'
+         | 'danger' | 'warning' | 'success' | 'inherit'
+  align?: 'start' | 'center' | 'end' | 'justify'
+  select?: 'auto' | 'none' | 'text' | 'all'
+  transform?: 'none' | 'uppercase' | 'lowercase'
+  decoration?: 'none' | 'underline' | 'strike'
+  truncate?: boolean | number
+  tabular?: boolean
+  lang?: string
+  dir?: 'ltr' | 'rtl' | 'auto'
+  highlight?: {
+    match: string | string[] | RegExp
+    variant?: 'accent' | 'warning' | 'success'
+    caseSensitive?: boolean
+  }
+
+  // === a11y（camelCase 一等 prop） ===
+  ariaLabel?: string
+  ariaLabelledBy?: string
+  ariaDescribedBy?: string
+  ariaHidden?: boolean
+  ariaLive?: 'off' | 'polite' | 'assertive'
+  role?: string
+
+  // === identification ===
+  id?: string
+
+  // === 条件性（as 相关） ===
+  htmlFor?: string      // 只对 as="label" 有意义
+  dateTime?: string     // 预留：as="time" 若后续加回
+
+  // === 结构 ===
+  children?: React.ReactNode
+  className?: string    // 样式逃生口（v4 不控制样式）
+}`,
+      caption:
+        '22 个 prop。14 功能性 + 6 a11y + 1 id + 2 条件性 + children + className。没有 ...rest，没有 style，没有事件 handler。',
+    },
+
+    { kind: 'heading', text: '4 · 功能性 prop 分组' },
+    {
+      kind: 'bullets',
+      items: [
+        '**语义**（`as`）—— 决定 DOM 元素和 screen reader landmark。12 选项，不可任意扩',
+        '**排版**（`size` / `weight` / `family` / `color` / `align`）—— 视觉基础。size / line-height 走 inline style 绕 tailwind-merge 陷阱；其他走 Tailwind class',
+        '**行为**（`select` / `transform` / `decoration` / `truncate` / `tabular`）—— 交互和视觉行为。`select` 是 v4 独立封装 Text 的核心理由之一',
+        '**i18n**（`lang` / `dir`）—— 影响 font-smoothing / hyphens / bidi，必须在组件层处理',
+        '**sub-feature**（`highlight`）—— 对象形式配置，遵循 v4 "sub-feature 走对象" 约定',
+      ],
+    },
+
+    { kind: 'heading', text: '5 · a11y 为什么不偷懒靠 ...rest 而提升一等 prop' },
+    {
+      kind: 'bullets',
+      items: [
+        'a11y 是硬要求 —— aria-label / labelledBy / role 这些不能"碰运气"',
+        '提升一等意味着：schema 里写了，MCP / skill 能导出，审计可检测"是否漏加必要 a11y"',
+        'camelCase 命名跟 React 生态一致（className / htmlFor / onClick 同风格）—— `ariaLabel` 对 AI 心智模型友好，它训练语料里学到的就是 camelCase habit',
+        '实现上 v4 内部 map 回 DOM kebab-case (`aria-label`) —— 对浏览器透明',
+        '**只包含 6 个最常用** aria。完整 aria-* 有 40+，当前只 6 个白名单。需要新的再加 —— "有意识地扩" 比 "透传什么都行" 可控',
+      ],
+    },
+
+    { kind: 'heading', text: '6 · 条件性 prop（as-dependent）' },
+    {
+      kind: 'bullets',
+      items: [
+        '`htmlFor`：只对 `as="label"` 有意义。组件内部判断 `as === "label"` 时透传；其他 as 值即便传了也被 ignore',
+        '`dateTime`：预留给未来 `as="time"` —— 当前 as 列表里没 time，所以是 noop',
+        '**未来考虑**：用 TS discriminated union 把条件性变成"类型层强制"（`as="label"` 时 htmlFor 可选，其他 as 值类型里根本没 htmlFor）。目前先宽松处理',
+      ],
+    },
+
+    { kind: 'heading', text: '7 · 明确排除的清单 + 替代方案' },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// ❌ 不允许                             // ✓ 替代
+onClick / onPointerDown / ...          → <Button> or <Link>
+style={{ ... }}                         → className + v4 token 或 prop
+title="..."                             → <Tooltip>（未来组件）或 ariaDescribedBy
+tabIndex                                → Text 不该 focusable；可点击走 Button/Link
+任意 aria-* 不在白名单                  → 升级 schema（扩 TextProps）
+任意 data-* 不在白名单                  → 测试 selector 走 data-gds-as / data-gds-component
+translate='no'                          → i18n 层处理，不是 Text 的事
+contentEditable / draggable             → 不是 Text 的职责`,
+    },
+    {
+      kind: 'bullets',
+      items: [
+        '排除 `...rest` 是**最重要的一个** —— AI 没有"随便塞一个 HTMLAttribute 过去"的入口',
+        '排除 `style` 让 token 系统无法被 inline 绕过',
+        '排除事件 handler 强化了组件角色区分："想点击 → Button" 这件事在类型层就强制',
+      ],
+    },
+
+    { kind: 'heading', text: '8 · className 的边界（审计规则）' },
+    {
+      kind: 'prose',
+      text: 'className 是唯一允许的"样式逃生口"。v4 不控制样式，只定义功能——但"完全自由"会被滥用绕过 token 系统。所以：**语法上允许，语义上审计**。',
+    },
+    {
+      kind: 'bullets',
+      items: [
+        '✓ 审计**不 flag**：布局类（`mt-4` `p-2` `flex` `gap-*` `w-full`）—— 这是 className 主目的',
+        '✓ 审计**不 flag**：调试类（`outline outline-red-500` 临时 debug）—— 过渡期需要',
+        '⚠ 审计 **flag warn**：绕过 size prop（`text-[17px]` `text-xl`）—— 如果用得多说明 size scale 该扩，不是该绕',
+        '⚠ 审计 **flag warn**：绕过 color token（`text-red-500` 用原生 Tailwind 色）—— v4 有 danger/warning/success 应该走',
+        '❌ 审计 **flag error**：`select-none` / `select-text`（已有 select prop，别走 className）—— 违反唯一性',
+        '这些 flag 是审计报告给人看——特殊场景可以 justify 保留',
+      ],
+    },
+
+    { kind: 'heading', text: '9 · src/text.tsx 实现同步点' },
+    {
+      kind: 'bullets',
+      items: [
+        '✓ `Omit<HTMLAttributes<HTMLElement>, ...>` 已移除',
+        '✓ 每个显式 prop 列在 TextProps 类型里',
+        '✓ camelCase a11y props 在 render 时 map 到 DOM kebab-case',
+        '✓ `htmlFor` 仅在 `as === "label"` 时透传，其他 as 值下忽略',
+        '✓ size / line-height 走 inline style（修了 twMerge 陷阱）',
+        '✓ `data-gds-component="text"` / `data-gds-as={as}` 由组件内部写',
+        '未来改动走 major bump + codemod——v4 承诺这个 API 面不破',
+      ],
+    },
+
+    { kind: 'heading', text: '10 · 与 MCP / Skill 集成的关系' },
+    {
+      kind: 'bullets',
+      items: [
+        'TextProps 的 TS 类型现在可以导出成 **JSON Schema** 给 MCP 作 `validate()` 的真相源',
+        'Skill 描述里列出每个 prop + 示例，AI 读一遍就知道完整能力面',
+        '审计工具读 Skill + 实际代码，diff 出违规 —— 不在 schema 里的 attr 立即报',
+        '闭合 API 让这条闭环真的可能 —— 有 `...rest` 时，AI 能产出什么是开放的',
+      ],
+    },
+
+    { kind: 'heading', text: '11 · Breaking change / 迁移示例' },
+    {
+      kind: 'code',
+      lang: 'tsx',
+      content: `// 如果之前（或从其他库迁来）这样写：
+<Text onClick={handle}>点击</Text>          // ❌ 不允许
+<Button onClick={handle}>点击</Button>      // ✓
+
+<Text style={{ fontSize: 17 }}>...</Text>   // ❌ 不允许
+<Text size="lg">...</Text>                   // ✓ 用最近的 token
+
+<Text aria-label="..." />                    // ❌ kebab-case 不支持
+<Text ariaLabel="..." />                     // ✓ camelCase
+
+<Text tabIndex={0} />                        // ❌ Text 不该 focusable
+// 考虑是不是 Button / Link 更合适`,
+    },
+
+    { kind: 'heading', text: '12 · 下一步' },
+    {
+      kind: 'bullets',
+      items: [
+        'Status 从 `prototype` 到 `ready` 的条件：真机验证（iPhone Safari / iPad / Android Chrome）+ screen reader 测试（VoiceOver / TalkBack）+ 第一个真实消费者接入成功',
+        '建 `@goliapkg/gds-mcp` 暴露 validate(code) 接口',
+        '审计规则书（`eslint-plugin-gds-v4` 或类似）开始实现 —— 把 §8 的 className audit 规则落到代码',
+        'Lab #2 Usecase playground 回头对一遍 —— 如果用到被排除的 attr（style / onClick），在 demo 里更正',
+        '长期：以 Text 为参照系设计 Button / Input / Link，API 也闭合 + 功能性优先',
+      ],
+    },
+  ],
+}
+
+// ============================================================================
 // Labs list
 // ============================================================================
 
 // Wire playgrounds onto labs (mutation before LABS array — keeps data co-located)
 TEXT_LAB.playground = () => <TextPlayground />
 TEXT_USECASE_LAB.playground = () => <TextUsecasePlayground />
+TEXT_SPEC_LAB.playground = () => <TextPlayground />
 
-const LABS: Lab[] = [TEXT_LAB, TEXT_USECASE_LAB]
+const LABS: Lab[] = [TEXT_LAB, TEXT_USECASE_LAB, TEXT_SPEC_LAB]
 
 // ============================================================================
 // View
