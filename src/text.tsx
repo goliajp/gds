@@ -1,4 +1,4 @@
-import { createElement, forwardRef, type ElementType, type HTMLAttributes, type ReactNode } from 'react'
+import { createElement, forwardRef, type ElementType, type ReactNode } from 'react'
 
 import { cx } from './utils'
 
@@ -46,7 +46,13 @@ export type TextHighlightConfig = {
   caseSensitive?: boolean
 }
 
+export type TextAriaLive = 'off' | 'polite' | 'assertive'
+export type TextDir = 'ltr' | 'rtl' | 'auto'
+
+// 闭合 API：不走 ...rest 透传。每个允许的 prop 必须在这里显式列出。
+// className 是唯一的样式逃生口；a11y 走 camelCase 提升为一等 prop。
 export type TextProps = {
+  // === 功能性：语义 + 排版 + 行为 ===
   as?: TextAs
   size?: TextSize
   weight?: TextWeight
@@ -59,13 +65,28 @@ export type TextProps = {
   truncate?: boolean | number
   tabular?: boolean
   lang?: string
+  dir?: TextDir
   highlight?: TextHighlightConfig
+
+  // === a11y（camelCase 一等 prop，内部 map 成 DOM kebab-case） ===
+  ariaLabel?: string
+  ariaLabelledBy?: string
+  ariaDescribedBy?: string
+  ariaHidden?: boolean
+  ariaLive?: TextAriaLive
+  role?: string
+
+  // === identification ===
+  id?: string
+
+  // === 条件性（文档里说明何时生效） ===
+  htmlFor?: string // 只对 as="label" 有意义
+  dateTime?: string // 预留：as="time" 若后续加回
+
+  // === 结构 ===
   children?: ReactNode
   className?: string
-} & Omit<
-  HTMLAttributes<HTMLElement>,
-  'color' | 'children' | 'className' | 'lang' | 'translate' | 'style'
->
+}
 
 // ---------------------------------------------------------------------------
 // Class maps
@@ -228,10 +249,23 @@ export const Text = forwardRef<HTMLElement, TextProps>(function Text(props, ref)
     truncate,
     tabular,
     lang,
+    dir,
     highlight,
+    // a11y
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
+    ariaHidden,
+    ariaLive,
+    role,
+    // identification
+    id,
+    // conditional
+    htmlFor,
+    dateTime,
+    // structure
     children,
     className,
-    ...rest
   } = props
 
   // Per-as defaults
@@ -281,16 +315,26 @@ export const Text = forwardRef<HTMLElement, TextProps>(function Text(props, ref)
 
   const Tag = as as ElementType
 
+  // Map camelCase a11y props → DOM kebab-case attrs
   return createElement(
     Tag,
     {
       ref,
+      id,
       lang,
+      dir,
+      role,
+      htmlFor: as === 'label' ? htmlFor : undefined,
+      dateTime: dateTime, // noop until we add as="time"
+      'aria-label': ariaLabel,
+      'aria-labelledby': ariaLabelledBy,
+      'aria-describedby': ariaDescribedBy,
+      'aria-hidden': ariaHidden,
+      'aria-live': ariaLive,
       className: classes,
       style: Object.keys(style).length > 0 ? style : undefined,
       'data-gds-component': 'text',
       'data-gds-as': as,
-      ...rest,
     },
     content
   )
