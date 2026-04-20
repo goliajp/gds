@@ -36,6 +36,16 @@ principle 是 audit 用的要求，不是反推"因此必须 / 禁"的前提。
 v4 从一开始把项目管理基础设施和业务代码同步构筑，而不是"先写完业务再补管理"。
 哪些 artifacts 算 PM 基础设施、"同步"指什么、如何衡量 PM 跟得上业务 —— 待定义。`,
   },
+  {
+    label: '⚠ Warning · RN-web 陷阱',
+    body: `React Native for Web 在 web 应用层的采纳是失败的 —— 几乎没有团队选它来写 web 应用（除了本来就要跨 RN+web 的少数）。web 开发者选 React + HTML + Tailwind / shadcn / Material 等，不选 RNW 的 View/Text primitive。
+
+但它的抽象（View + Text + Image 两三个 primitive / role-based rendering / AST-like 跨 target）又很有魅力，v4 设计时反复不自觉往那条路靠。
+
+**疑问**：RN-web 在人类开发者市场失败，原因是 web 开发者熟悉 HTML + Tailwind、嫌 RNW 抽象不自然。但 v4 的消费者是 AI —— AI 对 HTML + Tailwind 的训练语料也远超 RN 抽象。**复刻 RNW 模式可能让 AI 产出反而更差**（AI 见过更多 <div className="..."> 的样本）。
+
+这条是警告，不是结论。每次设计决策上卡在"要不要往 RN 方向走"时，回来看这条。`,
+  },
 ]
 
 export function PrinciplesView() {
