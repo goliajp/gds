@@ -310,6 +310,85 @@ const RESEARCHES: Entry[] = [
       'Impeccable skill 主页 — impeccable.style',
     ],
   },
+  {
+    id: 'api-scope-width-metrics',
+    title: 'API 宽/窄 判断：量 AI 面 scope 的四个维度',
+    question:
+      '什么叫窄 API、什么叫宽 API？v4 的 AI 面应该窄到什么程度才算到位？怎么量出来而不是凭感觉说？',
+    sections: [
+      {
+        heading: '四个维度总览',
+        body: '讨论 v4 scope 时反复撞到"宽一点 vs 窄一点"的拍脑袋决策。以下四条是可测的，前三条是代理指标，第四条是真要保的结果。',
+        points: [
+          'Skill / README token 预算 —— 窄：< 5k；宽：10k+',
+          'AI 面组件数 —— 窄：20-40 个高层组件；宽：60+',
+          '单组件 prop 数 —— 窄：平均 < 10，上限 < 20；宽：普遍 20+',
+          'obvious-choice 比率（真边界）—— 同场景让 AI 独立跑 10 次，窄：9-10 次挑同一组件；宽：< 7 次',
+        ],
+      },
+      {
+        heading: '代理指标 1：Skill / README token 预算',
+        points: [
+          'Skill / README 越长，AI 的 working memory 被挤得越紧 —— 长文档直接换算成失焦 + 幻觉 + 推理空间缩小',
+          'Anthropic 官方 frontend-design skill 约 400 tokens（极窄极端）',
+          'shadcn 全套组件文档早过万（宽端）',
+          'v4 目标：整个 skill < 5k tokens，硬上限 10k；超过 10k 必须砍',
+        ],
+      },
+      {
+        heading: '代理指标 2：AI 面组件数',
+        points: [
+          '窄：20-40 个覆盖目标场景的高层组件',
+          'shadcn 约 50，已经开始出现 AI 在相似组件里挑错（Alert / Banner / Toast / Notification 等互相混用）',
+          'v2 的 390 是完全失控的极端 —— 同一个 UI 意图有十几种写法',
+          'v4 不该超过 60 个 AI 面组件（原子层不计，原子不对 AI 暴露）',
+        ],
+      },
+      {
+        heading: '代理指标 3：单组件 prop 数',
+        points: [
+          '窄：平均 < 10，上限 < 20',
+          '当前 Text 22 props 已踩到窄的上限 —— 再加任何 prop 的提议需要证明 obvious-choice 比率不会掉',
+          'sub-feature 走对象配置（如 highlight: { match, variant, caseSensitive }）不是走平铺 prop，这是保上限的关键手段',
+          '宽的典型：组件普遍 20+ props，多数是"prop 化的 className"（size / weight / color / family 这种 —— RN-web 陷阱的具体痕迹）',
+        ],
+      },
+      {
+        heading: '真边界：obvious-choice 比率',
+        body: 'v4 的核心命题是"通过限制 AI 可选项限制 AI 犯错空间"。当 AI 对同一场景给出高度一致的答案，说明可选项已经收窄到位。前三条只是达到这条的手段。',
+        points: [
+          '做法：对 webapp 最常见的 20 个场景（show 一个错误 / 列表右侧放筛选 / 点头像打开菜单 / …），每个场景让 AI 独立跑 10 次，记它挑了什么组件 + 什么组合',
+          '窄达标：9-10 次挑同一组件 / 同一组合',
+          '宽失败：< 7 次挑同一个 —— 说明 AI 面前有太多等价选项',
+          '这是唯一真正关心的指标。前三条是充分条件的代理，不是充要条件',
+        ],
+      },
+      {
+        heading: '重点：边界不是规格书写得出来的',
+        points: [
+          '"窄到几个组件、每个几个 prop" 这类数字不是靠拍脑袋或抄 shadcn 决定的',
+          '必须跑 AI 测：给出目标场景清单 → 让 AI 独立产代码 → 量 obvious-choice 比率 → 不达标就砍组件 / 砍 prop',
+          '这个 behavior-driven scope test 本身是 v4 该有的 PM 基础设施之一',
+          '对应 Principles 里的 "PM Parallel"：业务 + PM 同步构筑，这套测试就是 PM 那侧的具体产物',
+        ],
+      },
+      {
+        heading: '含义：两种失败模式不对等',
+        points: [
+          'API 太窄没覆盖到：AI 不会干净报错，会默默 fallback 到 raw Tailwind / div —— 看起来是库代码、实际没在用库 —— 最隐蔽的失败',
+          'API 太宽：同场景跨 session 产出不同代码，但每次都能跑 —— 不一致是可审计可修的',
+          '结论：宽的失败是可审计的，窄的失败是隐形的',
+          '所以走窄的前提是 scope 必须诚实 —— 明确列 v4 不 cover 什么，AI 遇到不支持的场景应告诉用户而不是 fallback',
+        ],
+      },
+    ],
+    sources: [
+      '对比基准：Anthropic frontend-design skill（~400 tokens）— github.com/anthropics/claude-code/plugins/frontend-design',
+      '对比基准：shadcn/ui 文档规模 — ui.shadcn.com',
+      '对比基准：v2 GDS 的 390 组件历史（内部 CLAUDE.md）',
+      '本研究的方法论基础：AI 作为 API 消费者的实感报告（跨多次 session 写 UI 代码的经验总结）',
+    ],
+  },
 ]
 
 export function ResearchesView() {
